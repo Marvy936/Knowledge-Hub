@@ -26,6 +26,10 @@ Jednoznačne identifikovateľný výstup build procesu určený na testovanie al
 
 Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. IP ho povoľuje, ale môže kolidovať so stateful firewallom alebo NAT. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Authoritative DNS server
+
+DNS server poskytujúci autoritatívne resource records pre konkrétnu zone. Nemusí vykonávať recursion. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
 ## Automation
 
 Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane vykonateľný mechanizmus. Pozri [Automation Mindset](docs/00-foundations/automation-mindset.md).
@@ -37,6 +41,10 @@ SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie oper�
 ## Batch size
 
 Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú blast radius a skracujú feedback. Pozri [Three Ways of DevOps](docs/00-foundations/three-ways.md).
+
+## Bind address
+
+Lokálna IP adresa priradená socketu. Bind na loopback, konkrétnu adresu alebo wildcard zásadne mení, odkiaľ je služba dostupná. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
 ## Block device
 
@@ -98,6 +106,10 @@ AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [
 
 Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej kapacity a congestion signálov network pathu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Connection tracking — conntrack
+
+Stavová evidencia network flows používaná napríklad firewallom a NAT na rozpoznanie smeru, lifecycle a reverse trafficu. Pozri [NAT](docs/02-networking-and-web/nat.md) a [Firewally](docs/02-networking-and-web/firewalls.md).
+
 ## Context switch
 
 Prechod CPU z vykonávania jedného threadu na iný. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -134,6 +146,10 @@ Dlhšie bežiaci proces poskytujúci systémovú alebo aplikačnú službu bez p
 
 Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Pozri [Declarative vs. Imperative Approach](docs/00-foundations/declarative-vs-imperative.md).
 
+## Default deny
+
+Firewall policy, pri ktorej sa povoľuje iba explicitne definovaný traffic a všetko ostatné sa zamietne. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
 ## Default route
 
 Najmenej špecifická route `0.0.0.0/0` alebo `::/0`, použitá ak neexistuje presnejšia route. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
@@ -160,11 +176,43 @@ Kultúrne princípy, organizačné praktiky a technické mechanizmy na rýchle a
 
 ## DHCP — Dynamic Host Configuration Protocol
 
-Protokol na prideľovanie IP configuration a ďalších network parameters klientom. Podrobne bude rozpracovaný v samostatnej kapitole.
+Protokol na prideľovanie IP configuration, lease a ďalších network parameters klientom. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+
+## DHCP lease
+
+Časovo obmedzené oprávnenie klienta používať pridelenú adresu a konfiguráciu. Klient lease obnovuje cez renewal a rebinding lifecycle. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+
+## DHCP relay
+
+Komponent forwardujúci DHCP komunikáciu medzi klientskym broadcast domainom a serverom v inom subnete. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+
+## DHCP reservation
+
+Centrálne DHCP-managed mapovanie identity klienta na stabilnú IP adresu. Nie je to rovnaké ako manuálne nastavená statická IP. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+
+## DHCP snooping
+
+Switchová ochrana, ktorá povoľuje DHCP server responses iba na trusted portoch a môže vytvárať binding databázu. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+
+## DNAT — Destination NAT
+
+Preklad destination adresy alebo portu, používaný napríklad pri publikovaní internej služby. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
 ## DNS — Domain Name System
 
-Distribuovaný systém mapujúci mená na resource records. Úspešné DNS resolution nedokazuje network ani application dostupnosť. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
+Distribuovaný hierarchický systém mapujúci mená na resource records. Úspešné DNS resolution nedokazuje network ani application dostupnosť. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## DNS resolver
+
+Komponent vykonávajúci alebo sprostredkujúci DNS resolution. Stub resolver odovzdáva query, recursive resolver používa cache a podľa potreby prechádza DNS hierarchiu. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## DNSSEC
+
+Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Nešifruje query. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## DNS TTL
+
+Čas, počas ktorého môže resolver cacheovať DNS resource record. Nejde o rovnaký koncept ako IP TTL v packet headeri. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## DORA metrics
 
@@ -173,6 +221,10 @@ Metriky software delivery performance sledujúce throughput a instability delive
 ## Drift
 
 Rozdiel medzi deklarovaným a skutočným stavom systému. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
+
+## Drop — firewall action
+
+Tiché zahodenie packetu bez explicitnej odpovede klientovi. Typickým symptómom je timeout. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Dual stack
 
@@ -200,7 +252,11 @@ Pomenovaná hodnota odovzdaná procesu v jeho environment bloku. Pozri [Environm
 
 ## Ephemeral port
 
-Dočasný source port typicky pridelený klientskemu socketu. Vyčerpanie port space môže blokovať nové outbound connections. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+Dočasný source port typicky pridelený klientskemu socketu. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
+
+## Ephemeral port exhaustion
+
+Stav, keď host alebo NAT nemá voľný transportný port pre nový flow. Existujúce spojenia môžu fungovať, zatiaľ čo nové zlyhávajú. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md) a [NAT](docs/02-networking-and-web/nat.md).
 
 ## Ethernet frame
 
@@ -230,6 +286,10 @@ Malé celé číslo v procese odkazujúce na kernelom spravovaný otvorený obje
 
 Štruktúra mapujúca pathname na metadata a dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Firewall
+
+Policy enforcement point povoľujúci alebo zamietajúci traffic podľa packet metadata, connection state, identity alebo aplikačného kontextu. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
 ## Flow control
 
 TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať do bufferu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -238,13 +298,17 @@ TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát
 
 ARP announcement používaný napríklad na aktualizáciu neighbor caches po presune virtual IP. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
 
+## Hairpin NAT
+
+Preklad trafficu, pri ktorom interný klient používa externú adresu služby a NAT ho presmeruje späť do internej siete. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
 ## Hard link
 
 Ďalší directory entry odkazujúci na ten istý inode. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
 ## Hop limit
 
-IPv6 field znižovaný na každom router hop-e; pri nule sa packet zahodí. IPv4 ekvivalentom je TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+IPv6 field znižovaný na každom router hop-e; pri nule sa packet zahodí. IPv4 ekvivalentom je IP TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## Host key — SSH host key
 
@@ -270,6 +334,10 @@ Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesy
 
 Network-layer jednotka obsahujúca source a destination IP adresu a payload vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
+## IP TTL — Time To Live
+
+IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Nejde o DNS cache TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
 ## IPv4 private ranges
 
 Adresy `10.0.0.0/8`, `172.16.0.0/12` a `192.168.0.0/16`, ktoré nie sú globálne routované vo verejnom Internete. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
@@ -289,6 +357,10 @@ Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, device
 ## Latency
 
 Čas potrebný na dokončenie operácie alebo requestu. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Listening socket
+
+Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný connected socket pre konkrétneho klienta. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
 ## Little's Law
 
@@ -344,11 +416,23 @@ Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu sys
 
 ## NAT — Network Address Translation
 
-Mechanizmus meniaci source alebo destination IP adresy a často ports pri prechode packetu. Podrobne bude rozpracovaný v samostatnej kapitole.
+Mechanizmus meniaci source alebo destination IP adresy a často ports pri prechode packetu. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
+## NAT64/DNS64
+
+Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá traffic IPv6-only klienta na IPv4 server. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
 ## NDP — Neighbor Discovery Protocol
 
 IPv6 mechanizmus pre neighbor resolution, router discovery, prefix discovery a ďalšie lokálne funkcie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Negative DNS caching
+
+Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Novo vytvorený record preto nemusí byť okamžite viditeľný klientovi. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## Network ACL
+
+Network policy aplikovaná typicky na subnet alebo segment boundary. V cloud prostredí býva často stateless a vyžaduje pravidlá pre oba smery. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Network namespace
 
@@ -382,6 +466,10 @@ Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupn�
 
 Framework na skladanie authentication, account, session a password policy. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## PAT — Port Address Translation
+
+NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými transportnými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
 ## Permissive mode
 
 SELinux režim, v ktorom sa policy denials auditujú, ale nevynucujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -404,7 +492,7 @@ Routing model, ktorý môže vyberať table podľa source address, marku, ingres
 
 ## Port
 
-16-bit transportný identifikátor socket endpointu. Port sám neurčuje aplikačný protokol. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+16-bit transportný identifikátor socket endpointu. Port sám neurčuje aplikačný protokol. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
 ## Process
 
@@ -430,13 +518,29 @@ Transportný protokol nad UDP implementujúci reliable streams, congestion contr
 
 Opakovaný proces porovnávania desired state so skutočným stavom a vykonávania korekcií. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
 
+## Recursive DNS resolver
+
+DNS server, ktorý odpovedá klientovi pomocou cache alebo iteratívnych queries voči root, TLD a authoritative serverom. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## Reject — firewall action
+
+Zamietnutie packetu s explicitnou negatívnou odpoveďou, napríklad TCP RST alebo ICMP unreachable. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
 ## Release
 
 Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používateľom. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Resource record — DNS RR
+
+Typovaná DNS informácia, napríklad `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT`, `SRV` alebo `PTR`. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
 ## Retransmission
 
 Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočného potvrdenia. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Rogue DHCP server
+
+Neautorizovaný DHCP server poskytujúci klientom nesprávnu alebo škodlivú network configuration. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
 
 ## Rollback
 
@@ -466,6 +570,10 @@ Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká que
 
 Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Security group
+
+Stateful cloud network policy typicky priradená virtual interface, instance alebo workloadu. Nie je to isté ako host firewall ani stateless network ACL. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
 ## SELinux security context
 
 Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne level/range. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -474,13 +582,29 @@ Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne le
 
 IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Advertisement. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## SNAT — Source NAT
+
+Preklad source adresy alebo portu, používaný napríklad na outbound prístup privátnych hostov. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
 ## Socket
 
-Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
+
+## Split-horizon DNS
+
+DNS model, v ktorom rovnaké meno dostáva odlišnú odpoveď podľa resolvera, siete alebo policy. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## SSH agent
 
 Proces vykonávajúci podpisové operácie pomocou odomknutých private keys v pamäti. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
+
+## Stateful firewall
+
+Firewall používajúci connection tracking na rozpoznanie lifecycle a smeru flowu. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## Stateless firewall
+
+Firewall hodnotiaci každý packet samostatne bez connection state. Policy typicky musí explicitne riešiť oba smery. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## `strace`
 
@@ -542,10 +666,6 @@ Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshoo
 
 Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková práca. Pozri [Toil and Technical Debt](docs/00-foundations/toil-and-technical-debt.md).
 
-## TTL — Time To Live
-
-IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
-
 ## T-shaped engineer
 
 Inžinier so širokou orientáciou a hlbokou expertízou aspoň v jednej oblasti. Pozri [T-shaped engineer](docs/00-foundations/t-shaped-engineer.md).
@@ -557,6 +677,10 @@ SELinux policy model založený na source type, target type, object class a perm
 ## UDP datagram
 
 Samostatná transportná správa bez zabudovanej garancie doručenia, poradia alebo retransmission. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Unix domain socket
+
+Lokálny socket používaný cez filesystem pathname alebo abstract namespace namiesto IP adresy a portu. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
 ## USE method
 
@@ -589,6 +713,10 @@ Logicky oddelený Ethernet broadcast domain, často prenášaný cez 802.1Q tagg
 ## VSZ — Virtual Set Size
 
 Veľkosť virtuálneho adresného priestoru procesu. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## WAF — Web Application Firewall
+
+L7 policy engine analyzujúci aplikačné requests, typicky HTTP, nad rámec IP adries a portov. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Zombie process
 
