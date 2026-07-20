@@ -2,7 +2,7 @@
 
 Roadmap určuje odporúčané poradie učenia. Poradie sleduje závislosti medzi témami: najprv systémové a procesné fundamenty, potom delivery a automatizácia, následne kontajnery, Kubernetes, cloud a prevádzka.
 
-Checkbox označuje, či bola téma spracovaná a prakticky prejdená. Úroveň zvládnutia sa sleduje samostatne v [REVIEW.md](REVIEW.md).
+Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň zvládnutia a potreba opakovania sa sledujú samostatne v [REVIEW.md](REVIEW.md).
 
 ## Fáza 1 — DevOps a systémové fundamenty
 
@@ -13,13 +13,13 @@ Checkbox označuje, či bola téma spracovaná a prakticky prejdená. Úroveň z
 - [x] DevOps lifecycle
 - [x] CALMS framework
 - [x] Three Ways of DevOps
-- [ ] Systems thinking
-- [ ] Feedback loops
-- [ ] Continuous improvement
+- [x] Systems thinking
+- [x] Feedback loops
+- [x] Continuous improvement
 - [x] T-shaped, I-shaped a π-shaped engineer
-- [ ] Ownership mindset
-- [ ] You build it, you run it
-- [ ] Automation mindset
+- [x] Ownership mindset
+- [x] You build it, you run it
+- [x] Automation mindset
 - [ ] Declarative vs. imperative prístup
 - [ ] Idempotencia
 - [ ] Desired state a reconciliation
