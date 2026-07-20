@@ -1,6 +1,6 @@
 # Linux and Systems
 
-Táto sekcia vysvetľuje Linux od hranice kernel/user space cez procesy, filesystémy, identity a shell až po správu služieb. Cieľom nie je memorovať príkazy, ale rozumieť tomu, ktorú vrstvu systému príkaz pozoruje alebo mení.
+Táto sekcia vysvetľuje Linux od hranice kernel/user space cez procesy, filesystémy, identity a shell až po správu služieb, storage, výkon, sieť a vzdialenú administráciu. Cieľom nie je memorovať príkazy, ale rozumieť tomu, ktorú vrstvu systému príkaz pozoruje alebo mení.
 
 ## Predpoklady
 
@@ -15,8 +15,15 @@ Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md
 5. [Shell, Bash, pipes, redirection a exit codes](shell-bash-pipes-redirection-exit-codes.md)
 6. [Environment variables](environment-variables.md)
 7. [systemd, services a daemons](systemd-services-daemons.md)
+8. [Package management](package-management.md)
+9. [journald a logging](journald-and-logging.md)
+10. [Storage, mounty a filesystems](storage-mounts-and-filesystems.md)
+11. [Memory a CPU fundamentals](cpu-and-memory-fundamentals.md)
+12. [Linux networking](linux-networking.md)
+13. [SSH](ssh.md)
+14. [Cron a systemd timers](cron-and-systemd-timers.md)
 
-Ďalšie plánované kapitoly: package management, journald a logging, storage a mounty, CPU a memory, Linux networking, SSH, cron a systemd timers, namespaces, cgroups, capabilities, SELinux/AppArmor a system troubleshooting.
+Ďalšie plánované kapitoly: namespaces, cgroups, Linux capabilities, SELinux/AppArmor a system performance/troubleshooting.
 
 ## Cieľ zvládnutia
 
@@ -28,7 +35,14 @@ Po dokončení sekcie má byť možné:
 - diagnostikovať identity, vlastníctvo a oprávnenia,
 - bezpečne skladať shell pipeline a pracovať s exit statusom,
 - vysvetliť dedenie environmentu,
-- čítať a diagnostikovať stav služieb cez systemd.
+- čítať a diagnostikovať stav služieb cez systemd,
+- rozlíšiť repository metadata, dependency solver a lokálnu package database,
+- používať structured journal fields, boot scope a retention pri diagnostike,
+- sledovať cestu od block device cez filesystem po mount point,
+- interpretovať CPU usage, load average, virtual memory, page cache, swap a OOM,
+- diagnostikovať Linux packet path od DNS a route po socket a application protocol,
+- bezpečne používať SSH host keys, user keys, bastion a port forwarding,
+- navrhnúť idempotentný scheduled job s lockingom, observability a failure semantics.
 
 ## Stav
 
@@ -41,3 +55,10 @@ Po dokončení sekcie má byť možné:
 | Shell, Bash, pipes, redirection a exit codes | Learning | L2 |
 | Environment variables | Learning | L2 |
 | systemd, services a daemons | Learning | L2 |
+| Package management | Learning | L2 |
+| journald a logging | Learning | L2 |
+| Storage, mounty a filesystems | Learning | L2 |
+| Memory a CPU fundamentals | Learning | L2 |
+| Linux networking | Learning | L2 |
+| SSH | Learning | L2 |
+| Cron a systemd timers | Learning | L2 |
