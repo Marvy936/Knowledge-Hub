@@ -10,11 +10,11 @@ Táto sekcia nemá technické predpoklady. Je východiskovým bodom Knowledge Hu
 
 1. [Software Development Life Cycle](sdlc.md)
 2. [DevOps](devops.md)
-3. DevOps lifecycle
-4. CALMS framework
-5. Three Ways of DevOps
+3. [DevOps lifecycle](devops-lifecycle.md)
+4. [CALMS framework](calms.md)
+5. [Three Ways of DevOps](three-ways.md)
 6. Systems thinking a feedback loops
-7. T-shaped engineer
+7. [T-shaped engineer](t-shaped-engineer.md)
 8. Shift-left a shift-right
 9. Continuous Integration, Delivery a Deployment
 10. Deployment stratégie
@@ -37,9 +37,10 @@ Po dokončení tejto sekcie má byť možné:
 |---|---|---|
 | SDLC | Learning | L2 |
 | DevOps | Learning | L2 |
-| DevOps lifecycle | Not Started | L0 |
-| CALMS | Not Started | L0 |
-| Three Ways | Not Started | L0 |
-| T-shaped engineer | Not Started | L0 |
+| DevOps lifecycle | Learning | L2 |
+| CALMS | Learning | L2 |
+| Three Ways | Learning | L2 |
+| T-shaped engineer | Learning | L2 |
+| Systems thinking / feedback loops | Not Started | L0 |
 | Shift-left / shift-right | Not Started | L0 |
 | DORA metrics | Not Started | L0 |
