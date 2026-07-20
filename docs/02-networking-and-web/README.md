@@ -13,8 +13,13 @@ Odporúča sa najprv dokončiť [Linux and Systems](../01-linux-and-systems/READ
 3. [IPv4, IPv6 a subnetting](ipv4-ipv6-subnetting.md)
 4. [Routing a default gateway](routing-and-default-gateway.md)
 5. [TCP a UDP](tcp-and-udp.md)
+6. [Ports a sockets](ports-and-sockets.md)
+7. [DNS](dns.md)
+8. [DHCP](dhcp.md)
+9. [NAT](nat.md)
+10. [Firewally](firewalls.md)
 
-Ďalšie plánované kapitoly: ports a sockets, DNS, DHCP, NAT, firewally, proxy a reverse proxy, load balancing, HTTP, HTTPS/TLS/PKI, REST APIs, WebSockets a end-to-end network troubleshooting.
+Ďalšie plánované kapitoly: proxy a reverse proxy, load balancing, HTTP, HTTPS/TLS/certificates/PKI, REST APIs, WebSockets a end-to-end network troubleshooting.
 
 ## Cieľ zvládnutia
 
@@ -28,7 +33,15 @@ Po dokončení sekcie má byť možné:
 - analyzovať forward a return path vrátane asymetrie,
 - vysvetliť TCP handshake, reliability, flow a congestion control,
 - rozlíšiť TCP byte stream od UDP datagram semantics,
-- diagnostikovať transportný timeout pomocou routes, sockets a packet capture.
+- rozlíšiť port, listening socket, accepted socket a konkrétny network flow,
+- diagnostikovať bind address, ephemeral port exhaustion, listen queues a namespace-local sockets,
+- sledovať DNS resolution od stub resolvera cez recursive cache po authoritative zone,
+- interpretovať TTL, negative caching, split-horizon DNS, DNSSEC a transport cez UDP/TCP,
+- analyzovať DHCP lease lifecycle, relay, options, address conflicts a DHCPv6/SLAAC interakciu,
+- sledovať SNAT, DNAT, PAT a conntrack state vrátane return pathu a port exhaustion,
+- rozlíšiť NAT od firewall policy,
+- navrhnúť stateful alebo stateless firewall rules s least privilege a bezpečným rolloutom,
+- diagnostikovať transportný timeout pomocou routes, sockets, firewall counters a packet capture.
 
 ## Stav
 
@@ -39,3 +52,8 @@ Po dokončení sekcie má byť možné:
 | IPv4, IPv6 a subnetting | Learning | L2 |
 | Routing a default gateway | Learning | L2 |
 | TCP a UDP | Learning | L2 |
+| Ports a sockets | Learning | L2 |
+| DNS | Learning | L2 |
+| DHCP | Learning | L2 |
+| NAT | Learning | L2 |
+| Firewally | Learning | L2 |
