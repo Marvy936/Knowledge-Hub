@@ -1,14 +1,22 @@
 # Glossary
 
-Rýchly referenčný index technických pojmov používaných v Knowledge Hube. Glossary nenahrádza plné kapitoly: každé heslo obsahuje stručnú definíciu a podľa možnosti odkaz na autoritatívny článok s mechanizmom, príkladmi a troubleshooting kontextom.
+Rýchly referenčný index technických pojmov používaných v Knowledge Hube. Glossary nenahrádza plné kapitoly: každé heslo obsahuje stručnú definíciu a odkaz na autoritatívny článok, ak už existuje.
 
 ## ACL — Access Control List
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## ALPN — Application-Layer Protocol Negotiation
+
+TLS extension, ktorou klient a server počas handshake dohodnú aplikačný protokol, napríklad `http/1.1` alebo `h2`. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
 ## Ambient capability
 
 Linux capability, ktorú môže proces za presných podmienok zachovať pri `execve()` neprivilegovaného programu. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## Anycast
+
+Routing model, v ktorom viac lokalít oznamuje rovnakú IP adresu a routing privedie klienta k topologicky preferovanému endpointu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
 ## AppArmor profile
 
@@ -24,11 +32,7 @@ Jednoznačne identifikovateľný výstup build procesu určený na testovanie al
 
 ## Asymmetric routing
 
-Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. IP ho povoľuje, ale môže kolidovať so stateful firewallom alebo NAT. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
-
-## Authoritative DNS server
-
-DNS server poskytujúci autoritatívne resource records pre konkrétnu zone. Nemusí vykonávať recursion. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
 ## Automation
 
@@ -38,13 +42,13 @@ Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane
 
 SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie operácie medzi source a target security contexts. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Backpressure
+
+Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, aby nevytváral neobmedzený buffer a rastúcu latency. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
 ## Batch size
 
 Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú blast radius a skracujú feedback. Pozri [Three Ways of DevOps](docs/00-foundations/three-ways.md).
-
-## Bind address
-
-Lokálna IP adresa priradená socketu. Bind na loopback, konkrétnu adresu alebo wildcard zásadne mení, odkiaľ je služba dostupná. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
 ## Block device
 
@@ -62,6 +66,10 @@ L2 oblasť, v ktorej sa šíri Ethernet broadcast. Typicky ju oddeľuje router a
 
 Proces transformujúci zdrojové vstupy na spustiteľný alebo distribuovateľný artifact. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Cache-Control
+
+HTTP response/request header definujúci freshness, revalidation, storage a shared/private cache policy. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
 ## CALMS
 
 DevOps rámec Culture, Automation, Lean, Measurement a Sharing. Pozri [CALMS framework](docs/00-foundations/calms.md).
@@ -69,6 +77,14 @@ DevOps rámec Culture, Automation, Lean, Measurement a Sharing. Pozri [CALMS fra
 ## Capability — Linux capability
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## Certificate
+
+X.509 objekt viažuci public key na identity claims, validity interval, usage a issuer signature. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
+## Certificate chain
+
+Postupnosť leaf a intermediate certificates, ktorú klient overuje smerom k dôveryhodnému root CA v trust store. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
 ## cgroup — Control group
 
@@ -96,7 +112,7 @@ TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavr
 
 ## Collision domain
 
-Oblasť zdieľaného Ethernet média, v ktorej môžu transmissions kolidovať. Moderný switched full-duplex Ethernet ju typicky oddeľuje na každý port. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+Oblasť zdieľaného Ethernet média, v ktorej môžu transmissions kolidovať. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
 
 ## Complain mode
 
@@ -106,9 +122,21 @@ AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [
 
 Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej kapacity a congestion signálov network pathu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
-## Connection tracking — conntrack
+## Connection draining
 
-Stavová evidencia network flows používaná napríklad firewallom a NAT na rozpoznanie smeru, lifecycle a reverse trafficu. Pozri [NAT](docs/02-networking-and-web/nat.md) a [Firewally](docs/02-networking-and-web/firewalls.md).
+Postup, pri ktorom sa backendu prestane posielať nový traffic, ale existujúce requests alebo connections dostanú čas na dokončenie. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Conntrack
+
+State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Pozri [NAT](docs/02-networking-and-web/nat.md) a [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## Consistent hashing
+
+Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Content negotiation
+
+HTTP mechanizmus, ktorým klient deklaruje preferované representations a server vyberie formát, jazyk alebo encoding. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
 ## Context switch
 
@@ -116,11 +144,19 @@ Prechod CPU z vykonávania jedného threadu na iný. Pozri [Memory a CPU fundame
 
 ## Control plane
 
-Časť systému vytvárajúca stav, podľa ktorého data plane rozhoduje, napríklad routing protocols alebo orchestration policy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
+Časť systému vytvárajúca stav, podľa ktorého data plane rozhoduje. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
 ## Controller
 
 Komponent porovnávajúci desired state s aktuálnym stavom a vykonávajúci korekčné akcie. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
+
+## Cookie
+
+HTTP state token, ktorý server nastaví cez `Set-Cookie` a klient následne posiela podľa domain, path, security a SameSite scope. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
+## CORS — Cross-Origin Resource Sharing
+
+Browser-enforced HTTP policy určujúca, ktoré origins môžu čítať responses alebo odosielať vybrané cross-origin requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
 ## CPU quota
 
@@ -129,6 +165,10 @@ Cgroup limit maximálneho CPU času v danom period. Po vyčerpaní môže byť w
 ## Cron
 
 Časový scheduler spúšťajúci príkazy podľa crontab pravidiel. Pozri [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md).
+
+## CSR — Certificate Signing Request
+
+Podpísaná žiadosť obsahujúca public key a požadované certificate identity attributes pre CA. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
 ## DAC — Discretionary Access Control
 
@@ -148,7 +188,7 @@ Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Poz
 
 ## Default deny
 
-Firewall policy, pri ktorej sa povoľuje iba explicitne definovaný traffic a všetko ostatné sa zamietne. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic alebo operácie a všetko ostatné sa zamietne. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Default route
 
@@ -180,7 +220,7 @@ Protokol na prideľovanie IP configuration, lease a ďalších network parameter
 
 ## DHCP lease
 
-Časovo obmedzené oprávnenie klienta používať pridelenú adresu a konfiguráciu. Klient lease obnovuje cez renewal a rebinding lifecycle. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+Časovo obmedzené oprávnenie klienta používať pridelenú adresu a konfiguráciu. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
 
 ## DHCP relay
 
@@ -188,11 +228,11 @@ Komponent forwardujúci DHCP komunikáciu medzi klientskym broadcast domainom a 
 
 ## DHCP reservation
 
-Centrálne DHCP-managed mapovanie identity klienta na stabilnú IP adresu. Nie je to rovnaké ako manuálne nastavená statická IP. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+Centrálne DHCP-managed mapovanie identity klienta na stabilnú IP adresu. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
 
 ## DHCP snooping
 
-Switchová ochrana, ktorá povoľuje DHCP server responses iba na trusted portoch a môže vytvárať binding databázu. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+Switchová ochrana povoľujúca DHCP server responses iba na trusted portoch. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
 
 ## DNAT — Destination NAT
 
@@ -200,19 +240,19 @@ Preklad destination adresy alebo portu, používaný napríklad pri publikovaní
 
 ## DNS — Domain Name System
 
-Distribuovaný hierarchický systém mapujúci mená na resource records. Úspešné DNS resolution nedokazuje network ani application dostupnosť. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Distribuovaný hierarchický systém mapujúci mená na resource records. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## DNS resolver
 
-Komponent vykonávajúci alebo sprostredkujúci DNS resolution. Stub resolver odovzdáva query, recursive resolver používa cache a podľa potreby prechádza DNS hierarchiu. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Komponent vykonávajúci alebo sprostredkujúci DNS resolution. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## DNSSEC
 
-Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Nešifruje query. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## DNS TTL
 
-Čas, počas ktorého môže resolver cacheovať DNS resource record. Nejde o rovnaký koncept ako IP TTL v packet headeri. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Čas, počas ktorého môže resolver cacheovať DNS resource record. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## DORA metrics
 
@@ -228,7 +268,7 @@ Tiché zahodenie packetu bez explicitnej odpovede klientovi. Typickým symptómo
 
 ## Dual stack
 
-Prevádzka IPv4 aj IPv6 na rovnakom hoste alebo službe. Obe address families majú samostatné routes, policies a failure modes. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+Prevádzka IPv4 aj IPv6 na rovnakom hoste alebo službe. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## eBPF — extended Berkeley Packet Filter
 
@@ -256,7 +296,11 @@ Dočasný source port typicky pridelený klientskemu socketu. Pozri [Ports a soc
 
 ## Ephemeral port exhaustion
 
-Stav, keď host alebo NAT nemá voľný transportný port pre nový flow. Existujúce spojenia môžu fungovať, zatiaľ čo nové zlyhávajú. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md) a [NAT](docs/02-networking-and-web/nat.md).
+Stav, keď host alebo NAT nemá voľný transportný port pre nový flow. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md) a [NAT](docs/02-networking-and-web/nat.md).
+
+## ETag
+
+HTTP validator reprezentácie používaný na cache revalidation a optimistic concurrency cez conditional requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
 ## Ethernet frame
 
@@ -286,37 +330,61 @@ Malé celé číslo v procese odkazujúce na kernelom spravovaný otvorený obje
 
 Štruktúra mapujúca pathname na metadata a dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
-## Firewall
-
-Policy enforcement point povoľujúci alebo zamietajúci traffic podľa packet metadata, connection state, identity alebo aplikačného kontextu. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
-
 ## Flow control
 
-TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať do bufferu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Forward proxy
+
+Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
+## Forward secrecy
+
+Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého private key automaticky neodhalí staré TLS sessions. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
 ## Gratuitous ARP
 
 ARP announcement používaný napríklad na aktualizáciu neighbor caches po presune virtual IP. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
 
-## Hairpin NAT
-
-Preklad trafficu, pri ktorom interný klient používa externú adresu služby a NAT ho presmeruje späť do internej siete. Pozri [NAT](docs/02-networking-and-web/nat.md).
-
 ## Hard link
 
 Ďalší directory entry odkazujúci na ten istý inode. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Health check
+
+Aktívny alebo pasívny test určujúci, či backend môže prijímať nový traffic. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
 ## Hop limit
 
-IPv6 field znižovaný na každom router hop-e; pri nule sa packet zahodí. IPv4 ekvivalentom je IP TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+IPv6 field znižovaný na každom router hop-e; IPv4 ekvivalentom je TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## Host key — SSH host key
 
 Kryptografický kľúč, ktorým SSH server preukazuje svoju identitu klientovi. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
 
+## HSTS — HTTP Strict Transport Security
+
+Browser policy oznamujúca, že doména sa má používať iba cez HTTPS počas definovaného času. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
+## HTTP
+
+Aplikačný request-response protokol s methods, status codes, headers a representation semantics. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
+## HTTP/2
+
+HTTP verzia používajúca binary framing a multiplexované streams nad jedným TCP connection. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
+## HTTP/3
+
+HTTP verzia používajúca QUIC nad UDP s nezávislejším stream loss recovery modelom. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
 ## Idempotencia
 
 Vlastnosť operácie, pri ktorej opakovanie s rovnakým vstupom vedie k rovnakému výslednému stavu. Pozri [Idempotency](docs/00-foundations/idempotency.md).
+
+## Idempotency key
+
+Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-idempotentný request a vrátiť konzistentný výsledok. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
 
 ## Immutable infrastructure
 
@@ -334,17 +402,13 @@ Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesy
 
 Network-layer jednotka obsahujúca source a destination IP adresu a payload vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
-## IP TTL — Time To Live
-
-IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Nejde o DNS cache TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
-
 ## IPv4 private ranges
 
 Adresy `10.0.0.0/8`, `172.16.0.0/12` a `192.168.0.0/16`, ktoré nie sú globálne routované vo verejnom Internete. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## IPv6 link-local address
 
-IPv6 adresa z `fe80::/10` platná v lokálnom linkovom scope, používaná aj pre NDP a router discovery. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+IPv6 adresa z `fe80::/10` platná v lokálnom linkovom scope. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## journald
 
@@ -354,13 +418,21 @@ Systémová logging služba systemd sprístupnená cez `journalctl`. Pozri [jour
 
 Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## L4 load balancing
+
+Rozdelenie transportných flows podľa IP, portu, protokolu a connection state bez interpretácie aplikačného obsahu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## L7 load balancing
+
+Rozdelenie requestov podľa aplikačných údajov, napríklad HTTP hostu, pathu alebo headerov. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
 ## Latency
 
 Čas potrebný na dokončenie operácie alebo requestu. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
 ## Listening socket
 
-Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný connected socket pre konkrétneho klienta. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
+Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný connected socket. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
 ## Little's Law
 
@@ -389,6 +461,10 @@ Cgroup v2 memory hranica vyvolávajúca reclaim pressure a throttling. Pozri [cg
 ## `memory.max`
 
 Cgroup v2 hard memory limit, ktorého prekročenie môže viesť ku cgroup-local OOM. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
+
+## mTLS — Mutual TLS
+
+TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
 ## MSS — Maximum Segment Size
 
@@ -424,15 +500,15 @@ Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá tr
 
 ## NDP — Neighbor Discovery Protocol
 
-IPv6 mechanizmus pre neighbor resolution, router discovery, prefix discovery a ďalšie lokálne funkcie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+IPv6 mechanizmus pre neighbor resolution, router discovery a prefix discovery. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## Negative DNS caching
 
-Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Novo vytvorený record preto nemusí byť okamžite viditeľný klientovi. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## Network ACL
 
-Network policy aplikovaná typicky na subnet alebo segment boundary. V cloud prostredí býva často stateless a vyžaduje pravidlá pre oba smery. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+Network policy aplikovaná typicky na subnet alebo segment boundary; v cloud prostredí býva často stateless. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Network namespace
 
@@ -441,6 +517,10 @@ Namespace s vlastnými interfaces, addresses, routes, sockets a firewall state. 
 ## `no_new_privs`
 
 Kernel flag zabraňujúci zvýšeniu privilege cez `execve()`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## OCSP — Online Certificate Status Protocol
+
+Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
 ## OOM killer
 
@@ -468,7 +548,7 @@ Framework na skladanie authentication, account, session a password policy. Pozri
 
 ## PAT — Port Address Translation
 
-NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými transportnými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
+NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
 ## Permissive mode
 
@@ -486,9 +566,13 @@ Namespace poskytujúci samostatné process ID číslovanie a process tree. Pozri
 
 Cgroup controller obmedzujúci počet procesov alebo threadov cez `pids.max`. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
 
+## PKI — Public Key Infrastructure
+
+Systém certificate authorities, policies, trust stores, issuance, validation, rotation a revocation pre public-key identities. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
 ## Policy routing
 
-Routing model, ktorý môže vyberať table podľa source address, marku, ingress interface alebo ďalších selectors, nie iba destination. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
+Routing model, ktorý môže vyberať table podľa source address, marku, ingress interface alebo ďalších selectors. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
 ## Port
 
@@ -502,6 +586,10 @@ Bežiaca inštancia programu s adresným priestorom, file descriptormi, credenti
 
 Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká alebo alokuje memory. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Proxy
+
+Sprostredkovateľ ukončujúci jednu komunikáciu a vytvárajúci samostatnú komunikáciu k ďalšiemu endpointu. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
 ## PSI — Pressure Stall Information
 
 Metriky času, počas ktorého tasks čakali pre nedostupnosť CPU, memory alebo I/O kapacity. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -514,33 +602,29 @@ Odhad memory procesu, pri ktorom sa zdieľané pages pomerne rozdelia medzi proc
 
 Transportný protokol nad UDP implementujúci reliable streams, congestion control, loss recovery a TLS 1.3 integráciu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Readiness
+
+Stav vyjadrujúci, či instance má prijímať nový traffic. Nie je totožný s liveness. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
 ## Reconciliation
 
 Opakovaný proces porovnávania desired state so skutočným stavom a vykonávania korekcií. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
-
-## Recursive DNS resolver
-
-DNS server, ktorý odpovedá klientovi pomocou cache alebo iteratívnych queries voči root, TLD a authoritative serverom. Pozri [DNS](docs/02-networking-and-web/dns.md).
-
-## Reject — firewall action
-
-Zamietnutie packetu s explicitnou negatívnou odpoveďou, napríklad TCP RST alebo ICMP unreachable. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Release
 
 Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používateľom. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
-## Resource record — DNS RR
+## REST
 
-Typovaná DNS informácia, napríklad `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT`, `SRV` alebo `PTR`. Pozri [DNS](docs/02-networking-and-web/dns.md).
+Architectural style pre distributed hypermedia systems založený na constraints ako statelessness, cacheability a uniform interface. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
 
 ## Retransmission
 
 Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočného potvrdenia. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
-## Rogue DHCP server
+## Reverse proxy
 
-Neautorizovaný DHCP server poskytujúci klientom nesprávnu alebo škodlivú network configuration. Pozri [DHCP](docs/02-networking-and-web/dhcp.md).
+Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad TLS termination, routing alebo caching. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
 
 ## Rollback
 
@@ -570,13 +654,17 @@ Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká que
 
 Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
-## Security group
-
-Stateful cloud network policy typicky priradená virtual interface, instance alebo workloadu. Nie je to isté ako host firewall ani stateless network ACL. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
-
 ## SELinux security context
 
 Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne level/range. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Session affinity
+
+Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## SNI — Server Name Indication
+
+TLS extension prenášajúca hostname, aby server alebo proxy vybral správny certificate a virtual host. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
 ## SLAAC — Stateless Address Autoconfiguration
 
@@ -584,7 +672,7 @@ IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Ad
 
 ## SNAT — Source NAT
 
-Preklad source adresy alebo portu, používaný napríklad na outbound prístup privátnych hostov. Pozri [NAT](docs/02-networking-and-web/nat.md).
+Preklad source adresy alebo portu, používaný typicky pri outbound komunikácii. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
 ## Socket
 
@@ -592,7 +680,7 @@ Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [
 
 ## Split-horizon DNS
 
-DNS model, v ktorom rovnaké meno dostáva odlišnú odpoveď podľa resolvera, siete alebo policy. Pozri [DNS](docs/02-networking-and-web/dns.md).
+DNS model, v ktorom rovnaké meno vracia rozdielne odpovede podľa resolvera, siete alebo klientského contextu. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## SSH agent
 
@@ -600,11 +688,11 @@ Proces vykonávajúci podpisové operácie pomocou odomknutých private keys v p
 
 ## Stateful firewall
 
-Firewall používajúci connection tracking na rozpoznanie lifecycle a smeru flowu. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+Firewall udržiavajúci connection/flow state a používajúci ho pri rozhodovaní o packets. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## Stateless firewall
 
-Firewall hodnotiaci každý packet samostatne bez connection state. Policy typicky musí explicitne riešiť oba smery. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+Firewall posudzujúci každý packet podľa explicitných pravidiel bez connection state. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
 ## `strace`
 
@@ -654,6 +742,14 @@ Praktický vrstvený model Application, Transport, Internet a Link používaný 
 
 TCP state držaný po aktívnom close na ochranu pred starými segments a opätovným použitím rovnakého tuple. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## TLS — Transport Layer Security
+
+Protokol poskytujúci šifrovanie, integritu a autentifikáciu komunikácie. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
+## TLS termination
+
+Ukončenie TLS spojenia na proxy alebo load balanceri, ktorý následne vytvorí samostatné upstream spojenie. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
 ## Thread
 
 Plánovateľná vykonávacia jednotka v rámci procesu. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
@@ -665,6 +761,10 @@ Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshoo
 ## Toil
 
 Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková práca. Pozri [Toil and Technical Debt](docs/00-foundations/toil-and-technical-debt.md).
+
+## TTL — Time To Live
+
+IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
 ## T-shaped engineer
 
@@ -678,9 +778,9 @@ SELinux policy model založený na source type, target type, object class a perm
 
 Samostatná transportná správa bez zabudovanej garancie doručenia, poradia alebo retransmission. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
-## Unix domain socket
+## URI — Uniform Resource Identifier
 
-Lokálny socket používaný cez filesystem pathname alebo abstract namespace namiesto IP adresy a portu. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
+Identifikátor resource; URL je typ URI, ktorý zároveň opisuje spôsob alebo miesto prístupu. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
 ## USE method
 
@@ -716,7 +816,15 @@ Veľkosť virtuálneho adresného priestoru procesu. Pozri [Memory a CPU fundame
 
 ## WAF — Web Application Firewall
 
-L7 policy engine analyzujúci aplikačné requests, typicky HTTP, nad rámec IP adries a portov. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+L7 security control vyhodnocujúci HTTP requests podľa aplikačných pravidiel; nie je totožný s L3/L4 firewallom. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## WebSocket
+
+Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade alebo ekvivalentnom transportnom mechanizme. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## `X-Forwarded-For`
+
+De facto HTTP header prenášajúci client IP cez proxy chain. Je dôveryhodný iba pri kontrolovanom chain-e a správnom prepisovaní. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
 
 ## Zombie process
 
