@@ -6,6 +6,10 @@ Rýchly referenčný index technických pojmov používaných v Knowledge Hube. 
 
 Rozšírený model oprávnení, ktorý umožňuje priradiť práva ďalším používateľom alebo skupinám nad rámec základných owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## ARP — Address Resolution Protocol
+
+IPv4 protokol, ktorým host v lokálnom linku zisťuje link-layer adresu zodpovedajúcu next-hop IP adrese. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
+
 ## Artifact
 
 Nemenný alebo jednoznačne identifikovateľný výstup build procesu určený na testovanie, distribúciu alebo deployment, napríklad binárny súbor, balík, container image alebo Helm chart. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
@@ -17,6 +21,10 @@ Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane
 ## Batch size
 
 Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú blast radius, skracujú spätnú väzbu a uľahčujú diagnostiku. Pozri [Three Ways of DevOps](docs/00-foundations/three-ways.md).
+
+## Block device
+
+Kernelové zariadenie poskytujúce blokovo adresovaný storage, napríklad disk, partition, LVM logical volume alebo virtualizovaný cloud volume. Pozri [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md).
 
 ## Build
 
@@ -42,9 +50,17 @@ Podiel deploymentov, ktoré spôsobia degradáciu služby a vyžadujú nápravu.
 
 Čas od vzniku sledovanej zmeny, často od commitu, po jej úspešný deployment do produkcie. Definícia začiatku a konca musí byť v organizácii konzistentná. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
 
+## Context switch
+
+Prechod CPU z vykonávania jedného threadu na iný vrátane uloženia a obnovenia execution contextu. Veľký počet switchov môže byť normálny, ale aj indikovať lock contention alebo nadmerný počet threadov. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
 ## Controller
 
 Komponent, ktorý pozoruje aktuálny stav, porovnáva ho s desired state a vykonáva korekčné akcie. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
+
+## Cron
+
+Časový scheduler, ktorý podľa crontab pravidiel spúšťa príkazy v neinteraktívnom a typicky minimálnom prostredí. Pozri [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md).
 
 ## Daemon
 
@@ -73,6 +89,10 @@ Požadovaný stav systému deklarovaný používateľom alebo automatizačným n
 ## DevOps
 
 Súbor kultúrnych princípov, organizačných praktík a technických mechanizmov na rýchle, bezpečné a opakovateľné dodávanie zmien s krátkou spätnou väzbou. Pozri [DevOps](docs/00-foundations/devops.md).
+
+## DNS — Domain Name System
+
+Distribuovaný systém mapujúci mená na resource records, napríklad IP adresy. Úspešné DNS resolution samo osebe nedokazuje network ani application dostupnosť. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
 
 ## DORA metrics
 
@@ -110,6 +130,10 @@ Malé celé číslo v procese odkazujúce na kernelom spravovaný otvorený obje
 
 Ďalší directory entry odkazujúci na ten istý inode. Nie je to odkaz na názov súboru; oba názvy sú rovnocenné odkazy na ten istý objekt. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Host key — SSH host key
+
+Dlhodobý kryptografický kľúč, ktorým SSH server preukazuje svoju identitu klientovi. Klient si dôveryhodný fingerprint alebo public key eviduje v `known_hosts`. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
+
 ## Idempotencia
 
 Vlastnosť operácie, pri ktorej opakované vykonanie s rovnakým vstupom vedie k rovnakému výslednému stavu bez neželaných vedľajších účinkov. Pozri [Idempotency](docs/00-foundations/idempotency.md).
@@ -134,17 +158,41 @@ Systémová logging služba systemd, ktorá prijíma štruktúrované záznamy z
 
 Privilegovaná časť systému, v ktorej beží kernel a spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## Load average
+
+Priemerný počet tasks, ktoré sú runnable alebo v určitom uninterruptible sleep. Nie je to percento CPU a interpretuje sa voči počtu CPUs a charakteru čakania. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
 ## Mount
 
-Operácia pripojenia filesystemu alebo iného mountable objektu do konkrétneho bodu spoločného filesystem stromu. Pozri [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-filesystems.md).
+Operácia pripojenia filesystemu alebo iného mountable objektu do konkrétneho bodu spoločného filesystem stromu. Pozri [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md).
+
+## MTU — Maximum Transmission Unit
+
+Maximálna veľkosť L3 paketu, ktorú interface prenesie bez fragmentácie. Nesúlad MTU môže spôsobiť, že malé prenosy fungujú a väčšie timeoutujú. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
 
 ## Mutable infrastructure
 
 Model, v ktorom sa existujúce stroje alebo inštancie priebežne aktualizujú a menia na mieste. Je flexibilný, ale zvyšuje riziko driftu a historických rozdielov. Pozri [Immutable vs. Mutable Infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md).
 
+## NDP — Neighbor Discovery Protocol
+
+IPv6 mechanizmus na neighbor discovery, router discovery a ďalšie lokálne linkové funkcie. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
+
+## OOM killer
+
+Kernel mechanizmus poslednej možnosti, ktorý pri nedostatku memory vyberie proces na ukončenie. Je reakciou na memory exhaustion, nie automaticky jeho root cause. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
 ## Package manager
 
 Nástroj, ktorý rieši inštaláciu, upgrade a odstránenie balíkov vrátane závislostí, verifikačných metadata a evidencie vlastníctva súborov. Pozri [Package management](docs/01-linux-and-systems/package-management.md).
+
+## Page cache
+
+RAM používaná kernelom na cache file-backed dát. Znižuje storage I/O a je reclaimable pri memory pressure, preto vysoká cache nie je automaticky problém. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Page fault
+
+Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupné. Minor fault nevyžaduje storage I/O; major fault typicky áno. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
 ## PAM — Pluggable Authentication Modules
 
@@ -157,6 +205,14 @@ Framework, cez ktorý služby skladajú autentifikačné, account, session a pas
 ## Process
 
 Bežiaca inštancia programu s vlastným adresným priestorom, file descriptormi, credentials, environmentom a ďalším kernel stavom. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
+
+## PSI — Pressure Stall Information
+
+Linux metriky vyjadrujúce čas, počas ktorého tasks čakali pre nedostupnosť CPU, memory alebo I/O kapacity. Merajú dopad resource pressure, nie iba utilization. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## PSS — Proportional Set Size
+
+Odhad memory procesu, pri ktorom sa zdieľané pages pomerne rozdelia medzi procesy. Je vhodnejší na atribúciu než jednoduché sčítanie RSS. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
 ## Reconciliation
 
@@ -174,6 +230,14 @@ Návrat k predchádzajúcej verzii aplikácie alebo konfigurácie. Nemusí byť 
 
 Náprava zlyhania nasadením novej opravnej verzie namiesto návratu na starú verziu. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Route
+
+Pravidlo určujúce next hop, interface a ďalšie parametre pre packet smerujúci do destination prefixu. Kernel typicky vyberá najšpecifickejšiu zodpovedajúcu route. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
+
+## RSS — Resident Set Size
+
+Množstvo pages procesu aktuálne resident v RAM. Zdieľané pages sa pri jednoduchom sčítaní RSS môžu započítať viackrát. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
 ## SDLC — Software Development Life Cycle
 
 Riadený životný cyklus softvéru od vzniku potreby cez návrh, implementáciu, testovanie, delivery a prevádzku až po vyradenie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
@@ -186,6 +250,18 @@ Program, ktorý interpretuje príkazový jazyk, vykonáva expanziu, redirection,
 
 Asynchrónna notifikácia doručená procesu alebo threadu, napríklad `SIGTERM`, `SIGINT` alebo `SIGKILL`. Niektoré signály možno zachytiť alebo ignorovať; `SIGKILL` a `SIGSTOP` nie. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
 
+## Socket
+
+Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Môže reprezentovať listening endpoint, established connection alebo connectionless komunikáciu. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
+
+## SSH agent
+
+Proces, ktorý drží odomknuté private keys v pamäti a vykonáva podpisové operácie pre SSH klienta bez odovzdania private key aplikácii. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
+
+## Swap
+
+Storage-backed priestor, do ktorého môže kernel presunúť niektoré anonymné memory pages. Samotné použitie swapu nie je incident; problémom je aktívne thrashing a vysoká latency. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
 ## Symbolic link
 
 Samostatný filesystem objekt obsahujúci textovú cestu na iný objekt. Na rozdiel od hard linku môže smerovať cez filesystems a môže zostať dangling. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
@@ -194,9 +270,17 @@ Samostatný filesystem objekt obsahujúci textovú cestu na iný objekt. Na rozd
 
 Kontrolovaný prechod z user space do kernel space, ktorým proces žiada kernel o operáciu, napríklad otvorenie súboru, vytvorenie procesu alebo sieťovú komunikáciu. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## systemd timer
+
+`.timer` unit, ktorá podľa kalendárneho alebo monotonic pravidla aktivuje inú unit, najčastejšie `.service`. Pozri [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md).
+
 ## systemd unit
 
 Deklaratívny objekt spravovaný systemd, napríklad `.service`, `.socket`, `.timer`, `.mount` alebo `.target`. Unit nie je to isté ako jeden proces. Pozri [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md).
+
+## TCP state
+
+Stav TCP socketu v connection lifecycle, napríklad `LISTEN`, `SYN-SENT`, `ESTAB`, `CLOSE-WAIT` alebo `TIME-WAIT`. Pozri [Linux networking](docs/01-linux-and-systems/linux-networking.md).
 
 ## Thread
 
@@ -217,6 +301,14 @@ Menej privilegované prostredie, v ktorom bežia aplikácie a systémové proces
 ## Value stream
 
 Celý tok práce a informácií od potreby po hodnotu doručenú používateľovi vrátane čakania, handoffov, kontrol a prevádzky. Pozri [Value Stream Mapping](docs/00-foundations/value-stream-mapping.md).
+
+## Virtual memory
+
+Abstrakcia, pri ktorej má proces vlastný virtuálny adresný priestor a kernel mapuje jeho pages na fyzickú RAM, file-backed data, swap alebo neprítomné mapovania. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## VSZ — Virtual Set Size
+
+Veľkosť virtuálneho adresného priestoru procesu. Zahŕňa aj rezervované a mapované oblasti, ktoré nemusia byť resident v RAM. Pozri [CPU and Memory Fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
 ## Zombie process
 
