@@ -1,6 +1,6 @@
 # Linux and Systems
 
-Táto sekcia vysvetľuje Linux od hranice kernel/user space cez procesy, filesystémy, identity a shell až po správu služieb, storage, výkon, sieť a vzdialenú administráciu. Cieľom nie je memorovať príkazy, ale rozumieť tomu, ktorú vrstvu systému príkaz pozoruje alebo mení.
+Táto sekcia vysvetľuje Linux od hranice kernel/user space cez procesy, filesystémy, identity a shell až po správu služieb, resources, bezpečnostné hranice a systematický troubleshooting. Cieľom nie je memorovať príkazy, ale rozumieť tomu, ktorú vrstvu systému príkaz pozoruje alebo mení.
 
 ## Predpoklady
 
@@ -22,8 +22,13 @@ Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md
 12. [Linux networking](linux-networking.md)
 13. [SSH](ssh.md)
 14. [Cron a systemd timers](cron-and-systemd-timers.md)
+15. [Linux Namespaces](namespaces.md)
+16. [Linux Control Groups — cgroups](cgroups.md)
+17. [Linux Capabilities](linux-capabilities.md)
+18. [SELinux and AppArmor](selinux-and-apparmor.md)
+19. [Linux Performance and Troubleshooting](performance-and-troubleshooting.md)
 
-Ďalšie plánované kapitoly: namespaces, cgroups, Linux capabilities, SELinux/AppArmor a system performance/troubleshooting.
+Po tejto sekcii nasleduje samostatná oblasť Networking and Web Fundamentals, ktorá rozšíri Linux packet-path základ o protokoly, subnetting, DNS, HTTP, TLS, proxies a load balancing.
 
 ## Cieľ zvládnutia
 
@@ -42,7 +47,12 @@ Po dokončení sekcie má byť možné:
 - interpretovať CPU usage, load average, virtual memory, page cache, swap a OOM,
 - diagnostikovať Linux packet path od DNS a route po socket a application protocol,
 - bezpečne používať SSH host keys, user keys, bastion a port forwarding,
-- navrhnúť idempotentný scheduled job s lockingom, observability a failure semantics.
+- navrhnúť idempotentný scheduled job s lockingom, observability a failure semantics,
+- vysvetliť, ako namespaces izolujú pohľad na PID, mounts, network a identities,
+- interpretovať cgroup v2 CPU, memory, I/O a PIDs controls,
+- navrhnúť least-privilege capability sets namiesto plného root procesu,
+- diagnostikovať DAC, capability a SELinux/AppArmor zamietnutia po jednotlivých vrstvách,
+- viesť výkonový incident od používateľského symptómu cez testovateľnú hypotézu až po overenú nápravu.
 
 ## Stav
 
@@ -62,3 +72,8 @@ Po dokončení sekcie má byť možné:
 | Linux networking | Learning | L2 |
 | SSH | Learning | L2 |
 | Cron a systemd timers | Learning | L2 |
+| Linux Namespaces | Learning | L2 |
+| Linux Control Groups — cgroups | Learning | L2 |
+| Linux Capabilities | Learning | L2 |
+| SELinux and AppArmor | Learning | L2 |
+| Linux Performance and Troubleshooting | Learning | L2 |
