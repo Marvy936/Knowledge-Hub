@@ -400,3 +400,11 @@ Resolver a client behavior nemusia rešpektovať okamžitú zmenu.
 8. Prečo retries spôsobujú amplification?
 9. Čo load balancer nedokáže vyriešiť bez dostatočnej backend capacity?
 10. Ako diagnostikuješ situáciu, keď každý tretí request zlyhá?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Proxy a reverse proxy](proxy-and-reverse-proxy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: HTTP →](http.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

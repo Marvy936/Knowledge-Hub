@@ -369,3 +369,11 @@ Nie automaticky. Závisí od threat modelu a trust boundaries.
 8. Čo rozlišuje `502`, `503` a `504`?
 9. Prečo môže connection pooling spomaliť reakciu na DNS zmenu?
 10. Ako diagnostikuješ request fungujúci priamo, ale nie cez proxy?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Firewally](firewalls.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Load balancing →](load-balancing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

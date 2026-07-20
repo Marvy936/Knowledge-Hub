@@ -466,3 +466,11 @@ Potrebuje draining, reconnect a state recovery.
 8. Prečo WebSocket potrebuje vlastný message protocol?
 9. Ako riešiš backpressure pri pomalom klientovi?
 10. Kedy zvoliť WebSocket, SSE alebo polling?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: HTTPS, TLS, certificates a PKI](https-tls-certificates-pki.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Network troubleshooting →](network-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

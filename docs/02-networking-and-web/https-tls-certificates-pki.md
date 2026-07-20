@@ -413,3 +413,11 @@ Poskytne client identity, ale policy musí rozhodnúť, čo identity smie robiť
 8. Aký je rozdiel medzi termination, re-encryption a passthrough?
 9. Prečo môže aplikácia zlyhať, aj keď browser certifikátu dôveruje?
 10. Ako navrhneš certificate rotation bez outage?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: HTTP](http.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: REST APIs a WebSockets →](rest-apis-and-websockets.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

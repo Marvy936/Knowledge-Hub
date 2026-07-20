@@ -424,5 +424,5 @@ Nie. Stále existujú routes, ACLs, host firewall, bind address a aplikácia.
 
 **Navigácia**
 
-[← Predchádzajúca: NAT](nat.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: NAT](nat.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Proxy a reverse proxy →](proxy-and-reverse-proxy.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

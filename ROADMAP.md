@@ -63,12 +63,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [DHCP](docs/02-networking-and-web/dhcp.md)
 - [x] [NAT](docs/02-networking-and-web/nat.md)
 - [x] [Firewally](docs/02-networking-and-web/firewalls.md)
-- [ ] Proxy a reverse proxy
-- [ ] Load balancing
-- [ ] HTTP
-- [ ] HTTPS, TLS, certificates a PKI
-- [ ] REST APIs a WebSockets
-- [ ] Network troubleshooting
+- [x] [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md)
+- [x] [Load balancing](docs/02-networking-and-web/load-balancing.md)
+- [x] [HTTP](docs/02-networking-and-web/http.md)
+- [x] [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md)
+- [x] [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md)
+- [x] [Network troubleshooting](docs/02-networking-and-web/network-troubleshooting.md)
 
 ### Git and Automation Basics
 

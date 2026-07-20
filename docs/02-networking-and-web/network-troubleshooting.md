@@ -559,3 +559,11 @@ Treba overiť správny business výsledok, latency a všetky failure domains.
 8. Ako používaš healthy comparison?
 9. Aký je rozdiel medzi triggerom a root cause?
 10. Ako overíš nápravu z pohľadu používateľa?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: REST APIs a WebSockets](rest-apis-and-websockets.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -440,3 +440,11 @@ Typicky multiplexuje viac streams nad jedným connection.
 8. Ako ETag podporuje caching aj concurrency control?
 9. Prečo CORS nie je authentication mechanizmus?
 10. Ako diagnostikuješ redirect loop za reverse proxy?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Load balancing](load-balancing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: HTTPS, TLS, certificates a PKI →](https-tls-certificates-pki.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
