@@ -19,6 +19,7 @@ Cieľom nie je vytvoriť zbierku izolovaných definícií. Každá dôležitá t
 4. Funkčné príklady dopĺňajú realistické a zámerne chybné scenáre.
 5. Hlavným cieľom je praktické porozumenie a schopnosť diagnostiky, nie memorovanie.
 6. Technické názvy zostávajú v angličtine; vysvetlenia sú primárne v slovenčine.
+7. Každý nový obsahový blok priebežne udržiava aj `GLOSSARY.md`.
 
 ## Štruktúra repozitára
 
@@ -90,6 +91,19 @@ python scripts/update_navigation.py --check
 GitHub Actions po zmene na `main` synchronizuje footery a klikateľné odkazy v roadmape. Pri pull requeste zlyhá kontrola, keď poradie, footery alebo roadmapa nie sú konzistentné.
 
 Laby a troubleshooting scenáre nepoužívajú globálne Previous/Next poradie. Ich footer smeruje späť na súvisiacu učebnú kapitolu a lokálny index danej praktickej oblasti.
+
+## Glossary maintenance
+
+`GLOSSARY.md` je priebežne udržiavaný referenčný index, nie jednorazový dokument.
+
+Pri každej novej kapitole alebo obsahovom bloku sa musí vyhodnotiť:
+
+- ktoré nové pojmy sa budú opakovane používať aj v ďalších témach,
+- ktoré existujúce definície treba spresniť,
+- na ktorú kapitolu má heslo odkazovať ako na autoritatívny kontext,
+- či nevznikli synonymá alebo duplicitné heslá s odlišným významom.
+
+Glossary sa aktualizuje v rovnakom pracovnom bloku ako články. Nepatria doň všetky názvy príkazov a konfiguračných polí; patria tam stabilné koncepty potrebné na orientáciu naprieč doménami.
 
 ## Úrovne zvládnutia
 
