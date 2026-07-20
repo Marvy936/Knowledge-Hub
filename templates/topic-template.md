@@ -111,3 +111,21 @@ Najdôležitejšie informácie na rýchle zopakovanie.
 ## Zdroje
 
 Primárne zdroje: oficiálna dokumentácia, štandardy, RFC alebo pôvodné technické materiály.
+
+## Navigačný kontrakt
+
+Učebný článok musí byť uvedený ako očíslovaný Markdown odkaz v sekčnom `README.md`. Poradie v tomto indexe je jediným zdrojom poradia článkov.
+
+Footer `Predchádzajúca / Obsah sekcie / Nasledujúca` sa nepíše ručne. Generuje ho:
+
+```bash
+python scripts/update_navigation.py --write
+```
+
+CI overuje synchronizáciu príkazom:
+
+```bash
+python scripts/update_navigation.py --check
+```
+
+Generovaná časť je označená komentármi `KNOWLEDGE-NAVIGATION:START` a `KNOWLEDGE-NAVIGATION:END`. Obsah medzi nimi sa nemá ručne upravovať.
