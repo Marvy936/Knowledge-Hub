@@ -20,14 +20,14 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] Ownership mindset
 - [x] You build it, you run it
 - [x] Automation mindset
-- [ ] Declarative vs. imperative prístup
-- [ ] Idempotencia
-- [ ] Desired state a reconciliation
-- [ ] Immutable vs. mutable infrastructure
-- [ ] Toil a technical debt
-- [ ] Value stream mapping
-- [ ] DORA metrics
-- [ ] DevOps anti-patterns
+- [x] Declarative vs. imperative prístup
+- [x] Idempotencia
+- [x] Desired state a reconciliation
+- [x] Immutable vs. mutable infrastructure
+- [x] Toil a technical debt
+- [x] Value stream mapping
+- [x] DORA metrics
+- [x] DevOps anti-patterns
 
 ### Linux and Systems
 
