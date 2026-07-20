@@ -45,11 +45,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Linux networking](docs/01-linux-and-systems/linux-networking.md)
 - [x] [SSH](docs/01-linux-and-systems/ssh.md)
 - [x] [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md)
-- [ ] Namespaces
-- [ ] cgroups
+- [x] [Namespaces](docs/01-linux-and-systems/namespaces.md)
+- [x] [cgroups](docs/01-linux-and-systems/cgroups.md)
 - [x] [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md)
-- [ ] SELinux a AppArmor
-- [ ] Performance a troubleshooting
+- [x] [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md)
+- [x] [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md)
 
 ### Networking and Web Fundamentals
 

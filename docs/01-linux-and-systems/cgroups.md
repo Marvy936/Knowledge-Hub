@@ -507,5 +507,5 @@ Systemd je owner hierarchy. Použi unit properties alebo korektnú delegáciu.
 
 **Navigácia**
 
-[← Predchádzajúca: Linux Namespaces](namespaces.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Capabilities →](linux-capabilities.md)
+[← Predchádzajúca: Namespaces](namespaces.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux capabilities →](linux-capabilities.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -474,5 +474,5 @@ Profily zahŕňajú execute transitions, capabilities, network a ďalšie pravid
 
 **Navigácia**
 
-[← Predchádzajúca: Linux Capabilities](linux-capabilities.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Performance and Troubleshooting →](performance-and-troubleshooting.md)
+[← Predchádzajúca: Linux capabilities](linux-capabilities.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Performance a troubleshooting →](performance-and-troubleshooting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

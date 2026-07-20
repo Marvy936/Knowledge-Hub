@@ -409,5 +409,5 @@ Môže ísť o DAC, ACL, SELinux/AppArmor, seccomp, namespace scope alebo read-o
 
 **Navigácia**
 
-[← Predchádzajúca: Linux Control Groups — cgroups](cgroups.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SELinux and AppArmor →](selinux-and-apparmor.md)
+[← Predchádzajúca: cgroups](cgroups.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SELinux a AppArmor →](selinux-and-apparmor.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

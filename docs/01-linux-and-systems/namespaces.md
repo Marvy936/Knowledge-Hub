@@ -376,5 +376,5 @@ Je iba jedna vrstva izolácie. Potrebuje doplnenie resource, syscall a access-co
 
 **Navigácia**
 
-[← Predchádzajúca: Cron a systemd timers](cron-and-systemd-timers.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Control Groups — cgroups →](cgroups.md)
+[← Predchádzajúca: Cron a systemd timers](cron-and-systemd-timers.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: cgroups →](cgroups.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
