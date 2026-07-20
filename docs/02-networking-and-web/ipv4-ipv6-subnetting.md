@@ -525,3 +525,11 @@ Nie. NAT je samostatný translation mechanizmus, často používaný pre address
 8. Aký je rozdiel medzi SLAAC a DHCPv6?
 9. Prečo môže dual-stack aplikácia zlyhávať iba cez IPv6?
 10. Ako address planning podporuje route summarization?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ethernet, MAC a ARP](ethernet-mac-arp.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Routing a default gateway →](routing-and-default-gateway.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

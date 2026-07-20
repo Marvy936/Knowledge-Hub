@@ -337,3 +337,11 @@ Nie. Je to normálny cache state.
 7. Načo slúži gratuitous ARP?
 8. Prečo môže L2 loop spôsobiť rozsiahly výpadok?
 9. Ako by si diagnostikoval chýbajúcu ARP reply?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: OSI a TCP/IP model](osi-and-tcp-ip-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IPv4, IPv6 a subnetting →](ipv4-ipv6-subnetting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

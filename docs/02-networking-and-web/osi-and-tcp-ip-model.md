@@ -288,3 +288,11 @@ Ping testuje určitý ICMP flow, nie TCP, TLS ani aplikáciu.
 6. Aký je rozdiel medzi data plane a control plane?
 7. Prečo TLS a QUIC nemožno vždy zaradiť do jednej jednoduchej vrstvy?
 8. Ako by si diagnostikoval HTTPS timeout po vrstvách?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Performance a troubleshooting](../01-linux-and-systems/performance-and-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ethernet, MAC a ARP →](ethernet-mac-arp.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

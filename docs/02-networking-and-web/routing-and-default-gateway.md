@@ -480,3 +480,11 @@ ECMP, filtering a return-path differences môžu výsledok meniť.
 8. Prečo môže `rp_filter` blokovať asymmetric flow?
 9. Aké trade-offy má ECMP?
 10. Ako by si diagnostikoval packet, ktorý odchádza, ale odpoveď neprichádza?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: IPv4, IPv6 a subnetting](ipv4-ipv6-subnetting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: TCP a UDP →](tcp-and-udp.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

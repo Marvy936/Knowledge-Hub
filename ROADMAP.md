@@ -53,11 +53,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Networking and Web Fundamentals
 
-- [ ] OSI a TCP/IP model
-- [ ] Ethernet, MAC a ARP
-- [ ] IPv4, IPv6 a subnetting
-- [ ] Routing a default gateway
-- [ ] TCP a UDP
+- [x] [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md)
+- [x] [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md)
+- [x] [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md)
+- [x] [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md)
+- [x] [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md)
 - [ ] Ports a sockets
 - [ ] DNS
 - [ ] DHCP

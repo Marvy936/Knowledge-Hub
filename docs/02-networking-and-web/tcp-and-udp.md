@@ -549,3 +549,11 @@ Samotný protokol nemá TCP connection state, ale kernel socket, conntrack, NAT 
 8. Ako MTU ovplyvňuje TCP aj UDP?
 9. Prečo QUIC môže byť reliable, hoci beží nad UDP?
 10. Ako packet capture rozlíši timeout od aktívneho odmietnutia?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Routing a default gateway](routing-and-default-gateway.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

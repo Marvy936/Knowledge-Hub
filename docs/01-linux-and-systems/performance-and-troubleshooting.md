@@ -623,5 +623,5 @@ Dočasné detailné logovanie zostane zapnuté a vytvorí I/O, storage alebo pri
 
 **Navigácia**
 
-[← Predchádzajúca: SELinux a AppArmor](selinux-and-apparmor.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: SELinux a AppArmor](selinux-and-apparmor.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OSI a TCP/IP model →](../02-networking-and-web/osi-and-tcp-ip-model.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
