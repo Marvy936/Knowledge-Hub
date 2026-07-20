@@ -18,8 +18,14 @@ Odporúča sa najprv dokončiť [Linux and Systems](../01-linux-and-systems/READ
 8. [DHCP](dhcp.md)
 9. [NAT](nat.md)
 10. [Firewally](firewalls.md)
+11. [Proxy a reverse proxy](proxy-and-reverse-proxy.md)
+12. [Load balancing](load-balancing.md)
+13. [HTTP](http.md)
+14. [HTTPS, TLS, certificates a PKI](https-tls-certificates-pki.md)
+15. [REST APIs a WebSockets](rest-apis-and-websockets.md)
+16. [Network troubleshooting](network-troubleshooting.md)
 
-Ďalšie plánované kapitoly: proxy a reverse proxy, load balancing, HTTP, HTTPS/TLS/certificates/PKI, REST APIs, WebSockets a end-to-end network troubleshooting.
+Po tejto sekcii nasleduje Git and Automation Basics. Sieťové fundamenty sa neskôr znovu použijú pri kontajneroch, Kubernetes Services a Ingress, cloud networkingu, observability, service meshoch a security controls.
 
 ## Cieľ zvládnutia
 
@@ -41,7 +47,17 @@ Po dokončení sekcie má byť možné:
 - sledovať SNAT, DNAT, PAT a conntrack state vrátane return pathu a port exhaustion,
 - rozlíšiť NAT od firewall policy,
 - navrhnúť stateful alebo stateless firewall rules s least privilege a bezpečným rolloutom,
-- diagnostikovať transportný timeout pomocou routes, sockets, firewall counters a packet capture.
+- vysvetliť rozdiel medzi forward proxy, reverse proxy, L4 proxy a L7 proxy,
+- diagnostikovať proxy routing, forwarding headers, buffering, timeouts, retries a connection pools,
+- porovnať DNS, L4, L7 a client-side load balancing,
+- navrhnúť health checks, connection draining, affinity a retry budgets,
+- interpretovať HTTP methods, status codes, headers, caching a conditional requests,
+- rozlíšiť HTTP/1.1, HTTP/2 a HTTP/3 transportné a multiplexing vlastnosti,
+- vysvetliť TLS handshake, SNI, ALPN, certificate chain, trust store a certificate lifecycle,
+- navrhnúť bezpečný TLS termination, re-encryption alebo passthrough model,
+- navrhovať resource-oriented API s idempotency, concurrency control, pagination a compatibility policy,
+- prevádzkovať WebSocket connections s heartbeat, backpressure, reconnect a draining semantics,
+- viesť end-to-end network troubleshooting od používateľského symptómu po overenú nápravu.
 
 ## Stav
 
@@ -57,3 +73,9 @@ Po dokončení sekcie má byť možné:
 | DHCP | Learning | L2 |
 | NAT | Learning | L2 |
 | Firewally | Learning | L2 |
+| Proxy a reverse proxy | Learning | L2 |
+| Load balancing | Learning | L2 |
+| HTTP | Learning | L2 |
+| HTTPS, TLS, certificates a PKI | Learning | L2 |
+| REST APIs a WebSockets | Learning | L2 |
+| Network troubleshooting | Learning | L2 |
