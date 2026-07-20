@@ -297,3 +297,11 @@ Každý problém je urgentný, takže nikdy nevznikne kapacita na odstránenie k
 - Malé reverzibilné kroky zrýchľujú učenie a znižujú riziko.
 - Retrospektívy a postmortems majú hodnotu iba pri uzavretí opatrení.
 - Toil a technical debt treba systematicky zviditeľňovať a znižovať.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Feedback loops](feedback-loops.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: T-shaped, I-shaped a π-shaped engineer →](t-shaped-engineer.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

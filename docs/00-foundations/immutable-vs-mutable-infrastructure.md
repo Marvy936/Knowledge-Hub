@@ -231,3 +231,11 @@ Resource sa považuje za nahraditeľný, ale aplikácia ukladá nenahradené dá
 ## 17. Zhrnutie
 
 Mutable infraštruktúra sa vyvíja zmenami na mieste. Immutable infraštruktúra sa vyvíja nahrádzaním verziovaných resources. Immutable model znižuje drift a zlepšuje reprodukovateľnosť, ale vyžaduje automatizovaný build, rollout, externalizovaný stav a správne navrhnutú dátovú kompatibilitu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Desired state a reconciliation](desired-state-and-reconciliation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Toil a technical debt →](toil-and-technical-debt.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

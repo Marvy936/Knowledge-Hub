@@ -268,3 +268,11 @@ Funkčný DevOps model potrebuje viac než nástroje:
 - Shared ownership neznamená zrušenie špecializácie.
 - Malé zmeny, automatizované kontroly a observability umožňujú zvyšovať rýchlosť aj stabilitu.
 - Úspech sa meria výsledkami delivery a reliability, nie počtom používaných nástrojov.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Software Development Life Cycle](sdlc.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps lifecycle →](devops-lifecycle.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

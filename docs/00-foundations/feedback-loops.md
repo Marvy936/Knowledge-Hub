@@ -343,3 +343,11 @@ Pri návrhu sa pýtame:
 - Shift-left aj shift-right skracujú rôzne typy spätnej väzby.
 - Noise, oneskorenie a nejasný ownership slučku oslabujú.
 - Slučka je uzavretá až vtedy, keď sa vykoná korekcia a overí sa jej účinok.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Systems thinking](systems-thinking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Continuous improvement →](continuous-improvement.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

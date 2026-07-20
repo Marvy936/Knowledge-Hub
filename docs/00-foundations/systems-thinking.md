@@ -291,3 +291,11 @@ Technická zmena je kvalitná iba vtedy, keď rešpektuje správanie širšieho 
 - Lokálna optimalizácia môže zhoršiť globálny výsledok.
 - Treba sledovať závislosti, fronty, batch sizes a oneskorené dôsledky.
 - DevOps optimalizuje celý value stream od zmeny po používateľský výsledok.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Three Ways of DevOps](three-ways.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Feedback loops →](feedback-loops.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

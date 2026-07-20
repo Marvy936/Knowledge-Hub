@@ -189,3 +189,11 @@ Pri návrhu automatizácie si polož otázky:
 ## 15. Zhrnutie
 
 Imperatívny model opisuje cestu. Deklaratívny model opisuje cieľ. Moderné DevOps platformy často používajú deklaratívne rozhranie, ale pod ním stále vykonávajú imperatívne operácie. Správna voľba závisí od typu problému, požadovanej opakovateľnosti a spôsobu riadenia stavu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Automation mindset](automation-mindset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Idempotencia →](idempotency.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -245,3 +245,11 @@ Vyber jedno najväčšie obmedzenie a navrhni malý experiment na jeho zníženi
 ## 16. Zhrnutie
 
 Value Stream Mapping zviditeľňuje celý tok práce, najmä čakanie, fronty, handoffs a rework. Je to nástroj systems thinking: optimalizuje výsledok celého delivery systému, nie iba lokálnu rýchlosť jedného tímu alebo nástroja.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Toil a technical debt](toil-and-technical-debt.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DORA metrics →](dora-metrics.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

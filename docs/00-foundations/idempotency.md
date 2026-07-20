@@ -209,3 +209,11 @@ Pri návrhu operácie skontroluj:
 ## 16. Zhrnutie
 
 Idempotencia robí opakovanie bezpečnejším. Je základom spoľahlivej automatizácie, retry mechanizmov, configuration managementu a reconciliation systémov. Nestačí kontrolovať, či operácia prebehla; treba kontrolovať, aký výsledný stav po nej zostal.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Declarative vs. imperative prístup](declarative-vs-imperative.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Desired state a reconciliation →](desired-state-and-reconciliation.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

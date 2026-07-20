@@ -301,3 +301,11 @@ Používateľ patrí do skupiny `platform`, ale stále nevie zapisovať do zdie�
 3. Ako umask ovplyvní vytvorenie súboru s request mode `666`?
 4. Prečo môže sudo pravidlo na editor predstavovať plný root prístup?
 5. Akú úlohu majú `auth`, `account` a `session` moduly v PAM?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Shell, Bash, pipes, redirection a exit codes →](shell-bash-pipes-redirection-exit-codes.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

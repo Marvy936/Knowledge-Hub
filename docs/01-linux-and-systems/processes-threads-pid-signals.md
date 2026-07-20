@@ -217,3 +217,11 @@ Služba nereaguje a `systemctl stop` čaká až do timeoutu.
 3. Čo presne znamená zombie proces?
 4. Prečo je dlhodobý stav `D` dôležitý diagnostický signál?
 5. Aký je rozdiel medzi `SIGTERM` a `SIGKILL`?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Kernel a user space](kernel-and-user-space.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Filesystem hierarchy, inodes a links →](filesystem-hierarchy-inodes-links.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

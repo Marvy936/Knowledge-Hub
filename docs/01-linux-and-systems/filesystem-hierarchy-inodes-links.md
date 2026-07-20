@@ -242,3 +242,11 @@ Aplikácia hlási `No space left on device`, ale `df -h` ukazuje voľné miesto.
 3. Čo sa stane s dátami po `rm`, keď proces súbor stále drží otvorený?
 4. Prečo môže byť filesystem plný pri voľných dátových blokoch?
 5. Aký je rozdiel medzi hard linkom a symbolic linkom?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Procesy, thready, PID a signals](processes-threads-pid-signals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Users, groups, permissions, sudo a PAM →](users-groups-permissions-sudo-pam.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

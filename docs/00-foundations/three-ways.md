@@ -457,3 +457,11 @@ Nie. Sú to trvalé vlastnosti systému a predmet priebežného zlepšovania.
 - Feedback má hodnotu iba vtedy, keď je rýchly, dôveryhodný a akčný.
 - Incident je príležitosť zmeniť schopnosť systému, nie iba obnoviť aktuálnu službu.
 - Všetky tri princípy musia fungovať súčasne.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CALMS framework](calms.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Systems thinking →](systems-thinking.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

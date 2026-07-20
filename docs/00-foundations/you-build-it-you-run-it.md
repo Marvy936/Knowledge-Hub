@@ -272,3 +272,11 @@ Princíp možno zachovať aj pri centralizovanom NOC alebo Operations tíme, ak 
 - Špecializované platformové a SRE tímy zostávajú dôležité.
 - Zodpovednosť musí byť podporená autonómiou, kapacitou a nástrojmi.
 - Cieľom je uzavrieť spätnú väzbu medzi vývojom a prevádzkou.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ownership mindset](ownership-mindset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Automation mindset →](automation-mindset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

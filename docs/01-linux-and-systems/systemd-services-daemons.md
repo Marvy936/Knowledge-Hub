@@ -372,3 +372,11 @@ Služba funguje pri ručnom spustení, ale systemd ju opakovane reštartuje.
 3. Aký je rozdiel medzi `start`, `enable` a `daemon-reload`?
 4. Prečo je foreground daemon vhodnejší pre systemd než self-daemonizing proces?
 5. Ako cgroup pomáha systemd spravovať všetky child procesy služby?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Environment variables](environment-variables.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

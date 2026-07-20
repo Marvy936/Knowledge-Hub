@@ -244,3 +244,11 @@ Pri probléme kontroluj:
 ## 17. Zhrnutie
 
 Desired state vyjadruje zámer, observed state realitu a reconciliation mechanizmus medzi nimi. Tento model je základom Kubernetes, GitOps a mnohých declarative platforiem. Spoľahlivosť závisí od idempotencie, jasného ownershipu, konvergencie a dobre pozorovateľného statusu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Idempotencia](idempotency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Immutable vs. mutable infrastructure →](immutable-vs-mutable-infrastructure.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -325,3 +325,11 @@ Pri každom podozrivom procese sa pýtaj:
 ## 22. Zhrnutie
 
 DevOps anti-patterny sú najmä zlyhania socio-technického systému: nejasný ownership, dlhé handoffs, neskorý feedback, lokálna optimalizácia a automatizácia bez pochopenia procesu. Rozpoznať ich znamená sledovať celý tok hodnoty a výsledné správanie, nie názvy tímov ani počet používaných nástrojov.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DORA metrics](dora-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kernel a user space →](../01-linux-and-systems/kernel-and-user-space.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

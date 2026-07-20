@@ -396,3 +396,11 @@ Nie. Lean znamená znižovať odpad a optimalizovať tok hodnoty, nie maximalizo
 - Measurement má podporovať rozhodovanie, nie iba produkovať dashboardy.
 - Sharing premieňa individuálne skúsenosti na systémové znalosti.
 - Slabosť jedného piliera môže obmedziť hodnotu ostatných.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DevOps lifecycle](devops-lifecycle.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Three Ways of DevOps →](three-ways.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

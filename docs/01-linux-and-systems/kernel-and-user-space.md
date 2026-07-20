@@ -165,3 +165,11 @@ Chybou je začať príkazom `chmod 777`; tým sa maskuje mechanizmus a zväčšu
 3. Čo sa deje pri prechode z user space do kernel space?
 4. Prečo môže byť chyba kernel modulu závažnejšia než chyba bežného procesu?
 5. Ako `strace` pomáha odlíšiť aplikačný problém od kernelom vráteného erroru?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DevOps anti-patterns](../00-foundations/devops-anti-patterns.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Procesy, thready, PID a signals →](processes-threads-pid-signals.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

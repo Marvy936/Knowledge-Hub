@@ -336,3 +336,11 @@ Proces skončí exit code 0, ale neoverí skutočný stav cieľového systému.
 - Produkčná automatizácia potrebuje error handling, idempotenciu, guardrails a observability.
 - Nie každá automatizácia má byť univerzálna platforma.
 - Cieľom je znižovať toil a variabilitu bez nekontrolovaného rastu blast radiusu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: You build it, you run it](you-build-it-you-run-it.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Declarative vs. imperative prístup →](declarative-vs-imperative.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

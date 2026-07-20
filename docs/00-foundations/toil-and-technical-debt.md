@@ -238,3 +238,11 @@ Rutinná manuálna práca sa normalizuje ako povinnosť namiesto toho, aby sa sp
 ## 17. Zhrnutie
 
 Toil je opakovaná operačná spotreba ľudskej kapacity. Technical debt je vlastnosť systému, ktorá zvyšuje cenu budúcich zmien a prevádzky. DevOps a SRE sa nesnažia odstrániť všetku manuálnu prácu, ale systematicky znižovať prácu, ktorá neprináša trvalé zlepšenie.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Immutable vs. mutable infrastructure](immutable-vs-mutable-infrastructure.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Value stream mapping →](value-stream-mapping.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

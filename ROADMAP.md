@@ -8,36 +8,36 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### DevOps Foundations
 
-- [x] Software Development Life Cycle
-- [x] DevOps
-- [x] DevOps lifecycle
-- [x] CALMS framework
-- [x] Three Ways of DevOps
-- [x] Systems thinking
-- [x] Feedback loops
-- [x] Continuous improvement
-- [x] T-shaped, I-shaped a π-shaped engineer
-- [x] Ownership mindset
-- [x] You build it, you run it
-- [x] Automation mindset
-- [x] Declarative vs. imperative prístup
-- [x] Idempotencia
-- [x] Desired state a reconciliation
-- [x] Immutable vs. mutable infrastructure
-- [x] Toil a technical debt
-- [x] Value stream mapping
-- [x] DORA metrics
-- [x] DevOps anti-patterns
+- [x] [Software Development Life Cycle](docs/00-foundations/sdlc.md)
+- [x] [DevOps](docs/00-foundations/devops.md)
+- [x] [DevOps lifecycle](docs/00-foundations/devops-lifecycle.md)
+- [x] [CALMS framework](docs/00-foundations/calms.md)
+- [x] [Three Ways of DevOps](docs/00-foundations/three-ways.md)
+- [x] [Systems thinking](docs/00-foundations/systems-thinking.md)
+- [x] [Feedback loops](docs/00-foundations/feedback-loops.md)
+- [x] [Continuous improvement](docs/00-foundations/continuous-improvement.md)
+- [x] [T-shaped, I-shaped a π-shaped engineer](docs/00-foundations/t-shaped-engineer.md)
+- [x] [Ownership mindset](docs/00-foundations/ownership-mindset.md)
+- [x] [You build it, you run it](docs/00-foundations/you-build-it-you-run-it.md)
+- [x] [Automation mindset](docs/00-foundations/automation-mindset.md)
+- [x] [Declarative vs. imperative prístup](docs/00-foundations/declarative-vs-imperative.md)
+- [x] [Idempotencia](docs/00-foundations/idempotency.md)
+- [x] [Desired state a reconciliation](docs/00-foundations/desired-state-and-reconciliation.md)
+- [x] [Immutable vs. mutable infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md)
+- [x] [Toil a technical debt](docs/00-foundations/toil-and-technical-debt.md)
+- [x] [Value stream mapping](docs/00-foundations/value-stream-mapping.md)
+- [x] [DORA metrics](docs/00-foundations/dora-metrics.md)
+- [x] [DevOps anti-patterns](docs/00-foundations/devops-anti-patterns.md)
 
 ### Linux and Systems
 
-- [ ] Kernel a user space
-- [ ] Procesy, thready, PID a signals
-- [ ] Filesystem hierarchy, inodes a links
-- [ ] Users, groups, permissions, sudo a PAM
-- [ ] Shell, Bash, pipes, redirection a exit codes
-- [ ] Environment variables
-- [ ] systemd, services a daemons
+- [x] [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md)
+- [x] [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md)
+- [x] [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md)
+- [x] [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md)
+- [x] [Shell, Bash, pipes, redirection a exit codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md)
+- [x] [Environment variables](docs/01-linux-and-systems/environment-variables.md)
+- [x] [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md)
 - [ ] Package management
 - [ ] journald a logging
 - [ ] Storage, mounty a filesystems

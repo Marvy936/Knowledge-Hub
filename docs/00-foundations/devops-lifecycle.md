@@ -404,3 +404,11 @@ Výsledkom nemá byť iba diagram procesu, ale identifikácia úzkych miest a st
 - Deployment nie je dôkaz úspechu; úspech sa overuje až správaním služby a výsledkom pre používateľa.
 - Hlavným zdrojom lead time býva často čakanie a handoff, nie samotná technická práca.
 - Vyspelý proces vytvorí artifact raz a ten istý artifact promuje medzi prostrediami.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DevOps](devops.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CALMS framework →](calms.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -266,3 +266,11 @@ Platform tím vykonáva manuálne úlohy za ostatných namiesto poskytovania sel
 - Hranice medzi aplikačným a platformovým ownershipom musia byť explicitné.
 - Prevádzka, observability, dokumentácia a incident follow-up sú súčasťou produktu.
 - Zdravý ownership je kolektívny, nie závislý od jedného experta.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: T-shaped, I-shaped a π-shaped engineer](t-shaped-engineer.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: You build it, you run it →](you-build-it-you-run-it.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

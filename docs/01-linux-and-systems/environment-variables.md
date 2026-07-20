@@ -290,3 +290,11 @@ Nie automaticky. Environment môže byť dostupný cez procesné rozhrania a log
 3. Prečo môže mať systemd service iný PATH než používateľský shell?
 4. Ako locale ovplyvňuje automatizačné skripty?
 5. Prečo zmena Kubernetes ConfigMap nezmení environment existujúceho Podu?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Shell, Bash, pipes, redirection a exit codes](shell-bash-pipes-redirection-exit-codes.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: systemd, services a daemons →](systemd-services-daemons.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

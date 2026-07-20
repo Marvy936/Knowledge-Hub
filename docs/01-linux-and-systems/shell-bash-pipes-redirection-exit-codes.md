@@ -339,3 +339,11 @@ build | tee build.log
 3. Prečo sa líšia `>file 2>&1` a `2>&1 >file`?
 4. Čo presne prenáša pipe a ako vzniká backpressure?
 5. Prečo `set -euo pipefail` nie je úplný error-handling model?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Environment variables →](environment-variables.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

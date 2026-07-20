@@ -337,3 +337,11 @@ Aktuálny DORA model používa päť metrík: change lead time, deployment frequ
 - DORA: History of software delivery metrics
 - DORA Quick Check
 - DORA: Value stream mapping for software delivery
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Value stream mapping](value-stream-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps anti-patterns →](devops-anti-patterns.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

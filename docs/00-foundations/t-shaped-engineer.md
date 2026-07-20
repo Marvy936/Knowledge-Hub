@@ -478,3 +478,11 @@ Nie. Základný systémový model možno budovať cielene cez labs, incident ana
 - Tím má mať spoločnú horizontálu a dopĺňajúce sa vertikály.
 - Hĺbka vzniká cez implementáciu, zlyhania, troubleshooting a obhajobu tradeoffov.
 - Knowledge Hub má budovať horizontálu naprieč DevOps a L4 až L5 hĺbku vo vybraných oblastiach.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Continuous improvement](continuous-improvement.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ownership mindset →](ownership-mindset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -242,3 +242,11 @@ DevOps ovplyvňuje už návrh požiadaviek, architektúru, testovateľnosť a ow
 - Build, release, deployment a rollout sú rozdielne koncepty.
 - Prevádzka poskytuje informácie potrebné pre ďalší vývoj.
 - DevOps zlepšuje SDLC skrátením feedback loops, automatizáciou a zdieľanou zodpovednosťou.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps →](devops.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
