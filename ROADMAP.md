@@ -10,13 +10,13 @@ Checkbox označuje, či bola téma spracovaná a prakticky prejdená. Úroveň z
 
 - [x] Software Development Life Cycle
 - [x] DevOps
-- [ ] DevOps lifecycle
-- [ ] CALMS framework
-- [ ] Three Ways of DevOps
+- [x] DevOps lifecycle
+- [x] CALMS framework
+- [x] Three Ways of DevOps
 - [ ] Systems thinking
 - [ ] Feedback loops
 - [ ] Continuous improvement
-- [ ] T-shaped, I-shaped a π-shaped engineer
+- [x] T-shaped, I-shaped a π-shaped engineer
 - [ ] Ownership mindset
 - [ ] You build it, you run it
 - [ ] Automation mindset
