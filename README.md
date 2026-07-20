@@ -29,6 +29,7 @@ Knowledge-Hub/
 ├── labs/               # Praktické úlohy a experimenty
 ├── troubleshooting/    # Poruchové scenáre, diagnostika a root cause
 ├── templates/          # Jednotné šablóny dokumentov
+├── scripts/            # Generátory a validátory dokumentácie
 ├── ROADMAP.md          # Odporúčané poradie učenia
 ├── GLOSSARY.md         # Rýchle definície pojmov
 └── REVIEW.md           # Stav zvládnutia a opakovanie
@@ -36,10 +37,13 @@ Knowledge-Hub/
 
 ## Oblasti
 
+Aktívne sekcie:
+
+1. [DevOps Foundations](docs/00-foundations/README.md)
+2. [Linux and Systems](docs/01-linux-and-systems/README.md)
+
 Plánované hlavné domény:
 
-- DevOps foundations a SDLC
-- Linux a systems engineering
 - Networking a web fundamentals
 - Git a source control
 - Testing a software quality
@@ -59,7 +63,33 @@ Plánované hlavné domény:
 - GitOps a platform engineering
 - Automation a scripting
 
-Kompletné poradie je v [ROADMAP.md](ROADMAP.md).
+Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
+
+## Navigácia
+
+Každá aktívna sekcia má vlastný `README.md` s očíslovaným poradím článkov. Toto poradie je jediným zdrojom pre lineárnu navigáciu.
+
+Na konci učebných článkov sa generuje footer:
+
+```text
+← Predchádzajúca · ↑ Obsah sekcie · Nasledujúca →
+```
+
+Synchronizácia:
+
+```bash
+python scripts/update_navigation.py --write
+```
+
+Validácia bez zmeny súborov:
+
+```bash
+python scripts/update_navigation.py --check
+```
+
+GitHub Actions po zmene na `main` synchronizuje footery a klikateľné odkazy v roadmape. Pri pull requeste zlyhá kontrola, keď poradie, footery alebo roadmapa nie sú konzistentné.
+
+Laby a troubleshooting scenáre nepoužívajú globálne Previous/Next poradie. Ich footer smeruje späť na súvisiacu učebnú kapitolu a lokálny index danej praktickej oblasti.
 
 ## Úrovne zvládnutia
 
@@ -92,11 +122,6 @@ Level: L4
 ```
 
 To znamená, že téma bola prakticky zvládnutá, ale potrebuje zopakovanie.
-
-## Prvé kapitoly
-
-1. [Software Development Life Cycle](docs/00-foundations/sdlc.md)
-2. [DevOps](docs/00-foundations/devops.md)
 
 ## Pravidlá pre citlivé údaje
 
