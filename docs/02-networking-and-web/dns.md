@@ -362,3 +362,11 @@ Nie. DNS alias iba ovplyvní resolution; HTTP redirect je aplikačná odpoveď.
 8. Ako split-horizon DNS komplikuje troubleshooting?
 9. Aký je rozdiel medzi `NOERROR` bez odpovede a `NXDOMAIN`?
 10. Prečo DNS load balancing nie je connection-aware load balancing?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ports a sockets](ports-and-sockets.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DHCP →](dhcp.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

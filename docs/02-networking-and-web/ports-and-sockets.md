@@ -371,3 +371,11 @@ Môže, ale bez TCP handshake a reliability semantics.
 6. Prečo hostové `ss` nemusí vidieť socket kontajnera?
 7. Čo môže spôsobovať `connection refused` a čo timeout?
 8. Prečo listening port nie je dôkaz aplikačného health?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: TCP a UDP](tcp-and-udp.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DNS →](dns.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

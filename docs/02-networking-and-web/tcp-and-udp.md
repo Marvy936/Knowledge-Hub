@@ -555,5 +555,5 @@ Samotný protokol nemá TCP connection state, ale kernel socket, conntrack, NAT 
 
 **Navigácia**
 
-[← Predchádzajúca: Routing a default gateway](routing-and-default-gateway.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Routing a default gateway](routing-and-default-gateway.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ports a sockets →](ports-and-sockets.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

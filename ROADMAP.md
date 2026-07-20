@@ -58,11 +58,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md)
 - [x] [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md)
 - [x] [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md)
-- [ ] Ports a sockets
-- [ ] DNS
-- [ ] DHCP
-- [ ] NAT
-- [ ] Firewally
+- [x] [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md)
+- [x] [DNS](docs/02-networking-and-web/dns.md)
+- [x] [DHCP](docs/02-networking-and-web/dhcp.md)
+- [x] [NAT](docs/02-networking-and-web/nat.md)
+- [x] [Firewally](docs/02-networking-and-web/firewalls.md)
 - [ ] Proxy a reverse proxy
 - [ ] Load balancing
 - [ ] HTTP

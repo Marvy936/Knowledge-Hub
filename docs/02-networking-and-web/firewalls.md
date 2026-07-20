@@ -418,3 +418,11 @@ Nie. Stále existujú routes, ACLs, host firewall, bind address a aplikácia.
 8. Aký je rozdiel medzi L4 firewallom a WAF?
 9. Ako bezpečne nasadiť default-deny policy na remote server?
 10. Prečo firewall allow nie je dôkaz aplikačného health?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: NAT](nat.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

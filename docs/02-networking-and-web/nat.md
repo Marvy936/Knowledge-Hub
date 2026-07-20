@@ -367,3 +367,11 @@ Nie. Bezpečnosť zabezpečuje firewall a access policy.
 8. Ako conntrack súvisí s NAT?
 9. Prečo NAT nie je firewall?
 10. Aký problém rieši NAT64/DNS64?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DHCP](dhcp.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Firewally →](firewalls.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

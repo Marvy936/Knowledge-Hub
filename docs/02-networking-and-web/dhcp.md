@@ -355,3 +355,11 @@ Môže byť nesprávny prefix, DNS, gateway, lease renewal alebo classless route
 8. Prečo IP adresa sama nedokazuje správnu DHCP konfiguráciu?
 9. Ako packet capture odlíši client, relay a server problém?
 10. Prečo PXE nepoužíva DHCP na prenos samotného boot image?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DNS](dns.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: NAT →](nat.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
