@@ -7,6 +7,7 @@
 - Target level:
 - Estimated time:
 - Prerequisites:
+- Related topic:
 
 ## Cieľ
 
@@ -63,3 +64,11 @@ Odstránenie vytvorených resources a overenie, že nezostali vedľajšie artefa
 2. Ako sa overil skutočný stav?
 3. Ktorá vrstva spôsobila poruchu?
 4. Ako by sa riešenie zmenilo v produkcii?
+
+---
+
+**Navigácia**
+
+[Súvisiaca učebná téma ↑](../../docs/sekcia/tema.md) · [Zoznam labov ↑](README.md)
+
+Lab sa nezaraďuje do lineárnej Previous/Next navigácie učebných článkov. Footer musí smerovať na súvisiacu teoretickú kapitolu a index labov v aktuálnej doméne.
