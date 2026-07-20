@@ -383,3 +383,11 @@ Nie nevyhnutne. Traffic môže byť v inom namespace, na inom interface alebo sp
 6. Prečo `getent hosts` a `dig` nemusia dať rovnaký diagnostický význam?
 7. Ako tcpdump pomáha lokalizovať vrstvu zlyhania?
 8. Prečo malé packets môžu fungovať pri MTU probléme, ale veľké nie?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Memory a CPU fundamentals](cpu-and-memory-fundamentals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SSH →](ssh.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

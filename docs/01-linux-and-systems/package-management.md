@@ -347,3 +347,11 @@ Nie. Môže zhoršiť súbežnú alebo nedokončenú transakciu.
 6. Ako zistíš, ktorý package vlastní konkrétny súbor?
 7. Prečo sa package database zamyká?
 8. Ako sa package management mení pri immutable infrastructure?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: systemd, services a daemons](systemd-services-daemons.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: journald a logging →](journald-and-logging.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

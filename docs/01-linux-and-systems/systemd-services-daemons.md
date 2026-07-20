@@ -378,5 +378,5 @@ Služba funguje pri ručnom spustení, ale systemd ju opakovane reštartuje.
 
 **Navigácia**
 
-[← Predchádzajúca: Environment variables](environment-variables.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Environment variables](environment-variables.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Package management →](package-management.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

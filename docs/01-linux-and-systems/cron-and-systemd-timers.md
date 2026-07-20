@@ -417,3 +417,11 @@ Potrebuje minimálne success/failure, duration, freshness a business outcome sig
 6. Ako `RandomizedDelaySec` chráni fleet a dependencies?
 7. Kedy je vhodnejší systemd timer než cron?
 8. Kedy už treba workflow scheduler namiesto oboch?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: SSH](ssh.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

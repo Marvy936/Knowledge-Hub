@@ -38,13 +38,13 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Shell, Bash, pipes, redirection a exit codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md)
 - [x] [Environment variables](docs/01-linux-and-systems/environment-variables.md)
 - [x] [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md)
-- [ ] Package management
-- [ ] journald a logging
-- [ ] Storage, mounty a filesystems
-- [ ] Memory a CPU fundamentals
-- [ ] Linux networking
-- [ ] SSH
-- [ ] Cron a systemd timers
+- [x] [Package management](docs/01-linux-and-systems/package-management.md)
+- [x] [journald a logging](docs/01-linux-and-systems/journald-and-logging.md)
+- [x] [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md)
+- [x] [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md)
+- [x] [Linux networking](docs/01-linux-and-systems/linux-networking.md)
+- [x] [SSH](docs/01-linux-and-systems/ssh.md)
+- [x] [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md)
 - [ ] Namespaces
 - [ ] cgroups
 - [ ] Linux capabilities

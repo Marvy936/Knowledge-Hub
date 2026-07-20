@@ -450,3 +450,11 @@ Chybná policy môže zablokovať nové sessions. Najprv validuj a ponechaj reco
 6. Prečo `ssh-keyscan` nie je dôkaz identity?
 7. Ako zistíš efektívnu client a server konfiguráciu?
 8. Ako navrhneš obmedzený automation key bez interactive shellu?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Linux networking](linux-networking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cron a systemd timers →](cron-and-systemd-timers.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

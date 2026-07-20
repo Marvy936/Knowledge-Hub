@@ -341,3 +341,11 @@ Nie. Rieši lokálny zber a query; retention, korelácia a vyhľadávanie naprie
 6. Ako sa journald líši od logrotate?
 7. Prečo je synchronizovaný čas kritický pri incidentoch?
 8. Ktoré citlivé údaje nesmú byť v logoch?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Package management](package-management.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Storage, mounty a filesystems →](storage-mounts-and-filesystems.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

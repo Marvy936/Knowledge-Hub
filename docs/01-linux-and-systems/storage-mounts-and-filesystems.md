@@ -365,3 +365,11 @@ Nie. Je to obmedzenie pri priamom exec z mountu, nie univerzálny zákaz interpr
 6. Prečo journaling nie je backup?
 7. Ktoré dve vrstvy treba rozšíriť pri LVM + filesystem scenári?
 8. Prečo je network filesystem odlišný failure domain?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: journald a logging](journald-and-logging.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Memory a CPU fundamentals →](cpu-and-memory-fundamentals.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

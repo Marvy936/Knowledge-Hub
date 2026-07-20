@@ -325,3 +325,11 @@ Je to mechanizmus reakcie na memory exhaustion.
 6. Čo znamená vysoké `si` a `so` vo `vmstat`?
 7. Prečo host free memory nevylučuje cgroup OOM?
 8. Ako PSI dopĺňa utilization metriky?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Storage, mounty a filesystems](storage-mounts-and-filesystems.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux networking →](linux-networking.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
