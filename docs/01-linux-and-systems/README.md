@@ -22,11 +22,11 @@ Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md
 12. [Linux networking](linux-networking.md)
 13. [SSH](ssh.md)
 14. [Cron a systemd timers](cron-and-systemd-timers.md)
-15. [Linux Namespaces](namespaces.md)
-16. [Linux Control Groups — cgroups](cgroups.md)
-17. [Linux Capabilities](linux-capabilities.md)
-18. [SELinux and AppArmor](selinux-and-apparmor.md)
-19. [Linux Performance and Troubleshooting](performance-and-troubleshooting.md)
+15. [Namespaces](namespaces.md)
+16. [cgroups](cgroups.md)
+17. [Linux capabilities](linux-capabilities.md)
+18. [SELinux a AppArmor](selinux-and-apparmor.md)
+19. [Performance a troubleshooting](performance-and-troubleshooting.md)
 
 Po tejto sekcii nasleduje samostatná oblasť Networking and Web Fundamentals, ktorá rozšíri Linux packet-path základ o protokoly, subnetting, DNS, HTTP, TLS, proxies a load balancing.
 
@@ -72,8 +72,8 @@ Po dokončení sekcie má byť možné:
 | Linux networking | Learning | L2 |
 | SSH | Learning | L2 |
 | Cron a systemd timers | Learning | L2 |
-| Linux Namespaces | Learning | L2 |
-| Linux Control Groups — cgroups | Learning | L2 |
-| Linux Capabilities | Learning | L2 |
-| SELinux and AppArmor | Learning | L2 |
-| Linux Performance and Troubleshooting | Learning | L2 |
+| Namespaces | Learning | L2 |
+| cgroups | Learning | L2 |
+| Linux capabilities | Learning | L2 |
+| SELinux a AppArmor | Learning | L2 |
+| Performance a troubleshooting | Learning | L2 |
