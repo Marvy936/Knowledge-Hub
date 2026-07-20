@@ -42,10 +42,10 @@ Aktívne sekcie:
 
 1. [DevOps Foundations](docs/00-foundations/README.md)
 2. [Linux and Systems](docs/01-linux-and-systems/README.md)
+3. [Networking and Web Fundamentals](docs/02-networking-and-web/README.md)
 
 Plánované hlavné domény:
 
-- Networking a web fundamentals
 - Git a source control
 - Testing a software quality
 - CI/CD a release engineering
