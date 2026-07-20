@@ -6,6 +6,7 @@
 - Severity:
 - Environment:
 - Related components:
+- Related topic:
 
 ## Symptóm
 
@@ -60,3 +61,11 @@ Zmeny v automatizácii, testovaní, monitoringu, dokumentácii alebo architektú
 ## Poučenie
 
 Čo bolo pri diagnostike efektívne, čo zavádzalo a čo treba nabudúce zmeniť.
+
+---
+
+**Navigácia**
+
+[Súvisiaca učebná téma ↑](../../docs/sekcia/tema.md) · [Zoznam troubleshooting scenárov ↑](README.md)
+
+Troubleshooting dokument sa nezaraďuje do lineárnej Previous/Next navigácie učebných článkov. Footer musí smerovať na teoretickú kapitolu, ktorá vysvetľuje príslušný mechanizmus, a na index scenárov danej domény.
