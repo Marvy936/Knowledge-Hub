@@ -468,3 +468,11 @@ Profily zahŕňajú execute transitions, capabilities, network a ďalšie pravid
 7. Ako sa líši mentálny model SELinux a AppArmor?
 8. Prečo `chmod 777` nemusí vyriešiť denied operáciu?
 9. Ako by si diagnostikoval službu, ktorá funguje ručne, ale nie pod systemd?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Linux Capabilities](linux-capabilities.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Performance and Troubleshooting →](performance-and-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

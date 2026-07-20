@@ -501,3 +501,11 @@ Systemd je owner hierarchy. Použi unit properties alebo korektnú delegáciu.
 7. Čo meria PSI v cgroup?
 8. Prečo je delegácia dôležitá pri container runtime?
 9. Ako sa Kubernetes resource settings dostanú až ku kernel cgroup fields?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Linux Namespaces](namespaces.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Capabilities →](linux-capabilities.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

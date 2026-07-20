@@ -370,3 +370,11 @@ Je iba jedna vrstva izolácie. Potrebuje doplnenie resource, syscall a access-co
 6. Ako user namespace umožňuje rootless containers?
 7. Prečo `ss` na hoste nemusí ukázať sockets kontajnera?
 8. Ktoré ďalšie security mechanizmy musia namespaces dopĺňať?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cron a systemd timers](cron-and-systemd-timers.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Control Groups — cgroups →](cgroups.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -47,7 +47,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md)
 - [ ] Namespaces
 - [ ] cgroups
-- [ ] Linux capabilities
+- [x] [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md)
 - [ ] SELinux a AppArmor
 - [ ] Performance a troubleshooting
 

@@ -617,3 +617,11 @@ Dočasné detailné logovanie zostane zapnuté a vytvorí I/O, storage alebo pri
 8. Prečo restart môže poškodiť troubleshooting?
 9. Kedy použiť profiler a kedy packet capture?
 10. Ako overíš, že náprava skutočne obnovila používateľský výsledok?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: SELinux and AppArmor](selinux-and-apparmor.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

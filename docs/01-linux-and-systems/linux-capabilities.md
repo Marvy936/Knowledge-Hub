@@ -403,3 +403,11 @@ Môže ísť o DAC, ACL, SELinux/AppArmor, seccomp, namespace scope alebo read-o
 7. Aký je rozdiel medzi SUID executable a file capability?
 8. Prečo je `CAP_SYS_ADMIN` problematická?
 9. Ako by si diagnostikoval `Permission denied` pri bind na port 80?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Linux Control Groups — cgroups](cgroups.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SELinux and AppArmor →](selinux-and-apparmor.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

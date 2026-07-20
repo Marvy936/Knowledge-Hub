@@ -423,5 +423,5 @@ Potrebuje minimálne success/failure, duration, freshness a business outcome sig
 
 **Navigácia**
 
-[← Predchádzajúca: SSH](ssh.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: SSH](ssh.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linux Namespaces →](namespaces.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
