@@ -108,6 +108,18 @@ Odkaz na príslušný dokument v `labs/`.
 
 Najdôležitejšie informácie na rýchle zopakovanie.
 
+## Glossary impact
+
+Pred dokončením kapitoly skontroluj `GLOSSARY.md`:
+
+- pridaj nové opakovane použiteľné technické pojmy,
+- existujúce heslá spresni, ak kapitola priniesla presnejší mechanizmus,
+- každé heslo podľa možnosti prepoj na autoritatívnu kapitolu,
+- nepridávaj jednorazové názvy príkazov alebo polí bez širšieho významu,
+- ak kapitola glossary nemení, explicitne to potvrď pri review.
+
+Glossary sa má aktualizovať v rovnakom pracovnom bloku ako článok, nie odložene v samostatnom neurčitom backloge.
+
 ## Zdroje
 
 Primárne zdroje: oficiálna dokumentácia, štandardy, RFC alebo pôvodné technické materiály.
