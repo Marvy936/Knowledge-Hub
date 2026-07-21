@@ -342,4 +342,9 @@ Relevantné pojmy: Internet Gateway, public IPv4 path, egress-only Internet Gate
 - [Compare NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: VPC, subnets a route tables](vpc-subnets-route-tables.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Security Groups a Network ACLs →](security-groups-network-acls.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

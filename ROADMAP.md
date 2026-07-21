@@ -248,10 +248,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md)
 - [x] [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md)
 - [x] [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md)
-- [ ] IAM
-- [ ] VPC, subnets a route tables
-- [ ] Internet Gateway a NAT Gateway
-- [ ] Security Groups a Network ACLs
+- [x] [IAM](docs/11-cloud-and-aws/iam.md)
+- [x] [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md)
+- [x] [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md)
+- [x] [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md)
 - [ ] EC2 a Auto Scaling
 - [ ] Elastic Load Balancing
 - [ ] S3, EBS a EFS

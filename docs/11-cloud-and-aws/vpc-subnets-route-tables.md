@@ -350,4 +350,9 @@ Relevantné pojmy: Amazon VPC, subnet, public subnet, private subnet, isolated s
 - [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: IAM](iam.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Internet Gateway a NAT Gateway →](internet-gateway-nat-gateway.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

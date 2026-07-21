@@ -349,4 +349,9 @@ Relevantné pojmy: Security Group, stateful firewall, SG reference, Security Gro
 - [VPC network inventory and analysis](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-inventory.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Internet Gateway a NAT Gateway](internet-gateway-nat-gateway.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

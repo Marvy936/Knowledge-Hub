@@ -408,4 +408,9 @@ Relevantné pojmy: IAM principal, IAM user, IAM role, role trust policy, identit
 - [IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AWS Organizations a accounts](aws-organizations-accounts.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: VPC, subnets a route tables →](vpc-subnets-route-tables.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

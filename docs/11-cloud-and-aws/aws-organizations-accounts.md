@@ -544,5 +544,5 @@ Relevantné pojmy: AWS account, AWS Organizations, organization, management acco
 
 **Navigácia**
 
-[← Predchádzajúca: High availability a disaster recovery](high-availability-disaster-recovery.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: High availability a disaster recovery](high-availability-disaster-recovery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IAM →](iam.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
