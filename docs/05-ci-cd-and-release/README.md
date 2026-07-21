@@ -25,8 +25,14 @@ Odporúča sa najprv dokončiť:
 7. [Quality gates a approvals](quality-gates-and-approvals.md)
 8. [Pipeline as Code](pipeline-as-code.md)
 9. [Reusable a parallel pipelines](reusable-and-parallel-pipelines.md)
+10. [Artifact versioning](artifact-versioning.md)
+11. [Semantic Versioning](semantic-versioning.md)
+12. [Release management](release-management.md)
+13. [Recreate deployment](recreate-deployment.md)
+14. [Rolling update](rolling-update.md)
+15. [Blue-green deployment](blue-green-deployment.md)
 
-Nasledujúci blok rozšíri sekciu o artifact versioning, Semantic Versioning, release management a konkrétne deployment stratégie od recreate a rolling update cez blue-green, canary, ring a shadow deployment až po feature flags, progressive delivery a rollback/roll-forward.
+Posledný blok sekcie doplní canary, A/B, shadow a ring deployment, feature flags, progressive delivery, rollback/roll-forward a databázovú kompatibilitu počas deploymentu.
 
 ## Cieľ zvládnutia
 
@@ -62,7 +68,19 @@ Po dokončení aktuálneho bloku má byť možné:
 - spravovať pipeline definície ako versionovaný a testovaný code s pinningom, least privilege a Policy as Code,
 - testovať reusable templates, dynamic/child pipelines a resolved pipeline configuration,
 - navrhnúť reusable job/workflow contract s versioningom a backward compatibility,
-- používať matrix pipelines, test sharding a pipeline concurrency bez race conditions a combinatorial explosion.
+- používať matrix pipelines, test sharding a pipeline concurrency bez race conditions a combinatorial explosion,
+- rozlíšiť logical artifact version od content digestu a navrhnúť immutable artifact identity,
+- používať build metadata, provenance, podpisy, multi-platform manifests a retention policy na podporu auditu a rollbacku,
+- aplikovať build-once-promote-many bez rebuildu release candidate počas promotion,
+- vysvetliť Semantic Versioning ako compatibility kontrakt a správne interpretovať MAJOR, MINOR, PATCH, pre-release a build metadata,
+- identifikovať public API aj mimo programového rozhrania a navrhnúť deprecation a migration lifecycle,
+- navrhnúť release unit, release record, cadence, candidate, manifest, approvals, communication a support lifecycle,
+- oddeliť build, deployment a release a riadiť emergency release bez obídenia identity a evidence,
+- posúdiť recreate deployment podľa downtime budgetu, startup/readiness, maintenance režimu a recovery schopnosti,
+- navrhnúť rolling update s vhodným batchom, surge/unavailable limitmi, mixed-version compatibility a graceful termination,
+- používať version-level telemetry, topology-aware rollout, pause/abort a bezpečný rolling rollback alebo roll-forward,
+- navrhnúť blue-green deployment s environment parity, riadeným traffic cutoverom, warm standby a routing rollbackom,
+- koordinovať databázu, cache, sessions, background workers a scheduled jobs medzi blue a green prostrediami.
 
 ## Stav
 
@@ -77,3 +95,9 @@ Po dokončení aktuálneho bloku má byť možné:
 | Quality gates a approvals | Learning | L2 |
 | Pipeline as Code | Learning | L2 |
 | Reusable a parallel pipelines | Learning | L2 |
+| Artifact versioning | Learning | L2 |
+| Semantic Versioning | Learning | L2 |
+| Release management | Learning | L2 |
+| Recreate deployment | Learning | L2 |
+| Rolling update | Learning | L2 |
+| Blue-green deployment | Learning | L2 |
