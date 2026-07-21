@@ -180,12 +180,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md)
 - [x] [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md)
 - [x] [Container security](docs/08-container-fundamentals-and-docker/container-security.md)
-- [ ] Docker architecture
-- [ ] Dockerfile
-- [ ] Build context a layer cache
-- [ ] Multi-stage builds
-- [ ] Volumes a bind mounts
-- [ ] Docker networks a port publishing
+- [x] [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md)
+- [x] [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md)
+- [x] [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md)
+- [x] [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md)
+- [x] [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md)
+- [x] [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md)
 - [ ] Environment variables a health checks
 - [ ] Docker Compose
 - [ ] BuildKit a Buildx

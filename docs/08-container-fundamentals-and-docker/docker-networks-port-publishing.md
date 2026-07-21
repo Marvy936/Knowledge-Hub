@@ -503,3 +503,11 @@ Relevantné pojmy: Docker network, network driver, default bridge, user-defined 
 - [Port publishing and mapping](https://docs.docker.com/engine/network/port-publishing/)
 - [Bridge network driver](https://docs.docker.com/engine/network/drivers/bridge/)
 - [Docker container run](https://docs.docker.com/reference/cli/docker/container/run/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Volumes a bind mounts](volumes-bind-mounts.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

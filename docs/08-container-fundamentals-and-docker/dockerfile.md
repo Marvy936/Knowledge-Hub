@@ -456,3 +456,11 @@ Relevantné pojmy: Dockerfile, Dockerfile frontend, build instruction, base imag
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 - [Dockerfile overview](https://docs.docker.com/build/concepts/dockerfile/)
 - [Building best practices](https://docs.docker.com/build/building/best-practices/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Docker architecture](docker-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Build context a layer cache →](build-context-layer-cache.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

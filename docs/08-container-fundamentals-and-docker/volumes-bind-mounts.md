@@ -427,3 +427,11 @@ Relevantné pojmy: Docker volume, named volume, anonymous volume, Docker bind mo
 - [Volumes](https://docs.docker.com/engine/storage/volumes/)
 - [Bind mounts](https://docs.docker.com/engine/storage/bind-mounts/)
 - [Compose volumes](https://docs.docker.com/reference/compose-file/volumes/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Multi-stage builds](multi-stage-builds.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Docker networks a port publishing →](docker-networks-port-publishing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

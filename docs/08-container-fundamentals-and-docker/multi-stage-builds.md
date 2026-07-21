@@ -369,3 +369,11 @@ Relevantné pojmy: multi-stage build, build stage, final stage, named stage, bui
 - [Multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
 - [Dockerfile `COPY --from`](https://docs.docker.com/reference/dockerfile/#copy---from)
 - [Building best practices](https://docs.docker.com/build/building/best-practices/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Build context a layer cache](build-context-layer-cache.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Volumes a bind mounts →](volumes-bind-mounts.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

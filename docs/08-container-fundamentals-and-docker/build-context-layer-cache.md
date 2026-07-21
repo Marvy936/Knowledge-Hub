@@ -434,3 +434,11 @@ Relevantné pojmy: build context, context root, `.dockerignore`, named context, 
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 - [Using the build cache](https://docs.docker.com/get-started/docker-concepts/building-images/using-the-build-cache/)
 - [Build cache optimization](https://docs.docker.com/build/cache/optimize/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Dockerfile](dockerfile.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Multi-stage builds →](multi-stage-builds.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -479,5 +479,5 @@ Relevantné pojmy: container threat model, container security baseline, trusted 
 
 **Navigácia**
 
-[← Predchádzajúca: Container storage](container-storage.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Container storage](container-storage.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Docker architecture →](docker-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

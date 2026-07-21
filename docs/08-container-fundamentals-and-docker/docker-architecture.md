@@ -391,3 +391,11 @@ Relevantné pojmy: Docker Engine, Docker CLI, Docker daemon, Engine API, Docker 
 - [Docker overview and architecture](https://docs.docker.com/get-started/docker-overview/)
 - [Alternative container runtimes](https://docs.docker.com/engine/daemon/alternative-runtimes/)
 - [Docker daemon configuration](https://docs.docker.com/engine/daemon/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Container security](container-security.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Dockerfile →](dockerfile.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
