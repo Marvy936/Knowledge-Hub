@@ -70,6 +70,10 @@ Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, 
 
 Versionovaný distribuovateľný balík modules, plugins, roles, playbooks, documentation a ďalšieho executable Ansible contentu. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Ansible collection artifact
+
+Versionovaný distribuovateľný balík collection contentu obsahujúci roles, modules, plugins, playbooks, metadata a dokumentáciu, ktorý má byť vytvorený z testovaného commitu a spotrebovaný cez explicitnú verziu. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Ansible conditional
 
 Expression, typicky v `when`, ktorá rozhoduje, či sa task, block alebo iný podporovaný content vykoná pre konkrétny host a item context. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
@@ -90,6 +94,10 @@ Task zaradený do handler queue na základe notification od tasku, ktorý report
 
 Connection address alebo hostname použitý Ansible transportom pre inventory host, ktorý môže byť odlišný od jeho logickej identity `inventory_hostname`. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
+## Ansible idempotencia
+
+Vlastnosť automation runu, pri ktorej opakovanie s rovnakými vstupmi a požadovaným stavom nevykoná ďalšie neplánované zmeny a pravdivo reportuje no-change výsledok. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Ansible inventory
 
 Výsledný runtime model hosts, groups, connection metadata a variables vytvorený z jedného alebo viacerých inventory sources. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
@@ -106,6 +114,10 @@ Executable automation jednotka implementujúca konkrétnu operáciu a vracajúca
 
 YAML dokument obsahujúci jeden alebo viac plays, ktorý zaznamenáva opakovateľný configuration, deployment alebo orchestration workflow. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
 
+## Ansible role
+
+Reusable Ansible capability organizujúca súvisiace defaults, variables, tasks, handlers, templates, files a metadata do definovaného contractu. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Ansible task
 
 Jedna deklarovaná action s module arguments a execution controls aplikovaná na relevantný host context v playi. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
@@ -113,6 +125,10 @@ Jedna deklarovaná action s module arguments a execution controls aplikovaná na
 ## Ansible variable
 
 Pomenovaná hodnota použitá na parametrizáciu playbooku, role, inventory, tasku alebo template, ktorej výsledok závisí od source, scope a precedence. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
+## Ansible Vault
+
+Mechanizmus šifrovania Ansible variables alebo files pre ochranu citlivého obsahu at rest; nechráni automaticky plaintext počas executionu, logs ani výslednú konfiguráciu na targete. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Anycast
 
@@ -185,6 +201,10 @@ Súbor rozhraní, vstupov, identities a trust boundaries, cez ktoré môže akt�
 ## Authoritative source — IaC
 
 Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu požadovaného infraštruktúrneho stavu; manuálne runtime zmeny sa voči nemu musia adoptovať, vrátiť alebo explicitne vyriešiť. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Authoritative writer
+
+Jediný systém alebo workflow oprávnený meniť konkrétny mutable object alebo attribute; viac writerov vytvára ownership conflict a perpetual drift. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## Automated canary analysis
 
@@ -262,6 +282,10 @@ Quality gate, ktorého neúspech zastaví merge, promotion alebo deployment. Má
 
 Deployment stratégia s dvoma oddelenými produkčne relevantnými targetmi, kde sa nová verzia pripraví v neaktívnej farbe a následne sa na ňu riadene presmeruje traffic. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
 
+## Bootstrap configuration
+
+Minimálna počiatočná konfigurácia potrebná na bezpečné pripojenie targetu k dlhodobému management workflowu, napríklad identity, trusted CA, management transport a inventory registration. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Bounding set — capability bounding set
 
 Horná hranica Linux capabilities, ktoré proces a jeho potomkovia môžu získať. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
@@ -281,6 +305,10 @@ Serverová policy obmedzujúca aktualizáciu dôležitej branch pomocou controls
 ## Branch rule — GitLab
 
 Policy objekt aplikovaný na konkrétny branch alebo pattern, ktorý môže riadiť push, merge, force-push a Code Owner požiadavky. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Break-glass secret
+
+Silno chránený emergency credential dostupný cez auditovaný a obmedzený recovery postup, po ktorého použití nasleduje kontrola a typicky rotation. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Broadcast domain
 
@@ -386,6 +414,10 @@ Kernel mechanizmus na hierarchické zoskupovanie procesov a riadenie ich CPU, me
 
 Unified cgroup hierarchy s konzistentnejším modelom controllerov a delegácie než cgroup v1. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
 
+## Change budget — Ansible
+
+Explicitný limit alebo allowlist opakovaných zmien povolených pri idempotency teste; všetky ostatné recurring changes sa považujú za chybu alebo drift. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Change fail rate
 
 Podiel deploymentov, ktoré spôsobia degradáciu služby a vyžadujú nápravu. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
@@ -470,6 +502,10 @@ Používateľ alebo skupina priradená k paths v `CODEOWNERS`; pri správnej pro
 
 Deterministické priradenie subjektu do rollout alebo experiment skupiny pomocou stabilnej identity a versionovaného pravidla. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md) a [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Collection dependency — Ansible
+
+Versionovaný vzťah collection k inej collection, ktorý ovplyvňuje resolved executable content, compatibility a supply-chain risk. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Collision domain
 
 Oblasť zdieľaného Ethernet média, v ktorej môžu transmissions kolidovať. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
@@ -513,6 +549,10 @@ Coverage metrika sledujúca, či jednotlivé boolean podmienky nadobudli relevan
 ## Configuration drift — Terraform
 
 Neželaný rozdiel medzi deklaráciami, ktoré majú reprezentovať rovnaký environment alebo policy, napríklad divergentné branches, repositories alebo neaplikované emergency zmeny. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Configuration management
+
+Riadenie požadovaného runtime stavu operačných systémov, aplikácií, zariadení alebo služieb pomocou opakovateľných a overiteľných zmien. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## Congestion control
 
@@ -610,6 +650,10 @@ Referenčný variant experimentu reprezentujúci existujúce alebo baseline spr�
 
 Komponent porovnávajúci desired state s aktuálnym stavom a vykonávajúci korekčné akcie. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
 
+## Convergence — configuration management
+
+Proces, pri ktorom opakované pozorovanie a aplikovanie automation vedie target k stabilnému požadovanému stavu. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Cookie
 
 HTTP state token, ktorý server nastaví cez `Set-Cookie` a klient následne posiela podľa domain, path, security a SameSite scope. Pozri [HTTP](docs/02-networking-and-web/http.md).
@@ -642,9 +686,17 @@ Najdlhšia dependency cesta od triggeru po požadovaný výsledok pipeline. Urč
 
 Explicitné rozhranie medzi samostatnými Terraform states, typicky cez publikované outputs alebo externý registry, ktoré musí mať ownership, compatibility a access policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
+## Cross-tool contract
+
+Úzke, versionované rozhranie medzi automation systémami, napríklad Terraform outputs publikované ako inventory metadata pre Ansible, s explicitným ownershipom a compatibility policy. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## CSR — Certificate Signing Request
 
 Podpísaná žiadosť obsahujúca public key a požadované certificate identity attributes pre CA. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
+## Current-state detection — Ansible
+
+Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred rozhodnutím, či je potrebná zmena. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Cutover window
 
@@ -669,6 +721,10 @@ Nasadenie capability do produkčného prostredia bez jej priameho sprístupnenia
 ## DAST — Dynamic Application Security Testing
 
 Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
+
+## Data at rest
+
+Dáta uložené na disku, v repository, databáze alebo inom persistentnom storage; Ansible Vault chráni tento stav, nie automaticky dáta po dešifrovaní. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Data plane
 
@@ -917,6 +973,14 @@ Používateľ, ktorého membership, role a approval-rule context oprávňujú po
 ## Encapsulation
 
 Proces, pri ktorom každá sieťová vrstva pridá svoje metadata okolo payloadu vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
+
+## Encrypted file — Ansible Vault
+
+Súbor, ktorého celý obsah je zašifrovaný Ansible Vaultom a musí byť dešifrovaný pri načítaní alebo použití. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Encrypted variable — Ansible Vault
+
+Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľnom súbore. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## End-to-end test
 
@@ -1206,6 +1270,10 @@ Static Application Security Testing integrované do GitLab CI/CD na detekciu pot
 
 Shell expansion, ktorá nahrádza wildcard pattern paths zodpovedajúcimi filesystem entries. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
 
+## Golden image
+
+Versionovaný immutable machine image obsahujúci vopred zostavený a otestovaný základ systému; configuration tool môže image vytvoriť a provisioning tool nasadiť jeho konkrétnu verziu. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Golden path
 
 Podporovaný a automatizovaný spôsob vývoja a delivery poskytujúci bezpečné defaults, reusable tooling, observability a policy guardrails. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
@@ -1330,6 +1398,10 @@ Vlastnosť operácie, pri ktorej opakovanie s rovnakým vstupom vedie k rovnaké
 
 Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-idempotentný request a vrátiť konzistentný výsledok. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
 
+## Idempotency test — Ansible
+
+Test vykonávajúci po prvom converge ďalší run s rovnakými inputs a overujúci, že nevzniknú neplánované changes ani side effects. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## `ignore_changes` — Terraform
 
 Lifecycle rule, ktorá pri update plánovaní ignoruje zmeny vybraných atribútov. Musí mať explicitný external owner a monitoring, pretože potláča Terraform remediation, nie existenciu driftu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -1353,6 +1425,14 @@ Automatická interpretácia plain scalaru ako boolean, number, date alebo null p
 ## Import block — Terraform
 
 Versionovaná configuration deklarácia mapujúca existujúci remote objekt cez provider identity na konkrétnu Terraform resource instance addressu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## `import_role`
+
+Statické načítanie Ansible role spracované počas parse fázy, ktoré sa líši od runtime `include_role` v condition, tag a variable semantics. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## `include_role`
+
+Dynamické načítanie Ansible role počas executionu podľa runtime contextu. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
 ## Index stages
 
@@ -1678,6 +1758,10 @@ TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS,
 
 Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Multi-writer automation
+
+Stav, keď viac automation systémov alebo runs súbežne mení ten istý resource alebo attribute bez spoločnej ownership a concurrency policy. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md) a [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Multi-writer race — Terraform
 
 Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa zapísať konfliktujúce snapshots alebo remote zmeny bez účinného locku a serialization. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -1733,6 +1817,10 @@ Network policy aplikovaná typicky na subnet alebo segment boundary; v cloud pro
 ## Network namespace
 
 Namespace s vlastnými interfaces, addresses, routes, sockets a firewall state. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## `no_log` — Ansible
+
+Task alebo block control obmedzujúci zobrazenie citlivých arguments a results v bežnom Ansible outpute; nechráni všetky external logs, memory ani výsledný target state. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## `no_new_privs`
 
@@ -1794,6 +1882,10 @@ Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre cal
 
 Test anti-pattern, pri ktorom assertions overujú nepodstatné interné poradie alebo implementačné detaily a blokujú bezpečný refactoring. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Ownership matrix
+
+Dokumentované priradenie authoritative writera ku každému resource alebo mutable attribute naprieč provisioning, configuration a runtime systémami. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Package manager
 
 Nástroj na inštaláciu, upgrade a odstránenie balíkov vrátane dependencies a lokálnej evidencie. Pozri [Package management](docs/01-linux-and-systems/package-management.md).
@@ -1818,6 +1910,10 @@ Framework na skladanie authentication, account, session a password policy. Pozri
 
 Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa potreby, napríklad s `--filter=blob:none`. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
 
+## Password-client script — Ansible Vault
+
+Executable helper poskytujúci vault password z chráneného zdroja, typicky po autentifikácii job identity voči secret manageru. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
 ## PAT — Port Address Translation
 
 NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
@@ -1837,6 +1933,10 @@ Test časových a kapacitných vlastností systému pri explicitnom workload mod
 ## Permissive mode
 
 SELinux režim, v ktorom sa policy denials auditujú, ale nevynucujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Perpetual drift
+
+Opakovaný konflikt, pri ktorom viac actorov striedavo prepisuje ten istý stav podľa rozdielnych desired-state deklarácií. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Pester
 
@@ -1982,6 +2082,14 @@ Deklarácia provider source addressu a povoleného version rozsahu v `required_p
 
 Deterministicky pripravený stav providera potrebný na overenie konkrétnej consumer-driven contract interaction. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
 
+## Provisioning
+
+Vytváranie a lifecycle správa infraštruktúrnych resources, napríklad networks, compute, databases, load balancers a IAM objektov. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Provisioning/configuration boundary
+
+Explicitná hranica určujúca, ktoré resources a attributes vlastní provisioning engine a ktoré configuration-management engine. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Proxy
 
 Sprostredkovateľ ukončujúci jednu komunikáciu a vytvárajúci samostatnú komunikáciu k ďalšiemu endpointu. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
@@ -2025,6 +2133,10 @@ Schopnosť starej aj novej application verzie správne interpretovať dáta v ak
 ## Readiness
 
 Stav vyjadrujúci, či instance má prijímať nový traffic. Nie je totožný s liveness. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Readiness boundary
+
+Podmienka dokazujúca, že novovytvorený resource je nielen prítomný, ale pripravený na ďalší configuration alebo deployment krok. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## Real User Monitoring — RUM
 
@@ -2073,6 +2185,10 @@ Host-scoped variable vytvorená cez `register`, ktorá uchováva štruktúrovan�
 ## Regression test
 
 Test chrániaci existujúce funkčné alebo nefunkčné správanie pred nechcenou zmenou. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
+
+## Rekey — Ansible Vault
+
+Zmena passwordu alebo vault identity použitej na šifrovanie existujúceho Vault contentu; nemení automaticky samotný cieľový application credential. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Release
 
@@ -2146,6 +2262,10 @@ Build proces, pri ktorom rovnaké explicitné vstupy a toolchain vytvoria rovnak
 
 Väzba od business potreby a požiadavky cez risk a control až po test a dôkaz výsledku. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
 
+## `requirements.yml` — Ansible
+
+Dependency manifest používaný na deklarovanie a inštaláciu požadovaných Ansible roles alebo collections a ich version constraints. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Rerere
 
 Git mechanizmus `reuse recorded resolution`, ktorý zaznamená riešenie konfliktu a môže ho znovu aplikovať pri opakovanom konflikte. Pozri [Konflikty](docs/03-git-and-automation/merge-conflicts.md).
@@ -2178,6 +2298,10 @@ State mapovanie medzi Terraform resource instance addressou, provider contextom 
 
 Pipeline mechanizmus serializujúci jobs, ktoré mutujú rovnaký environment alebo shared resource, aby sa zabránilo súbežným konfliktujúcim operáciám. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
+## Resource lifecycle engine
+
+Automation model sledujúci identity resources a plánujúci ich create, update, replacement a destroy operácie, typicky cez dependency graph a persistentný state. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## REST
 
 Architectural style pre distributed hypermedia systems založený na constraints ako statelessness, cacheability a uniform interface. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
@@ -2209,6 +2333,22 @@ Progressive rollout cez stabilné deployment rings s rastúcou reprezentatívnos
 ## Risk-based deployment
 
 Rollout policy, ktorá mení exposure, observation window, approval alebo recovery mechanizmus podľa business criticality, blast radiusu a compatibility rizika konkrétnej zmeny. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Role contract — Ansible
+
+Verejné a prevádzkové rozhranie role tvorené inputs, defaults, outputs/facts, handlers, side effects, supported platforms, privileges, idempotency a upgrade behaviorom. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## Role defaults — Ansible
+
+Ľahko override-nuteľné public defaults uložené typicky v `defaults/main.yml`, ktoré tvoria podporované customization points role. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## Role dependency — Ansible
+
+Metadata vzťah spôsobujúci vykonanie inej role pred závislou role; pri nadmernom používaní môže skryť orchestration graph. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## Role vars — Ansible
+
+Role variables s vyššou precedence uložené typicky vo `vars/main.yml`, vhodné najmä pre interné constants namiesto bežných environment overrides. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
 ## Roll-forward
 
@@ -2334,9 +2474,17 @@ Overenie dát voči deklarovaným typom, required fields a constraints. Neoveruj
 
 Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Second converge
+
+Druhý automation run nad už nakonfigurovaným targetom používaný na overenie, že desired state je stabilný a nevznikajú recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Secret push protection — GitLab
 
 Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patterns pred prijatím commitu a môže push zablokovať. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Secret rotation
+
+Riadená zmena cieľového credentialu vrátane distribúcie novej hodnoty, overenia consumers a revokácie starej hodnoty. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Security report artifact — GitLab
 
@@ -2457,6 +2605,10 @@ Proces vykonávajúci podpisové operácie pomocou odomknutých private keys v p
 ## Stable bucketing
 
 Deterministické mapovanie subjektov do percentuálnych rollout alebo experiment buckets tak, aby sa variant nemenil náhodne medzi requestmi. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
+
+## Stable input — automation
+
+Vstup s kontrolovanou identitou, typom a lifecycle, ktorého neočakávaná mutácia nespôsobuje nepredvídateľné recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Stage — CI/CD
 
@@ -2601,6 +2753,10 @@ Latency najpomalšej časti request distribúcie, typicky p95 alebo p99. Pozri [
 ## Taint analysis
 
 Statická analýza sledujúca nedôveryhodné dáta od source cez transformácie po citlivý sink. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
+
+## Task-oriented automation
+
+Automation model skladajúci ordered tasks, conditions a orchestration controls nad targets namiesto univerzálneho persistentného resource graphu. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## TCP connection
 
@@ -2821,6 +2977,14 @@ Celý tok práce a informácií od potreby po hodnotu doručenú používateľov
 ## Variable precedence — Ansible
 
 Pravidlá rozhodujúce, ktorá z viacerých definitions rovnakého variable name sa použije podľa source a explicitnosti. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
+## Vault ID — Ansible
+
+Label priradený k encrypted Vault contentu a password source-u na oddelenie environmentov alebo security domains; sám nie je secret ani access-control mechanizmus. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Vault password — Ansible
+
+Secret použitý na šifrovanie a dešifrovanie Ansible Vault contentu, ktorý musí byť uložený oddelene od encrypted repository dát. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Verification — testing
 
