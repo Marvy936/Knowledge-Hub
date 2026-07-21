@@ -483,5 +483,5 @@ Relevantné pojmy: expand-contract, schema compatibility, read compatibility, wr
 
 **Navigácia**
 
-[← Predchádzajúca: Rollback a roll-forward](rollback-and-roll-forward.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Rollback a roll-forward](rollback-and-roll-forward.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Projects, groups a permissions →](../06-gitlab/projects-groups-permissions.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

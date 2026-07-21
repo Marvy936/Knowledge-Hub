@@ -135,9 +135,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### GitLab
 
-- [ ] Projects, groups a permissions
-- [ ] Merge requests a approvals
-- [ ] Protected branches a environments
+- [x] [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md)
+- [x] [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md)
+- [x] [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md)
 - [ ] GitLab CI/CD syntax
 - [ ] Runners a executors
 - [ ] Variables a secrets

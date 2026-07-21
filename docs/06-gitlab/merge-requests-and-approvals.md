@@ -384,3 +384,11 @@ Relevantné pojmy: GitLab merge request, approval rule, eligible approver, Code 
 - [Merge request approval rules](https://docs.gitlab.com/user/project/merge_requests/approvals/rules/)
 - [Merge request approval settings](https://docs.gitlab.com/user/project/merge_requests/approvals/settings/)
 - [Merge request approval policies](https://docs.gitlab.com/user/application_security/policies/merge_request_approval_policies/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Projects, groups a permissions](projects-groups-permissions.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Protected branches a environments →](protected-branches-and-environments.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

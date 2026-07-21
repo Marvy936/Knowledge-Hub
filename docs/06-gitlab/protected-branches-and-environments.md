@@ -385,3 +385,11 @@ Relevantné pojmy: protected branch, branch rule, protected tag, allowed to push
 
 - [Protected branches](https://docs.gitlab.com/user/project/repository/branches/protected/)
 - [Protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Merge requests a approvals](merge-requests-and-approvals.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

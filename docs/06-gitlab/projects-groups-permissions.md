@@ -332,3 +332,11 @@ Relevantné pojmy: GitLab project, GitLab group, subgroup, namespace, direct mem
 - [Roles and permissions](https://docs.gitlab.com/user/permissions/)
 - [User permissions](https://docs.gitlab.com/auth/user_permissions/)
 - [Project and group visibility](https://docs.gitlab.com/user/public_access/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Databázová kompatibilita počas deploymentu](../05-ci-cd-and-release/database-compatibility-during-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Merge requests a approvals →](merge-requests-and-approvals.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
