@@ -49,11 +49,11 @@ Aktívne sekcie:
 7. [GitLab](docs/06-gitlab/README.md)
 8. [Infrastructure as Code and Configuration Management](docs/07-infrastructure-as-code-and-configuration-management/README.md)
 9. [Container Fundamentals and Docker](docs/08-container-fundamentals-and-docker/README.md)
+10. [Kubernetes](docs/09-kubernetes/README.md)
 
 Plánované hlavné domény:
 
-- Kubernetes a CKA
-- Helm
+- Helm a CKA
 - Cloud fundamentals a AWS
 - Observability
 - Security, IAM a supply-chain security
