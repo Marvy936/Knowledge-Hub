@@ -94,6 +94,10 @@ Model, v ktorom Ansible typicky nepotrebuje dlhodobo bežiaceho agenta na manage
 
 ClusterRole, ktorej rules controller automaticky skladá z iných ClusterRoles označených matching aggregation labels. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
+## ALB listener rule
+
+Prioritizované Layer 7 pravidlo Application Load Balancera, ktoré vyhodnocuje host, path, header, method, query alebo source-IP conditions a vykoná forward, redirect, fixed-response alebo podporovanú authentication action. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Alias — YAML
 
 YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komplikovať tooling a čitateľnosť. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -110,9 +114,41 @@ Container security setting riadiaci možnosť procesu získať nové privileges,
 
 TLS extension, ktorou klient a server počas handshake dohodnú aplikačný protokol, napríklad `http/1.1` alebo `h2`. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Amazon CloudFront
+
+AWS content-delivery service, ktorá distribuuje a cache-uje content cez global edge locations a smeruje cache misses na nakonfigurované origins. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Amazon EBS
+
+Zonálny durable block-storage service pre EC2 a podporované AWS compute služby, sprístupnený ako block device s voliteľným typom, IOPS, throughputom, snapshotmi a encryption. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Amazon EC2
+
+AWS compute služba poskytujúca virtuálne instances s voliteľnou instance family, image, networking, storage, IAM a lifecycle konfiguráciou. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## Amazon EFS
+
+Managed NFS file service poskytujúci shared POSIX filesystem pre viac clients cez mount targets vo VPC. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Amazon RDS
+
+Managed relational database service, ktorý spravuje časť database infrastructure, backup, maintenance a failover lifecycle-u, pričom zákazník zostáva zodpovedný za schema, queries, access, data a application recovery. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## Amazon Route 53
+
+AWS authoritative DNS, domain registration, health-check a DNS traffic-steering service s public/private hosted zones a hybrid Resolver capabilities. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Amazon S3
+
+Regional object-storage service ukladajúci objects identifikované bucketom a key, dostupné cez API a podporujúce storage classes, lifecycle, versioning, replication a retention controls. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Ambient capability
 
 Linux capability, ktorú môže proces za presných podmienok zachovať pri `execve()` neprivilegovaného programu. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## AMI — Amazon Machine Image
+
+Versionovateľný EC2 boot-image a block-device contract používaný pri vytváraní nových instances. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Anchor — YAML
 
@@ -246,6 +282,14 @@ Host-level Linux Security Module profil obmedzujúci filesystem, capability, net
 
 Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point, nie iba náhodný filesystem okamih. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## application-consistent snapshot
+
+Snapshot vytvorený po koordinovanom flush, quiesce alebo engine-native checkpoint-e tak, aby obnovené dáta reprezentovali validný application transaction state. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Application Load Balancer — ALB
+
+Layer 7 Elastic Load Balancing variant pre HTTP/HTTPS traffic s listener rules, host/path routing, target groups a application health checks. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Application version — Helm
 
 Version aplikácie deklarovaná chart metadata fieldom `appVersion`; je informačná a nie je automaticky chart version, image tag ani release revision. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
@@ -313,6 +357,14 @@ Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu po
 ## Authoritative writer
 
 Jediný systém alebo workflow oprávnený meniť konkrétny mutable object alebo attribute; viac writerov vytvára ownership conflict a perpetual drift. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Auto Scaling Group — ASG
+
+EC2 fleet controller udržiavajúci minimum, desired a maximum capacity cez launch template, health evaluation, replacement a scaling policies. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## automated backup — RDS
+
+RDS-managed backup a transaction-log retention používaný na point-in-time recovery v rámci nakonfigurovaného retention windowu. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Automated canary analysis
 
@@ -490,6 +542,10 @@ Quality gate, ktorého neúspech zastaví merge, promotion alebo deployment. Má
 
 Deployment stratégia s dvoma oddelenými produkčne relevantnými targetmi, kde sa nová verzia pripraví v neaktívnej farbe a následne sa na ňu riadene presmeruje traffic. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
 
+## Blue/Green Deployment — RDS
+
+RDS workflow pre vytvorenie synchronizovaného staging environmentu a riadený switchover pri podporovaných engine a configuration zmenách. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Bootstrap configuration
 
 Minimálna počiatočná konfigurácia potrebná na bezpečné pripojenie targetu k dlhodobému management workflowu, napríklad identity, trusted CA, management transport a inventory registration. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
@@ -626,6 +682,10 @@ Kubernetes QoS class pre Pod, ktorý nie je Guaranteed a má aspoň niektorý re
 
 Proces určujúci kritické business capabilities, dopad výpadku, maximálne tolerované prerušenie, data-loss toleranciu, dependencies a priority obnovy. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## cache behavior — CloudFront
+
+Ordered distribution rule mapujúca path pattern na origin a definujúca viewer protocol, allowed methods, cache policy, origin request policy, headers a private-content behavior. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Cache — CI/CD
 
 Odstrániteľná optimalizácia pipeline na znovupoužitie dependencies alebo intermediate build dát. Pipeline musí zostať korektná aj pri cache miss alebo eviction. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
@@ -633,6 +693,10 @@ Odstrániteľná optimalizácia pipeline na znovupoužitie dependencies alebo in
 ## Cache-Control
 
 HTTP response/request header definujúci freshness, revalidation, storage a shared/private cache policy. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
+## cache hit ratio — CloudFront
+
+Podiel requests obslúžených z CloudFront cache bez potreby fetchu z originu; ovplyvňuje latency, origin load a cost. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Cache invalidation — Docker build
 
@@ -642,6 +706,10 @@ Stav, keď zmena instruction, parent resultu alebo relevantného inputu zmení c
 
 Identifikátor cache odvodený zo všetkých významných vstupov, napríklad OS, architecture, toolchain version, lockfile hash a build configuration. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
+## cache key — CloudFront
+
+Kombinácia pathu a vybraných query strings, headers, cookies alebo compression variantu, podľa ktorej CloudFront rozhoduje, či requests zdieľajú cached response. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Cache mount — Dockerfile
 
 Persistentnejší pomocný directory pripojený počas `RUN --mount=type=cache`, napríklad pre compiler alebo package-manager cache; môže byť odstránený a nesmie ovplyvňovať correctness build-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -649,6 +717,10 @@ Persistentnejší pomocný directory pripojený počas `RUN --mount=type=cache`,
 ## Cache poisoning
 
 Stav, keď nedôveryhodný alebo chybný pipeline uloží cache, ktorú neskôr použije dôveryhodnejší workflow, čím môže ovplyvniť build alebo spustiť škodlivý obsah. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+
+## cache policy — CloudFront
+
+Policy určujúca cache-key inputs a minimum, default a maximum TTL pre CloudFront cache behavior. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Calendar versioning
 
@@ -693,6 +765,10 @@ Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVI
 ## Capacity headroom
 
 Rezervovaná nevyužitá kapacita potrebná na absorpciu burstu alebo presun trafficu pri zlyhaní časti systému, napríklad jednej Availability Zone. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
+## Capacity Rebalancing — EC2 Auto Scaling
+
+Auto Scaling capability, ktorá môže proaktívne spustiť náhradu Spot Instance pri zvýšenom interruption risku, pričom workload stále potrebuje drain a idempotentný recovery model. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Capacity test
 
@@ -857,6 +933,10 @@ Schopnosť presunúť workload medzi prostrediami vrátane source, runtime, data
 ## Cloud service model
 
 Model opisujúci rozdelenie prevádzkovej a bezpečnostnej zodpovednosti medzi providerom a zákazníkom naprieč infraštruktúrou, platformou, aplikáciou a dátami. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## CloudFront Functions
+
+Lightweight JavaScript edge runtime pre viewer-request a viewer-response transformácie s nízkou latency a obmedzeným execution modelom. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## CloudOps domain gap map
 
@@ -1081,6 +1161,10 @@ Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej
 ## Connection draining
 
 Postup, pri ktorom sa backendu prestane posielať nový traffic, ale existujúce requests alebo connections dostanú čas na dokončenie. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## connection draining — ELB
+
+Riadené ukončovanie targetu, pri ktorom load balancer prestane posielať nové requests a ponechá existujúce connections alebo requests dobehnúť v rámci deregistration contractu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Connection plugin — Ansible
 
@@ -1450,6 +1534,22 @@ Provider-defined read-only query, ktorá načíta informácie o existujúcom ale
 
 Deklaratívny Python model generujúci metódy pre dátovo orientovanú class, napríklad constructor, equality a representation. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## DB instance — RDS
+
+Konkrétne managed database environment s engine, instance class, storage, network, parameter a backup configuration. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## DB parameter group — RDS
+
+Versionovateľná sada engine parameters priradená DB instance alebo clusteru, s dynamic alebo reboot-required semantics podľa konkrétneho parameteru. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## DB snapshot — RDS
+
+Customer-retained point-in-time storage snapshot RDS database používaný na restore, migration alebo dlhšiu retenciu mimo automated-backup lifecycle-u. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## DB subnet group — RDS
+
+Kolekcia VPC subnets vo viacerých Availability Zones, z ktorej RDS vyberá database placement. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Debug container — Kubernetes
 
 Ephemeral container pridaný do existujúceho Podu na diagnostiku pomocou schváleného debug image-u, RBAC a auditu. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -1497,6 +1597,10 @@ Go template action deklarujúca named template pod globálnym menom bez okamžit
 ## Delegated administrator — AWS Organizations
 
 Member account zaregistrovaný na centralizovanú správu podporovanej AWS služby naprieč organization, aby sa znížil počet operácií vykonávaných v management account-e. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## delete marker — S3
+
+Špeciálna current version vytvorená pri delete requeste vo versioning-enabled buckete, ktorá skryje predchádzajúcu object version bez jej okamžitého odstránenia. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Deletion timestamp — Kubernetes
 
@@ -1590,6 +1694,10 @@ Stabilná rollout skupina používateľov, tenantov, zariadení alebo regiónov 
 
 Klient, controller, chart, operator alebo automation používajúca Kubernetes API verziu, ktorá bude alebo už bola odstránená, aj keď deklaratívne manifests už môžu byť migrované. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## deregistration delay — ELB
+
+Target-group interval, počas ktorého deregistrovaný target zostáva v draining stave pre dokončenie existujúcich requests alebo connections. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Descriptor — OCI
 
 Štruktúra identifikujúca OCI content pomocou media type, digestu a size, prípadne ďalších annotations alebo platform metadata. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -1597,6 +1705,10 @@ Klient, controller, chart, operator alebo automation používajúca Kubernetes A
 ## Deserialized object — PowerShell
 
 Prenesená reprezentácia vzdialeného PowerShell objektu, ktorá typicky zachováva properties, ale nie live methods a pôvodné runtime správanie. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## desired capacity — Auto Scaling
+
+Počet instances alebo weighted capacity units, ktoré sa Auto Scaling Group v aktuálnom čase snaží udržať. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Desired replica calculation — HPA
 
@@ -1706,6 +1818,10 @@ Minimalizovaný runtime image bez bežného shellu alebo package managera, urče
 
 Preklad destination adresy alebo portu, používaný napríklad pri publikovaní internej služby. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
+## DNS delegation
+
+Publikovanie NS records v parent DNS zone, ktorým sa authoritative zodpovednosť za domain alebo subdomain odovzdá konkrétnym name serverom. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## DNS — Domain Name System
 
 Distribuovaný hierarchický systém mapujúci mená na resource records. Pozri [DNS](docs/02-networking-and-web/dns.md).
@@ -1740,7 +1856,7 @@ Pod spec configuration dopĺňajúca alebo pri `dnsPolicy: None` definujúca nam
 
 ## DNSSEC
 
-Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Pozri [DNS](docs/02-networking-and-web/dns.md).
+DNS security extension používajúca cryptographic signatures a chain of trust na overenie authenticity a integrity DNS odpovedí. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Docker bind mount
 
@@ -1930,6 +2046,22 @@ Network traffic medzi internými workloads alebo services v rámci platformy, kt
 
 Kernel technológia na spúšťanie overeného bytecode na definovaných hooks, používaná aj na observability a profiling. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## EBS Multi-Attach
+
+Capability vybraných Provisioned IOPS EBS volumes umožňujúca pripojenie k viacerým podporovaným instances v rovnakej AZ; vyžaduje cluster-aware filesystem/application a fencing. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## EBS snapshot
+
+Point-in-time block snapshot EBS volume-u používaný na restore, copy, migration alebo backup; bez application koordinácie môže byť iba crash-consistent. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## EBS volume
+
+Persistent block device v jednej Availability Zone, ktorý možno attachnúť k EC2 instance v rovnakej AZ. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## EC2 instance
+
+Konkrétna spustená alebo zastavená virtual machine identity vytvorená z AMI a launch configuration, s vlastným instance ID, network interfaces, storage a lifecycle stavom. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Edge cloud
 
 Compute a storage platforma umiestnená bližšie k používateľom, zariadeniam alebo výrobnému procesu pre nízku latency, lokálne spracovanie alebo prerušovanú konektivitu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
@@ -1946,6 +2078,14 @@ Výsledná values konfigurácia po zlúčení chart defaults, predchádzajúceho
 
 Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct, inherited a shared memberships na danom resource. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## EFS access point
+
+Application-specific EFS entry point vynucujúci root directory a voliteľnú POSIX identity pre mounted clienta. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## EFS mount target
+
+ENI-based VPC endpoint v konkrétnej Availability Zone, cez ktorý clients pristupujú k EFS filesystemu protokolom NFS. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Egress-isolated Pod
 
 Pod vybraný aspoň jednou NetworkPolicy pre egress, ktorého outbound traffic je povolený iba unionom matching egress pravidiel. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
@@ -1954,9 +2094,17 @@ Pod vybraný aspoň jednou NetworkPolicy pre egress, ktorého outbound traffic j
 
 VPC component poskytujúci outbound-initiated IPv6 internet connectivity bez všeobecného unsolicited inbound pathu. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
+## Elastic Load Balancing — ELB
+
+AWS managed load-balancing family zahŕňajúca Application, Network a Gateway Load Balancers. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Elastic network interface — ENI
 
 Zonálny AWS network object nesúci private IP addresses, Security Groups, MAC a attachment identity pre EC2 a viaceré managed services. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Elastic Volumes — EBS
+
+EBS capability na online zmenu veľkosti, typu, IOPS alebo throughputu podporovaného volume-u, po ktorej môže byť potrebné samostatne rozšíriť partition a filesystem. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Elasticity
 
@@ -2222,6 +2370,10 @@ Template function okamžite ukončujúca render s chart-specific error message p
 
 Policy, pri ktorej nedostupná kontrola neblokuje operáciu, ale vytvorí viditeľný degraded signal. Je vhodná iba tam, kde riziko nedostupnosti gate prevyšuje riziko pokračovania. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## fail-open — load balancer
+
+Failure behavior, pri ktorom load balancer za určitých all-target-unhealthy podmienok stále routuje traffic na dostupné registrované targets namiesto úplného zastavenia trafficu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Failback
 
 Riadený návrat workloadu a authoritative state-u z recovery lokality späť do stabilizovaného primárneho prostredia po failover-e. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -2237,6 +2389,10 @@ Kubernetes Event reason indikujúci, že scheduler nenašiel alebo nevedel bindn
 ## Failover
 
 Presun trafficu, processingu alebo write ownershipu z nefunkčného primárneho componentu alebo lokality na pripravený náhradný target. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## failover routing — Route 53
+
+DNS routing policy s primary a secondary records, ktorá mení odpovede podľa health state-u a active-passive designu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Failure artifact
 
@@ -2273,6 +2429,10 @@ Rozdelenie jedného vstupu, artifactu alebo test suite do viacerých paralelnýc
 ## Fast-forward
 
 Aktualizácia refu, pri ktorej je starý tip ancestor nového tipu, takže sa ref iba posunie bez odstránenia existujúcej ancestry. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Fast Snapshot Restore — EBS
+
+Platená EBS feature enabled pre konkrétny snapshot a Availability Zone, ktorá umožňuje volumes vytvorené zo snapshotu poskytovať plný provisioned výkon bez lazy first-read initialization latency. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Fault injection
 
@@ -2409,6 +2569,10 @@ VPC endpoint integrovaný do route tables pre podporované AWS služby, typicky 
 ## Gateway — Gateway API
 
 Namespaced infrastructure resource definujúci traffic entry point, listeners, addresses, TLS a pravidlá pre pripojenie Routes. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Gateway Load Balancer — GWLB
+
+Elastic Load Balancing variant pre transparentné smerovanie flows cez virtual network appliances pomocou GENEVE encapsulation. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## GatewayClass
 
@@ -2598,6 +2762,10 @@ A/AAAA alebo SRV records headless Service-u vracajúce priamo backend alebo per-
 
 Aktívny alebo pasívny test určujúci, či backend môže prijímať nový traffic. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## health-check matcher — ELB
+
+Sada HTTP success codes alebo iné protocol-specific kritérium, podľa ktorého target-group health check vyhodnotí odpoveď ako úspešnú. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Health start period
 
 Warm-up interval healthchecku, počas ktorého startup failures nemusia prispievať k označeniu containeru za unhealthy podľa health configuration. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
@@ -2778,6 +2946,10 @@ Container runtime mode zdieľajúci host network namespace, čím odstraňuje be
 
 Port a bind address v host network namespace, ktorý forwarding alebo proxy mechanizmus mapuje na container port. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
+## hosted zone — Route 53
+
+Container authoritative DNS records pre konkrétny public alebo private DNS namespace. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## `hostvars` — Ansible
 
 Magic mapping poskytujúci prístup k host-scoped variables iných inventory hosts; jeho použitie vytvára cross-host coupling a závisí od dostupnosti dát. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
@@ -2841,6 +3013,10 @@ Statická alebo plan-level kontrola Infrastructure as Code proti syntax, schema,
 ## IAM Access Analyzer
 
 AWS IAM capability na analýzu external accessu, policy validation a vybrané unused-access alebo policy-generation workflows. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM database authentication — RDS
+
+RDS authentication model pre podporované engines, pri ktorom client generuje krátkodobý signed token cez IAM namiesto dlhodobého database passwordu. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
 ## IAM Identity Center
 
@@ -2929,6 +3105,10 @@ Kubernetes Secret reference používaná kubeletom alebo container runtime pri a
 ## ImageService — CRI
 
 Časť CRI používaná kubeletom na image pull, list, status a removal operácie v container runtime. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## IMDSv2
+
+Token-based druhá verzia EC2 Instance Metadata Service používaná na získanie instance metadata a temporary role credentials s lepšou ochranou proti niektorým SSRF a proxy útokom. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Immutable ConfigMap alebo Secret
 
@@ -3030,6 +3210,22 @@ Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesy
 
 Stav, keď filesystem nemôže vytvárať ďalšie files napriek voľnej byte capacity, čo môže narušiť image pull, logs, snapshots alebo container writes. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
+## instance profile — EC2
+
+IAM container, cez ktorý sa jedna IAM role pripája k EC2 instance a poskytuje jej temporary credentials cez metadata service. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## instance refresh — Auto Scaling
+
+Riadený Auto Scaling workflow postupne nahrádzajúci fleet instances podľa novej launch template alebo desired configuration pri zachovaní nastavenej healthy capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## instance store — EC2
+
+Host-local ephemeral block storage, ktorého dáta sa môžu stratiť pri stop, termination alebo host failure. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## instance warmup — Auto Scaling
+
+Interval reprezentujúci čas, kým newly launched instance dosiahne plnú application a metric readiness pre scaling decisions. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Integration test
 
 Test reálnej spolupráce komponentov alebo systému s technickou dependency, napríklad databázou, brokerom, filesystemom alebo cloud API. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -3049,6 +3245,10 @@ Service policy ovplyvňujúca výber cluster-wide alebo node-local backendov pre
 ## Internet Gateway — AWS
 
 Horizontálne škálovaný a vysoko dostupný VPC component poskytujúci route target pre internet-routable IPv4 a IPv6 traffic. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
+## invalidation — CloudFront
+
+Požiadavka na odstránenie object pathov z CloudFront edge caches pred prirodzenou TTL expiráciou. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Inventory cache — Ansible
 
@@ -3238,6 +3438,10 @@ Rozdelenie requestov podľa aplikačných údajov, napríklad HTTP hostu, pathu 
 
 Indexovateľné key/value metadata určené na grouping a selection Kubernetes objects. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Lambda@Edge
+
+CloudFront-integrated Lambda runtime pre pokročilé viewer alebo origin request/response transformácie distribuované do edge locations podľa service modelu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Last known good
 
 Presne identifikovaný artifact, configuration a compatibility stav s overenou produkčnou evidence, ktorý možno použiť ako recovery target. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
@@ -3246,9 +3450,17 @@ Presne identifikovaný artifact, configuration a compatibility stav s overenou p
 
 Čas potrebný na dokončenie operácie alebo requestu. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## latency routing — Route 53
+
+DNS routing policy vyberajúca resource v AWS lokalite, ktorá má podľa Route 53 latency measurements najnižšiu očakávanú latency pre query source. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Latest successful artifact — GitLab
 
 Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitLab podľa nastavenia uchovávať nezávisle od bežnej expiration policy. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## launch template — EC2
+
+Versionovaný EC2 launch contract definujúci AMI, instance type, network, storage, IAM, metadata, user data a ďalšie launch settings. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Leader-elected controller
 
@@ -3265,6 +3477,10 @@ Controller model, ktorý pri každom reconcile vyhodnocuje aktuálny desired a o
 ## Library chart — Helm
 
 Chart typu `library`, ktorý poskytuje reusable template primitives a helpers pre iné charts bez bežného application resource lifecycle. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## lifecycle hook — Auto Scaling
+
+Auto Scaling extension, ktorá pozastaví launch alebo termination transition, aby automation vykonala bootstrap, registration, drain alebo evidence-preservation action. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Lifecycle meta-argument — Terraform
 
@@ -3289,6 +3505,10 @@ API klient najprv získa collection snapshot cez list a následne sleduje zmeny 
 ## `listen` topic — Ansible
 
 Pomenovaný notification contract, na ktorý môže reagovať viac handlers bez priameho viazania notifying tasku na konkrétne handler names. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
+## listener — ELB
+
+Load-balancer frontend contract prijímajúci connections na konkrétnom protocol a porte a vykonávajúci default alebo rule-selected action. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Listener — Gateway API
 
@@ -3594,6 +3814,14 @@ Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozr
 
 Workload design rozkladajúci compute, networking a stateful capabilities cez viac Availability Zones tak, aby zlyhanie jednej zóny neodstavilo definovanú službu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## Multi-AZ DB cluster — RDS
+
+RDS deployment model s writer DB instance a dvoma readable instances v troch Availability Zones pri podporovaných engines, určený pre HA a read capacity. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## Multi-AZ DB instance deployment — RDS
+
+RDS high-availability model s primary DB instance a synchronously maintained standby v inej Availability Zone, ktorý pri klasickom modeli neobsluhuje reads. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Multi-cloud
 
 Používanie services od viacerých cloud providers z obchodných, geografických, regulačných alebo technických dôvodov; samo osebe negarantuje portability ani disaster recovery. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
@@ -3621,6 +3849,10 @@ Stav, keď viac automation systémov alebo runs súbežne mení ten istý resour
 ## Multi-writer race — Terraform
 
 Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa zapísať konfliktujúce snapshots alebo remote zmeny bez účinného locku a serialization. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## multipart upload — S3
+
+S3 upload protocol rozdeľujúci veľký object na samostatne prenášané parts a dokončený explicitným complete requestom. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Multirepo
 
@@ -3721,6 +3953,10 @@ Subnet-level stateless ordered allow/deny packet filter, pri ktorom prvé matchi
 ## Network driver — Docker
 
 Implementácia Docker network connectivity modelu, napríklad bridge, host, none, overlay, macvlan alebo ipvlan. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Network Load Balancer — NLB
+
+Layer 4 Elastic Load Balancing variant pre TCP, TLS, UDP a vysoký connection throughput so zonálnymi IP capabilities podľa configuration. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Network namespace
 
@@ -3906,6 +4142,10 @@ Model, v ktorom requests prichádzajú podľa arrival rate nezávisle od aktuál
 
 Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/restore, capacity, runbooks, access controls a deployment/rollback mechanizmy. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## option group — RDS
+
+Engine-specific RDS configuration object povoľujúci vybrané database features alebo integrations s vlastným lifecycle, restart a licensing modelom. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Option injection
 
 Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako option namiesto dátového argumentu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
@@ -3921,6 +4161,22 @@ Najvyšší kontajner AWS Organizations hierarchy, pod ktorým sa nachádzajú O
 ## Organizational unit — OU
 
 Logická skupina AWS accounts v Organizations hierarchy určená na spoločné policy a lifecycle riadenie; nie je network ani Region boundary. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Origin Access Control — OAC
+
+CloudFront mechanismus na SigV4-signed private access k podporovanému S3 originu bez verejného bucketu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## origin group — CloudFront
+
+CloudFront primary/secondary origin pair s definovanými failover status codes pre podporovaný origin-failover workflow. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## origin request policy — CloudFront
+
+Policy určujúca headers, cookies a query strings posielané CloudFront originu bez ich automatického zahrnutia do cache key. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Origin Shield — CloudFront
+
+Voliteľná regionálna caching vrstva pred originom, ktorá konsoliduje cache misses z viacerých edge locations a znižuje duplicate origin fetches. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Orphan container — Compose
 
@@ -4126,6 +4382,10 @@ Systém certificate authorities, policies, trust stores, issuance, validation, r
 
 Stav, keď kombinácia hard affinity, anti-affinity, taints, topology, storage alebo resource constraints nevytvára žiadny feasible Node. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## placement group — EC2
+
+EC2 placement constraint optimalizujúci cluster latency/throughput, spread failure isolation alebo partitioned distributed-system topology. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Plan artifact — Terraform
 
 Uložený Terraform plan viazaný na configuration, variables, provider/module selections a prior state, ktorý má byť reviewovaný, policy-evaluovaný a následne aplikovaný ako ten istý immutable decision artifact. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
@@ -4185,6 +4445,10 @@ Label selector určujúci population Podov, ktorú workload controller pozoruje 
 ## Pod template
 
 Embedded desired Pod metadata a spec v workload controller resource-e, z ktorého controller vytvára nové Pod instances. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## point-in-time recovery — RDS
+
+Obnova novej RDS database do vybraného času v automated-backup recovery windowe pomocou snapshots a retained transaction logs. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Policy as Code
 
@@ -4470,6 +4734,18 @@ Nepriame získanie širšej kontroly cez permissions ako workload creation, Secr
 
 User, Group alebo ServiceAccount identita, ktorej RoleBinding alebo ClusterRoleBinding udeľuje permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
+## RDS endpoint
+
+DNS name poskytujúci stable logical connection identity pre RDS database, ktorého resolved address sa môže zmeniť pri failover-e alebo maintenance. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## RDS failover
+
+Riadený alebo automatický presun writer/primary database role na standby alebo reader target pri Multi-AZ failure alebo maintenance udalosti. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## RDS Proxy
+
+Managed database proxy a connection-pooling vrstva pre podporované RDS/Aurora engines, ktorá znižuje connection churn a pomáha pri burst a failover scenarios. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Reachability Analyzer — AWS
 
 VPC configuration-analysis tool modelujúci network path medzi source a destination a identifikujúci blocking component. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
@@ -4489,6 +4765,10 @@ Runtime policy zakazujúca zápis do image-derived root filesystemu a povoľujú
 ## Read-only root filesystem — Kubernetes
 
 Container security setting zakazujúci zápis do image root filesystemu a vyžadujúci explicitné writable mounts pre temp, cache alebo application state. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
+## read replica — RDS
+
+Asynchronously replicated readable database copy používaná na read scaling, reporting, migration alebo promotion-based recovery. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Readiness
 
@@ -4706,6 +4986,10 @@ Nový Pod object vytvorený controllerom ako náhrada zaniknutého alebo nevyhov
 
 Kubernetes workload controller udržiavajúci požadovaný počet matching zameniteľných Podov. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
+## replication lag — RDS
+
+Časový alebo log-position rozdiel medzi source database a asynchronously applying read replica, ktorý určuje stale-read a recovery exposure. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Report artifact — GitLab
 
 Machine-readable job artifact v podporovanej schéme, ktorý GitLab interpretuje pre test, coverage, code-quality, dotenv, SBOM alebo security výsledky. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
@@ -4813,6 +5097,10 @@ Namespaced Kubernetes API objekt obmedzujúci agregované resource requests/limi
 ## ResourceVersion — Kubernetes
 
 Opaque storage version objektu alebo collection snapshotu používaná na optimistic concurrency a list/watch continuity, nie ako business version. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## response headers policy — CloudFront
+
+CloudFront policy pridávajúca alebo upravujúca CORS, security alebo custom response headers nezávisle od origin application code. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Responsibility boundary
 
@@ -4950,6 +5238,18 @@ Docker daemon a containers spustené bez host root identity s user-namespace a u
 
 Pravidlo určujúce next hop, interface a ďalšie parametre pre destination prefix. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Route 53 alias record
+
+AWS-specific DNS record smerujúci zone apex alebo subdomain na podporovaný AWS resource či iný record bez bežného CNAME obmedzenia apexu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Route 53 health check
+
+Externá, alarm-based alebo calculated health evaluation používaná pri Route 53 DNS traffic steeringu a failover-e. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Route 53 Resolver
+
+AWS recursive DNS capability pre VPCs a hybrid DNS, zahŕňajúca inbound/outbound endpoints a forwarding rules. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Route attachment — Gateway API
 
 Proces, ktorým Route po splnení `parentRefs`, listener `allowedRoutes`, hostname/protocol a reference pravidiel začne byť prijatá a programovaná controllerom. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
@@ -5034,6 +5334,26 @@ CPU a memory overhead runtime sandboxu deklarovaný RuntimeClassom a zohľadnen�
 
 Časť CRI používaná kubeletom na Pod sandbox a container create, start, stop, remove, status a streaming lifecycle. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
 
+## S3 Lifecycle
+
+Bucket policy mechanizmus automatizujúci storage-class transitions, expiration current/noncurrent versions a cleanup incomplete multipart uploads. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## S3 Object Lock
+
+S3 WORM retention mechanizmus chrániaci konkrétne object versions pomocou governance/compliance retention alebo legal hold. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## S3 Replication
+
+Asynchronous copy mechanism pre S3 object versions medzi buckets v rovnakom alebo inom Regioni podľa replication rules a IAM/KMS permissions. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## S3 storage class
+
+Per-object S3 storage tier s konkrétnym availability, retrieval latency, request, minimum-duration a cost contractom. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## S3 Versioning
+
+Bucket capability zachovávajúca viac object versions a používajúca delete markers na recovery po overwrite alebo delete operations. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## SaaS
 
 Software as a Service: model poskytujúci hotovú application službu, pričom zákazník typicky vlastní tenant configuration, identities, data usage, retention a integrations. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -5085,6 +5405,14 @@ YAML node reprezentujúci jednu hodnotu, napríklad string, number, boolean aleb
 ## Scale subresource — Kubernetes
 
 Štandardizované API rozhranie vystavujúce desired a current replica informácie škálovateľného workloadu pre HPA a ďalších clients. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
+## scaling activity — Auto Scaling
+
+Auditovateľný záznam Auto Scaling launch, terminate alebo capacity-change pokusu vrátane statusu a failure reasonu. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## scaling policy — Auto Scaling
+
+Policy meniaca desired capacity Auto Scaling Groupu podľa target tracking, step, schedule, prediction alebo iného demand contractu. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## `ScheduleAnyway` — topology spread
 
@@ -5346,6 +5674,14 @@ PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené
 
 Auxiliary container bežiaci v rovnakom Pode ako hlavná aplikácia a zdieľajúci jej placement, network a Pod lifecycle boundary. Pozri [Pod](docs/09-kubernetes/pod.md).
 
+## signed cookie — CloudFront
+
+CloudFront private-content authorization token v cookies, ktorý môže oprávniť clienta na skupinu paths alebo resources podľa policy a expiry. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## signed URL — CloudFront
+
+Časovo alebo policy obmedzená CloudFront URL podpísaná trusted keyom pre access ku konkrétnemu private resource-u. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Single-release dependency graph — Helm
 
 Model, v ktorom parent chart a všetky enabled first-level aj transitive subcharts vytvárajú jednu release revision a spoločný upgrade/rollback failure domain. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
@@ -5361,6 +5697,10 @@ Time-management postup, pri ktorom kandidát preskočí úlohu bez jasnej rýchl
 ## SLAAC — Stateless Address Autoconfiguration
 
 IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Advertisement. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## slow start — ELB
+
+ALB target-group mechanismus postupne zvyšujúci traffic newly healthy targetu počas warmup intervalu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Smoke test
 
@@ -5401,6 +5741,10 @@ Odovzdanie kolekcie named alebo positional parameters príkazu pomocou hashtable
 ## Split-horizon DNS
 
 DNS model, v ktorom rovnaké meno vracia rozdielne odpovede podľa resolvera, siete alebo klientského contextu. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## Spot Instance
+
+EC2 capacity s nižšou cenou a možnosťou interruption zo strany AWS, vhodná pre interruption-tolerant workloady s drain, checkpoint a fallback modelom. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Spy — test double
 
@@ -5521,6 +5865,14 @@ Model, v ktorom administrator vytvorí PV pre vopred existujúci storage asset a
 ## Steady state — chaos engineering
 
 Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## stickiness — ELB
+
+Load-balancer behavior smerujúci opakované requests alebo flows klienta na rovnaký target počas definovaného obdobia. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## storage autoscaling — RDS
+
+RDS capability automaticky zvýšiť allocated database storage do nastavenej maximálnej hranice pri nedostatku free space podľa service rules. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Storage fencing
 
@@ -5653,6 +6005,18 @@ Statická analýza sledujúca nedôveryhodné dáta od source cez transformácie
 ## Taint — Kubernetes
 
 Key/value/effect značka na Node-e, ktorá odpudzuje Pody bez matching toleration pri scheduling-u alebo execution-e. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## target group — ELB
+
+Backend registration, protocol, port, health-check a traffic-lifecycle contract medzi load balancerom a jednou alebo viacerými targets. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## target health — ELB
+
+Per-target-group stav vyjadrujúci, či registrovaný target prešiel health checks a je vhodný na routing trafficu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## target tracking — Auto Scaling
+
+Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na target hodnote zmenou desired capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## `targetPort` — Service
 
@@ -5789,6 +6153,10 @@ Plánovateľná vykonávacia jednotka v rámci procesu. Pozri [Procesy, thready,
 ## Throughput
 
 Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## throughput mode — EFS
+
+EFS configuration určujúca, ako filesystem získava a účtuje dostupný aggregate throughput, napríklad Bursting, Provisioned alebo Elastic. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Time-series cardinality
 
@@ -6102,6 +6470,10 @@ StorageClass policy určujúca, či sa dynamic volume provision/binding vykoná 
 
 Plugin alebo built-in implementation určujúca storage backend a mount semantics Docker volume-u; application consistency, backup a access modes zostávajú samostatným contractom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
+## volume initialization — EBS
+
+Proces načítania alebo zápisu všetkých blocks volume-u vytvoreného zo snapshotu alebo copy pred dosiahnutím plného stabilného výkonu. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Volume mode — Kubernetes
 
 PVC/PV contract určujúci, či workload dostane filesystem mount alebo raw block device. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -6146,6 +6518,10 @@ L7 security control vyhodnocujúci HTTP requests podľa aplikačných pravidiel;
 
 StorageClass binding mode odkladajúci provisioning alebo PV binding, kým scheduler pozná Pod placement constraints a vie koordinovať storage topology s vybraným Node-om. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## warm pool — Auto Scaling
+
+Pool predinicializovaných EC2 instances mimo aktívnej `InService` capacity používaný na skrátenie scale-out startup latency. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Warm standby — blue-green
 
 Pôvodná deployment farba ponechaná po cutover-e v pripravenom a priebežne health-checkovanom stave pre rýchly routing rollback. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -6161,6 +6537,14 @@ Recovery stratégia s priebežne bežiacou zmenšenou, ale funkčnou kópiou wor
 ## WebSocket
 
 Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade alebo ekvivalentnom transportnom mechanizme. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## weighted forwarding — ALB
+
+ALB listener action rozdeľujúca traffic medzi viac target groups podľa relatívnych weights, často používaná pri canary alebo migration workflowe. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## weighted routing — Route 53
+
+DNS routing policy rozdeľujúca odpovede medzi records podľa relatívnych weights, bez presnej request-level percentuálnej garancie kvôli DNS caching. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Whiteout — image layer
 
@@ -6249,3 +6633,7 @@ Preferencia komunikácie a placementu resources v rovnakej Availability Zone pre
 ## Zonal resource — AWS
 
 Resource viazaný na jednu Availability Zone, napríklad subnet, EC2 instance alebo EBS volume, ktorého lifecycle a attachment constraints sú súčasťou zonal failure modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## zonal shift
+
+Riadený presun podporovaného regional-service trafficu preč z impaired Availability Zone, ktorý stále vyžaduje zdravú capacity a dependencies v zostávajúcich AZ. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
