@@ -629,3 +629,11 @@ Relevantné pojmy: container, virtual machine, hypervisor, guest OS, shared kern
 - [OCI Runtime Specification](https://specs.opencontainers.org/runtime-spec/)
 - [Linux namespaces](https://docs.kernel.org/admin-guide/namespaces/index.html)
 - [Linux cgroup v2](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Terraform vs. Ansible](../07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

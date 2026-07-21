@@ -172,7 +172,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Container Fundamentals and Docker
 
-- [ ] Containers vs. virtual machines
+- [x] [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md)
 - [ ] Namespaces, cgroups a capabilities
 - [ ] OCI image a runtime standards
 - [ ] Images, layers a copy-on-write

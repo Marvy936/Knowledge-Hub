@@ -704,5 +704,5 @@ Relevantné pojmy: provisioning, configuration management, resource lifecycle en
 
 **Navigácia**
 
-[← Predchádzajúca: Ansible idempotencia](ansible-idempotency.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Ansible idempotencia](ansible-idempotency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Containers vs. virtual machines →](../08-container-fundamentals-and-docker/containers-vs-virtual-machines.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
