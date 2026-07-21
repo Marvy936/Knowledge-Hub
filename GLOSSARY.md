@@ -18,6 +18,10 @@ Test overujúci, či systém spĺňa dohodnuté business alebo používateľské
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Address refactoring — Terraform
+
+Zmena resource alebo module addressy pri zachovaní identity toho istého remote objektu, typicky deklarovaná cez `moved` block, aby nevznikol neúmyselný destroy/create. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## Advanced function — PowerShell
 
 PowerShell function s `[CmdletBinding()]`, common parameters, parameter binding a cmdlet-like error/output správaním. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -25,6 +29,10 @@ PowerShell function s `[CmdletBinding()]`, common parameters, parameter binding 
 ## Advisory gate
 
 Quality gate, ktorý reportuje výsledok, ale neblokuje ďalší delivery krok. Používa sa pri zavádzaní alebo kalibrácii kontroly. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
+
+## Advisory policy — Terraform
+
+Policy as Code pravidlo, ktorého výsledok je viditeľný a auditovaný, ale samo neblokuje plan alebo apply. Používa sa pri kalibrácii alebo nízkom riziku. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Alias — YAML
 
@@ -65,6 +73,10 @@ Runtime test verejného API rozhrania overujúci response, semantics, authorizat
 ## AppArmor profile
 
 Mandatory Access Control profil definujúci povolené paths, execute transitions, capabilities, network operations a ďalšie správanie programu. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Apply test — Terraform
+
+Terraform test run, ktorý vykoná apply proti reálnemu alebo testovaciemu provider environmentu, vyhodnotí assertions a následne sa pokúsi vytvorenú infraštruktúru odstrániť. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Approval — CI/CD
 
@@ -338,6 +350,10 @@ Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state
 
 Operácia, ktorá aplikuje zmenu vybraného commitu na aktuálny tip a vytvorí nový commit s novým parentom a object ID. Pozri [Cherry-pick a stash](docs/03-git-and-automation/cherry-pick-and-stash.md).
 
+## Child module — Terraform
+
+Reusable Terraform konfigurácia volaná z root alebo iného child modulu cez `module` block; jej resources sú súčasťou graphu a state-u caller root module runu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
 ## Child pipeline
 
 Samostatný pipeline run vytvorený parent pipelineom pre component, matrix časť alebo dynamicky generovaný workflow, s explicitnými input/output a failure-propagation pravidlami. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
@@ -426,6 +442,10 @@ Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť zná
 
 Coverage metrika sledujúca, či jednotlivé boolean podmienky nadobudli relevantné true a false výsledky. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Configuration drift — Terraform
+
+Neželaný rozdiel medzi deklaráciami, ktoré majú reprezentovať rovnaký environment alebo policy, napríklad divergentné branches, repositories alebo neaplikované emergency zmeny. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
 ## Congestion control
 
 Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej kapacity a congestion signálov network pathu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -486,6 +506,10 @@ Pracovný a technický model častej integrácie malých zmien do spoločnej hla
 
 Opakované vyhodnocovanie už známych SBOM components, dependencies alebo image digests po aktualizácii advisory databáz bez potreby source zmeny. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
+## Continuous validation — Terraform
+
+Opakované overovanie infraštruktúrnych invariánt po apply pomocou checks, drift plans, asset policy, security rescanningu alebo runtime verification. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
 ## Contract drift
 
 Rozdiel medzi správaním test double alebo dokumentovaného kontraktu a skutočnou dependency. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
@@ -525,6 +549,10 @@ Browser-enforced HTTP policy určujúca, ktoré origins môžu čítať response
 ## CPU quota
 
 Cgroup limit maximálneho CPU času v danom period. Po vyčerpaní môže byť workload throttled. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
+
+## `create_before_destroy` — Terraform
+
+Lifecycle rule, ktorá pri replacement operácii žiada vytvorenie nového objektu pred zničením starého, ak platforma, názvy, capacity a dependencies umožnia ich súbežnú existenciu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Critical path — pipeline
 
@@ -741,6 +769,18 @@ Metriky software delivery performance sledujúce throughput a instability delive
 ## Drift
 
 Rozdiel medzi deklarovaným a skutočným stavom systému. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
+
+## Drift detection cadence
+
+Frekvencia, s akou sa pre konkrétny state alebo infra domain vykonáva refresh/plan a klasifikácia zmien podľa security, availability a change rizika. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Drift noise — Terraform
+
+Opakovaný alebo nerelevantný plan diff spôsobený napríklad provider normalizáciou, server defaults, orderingom, timestamps alebo eventual consistency namiesto významnej ownership zmeny. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Drift reconciliation
+
+Riadené rozhodnutie drift revertovať, adoptovať do configuration, zmeniť ownership alebo odstrániť Terraform management s následným overením state a remote výsledku. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
 ## Drop — firewall action
 
@@ -1102,6 +1142,10 @@ Metrika chrániaca experiment alebo rollout pred neprijateľným vedľajším do
 
 Ďalší directory entry odkazujúci na ten istý inode. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Hard mandatory policy — Terraform
+
+Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu, používané pre stabilné invariants s vysokým rizikom porušenia. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
 ## HEAD — Git
 
 Špeciálny ref reprezentujúci aktuálnu checkout pozíciu. Typicky symbolicky ukazuje na current branch, ale môže ukazovať priamo na commit. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
@@ -1174,6 +1218,10 @@ Vlastnosť operácie, pri ktorej opakovanie s rovnakým vstupom vedie k rovnaké
 
 Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-idempotentný request a vrátiť konzistentný výsledok. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
 
+## `ignore_changes` — Terraform
+
+Lifecycle rule, ktorá pri update plánovaní ignoruje zmeny vybraných atribútov. Musí mať explicitný external owner a monitoring, pretože potláča Terraform remediation, nie existenciu driftu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## Immutable infrastructure
 
 Model, v ktorom sa existujúce inštancie zásadne neupravujú, ale nahrádzajú novými. Pozri [Immutable vs. Mutable Infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md).
@@ -1189,6 +1237,10 @@ Prístup opisujúci konkrétnu sekvenciu krokov. Pozri [Declarative vs. Imperati
 ## Implicit typing — YAML
 
 Automatická interpretácia plain scalaru ako boolean, number, date alebo null podľa YAML schema a parser implementácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Import block — Terraform
+
+Versionovaná configuration deklarácia mapujúca existujúci remote objekt cez provider identity na konkrétnu Terraform resource instance addressu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Index stages
 
@@ -1277,6 +1329,10 @@ Presne identifikovaný artifact, configuration a compatibility stav s overenou p
 ## Latest successful artifact — GitLab
 
 Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitLab podľa nastavenia uchovávať nezávisle od bežnej expiration policy. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Lifecycle meta-argument — Terraform
+
+Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ako `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, preconditions a postconditions. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Line coverage
 
@@ -1398,9 +1454,37 @@ Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní
 
 Obdobie rollout-u, počas ktorého stará a nová application verzia súčasne obsluhujú traffic alebo pracujú nad spoločným stavom. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
+## Mock provider — Terraform test
+
+Test double poskytujúci deterministické provider schemas a hodnoty pre native Terraform tests bez plného reálneho API behavioru; nenahrádza integration test permissions, quotas a runtime semantics. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
 ## Mock — test double
 
 Test double s explicitnými očakávaniami na interakcie. Je vhodný, keď komunikácia sama tvorí relevantný kontrakt. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Module composition — Terraform
+
+Skladanie menších capability modules v root module prepájaním ich explicitných outputs a inputs do jedného dependency graphu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module contract — Terraform
+
+Stabilné rozhranie reusable modulu tvorené inputs, outputs, provider requirements, behaviorom, lifecycle assumptions, compatibility policy a dokumentovanými side effects. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module instance — Terraform
+
+Konkrétna inštancia child module callu v graph-e, vrátane prípadného `count` indexu alebo `for_each` key v module address-e. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module registry — Terraform
+
+Distribučná služba publikujúca versionované Terraform modules a ich metadata pre verejnú alebo internú spotrebu; sama negarantuje bezpečnosť ani kompatibilitu modulu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module source — Terraform
+
+Adresa, z ktorej Terraform počas initialization načíta child module, napríklad local path, registry alebo VCS source. Je to executable supply-chain dependency. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module versioning — Terraform
+
+Release a compatibility lifecycle reusable modulu zahŕňajúci version constraints, zmeny input/output contractu, provider requirements, migrations, deprecations a podporované upgrade paths. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Monorepo
 
@@ -1413,6 +1497,14 @@ Pripojenie filesystemu alebo iného mountable objektu do spoločného filesystem
 ## Mount namespace
 
 Namespace poskytujúci samostatný pohľad na mount table a propagation. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## `moved` block — Terraform
+
+Versionovaná deklarácia `from` a `to` addressy, ktorou Terraform zachová resource alebo module identity počas configuration refaktoringu bez state surgery v každom environment-e. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Moved history — Terraform
+
+Sada `moved` blocks zachovaná naprieč module releases tak, aby consumers preskakujúci verzie mohli premapovať staré addresses bez neúmyselných replacements. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## MSS — Maximum Segment Size
 
@@ -1626,9 +1718,21 @@ Reťaz procesov, v ktorej stdout jedného procesu smeruje do stdin ďalšieho. P
 
 Systém certificate authorities, policies, trust stores, issuance, validation, rotation a revocation pre public-key identities. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Plan artifact — Terraform
+
+Uložený Terraform plan viazaný na configuration, variables, provider/module selections a prior state, ktorý má byť reviewovaný, policy-evaluovaný a následne aplikovaný ako ten istý immutable decision artifact. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Plan test — Terraform
+
+Native Terraform test run používajúci `command = plan` na overenie plan-time contractu bez vytvorenia reálnej infraštruktúry. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
 ## Policy as Code
 
 Strojovo vyhodnotiteľná bezpečnostná alebo prevádzková policy spravovaná ako verzovaný kód s testami a exception lifecycle. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
+
+## Policy exception — Terraform
+
+Časovo obmedzený a auditovaný override konkrétnej policy s ownerom, dôvodom, compensating controls, approvalom, expiration a remediation plánom. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Policy routing
 
@@ -1638,6 +1742,10 @@ Routing model, ktorý môže vyberať table podľa source address, marku, ingres
 
 16-bit transportný identifikátor socket endpointu. Port sám neurčuje aplikačný protokol. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
+## Post-import plan — Terraform
+
+Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či configuration remote stav adoptuje, zmení alebo by nebezpečne vyvolala update či replacement. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## PowerShell provider
 
 Abstraction layer sprístupňujúca datasources ako filesystem, registry, certificates alebo environment cez jednotné cmdlets a drives. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -1645,6 +1753,10 @@ Abstraction layer sprístupňujúca datasources ako filesystem, registry, certif
 ## Pre-release identifier
 
 SemVer časť za pomlčkou, napríklad `rc.1`, označujúca verziu s nižšou precedence než zodpovedajúci final release. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## `prevent_destroy` — Terraform
+
+Lifecycle rule blokujúca plánované zničenie resource, pokiaľ je pravidlo stále prítomné v configuration; nenahrádza remote deletion protection ani backup. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Process
 
@@ -1697,6 +1809,10 @@ Pomenovanie alternatívnej konfigurácie rovnakého providera používané napr�
 ## Provider configuration — Terraform
 
 Runtime nastavenie providera, napríklad region, endpoint alebo authentication context, ktoré resource alebo module používa na API operácie. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Provider interpretation drift
+
+Plan rozdiel spôsobený zmenou provider schema, defaults, diff suppression alebo read normalizácie namiesto manuálnej zmeny samotného remote objektu. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
 ## Provider requirement — Terraform
 
@@ -1778,6 +1894,10 @@ Denial-of-service riziko spôsobené regexom s patologickou runtime complexity n
 
 Lokálna evidencia pohybov refs a `HEAD`, použiteľná na recovery commitov po reset, rebase alebo zmazaní branch pred expiráciou záznamov. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
 
+## Refresh-only plan — Terraform
+
+Plan režim, ktorý ukáže zmeny state-u potrebné na zosúladenie s remote observations bez plánovania remote infraštruktúry k desired configuration. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
 ## Refspec
 
 Pravidlo mapujúce source ref na destination ref pri fetch alebo push operácii. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -1834,6 +1954,10 @@ Presne definovaná množina artifactov, configov, migrations alebo koordinovaný
 
 Backend ukladajúci Terraform state mimo lokálneho working directory a podľa typu poskytujúci collaboration, locking, versioning alebo remote-operation capabilities. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Remote drift — Terraform
+
+Rozdiel vzniknutý zmenou managed remote objektu mimo authoritative Terraform workflowu. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
 ## Remote execution — Terraform
 
 Model, v ktorom plan/apply nevykonáva lokálny CLI proces, ale spravovaný remote worker alebo platforma s vlastnou queue, identity, variables a policy vrstvou. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -1841,6 +1965,10 @@ Model, v ktorom plan/apply nevykonáva lokálny CLI proces, ale spravovaný remo
 ## Remote-tracking ref
 
 Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## `replace_triggered_by` — Terraform
+
+Lifecycle rule vyžadujúca replacement resource, keď sa zmení referencovaný managed objekt alebo atribút predstavujúci explicitný lifecycle signal. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Report artifact — GitLab
 
@@ -1941,6 +2069,10 @@ Deployment stratégia postupne nahrádzajúca staré instances novými pri zacho
 ## Rollout contract
 
 Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observation windows, promotion/abort policy, recovery actions a ownera progressive rollout-u. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
+## Root module — Terraform
+
+Konfigurácia v working directory, nad ktorou sa vykonáva plan/apply; skladá child modules, vlastní environment orchestration a určuje state/backend lifecycle. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Route
 
@@ -2314,6 +2446,14 @@ PowerShell error, ktorý zastaví aktuálnu operáciu alebo scope a môže byť 
 
 Terraform Core komponent určujúci state storage a podľa backendu aj locking, workspaces alebo remote execution behavior. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Terraform drift
+
+Významný rozdiel medzi desired configuration, Terraform state a skutočným remote stavom, ktorý vyžaduje klasifikáciu ownershipu a vedomé reconciliation rozhodnutie. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Terraform import
+
+Proces vytvorenia state bindingu medzi existujúcim remote objektom a deklarovanou Terraform resource addressou bez vytvorenia objektu Terraformom. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## Terraform input variable
 
 Deklarovaný vstup modulu dostupný cez `var.<name>` s type constraintom, defaultom, validation a ďalšími contract vlastnosťami. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
@@ -2325,6 +2465,14 @@ Samostatne versionovaný plugin implementujúci resource types, data sources, sc
 ## Terraform state
 
 Persistentný model mapujúci Terraform resource addresses na remote identities a uchovávajúci metadata potrebné na ďalší plan/apply lifecycle. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Terraform test
+
+Native Terraform test execution definovaná v `.tftest.hcl` alebo `.tftest.json`, ktorá vykonáva plan/apply runs a assertions pre root alebo reusable module. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Terraform test file
+
+Súbor testovacej konfigurácie načítaný Terraformom z root configuration alebo štandardne z adresára `tests`, obsahujúci runs, variables, providers, overrides a assertions. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Test data factory
 
@@ -2445,6 +2593,14 @@ Rýchly test malej izolovanej jednotky správania s úzkym diagnostickým scope-
 ## Unknown value — Terraform
 
 Typovo známa, ale konkrétne neurčená hodnota počas planu, ktorú Terraform získa až pri apply alebo neskoršom provider read-e. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
+
+## Unmanaged infrastructure — Terraform context
+
+Remote objekt bez bindingu v danom Terraform state-e, ktorý bežný plan nemusí objaviť, pokiaľ ho explicitne nenačíta provider data source, import alebo externý asset inventory. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Upgrade test — Terraform module
+
+Testovací workflow, ktorý vytvorí infraštruktúru podporovanou staršou module/provider verziou, následne vykoná upgrade plan/apply a overí compatibility, moved mappings a absence nečakaných replacements. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Upstream branch
 
