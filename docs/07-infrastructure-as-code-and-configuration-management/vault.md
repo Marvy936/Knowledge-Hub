@@ -577,3 +577,11 @@ Relevantné pojmy: Ansible Vault, vault password, vault ID, encrypted file, encr
 - [Encrypting content with Ansible Vault](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_encrypting_content.html)
 - [Using encrypted variables and files](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_using_encrypted_content.html)
 - [Managing vault passwords](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_managing_passwords.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Roles a collections](roles-and-collections.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible idempotencia →](ansible-idempotency.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -597,5 +597,5 @@ Relevantné pojmy: Ansible conditional, `when`, Jinja test, loop, `loop_control`
 
 **Navigácia**
 
-[← Predchádzajúca: Variables, facts a templates](variables-facts-templates.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Variables, facts a templates](variables-facts-templates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Roles a collections →](roles-and-collections.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -698,3 +698,11 @@ Relevantné pojmy: provisioning, configuration management, resource lifecycle en
 - [Integrate Terraform with Ansible Automation Platform](https://developer.hashicorp.com/validated-patterns/terraform/terraform-integrate-ansible-automation-platform)
 - [Ansible playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/index.html)
 - [Ansible concepts](https://docs.ansible.com/projects/ansible/latest/getting_started/basic_concepts.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ansible idempotencia](ansible-idempotency.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

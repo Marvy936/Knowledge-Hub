@@ -616,3 +616,11 @@ Relevantné pojmy: Ansible idempotencia, convergence, idempotency test, second c
 - [Validating tasks with check and diff mode](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html)
 - [Error handling and changed conditions](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
 - [Ansible Lint: no-changed-when](https://docs.ansible.com/projects/lint/rules/no-changed-when/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Vault](vault.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform vs. Ansible →](terraform-vs-ansible.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

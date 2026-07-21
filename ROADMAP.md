@@ -163,10 +163,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md)
 - [x] [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md)
 - [x] [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md)
-- [ ] Roles a collections
-- [ ] Vault
-- [ ] Ansible idempotencia
-- [ ] Terraform vs. Ansible
+- [x] [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md)
+- [x] [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md)
+- [x] [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md)
+- [x] [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md)
 
 ## Fáza 3 — Containers, Kubernetes a CKA
 

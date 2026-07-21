@@ -576,3 +576,11 @@ Relevantné pojmy: Ansible role, role contract, role defaults, role vars, role d
 - [Using collections in a playbook](https://docs.ansible.com/ansible/latest/collections_guide/collections_using_playbooks.html)
 - [Installing collections](https://docs.ansible.com/projects/ansible/latest/collections_guide/collections_installing.html)
 - [Galaxy user guide](https://docs.ansible.com/projects/ansible/latest/galaxy/user_guide.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Handlers, loops a conditionals](handlers-loops-conditionals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Vault →](vault.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
