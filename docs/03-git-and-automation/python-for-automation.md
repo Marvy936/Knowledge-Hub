@@ -720,3 +720,11 @@ Nie. Zachyť ju tam, kde vieš pridať kontext, vykonať recovery alebo mapovať
 ## Glossary impact
 
 Relevantné pojmy: virtual environment, dependency lock, package, entry point, type hint, dataclass, context manager, exception chaining, atomic write, retry budget, exponential backoff, jitter, thread pool, process pool, asyncio, graceful shutdown, boundary mock a path traversal.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: PowerShell fundamentals](powershell-fundamentals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: YAML, JSON a regular expressions →](yaml-json-regular-expressions.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

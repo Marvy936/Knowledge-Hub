@@ -298,5 +298,5 @@ Relevantné pojmy: monorepo, multirepo, atomic change, affected-project detectio
 
 **Navigácia**
 
-[← Predchádzajúca: Branching strategies](branching-strategies.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Branching strategies](branching-strategies.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Bash automation →](bash-automation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

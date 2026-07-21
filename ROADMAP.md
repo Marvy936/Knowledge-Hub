@@ -82,10 +82,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Konflikty](docs/03-git-and-automation/merge-conflicts.md)
 - [x] [Branching strategies](docs/03-git-and-automation/branching-strategies.md)
 - [x] [Monorepo vs. multirepo](docs/03-git-and-automation/monorepo-vs-multirepo.md)
-- [ ] Bash automation
-- [ ] PowerShell fundamentals
-- [ ] Python for automation
-- [ ] YAML, JSON a regular expressions
+- [x] [Bash automation](docs/03-git-and-automation/bash-automation.md)
+- [x] [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md)
+- [x] [Python for automation](docs/03-git-and-automation/python-for-automation.md)
+- [x] [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md)
 
 ## Fáza 2 — Quality, delivery a automatizácia
 

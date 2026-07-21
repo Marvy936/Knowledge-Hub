@@ -603,3 +603,11 @@ Iba tie, ktoré sú správne implementované cez `ShouldProcess` alebo vlastný 
 ## Glossary impact
 
 Relevantné pojmy: object pipeline, cmdlet, advanced function, common parameters, terminating error, non-terminating error, error record, PowerShell provider, splatting, runspace, `ShouldProcess`, Pester, PSScriptAnalyzer a deserialized object.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Bash automation](bash-automation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Python for automation →](python-for-automation.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

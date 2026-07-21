@@ -755,3 +755,11 @@ Nie. Dialect, flags a Unicode behavior sa líšia.
 ## Glossary impact
 
 Relevantné pojmy: JSON object, JSON Schema, canonicalization, YAML mapping, YAML sequence, scalar, implicit typing, document stream, anchor, alias, safe loader, schema validation, regular expression, regex dialect, capturing group, lookaround, greedy quantifier, catastrophic backtracking, ReDoS, Unicode normalization a deterministic serialization.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Python for automation](python-for-automation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

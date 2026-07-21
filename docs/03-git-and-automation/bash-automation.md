@@ -513,3 +513,11 @@ Dry-run musí stále validovať vstupy a vypočítať presný plán zmien bez ve
 ## Glossary impact
 
 Relevantné pojmy: shell expansion, word splitting, globbing, exit status, pipeline, `pipefail`, subshell, trap, idempotent script, atomic rename, file lock, command injection, option injection a NUL-delimited stream.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Monorepo vs. multirepo](monorepo-vs-multirepo.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: PowerShell fundamentals →](powershell-fundamentals.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
