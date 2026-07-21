@@ -480,3 +480,11 @@ Relevantné pojmy: Terraform input variable, type constraint, optional attribute
 - [Input variables](https://developer.hashicorp.com/terraform/language/values/variables)
 - [Local values](https://developer.hashicorp.com/terraform/language/block/locals)
 - [Output values](https://developer.hashicorp.com/terraform/language/values/outputs)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Terraform providers, resources a data sources](terraform-providers-resources-data-sources.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Expressions a dependency graph →](expressions-and-dependency-graph.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

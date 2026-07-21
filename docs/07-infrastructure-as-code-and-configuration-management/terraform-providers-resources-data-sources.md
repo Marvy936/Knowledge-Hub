@@ -432,3 +432,11 @@ Relevantné pojmy: Terraform provider, provider requirement, provider configurat
 - [Provider requirements](https://developer.hashicorp.com/terraform/language/providers/requirements)
 - [Resources](https://developer.hashicorp.com/terraform/language/resources)
 - [Data sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Infrastructure as Code principles](infrastructure-as-code-principles.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables, locals a outputs →](variables-locals-outputs.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

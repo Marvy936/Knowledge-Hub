@@ -148,12 +148,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Infrastructure as Code and Configuration Management
 
-- [ ] Infrastructure as Code principles
-- [ ] Terraform providers, resources a data sources
-- [ ] Variables, locals a outputs
-- [ ] Expressions a dependency graph
-- [ ] Terraform state
-- [ ] Remote backend a state locking
+- [x] [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md)
+- [x] [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md)
+- [x] [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md)
+- [x] [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md)
+- [x] [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md)
+- [x] [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md)
 - [ ] Modules
 - [ ] Lifecycle, import a moved blocks
 - [ ] Drift

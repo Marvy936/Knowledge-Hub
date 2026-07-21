@@ -528,3 +528,11 @@ Relevantné pojmy: Terraform state, state snapshot, resource binding, lineage, s
 - [Purpose of Terraform state](https://developer.hashicorp.com/terraform/language/state/purpose)
 - [State workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces)
 - [Recover state](https://developer.hashicorp.com/terraform/cli/state/recover)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Expressions a dependency graph](expressions-and-dependency-graph.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Remote backend a state locking →](remote-backend-and-state-locking.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -458,3 +458,11 @@ Relevantné pojmy: Infrastructure as Code, desired state, reconciliation, idempo
 - [Terraform language overview](https://developer.hashicorp.com/terraform/language)
 - [Terraform style guide](https://developer.hashicorp.com/terraform/language/style)
 - [Terraform state](https://developer.hashicorp.com/terraform/language/state)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Security scanning](../06-gitlab/security-scanning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform providers, resources a data sources →](terraform-providers-resources-data-sources.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -497,3 +497,11 @@ Relevantné pojmy: Terraform expression, reference, unknown value, graph-shaping
 - [References to values](https://developer.hashicorp.com/terraform/language/expressions/references)
 - [`depends_on` meta-argument](https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on)
 - [Meta-arguments](https://developer.hashicorp.com/terraform/language/meta-arguments)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Variables, locals a outputs](variables-locals-outputs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform state →](terraform-state.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

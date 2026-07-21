@@ -568,3 +568,11 @@ Relevantné pojmy: Terraform backend, local backend, remote backend, backend con
 - [Backend configuration](https://developer.hashicorp.com/terraform/language/backend)
 - [Backends: state storage and locking](https://developer.hashicorp.com/terraform/language/state/backends)
 - [State locking](https://developer.hashicorp.com/terraform/language/state/locking)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Terraform state](terraform-state.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

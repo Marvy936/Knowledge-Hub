@@ -451,5 +451,5 @@ Relevantné pojmy: GitLab SAST, dependency scanning, container scanning, secret 
 
 **Navigácia**
 
-[← Predchádzajúca: Environments, deployments a releases](environments-deployments-releases.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Environments, deployments a releases](environments-deployments-releases.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Infrastructure as Code principles →](../07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
