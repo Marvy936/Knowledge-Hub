@@ -1,8 +1,8 @@
 # Infrastructure as Code and Configuration Management
 
-Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť sa sústreďuje na Terraform execution model, reusable modules, bezpečné refaktoringy, drift management, testing a Policy as Code. Nasledujúca časť prejde na Ansible configuration management.
+Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť pokrýva Terraform execution model, state, modules, bezpečné refaktoringy, drift management, testing a Policy as Code. Druhá časť aplikuje rovnaké princípy na Ansible control node, inventory, playbooks, variables, templates a change-driven execution.
 
-Cieľom nie je memorovať HCL alebo YAML syntax ani cloud-specific resources. Dôležité je rozumieť desired state, provider boundary, dependency graphu, resource identity, state a backendu, blast radiusu, driftu, module contracts, testovateľnosti a bezpečnému plan/apply lifecycle.
+Cieľom nie je memorovať HCL alebo YAML syntax ani cloud-specific resources. Dôležité je rozumieť desired state, provider a connection boundaries, dependency graphu, resource a host identity, state, inventory, blast radiusu, driftu, reusable contracts, testovateľnosti a bezpečnému execution lifecycle.
 
 ## Predpoklady
 
@@ -28,12 +28,17 @@ Odporúča sa najprv dokončiť:
 8. [Lifecycle, import a moved blocks](lifecycle-import-moved-blocks.md)
 9. [Drift](drift.md)
 10. [Terraform testing a policy](terraform-testing-and-policy.md)
+11. [Ansible architecture](ansible-architecture.md)
+12. [Inventory](inventory.md)
+13. [Modules, tasks, plays a playbooks](modules-tasks-plays-playbooks.md)
+14. [Variables, facts a templates](variables-facts-templates.md)
+15. [Handlers, loops a conditionals](handlers-loops-conditionals.md)
 
-Nasledujúci blok začne Ansible časť: architecture, inventory, modules/tasks/plays/playbooks, variables/facts/templates, handlers/loops/conditionals, roles/collections, Vault, idempotencia a porovnanie Terraform vs. Ansible.
+Posledný blok sekcie doplní Ansible roles a collections, Vault, idempotenciu a porovnanie Terraform vs. Ansible.
 
 ## Cieľ zvládnutia
 
-Po dokončení Terraform časti má byť možné:
+Po dokončení aktuálneho bloku má byť možné:
 
 - vysvetliť Infrastructure as Code ako change-control a reconciliation model, nie iba automatizačný skript,
 - rozlíšiť deklaratívny a imperatívny prístup, desired state, actual state a Terraformom známy state,
@@ -77,7 +82,22 @@ Po dokončení Terraform časti má byť možné:
 - vytvoriť module upgrade testy a reprezentatívnu Terraform/provider version matrix,
 - pracovať s immutable saved planom a machine-readable plan JSON ako policy evidence,
 - navrhnúť Policy as Code rules, advisory/mandatory gates, exceptions a policy tests,
-- prepojiť delivery tests s continuous validation, drift detection a security rescanning.
+- prepojiť delivery tests s continuous validation, drift detection a security rescanning,
+- vysvetliť Ansible control node, managed node, agentless execution, inventory, modules, plugins a collections,
+- rozlíšiť action, connection, strategy, callback a inventory plugin responsibilities,
+- navrhnúť bezpečný connection, privilege-escalation, concurrency, batch a execution-environment model,
+- diagnostikovať unreachable host, module/runtime failure, incorrect targeting a non-idempotent change reporting,
+- vytvoriť static alebo dynamic inventory so stabilnou host identity, groups a explicitným variable ownershipom,
+- používať inventory patterns, `--limit`, cache a constructed groups bez neúmyselného rozšírenia target scope-u,
+- overovať resolved inventory graph, host variables, target count a environment isolation pred produkčným runom,
+- rozlíšiť module, action plugin, task, play a playbook a interpretovať per-host `changed`, `failed`, `skipped` a `unreachable` výsledky,
+- používať FQCN, structured arguments, registers, `changed_when`, `failed_when`, blocks, delegation a controlled error handling,
+- rozlíšiť static imports a dynamic includes a navrhnúť check/diff, tags, batching a idempotency verification workflow,
+- vysvetliť variable sources, scope a precedence a vytvoriť stabilný role/inventory variable contract,
+- používať facts, fact cache, magic variables a registered values s explicitným freshness a coupling modelom,
+- vytvárať deterministické Jinja templates s validáciou, bezpečnou serializáciou, atomic update a secret-aware loggingom,
+- používať `when`, tests, loops, `loop_control`, retry/`until` a registered loop results bez skrytého partial state-u,
+- navrhnúť handlers, notifications, `listen` topics, deduplication a flush/failure správanie podľa správneho changed signal-u.
 
 ## Stav
 
@@ -93,3 +113,8 @@ Po dokončení Terraform časti má byť možné:
 | Lifecycle, import a moved blocks | Learning | L2 |
 | Drift | Learning | L2 |
 | Terraform testing a policy | Learning | L2 |
+| Ansible architecture | Learning | L2 |
+| Inventory | Learning | L2 |
+| Modules, tasks, plays a playbooks | Learning | L2 |
+| Variables, facts a templates | Learning | L2 |
+| Handlers, loops a conditionals | Learning | L2 |
