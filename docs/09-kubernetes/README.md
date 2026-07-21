@@ -22,8 +22,13 @@ Odporúča sa najprv dokončiť:
 4. [Control plane components](control-plane-components.md)
 5. [Worker node components](worker-node-components.md)
 6. [Pod](pod.md)
+7. [ReplicaSet](replicaset.md)
+8. [Deployment](deployment.md)
+9. [StatefulSet](statefulset.md)
+10. [DaemonSet](daemonset.md)
+11. [Job a CronJob](job-cronjob.md)
 
-Nasledujúci blok prejde na workload controllers: ReplicaSet, Deployment, StatefulSet, DaemonSet a Job/CronJob. Potom sekcia rozvinie configuration, identity, Services, networking, storage, scheduling, resources, probes, autoscaling, security, cluster lifecycle a troubleshooting.
+Nasledujúci blok prejde na configuration a identity resources: ConfigMap, Secret a ServiceAccount. Potom sekcia rozvinie Services, EndpointSlices, Ingress/Gateway API, cluster DNS, CNI/NetworkPolicy, storage, scheduling, resources, probes, autoscaling, security, cluster lifecycle a troubleshooting.
 
 ## Cieľ zvládnutia
 
@@ -76,7 +81,28 @@ Po dokončení aktuálneho bloku má byť možné:
 - vysvetliť startup, liveness a readiness probes a Pod readiness gates,
 - popísať graceful Pod termination, lifecycle hooks a termination grace period,
 - rozlíšiť priamo vytvorený Pod, controller-managed Pod, Pod template a static Pod,
-- systematicky diagnostikovať Pod podľa fázy `Pending`, `ContainerCreating`, `Running/NotReady`, `CrashLoopBackOff`, `ImagePullBackOff`, `Terminating` alebo `Evicted`.
+- systematicky diagnostikovať Pod podľa fázy `Pending`, `ContainerCreating`, `Running/NotReady`, `CrashLoopBackOff`, `ImagePullBackOff`, `Terminating` alebo `Evicted`,
+- vysvetliť ReplicaSet ako controller požadovaného počtu matching Podov,
+- navrhnúť stabilný selector a rozlíšiť Pod adoption, orphaning a controller ownership,
+- rozlíšiť container restart od replacement Podu a replica count od readiness/availability,
+- vysvetliť ownership chain Deployment → ReplicaSet → Pod,
+- rozlíšiť RollingUpdate a Recreate Deployment stratégie,
+- navrhnúť `maxSurge`, `maxUnavailable`, `minReadySeconds` a progress deadline podľa capacity a availability požiadaviek,
+- interpretovať rollout revisions, conditions, pause/resume, history a rollback hranice,
+- vysvetliť vplyv readiness, termination overlap, PDB, HPA a mixed-version compatibility na Deployment rollout,
+- vysvetliť StatefulSet ordinal, stable network identity, headless Service a per-replica PVC,
+- rozlíšiť `OrderedReady`, `Parallel`, `RollingUpdate`, `OnDelete` a partitioned rollout,
+- navrhnúť StatefulSet storage, PVC retention, topology, quorum, fencing, backup a upgrade model,
+- rozlíšiť stabilnú logical identity od Pod UID, IP a process identity,
+- vysvetliť DaemonSet desired count odvodený od eligible Nodes,
+- navrhnúť node selectors, affinity, tolerations, priority a rolling update pre node-local agent,
+- vyhodnotiť host mounts, devices, host networking, per-node resource overhead a bootstrap dependencies DaemonSetu,
+- diagnostikovať desired/current/ready/available/misscheduled DaemonSet status,
+- vysvetliť Job completion, `parallelism`, `completions`, retry, backoff a deadline semantics,
+- rozlíšiť NonIndexed, Indexed a work-queue batch model,
+- navrhnúť idempotentnú batch prácu s checkpointom, deduplication a bezpečnými side effects,
+- vysvetliť CronJob schedule, time zone, starting deadline, concurrency policy, suspend a history limits,
+- odôvodniť, prečo Job/CronJob neposkytujú end-to-end exactly-once execution.
 
 ## Stav
 
@@ -88,3 +114,8 @@ Po dokončení aktuálneho bloku má byť možné:
 | Control plane components | Learning | L2 |
 | Worker node components | Learning | L2 |
 | Pod | Learning | L2 |
+| ReplicaSet | Learning | L2 |
+| Deployment | Learning | L2 |
+| StatefulSet | Learning | L2 |
+| DaemonSet | Learning | L2 |
+| Job a CronJob | Learning | L2 |
