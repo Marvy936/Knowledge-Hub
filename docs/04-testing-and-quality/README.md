@@ -16,8 +16,14 @@ Znalosť Git workflow, automatizácie, HTTP/API kontraktov, databázových hran�
 4. [Contract a API tests](contract-and-api-tests.md)
 5. [End-to-end a acceptance tests](end-to-end-and-acceptance-tests.md)
 6. [Smoke a regression tests](smoke-and-regression-tests.md)
+7. [Performance, load a stress tests](performance-load-stress-tests.md)
+8. [Security a infrastructure tests](security-and-infrastructure-tests.md)
+9. [Static analysis, linting a type checking](static-analysis-linting-type-checking.md)
+10. [Code coverage a quality gates](code-coverage-and-quality-gates.md)
+11. [Mocks, stubs a fakes](mocks-stubs-fakes.md)
+12. [Flaky tests a test data](flaky-tests-and-test-data.md)
 
-Ďalší blok sekcie doplní performance/load/stress tests, security a infrastructure tests, static analysis, coverage a quality gates, test doubles, flaky tests a test data, shift-left, shift-right a chaos testing.
+Posledný blok sekcie doplní shift-left, shift-right a chaos testing. Tieto kapitoly prepoja pre-release quality engineering s produkčnou observability, experimentmi a resilience engineeringom.
 
 ## Cieľ zvládnutia
 
@@ -29,14 +35,23 @@ Po dokončení aktuálneho bloku má byť možné:
 - zvoliť najnižší test scope, ktorý spoľahlivo odhalí daný failure mode,
 - rozlíšiť unit, integration a component test podľa reálnych boundaries a dependencies,
 - navrhnúť hermetic, paralelizovateľné testy s deterministickým setupom a cleanupom,
-- používať reálne dependencies, stubs, fakes a mocks podľa rizika integrácie,
 - rozlíšiť API test od contract testu a používať producer-driven aj consumer-driven contracts,
 - posúdiť backward/forward compatibility API alebo event schema,
-- testovať authorization, idempotency, pagination a optimistic concurrency,
 - navrhnúť kritické E2E journeys, acceptance criteria, test data a failure artifacts,
-- rozlíšiť UAT, operational acceptance a produkčnú validation,
 - vytvoriť krátky deployment smoke gate a risk-based regression suite,
-- spravovať flaky tests, baselines, test selection a post-incident regression bez rerun-until-green anti-patternu.
+- rozlíšiť load, stress, spike, soak, capacity a scalability test,
+- navrhnúť realistický open alebo closed workload model a interpretovať tail latency, throughput, concurrency a saturation,
+- korelovať performance výsledky s CPU, memory, I/O, network, queue a dependency metrics,
+- navrhovať threat-informed security tests pre application, supply chain, IAM, network a infrastructure boundaries,
+- vrstviť IaC syntax, policy, plan a runtime verification,
+- rozlíšiť SAST, DAST, IAST, SCA a artifact scanning a triagovať findings podľa reachability a impactu,
+- používať formatter, linter, type checker a data-flow analysis bez zamieňania statického signálu za runtime dôkaz,
+- interpretovať line, branch, condition a diff coverage bez používania coverage ako priamej metriky kvality,
+- navrhnúť blocking/advisory quality gates, ratcheting a auditovateľný exception lifecycle,
+- zvoliť medzi dummy, stub, fake, spy, mock a reálnou dependency podľa testovaného rizika,
+- minimalizovať contract drift a over-specification test doubles,
+- diagnostikovať flaky tests, izolovať test data a odstrániť timing, shared-state a order dependencies,
+- spravovať quarantine, retries, first-attempt pass rate a failure artifacts bez rerun-until-green anti-patternu.
 
 ## Stav
 
@@ -48,3 +63,9 @@ Po dokončení aktuálneho bloku má byť možné:
 | Contract a API tests | Learning | L2 |
 | End-to-end a acceptance tests | Learning | L2 |
 | Smoke a regression tests | Learning | L2 |
+| Performance, load a stress tests | Learning | L2 |
+| Security a infrastructure tests | Learning | L2 |
+| Static analysis, linting a type checking | Learning | L2 |
+| Code coverage a quality gates | Learning | L2 |
+| Mocks, stubs a fakes | Learning | L2 |
+| Flaky tests a test data | Learning | L2 |
