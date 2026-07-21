@@ -494,3 +494,11 @@ Relevantné pojmy: Amazon ECS, ECS cluster, task definition, ECS task, ECS servi
 - [EKS compute options](https://docs.aws.amazon.com/eks/latest/userguide/eks-compute.html)
 - [EKS managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)
 - [EKS Fargate](https://docs.aws.amazon.com/eks/latest/userguide/fargate.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Lambda](lambda.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CloudWatch a CloudTrail →](cloudwatch-cloudtrail.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

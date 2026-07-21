@@ -500,3 +500,11 @@ Relevantné pojmy: AWS Systems Manager, managed node, SSM Agent, SSM document, R
 - [Automation runbooks](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-documents.html)
 - [Patch Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager.html)
 - [Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CloudWatch a CloudTrail](cloudwatch-cloudtrail.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: KMS a Secrets Manager →](kms-secrets-manager.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

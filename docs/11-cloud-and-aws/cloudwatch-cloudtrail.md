@@ -480,3 +480,11 @@ Relevantné pojmy: Amazon CloudWatch, CloudWatch metric, namespace, dimension, p
 - [CloudTrail concepts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html)
 - [CloudTrail trails](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-trails.html)
 - [CloudTrail Event history](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ECS a EKS](ecs-eks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Systems Manager →](systems-manager.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

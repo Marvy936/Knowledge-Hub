@@ -863,5 +863,5 @@ Relevantné pojmy: Amazon Route 53, hosted zone, DNS delegation, alias record, r
 
 **Navigácia**
 
-[← Predchádzajúca: RDS](rds.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: RDS](rds.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Lambda →](lambda.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

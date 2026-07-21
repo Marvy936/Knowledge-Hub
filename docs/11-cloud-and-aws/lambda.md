@@ -495,3 +495,11 @@ Relevantné pojmy: AWS Lambda, execution environment, cold start, warm start, in
 - [Lambda concurrency](https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html)
 - [Lambda retry behavior](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
 - [Lambda VPC networking](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Route 53 a CloudFront](route53-cloudfront.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ECS a EKS →](ecs-eks.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

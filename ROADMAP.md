@@ -257,11 +257,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md)
 - [x] [RDS](docs/11-cloud-and-aws/rds.md)
 - [x] [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md)
-- [ ] Lambda
-- [ ] ECS a EKS
-- [ ] CloudWatch a CloudTrail
-- [ ] Systems Manager
-- [ ] KMS a Secrets Manager
+- [x] [Lambda](docs/11-cloud-and-aws/lambda.md)
+- [x] [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md)
+- [x] [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md)
+- [x] [Systems Manager](docs/11-cloud-and-aws/systems-manager.md)
+- [x] [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md)
 - [ ] AWS Backup
 - [ ] Well-Architected Framework
 - [ ] Cost management a FinOps
