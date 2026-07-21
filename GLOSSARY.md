@@ -14,6 +14,10 @@ TLS extension, ktorou klient a server počas handshake dohodnú aplikačný prot
 
 Linux capability, ktorú môže proces za presných podmienok zachovať pri `execve()` neprivilegovaného programu. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Annotated tag
+
+Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, message a voliteľným kryptografickým podpisom. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
 ## Anycast
 
 Routing model, v ktorom viac lokalít oznamuje rovnakú IP adresu a routing privedie klienta k topologicky preferovanému endpointu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -42,13 +46,25 @@ Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane
 
 SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie operácie medzi source a target security contexts. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Backport
+
+Prenesenie opravy alebo zmeny z novšej vývojovej línie do staršej podporovanej release branch, často pomocou cherry-picku a samostatnej validácie. Pozri [Cherry-pick a stash](../docs/03-git-and-automation/cherry-pick-and-stash.md).
+
 ## Backpressure
 
 Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, aby nevytváral neobmedzený buffer a rastúcu latency. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
 
+## Bare repository
+
+Git repository bez working tree, používaný typicky ako serverový alebo integračný endpoint. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
+
 ## Batch size
 
 Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú blast radius a skracujú feedback. Pozri [Three Ways of DevOps](docs/00-foundations/three-ways.md).
+
+## Blob — Git object
+
+Nemenný Git object obsahujúci bytes jedného súboru bez filename a path metadata. Pozri [Git object model](../docs/03-git-and-automation/git-object-model.md).
 
 ## Block device
 
@@ -57,6 +73,14 @@ Kernelové zariadenie poskytujúce blokovo adresovaný storage. Pozri [Storage, 
 ## Bounding set — capability bounding set
 
 Horná hranica Linux capabilities, ktoré proces a jeho potomkovia môžu získať. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## Branch — Git branch
+
+Pohyblivý ref pod `refs/heads/`, ktorý ukazuje na tip commit. Branch nie je samostatný kontajner súborov ani commitov. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Branch protection
+
+Serverová policy obmedzujúca aktualizáciu dôležitej branch pomocou controls ako required reviews, CI checks, zákaz force pushu alebo merge queue. Pozri [Branching strategies](../docs/03-git-and-automation/branching-strategies.md).
 
 ## Broadcast domain
 
@@ -102,6 +126,10 @@ Podiel deploymentov, ktoré spôsobia degradáciu služby a vyžadujú nápravu.
 
 Čas od vzniku sledovanej zmeny po jej úspešný deployment do produkcie. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
 
+## Cherry-pick
+
+Operácia, ktorá aplikuje zmenu vybraného commitu na aktuálny tip a vytvorí nový commit s novým parentom a object ID. Pozri [Cherry-pick a stash](../docs/03-git-and-automation/cherry-pick-and-stash.md).
+
 ## CIDR — Classless Inter-Domain Routing
 
 Zápis IP prefixu pomocou adresy a počtu network bitov, napríklad `192.0.2.0/24`. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
@@ -113,6 +141,10 @@ TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavr
 ## Collision domain
 
 Oblasť zdieľaného Ethernet média, v ktorej môžu transmissions kolidovať. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## Commit object
+
+Git object obsahujúci root tree snapshotu, parent commits, author/committer metadata a commit message. Pozri [Git object model](../docs/03-git-and-automation/git-object-model.md).
 
 ## Complain mode
 
@@ -133,6 +165,10 @@ State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Po
 ## Consistent hashing
 
 Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Content-addressable storage
+
+Storage model, v ktorom je identita objektu odvodená z jeho typu a obsahu. Git používa tento model pre blobs, trees, commits a tags. Pozri [Git object model](../docs/03-git-and-automation/git-object-model.md).
 
 ## Content negotiation
 
@@ -210,6 +246,10 @@ Podiel deploymentov, ktoré sú neplánovanou opravou predchádzajúceho deploym
 
 Požadovaný stav systému deklarovaný používateľom alebo automatizačným nástrojom. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
 
+## Detached HEAD
+
+Stav, v ktorom `HEAD` ukazuje priamo na commit namiesto symbolického odkazu na branch. Nové commits treba zachytiť branch refom, inak môžu zostať unreachable. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
 ## DevOps
 
 Kultúrne princípy, organizačné praktiky a technické mechanizmy na rýchle a bezpečné dodávanie zmien. Pozri [DevOps](docs/00-foundations/devops.md).
@@ -246,13 +286,13 @@ Distribuovaný hierarchický systém mapujúci mená na resource records. Pozri 
 
 Komponent vykonávajúci alebo sprostredkujúci DNS resolution. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
-## DNSSEC
-
-Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Pozri [DNS](docs/02-networking-and-web/dns.md).
-
 ## DNS TTL
 
 Čas, počas ktorého môže resolver cacheovať DNS resource record. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## DNSSEC
+
+Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
 ## DORA metrics
 
@@ -314,6 +354,14 @@ Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a k
 
 Čas potrebný na obnovenie služby po zlyhaní spôsobenom deploymentom. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
 
+## Fast-forward
+
+Aktualizácia refu, pri ktorej je starý tip ancestor nového tipu, takže sa ref iba posunie bez odstránenia existujúcej ancestry. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Feature branch
+
+Dočasná branch určená na izolovaný vývoj jednej zmeny. Pri trunk-based modeli má byť krátkodobá a často integrovaná. Pozri [Branching strategies](../docs/03-git-and-automation/branching-strategies.md).
+
 ## Feedback loop
 
 Cesta od vykonanej zmeny k informácii o jej výsledku. Pozri [Feedback Loops](docs/00-foundations/feedback-loops.md).
@@ -334,6 +382,10 @@ Malé celé číslo v procese odkazujúce na kernelom spravovaný otvorený obje
 
 TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Force-with-lease
+
+Bezpečnejšia forma force pushu, ktorá aktualizuje remote ref iba vtedy, keď stále zodpovedá očakávanej hodnote. Stále ide o history rewrite. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
+
 ## Forward proxy
 
 Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
@@ -341,6 +393,14 @@ Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy 
 ## Forward secrecy
 
 Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého private key automaticky neodhalí staré TLS sessions. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
+## Git index
+
+Binárna dátová štruktúra predstavujúca pripravovaný snapshot nasledujúceho commitu; obsahuje paths, modes, object IDs a pri konfliktoch viac stages. Pozri [Working tree, staging area a repository](../docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Git ref
+
+Pomenovaný ukazovateľ na Git object ID, typicky commit. Príkladmi sú branches, remote-tracking refs a tags. Pozri [Git object model](../docs/03-git-and-automation/git-object-model.md).
 
 ## Gratuitous ARP
 
@@ -350,9 +410,17 @@ ARP announcement používaný napríklad na aktualizáciu neighbor caches po pre
 
 Ďalší directory entry odkazujúci na ten istý inode. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## HEAD — Git
+
+Špeciálny ref reprezentujúci aktuálnu checkout pozíciu. Typicky symbolicky ukazuje na current branch, ale môže ukazovať priamo na commit. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
 ## Health check
 
 Aktívny alebo pasívny test určujúci, či backend môže prijímať nový traffic. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## History rewrite
+
+Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, napríklad rebase, amend alebo reset publikovanej branch. Pozri [Merge a rebase](../docs/03-git-and-automation/merge-and-rebase.md).
 
 ## Hop limit
 
@@ -393,6 +461,10 @@ Model, v ktorom sa existujúce inštancie zásadne neupravujú, ale nahrádzajú
 ## Imperative approach
 
 Prístup opisujúci konkrétnu sekvenciu krokov. Pozri [Declarative vs. Imperative Approach](docs/00-foundations/declarative-vs-imperative.md).
+
+## Index stages
+
+Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je merge base, stage 2 ours a stage 3 theirs. Pozri [Konflikty](../docs/03-git-and-automation/merge-conflicts.md).
 
 ## Inode
 
@@ -446,13 +518,13 @@ Priemerný počet runnable tasks a určitých tasks v uninterruptible sleep. Poz
 
 Routing pravidlo, podľa ktorého vyhráva zhodná route s najväčším počtom prefix bitov. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
-## MAC — Mandatory Access Control
-
-Bezpečnostná politika vynútená systémom nad rámec rozhodnutí ownera objektu. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
-
 ## MAC address
 
 Link-layer identifikátor interface používaný na Ethernet forwarding v lokálnom broadcast domain. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## MAC — Mandatory Access Control
+
+Bezpečnostná politika vynútená systémom nad rámec rozhodnutí ownera objektu. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
 ## `memory.high`
 
@@ -462,13 +534,21 @@ Cgroup v2 memory hranica vyvolávajúca reclaim pressure a throttling. Pozri [cg
 
 Cgroup v2 hard memory limit, ktorého prekročenie môže viesť ku cgroup-local OOM. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
 
-## mTLS — Mutual TLS
+## Merge base
 
-TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+Najlepší spoločný ancestor dvoch commitov používaný ako base pri three-way merge a pri výpočte divergence. Pozri [Merge a rebase](../docs/03-git-and-automation/merge-and-rebase.md).
 
-## MSS — Maximum Segment Size
+## Merge commit
 
-Maximálny TCP payload segmentu deklarovaný endpointom, typicky odvodený od MTU mínus IP a TCP headers. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+Commit s dvoma alebo viacerými parents, ktorý explicitne zaznamenáva integráciu rozdielnych ancestry vetiev. Pozri [Merge a rebase](../docs/03-git-and-automation/merge-and-rebase.md).
+
+## Merge queue
+
+Mechanizmus, ktorý testuje a integruje pull requests v plánovanom poradí proti aktuálnemu alebo predpokladanému stavu main branch. Pozri [Branching strategies](../docs/03-git-and-automation/branching-strategies.md).
+
+## Monorepo
+
+Repository obsahujúci viac služieb, knižníc alebo projektov so spoločným object graphom a možnosťou atomických cross-project zmien. Pozri [Monorepo vs. multirepo](../docs/03-git-and-automation/monorepo-vs-multirepo.md).
 
 ## Mount
 
@@ -478,9 +558,21 @@ Pripojenie filesystemu alebo iného mountable objektu do spoločného filesystem
 
 Namespace poskytujúci samostatný pohľad na mount table a propagation. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
 
+## MSS — Maximum Segment Size
+
+Maximálny TCP payload segmentu deklarovaný endpointom, typicky odvodený od MTU mínus IP a TCP headers. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## mTLS — Mutual TLS
+
+TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
 ## MTU — Maximum Transmission Unit
 
 Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Multirepo
+
+Model, v ktorom sú služby alebo projekty rozdelené medzi viac repositories a integrujú sa cez versioned artifacts a explicitné contracts. Pozri [Monorepo vs. multirepo](../docs/03-git-and-automation/monorepo-vs-multirepo.md).
 
 ## Mutable infrastructure
 
@@ -518,6 +610,10 @@ Namespace s vlastnými interfaces, addresses, routes, sockets a firewall state. 
 
 Kernel flag zabraňujúci zvýšeniu privilege cez `execve()`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Object ID — Git
+
+Hash-based identifikátor Git objectu odvodený z typu a obsahu objektu. Pozri [Git object model](../docs/03-git-and-automation/git-object-model.md).
+
 ## OCSP — Online Certificate Status Protocol
 
 Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
@@ -534,6 +630,10 @@ Sedemvrstvový konceptuálny model sieťovej komunikácie. Pozri [OSI a TCP/IP m
 
 Nástroj na inštaláciu, upgrade a odstránenie balíkov vrátane dependencies a lokálnej evidencie. Pozri [Package management](docs/01-linux-and-systems/package-management.md).
 
+## Packfile
+
+Kompaktný Git storage formát ukladajúci viac objektov s možnou delta kompresiou, bez zmeny logického snapshot modelu. Pozri [Git object model](../docs/03-git-and-automation/git-object-model.md).
+
 ## Page cache
 
 RAM používaná kernelom na cache file-backed dát. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -546,6 +646,10 @@ Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupn�
 
 Framework na skladanie authentication, account, session a password policy. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Partial clone
+
+Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa potreby, napríklad s `--filter=blob:none`. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
+
 ## PAT — Port Address Translation
 
 NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
@@ -554,13 +658,13 @@ NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozli�
 
 SELinux režim, v ktorom sa policy denials auditujú, ale nevynucujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
-## PID — Process Identifier
-
-Číselný identifikátor procesu v konkrétnom PID namespace. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
-
 ## PID namespace
 
 Namespace poskytujúci samostatné process ID číslovanie a process tree. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## PID — Process Identifier
+
+Číselný identifikátor procesu v konkrétnom PID namespace. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
 
 ## PIDs controller
 
@@ -606,13 +710,33 @@ Transportný protokol nad UDP implementujúci reliable streams, congestion contr
 
 Stav vyjadrujúci, či instance má prijímať nový traffic. Nie je totožný s liveness. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Rebase
+
+Operácia, ktorá replayuje commits na nový base a vytvára nové commit objects s novými IDs. Pozri [Merge a rebase](../docs/03-git-and-automation/merge-and-rebase.md).
+
 ## Reconciliation
 
 Opakovaný proces porovnávania desired state so skutočným stavom a vykonávania korekcií. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
 
+## Reflog
+
+Lokálna evidencia pohybov refs a `HEAD`, použiteľná na recovery commitov po reset, rebase alebo zmazaní branch pred expiráciou záznamov. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Refspec
+
+Pravidlo mapujúce source ref na destination ref pri fetch alebo push operácii. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
+
 ## Release
 
 Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používateľom. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
+
+## Remote-tracking ref
+
+Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Rerere
+
+Git mechanizmus `reuse recorded resolution`, ktorý zaznamená riešenie konfliktu a môže ho znovu aplikovať pri opakovanom konflikte. Pozri [Konflikty](../docs/03-git-and-automation/merge-conflicts.md).
 
 ## REST
 
@@ -626,13 +750,13 @@ Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočné
 
 Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad TLS termination, routing alebo caching. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
 
-## Rollback
-
-Návrat k predchádzajúcej verzii aplikácie alebo konfigurácie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
-
 ## Roll-forward
 
 Náprava zlyhania nasadením novej opravnej verzie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
+
+## Rollback
+
+Návrat k predchádzajúcej verzii aplikácie alebo konfigurácie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
 ## Route
 
@@ -662,9 +786,9 @@ Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne le
 
 Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
-## SNI — Server Name Indication
+## Shallow clone
 
-TLS extension prenášajúca hostname, aby server alebo proxy vybral správny certificate a virtual host. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižuje prenos, ale obmedzuje operácie závislé od plného commit graphu. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
 
 ## SLAAC — Stateless Address Autoconfiguration
 
@@ -674,6 +798,10 @@ IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Ad
 
 Preklad source adresy alebo portu, používaný typicky pri outbound komunikácii. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
+## SNI — Server Name Indication
+
+TLS extension prenášajúca hostname, aby server alebo proxy vybral správny certificate a virtual host. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
 ## Socket
 
 Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -682,9 +810,21 @@ Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [
 
 DNS model, v ktorom rovnaké meno vracia rozdielne odpovede podľa resolvera, siete alebo klientského contextu. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
+## Squash merge
+
+Integrácia, ktorá vytvorí jeden výsledný commit bez merge ancestry na feature tip. Pozri [Merge a rebase](../docs/03-git-and-automation/merge-and-rebase.md).
+
 ## SSH agent
 
 Proces vykonávajúci podpisové operácie pomocou odomknutých private keys v pamäti. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
+
+## Staging area
+
+Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho commitu. Pozri [Working tree, staging area a repository](../docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Stash — Git
+
+Lokálny Git stav uchovávajúci dočasné working-tree a index changes pod `refs/stash`. Nie je náhradou remote backupu. Pozri [Cherry-pick a stash](../docs/03-git-and-automation/cherry-pick-and-stash.md).
 
 ## Stateful firewall
 
@@ -722,6 +862,14 @@ Kontrolovaný prechod z user space do kernel space. Pozri [Kernel a user space](
 
 Deklaratívny objekt spravovaný systemd, napríklad `.service`, `.socket` alebo `.timer`. Pozri [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md).
 
+## T-shaped engineer
+
+Inžinier so širokou orientáciou a hlbokou expertízou aspoň v jednej oblasti. Pozri [T-shaped engineer](docs/00-foundations/t-shaped-engineer.md).
+
+## Tag — Git tag
+
+Ref používaný typicky na stabilné označenie konkrétneho release commitu alebo iného objektu. Pozri [Commit, branch, tag a HEAD](../docs/03-git-and-automation/commit-branch-tag-head.md).
+
 ## Tail latency
 
 Latency najpomalšej časti request distribúcie, typicky p95 alebo p99. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -738,18 +886,6 @@ Výmena SYN, SYN-ACK a ACK, ktorá synchronizuje sequence numbers a vytvorí TCP
 
 Praktický vrstvený model Application, Transport, Internet a Link používaný na opis Internet stacku. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
-## `TIME-WAIT`
-
-TCP state držaný po aktívnom close na ochranu pred starými segments a opätovným použitím rovnakého tuple. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
-
-## TLS — Transport Layer Security
-
-Protokol poskytujúci šifrovanie, integritu a autentifikáciu komunikácie. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
-
-## TLS termination
-
-Ukončenie TLS spojenia na proxy alebo load balanceri, ktorý následne vytvorí samostatné upstream spojenie. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
-
 ## Thread
 
 Plánovateľná vykonávacia jednotka v rámci procesu. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
@@ -758,17 +894,29 @@ Plánovateľná vykonávacia jednotka v rámci procesu. Pozri [Procesy, thready,
 
 Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## `TIME-WAIT`
+
+TCP state držaný po aktívnom close na ochranu pred starými segments a opätovným použitím rovnakého tuple. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## TLS termination
+
+Ukončenie TLS spojenia na proxy alebo load balanceri, ktorý následne vytvorí samostatné upstream spojenie. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
+## TLS — Transport Layer Security
+
+Protokol poskytujúci šifrovanie, integritu a autentifikáciu komunikácie. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+
 ## Toil
 
 Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková práca. Pozri [Toil and Technical Debt](docs/00-foundations/toil-and-technical-debt.md).
 
+## Trunk-based development
+
+Branching model založený na častej integrácii malých zmien do jednej hlavnej branch, podporený krátkodobými branches, CI a feature flags. Pozri [Branching strategies](../docs/03-git-and-automation/branching-strategies.md).
+
 ## TTL — Time To Live
 
 IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
-
-## T-shaped engineer
-
-Inžinier so širokou orientáciou a hlbokou expertízou aspoň v jednej oblasti. Pozri [T-shaped engineer](docs/00-foundations/t-shaped-engineer.md).
 
 ## Type enforcement
 
@@ -777,6 +925,10 @@ SELinux policy model založený na source type, target type, object class a perm
 ## UDP datagram
 
 Samostatná transportná správa bez zabudovanej garancie doručenia, poradia alebo retransmission. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Upstream branch
+
+Remote-tracking alebo iný ref priradený lokálnej branch ako default comparison a synchronization target pre status, pull a push. Pozri [Clone, fetch, pull a push](../docs/03-git-and-automation/clone-fetch-pull-push.md).
 
 ## URI — Uniform Resource Identifier
 
@@ -821,6 +973,10 @@ L7 security control vyhodnocujúci HTTP requests podľa aplikačných pravidiel;
 ## WebSocket
 
 Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade alebo ekvivalentnom transportnom mechanizme. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## Working tree
+
+Filesystem materialization aktuálne checkoutnutého Git snapshotu, ktorú používateľ a nástroje priamo menia. Pozri [Working tree, staging area a repository](../docs/03-git-and-automation/working-tree-staging-repository.md).
 
 ## `X-Forwarded-For`
 
