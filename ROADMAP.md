@@ -265,6 +265,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [AWS Backup](docs/11-cloud-and-aws/aws-backup.md)
 - [x] [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md)
 - [x] [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md)
+- [x] [AWS Certified CloudOps Engineer – Associate (SOA-C03)](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md)
+- [x] [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md)
+- [x] [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md)
+- [x] [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md)
 
 ### Observability
 
