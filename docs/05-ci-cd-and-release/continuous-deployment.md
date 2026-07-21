@@ -385,3 +385,11 @@ Sleduj napríklad:
 ## Glossary impact
 
 Relevantné pojmy: Continuous Deployment, automated promotion, progressive exposure, canary analysis, automatic rollback, risk-based deployment, deployment marker, rollout window a release automation.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Continuous Delivery](continuous-delivery.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

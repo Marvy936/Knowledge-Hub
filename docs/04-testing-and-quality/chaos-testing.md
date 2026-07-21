@@ -512,5 +512,5 @@ Relevantné pojmy: chaos testing, chaos engineering, resilience engineering, ste
 
 **Navigácia**
 
-[← Predchádzajúca: Shift-right](shift-right.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Shift-right](shift-right.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Continuous Integration →](../05-ci-cd-and-release/continuous-integration.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -352,3 +352,11 @@ Sleduj napríklad:
 ## Glossary impact
 
 Relevantné pojmy: Continuous Delivery, deployable state, deployment pipeline, artifact promotion, environment promotion, protected environment, separation of duties, release train a expand-contract.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Continuous Integration](continuous-integration.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Continuous Deployment →](continuous-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

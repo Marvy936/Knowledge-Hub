@@ -345,3 +345,11 @@ Samotný počet pipeline runs nehovorí o kvalite CI.
 ## Glossary impact
 
 Relevantné pojmy: Continuous Integration, mainline, build once, reproducible build, merge queue, pipeline cache, build artifact, runner isolation, broken main a time to first feedback.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Chaos testing](../04-testing-and-quality/chaos-testing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Continuous Delivery →](continuous-delivery.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

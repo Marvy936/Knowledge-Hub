@@ -109,9 +109,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### CI/CD and Release Engineering
 
-- [ ] Continuous Integration
-- [ ] Continuous Delivery
-- [ ] Continuous Deployment
+- [x] [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md)
+- [x] [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md)
+- [x] [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md)
 - [ ] Pipeline, stage, job a runner
 - [ ] Trigger, artifact a cache
 - [ ] Environment a promotion
