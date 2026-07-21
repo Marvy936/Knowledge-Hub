@@ -22,12 +22,15 @@ Znalosť Git workflow, automatizácie, HTTP/API kontraktov, databázových hran�
 10. [Code coverage a quality gates](code-coverage-and-quality-gates.md)
 11. [Mocks, stubs a fakes](mocks-stubs-fakes.md)
 12. [Flaky tests a test data](flaky-tests-and-test-data.md)
+13. [Shift-left](shift-left.md)
+14. [Shift-right](shift-right.md)
+15. [Chaos testing](chaos-testing.md)
 
-Posledný blok sekcie doplní shift-left, shift-right a chaos testing. Tieto kapitoly prepoja pre-release quality engineering s produkčnou observability, experimentmi a resilience engineeringom.
+Po tejto sekcii nasleduje CI/CD and Release Engineering. Testovacie stratégie sa tam premenia na konkrétne pipeline stages, quality gates, promotion rules a progressive delivery mechanizmy.
 
 ## Cieľ zvládnutia
 
-Po dokončení aktuálneho bloku má byť možné:
+Po dokončení sekcie má byť možné:
 
 - rozlíšiť verification od validation a navrhnúť traceability od požiadavky cez riziko po dôkaz,
 - definovať test oracle a posúdiť false-positive a false-negative riziko,
@@ -51,7 +54,14 @@ Po dokončení aktuálneho bloku má byť možné:
 - zvoliť medzi dummy, stub, fake, spy, mock a reálnou dependency podľa testovaného rizika,
 - minimalizovať contract drift a over-specification test doubles,
 - diagnostikovať flaky tests, izolovať test data a odstrániť timing, shared-state a order dependencies,
-- spravovať quarantine, retries, first-attempt pass rate a failure artifacts bez rerun-until-green anti-patternu.
+- spravovať quarantine, retries, first-attempt pass rate a failure artifacts bez rerun-until-green anti-patternu,
+- posúvať kontroly doľava podľa rizika, fidelity, času feedbacku a maintenance costu,
+- navrhovať developer feedback loops, golden paths a autoritatívne CI guardrails,
+- používať shift-right produkčnú validáciu, synthetics, RUM, canary, feature flags a progressive delivery,
+- rozlíšiť technickú, funkčnú a business validáciu po deploymente,
+- definovať steady-state hypothesis, experiment contract, blast radius a abort criteria,
+- navrhnúť bezpečný chaos experiment pre process, network, dependency, resource alebo data failure,
+- overiť recovery, graceful degradation, RPO/RTO a previesť výsledok experimentu na trvalú kontrolu.
 
 ## Stav
 
@@ -69,3 +79,6 @@ Po dokončení aktuálneho bloku má byť možné:
 | Code coverage a quality gates | Learning | L2 |
 | Mocks, stubs a fakes | Learning | L2 |
 | Flaky tests a test data | Learning | L2 |
+| Shift-left | Learning | L2 |
+| Shift-right | Learning | L2 |
+| Chaos testing | Learning | L2 |
