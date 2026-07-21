@@ -497,3 +497,11 @@ Relevantné pojmy: etcd snapshot, snapshot revision, etcd quorum, member health,
 - [etcd disaster recovery](https://etcd.io/docs/v3.7/op-guide/recovery/)
 - [How to save the etcd database](https://etcd.io/docs/v3.7/tasks/operator/how-to-save-database/)
 - [Securing a cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cluster installation a lifecycle](cluster-installation-lifecycle.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Upgrades →](upgrades.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

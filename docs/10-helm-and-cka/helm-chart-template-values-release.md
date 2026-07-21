@@ -520,5 +520,5 @@ Relevantné pojmy: Helm, Helm chart, chart version, appVersion, Helm template, v
 
 **Navigácia**
 
-[← Predchádzajúca: ResourceQuota a LimitRange](../09-kubernetes/resourcequota-limitrange.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Kubernetes troubleshooting](../09-kubernetes/kubernetes-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

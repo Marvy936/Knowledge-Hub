@@ -547,3 +547,11 @@ Relevantné pojmy: cluster bootstrap, kubeadm, control-plane endpoint, stacked e
 - [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 - [Creating highly available clusters with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/)
 - [PKI certificates and requirements](https://kubernetes.io/docs/setup/best-practices/certificates/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ResourceQuota a LimitRange](resourcequota-limitrange.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: etcd backup a restore →](etcd-backup-restore.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

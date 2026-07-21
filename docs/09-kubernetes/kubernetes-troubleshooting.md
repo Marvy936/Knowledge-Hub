@@ -676,3 +676,11 @@ Relevantné pojmy: failure domain narrowing, evidence preservation, object-first
 - [Debug running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)
 - [Debug Services](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/)
 - [Troubleshooting kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Logging, metrics a events](logging-metrics-events.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Helm chart, template, values a release →](../10-helm-and-cka/helm-chart-template-values-release.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

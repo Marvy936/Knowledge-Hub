@@ -556,3 +556,11 @@ Relevantné pojmy: cluster-level logging, CRI log, log rotation, node log agent,
 - [Observability](https://kubernetes.io/docs/concepts/cluster-administration/observability/)
 - [Metrics for Kubernetes system components](https://kubernetes.io/docs/concepts/cluster-administration/system-metrics/)
 - [Events API](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Upgrades](upgrades.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes troubleshooting →](kubernetes-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

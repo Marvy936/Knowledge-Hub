@@ -515,3 +515,11 @@ Relevantné pojmy: Kubernetes version skew, patch upgrade, minor upgrade, deprec
 - [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/)
 - [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
 - [Kubernetes Deprecation Policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: etcd backup a restore](etcd-backup-restore.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Logging, metrics a events →](logging-metrics-events.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

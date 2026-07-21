@@ -492,5 +492,5 @@ Relevantné pojmy: ResourceQuota, quota hard limit, quota used status, compute q
 
 **Navigácia**
 
-[← Predchádzajúca: SecurityContext a Pod Security](securitycontext-pod-security.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Helm chart, template, values a release →](../10-helm-and-cka/helm-chart-template-values-release.md)
+[← Predchádzajúca: SecurityContext a Pod Security](securitycontext-pod-security.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cluster installation a lifecycle →](cluster-installation-lifecycle.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
