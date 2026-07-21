@@ -527,3 +527,11 @@ Relevantné pojmy: metric, counter, gauge, histogram, distribution, temporality,
 - [OpenTelemetry logging specification](https://opentelemetry.io/docs/specs/otel/logs/)
 - [OpenTelemetry profiles](https://opentelemetry.io/docs/concepts/signals/profiles/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Monitoring vs. observability](monitoring-vs-observability.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Instrumentation a telemetry →](instrumentation-telemetry.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

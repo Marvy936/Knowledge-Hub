@@ -505,5 +505,5 @@ Relevantné pojmy: monitoring, observability, telemetry, signal, instrumentation
 
 **Navigácia**
 
-[← Predchádzajúca: CloudOps troubleshooting drills](../11-cloud-and-aws/cloudops-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: CloudOps troubleshooting drills](../11-cloud-and-aws/cloudops-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Metrics, logs, traces a events →](metrics-logs-traces-events.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

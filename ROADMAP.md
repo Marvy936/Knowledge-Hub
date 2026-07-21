@@ -273,11 +273,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 ### Observability
 
 - [x] [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md)
-- [ ] Metrics, logs, traces a events
-- [ ] Instrumentation a telemetry
-- [ ] RED method
-- [ ] USE method
-- [ ] Golden Signals
+- [x] [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md)
+- [x] [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md)
+- [x] [RED method](docs/12-observability/red-method.md)
+- [x] [USE method](docs/12-observability/use-method.md)
+- [x] [Golden Signals](docs/12-observability/golden-signals.md)
 - [ ] Prometheus
 - [ ] Alertmanager
 - [ ] Grafana

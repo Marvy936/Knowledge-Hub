@@ -494,3 +494,11 @@ Relevantné pojmy: RED method, request rate, logical operation, attempt rate, er
 - [Grafana RED metrics concepts](https://grafana.com/docs/grafana/latest/visualizations/simplified-exploration/traces/concepts/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
 - [Google SRE — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Instrumentation a telemetry](instrumentation-telemetry.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: USE method →](use-method.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

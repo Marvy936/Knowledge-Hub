@@ -519,3 +519,11 @@ Relevantné pojmy: Golden Signals, latency, traffic, errors, saturation, success
 - [Google SRE — Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/)
 - [Google SRE — Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/)
 - [Grafana dashboard best practices — Golden Signals](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: USE method](use-method.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

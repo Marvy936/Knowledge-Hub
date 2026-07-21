@@ -628,3 +628,11 @@ Relevantné pojmy: code-based instrumentation, zero-code instrumentation, automa
 - [OpenTelemetry documentation](https://opentelemetry.io/docs/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
 - [Prometheus client libraries](https://prometheus.io/docs/instrumenting/clientlibs/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Metrics, logs, traces a events](metrics-logs-traces-events.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RED method →](red-method.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

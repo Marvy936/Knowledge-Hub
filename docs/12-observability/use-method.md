@@ -552,3 +552,11 @@ Relevantné pojmy: USE method, resource inventory, utilization, saturation, erro
 - [Brendan Gregg — USE Method Rosetta Stone](https://www.brendangregg.com/USEmethod/use-rosetta.html)
 - [Brendan Gregg — Performance Analysis Methodology](https://www.brendangregg.com/methodology.html)
 - [Grafana dashboard best practices — USE method](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: RED method](red-method.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Golden Signals →](golden-signals.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
