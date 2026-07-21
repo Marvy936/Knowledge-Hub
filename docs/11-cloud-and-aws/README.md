@@ -28,8 +28,13 @@ Odporúča sa najprv dokončiť:
 9. [VPC, subnets a route tables](vpc-subnets-route-tables.md)
 10. [Internet Gateway a NAT Gateway](internet-gateway-nat-gateway.md)
 11. [Security Groups a Network ACLs](security-groups-network-acls.md)
+12. [EC2 a Auto Scaling](ec2-auto-scaling.md)
+13. [Elastic Load Balancing](elastic-load-balancing.md)
+14. [S3, EBS a EFS](s3-ebs-efs.md)
+15. [RDS](rds.md)
+16. [Route 53 a CloudFront](route53-cloudfront.md)
 
-Nasledujúci AWS service blok prejde na EC2 a Auto Scaling, Elastic Load Balancing, S3/EBS/EFS, RDS a Route 53/CloudFront.
+Nasledujúci AWS service blok prejde na Lambda, ECS a EKS, CloudWatch a CloudTrail, Systems Manager a KMS a Secrets Manager.
 
 ## AWS Certified CloudOps Engineer – Associate track
 
@@ -106,6 +111,28 @@ Po dokončení aktuálneho bloku má byť možné:
 - rozlíšiť stateful Security Groups od stateless ordered Network ACLs,
 - používať SG references, prefix lists a purpose-specific workload communication contracts,
 - diagnostikovať SG/NACL/load-balancer path cez VPC Flow Logs, Reachability Analyzer a live configuration,
+- rozlíšiť EC2 instance, AMI, launch template a Auto Scaling Group ako odlišné lifecycle contracts,
+- navrhnúť immutable EC2 fleet s multi-AZ subnets, externalizovaným state-om a application health checks,
+- používať target tracking, step, scheduled alebo predictive scaling podľa demand signalu,
+- navrhnúť lifecycle hooks, warmup, connection draining a instance refresh bez replacement loopu,
+- používať Spot a mixed-instance capacity iba pre interruption-tolerant workload s drain a fallback modelom,
+- diagnostikovať ASG launch failure cez launch template, AMI, quota, zonal capacity, subnet IP, IAM/KMS a bootstrap evidence,
+- rozlíšiť ALB, NLB, GWLB, listener, rule, target group a target-health semantics,
+- navrhnúť TLS, Security Group, cross-zone, deregistration-delay a zonal-capacity contract pre load-balanced fleet,
+- odlíšiť ELB-generated a target-generated failures a diagnostikovať unhealthy, 502, 503 a 504 cez reason codes a logs,
+- rozlíšiť S3 object, EBS block a EFS shared-file storage podľa access, scope, sharing, performance a failure domainu,
+- používať S3 storage classes, lifecycle, versioning, replication a Object Lock bez zamieňania recovery primitives za kompletný backup,
+- navrhnúť EBS volume type, snapshot, application consistency, restore initialization a encryption model,
+- navrhnúť EFS mount targets, Security Groups, throughput, lifecycle a POSIX/IAM access contract,
+- diagnostikovať S3 policy/KMS, EBS I/O/attachment a EFS DNS/network/mount/permission failures,
+- rozlíšiť RDS Single-AZ, Multi-AZ DB instance, Multi-AZ DB cluster a read replica podľa HA a scaling semantics,
+- navrhnúť RDS backup, PITR, snapshot, parameter/option group, maintenance, upgrade a cross-Region recovery workflow,
+- diagnostikovať RDS connection, authentication, high CPU/I/O, storage-full, replica-lag a failover incidents,
+- vysvetliť Route 53 hosted zones, delegation, alias records, TTL, routing policies, health checks a Resolver hybrid DNS,
+- navrhnúť DNS failover s explicitným detection, TTL, secondary-capacity a state-recovery modelom,
+- vysvetliť CloudFront origins, cache behaviors, cache key, cache policy, origin request policy, OAC, invalidations a origin failover,
+- chrániť CloudFront viewer/origin TLS, private content, WAF a authenticated caching bez data leakage,
+- diagnostikovať Route 53 `NXDOMAIN`/`SERVFAIL` a CloudFront 403/404/502/503/504 podľa DNS, edge, cache, policy a origin evidence,
 - vytvoriť SOA-C03 domain gap map s váhami 22/22/22/16/18,
 - riešiť scenario questions podľa outcome, constraints, scope, responsibility a operational trade-offu,
 - vykonávať cost-safe AWS hands-on laby s observability, fault injection, hard validation a cleanupom,
@@ -126,3 +153,8 @@ Po dokončení aktuálneho bloku má byť možné:
 | VPC, subnets a route tables | Learning | L2 |
 | Internet Gateway a NAT Gateway | Learning | L2 |
 | Security Groups a Network ACLs | Learning | L2 |
+| EC2 a Auto Scaling | Learning | L2 |
+| Elastic Load Balancing | Learning | L2 |
+| S3, EBS a EFS | Learning | L2 |
+| RDS | Learning | L2 |
+| Route 53 a CloudFront | Learning | L2 |
