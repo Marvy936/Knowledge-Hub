@@ -294,3 +294,11 @@ Relevantné pojmy: ReplicaSet, desired replicas, current replicas, ready replica
 - [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
 - [Workload management](https://kubernetes.io/docs/concepts/workloads/controllers/)
 - [Garbage collection](https://kubernetes.io/docs/concepts/architecture/garbage-collection/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Pod](pod.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Deployment →](deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -359,3 +359,11 @@ Relevantné pojmy: Deployment, Deployment revision, rolling update, Recreate str
 - [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Managing workloads](https://kubernetes.io/docs/concepts/workloads/management/)
 - [Pod disruption budgets](https://kubernetes.io/docs/tasks/run-application/configure-pdb/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ReplicaSet](replicaset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: StatefulSet →](statefulset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

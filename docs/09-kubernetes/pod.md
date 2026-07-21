@@ -855,5 +855,5 @@ Relevantné pojmy: Pod, Pod UID, Pod sandbox, Pod IP, Pod phase, Pod condition, 
 
 **Navigácia**
 
-[← Predchádzajúca: Worker node components](worker-node-components.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Worker node components](worker-node-components.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ReplicaSet →](replicaset.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

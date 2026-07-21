@@ -396,3 +396,11 @@ Relevantné pojmy: DaemonSet, eligible Node, desired number scheduled, number mi
 - [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
 - [Perform a rolling update on a DaemonSet](https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/)
 - [Safely drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: StatefulSet](statefulset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Job a CronJob →](job-cronjob.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

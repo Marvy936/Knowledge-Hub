@@ -199,11 +199,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Control plane components](docs/09-kubernetes/control-plane-components.md)
 - [x] [Worker node components](docs/09-kubernetes/worker-node-components.md)
 - [x] [Pod](docs/09-kubernetes/pod.md)
-- [ ] ReplicaSet
-- [ ] Deployment
-- [ ] StatefulSet
-- [ ] DaemonSet
-- [ ] Job a CronJob
+- [x] [ReplicaSet](docs/09-kubernetes/replicaset.md)
+- [x] [Deployment](docs/09-kubernetes/deployment.md)
+- [x] [StatefulSet](docs/09-kubernetes/statefulset.md)
+- [x] [DaemonSet](docs/09-kubernetes/daemonset.md)
+- [x] [Job a CronJob](docs/09-kubernetes/job-cronjob.md)
 - [ ] ConfigMap a Secret
 - [ ] ServiceAccount
 - [ ] Service a EndpointSlice

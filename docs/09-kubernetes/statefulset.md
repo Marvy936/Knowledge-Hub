@@ -421,3 +421,11 @@ Relevantné pojmy: StatefulSet, stable ordinal identity, headless Service, stabl
 - [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 - [Headless Services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
 - [Persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Deployment](deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DaemonSet →](daemonset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
