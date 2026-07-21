@@ -376,3 +376,11 @@ Hľadaj nedeterministické vstupy: čas, locale, filesystem order, network depen
 ## Glossary impact
 
 Relevantné pojmy: artifact version, logical version, content digest, immutable tag, mutable tag, build metadata, release candidate, calendar versioning, provenance attestation, artifact retention, multi-platform manifest a build once, promote many.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Reusable a parallel pipelines](reusable-and-parallel-pipelines.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Semantic Versioning →](semantic-versioning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

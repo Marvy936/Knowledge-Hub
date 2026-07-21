@@ -489,5 +489,5 @@ Relevantné pojmy: reusable pipeline, reusable job, workflow template, template 
 
 **Navigácia**
 
-[← Predchádzajúca: Pipeline as Code](pipeline-as-code.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Pipeline as Code](pipeline-as-code.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Artifact versioning →](artifact-versioning.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

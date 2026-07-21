@@ -400,3 +400,11 @@ Chýba compatibility window. Použi dual-read/write, versioned endpoint, adapter
 ## Glossary impact
 
 Relevantné pojmy: Semantic Versioning, MAJOR version, MINOR version, PATCH version, pre-release identifier, build metadata, version precedence, version range, public API, deprecation window, compatibility contract a changelog.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Artifact versioning](artifact-versioning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Release management →](release-management.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

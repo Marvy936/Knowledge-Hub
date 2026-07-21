@@ -449,3 +449,11 @@ Skráť lifecycle, automatizuj backports, pravidelne syncuj mainline a zníž mn
 ## Glossary impact
 
 Relevantné pojmy: release management, release unit, release record, release cadence, release train, release candidate, release branch, code freeze, release manifest, changelog, release notes, hypercare, emergency release, hotfix a supported version policy.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Semantic Versioning](semantic-versioning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Recreate deployment →](recreate-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

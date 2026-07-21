@@ -118,12 +118,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md)
 - [x] [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md)
 - [x] [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md)
-- [ ] Artifact versioning
-- [ ] Semantic Versioning
-- [ ] Release management
-- [ ] Recreate deployment
-- [ ] Rolling update
-- [ ] Blue-green deployment
+- [x] [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md)
+- [x] [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md)
+- [x] [Release management](docs/05-ci-cd-and-release/release-management.md)
+- [x] [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md)
+- [x] [Rolling update](docs/05-ci-cd-and-release/rolling-update.md)
+- [x] [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md)
 - [ ] Canary deployment
 - [ ] A/B testing
 - [ ] Shadow deployment

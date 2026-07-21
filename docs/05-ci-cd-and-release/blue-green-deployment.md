@@ -468,3 +468,11 @@ Ponechaná farba degradovala alebo stratila dependencies. Rollback candidate mus
 ## Glossary impact
 
 Relevantné pojmy: blue-green deployment, blue environment, green environment, traffic cutover, deployment slot, active color, warm standby, routing rollback, environment parity, color-specific telemetry a cutover window.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Rolling update](rolling-update.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -364,3 +364,11 @@ Nová verzia vykonala nekompatibilnú schema alebo data zmenu. Použi restore al
 ## Glossary impact
 
 Relevantné pojmy: recreate deployment, maintenance window, maintenance mode, graceful shutdown, connection draining, startup readiness, cold start, thundering herd, exclusive stateful workload a deployment downtime.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Release management](release-management.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Rolling update →](rolling-update.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

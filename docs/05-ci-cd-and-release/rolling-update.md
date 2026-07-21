@@ -439,3 +439,11 @@ New rollout vykonal nekompatibilnú schema/data zmenu. Zastav automatický rollb
 ## Glossary impact
 
 Relevantné pojmy: rolling update, mixed-version deployment, maximum unavailable, maximum surge, rollout batch, rollout pause, topology-aware rollout, startup probe, readiness probe, liveness probe, version-level telemetry a rolling rollback.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Recreate deployment](recreate-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Blue-green deployment →](blue-green-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
