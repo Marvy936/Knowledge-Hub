@@ -660,3 +660,11 @@ Relevantné pojmy: Kubernetes API, Kubernetes resource, Kubernetes object, API g
 - [Finalizers](https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/)
 - [Server-side apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/)
 - [Custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Kubernetes architecture](kubernetes-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Desired state a reconciliation loops →](desired-state-reconciliation-loops.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

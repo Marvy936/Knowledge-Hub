@@ -675,3 +675,11 @@ Relevantné pojmy: API request pipeline, Kubernetes authentication, Kubernetes a
 - [Scheduler configuration](https://kubernetes.io/docs/reference/scheduling/config/)
 - [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 - [API aggregation layer](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Desired state a reconciliation loops](desired-state-reconciliation-loops.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Worker node components →](worker-node-components.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

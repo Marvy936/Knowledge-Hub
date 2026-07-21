@@ -726,3 +726,11 @@ Relevantné pojmy: Kubernetes Node, Node capacity, Node allocatable, Node condit
 - [Node-pressure eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 - [Safely drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
 - [Communication between Nodes and control plane](https://kubernetes.io/docs/concepts/architecture/control-plane-node-communication/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Control plane components](control-plane-components.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Pod →](pod.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

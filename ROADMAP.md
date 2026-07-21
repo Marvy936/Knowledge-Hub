@@ -193,12 +193,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Kubernetes
 
-- [ ] Kubernetes architecture
-- [ ] API a object model
-- [ ] Desired state a reconciliation loops
-- [ ] Control plane components
-- [ ] Worker node components
-- [ ] Pod
+- [x] [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md)
+- [x] [API a object model](docs/09-kubernetes/api-object-model.md)
+- [x] [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md)
+- [x] [Control plane components](docs/09-kubernetes/control-plane-components.md)
+- [x] [Worker node components](docs/09-kubernetes/worker-node-components.md)
+- [x] [Pod](docs/09-kubernetes/pod.md)
 - [ ] ReplicaSet
 - [ ] Deployment
 - [ ] StatefulSet

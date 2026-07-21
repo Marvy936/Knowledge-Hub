@@ -505,3 +505,11 @@ Relevantné pojmy: Kubernetes cluster, control plane, worker node, API-centric a
 - [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/)
 - [Leases](https://kubernetes.io/docs/concepts/architecture/leases/)
 - [Static Pods](https://kubernetes.io/docs/concepts/workloads/pods/static-pods/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Docker troubleshooting](../08-container-fundamentals-and-docker/docker-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: API a object model →](api-object-model.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

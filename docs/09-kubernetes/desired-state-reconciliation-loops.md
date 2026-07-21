@@ -612,3 +612,11 @@ Relevantné pojmy: desired state, observed state, actual state, reconciliation l
 - [Finalizers](https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/)
 - [Leases](https://kubernetes.io/docs/concepts/architecture/leases/)
 - [Admission webhook good practices](https://kubernetes.io/docs/concepts/cluster-administration/admission-webhooks-good-practices/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: API a object model](api-object-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Control plane components →](control-plane-components.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

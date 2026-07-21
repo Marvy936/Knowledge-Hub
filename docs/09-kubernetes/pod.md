@@ -849,3 +849,11 @@ Relevantné pojmy: Pod, Pod UID, Pod sandbox, Pod IP, Pod phase, Pod condition, 
 - [Container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/)
 - [Configure a security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 - [Static Pods](https://kubernetes.io/docs/concepts/workloads/pods/static-pods/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Worker node components](worker-node-components.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

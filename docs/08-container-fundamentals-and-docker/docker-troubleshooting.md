@@ -775,5 +775,5 @@ Relevantné pojmy: Docker diagnostic baseline, daemon log, container exit code, 
 
 **Navigácia**
 
-[← Predchádzajúca: BuildKit a Buildx](buildkit-buildx.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: BuildKit a Buildx](buildkit-buildx.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes architecture →](../09-kubernetes/kubernetes-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
