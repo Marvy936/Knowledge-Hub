@@ -48,10 +48,10 @@ Aktívne sekcie:
 6. [CI/CD and Release Engineering](docs/05-ci-cd-and-release/README.md)
 7. [GitLab](docs/06-gitlab/README.md)
 8. [Infrastructure as Code and Configuration Management](docs/07-infrastructure-as-code-and-configuration-management/README.md)
+9. [Container Fundamentals and Docker](docs/08-container-fundamentals-and-docker/README.md)
 
 Plánované hlavné domény:
 
-- Containers a Docker
 - Kubernetes a CKA
 - Helm
 - Cloud fundamentals a AWS
