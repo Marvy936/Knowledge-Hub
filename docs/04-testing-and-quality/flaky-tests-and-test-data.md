@@ -402,5 +402,5 @@ Relevantné pojmy: flaky test, first-attempt pass rate, rerun-until-green, quara
 
 **Navigácia**
 
-[← Predchádzajúca: Mocks, stubs a fakes](mocks-stubs-fakes.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Mocks, stubs a fakes](mocks-stubs-fakes.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Shift-left →](shift-left.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

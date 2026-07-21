@@ -103,9 +103,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md)
 - [x] [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md)
 - [x] [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md)
-- [ ] Shift-left
-- [ ] Shift-right
-- [ ] Chaos testing
+- [x] [Shift-left](docs/04-testing-and-quality/shift-left.md)
+- [x] [Shift-right](docs/04-testing-and-quality/shift-right.md)
+- [x] [Chaos testing](docs/04-testing-and-quality/chaos-testing.md)
 
 ### CI/CD and Release Engineering
 

@@ -366,3 +366,11 @@ Pre každú kontrolu:
 ## Glossary impact
 
 Relevantné pojmy: shift-left, early feedback, golden path, affected-project detection, test impact analysis, secure default, pre-commit hook, developer feedback loop a policy guardrail.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Flaky tests a test data](flaky-tests-and-test-data.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Shift-right →](shift-right.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

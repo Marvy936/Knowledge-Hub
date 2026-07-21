@@ -424,3 +424,11 @@ Sleduj napríklad:
 ## Glossary impact
 
 Relevantné pojmy: shift-right, production validation, canary release, control group, feature flag, dark launch, shadow traffic, A/B testing, progressive delivery, Real User Monitoring, guardrail metric a abort criterion.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Shift-left](shift-left.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Chaos testing →](chaos-testing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

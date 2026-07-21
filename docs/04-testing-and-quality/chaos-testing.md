@@ -506,3 +506,11 @@ Počet spôsobených failures nie je cieľová metrika.
 ## Glossary impact
 
 Relevantné pojmy: chaos testing, chaos engineering, resilience engineering, steady state, experiment hypothesis, experiment contract, blast radius, abort criterion, kill switch, fault injection, game day, tabletop exercise, graceful degradation, load shedding, RPO a RTO.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Shift-right](shift-right.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
