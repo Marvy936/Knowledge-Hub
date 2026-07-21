@@ -22,9 +22,21 @@ Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Us
 
 Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action, napríklad spracuje arguments, transfer files alebo remote module result. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Actual state — Kubernetes
+
+Reálny stav clusteru alebo external systému v konkrétnom okamihu, napríklad existujúce Pods, bežiace processes, attached volumes alebo cloud resources; controller ho nemusí okamžite celý pozorovať. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## Address refactoring — Terraform
 
 Zmena resource alebo module addressy pri zachovaní identity toho istého remote objektu, typicky deklarovaná cez `moved` block, aby nevznikol neúmyselný destroy/create. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Admission control — Kubernetes
+
+Request-time vrstva Kubernetes API, ktorá po authentication a authorization mutuje alebo validuje relevantné create, update a delete requests pred persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## Admission webhook dependency
+
+Synchronous external alebo in-cluster dependency API write pathu, ktorej latency, TLS, availability a failure policy priamo ovplyvňujú matching Kubernetes requests. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
 
 ## Advanced function — PowerShell
 
@@ -65,6 +77,10 @@ YAML mechanizmus pomenovania node, na ktorý môže odkazovať alias. Pozri [YAM
 ## Annotated tag
 
 Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, message a voliteľným kryptografickým podpisom. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Annotation — Kubernetes
+
+Neidentifikačné key/value metadata objektu určené pre tool, controller alebo human context, nie na efektívnu selection objects. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## Anonymous volume — Docker
 
@@ -138,9 +154,25 @@ Mechanizmus šifrovania Ansible variables alebo files pre ochranu citlivého obs
 
 Routing model, v ktorom viac lokalít oznamuje rovnakú IP adresu a routing privedie klienta k topologicky preferovanému endpointu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## API aggregation — Kubernetes
+
+Mechanizmus rozšírenia Kubernetes API o ďalší API server registrovaný cez `APIService`, odlišný od resource schema uloženého cez CRD. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
 ## API contract
 
 Dohoda o observable API behavior zahŕňajúca paths, methods, schemas, status codes, errors, authentication, compatibility a ďalšie semantics. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## API discovery — Kubernetes
+
+Schopnosť klienta zistiť dostupné API groups, versions, resources, scopes a podporované verbs z konkrétneho clusteru. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## API group — Kubernetes
+
+Logická family Kubernetes resource types, napríklad core group alebo `apps`, používaná spolu s API version a kindom. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## API request pipeline — Kubernetes
+
+Sekvencia TLS, authentication, authorization, admission, schema/defaulting/conversion a persistence krokov spracúvajúcich Kubernetes API request. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
 
 ## API test
 
@@ -149,6 +181,10 @@ Runtime test verejného API rozhrania overujúci response, semantics, authorizat
 ## API version negotiation — Docker
 
 Mechanizmus, ktorým Docker client a Engine vyberú spoločnú podporovanú verziu Engine API; neznamená, že starší server podporuje všetky features novšieho CLI. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## APIService — Kubernetes
+
+Cluster-scoped object registrujúci aggregated API group/version a service, ktorá ju obsluhuje. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
 
 ## AppArmor profile
 
@@ -578,6 +614,18 @@ TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavr
 
 Model, v ktorom fixný počet virtual users generuje ďalšiu operáciu až po dokončení predchádzajúcej. Spomalenie systému preto môže znížiť generovaný arrival rate. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## Cloud controller manager
+
+Voliteľný Kubernetes control-plane component spúšťajúci cloud-provider-specific controllers pre Node, route alebo load-balancer integrations podľa platformy. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## Cluster add-on — Kubernetes
+
+Platformová služba nasadená nad core clusterom, napríklad DNS, metrics, ingress/gateway, policy alebo log collection, ktorá nie je automaticky core control-plane componentom. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
+## Cluster-scoped resource — Kubernetes
+
+Kubernetes resource, ktorého identity a API scope nie sú viazané na namespace, napríklad Node, Namespace alebo ClusterRole. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## Cmdlet
 
 PowerShell command implementovaný podľa jednotného Verb-Noun, parameter binding, object pipeline a error-stream modelu. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -674,6 +722,10 @@ Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť zná
 
 Coverage metrika sledujúca, či jednotlivé boolean podmienky nadobudli relevantné true a false výsledky. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Condition — Kubernetes
+
+Štruktúrovaný status signál s typom, boolean-like stavom, reason, message a transition time, ktorý opisuje aktuálne významný aspekt resource state-u. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## Configuration drift — Terraform
 
 Neželaný rozdiel medzi deklaráciami, ktoré majú reprezentovať rovnaký environment alebo policy, napríklad divergentné branches, repositories alebo neaplikované emergency zmeny. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
@@ -762,6 +814,10 @@ Port, na ktorom process počúva vo svojom network namespace; nemusí byť dostu
 
 Software vrstva pripravujúca container filesystem, namespaces, cgroups, process a lifecycle podľa runtime configuration alebo štandardu. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## Container Runtime Interface — CRI
+
+gRPC contract medzi kubeletom a container runtime implementation pre Pod sandbox, container a image lifecycle. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
 ## Container scanning — GitLab
 
 Security scan konkrétneho container image digestu zameraný najmä na známe vulnerabilities v OS packages a podľa capability scanneru aj ďalšom image obsahu. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
@@ -838,6 +894,10 @@ Skupina používateľov, requestov alebo systémových instances, ktorá nedosta
 
 Časť systému vytvárajúca stav, podľa ktorého data plane rozhoduje. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
+## Control plane — Kubernetes
+
+Sada komponentov poskytujúca API, persistence, scheduling a reconciliation cluster-wide desired state-u. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
 ## Control variant
 
 Referenčný variant experimentu reprezentujúci existujúce alebo baseline správanie, voči ktorému sa hodnotí treatment. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
@@ -849,6 +909,14 @@ Diagnostický postup používajúci pinned image digest, rovnakú platformu a ex
 ## Controller
 
 Komponent porovnávajúci desired state s aktuálnym stavom a vykonávajúci korekčné akcie. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
+
+## Controller cache — Kubernetes
+
+Lokálna cache napĺňaná typicky cez list/watch, ktorú controller používa na efektívne reads; môže krátkodobo zaostávať za najnovším persisted stavom. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Controller chaining — Kubernetes
+
+Model, v ktorom vyšší controller vytvára desired state pre nižší resource a ďalšie controllers ho postupne realizujú, napríklad Deployment → ReplicaSet → Pod → kubelet. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
 ## Convergence — configuration management
 
@@ -914,6 +982,10 @@ Podpísaná žiadosť obsahujúca public key a požadované certificate identity
 
 Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred rozhodnutím, či je potrebná zmena. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## CustomResourceDefinition — CRD
+
+Cluster-scoped Kubernetes object, ktorý pridáva nový custom resource type, group/version/schema a scope do API; sám osebe neposkytuje reconciliation logic. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## Cutover window
 
 Časový interval, v ktorom sa traffic alebo ownership práce presúva zo starej deployment farby na novú a intenzívne sa sledujú promotion a abort signály. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -969,6 +1041,10 @@ Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic aleb
 ## Default route
 
 Najmenej špecifická route `0.0.0.0/0` alebo `::/0`, použitá ak neexistuje presnejšia route. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
+
+## Deletion timestamp — Kubernetes
+
+Serverom nastavený čas označujúci, že object bol prijatý na deletion a čaká na graceful termination alebo finalizer cleanup. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## Dependency cycle — Terraform
 
@@ -1046,6 +1122,10 @@ Prenesená reprezentácia vzdialeného PowerShell objektu, ktorá typicky zachov
 
 Požadovaný stav systému deklarovaný používateľom alebo automatizačným nástrojom. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
 
+## Desired state — Kubernetes
+
+Intent deklarovaný v Kubernetes object `spec` alebo odvodený vyšším controllerom, ku ktorému control loops približujú aktuálny stav. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## Detached HEAD
 
 Stav, v ktorom `HEAD` ukazuje priamo na commit namiesto symbolického odkazu na branch. Nové commits treba zachytiť branch refom, inak môžu zostať unreachable. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
@@ -1097,6 +1177,10 @@ Režim zobrazujúci content rozdiel pri podporovaných modules; output môže ob
 ## Direct membership — GitLab
 
 Členstvo pridané priamo na konkrétny project alebo group, na rozdiel od accessu zdedeného z parent group alebo získaného sharingom. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Direct Pod
+
+Pod vytvorený bez vyššieho workload controlleru; po strate alebo Node failure nemá automatický replica replacement a rollout model. Pozri [Pod](docs/09-kubernetes/pod.md).
 
 ## Distributed cache — GitLab Runner
 
@@ -1366,6 +1450,10 @@ CI/CD variable dostupná iba jobs, ktorých deklarovaný environment zodpovedá 
 
 Pomenovaná hodnota odovzdaná procesu v jeho environment bloku. Pozri [Environment variables](docs/01-linux-and-systems/environment-variables.md).
 
+## Ephemeral container
+
+Diagnostický container pridaný do existujúceho Podu na troubleshooting, ktorý nie je trvalou súčasťou pôvodného workload contractu. Pozri [Pod](docs/09-kubernetes/pod.md).
+
 ## Ephemeral port
 
 Dočasný source port typicky pridelený klientskemu socketu. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -1386,9 +1474,25 @@ Nahraditeľná runtime inštancia, ktorej lokálny procesový a writable-layer s
 
 HTTP validator reprezentácie používaný na cache revalidation a optimistic concurrency cez conditional requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
+## etcd quorum
+
+Väčšina voting members potrebná na bezpečné potvrdenie etcd consensus operations; strata quorum blokuje spoľahlivé Kubernetes API writes. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## etcd snapshot
+
+Point-in-time backup etcd data store-u používaný v testovanom Kubernetes control-plane recovery postupe. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
 ## Ethernet frame
 
 Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a kontrolné metadata. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## Event — Kubernetes
+
+Časovo obmedzený diagnostický API object opisujúci významnú udalosť okolo iného resource-u, napríklad scheduling, image pull, probe alebo volume failure; nie je trvalým audit logom. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Eventual consistency — Kubernetes
+
+Model, v ktorom API write uloží desired state okamžite, ale controllers, scheduler, kubelet a external systems ho realizujú asynchrónne a stav sa zhoduje až po čase. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
 ## Evidence freshness
 
@@ -1510,6 +1614,10 @@ Runtime control oddeľujúci deployment kódu od sprístupnenia capability pomoc
 
 Cesta od vykonanej zmeny k informácii o jej výsledku. Pozri [Feedback Loops](docs/00-foundations/feedback-loops.md).
 
+## Field manager — Kubernetes
+
+Identita declarative alebo programmatic writera zaznamenaná v `managedFields`, ktorá vlastní konkrétne object fields pri server-side apply. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## File capability
 
 Capability metadata uložené na executable súbore v extended attribute. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
@@ -1529,6 +1637,10 @@ CI/CD variable, ktorej hodnota je zapísaná do dočasného súboru a environmen
 ## Final stage — Dockerfile
 
 Stage, ktorého filesystem a image config tvoria publikovaný runtime image; má obsahovať iba potrebné runtime artifacts a dependencies. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Finalizer — Kubernetes
+
+Qualified metadata string blokujúci finálne odstránenie objectu, kým zodpovedný controller nedokončí cleanup a finalizer neodstráni. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## First-attempt pass rate
 
@@ -1578,9 +1690,21 @@ Fully Qualified Collection Name explicitne identifikujúci module, plugin alebo 
 
 Plánované tímové resilience cvičenie kombinujúce technické faults, observability, incident response, komunikáciu a následné learning actions. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Garbage collection — Kubernetes
+
+Control-plane proces odstraňujúci dependent objects podľa owner references a deletion propagation policy. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## Garbage collection — registry
 
 Proces odstraňovania manifestov alebo blobs, ktoré už nie sú reachable z retained references, vykonávaný s koordináciou voči pushes, deletes, referrers a retention policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+
+## Generation — Kubernetes
+
+Server-managed číslo reprezentujúce verziu relevantného desired state-u objektu; controller ho môže porovnávať s observed generation. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Generation lag
+
+Rozdiel medzi aktuálnym `metadata.generation` a generáciou reportovanou controllerom ako spracovanou, signalizujúci zaostávajúcu reconciliation. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
 ## Git index
 
@@ -1681,6 +1805,14 @@ Regex quantifier, ktorý najprv spotrebuje najväčší možný rozsah a podľa 
 ## Group sharing — GitLab
 
 Udelenie accessu projektu alebo group členom inej group s definovaným maximum role scope-om. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## GroupVersionKind — GVK
+
+Trojica API group, version a kind identifikujúca schema Kubernetes objectu, napríklad `apps/v1, Deployment`. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## GroupVersionResource — GVR
+
+Trojica API group, version a REST resource name identifikujúca Kubernetes API endpoint, napríklad `apps/v1/deployments`. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## Guardrail metric
 
@@ -1806,6 +1938,10 @@ Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-i
 
 Test vykonávajúci po prvom converge ďalší run s rovnakými inputs a overujúci, že nevzniknú neplánované changes ani side effects. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Idempotent reconcile
+
+Controller behavior, pri ktorom opakované spracovanie rovnakého desired a actual state-u nevytvára neplánované duplicity alebo ďalšie side effects. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## `ignore_changes` — Terraform
 
 Lifecycle rule, ktorá pri update plánovaní ignoruje zmeny vybraných atribútov. Musí mať explicitný external owner a monitoring, pretože potláča Terraform remediation, nie existenciu driftu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -1829,6 +1965,10 @@ OCI artifact odkazujúci descriptorom na jednu image configuration a ordered lis
 ## Image runtime metadata — Dockerfile
 
 Image configuration fields ako default command, entrypoint, environment, user, working directory, exposed ports, labels a stop signal použité pri vytváraní runtime containeru. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## ImageService — CRI
+
+Časť CRI používaná kubeletom na image pull, list, status a removal operácie v container runtime. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
 
 ## Immutable infrastructure
 
@@ -1862,6 +2002,10 @@ Dynamické načítanie Ansible role počas executionu podľa runtime contextu. P
 
 Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je merge base, stage 2 ours a stage 3 theirs. Pozri [Konflikty](docs/03-git-and-automation/merge-conflicts.md).
 
+## Informer — Kubernetes
+
+Client-side mechanism kombinujúci list/watch, local cache a event handlers na efektívne sledovanie Kubernetes resources pre controllers. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## Infrastructure as Code — IaC
 
 Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného plan/apply alebo reconciliation procesu, review, policy a auditovateľného recovery lifecycle. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -1869,6 +2013,10 @@ Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného pl
 ## Inherited membership — GitLab
 
 Access získaný cez membership v parent group alebo inom hierarchicky relevantnom namespace namiesto priameho pridania na project. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Init container
+
+Container, ktorý musí úspešne dokončiť prípravnú úlohu pred spustením bežných application containers v Pode. Pozri [Pod](docs/09-kubernetes/pod.md).
 
 ## Inode
 
@@ -1962,13 +2110,53 @@ Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, device
 
 Technický mechanizmus umožňujúci rýchlo zastaviť fault injection, experiment alebo feature exposure pri prekročení bezpečných hraníc. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## kube-apiserver
+
+Core control-plane server exponujúci Kubernetes API a koordinujúci authentication, authorization, admission, validation, conversion a persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## kube-controller-manager
+
+Control-plane process spúšťajúci sadu built-in Kubernetes controllers, napríklad Node, Job, namespace a garbage-collection loops. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## kube-proxy
+
+Bežný node component implementujúci časť Kubernetes Service dataplane-u z Service a EndpointSlice state-u; môže byť nahradený alternatívnou implementáciou. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## kube-scheduler
+
+Control-plane component vyberajúci vhodný Node pre Pods, ktoré ešte nemajú assignment; samotné containers nespúšťa. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## kubelet
+
+Primary worker-node agent sledujúci Pods pridelené Node-u a koordinujúci runtime, volumes, probes, status a node resource lifecycle. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Kubernetes API
+
+Versionované HTTP rozhranie, cez ktoré users, clients, controllers a node components čítajú a menia Kubernetes resources a cluster state. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## Kubernetes builder driver — Buildx
 
 Buildx driver prevádzkujúci BuildKit workers v Kubernetes, s cluster schedulingom, resource controls a možnosťou native multi-architecture nodes. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Kubernetes cluster
+
+Logická platformová jednotka pozostávajúca z control plane-u, worker nodes, cluster networku, storage a supporting integrations. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
+## Kubernetes controller
+
+Control loop sledujúci resources a vykonávajúci alebo požadujúci zmeny, ktoré približujú observed state k desired state-u. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## Kubernetes executor — GitLab Runner
 
 Executor, ktorý pre CI/CD job vytvorí Kubernetes pod s build, helper a podľa konfigurácie service containers. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+
+## Kubernetes object
+
+Persistentná inštancia Kubernetes resource type-u reprezentujúca desired alebo observed cluster state cez API. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Kubernetes resource
+
+API-exposed resource type s group/version, REST endpointom, schema, scope a podporovanými verbs. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## L4 load balancing
 
@@ -1977,6 +2165,10 @@ Rozdelenie transportných flows podľa IP, portu, protokolu a connection state b
 ## L7 load balancing
 
 Rozdelenie requestov podľa aplikačných údajov, napríklad HTTP hostu, pathu alebo headerov. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Label — Kubernetes
+
+Indexovateľné key/value metadata určené na grouping a selection Kubernetes objects. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## Last known good
 
@@ -1990,6 +2182,18 @@ Presne identifikovaný artifact, configuration a compatibility stav s overenou p
 
 Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitLab podľa nastavenia uchovávať nezávisle od bežnej expiration policy. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
 
+## Leader-elected controller
+
+Controller nasadený vo viacerých instances, ktoré cez Lease koordinujú aktívneho leadera; stále musí tolerovať retries a nie je exactly-once systémom. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Lease — Kubernetes
+
+Lightweight object v `coordination.k8s.io` používaný napríklad na Node heartbeats alebo leader election components. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
+## Level-based reconciliation
+
+Controller model, ktorý pri každom reconcile vyhodnocuje aktuálny desired a observed state namiesto závislosti na jedinom nevynechanom evente. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## Lifecycle meta-argument — Terraform
 
 Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ako `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, preconditions a postconditions. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -2001,6 +2205,10 @@ Podiel vykonaných source riadkov počas testov. Vysoká hodnota sama osebe nedo
 ## Lineage — Terraform state
 
 Jedinečný identifikátor histórie state-u používaný na rozlíšenie nezávisle vzniknutých states a ochranu pred prepísaním nesúvisiaceho snapshotu. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## List/watch pattern — Kubernetes
+
+API klient najprv získa collection snapshot cez list a následne sleduje zmeny cez watch od príslušného resourceVersion. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## `listen` topic — Ansible
 
@@ -2090,6 +2298,10 @@ Vopred definovaný časový interval, počas ktorého je povolená plánovaná �
 
 Prvá časť SemVer verzie, ktorá sa zvyšuje pri nekompatibilnej zmene deklarovaného public API alebo compatibility contractu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Managed control plane
+
+Kubernetes control plane, ktorého časť lifecycle-u a availability prevádzkuje provider, zatiaľ čo zákazník zostáva zodpovedný za workload, identity, policy, data a značnú časť cluster configuration. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
 ## Managed node — Ansible
 
 Host, zariadenie alebo API target, na ktorý Ansible aplikuje automation cez connection plugin alebo provider-specific module workflow. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -2149,6 +2361,10 @@ Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size
 ## MINOR version
 
 Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní capability do deklarovaného public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## Mirror Pod
+
+API-visible reprezentácia static Podu, ktorú kubelet vytvorí pre observability; authoritative configuration zostáva na konkrétnom Node-e. Pozri [Pod](docs/09-kubernetes/pod.md).
 
 ## Mixed-version deployment
 
@@ -2254,6 +2470,10 @@ Model, v ktorom sa existujúce stroje priebežne menia na mieste. Pozri [Immutab
 
 Registry alebo repository tag, ktorého mapping možno prepísať na iný artifact content, napríklad `latest`. Nie je spoľahlivou deployment identity bez zachovaného digestu. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Mutating admission
+
+Admission fáza schopná zmeniť alebo doplniť incoming Kubernetes object pred jeho finálnou validáciou a persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
 ## Mutation score
 
 Podiel zámerných code mutations, ktoré test suite odhalí zlyhaním. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
@@ -2273,6 +2493,10 @@ Docker volume s explicitným user-defined menom a samostatným lifecycle, vhodn�
 ## Namespace — Linux namespace
 
 Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu systémového stavu. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## Namespaced resource — Kubernetes
+
+Kubernetes resource, ktorého object identity a policy scope zahŕňajú namespace. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## Narrow artifact copy — Dockerfile
 
@@ -2322,6 +2546,18 @@ Task alebo block control obmedzujúci zobrazenie citlivých arguments a results 
 
 Kernel flag zabraňujúci zvýšeniu privilege cez `execve()`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Node allocatable
+
+Časť Node capacity dostupná pre scheduling Pods po odpočítaní resources rezervovaných pre operating system a Kubernetes components podľa configuration. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Node condition
+
+Štruktúrovaný status signál Node-u, napríklad Ready, MemoryPressure, DiskPressure alebo PIDPressure. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Node Lease
+
+Lease v namespace `kube-node-lease` používaný ako lightweight heartbeat konkrétneho Kubernetes Node-u. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
 ## Non-terminating error — PowerShell
 
 PowerShell error record, pri ktorom command môže pokračovať; na zachytenie cez `catch` sa často používa `-ErrorAction Stop`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -2341,6 +2577,18 @@ Hash-based identifikátor Git objectu odvodený z typu a obsahu objektu. Pozri [
 ## Object pipeline — PowerShell
 
 Pipeline prenášajúca .NET objekty s properties a methods namiesto iba formátovaných textových riadkov. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Object UID — Kubernetes
+
+Server-generated immutable identity konkrétnej object inštancie; znovu vytvorený object s rovnakým menom dostane nové UID. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Observed generation — Kubernetes
+
+Status hodnota signalizujúca, ktorú verziu object desired state-u controller alebo agent už spracoval. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Observed state — Kubernetes
+
+Stav, ktorý controller alebo agent aktuálne vidí cez API cache, runtime alebo external systém a používa ho pri reconciliation. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
 ## OCI artifact
 
@@ -2418,6 +2666,10 @@ Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre cal
 
 Test anti-pattern, pri ktorom assertions overujú nepodstatné interné poradie alebo implementačné detaily a blokujú bezpečný refactoring. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## OwnerReference — Kubernetes
+
+Metadata väzba dependent objectu na owner object pomocou owner UID, používaná controllers a garbage collectorom. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## Ownership matrix
 
 Dokumentované priradenie authoritative writera ku každému resource alebo mutable attribute naprieč provisioning, configuration a runtime systémami. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
@@ -2445,6 +2697,10 @@ Framework na skladanie authentication, account, session a password policy. Pozri
 ## Partial clone
 
 Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa potreby, napríklad s `--filter=blob:none`. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Partial failure — controller
+
+Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad vytvorí external resource, ale nestihne uložiť jeho identity do statusu, a musí sa bezpečne zotaviť pri retry. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
 ## Password-client script — Ansible Vault
 
@@ -2529,6 +2785,30 @@ Native Terraform test run používajúci `command = plan` na overenie plan-time 
 ## Platform mismatch — container image
 
 Nesúlad medzi target OS/architecture a vybraným image manifestom alebo executable, ktorý môže viesť k pull failure alebo `exec format error`. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Pod
+
+Najmenší deployable Kubernetes compute object predstavujúci jeden alebo viac co-scheduled containers so spoločnou Pod network identity, lifecycle boundary a volumes. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Pod condition
+
+Štruktúrovaný Pod status signal, napríklad Scheduled, Initialized, ContainersReady alebo Ready, ktorý je odlišný od high-level Pod phase. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Pod phase
+
+High-level summary lifecycle state-u Podu: Pending, Running, Succeeded, Failed alebo Unknown; reasons ako CrashLoopBackOff nie sú samostatné phases. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Pod readiness gate
+
+Custom condition zahrnutá do Pod readiness rozhodnutia, ktorú musí nastavovať zodpovedný external alebo platform controller. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Pod sandbox
+
+Runtime prostredie Podu vytvorené cez CRI, ktoré drží najmä shared network namespace a infra lifecycle pre Pod containers. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md) a [Pod](docs/09-kubernetes/pod.md).
+
+## Pod template
+
+Embedded desired Pod metadata a spec v workload controller resource-e, z ktorého controller vytvára nové Pod instances. Pozri [Pod](docs/09-kubernetes/pod.md).
 
 ## Policy as Code
 
@@ -2718,6 +2998,14 @@ Operácia, ktorá replayuje commits na nový base a vytvára nové commit object
 
 Proces porovnania a opravy rozdielov medzi dvoma reprezentáciami alebo stores, napríklad počas dual write migration. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Reconciliation key
+
+Stabilná identity resource-u, typicky `namespace/name`, vložená do controller work queue, podľa ktorej worker načíta najnovší object state. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Reconciliation loop
+
+Opakovaný proces observe, compare, act a report, ktorý približuje actual state Kubernetes alebo external systému k desired state-u. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
 ## Recovery package
 
 Predpripravený súbor identity, kompatibility informácií, workflows a rozhodovacích podkladov potrebných na rollback, roll-forward alebo restore konkrétneho release. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
@@ -2890,6 +3178,10 @@ Pipeline mechanizmus serializujúci jobs, ktoré mutujú rovnaký environment al
 
 Automation model sledujúci identity resources a plánujúci ich create, update, replacement a destroy operácie, typicky cez dependency graph a persistentný state. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## ResourceVersion — Kubernetes
+
+Opaque storage version objektu alebo collection snapshotu používaná na optimistic concurrency a list/watch continuity, nie ako business version. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## REST
 
 Architectural style pre distributed hypermedia systems založený na constraints ako statelessness, cacheability a uniform interface. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
@@ -3046,6 +3338,10 @@ Per-container alebo per-runtime lifecycle proces oddeľujúci container process 
 
 Sprístupnenie container-engine API socketu workloadu, ktoré často umožňuje vytvárať privileged containers, mounts alebo inak ovládať host a predstavuje host-admin trust boundary. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
+## RuntimeService — CRI
+
+Časť CRI používaná kubeletom na Pod sandbox a container create, start, stop, remove, status a streaming lifecycle. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
 ## Safe loader — YAML
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -3118,6 +3414,10 @@ Riadená zmena cieľového credentialu vrátane distribúcie novej hodnoty, over
 
 Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security findings v pipeline, merge requeste alebo vulnerability-management vrstvách. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
+## Selector — Kubernetes
+
+Výraz vyberajúci objects podľa labels a tvoriaci kritický contract pre controllers, Services, policy alebo CLI queries. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
 ## SELinux security context
 
 Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne level/range. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -3137,6 +3437,14 @@ Rozdelenie právomocí tak, aby citlivú zmenu nevytvorila, neschválila a nenas
 ## Serial — Terraform state
 
 Monotónne rastúce číslo snapshotu v jednej state lineage používané na rozpoznanie novšej verzie a ochranu pred stale overwrite. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Server-side apply — Kubernetes
+
+Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Service dataplane — Kubernetes
+
+Node alebo cluster networking vrstva implementujúca virtual Service IP a forwarding na EndpointSlice backends, napríklad cez kube-proxy alebo alternatívny eBPF dataplane. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
 
 ## Service virtualization
 
@@ -3185,6 +3493,10 @@ Rozšírenie validácie, observability a experimentovania do deploymentu a produ
 ## `ShouldProcess` — PowerShell
 
 PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené mutation operácie. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Sidecar container
+
+Auxiliary container bežiaci v rovnakom Pode ako hlavná aplikácia a zdieľajúci jej placement, network a Pod lifecycle boundary. Pozri [Pod](docs/09-kubernetes/pod.md).
 
 ## Single-writer storage
 
@@ -3306,6 +3618,10 @@ Reusable content spracovaný staticky pri parse phase, čím sa od dynamic inclu
 
 Inventory hosts, groups a variables deklarované v versionovanom INI alebo YAML source namiesto runtime discovery cez external API. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
+## Static Pod
+
+Pod spravovaný priamo kubeletom na konkrétnom Node-e z local manifestu, bez bežného scheduler/controller ownershipu. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md) a [Pod](docs/09-kubernetes/pod.md).
+
 ## Steady state — chaos engineering
 
 Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -3313,6 +3629,10 @@ Merateľné používateľské alebo prevádzkové správanie, ktoré má systém
 ## Storage fencing
 
 Mechanizmus zabezpečujúci, že starý alebo izolovaný writer už nemôže zapisovať na shared storage pred aktiváciou nového writer-a. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Storage version — Kubernetes
+
+Interná API verzia, v ktorej API server persistuje konkrétny resource type, pričom externé clients môžu používať iné podporované versions s conversion. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## `strace`
 
@@ -3337,6 +3657,10 @@ Group vnorená v parent group, používaná na delegovanie ownershipu, členstva
 ## Subnet
 
 Časť IP address space definovaná prefixom a použitá ako logická routing alebo topology jednotka. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Subresource — Kubernetes
+
+Samostatný API endpoint pre vybranú časť alebo operáciu resource-u, napríklad `/status`, `/scale`, `/log`, `/exec` alebo `/eviction`. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
 ## Subshell
 
@@ -3626,6 +3950,10 @@ Menej privilegované prostredie, v ktorom bežia aplikácie a systémové proces
 
 Miera použitia dostupnej kapacity resource. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Validating admission
+
+Admission fáza, ktorá po relevantnej mutácii a validácii rozhodne, či Kubernetes API request povolí alebo odmietne. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
 ## Validation — testing
 
 Overenie, či systém rieši správny používateľský alebo business problém v reálnom kontexte. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
@@ -3721,6 +4049,14 @@ Marker vo filesystem changesete, ktorý v merged image view skryje path existuj�
 ## Word splitting
 
 Shell rozdelenie nequoted expansion výsledku na viac slov podľa `IFS`. Je častým zdrojom chýb pri paths a argumentoch. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Work queue — Kubernetes controller
+
+Fronta reconciliation keys s deduplication, retry a rate-limiting behavior používaná controller workers na bounded spracovanie zmien. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Worker node — Kubernetes
+
+Fyzický alebo virtuálny server poskytujúci resources a node components potrebné na spúšťanie Pods pridelených control plane-om. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md) a [Worker node components](docs/09-kubernetes/worker-node-components.md).
 
 ## `workflow:rules` — GitLab
 
