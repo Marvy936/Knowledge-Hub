@@ -278,9 +278,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [RED method](docs/12-observability/red-method.md)
 - [x] [USE method](docs/12-observability/use-method.md)
 - [x] [Golden Signals](docs/12-observability/golden-signals.md)
-- [ ] Prometheus
-- [ ] Alertmanager
-- [ ] Grafana
+- [x] [Prometheus](docs/12-observability/prometheus.md)
+- [x] [Alertmanager](docs/12-observability/alertmanager.md)
+- [x] [Grafana](docs/12-observability/grafana.md)
 - [ ] Loki
 - [ ] Elasticsearch alebo OpenSearch
 - [ ] Fluent Bit

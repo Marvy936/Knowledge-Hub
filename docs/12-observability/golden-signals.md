@@ -525,5 +525,5 @@ Relevantné pojmy: Golden Signals, latency, traffic, errors, saturation, success
 
 **Navigácia**
 
-[← Predchádzajúca: USE method](use-method.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: USE method](use-method.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prometheus →](prometheus.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

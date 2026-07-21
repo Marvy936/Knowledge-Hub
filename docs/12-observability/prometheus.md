@@ -958,3 +958,11 @@ Relevantné pojmy: Prometheus, scrape, target, exporter, Pushgateway, time serie
 - [Alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
 - [Remote write tuning](https://prometheus.io/docs/practices/remote_write/)
 - [Federation](https://prometheus.io/docs/prometheus/latest/federation/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Golden Signals](golden-signals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Alertmanager →](alertmanager.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

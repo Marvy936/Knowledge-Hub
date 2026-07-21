@@ -800,3 +800,11 @@ Relevantné pojmy: Alertmanager, alert fingerprint, alert identity, notification
 - [Prometheus alerting overview](https://prometheus.io/docs/alerting/latest/overview/)
 - [Prometheus alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
 - [Alertmanager notification templates](https://prometheus.io/docs/alerting/latest/notifications/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Prometheus](prometheus.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Grafana →](grafana.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

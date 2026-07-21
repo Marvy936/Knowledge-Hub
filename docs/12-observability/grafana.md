@@ -982,3 +982,11 @@ Relevantné pojmy: Grafana, data source, data-source plugin, dashboard, panel, d
 - [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
 - [Provision alerting resources](https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/)
 - [Roles and permissions](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Alertmanager](alertmanager.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
