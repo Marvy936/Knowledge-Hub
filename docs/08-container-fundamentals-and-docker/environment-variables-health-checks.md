@@ -514,3 +514,11 @@ Relevantné pojmy: runtime configuration, Compose interpolation, container envir
 - [Environment variables in Compose](https://docs.docker.com/compose/how-tos/environment-variables/)
 - [Environment variable precedence](https://docs.docker.com/compose/how-tos/environment-variables/envvars-precedence/)
 - [Compose service healthcheck](https://docs.docker.com/reference/compose-file/services/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Docker networks a port publishing](docker-networks-port-publishing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Docker Compose →](docker-compose.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

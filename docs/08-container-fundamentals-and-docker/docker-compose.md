@@ -721,3 +721,11 @@ Relevantné pojmy: Docker Compose, Compose Specification, Compose project, Compo
 - [Services top-level element](https://docs.docker.com/reference/compose-file/services/)
 - [Startup order](https://docs.docker.com/compose/how-tos/startup-order/)
 - [Compose trust model](https://docs.docker.com/compose/trust-model/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Environment variables a health checks](environment-variables-health-checks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: BuildKit a Buildx →](buildkit-buildx.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

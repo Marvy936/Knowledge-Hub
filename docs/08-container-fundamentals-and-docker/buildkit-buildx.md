@@ -596,3 +596,11 @@ Relevantné pojmy: BuildKit, Buildx, build frontend, LLB, builder instance, buil
 - [Build drivers](https://docs.docker.com/build/builders/drivers/)
 - [Multi-platform builds](https://docs.docker.com/build/building/multi-platform/)
 - [Buildx CLI](https://docs.docker.com/reference/cli/docker/buildx/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Docker Compose](docker-compose.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Docker troubleshooting →](docker-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -769,3 +769,11 @@ Relevantné pojmy: Docker diagnostic baseline, daemon log, container exit code, 
 - [`docker system df`](https://docs.docker.com/reference/cli/docker/system/df/)
 - [`docker events`](https://docs.docker.com/reference/cli/docker/system/events/)
 - [Docker Desktop troubleshooting](https://docs.docker.com/desktop/troubleshoot-and-support/troubleshoot/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: BuildKit a Buildx](buildkit-buildx.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

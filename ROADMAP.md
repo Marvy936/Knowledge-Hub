@@ -186,10 +186,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md)
 - [x] [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md)
 - [x] [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md)
-- [ ] Environment variables a health checks
-- [ ] Docker Compose
-- [ ] BuildKit a Buildx
-- [ ] Docker troubleshooting
+- [x] [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md)
+- [x] [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md)
+- [x] [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md)
+- [x] [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md)
 
 ### Kubernetes
 

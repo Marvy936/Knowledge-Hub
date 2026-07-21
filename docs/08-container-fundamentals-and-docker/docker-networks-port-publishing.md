@@ -509,5 +509,5 @@ Relevantné pojmy: Docker network, network driver, default bridge, user-defined 
 
 **Navigácia**
 
-[← Predchádzajúca: Volumes a bind mounts](volumes-bind-mounts.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Volumes a bind mounts](volumes-bind-mounts.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Environment variables a health checks →](environment-variables-health-checks.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
