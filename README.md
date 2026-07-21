@@ -46,10 +46,10 @@ Aktívne sekcie:
 4. [Git and Automation Basics](docs/03-git-and-automation/README.md)
 5. [Testing and Software Quality](docs/04-testing-and-quality/README.md)
 6. [CI/CD and Release Engineering](docs/05-ci-cd-and-release/README.md)
+7. [GitLab](docs/06-gitlab/README.md)
 
 Plánované hlavné domény:
 
-- GitLab
 - Terraform a Infrastructure as Code
 - Ansible a configuration management
 - Containers a Docker
