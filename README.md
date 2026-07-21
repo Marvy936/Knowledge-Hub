@@ -52,15 +52,16 @@ Aktívne sekcie:
 10. [Kubernetes](docs/09-kubernetes/README.md)
 11. [Helm and CKA](docs/10-helm-and-cka/README.md)
 12. [Cloud and AWS](docs/11-cloud-and-aws/README.md)
+13. [Observability](docs/12-observability/README.md)
 
 Plánované hlavné domény:
 
-- Observability
-- Security, IAM a supply-chain security
-- SRE a operations
-- Databases
-- Distributed systems
-- GitOps a platform engineering
+- Security and Identity,
+- SRE and Operations,
+- Databases and Distributed Systems,
+- GitOps and Platform Engineering.
+
+Budúce identity, ML, LLM a agentické oblasti sú predbežne rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 
