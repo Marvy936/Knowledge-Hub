@@ -539,5 +539,5 @@ Relevantné pojmy: AWS KMS, KMS key, customer managed key, AWS managed key, key 
 
 **Navigácia**
 
-[← Predchádzajúca: Systems Manager](systems-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Monitoring vs. observability →](../12-observability/monitoring-vs-observability.md)
+[← Predchádzajúca: Systems Manager](systems-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Backup →](aws-backup.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

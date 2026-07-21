@@ -768,3 +768,11 @@ Relevantné pojmy: FinOps, cloud financial management, unit cost, unit economics
 - [Cost Optimization Hub](https://docs.aws.amazon.com/cost-management/latest/userguide/cost-optimization-hub.html)
 - [AWS Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html)
 - [AWS Billing and Cost Management home page](https://docs.aws.amazon.com/cost-management/latest/userguide/view-billing-dashboard.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Well-Architected Framework](well-architected-framework.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Certified CloudOps Engineer – Associate (SOA-C03) →](cloudops-engineer-associate-soa-c03.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

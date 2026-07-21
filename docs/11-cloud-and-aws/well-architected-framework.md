@@ -613,3 +613,11 @@ Relevantné pojmy: AWS Well-Architected Framework, workload boundary, Operationa
 - [Using lenses](https://docs.aws.amazon.com/wellarchitected/latest/userguide/lenses.html)
 - [Milestones](https://docs.aws.amazon.com/wellarchitected/latest/userguide/milestones.html)
 - [Implement and track improvements](https://docs.aws.amazon.com/wellarchitected/latest/userguide/implement-and-track-improvements.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AWS Backup](aws-backup.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cost management a FinOps →](cost-management-finops.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

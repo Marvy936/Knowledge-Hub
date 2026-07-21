@@ -577,3 +577,11 @@ Relevantné pojmy: AWS Backup, backup plan, backup rule, resource assignment, re
 - [Logically air-gapped vault](https://docs.aws.amazon.com/aws-backup/latest/devguide/logicallyairgappedvault.html)
 - [Restore testing](https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing.html)
 - [AWS Backup Audit Manager](https://docs.aws.amazon.com/aws-backup/latest/devguide/aws-backup-audit-manager.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: KMS a Secrets Manager](kms-secrets-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Well-Architected Framework →](well-architected-framework.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

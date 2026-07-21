@@ -336,3 +336,11 @@ Relevantné pojmy: AWS Certified CloudOps Engineer – Associate, SOA-C03, exam 
 - [SOA-C03 exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03.html)
 - [SOA-C03 revisions](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-revisions.html)
 - [In-scope AWS services](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-in-scope-services.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cost management a FinOps](cost-management-finops.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CloudOps domain review a timed reasoning →](cloudops-domain-review-timed-reasoning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

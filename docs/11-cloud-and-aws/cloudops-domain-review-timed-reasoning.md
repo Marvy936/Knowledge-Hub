@@ -382,3 +382,11 @@ Relevantné pojmy: CloudOps timed reasoning, question constraint, scope matrix, 
 - [Domain 3](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain3.html)
 - [Domain 4](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain4.html)
 - [Domain 5](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain5.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AWS Certified CloudOps Engineer – Associate (SOA-C03)](cloudops-engineer-associate-soa-c03.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CloudOps hands-on labs →](cloudops-hands-on-labs.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

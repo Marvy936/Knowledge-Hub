@@ -382,3 +382,11 @@ Relevantné pojmy: CloudOps hands-on lab, AWS sandbox account, cost-safe lab, ha
 - [SOA-C03 exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03.html)
 - [AWS Builder Labs](https://skillbuilder.aws/)
 - [AWS Well-Architected Labs](https://www.wellarchitectedlabs.com/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CloudOps domain review a timed reasoning](cloudops-domain-review-timed-reasoning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CloudOps troubleshooting drills →](cloudops-troubleshooting-drills.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -262,9 +262,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md)
 - [x] [Systems Manager](docs/11-cloud-and-aws/systems-manager.md)
 - [x] [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md)
-- [ ] AWS Backup
-- [ ] Well-Architected Framework
-- [ ] Cost management a FinOps
+- [x] [AWS Backup](docs/11-cloud-and-aws/aws-backup.md)
+- [x] [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md)
+- [x] [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md)
 
 ### Observability
 

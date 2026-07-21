@@ -505,5 +505,5 @@ Relevantné pojmy: monitoring, observability, telemetry, signal, instrumentation
 
 **Navigácia**
 
-[← Predchádzajúca: KMS a Secrets Manager](../11-cloud-and-aws/kms-secrets-manager.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: CloudOps troubleshooting drills](../11-cloud-and-aws/cloudops-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

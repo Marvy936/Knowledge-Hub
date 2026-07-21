@@ -461,3 +461,11 @@ Relevantné pojmy: AWS CloudOps troubleshooting drill, account/Region baseline, 
 - [AWS troubleshooting resources](https://repost.aws/knowledge-center/)
 - [AWS Systems Manager troubleshooting](https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting.html)
 - [Amazon VPC troubleshooting](https://docs.aws.amazon.com/vpc/latest/userguide/troubleshooting.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CloudOps hands-on labs](cloudops-hands-on-labs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Monitoring vs. observability →](../12-observability/monitoring-vs-observability.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
