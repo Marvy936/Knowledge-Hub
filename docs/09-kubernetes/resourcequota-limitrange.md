@@ -486,3 +486,11 @@ Relevantné pojmy: ResourceQuota, quota hard limit, quota used status, compute q
 - [Limit Ranges](https://kubernetes.io/docs/concepts/policy/limit-range/)
 - [Configure Memory and CPU Quotas](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 - [Configure CPU Constraints for a Namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: SecurityContext a Pod Security](securitycontext-pod-security.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

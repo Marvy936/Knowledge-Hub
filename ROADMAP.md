@@ -214,11 +214,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Scheduling](docs/09-kubernetes/scheduling.md)
 - [x] [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md)
 - [x] [Probes](docs/09-kubernetes/probes.md)
-- [ ] Taints, tolerations, affinity a topology
-- [ ] HPA a autoscaling
-- [ ] RBAC
-- [ ] SecurityContext a Pod Security
-- [ ] ResourceQuota a LimitRange
+- [x] [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md)
+- [x] [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md)
+- [x] [RBAC](docs/09-kubernetes/rbac.md)
+- [x] [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md)
+- [x] [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md)
 - [ ] Cluster installation a lifecycle
 - [ ] etcd backup a restore
 - [ ] Upgrades

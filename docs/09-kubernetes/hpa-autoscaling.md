@@ -429,3 +429,11 @@ Relevantné pojmy: Horizontal Pod Autoscaler, scale subresource, resource metric
 - [Autoscaling Workloads](https://kubernetes.io/docs/concepts/workloads/autoscaling/)
 - [Vertical Pod Autoscaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
 - [Node Autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/node-autoscaling/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Taints, tolerations, affinity a topology](taints-tolerations-affinity-topology.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RBAC →](rbac.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

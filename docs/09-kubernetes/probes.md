@@ -523,5 +523,5 @@ Relevantné pojmy: startup probe, liveness probe, readiness probe, HTTP probe, T
 
 **Navigácia**
 
-[← Predchádzajúca: Requests, limits a QoS](requests-limits-qos.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Requests, limits a QoS](requests-limits-qos.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Taints, tolerations, affinity a topology →](taints-tolerations-affinity-topology.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

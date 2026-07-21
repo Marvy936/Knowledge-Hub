@@ -487,3 +487,11 @@ Relevantné pojmy: Kubernetes RBAC, Role, ClusterRole, RoleBinding, ClusterRoleB
 - [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 - [RBAC Good Practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
 - [Authorization Overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: HPA a autoscaling](hpa-autoscaling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SecurityContext a Pod Security →](securitycontext-pod-security.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
