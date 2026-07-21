@@ -1,8 +1,8 @@
 # CI/CD and Release Engineering
 
-Táto sekcia vysvetľuje cestu od integrovanej source zmeny cez reprodukovateľný build, immutable artifact, automatizované quality gates a environment promotion až po bezpečný produkčný rollout a release lifecycle.
+Táto sekcia vysvetľuje cestu od integrovanej source zmeny cez reprodukovateľný build, immutable artifact, automatizované quality gates a environment promotion až po bezpečný produkčný rollout, release lifecycle a recovery.
 
-Cieľom nie je memorovať syntax konkrétnej CI platformy. Dôležité je rozumieť oddeleniu source, build, artifact, deployment a release, dôveryhodným hraniciam pipeline, promotion evidence, rollout stratégiám a recovery mechanizmom.
+Cieľom nie je memorovať syntax konkrétnej CI platformy. Dôležité je rozumieť oddeleniu source, build, artifact, deployment a release, dôveryhodným hraniciam pipeline, promotion evidence, rollout stratégiám, shared-state kompatibilite a obnoveniu služby.
 
 ## Predpoklady
 
@@ -31,56 +31,52 @@ Odporúča sa najprv dokončiť:
 13. [Recreate deployment](recreate-deployment.md)
 14. [Rolling update](rolling-update.md)
 15. [Blue-green deployment](blue-green-deployment.md)
+16. [Canary deployment](canary-deployment.md)
+17. [A/B testing](a-b-testing.md)
+18. [Shadow deployment](shadow-deployment.md)
+19. [Ring deployment](ring-deployment.md)
+20. [Feature flags](feature-flags.md)
+21. [Progressive delivery](progressive-delivery.md)
+22. [Rollback a roll-forward](rollback-and-roll-forward.md)
+23. [Databázová kompatibilita počas deploymentu](database-compatibility-during-deployment.md)
 
-Posledný blok sekcie doplní canary, A/B, shadow a ring deployment, feature flags, progressive delivery, rollback/roll-forward a databázovú kompatibilitu počas deploymentu.
+Po tejto sekcii nasleduje GitLab. Všeobecné pipeline a release princípy sa tam premietnu do projects, merge requests, protected branches/environments, GitLab CI/CD, runners, variables, registries a security scanningu.
 
 ## Cieľ zvládnutia
 
-Po dokončení aktuálneho bloku má byť možné:
+Po dokončení sekcie má byť možné:
 
-- vysvetliť Continuous Integration ako pracovný model častej integrácie, nie iba build server,
-- navrhnúť rýchlu CI feedback loop od lacných kontrol po immutable artifact,
-- vysvetliť mainline health, merge queue, build once, reproducible build a runner isolation,
-- definovať Continuous Delivery a deployable state,
-- navrhnúť deployment pipeline s artifact a environment promotion,
-- oddeliť deployment od release,
-- vysvetliť protected environments, evidence-based approvals a separation of duties,
-- navrhovať backward-compatible databázové delivery cez expand-contract,
-- rozlíšiť rollback a roll-forward podľa state compatibility,
-- definovať Continuous Deployment a jeho predpoklady,
-- navrhnúť progressive exposure, canary analysis a risk-based deployment policy,
-- používať feature flags bez trvalého lifecycle dlhu,
-- prepojiť deployment decisions so SLO, error budgetom a produkčnou observability,
-- interpretovať deployment frequency, change lead time, change fail rate a recovery metrics ako spoločný systém,
+- rozlíšiť Continuous Integration, Continuous Delivery a Continuous Deployment,
+- navrhnúť rýchlu CI feedback loop a udržiavať mainline v deployable stave,
+- oddeliť build, artifact, deployment, release a runtime exposure,
+- používať build-once-promote-many s immutable artifact digestom a provenance,
 - rozlíšiť pipeline, stage, job, step, runner a executor a navrhnúť ich trust boundaries,
-- používať DAG dependencies, fan-out/fan-in a critical-path analýzu bez zbytočných stage barriers,
-- zvoliť hosted, self-hosted, container alebo VM runner model podľa isolation a capacity požiadaviek,
-- navrhnúť job timeouts, cleanup, retry a cancellation semantics,
-- rozlíšiť trigger contexts a bezpečne spracovať push, merge-request, schedule, manual a upstream events,
-- rozlíšiť dôveryhodný artifact od oportunistickej cache,
-- navrhnúť artifact identity, retention, integrity, provenance a build-once-promote-many flow,
-- vytvoriť bezpečný cache key, invalidation a trust namespace bez cache poisoning-u,
-- definovať environment ako runtime kombináciu artifactu, configu, identity, dát, dependencies a policy,
-- navrhnúť artifact promotion, promotion evidence, deployment records a environment drift detection,
-- používať environment-scoped short-lived identities a protected environment controls,
-- rozlíšiť check, blocking/advisory quality gate a ľudský approval,
-- navrhnúť ratcheting, evidence freshness, risk-based approvals, exception a break-glass lifecycle,
-- spravovať pipeline definície ako versionovaný a testovaný code s pinningom, least privilege a Policy as Code,
-- testovať reusable templates, dynamic/child pipelines a resolved pipeline configuration,
-- navrhnúť reusable job/workflow contract s versioningom a backward compatibility,
-- používať matrix pipelines, test sharding a pipeline concurrency bez race conditions a combinatorial explosion,
-- rozlíšiť logical artifact version od content digestu a navrhnúť immutable artifact identity,
-- používať build metadata, provenance, podpisy, multi-platform manifests a retention policy na podporu auditu a rollbacku,
-- aplikovať build-once-promote-many bez rebuildu release candidate počas promotion,
-- vysvetliť Semantic Versioning ako compatibility kontrakt a správne interpretovať MAJOR, MINOR, PATCH, pre-release a build metadata,
-- identifikovať public API aj mimo programového rozhrania a navrhnúť deprecation a migration lifecycle,
-- navrhnúť release unit, release record, cadence, candidate, manifest, approvals, communication a support lifecycle,
-- oddeliť build, deployment a release a riadiť emergency release bez obídenia identity a evidence,
-- posúdiť recreate deployment podľa downtime budgetu, startup/readiness, maintenance režimu a recovery schopnosti,
-- navrhnúť rolling update s vhodným batchom, surge/unavailable limitmi, mixed-version compatibility a graceful termination,
-- používať version-level telemetry, topology-aware rollout, pause/abort a bezpečný rolling rollback alebo roll-forward,
-- navrhnúť blue-green deployment s environment parity, riadeným traffic cutoverom, warm standby a routing rollbackom,
-- koordinovať databázu, cache, sessions, background workers a scheduled jobs medzi blue a green prostrediami.
+- používať DAG dependencies, fan-out/fan-in, matrix jobs a test sharding bez race conditions,
+- navrhnúť timeouts, cancellation, retry, cleanup a runner isolation,
+- bezpečne spracovať push, merge-request, schedule, manual a upstream triggers,
+- rozlíšiť dôveryhodný artifact od oportunistickej cache a chrániť cache pred poisoningom,
+- navrhnúť environment, artifact promotion, promotion evidence, deployment record a drift detection,
+- používať protected environments, short-lived identities, least privilege a separation of duties,
+- navrhnúť blocking/advisory quality gates, risk-based approvals, exceptions a break-glass lifecycle,
+- spravovať pipeline definície ako versionovaný a testovaný code s pinningom a Policy as Code,
+- navrhnúť reusable workflow contract, child/multi-project pipeline a backward-compatible template lifecycle,
+- rozlíšiť logical artifact version, mutable/immutable tag a content digest,
+- používať Semantic Versioning ako explicitný compatibility contract pre deklarované public API,
+- navrhnúť release unit, candidate, manifest, cadence, communication, support a emergency lifecycle,
+- posúdiť recreate deployment podľa downtime budgetu a recovery schopnosti,
+- navrhnúť rolling update s batchom, surge/unavailable limitmi, readiness a mixed-version kompatibilitou,
+- navrhnúť blue-green deployment s environment parity, traffic cutoverom, warm standby a routing rollbackom,
+- navrhnúť canary cohort, stabilný traffic assignment, observation window, promotion a abort criteria,
+- rozlíšiť canary safety rollout od A/B experimentu a správne definovať experiment unit, exposure a guardrails,
+- používať shadow traffic bez user-facing response a bez neplánovaných side effects,
+- navrhnúť stabilné deployment rings, release channels a promotion contract podľa rastúceho rizika,
+- používať feature flags s bezpečným evaluation, failure defaultom, auditom, expiry a cleanup lifecycle,
+- skladať canary, rings, flags, shadowing a automatizovanú analysis do progressive delivery systému,
+- zvoliť rollback alebo roll-forward podľa application, configuration, data a external-side-effect kompatibility,
+- vytvoriť recovery package, last-known-good identity a testovaný rollback/restore postup,
+- navrhovať databázové zmeny cez expand-contract, compatible readers/writers, dual write, reconciliation a bounded backfill,
+- udržiavať application-schema compatibility matrix počas canary, rolling, ring aj blue-green rolloutov,
+- prepojiť promotion a recovery rozhodnutia so SLO, error budgetom, business metrikami a version-level observability.
 
 ## Stav
 
@@ -101,3 +97,11 @@ Po dokončení aktuálneho bloku má byť možné:
 | Recreate deployment | Learning | L2 |
 | Rolling update | Learning | L2 |
 | Blue-green deployment | Learning | L2 |
+| Canary deployment | Learning | L2 |
+| A/B testing | Learning | L2 |
+| Shadow deployment | Learning | L2 |
+| Ring deployment | Learning | L2 |
+| Feature flags | Learning | L2 |
+| Progressive delivery | Learning | L2 |
+| Rollback a roll-forward | Learning | L2 |
+| Databázová kompatibilita počas deploymentu | Learning | L2 |
