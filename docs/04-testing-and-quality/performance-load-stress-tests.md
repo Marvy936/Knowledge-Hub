@@ -352,3 +352,11 @@ Control loop má latency a môže naraziť na ďalší bottleneck.
 ## Glossary impact
 
 Relevantné pojmy: performance test, load test, stress test, spike test, soak test, open workload model, closed workload model, coordinated omission, tail latency, throughput, concurrency, saturation, load shedding, capacity test a scalability test.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Smoke a regression tests](smoke-and-regression-tests.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Security a infrastructure tests →](security-and-infrastructure-tests.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

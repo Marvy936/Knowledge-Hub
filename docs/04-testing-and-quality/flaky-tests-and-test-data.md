@@ -396,3 +396,11 @@ Failure nebude spoľahlivo analyzovateľný.
 ## Glossary impact
 
 Relevantné pojmy: flaky test, first-attempt pass rate, rerun-until-green, quarantine, test fixture, test data factory, synthetic data, production-derived data, deterministic clock, condition-based wait, eventual consistency, test isolation, cleanup a random seed.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Mocks, stubs a fakes](mocks-stubs-fakes.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

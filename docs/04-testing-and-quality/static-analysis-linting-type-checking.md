@@ -348,3 +348,11 @@ Odstránil signal, nie nutne príčinu.
 ## Glossary impact
 
 Relevantné pojmy: static analysis, linting, formatter, type checking, gradual typing, AST, control-flow graph, call graph, taint analysis, source, sink, sanitizer, cyclomatic complexity, baseline, suppression a incremental analysis.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Security a infrastructure tests](security-and-infrastructure-tests.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Code coverage a quality gates →](code-coverage-and-quality-gates.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

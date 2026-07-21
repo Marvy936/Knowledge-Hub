@@ -377,3 +377,11 @@ Kópie produkčných dát môžu obsahovať PII, secrets a interné identifiers.
 ## Glossary impact
 
 Relevantné pojmy: SAST, DAST, IAST, SCA, threat model, attack surface, abuse case, IaC scanning, Policy as Code, SBOM, artifact provenance, vulnerability reachability, security finding, risk acceptance, admission policy a restore drill.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Performance, load a stress tests](performance-load-stress-tests.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Static analysis, linting a type checking →](static-analysis-linting-type-checking.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

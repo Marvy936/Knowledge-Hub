@@ -395,5 +395,5 @@ Relevantné pojmy: smoke test, Build Verification Test, sanity test, regression 
 
 **Navigácia**
 
-[← Predchádzajúca: End-to-end a acceptance tests](end-to-end-and-acceptance-tests.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: End-to-end a acceptance tests](end-to-end-and-acceptance-tests.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Performance, load a stress tests →](performance-load-stress-tests.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

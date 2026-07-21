@@ -97,12 +97,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md)
 - [x] [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md)
 - [x] [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md)
-- [ ] Performance, load a stress tests
-- [ ] Security a infrastructure tests
-- [ ] Static analysis, linting a type checking
-- [ ] Code coverage a quality gates
-- [ ] Mocks, stubs a fakes
-- [ ] Flaky tests a test data
+- [x] [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md)
+- [x] [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md)
+- [x] [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md)
+- [x] [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md)
+- [x] [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md)
+- [x] [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md)
 - [ ] Shift-left
 - [ ] Shift-right
 - [ ] Chaos testing

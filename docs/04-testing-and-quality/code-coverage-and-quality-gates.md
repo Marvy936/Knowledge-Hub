@@ -354,3 +354,11 @@ Musí byť časovo obmedzené a auditovateľné risk rozhodnutie.
 ## Glossary impact
 
 Relevantné pojmy: code coverage, line coverage, branch coverage, condition coverage, path coverage, diff coverage, mutation testing, mutation score, quality gate, blocking gate, advisory gate, threshold, ratcheting, waiver a compensating control.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Static analysis, linting a type checking](static-analysis-linting-type-checking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Mocks, stubs a fakes →](mocks-stubs-fakes.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

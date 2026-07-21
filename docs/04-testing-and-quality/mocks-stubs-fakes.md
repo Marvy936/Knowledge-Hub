@@ -317,3 +317,11 @@ Fake musí mať conformance voči relevantnému kontraktu.
 ## Glossary impact
 
 Relevantné pojmy: test double, dummy, stub, fake, spy, mock, state-based testing, interaction-based testing, fake clock, service virtualization, mock server, strict mock, contract drift a over-specification.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Code coverage a quality gates](code-coverage-and-quality-gates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Flaky tests a test data →](flaky-tests-and-test-data.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
