@@ -598,3 +598,11 @@ Relevantné pojmy: Helm chart dependency, Helm subchart, dependency constraint, 
 - [Subcharts and Global Values](https://helm.sh/docs/chart_template_guide/subcharts_and_globals/)
 - [`helm dependency build`](https://helm.sh/docs/helm/helm_dependency_build/)
 - [`helm dependency update`](https://helm.sh/docs/helm/helm_dependency_update/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Named templates](named-templates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Hooks →](hooks.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

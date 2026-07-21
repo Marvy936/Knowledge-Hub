@@ -520,5 +520,5 @@ Relevantné pojmy: Helm, Helm chart, chart version, appVersion, Helm template, v
 
 **Navigácia**
 
-[← Predchádzajúca: Kubernetes troubleshooting](../09-kubernetes/kubernetes-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Kubernetes troubleshooting](../09-kubernetes/kubernetes-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Template functions a pipelines →](template-functions-pipelines.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

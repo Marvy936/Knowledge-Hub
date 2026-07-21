@@ -565,3 +565,11 @@ Relevantné pojmy: Helm hook, hook lifecycle point, hook weight, hook readiness,
 - [Chart Tests](https://helm.sh/docs/topics/chart_tests/)
 - [`helm get hooks`](https://helm.sh/docs/helm/helm_get_hooks/)
 - [`helm test`](https://helm.sh/docs/helm/helm_test/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Chart dependencies](chart-dependencies.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

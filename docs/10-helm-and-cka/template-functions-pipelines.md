@@ -487,3 +487,11 @@ Relevantné pojmy: Helm template function, Helm pipeline, pipeline last argument
 - [Template Function List](https://helm.sh/docs/chart_template_guide/function_list/)
 - [Flow Control](https://helm.sh/docs/chart_template_guide/control_structures/)
 - [Debugging Templates](https://helm.sh/docs/chart_template_guide/debugging/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Helm chart, template, values a release](helm-chart-template-values-release.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Named templates →](named-templates.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

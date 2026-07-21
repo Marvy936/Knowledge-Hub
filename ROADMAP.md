@@ -228,10 +228,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 ### Helm and CKA
 
 - [x] [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md)
-- [ ] Template functions a pipelines
-- [ ] Named templates
-- [ ] Chart dependencies
-- [ ] Hooks
+- [x] [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md)
+- [x] [Named templates](docs/10-helm-and-cka/named-templates.md)
+- [x] [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md)
+- [x] [Hooks](docs/10-helm-and-cka/hooks.md)
 - [ ] Upgrade a rollback
 - [ ] Helm testing a troubleshooting
 - [ ] CKA timed labs

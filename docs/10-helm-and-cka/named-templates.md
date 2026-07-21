@@ -522,3 +522,11 @@ Relevantné pojmy: named template — Helm, Helm partial, `_helpers.tpl`, global
 - [Library Charts](https://helm.sh/docs/topics/library_charts/)
 - [Subcharts and Global Values](https://helm.sh/docs/chart_template_guide/subcharts_and_globals/)
 - [Chart Template Guide](https://helm.sh/docs/chart_template_guide/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Template functions a pipelines](template-functions-pipelines.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Chart dependencies →](chart-dependencies.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
