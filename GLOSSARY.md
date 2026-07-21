@@ -286,6 +286,10 @@ Presun už vytvoreného a overeného immutable artifactu medzi environmentmi ale
 
 Logical identifier artifactu používaný na komunikáciu release identity alebo compatibility významu. Má byť mapovateľný na konkrétny immutable content digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## AssumeRole — AWS STS
+
+AWS STS operation, ktorou oprávnený principal prevezme IAM role a získa dočasnú role session s expiration, session identity a effective permissions. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Asymmetric routing
 
 Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
@@ -358,6 +362,14 @@ Priemerná resource utilization cieľovej Pod population vyjadrená ako percento
 
 Základná AWS resource ownership, IAM, billing, quota, telemetry a blast-radius boundary s vlastným dvanásťmiestnym account ID. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## AWS Certified CloudOps Engineer – Associate
+
+Associate-level AWS certifikácia overujúca deployment, management a operations workloads na AWS v oblastiach monitoring/remediation, reliability, automation, security a networking. Pozri [SOA-C03 guide](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
+
+## AWS CloudOps troubleshooting drill
+
+Časovo obmedzený AWS fault-injection scenár s jednou známou primárnou chybou, evidence pathom, minimálnou remediation, hard validation a cleanupom. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
+
 ## AWS Organizations
 
 AWS služba na centrálne riadenie kolekcie účtov cez management account, root, OUs, organization policies, consolidated billing a delegated administration. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -369,6 +381,10 @@ AWS-managed infrastructure umiestnená v zákazníckej alebo colocation lokalite
 ## AWS Region
 
 Geografická AWS infraštruktúrna oblasť obsahujúca viac Availability Zones a predstavujúca regionálnu service, data-residency a fault-isolation boundary. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## AWS sandbox account
+
+Izolovaný AWS account určený na laby a experimenty s budget guardrails, bez production dát a s explicitným cleanup lifecycle. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
 
 ## AWS Shared Responsibility Model
 
@@ -842,6 +858,14 @@ Schopnosť presunúť workload medzi prostrediami vrátane source, runtime, data
 
 Model opisujúci rozdelenie prevádzkovej a bezpečnostnej zodpovednosti medzi providerom a zákazníkom naprieč infraštruktúrou, platformou, aplikáciou a dátami. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## CloudOps domain gap map
+
+Mapovanie aktuálnych SOA-C03 task statements na existujúce kapitoly, služby, hands-on laby, troubleshooting drilly a zostávajúce vedomostné medzery. Pozri [SOA-C03 guide](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
+
+## CloudOps timed reasoning
+
+Tréning riešenia AWS scenario questions pod časovým limitom cez outcome, constraints, scope, responsibility boundary a operational trade-off. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
 ## Cluster add-on
 
 Component dopĺňajúci Kubernetes cluster o DNS, networking, storage, metrics, routing, policy alebo inú platformovú schopnosť mimo základného API/control-plane procesu. Pozri [Cluster installation a lifecycle](docs/09-kubernetes/cluster-installation-lifecycle.md).
@@ -1218,6 +1242,10 @@ Použitie provider-managed controls, napríklad physical security alebo hypervis
 
 Stabilná DNS/IP a load-balancer identity, cez ktorú clients a Nodes pristupujú ku Kubernetes API server replicas. Pozri [Cluster installation a lifecycle](docs/09-kubernetes/cluster-installation-lifecycle.md).
 
+## Control-plane failure — AWS
+
+Zlyhanie AWS API alebo management/configuration operácie, pri ktorom môže existujúci workload data plane naďalej fungovať. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
 ## Control-plane health gate
 
 Súbor podmienok ako API readiness, etcd quorum, Node/add-on health, certificate stav a backup readiness, ktoré musia prejsť pred upgrade alebo zásahom. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
@@ -1405,6 +1433,10 @@ Dáta uložené na disku, v repository, databáze alebo inom persistentnom stora
 ## Data plane
 
 Časť systému spracúvajúca konkrétne frames alebo packets podľa existujúceho forwarding a policy stavu. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
+
+## Data-plane failure — AWS
+
+Zlyhanie reálneho workload trafficu, request processingu, storage I/O alebo DNS/network cesty napriek potenciálne funkčnému AWS management API. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
 
 ## Data portability
 
@@ -1918,6 +1950,14 @@ Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct
 
 Pod vybraný aspoň jednou NetworkPolicy pre egress, ktorého outbound traffic je povolený iba unionom matching egress pravidiel. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
 
+## Egress-only Internet Gateway — AWS
+
+VPC component poskytujúci outbound-initiated IPv6 internet connectivity bez všeobecného unsolicited inbound pathu. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
+## Elastic network interface — ENI
+
+Zonálny AWS network object nesúci private IP addresses, Security Groups, MAC a attachment identity pre EC2 a viaceré managed services. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Elasticity
 
 Schopnosť systému dynamicky pridávať alebo odoberať kapacitu podľa demandu, provisioning latency, policy, quotas a cost guardrails. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
@@ -2129,6 +2169,10 @@ Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania
 ## Experiment unit
 
 Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant, device, session alebo región. Musí zodpovedať hranici možného treatment efektu. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Explicit deny — IAM
+
+Policy statement s `Effect: Deny`, ktorý pre applicable request prevažuje nad explicitnými allows v ostatných vyhodnocovaných policy vrstvách. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## Exposure event
 
@@ -2357,6 +2401,10 @@ Proces odstraňovania manifestov alebo blobs, ktoré už nie sú reachable z ret
 ## Gateway API
 
 Kubernetes SIG Network API family s role-oriented modelom GatewayClass, Gateway a Routes pre extensible a portable service networking. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Gateway endpoint — AWS
+
+VPC endpoint integrovaný do route tables pre podporované AWS služby, typicky S3 alebo DynamoDB, bez interface-endpoint ENI modelu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Gateway — Gateway API
 
@@ -2790,6 +2838,34 @@ Infrastructure as a Service: cloud model poskytujúci virtualizované compute, s
 
 Statická alebo plan-level kontrola Infrastructure as Code proti syntax, schema, security a policy pravidlám. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## IAM Access Analyzer
+
+AWS IAM capability na analýzu external accessu, policy validation a vybrané unused-access alebo policy-generation workflows. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM Identity Center
+
+AWS služba pre centralizovaný workforce access, permission sets a federované temporary sessions do viacerých AWS accounts. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## `iam:PassRole`
+
+Citlivá IAM action umožňujúca principalu odovzdať role AWS službe; musí byť obmedzená na presné roles a destination services. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM principal
+
+Autentifikovaná alebo identifikovateľná AWS request identity, napríklad root user, IAM user, role session, federated principal alebo service principal. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM role
+
+AWS identity s trust policy a permissions policy modelom, ktorú principal preberá a používa cez temporary session credentials. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM role trust policy
+
+Resource-based policy role určujúca, ktoré principals a za akých conditions môžu role assume-nuť. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM session policy
+
+Policy odovzdaná pri vytváraní temporary session, ktorá môže zúžiť, ale nie rozšíriť permissions nad role a ostatné guardrails. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## IAST — Interactive Application Security Testing
 
 Security analýza využívajúca runtime informácie z instrumentovanej aplikácie počas testov. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
@@ -2817,6 +2893,10 @@ Batch návrh, pri ktorom opakované alebo duplicitné vykonanie toho istého log
 ## Idempotent reconcile
 
 Controller behavior, pri ktorom opakované spracovanie rovnakého desired a actual state-u nevytvára neplánované duplicity alebo ďalšie side effects. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Identity-based policy — AWS
+
+IAM policy pripojená k userovi, group alebo role, ktorá povoľuje alebo denyuje actions nad resources podľa request contextu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## `ignore_changes` — Terraform
 
@@ -2873,6 +2953,10 @@ Prístup opisujúci konkrétnu sekvenciu krokov. Pozri [Declarative vs. Imperati
 ## Imperative skeleton — CKA
 
 Rýchlo vygenerovaný Kubernetes manifest cez imperative kubectl command s `--dry-run=client -o yaml`, ktorý sa následne deklaratívne upraví a aplikuje. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
+
+## Implicit deny — IAM
+
+Predvolený authorization výsledok, keď request nemá applicable explicit allow alebo neprejde potrebnými policy boundaries. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## Implicit typing — YAML
 
@@ -2954,9 +3038,17 @@ Test reálnej spolupráce komponentov alebo systému s technickou dependency, na
 
 Testovanie, ktoré overuje komunikáciu a side effects medzi objektmi alebo komponentmi, napríklad volanie gateway s konkrétnymi argumentmi. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Interface endpoint — AWS
+
+PrivateLink-based VPC endpoint vytvárajúci ENIs s private IPs v zvolených subnetoch a voliteľným private DNS modelom. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Internal traffic policy — Service
 
 Service policy ovplyvňujúca výber cluster-wide alebo node-local backendov pre traffic prichádzajúci z clusteru. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Internet Gateway — AWS
+
+Horizontálne škálovaný a vysoko dostupný VPC component poskytujúci route target pre internet-routable IPv4 a IPv6 traffic. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
 ## Inventory cache — Ansible
 
@@ -3005,6 +3097,10 @@ Adresy `10.0.0.0/8`, `172.16.0.0/12` a `192.168.0.0/16`, ktoré nie sú globáln
 ## IPv6 link-local address
 
 IPv6 adresa z `fe80::/10` platná v lokálnom linkovom scope. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Isolated subnet — AWS
+
+Subnet bez všeobecného inbound internet pathu aj bez general outbound internet pathu; môže používať iba explicitné private connectivity targets. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Isolation boundary
 
@@ -3262,6 +3358,10 @@ Oddelený AWS member account určený na centrálne, dlhodobo chránené uložen
 
 Routing pravidlo, podľa ktorého vyhráva zhodná route s najväčším počtom prefix bitov. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Longest prefix match — AWS routing
+
+Route selection pravidlo, pri ktorom VPC router vyberie matching route s najšpecifickejším destination prefixom. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Lookaround — regex
 
 Zero-width regex assertion overujúca text pred alebo za aktuálnou pozíciou bez jeho zahrnutia do matchu. Nie je podporovaná vo všetkých engines. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -3289,6 +3389,10 @@ Bezpečnostná politika vynútená systémom nad rámec rozhodnutí ownera objek
 ## Magic variable — Ansible
 
 Reserved variable poskytovaná Ansible engine-om na opis inventory alebo execution contextu, napríklad `hostvars`, `groups` alebo `inventory_hostname`. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
+## Main route table — AWS
+
+Predvolená VPC route table, ktorú implicitne používajú subnety bez explicitnej asociácie s custom route table. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Mainline
 
@@ -3570,6 +3674,10 @@ Princíp kopírovania iba presne potrebných build outputs z build stage do fina
 
 Mechanizmus meniaci source alebo destination IP adresy a často ports pri prechode packetu. Pozri [NAT](docs/02-networking-and-web/nat.md).
 
+## NAT port exhaustion — AWS
+
+Stav, pri ktorom NAT path nemá dostatok dostupných source-port mappings pre veľký počet concurrent connections, často koncentrovaných na rovnaký destination tuple. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
 ## NAT64/DNS64
 
 Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá traffic IPv6-only klienta na IPv4 server. Pozri [NAT](docs/02-networking-and-web/nat.md).
@@ -3594,6 +3702,10 @@ Explicitný directed acyclic graph job dependencies vytvorený cez `needs`, ktor
 
 Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
+## Network Access Analyzer — AWS
+
+VPC analysis capability na identifikáciu network paths, ktoré spĺňajú alebo porušujú definované access requirements. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
 ## Network account — AWS
 
 Centralizovaný AWS account vlastniaci organization network capabilities ako Transit Gateway, hybrid connectivity, DNS resolvers, inspection alebo IPAM. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -3601,6 +3713,10 @@ Centralizovaný AWS account vlastniaci organization network capabilities ako Tra
 ## Network ACL
 
 Network policy aplikovaná typicky na subnet alebo segment boundary; v cloud prostredí býva často stateless. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## Network ACL — AWS
+
+Subnet-level stateless ordered allow/deny packet filter, pri ktorom prvé matching rule number určuje výsledok a request aj return path potrebujú explicitné pravidlá. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## Network driver — Docker
 
@@ -3934,6 +4050,10 @@ PersistentVolumeClaim viazaný na konkrétny StatefulSet ordinal a znovu použit
 
 Test časových a kapacitných vlastností systému pri explicitnom workload modeli, prostredí a success criteria. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## Permissions boundary — IAM
+
+IAM policy nastavujúca maximálny permissions envelope, ktorý identity-based policies môžu udeliť konkrétnemu userovi alebo role. Sama permissions neudeľuje. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Permissive mode
 
 SELinux režim, v ktorom sa policy denials auditujú, ale nevynucujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -4122,6 +4242,10 @@ Mechanizmus, pri ktorom scheduler môže iniciovať odstránenie nižšie priori
 
 Soft Node taint effect, ktorému sa scheduler pokúsi vyhnúť, ale pri nedostatku vhodných možností môže Pod na Node umiestniť. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## Prefix list — AWS VPC
+
+Spravovaný zoznam CIDR prefixes použiteľný v route tables alebo Security Group rules na zníženie duplicity a centralizáciu network identity. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
 ## `prevent_destroy` — Terraform
 
 Lifecycle rule blokujúca plánované zničenie resource, pokiaľ je pravidlo stále prítomné v configuration; nenahrádza remote deletion protection ani backup. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -4133,6 +4257,14 @@ Cluster-scoped Kubernetes resource definujúci numerickú Pod priority a preempt
 ## Private cloud
 
 Cloud-like platforma vyhradená jednej organizácii s API, self-service, automation, policy, metering a pooled-capacity operating modelom. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Private NAT Gateway — AWS
+
+NAT Gateway bez Elastic IP určený na private network address translation cez podporované private routing targets, nie na priamy internet egress cez IGW. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
+## Private subnet — AWS
+
+Subnet bez priameho inbound internet pathu, ktorý môže používať NAT, VPC endpoints, proxy alebo hybrid connectivity pre outbound alebo private access. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Privileged container
 
@@ -4282,6 +4414,14 @@ Deklarovaná compatibility boundary zahŕňajúca nielen programové interfaces,
 
 Provider-operated multi-tenant cloud platforma poskytujúca on-demand services cez logicky izolované accounts a networks; neznamená automaticky public-internet exposure workloadu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
+## Public NAT Gateway — AWS
+
+Zonálny managed NAT service vytvorený v public subnet-e s Elastic IP, používaný typicky pre outbound IPv4 connectivity private subnetov. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
+## Public subnet — AWS
+
+Subnet s route pathom na Internet Gateway; konkrétny resource potrebuje ešte public addressing a security/application konfiguráciu, aby bol internet reachable. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Pull-through cache — registry
 
 Lokálny registry cache model, ktorý pri prvom pull-e načíta content z upstream registry a ďalším clients ho poskytuje lokálne podľa cache a freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
@@ -4329,6 +4469,10 @@ Nepriame získanie širšej kontroly cez permissions ako workload creation, Secr
 ## RBAC subject
 
 User, Group alebo ServiceAccount identita, ktorej RoleBinding alebo ClusterRoleBinding udeľuje permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## Reachability Analyzer — AWS
+
+VPC configuration-analysis tool modelujúci network path medzi source a destination a identifikujúci blocking component. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## Reactive scaling
 
@@ -4626,6 +4770,10 @@ DNS failure, pri ktorom cluster DNS forwarduje query na Node stub resolver a ten
 
 Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resource type/name a prípadného `count` indexu alebo `for_each` key. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Resource-based policy — AWS
+
+Policy uložená pri resource-e, ktorá môže priamo určovať allowed alebo denied principals, actions a conditions, vrátane cross-account accessu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Resource binding — Terraform
 
 State mapovanie medzi Terraform resource instance addressou, provider contextom a konkrétnou remote object identity. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
@@ -4805,6 +4953,10 @@ Pravidlo určujúce next hop, interface a ďalšie parametre pre destination pre
 ## Route attachment — Gateway API
 
 Proces, ktorým Route po splnení `parentRefs`, listener `allowedRoutes`, hostname/protocol a reference pravidiel začne byť prijatá a programovaná controllerom. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Route propagation — AWS
+
+Automatické pridávanie routes z podporovaného gateway alebo dynamic routing source-u do route table podľa nakonfigurovaného connectivity modelu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Route summarization
 
@@ -5002,6 +5154,14 @@ Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patter
 
 Riadený lifecycle vytvorenia nového credentialu, distribúcie a rollout-u consumerov, overlap/verification, revocation starého credentialu a cleanup starých copies. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
+## Security Group — AWS
+
+Stateful allow-only firewall priradený k ENI alebo podporovanému resource-u; return traffic pre tracked connection je povolený connection trackingom. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
+## Security Group reference — AWS
+
+Security Group rule používajúca inú SG ako source alebo destination workload identity podľa podporovaného connectivity modelu namiesto statického CIDR. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
 ## Security in the cloud — AWS
 
 Zákaznícka responsibility vrstva zahŕňajúca identity, configuration, data, workload OS/application, logging, backup a recovery podľa použitej AWS služby. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
@@ -5085,6 +5245,10 @@ Plné cluster-local DNS meno Service-u v tvare `<service>.<namespace>.svc.<clust
 ## Service — Kubernetes
 
 Namespaced API contract poskytujúci stabilné meno, virtual address a port model pre dynamickú backend population reprezentovanú EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Service-linked role — AWS IAM
+
+IAM role previazaná s konkrétnou AWS službou, ktorej trust a permissions lifecycle je definovaný danou službou. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## Service port
 
@@ -5210,6 +5374,10 @@ Preklad source adresy alebo portu, používaný typicky pri outbound komunikáci
 
 TLS extension prenášajúca hostname, aby server alebo proxy vybral správny certificate a virtual host. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## SOA-C03
+
+Aktuálny exam code AWS Certified CloudOps Engineer – Associate s piatimi doménami a váhami 22 %, 22 %, 22 %, 16 % a 18 %. Pozri [SOA-C03 guide](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
+
 ## Soak test
 
 Dlhodobý performance test hľadajúci memory leaks, resource leaks, queue growth a kumulatívne zlyhania. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
@@ -5217,6 +5385,10 @@ Dlhodobý performance test hľadajúci memory leaks, resource leaks, queue growt
 ## Socket
 
 Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
+
+## Source/destination check — AWS
+
+EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo destination trafficu; network appliance alebo NAT instance ju môže potrebovať vypnúť. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Spike test
 
@@ -5526,6 +5698,10 @@ Go template action vkladajúca named template inline; na rozdiel od `include` ne
 
 Kontrola renderovaného dočasného file-u pomocou target parsera alebo validatora pred jeho nahradením na destination path. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## Temporary credentials — AWS
+
+Časovo obmedzená sada access key ID, secret access key a session tokenu vydaná AWS STS pre role alebo federated session. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Terminating error — PowerShell
 
 PowerShell error, ktorý zastaví aktuálnu operáciu alebo scope a môže byť zachytený cez `try/catch`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -5701,6 +5877,10 @@ Kopírovanie produkčných requestov do shadow systému bez použitia jeho respo
 ## Traffic splitting — Gateway API
 
 Rozdelenie Route trafficu medzi viac backendRefs podľa weights, používané napríklad pre canary alebo migration rollout. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Transit Gateway — AWS
+
+Regionálny network transit hub prepájajúci viac VPCs a hybrid networks cez attachments, associations, propagations a vlastné route tables. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Transitive chart dependency — Helm
 
@@ -5937,6 +6117,14 @@ Cluster-scoped storage API object reprezentujúci attach požiadavku alebo stav 
 ## `volumeClaimTemplates` — StatefulSet
 
 StatefulSet šablóny, z ktorých controller vytvára samostatné PVCs pre jednotlivé ordinal replicas. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
+## VPC Flow Logs
+
+AWS telemetry zachytávajúca metadata IP flows pre VPC, subnet alebo ENI scope a podporujúca network path a accept/reject analýzu bez application payloadu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## VPC peering
+
+Private non-transitive routing connection medzi dvoma VPCs s explicitnými routes, non-overlapping CIDRs a security/DNS konfiguráciou na oboch stranách. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## VSZ — Virtual Set Size
 
