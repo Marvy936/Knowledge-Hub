@@ -22,12 +22,17 @@ Odporúča sa najprv dokončiť:
 4. [RED method](red-method.md)
 5. [USE method](use-method.md)
 6. [Golden Signals](golden-signals.md)
+7. [Prometheus](prometheus.md)
+8. [Alertmanager](alertmanager.md)
+9. [Grafana](grafana.md)
 
-Nasledujúci blok prejde od metodík ku konkrétnej metrics platforme: Prometheus, Alertmanager a Grafana. Následne sa doplnia logs, traces, OpenTelemetry, alert design a cardinality.
+Nasledujúci blok rozšíri observability platformu o logs a traces: Loki, Elasticsearch alebo OpenSearch, Fluent Bit, Jaeger a Tempo. Následne sa uzavrie OpenTelemetry, alert design a cardinality.
 
 ## Cieľ zvládnutia
 
 Po dokončení aktuálneho bloku má byť možné:
+
+### Signals a instrumentation
 
 - presne rozlíšiť monitoring, observability, telemetry a instrumentation,
 - vysvetliť odlišný data model a operational use metrics, logs, traces, events, audit records a profiles,
@@ -39,7 +44,10 @@ Po dokončení aktuálneho bloku má byť možné:
 - vysvetliť OpenTelemetry API, SDK, instrumentation scope, resource identity, semantic conventions a context propagation,
 - navrhnúť telemetry pipeline cez receiver, processor, batching, sampling, redaction a exporter,
 - vyhodnotiť agent, sidecar a gateway Collector deployment trade-offy,
-- monitorovať telemetry pipeline cez accepted, dropped, queued a failed records,
+- monitorovať telemetry pipeline cez accepted, dropped, queued a failed records.
+
+### Monitoring methodologies
+
 - aplikovať RED na HTTP, gRPC, queues a batch workloads,
 - definovať request rate, error numerator/denominator a duration distribution bez retry alebo cardinality skreslenia,
 - aplikovať USE cez kompletný resource inventory a rozlíšiť utilization, saturation a errors,
@@ -47,9 +55,48 @@ Po dokončení aktuálneho bloku má byť možné:
 - definovať Golden Signals pre konkrétny user journey alebo workload,
 - oddeľovať successful a failed latency, logical demand a retry amplification,
 - naviazať Golden Signals a RED na SLIs/SLOs a saturation na capacity risk,
-- kombinovať Golden Signals, RED, traces, USE, logs a profiles v jednom investigation workflowe,
+- kombinovať Golden Signals, RED, traces, USE, logs a profiles v jednom investigation workflowe.
+
+### Prometheus
+
+- vysvetliť pull-based scrape model, exporters, service discovery a target lifecycle,
+- modelovať multidimenzionálne time series pomocou stabilných metric names a bounded labels,
+- rozlíšiť target relabeling, metric relabeling a external labels,
+- vysvetliť local TSDB, WAL, head block, compaction, retention a staleness,
+- používať PromQL selectors, rates, aggregations, vector matching a histogram queries,
+- navrhovať recording a alerting rules a validovať ich cez `promtool`,
+- vysvetliť remote write, federation, HA replicas a hranice lokálneho Prometheus modelu,
+- diagnostikovať target failures, missing series, cardinality incidents, slow queries a remote-write backlog.
+
+### Alertmanager
+
+- rozlíšiť alert condition, alert identity, alert group a notification,
+- navrhnúť stabilné labels, annotations, ownership a severity contract,
+- vytvoriť route tree s bezpečným inheritance a matcher modelom,
+- vysvetliť grouping, `group_wait`, `group_interval` a `repeat_interval`,
+- odlíšiť silences, mute time intervals a inhibition,
+- navrhovať notification templates a receiver integrations,
+- vysvetliť Alertmanager peer mesh, replicated notification state a duplicate-delivery hranice,
+- diagnostikovať firing alert bez notification, duplicity, alert storm, silence a inhibition failures.
+
+### Grafana
+
+- vysvetliť rozdiel medzi Grafanou a telemetry backendom,
+- navrhovať panels, dashboards a visualization hierarchy podľa operational questions,
+- používať variables, annotations, data links, correlations a Explore bez vytvárania query stormu,
+- rozlíšiť backend query, expression, transformation, field config a visualization,
+- spravovať dashboards, data sources a alerting resources cez provisioning/IaC,
+- rozlíšiť Grafana-managed a data-source-managed alert rules,
+- vysvetliť authentication, folder permissions, data-source access a edition-specific RBAC hranice,
+- navrhnúť Grafana HA, database backup, plugin a upgrade lifecycle,
+- diagnostikovať `No data`, nesprávne hodnoty, pomalé dashboardy, data-source failures a provisioning drift.
+
+### Prevádzkový contract
+
 - diagnostikovať chýbajúcu alebo skreslenú telemetry cez producer, pipeline a backend vrstvy,
-- riadiť telemetry overhead, privacy, schema versioning a cost ako production contract.
+- riadiť telemetry overhead, privacy, schema versioning a cost ako production contract,
+- monitorovať Prometheus, Alertmanager a Grafana ako kritickú platformu,
+- testovať end-to-end cestu od application metric cez alert až po notification a investigation dashboard.
 
 ## Stav
 
@@ -61,3 +108,6 @@ Po dokončení aktuálneho bloku má byť možné:
 | RED method | Learning | L2 |
 | USE method | Learning | L2 |
 | Golden Signals | Learning | L2 |
+| Prometheus | Learning | L2 |
+| Alertmanager | Learning | L2 |
+| Grafana | Learning | L2 |
