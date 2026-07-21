@@ -520,3 +520,11 @@ Relevantné pojmy: Ansible inventory, inventory source, inventory plugin, static
 - [How to build your inventory](https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html)
 - [Working with dynamic inventory](https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_dynamic_inventory.html)
 - [Patterns: targeting hosts and groups](https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ansible architecture](ansible-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Modules, tasks, plays a playbooks →](modules-tasks-plays-playbooks.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -536,3 +536,11 @@ Relevantné pojmy: Ansible control node, managed node, agentless automation, `an
 - [Ansible architecture](https://docs.ansible.com/projects/ansible-core/devel/dev_guide/overview_architecture.html)
 - [Controlling playbook execution](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_strategies.html)
 - [Connection methods and details](https://docs.ansible.com/projects/ansible/latest/inventory_guide/connection_details.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Terraform testing a policy](terraform-testing-and-policy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Inventory →](inventory.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

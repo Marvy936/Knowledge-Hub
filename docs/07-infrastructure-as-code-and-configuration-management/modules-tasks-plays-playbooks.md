@@ -571,3 +571,11 @@ Relevantné pojmy: Ansible module, FQCN, task, module result, registered variabl
 - [Introduction to modules](https://docs.ansible.com/projects/ansible/latest/module_plugin_guide/modules_intro.html)
 - [Controlling where tasks run](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_delegation.html)
 - [Error handling in playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Inventory](inventory.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables, facts a templates →](variables-facts-templates.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

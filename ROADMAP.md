@@ -158,11 +158,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md)
 - [x] [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md)
 - [x] [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md)
-- [ ] Ansible architecture
-- [ ] Inventory
-- [ ] Modules, tasks, plays a playbooks
-- [ ] Variables, facts a templates
-- [ ] Handlers, loops a conditionals
+- [x] [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md)
+- [x] [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md)
+- [x] [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md)
+- [x] [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md)
+- [x] [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md)
 - [ ] Roles a collections
 - [ ] Vault
 - [ ] Ansible idempotencia

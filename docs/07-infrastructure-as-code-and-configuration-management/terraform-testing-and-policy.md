@@ -669,5 +669,5 @@ Relevantné pojmy: Terraform test, test file, plan test, apply test, mock provid
 
 **Navigácia**
 
-[← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible architecture →](ansible-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
