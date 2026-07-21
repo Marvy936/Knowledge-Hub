@@ -366,6 +366,10 @@ Zápis cez dočasný súbor, validáciu a atomický rename/replace tak, aby cons
 
 Súbor rozhraní, vstupov, identities a trust boundaries, cez ktoré môže aktér ovplyvniť systém. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## Audit record
+
+Časovo označený záznam o tom, kto vykonal akú operáciu, voči ktorému resource-u, odkiaľ a s akým výsledkom. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Authoritative source — IaC
 
 Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu požadovaného infraštruktúrneho stavu; manuálne runtime zmeny sa voči nemu musia adoptovať, vrátiť alebo explicitne vyriešiť. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -609,6 +613,10 @@ Sprístupnenie existujúceho host filesystem pathu do container mount namespace-
 ## Binding — Kubernetes scheduling
 
 Finálny scheduler krok zapisujúci vybraný Node do Podu; po bindingu kubelet na danom Node-e realizuje workload. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
+
+## Black-box monitoring
+
+Pozorovanie systému zvonka z perspektívy používateľa alebo clienta, napríklad cez HTTP, DNS, TLS alebo end-to-end synthetic test. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Blast radius
 
@@ -877,6 +885,10 @@ Performance test hľadajúci maximálny udržateľný workload pri definovaných
 ## Capturing group — regex
 
 Časť regular expression uzavretá v zátvorkách, ktorá zachytáva matched substring pre ďalšie spracovanie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Cardinality — telemetry
+
+Počet unikátnych kombinácií labels alebo attributes; vysoká alebo neobmedzená cardinality môže výrazne zvýšiť memory, storage, query cost a destabilizovať telemetry pipeline. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Catastrophic backtracking
 
@@ -1426,6 +1438,10 @@ HTTP mechanizmus, ktorým klient deklaruje preferované representations a server
 
 Objekt alebo generator riadiaci vstup a výstup z lifecycle scope, napríklad otvorenie a bezpečné zatvorenie súboru, locku alebo session. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Context propagation
+
+Prenos tracing a correlation contextu cez procesy, služby, queues a async boundaries tak, aby bolo možné rekonštruovať end-to-end operáciu. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Context root — Docker build
 
 Root path build contextu, voči ktorému sa vyhodnocujú local source paths v `COPY` a `ADD`, nezávisle od umiestnenia Dockerfile-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -1549,6 +1565,10 @@ Operácia, pri ktorej sa file z read-only lower layeru pri prvom zápise prenesi
 ## CoreDNS
 
 Bežná Kubernetes cluster DNS implementation a extensible DNS server konfigurovaný pluginmi pre Kubernetes records, caching, forwarding, health a ďalšie funkcie. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
+## Correlation ID
+
+Identifikátor používaný na spojenie logs, requests, events alebo ďalších telemetry records patriacich k rovnakej operácii. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## CORS — Cross-Origin Resource Sharing
 
@@ -2001,6 +2021,10 @@ Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime p
 ## Distributed cache — GitLab Runner
 
 CI cache uložená v shared backend-e, typicky object storage, aby ju mohli používať viaceré alebo autoscaled runners. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Distributed trace
+
+Model celej cesty requestu alebo operácie cez viac services a dependencies, zložený z navzájom prepojených spans. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Distribution digest — OCI
 
@@ -2505,6 +2529,10 @@ Scaling model reagujúci na event-source alebo business metrics, napríklad queu
 ## Event — Kubernetes
 
 Časovo obmedzený diagnostický API object opisujúci významnú udalosť okolo iného resource-u, napríklad scheduling, image pull, probe alebo volume failure; nie je trvalým audit logom. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Event — observability
+
+Časovo označený záznam významnej zmeny alebo udalosti, napríklad deploymentu, failoveru, scalingu alebo configuration change-u. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Event series — Kubernetes
 
@@ -3502,6 +3530,10 @@ Host-local ephemeral block storage, ktorého dáta sa môžu stratiť pri stop, 
 
 Interval reprezentujúci čas, kým newly launched instance dosiahne plnú application a metric readiness pre scaling decisions. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Instrumentation
+
+Kód, agent, library alebo platform capability, ktorá generuje telemetry signals o správaní systému. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Integration test
 
 Test reálnej spolupráce komponentov alebo systému s technickou dependency, napríklad databázou, brokerom, filesystemom alebo cloud API. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -3878,6 +3910,10 @@ Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú call
 
 AWS infrastructure extension približujúca vybrané služby k určitej metropolitnej oblasti pre latency-sensitive workloady a závislá od parent Regionu podľa service modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## Log
+
+Časovo označený record udalosti, state-u alebo message, ideálne so stabilnou structured schema a correlation fields. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Log archive account — AWS
 
 Oddelený AWS member account určený na centrálne, dlhodobo chránené uloženie organization-wide audit a security logs. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -4030,6 +4066,10 @@ Mechanizmus, ktorý testuje a integruje pull requests v plánovanom poradí prot
 
 Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich integrácie do target branch, aby chránil mainline health pri concurrency. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Metric
+
+Agregovateľný číselný signal v čase používaný napríklad na rate, latency distribution, utilization, saturation alebo SLO measurement. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Metrics adapter — Kubernetes autoscaling
 
 Component publikujúci custom alebo external metrics cez Kubernetes aggregated API pre HPA alebo ďalších consumers. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
@@ -4101,6 +4141,10 @@ Adresa, z ktorej Terraform počas initialization načíta child module, napríkl
 ## Module versioning — Terraform
 
 Release a compatibility lifecycle reusable modulu zahŕňajúci version constraints, zmeny input/output contractu, provider requirements, migrations, deprecations a podporované upgrade paths. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Monitoring
+
+Systematické sledovanie vopred definovaných signals, states a thresholds s cieľom detegovať známe failure alebo degradation conditions. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Monorepo
 
@@ -4413,6 +4457,18 @@ Pipeline prenášajúca .NET objekty s properties a methods namiesto iba formát
 ## Object UID — Kubernetes
 
 Server-generated immutable identity konkrétnej object inštancie; znovu vytvorený object s rovnakým menom dostane nové UID. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Observability
+
+Schopnosť porozumieť internému stavu systému z jeho externých outputs a skúmať aj neočakávané otázky pomocou kvalitnej, korelovateľnej telemetry. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Observability gap
+
+Chýbajúci alebo nekvalitný signal, context, correlation, retention alebo query capability, ktorý bráni spoľahlivej diagnostike systému. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Observability maturity
+
+Úroveň schopnosti organizácie štandardizovať instrumentation, correlation, alerting, SLO, telemetry governance a incident investigation. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Observed generation — Kubernetes
 
@@ -4925,6 +4981,10 @@ Testovacie dáta odvodené z produkcie, ktoré vyžadujú data minimization, ano
 ## Production validation
 
 Overenie technického, funkčného a business výsledku zmeny v skutočnom produkčnom kontexte po deploymente alebo počas kontrolovaného rollout-u. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Profile — observability
+
+Telemetry signal zobrazujúci, kde application trávi CPU time, alokuje memory alebo čaká, používaný na performance diagnostiku. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Profile — performance profile
 
@@ -5762,6 +5822,10 @@ Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpe�
 
 Významný rozdiel medzi plánovaným a reálnym pomerom experimentálnych variantov, ktorý môže signalizovať assignment, exposure, crash, logging alebo eligibility problém. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Sampling — telemetry
+
+Výber podmnožiny traces, logs alebo profiles na kontrolu volume a cost pri zachovaní relevantných failures a business operations. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Sandboxed container runtime
 
 Runtime model pridávajúci medzi container workload a host kernel ďalšiu isolation vrstvu, napríklad user-space kernel alebo lightweight virtual machine. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
@@ -6098,6 +6162,10 @@ Interné zobrazenie costu tímom alebo produktom bez priameho finančného preú
 
 Auxiliary container bežiaci v rovnakom Pode ako hlavná aplikácia a zdieľajúci jej placement, network a Pod lifecycle boundary. Pozri [Pod](docs/09-kubernetes/pod.md).
 
+## Signal — observability
+
+Typ telemetry reprezentujúci určitý pohľad na systém, napríklad metric, log, trace, event alebo profile. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## signed cookie — CloudFront
 
 CloudFront private-content authorization token v cookies, ktorý môže oprávniť clienta na skupinu paths alebo resources podľa policy a expiry. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
@@ -6153,6 +6221,10 @@ Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [
 ## Source/destination check — AWS
 
 EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo destination trafficu; network appliance alebo NAT instance ju môže potrebovať vypnúť. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Span
+
+Jednotka distributed trace-u reprezentujúca jednu časovo ohraničenú operation s parent relation, attributes, events a statusom. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Spike test
 
@@ -6485,6 +6557,14 @@ Praktický vrstvený model Application, Transport, Internet a Link používaný 
 ## TCP probe
 
 Kubernetes probe overujúca úspešné otvorenie TCP connectionu na Pod IP a port bez overenia application protocol response alebo business correctness. Pozri [Probes](docs/09-kubernetes/probes.md).
+
+## Telemetry
+
+Dáta generované systémom o jeho stave a správaní, napríklad metrics, logs, traces, events, profiles a audit records. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Telemetry pipeline
+
+Reťazec instrumentation sources, agents alebo collectors, processingu, exportu, storage a query vrstiev, ktorými telemetry prechádza. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Telemetry retention
 
@@ -7005,6 +7085,10 @@ ALB listener action rozdeľujúca traffic medzi viac target groups podľa relat�
 ## weighted routing — Route 53
 
 DNS routing policy rozdeľujúca odpovede medzi records podľa relatívnych weights, bez presnej request-level percentuálnej garancie kvôli DNS caching. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## White-box monitoring
+
+Pozorovanie interných signals systému, napríklad queue depth, connection pool, error counters, garbage collection alebo saturation. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Whiteout — image layer
 
