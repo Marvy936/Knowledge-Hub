@@ -448,3 +448,11 @@ Relevantné pojmy: CNI, CNI `ADD`/`DEL`, IPAM, Pod CIDR, overlay network, routed
 - [Network plugins](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 - [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 - [Declare Network Policy](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cluster DNS](cluster-dns.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Volumes, PV, PVC a StorageClass →](volumes-pv-pvc-storageclass.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

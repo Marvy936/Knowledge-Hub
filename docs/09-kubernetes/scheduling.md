@@ -489,3 +489,11 @@ Relevantné pojmy: Kubernetes scheduling, scheduling queue, feasible Node, Sched
 - [Scheduling, Preemption and Eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/)
 - [Scheduler Configuration](https://kubernetes.io/docs/reference/scheduling/config/)
 - [Pod Priority and Preemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Volumes, PV, PVC a StorageClass](volumes-pv-pvc-storageclass.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Requests, limits a QoS →](requests-limits-qos.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

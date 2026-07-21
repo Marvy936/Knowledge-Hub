@@ -550,3 +550,11 @@ Relevantné pojmy: Kubernetes volume, ephemeral volume, PersistentVolume, Persis
 - [Dynamic Volume Provisioning](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/)
 - [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
 - [Ephemeral Volumes](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CNI a NetworkPolicy](cni-networkpolicy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Scheduling →](scheduling.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

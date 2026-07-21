@@ -482,3 +482,11 @@ Relevantné pojmy: resource request, resource limit, CPU millicore, CPU throttli
 - [Pod Quality of Service Classes](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/)
 - [Resource Managers](https://kubernetes.io/docs/concepts/workloads/resource-managers/)
 - [Manage Memory, CPU, and API Resources](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Scheduling](scheduling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Probes →](probes.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

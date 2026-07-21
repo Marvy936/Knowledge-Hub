@@ -519,5 +519,5 @@ Relevantné pojmy: cluster DNS, CoreDNS, cluster domain, Service FQDN, DNS searc
 
 **Navigácia**
 
-[← Predchádzajúca: Ingress a Gateway API](ingress-gateway-api.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Ingress a Gateway API](ingress-gateway-api.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CNI a NetworkPolicy →](cni-networkpolicy.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

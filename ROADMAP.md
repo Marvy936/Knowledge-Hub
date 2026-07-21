@@ -209,11 +209,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md)
 - [x] [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md)
 - [x] [Cluster DNS](docs/09-kubernetes/cluster-dns.md)
-- [ ] CNI a NetworkPolicy
-- [ ] Volumes, PV, PVC a StorageClass
-- [ ] Scheduling
-- [ ] Requests, limits a QoS
-- [ ] Probes
+- [x] [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md)
+- [x] [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md)
+- [x] [Scheduling](docs/09-kubernetes/scheduling.md)
+- [x] [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md)
+- [x] [Probes](docs/09-kubernetes/probes.md)
 - [ ] Taints, tolerations, affinity a topology
 - [ ] HPA a autoscaling
 - [ ] RBAC
