@@ -51,10 +51,10 @@ Aktívne sekcie:
 9. [Container Fundamentals and Docker](docs/08-container-fundamentals-and-docker/README.md)
 10. [Kubernetes](docs/09-kubernetes/README.md)
 11. [Helm and CKA](docs/10-helm-and-cka/README.md)
+12. [Cloud and AWS](docs/11-cloud-and-aws/README.md)
 
 Plánované hlavné domény:
 
-- Cloud fundamentals a AWS
 - Observability
 - Security, IAM a supply-chain security
 - SRE a operations
