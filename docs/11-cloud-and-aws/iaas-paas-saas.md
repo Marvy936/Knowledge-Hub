@@ -437,3 +437,11 @@ Escalácia providerovi bez konkrétneho scope-u a evidence predlžuje recovery.
 ## Glossary impact
 
 Relevantné pojmy: cloud service model, IaaS, PaaS, SaaS, shared responsibility, responsibility boundary, managed service, total cost of ownership, provider lock-in, data portability, customer-managed layer, provider-managed layer a service contract.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Hooks](../10-helm-and-cka/hooks.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

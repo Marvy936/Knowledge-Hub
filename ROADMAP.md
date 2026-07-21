@@ -241,7 +241,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Cloud and AWS
 
-- [ ] IaaS, PaaS a SaaS
+- [x] [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md)
 - [ ] Public, private a hybrid cloud
 - [ ] Regions a Availability Zones
 - [ ] Shared responsibility model

@@ -571,5 +571,5 @@ Relevantné pojmy: Helm hook, hook lifecycle point, hook weight, hook readiness,
 
 **Navigácia**
 
-[← Predchádzajúca: Chart dependencies](chart-dependencies.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Chart dependencies](chart-dependencies.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IaaS, PaaS a SaaS →](../11-cloud-and-aws/iaas-paas-saas.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
