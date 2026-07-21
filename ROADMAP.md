@@ -268,7 +268,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Observability
 
-- [ ] Monitoring vs. observability
+- [x] [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md)
 - [ ] Metrics, logs, traces a events
 - [ ] Instrumentation a telemetry
 - [ ] RED method

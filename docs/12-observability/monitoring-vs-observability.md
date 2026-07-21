@@ -499,3 +499,11 @@ Relevantné pojmy: monitoring, observability, telemetry, signal, instrumentation
 - [OpenTelemetry instrumentation](https://opentelemetry.io/docs/concepts/instrumentation/)
 - [Prometheus overview](https://prometheus.io/docs/introduction/overview/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: KMS a Secrets Manager](../11-cloud-and-aws/kms-secrets-manager.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
