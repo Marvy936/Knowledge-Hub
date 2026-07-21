@@ -22,6 +22,10 @@ Route alebo Gateway status condition indikujúca, že zodpovedný controller pri
 
 PV/PVC contract opisujúci podporovaný spôsob mount accessu, napríklad ReadWriteOnce, ReadOnlyMany, ReadWriteMany alebo ReadWriteOncePod; nepredstavuje application-level locking ani databázový clustering. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Account vending — AWS
+
+Automatizovaný proces vytvorenia a baseline konfigurácie nového AWS accountu vrátane OU placementu, identity, loggingu, networku, budgets, guardrails a ownership metadata. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## ACL — Access Control List
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
@@ -30,9 +34,17 @@ Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Us
 
 Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action, napríklad spracuje arguments, transfer files alebo remote module result. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Active-active architecture
+
+Architektúra, v ktorej viac lokalít alebo replicas súčasne spracúva production traffic; poskytuje vysokú využiteľnosť redundantnej kapacity, ale vyžaduje consistency, conflict-resolution a split-brain model. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Active deadline — Job
 
 Maximálny celkový čas, počas ktorého môže Kubernetes Job zostať aktívny; po jeho prekročení controller ukončí aktívne Pody a Job označí ako failed. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Active-passive architecture
+
+Architektúra, v ktorej primárny component spracúva workload a standby component prevezme úlohu po failover-e; zjednodušuje write ownership za cenu standby driftu a failover latency. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Actual state — Kubernetes
 
@@ -326,6 +338,10 @@ ServiceAccount alebo Pod setting určujúci, či kubelet automaticky pripojí š
 
 Nežiaduca alebo zámerná interakcia viacerých autoscaling controllers a metrics, pri ktorej zmena replicas, requests alebo Node capacity mení vstup ďalšej scaling slučky. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
+## Availability Zone — AWS
+
+Oddelený infraštruktúrny failure domain v rámci AWS Regionu, pozostávajúci z jednej alebo viacerých fyzických lokalít s nezávislejším power, cooling a networking modelom. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
 ## Available replicas — Kubernetes
 
 Počet replík, ktoré sú Ready a spĺňajú príslušné availability timing podmienky controlleru; nie je totožný s počtom existujúcich alebo Running Podov. Pozri [Deployment](docs/09-kubernetes/deployment.md) a [ReplicaSet](docs/09-kubernetes/replicaset.md).
@@ -337,6 +353,34 @@ SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie oper�
 ## Average utilization — HPA
 
 Priemerná resource utilization cieľovej Pod population vyjadrená ako percento resource requestu, používaná napríklad pri CPU HPA. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
+## AWS account
+
+Základná AWS resource ownership, IAM, billing, quota, telemetry a blast-radius boundary s vlastným dvanásťmiestnym account ID. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## AWS Organizations
+
+AWS služba na centrálne riadenie kolekcie účtov cez management account, root, OUs, organization policies, consolidated billing a delegated administration. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## AWS Outposts
+
+AWS-managed infrastructure umiestnená v zákazníckej alebo colocation lokalite a prepojená s parent AWS Regionom, určená pre hybridné workloady s locality alebo latency požiadavkami. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## AWS Region
+
+Geografická AWS infraštruktúrna oblasť obsahujúca viac Availability Zones a predstavujúca regionálnu service, data-residency a fault-isolation boundary. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## AWS Shared Responsibility Model
+
+Model rozdeľujúci bezpečnostné a prevádzkové responsibilities medzi AWS ako prevádzkovateľa infraštruktúry a zákazníka ako vlastníka identities, configuration, data a workloadu podľa konkrétnej služby. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
+## AZ ID — AWS
+
+Stabilný identifikátor fyzickej Availability Zone, napríklad `euc1-az2`, konzistentný naprieč AWS accounts a vhodný na cross-account topology koordináciu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## AZ name — AWS
+
+Account-visible názov Availability Zone, napríklad `eu-central-1a`, ktorého historické písmeno nemusí mapovať na rovnakú fyzickú zónu v rôznych účtoch. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## Backend migration — Terraform
 
@@ -361,6 +405,10 @@ Prenesenie opravy alebo zmeny z novšej vývojovej línie do staršej podporovan
 ## Backpressure
 
 Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, aby nevytváral neobmedzený buffer a rastúcu latency. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## Backup and restore — DR
+
+Recovery stratégia, pri ktorej sa náhradné prostredie a state obnovujú zo záloh po incidente; má nízky steady-state cost a typicky vyššie RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Bare repository
 
@@ -458,6 +506,10 @@ Serverová policy obmedzujúca aktualizáciu dôležitej branch pomocou controls
 
 Policy objekt aplikovaný na konkrétny branch alebo pattern, ktorý môže riadiť push, merge, force-push a Code Owner požiadavky. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
+## Break-glass access — AWS
+
+Núdzový, oddelene chránený a auditovaný prístup do kritického AWS accountu používaný pri výpadku bežnej identity cesty alebo incidente. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Break-glass secret
 
 Silno chránený emergency credential dostupný cez auditovaný a obmedzený recovery postup, po ktorého použití nasleduje kontrola a typicky rotation. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -546,9 +598,17 @@ Moderný container build backend vykonávajúci dependency graph, content-aware 
 
 Docker CLI plugin na správu BuildKit builders a pokročilých build workflows vrátane multi-platform builds, external cache a output exporters. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Bulkhead isolation
+
+Rozdelenie resources, queues, threads, tenants, cells alebo accounts do samostatných poolov, aby failure alebo overload jednej skupiny nevyčerpal celý systém. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Burstable QoS
 
 Kubernetes QoS class pre Pod, ktorý nie je Guaranteed a má aspoň niektorý relevantný CPU alebo memory request/limit. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
+
+## Business Impact Analysis — BIA
+
+Proces určujúci kritické business capabilities, dopad výpadku, maximálne tolerované prerušenie, data-loss toleranciu, dependencies a priority obnovy. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Cache — CI/CD
 
@@ -613,6 +673,10 @@ Runtime policy odstraňujúca Linux capabilities z process credential sets, ide�
 ## Capability — Linux capability
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## Capacity headroom
+
+Rezervovaná nevyužitá kapacita potrebná na absorpciu burstu alebo presun trafficu pri zlyhaní časti systému, napríklad jednej Availability Zone. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Capacity test
 
@@ -730,6 +794,10 @@ Krátkodobá GitLab job identity používaná na podporované API, artifact, pac
 
 Zápis IP prefixu pomocou adresy a počtu network bitov, napríklad `192.0.2.0/24`. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Circuit breaker
+
+Resilience pattern, ktorý po prekročení failure prahu dočasne zastaví calls na zlyhávajúcu dependency a neskôr vykoná kontrolované test requests. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## CKA
 
 Certified Kubernetes Administrator, performance-based Linux Foundation/CNCF certifikácia overujúca praktickú správu a troubleshooting Kubernetes clusterov. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -754,9 +822,21 @@ TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavr
 
 Model, v ktorom fixný počet virtual users generuje ďalšiu operáciu až po dokončení predchádzajúcej. Spomalenie systému preto môže znížiť generovaný arrival rate. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## Cloud bursting
+
+Hybridný scaling model, pri ktorom workload dočasne rozšíri capacity z private prostredia do public cloudu; vyžaduje runtime, data, identity, networking a licensing kompatibilitu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
 ## Cloud controller manager
 
 Voliteľný Kubernetes control-plane component spúšťajúci cloud-provider-specific controllers pre Node, route alebo load-balancer integrations podľa platformy. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## Cloud deployment model
+
+Klasifikácia určujúca, kde cloud infraštruktúra beží, komu je určená a ako sa prepája a riadi, napríklad public, private alebo hybrid cloud. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Cloud portability
+
+Schopnosť presunúť workload medzi prostrediami vrátane source, runtime, data, identity, network, observability a operational contracts, nie iba container image-u. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Cloud service model
 
@@ -994,6 +1074,10 @@ Kernel connection-tracking state používaný firewallom a NAT-om; jeho vyčerpa
 
 Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Consolidated billing — AWS
+
+AWS Organizations capability združujúca billing member accounts do centrálneho payer/management scope-u pri zachovaní resource ownershipu v jednotlivých účtoch. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Constructed inventory — Ansible
 
 Inventory transformation model vytvárajúci derived variables a groups z existujúcich host metadata pomocou expressions a grouping pravidiel. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
@@ -1121,6 +1205,10 @@ Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distri
 ## Control group — experiment
 
 Skupina používateľov, requestov alebo systémových instances, ktorá nedostane experimentálnu zmenu a poskytuje súbežnú baseline na porovnanie. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Control inheritance — cloud compliance
+
+Použitie provider-managed controls, napríklad physical security alebo hypervisor patchingu, ako zdedenej časti zákazníckeho compliance programu; nezbavuje zákazníka vlastných configuration a process responsibilities. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
 ## Control plane
 
@@ -1262,6 +1350,10 @@ Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred ro
 
 Vrstva služby, ktorej configuration, patching, security, availability alebo recovery zostáva zodpovednosťou zákazníka. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## Customer responsibility — cloud
+
+Časť service security a operations contractu, ktorú vlastní zákazník, typicky identity, data, application, network configuration, logging, backup a business recovery. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
 ## CustomResourceDefinition — CRD
 
 Cluster-scoped Kubernetes object, ktorý pridáva nový custom resource type, group/version/schema a scope do API; sám osebe neposkytuje reconciliation logic. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -1369,6 +1461,10 @@ StorageClass označená clusterom ako default pre PVCs bez explicitného `storag
 ## `define` — Helm
 
 Go template action deklarujúca named template pod globálnym menom bez okamžitého render outputu. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Delegated administrator — AWS Organizations
+
+Member account zaregistrovaný na centralizovanú správu podporovanej AWS služby naprieč organization, aby sa znížil počet operácií vykonávaných v management account-e. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## Deletion timestamp — Kubernetes
 
@@ -1526,6 +1622,10 @@ Switchová ochrana povoľujúca DHCP server responses iba na trusted portoch. Po
 
 Čas od začiatku troubleshooting scenára po správne pomenovanie root cause na základe dôkazov. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
 
+## Diagonal scaling
+
+Kombinácia vertical a horizontal scalingu, pri ktorej sa najprv mení veľkosť resource-u a následne počet replicas alebo nodes. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Diff coverage
 
 Coverage vypočítaná iba pre nový alebo zmenený kód voči zvolenému merge base. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
@@ -1546,9 +1646,17 @@ Režim zobrazujúci content rozdiel pri podporovaných modules; output môže ob
 
 Pod vytvorený bez vyššieho workload controlleru; po strate alebo Node failure nemá automatický replica replacement a rollout model. Pozri [Pod](docs/09-kubernetes/pod.md).
 
+## Disaster recovery — DR
+
+People, process a technology capability obnoviť business službu a jej dáta po udalosti presahujúcej bežný high-availability design podľa definovaných RPO a RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## Disaster recovery — Kubernetes
 
 Koordinovaný proces obnovy control-plane state-u, PKI, encryption keys, external infrastructure a application dát po strate authoritative cluster state-u. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
+
+## Disconnected operation
+
+Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime pri strate spojenia s central cloud control plane alebo WAN dependency. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Distributed cache — GitLab Runner
 
@@ -1790,6 +1898,10 @@ Network traffic medzi internými workloads alebo services v rámci platformy, kt
 
 Kernel technológia na spúšťanie overeného bytecode na definovaných hooks, používaná aj na observability a profiling. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Edge cloud
+
+Compute a storage platforma umiestnená bližšie k používateľom, zariadeniam alebo výrobnému procesu pre nízku latency, lokálne spracovanie alebo prerušovanú konektivitu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
 ## Effective capability set
 
 Množina Linux capabilities aktuálne používaná kernelom pri privilege checks procesu. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
@@ -1805,6 +1917,10 @@ Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct
 ## Egress-isolated Pod
 
 Pod vybraný aspoň jednou NetworkPolicy pre egress, ktorého outbound traffic je povolený iba unionom matching egress pravidiel. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## Elasticity
+
+Schopnosť systému dynamicky pridávať alebo odoberať kapacitu podľa demandu, provisioning latency, policy, quotas a cost guardrails. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Eligible approver — GitLab
 
@@ -2062,6 +2178,10 @@ Template function okamžite ukončujúca render s chart-specific error message p
 
 Policy, pri ktorej nedostupná kontrola neblokuje operáciu, ale vytvorí viditeľný degraded signal. Je vhodná iba tam, kde riziko nedostupnosti gate prevyšuje riziko pokračovania. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## Failback
+
+Riadený návrat workloadu a authoritative state-u z recovery lokality späť do stabilizovaného primárneho prostredia po failover-e. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## Failed deployment recovery time
 
 Čas potrebný na obnovenie služby po zlyhaní spôsobenom deploymentom. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
@@ -2069,6 +2189,10 @@ Policy, pri ktorej nedostupná kontrola neblokuje operáciu, ale vytvorí vidite
 ## `FailedScheduling`
 
 Kubernetes Event reason indikujúci, že scheduler nenašiel alebo nevedel bindnúť vhodný Node; message typicky agreguje resource, affinity, taint, topology, storage alebo port konflikty. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
+
+## Failover
+
+Presun trafficu, processingu alebo write ownershipu z nefunkčného primárneho componentu alebo lokality na pripravený náhradný target. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Failure artifact
 
@@ -2113,6 +2237,10 @@ Kontrolované zavedenie konkrétneho failure condition, napríklad latency, proc
 ## Fault injection — CKA lab
 
 Kontrolované zavedenie jednej alebo viacerých známych porúch do disposable lab prostredia na tréning diagnostiky a recovery. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
+
+## Fault tolerance
+
+Schopnosť systému pokračovať vo funkcii pri zlyhaní componentu prostredníctvom redundancy, replication, automatic failover, isolation a controlled retry. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Feasible Node
 
@@ -2309,6 +2437,10 @@ Agent, ktorý prijíma eligible CI/CD jobs z GitLabu a vykonáva ich pomocou nak
 ## GitLab SAST
 
 Static Application Security Testing integrované do GitLab CI/CD na detekciu potenciálnych vulnerabilities v source code pomocou language-specific analyzers a rules. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Global resource — AWS
+
+AWS resource alebo service control scope, ktorý nie je viazaný iba na jeden Region; konkrétne data-plane, endpoint a consistency semantics treba overiť v service dokumentácii. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## Global template namespace — Helm
 
@@ -2526,6 +2658,10 @@ Top-level CI configuration block s názvom začínajúcim bodkou, ktorý sa nesp
 
 Masked CI/CD variable, ktorej hodnotu po uložení nemožno znovu zobraziť v GitLab UI; job s prístupom ju však stále môže použiť. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
 
+## High availability — HA
+
+Architektonická schopnosť minimalizovať prerušenie služby pri očakávateľných component, host alebo zonal failures pomocou redundancy, health checks a failoveru. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## History rewrite
 
 Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, napríklad rebase, amend alebo reset publikovanej branch. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
@@ -2573,6 +2709,10 @@ IPv6 field znižovaný na každom router hop-e; IPv4 ekvivalentom je TTL. Pozri 
 ## Horizontal Pod Autoscaler — HPA
 
 Kubernetes API resource a controller automaticky meniaci replica count škálovateľného workloadu podľa resource, custom alebo external metrics. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
+## Horizontal scaling
+
+Pridanie alebo odobratie instances, workers, replicas alebo partitions s potrebným traffic distribution a state coordination modelom. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Host bind address — Docker
 
@@ -2625,6 +2765,14 @@ Gateway API Route resource pre HTTP routing cez host, path, header alebo query m
 ## Huge pages — Kubernetes
 
 Predalokované veľké memory pages publikované Node-om ako page-size-specific nekompresibilný resource. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
+
+## Hybrid cloud
+
+Deployment model integrujúci public-cloud services s on-premises, colocation alebo edge resources cez networking, identity, DNS, data a management contracts. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Hybrid connectivity
+
+Network boundary prepájajúca cloud a externé prostredie cez VPN, dedicated link, public endpoint alebo private service endpoint s explicitným routing, encryption a redundancy modelom. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Hypercare
 
@@ -3098,6 +3246,14 @@ PV reprezentujúci storage fyzicky viazaný na konkrétny Node alebo topology do
 
 Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú caller nemôže priamo nastaviť. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
+## Local Zone — AWS
+
+AWS infrastructure extension približujúca vybrané služby k určitej metropolitnej oblasti pre latency-sensitive workloady a závislá od parent Regionu podľa service modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Log archive account — AWS
+
+Oddelený AWS member account určený na centrálne, dlhodobo chránené uloženie organization-wide audit a security logs. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Logical version
 
 Ľudsky alebo procesne významná verzia, napríklad `2.8.1`, ktorá komunikuje release alebo compatibility význam, ale sama nemusí identifikovať konkrétne bytes bez väzby na digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -3162,6 +3318,10 @@ Host, zariadenie alebo API target, na ktorý Ansible aplikuje automation cez con
 
 Služba, pri ktorej provider preberá definovanú časť deploymentu, patchingu, availability alebo operations, pričom zákazníkovi zostáva configuration, identity, data a business outcome podľa konkrétneho contractu. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## Management account — AWS Organizations
+
+Najvyšší organization account s billing a Organizations administrative capabilities; SCPs neobmedzujú jeho principals a preto má byť bez bežných workloadov a s minimálnym accessom. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Masked variable — GitLab
 
 CI/CD variable, ktorej hodnota spĺňajúca GitLab constraints sa pri výpise do job logu nahrádza maskovaným textom; masking nezabraňuje úmyselnej exfiltration jobom. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
@@ -3189,6 +3349,10 @@ Maximálna povolená nerovnomernosť počtu matching Podov medzi topology domain
 ## Media type — OCI
 
 Identifikátor semantic formátu descriptorom odkazovaného contentu, napríklad image manifest, image index, configuration alebo layer blob. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Member account — AWS Organizations
+
+AWS account patriaci do organization a umiestnený pod root alebo OU, s vlastnými resources a IAM, ale podliehajúci relevantným organization policies. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## `memory.high`
 
@@ -3322,6 +3486,14 @@ TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS,
 
 Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Multi-AZ architecture — AWS
+
+Workload design rozkladajúci compute, networking a stateful capabilities cez viac Availability Zones tak, aby zlyhanie jednej zóny neodstavilo definovanú službu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Multi-cloud
+
+Používanie services od viacerých cloud providers z obchodných, geografických, regulačných alebo technických dôvodov; samo osebe negarantuje portability ani disaster recovery. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
 ## Multi-platform build
 
 Jeden build workflow produkujúci platform-specific manifests a typicky spoločný image index pre viac OS/architecture kombinácií. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -3329,6 +3501,10 @@ Jeden build workflow produkujúci platform-specific manifests a typicky spoločn
 ## Multi-platform image
 
 OCI image index a súvisiaci graph poskytujúci platform-specific manifests pod jednou higher-level reference, napríklad pre `linux/amd64` a `linux/arm64`. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Multi-site active-active — DR
+
+Disaster-recovery stratégia, v ktorej viac geografických lokalít aktívne obsluhuje production traffic a potrebuje cross-site routing, capacity a data consistency model. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Multi-stage build
 
@@ -3417,6 +3593,10 @@ Explicitný directed acyclic graph job dependencies vytvorený cez `needs`, ktor
 ## Negative DNS caching
 
 Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## Network account — AWS
+
+Centralizovaný AWS account vlastniaci organization network capabilities ako Transit Gateway, hybrid connectivity, DNS resolvers, inspection alebo IPAM. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## Network ACL
 
@@ -3618,6 +3798,14 @@ Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako optio
 
 Defaultný usporiadaný StatefulSet Pod management model, ktorý vytvára alebo aktualizuje ordinaly postupne a čaká na readiness pred pokračovaním. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## Organization root — AWS
+
+Najvyšší kontajner AWS Organizations hierarchy, pod ktorým sa nachádzajú OUs a member accounts a z ktorého sa dedia podporované organization policies. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Organizational unit — OU
+
+Logická skupina AWS accounts v Organizations hierarchy určená na spoločné policy a lifecycle riadenie; nie je network ani Region boundary. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Orphan container — Compose
 
 Container patriaci Compose projektu, ktorého service už nie je prítomná v aktuálnom resolved modeli. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
@@ -3782,6 +3970,10 @@ Namespace poskytujúci samostatné process ID číslovanie a process tree. Pozri
 
 Cgroup controller obmedzujúci počet procesov alebo threadov cez `pids.max`. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
 
+## Pilot light — DR
+
+Recovery stratégia udržiavajúca v náhradnej lokalite kritický data/core základ, ktorý sa pri incidente rozšíri na plnú application capacity. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## `pipefail`
 
 Shell option, ktorá spôsobí, že pipeline vráti nenulový status pri zlyhaní ktoréhokoľvek člena, nie iba posledného príkazu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
@@ -3918,6 +4110,10 @@ Abstraction layer sprístupňujúca datasources ako filesystem, registry, certif
 
 SemVer časť za pomlčkou, napríklad `rc.1`, označujúca verziu s nižšou precedence než zodpovedajúci final release. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Predictive scaling
+
+Elasticity model pripravujúci capacity pred očakávaným demand-om na základe historických vzorov alebo forecastu. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Preemption — Kubernetes scheduling
 
 Mechanizmus, pri ktorom scheduler môže iniciovať odstránenie nižšie prioritných Podov, aby vytvoril priestor pre unschedulable Pod s vyššou prioritou. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -3933,6 +4129,10 @@ Lifecycle rule blokujúca plánované zničenie resource, pokiaľ je pravidlo st
 ## PriorityClass
 
 Cluster-scoped Kubernetes resource definujúci numerickú Pod priority a preemption policy semantics. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
+
+## Private cloud
+
+Cloud-like platforma vyhradená jednej organizácii s API, self-service, automation, policy, metering a pooled-capacity operating modelom. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Privileged container
 
@@ -4042,6 +4242,10 @@ Vrstva služby, ktorej infrastructure, patching, control plane alebo application
 
 Deklarácia provider source addressu a povoleného version rozsahu v `required_providers`, ktorú modul potrebuje pre svoje resources a data sources. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Provider responsibility — cloud
+
+Časť service contractu vlastnená cloud providerom, typicky physical facilities, hardware, host platform, virtualization a managed-service runtime podľa služby. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
 ## Provider state
 
 Deterministicky pripravený stav providera potrebný na overenie konkrétnej consumer-driven contract interaction. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
@@ -4074,6 +4278,10 @@ Static analysis nástroj pre PowerShell scripts a modules, ktorý kontroluje con
 
 Deklarovaná compatibility boundary zahŕňajúca nielen programové interfaces, ale podľa produktu aj konfiguráciu, CLI, schemas, events, file formats a operational behavior. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Public cloud
+
+Provider-operated multi-tenant cloud platforma poskytujúca on-demand services cez logicky izolované accounts a networks; neznamená automaticky public-internet exposure workloadu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
 ## Pull-through cache — registry
 
 Lokálny registry cache model, ktorý pri prvom pull-e načíta content z upstream registry a ďalším clients ho poskytuje lokálne podľa cache a freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
@@ -4089,6 +4297,10 @@ Policy určujúca, či sa StatefulSet-created PVCs zachovajú alebo odstránia p
 ## Quality gate
 
 Automatizovaný alebo kombinovaný rozhodovací bod, ktorý vyhodnotí versionovanú policy nad konkrétnou evidence a povolí, zablokuje alebo eskaluje ďalší krok delivery. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
+## Quarantine OU — AWS
+
+Organizational unit s prísnymi incident alebo decommission guardrails určená na izoláciu member accountu pri zachovaní potrebného response a evidence accessu. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## Quarantine — testing
 
@@ -4117,6 +4329,10 @@ Nepriame získanie širšej kontroly cez permissions ako workload creation, Secr
 ## RBAC subject
 
 User, Group alebo ServiceAccount identita, ktorej RoleBinding alebo ClusterRoleBinding udeľuje permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## Reactive scaling
+
+Elasticity model, ktorý mení capacity po zistení aktuálneho metric alebo demand signalu, napríklad CPU, request rate alebo queue depth. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Read compatibility
 
@@ -4178,9 +4394,29 @@ Opakovaný proces observe, compare, act a report, ktorý približuje actual stat
 
 Predpripravený súbor identity, kompatibility informácií, workflows a rozhodovacích podkladov potrebných na rollback, roll-forward alebo restore konkrétneho release. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
 
+## Recovery Point Actual — RPA
+
+Skutočný vek alebo bod obnovených dát dosiahnutý pri recovery teste alebo incidente, porovnávaný s cieľovým RPO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery Point Objective — RPO
+
+Maximálna tolerovaná strata dát vyjadrená časom medzi incidentom a posledným použiteľným recovery pointom. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery Region — AWS
+
+AWS Region pripravený ako cieľ cross-Region disaster recovery vrátane data, capacity, quotas, identity, KMS, networking, artifacts a runbookov. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## Recovery set — Kubernetes
 
 Súbor artifacts potrebný na obnovu, zahŕňajúci etcd snapshot, PKI, encryption configuration/keys, component config, infrastructure source a application data backups. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
+
+## Recovery Time Actual — RTA
+
+Skutočný čas od začiatku recovery procesu po obnovenie validovanej business capability, porovnávaný s cieľovým RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery Time Objective — RTO
+
+Cieľový maximálny čas na obnovenie definovanej business capability po incidente vrátane detekcie, rozhodnutia, data recovery, startupu, validácie a traffic cutoveru. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Recreate deployment
 
@@ -4213,6 +4449,14 @@ Pravidlo mapujúce source ref na destination ref pri fetch alebo push operácii.
 ## Regex dialect
 
 Konkrétna syntax a semantics regular expression engine-u, napríklad POSIX ERE, .NET, Python, PCRE alebo RE2. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Regional endpoint — AWS
+
+Service API alebo data endpoint smerujúci request do konkrétneho AWS Regionu; nesprávny Region môže viesť k prázdnemu inventory, iným quotas alebo deploymentu do nesprávnej lokality. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Regional resource — AWS
+
+Resource s identity a lifecycle scope-om v konkrétnom AWS Regione, napríklad VPC alebo väčšina managed service deployments. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## Registered variable — Ansible
 
@@ -4454,6 +4698,10 @@ Najprísnejší built-in PSS profil pre bežné workloads, vyžadujúci non-root
 
 Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočného potvrdenia. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Retry budget
+
+Explicitný limit množstva alebo času retry pokusov, ktorý zabraňuje nekonečným retries a zosilneniu downstream incidentu. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Retry loop — Ansible
 
 Opakovanie rovnakého tasku podľa `until`, `retries` a `delay`, určené pre bounded transient conditions, nie pre iteráciu business items. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
@@ -4666,6 +4914,10 @@ Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká que
 
 Analýza third-party dependencies, transitívneho graphu, licencií a známych vulnerabilities. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## Scalability
+
+Schopnosť systému zvýšiť alebo znížiť spracovateľskú kapacitu bez neprimeraného zhoršenia výkonu, spoľahlivosti alebo nákladov. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Scalability test
 
 Performance test overujúci, ako sa kapacita a SLO menia po pridaní alebo odobratí resources. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
@@ -4750,9 +5002,21 @@ Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patter
 
 Riadený lifecycle vytvorenia nového credentialu, distribúcie a rollout-u consumerov, overlap/verification, revocation starého credentialu a cleanup starých copies. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
+## Security in the cloud — AWS
+
+Zákaznícka responsibility vrstva zahŕňajúca identity, configuration, data, workload OS/application, logging, backup a recovery podľa použitej AWS služby. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
+## Security of the cloud — AWS
+
+AWS responsibility vrstva zahŕňajúca physical facilities, hardware, host platform, virtualization a provider-managed service infrastructure. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
 ## Security report artifact — GitLab
 
 Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security findings v pipeline, merge requeste alebo vulnerability-management vrstvách. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Security tooling account — AWS
+
+Oddelený member account používaný ako delegated administrator a operational scope pre organization-wide security findings, detection a response tooling. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## Selector — Kubernetes
 
@@ -4802,6 +5066,10 @@ Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje
 
 Dokumentovaný súbor support, availability, security, data, backup, lifecycle a responsibility podmienok konkrétnej cloud služby. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## Service control policy — SCP
+
+AWS Organizations guardrail definujúci maximálny permissions envelope pre principals v member accounts; sám access neudeľuje a neobmedzuje management account. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Service dataplane
 
 Node alebo network-plugin mechanizmus implementujúci Service virtual IP, backend selection a packet forwarding podľa EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
@@ -4821,6 +5089,10 @@ Namespaced API contract poskytujúci stabilné meno, virtual address a port mode
 ## Service port
 
 Port publikovaný Kubernetes Service contractom pre klientov, odlišný od backend `targetPort`. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Service responsibility matrix
+
+Tabuľka mapujúca pre konkrétnu cloud službu provider, customer a shared responsibilities v oblastiach compute, identity, network, data, encryption, logging, patching a recovery. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
 ## Service selector
 
@@ -4870,6 +5142,10 @@ Kópia reálneho produkčného trafficu posielaná novému systému bez použiti
 
 Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižuje prenos, ale obmedzuje operácie závislé od plného commit graphu. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
 
+## Shared control — cloud
+
+Security alebo operations control, pri ktorom provider poskytuje platform capability a zákazník ju musí správne nakonfigurovať, používať, monitorovať alebo integrovať. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
 ## Shared kernel
 
 Model, v ktorom viac host a container processes používa ten istý kernel, hoci môže mať odlišné namespace views a resource limits. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
@@ -4877,6 +5153,10 @@ Model, v ktorom viac host a container processes používa ten istý kernel, hoci
 ## Shared responsibility
 
 Model, v ktorom provider a zákazník vlastnia odlišné, ale navzájom závislé časti security, availability, configuration, data protection a incident response. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## Shared services account — AWS
+
+AWS member account prevádzkujúci organization-wide platform services ako artifacts, directory integrations, CI, observability alebo package mirrors. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## Shell executor — GitLab Runner
 
@@ -5133,6 +5413,10 @@ Samostatný API endpoint pre vybranú časť alebo operáciu resource-u, naprík
 ## Subshell
 
 Oddelený shell execution context, ktorého zmeny premenných a working directory sa nemusia preniesť späť do parent shellu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Support boundary — cloud
+
+Hranica určujúca, ktorú časť incidentu môže meniť alebo diagnostikovať provider, zákazník alebo third party a aké evidence sú potrebné na efektívnu eskaláciu. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
 ## Supported version policy
 
@@ -5602,6 +5886,10 @@ Constraint vyjadrujúci množinu akceptovaných dependency versions, ktorého ko
 
 Samostatne inštalovaný Kubernetes controller a API odporúčajúci alebo aplikujúci zmeny Pod resource requests podľa observed usage a policy. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
+## Vertical scaling
+
+Zmena kapacity jedného resource-u, napríklad väčšia VM alebo database instance, bez pridania ďalších replicas. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Veth pair
 
 Dvojica prepojených virtual Ethernet interfaces, ktorá typicky spája container network namespace s host bridge alebo routing vrstvou. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
@@ -5673,6 +5961,14 @@ StorageClass binding mode odkladajúci provisioning alebo PV binding, kým sched
 ## Warm standby — blue-green
 
 Pôvodná deployment farba ponechaná po cutover-e v pripravenom a priebežne health-checkovanom stave pre rýchly routing rollback. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## Warm standby — DR
+
+Recovery stratégia s priebežne bežiacou zmenšenou, ale funkčnou kópiou workloadu v náhradnej lokalite, ktorá sa pri incidente rozšíri a prevezme traffic. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Wavelength Zone — AWS
+
+Špecializovaná AWS edge zóna integrovaná do telekomunikačnej 5G siete pre veľmi nízkolatenčné workloady a obmedzený service katalóg. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## WebSocket
 
@@ -5757,3 +6053,11 @@ Usporiadaná YAML kolekcia hodnôt, analogická array alebo listu. Pozri [YAML, 
 ## Zombie process
 
 Ukončený proces, ktorého exit status parent ešte neprevzal cez `wait`. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
+
+## Zonal affinity
+
+Preferencia komunikácie a placementu resources v rovnakej Availability Zone pre nižšiu latency alebo transfer cost pri zachovaní cross-zone recovery modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Zonal resource — AWS
+
+Resource viazaný na jednu Availability Zone, napríklad subnet, EC2 instance alebo EBS volume, ktorého lifecycle a attachment constraints sú súčasťou zonal failure modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
