@@ -227,7 +227,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Helm and CKA
 
-- [ ] Helm chart, template, values a release
+- [x] [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md)
 - [ ] Template functions a pipelines
 - [ ] Named templates
 - [ ] Chart dependencies

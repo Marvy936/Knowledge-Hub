@@ -514,3 +514,11 @@ Relevantné pojmy: Helm, Helm chart, chart version, appVersion, Helm template, v
 - [Chart Template Guide](https://helm.sh/docs/chart_template_guide/)
 - [Values Files](https://helm.sh/docs/chart_template_guide/values_files/)
 - [Helm Version Support Policy](https://helm.sh/docs/topics/version_skew/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ResourceQuota a LimitRange](../09-kubernetes/resourcequota-limitrange.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
