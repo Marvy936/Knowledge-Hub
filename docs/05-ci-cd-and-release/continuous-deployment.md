@@ -391,5 +391,5 @@ Relevantné pojmy: Continuous Deployment, automated promotion, progressive expos
 
 **Navigácia**
 
-[← Predchádzajúca: Continuous Delivery](continuous-delivery.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Continuous Delivery](continuous-delivery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Pipeline, stage, job a runner →](pipeline-stage-job-runner.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

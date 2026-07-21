@@ -485,3 +485,11 @@ Iba mení rozhodovaciu policy. Failure musí zostať viditeľný a vlastnený.
 ## Glossary impact
 
 Relevantné pojmy: pipeline, stage, job, step, runner, executor, DAG, critical path, runner pool, service container, synthetic merge commit, allowed failure, pipeline queue time a job timeout.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Continuous Deployment](continuous-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Trigger, artifact a cache →](trigger-artifact-cache.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

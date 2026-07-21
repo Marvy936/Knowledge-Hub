@@ -424,3 +424,11 @@ Mutable state a external contracts ho môžu znemožniť.
 ## Glossary impact
 
 Relevantné pojmy: environment, ephemeral environment, environment parity, behavioral equivalence, promotion, artifact promotion, promotion evidence, protected environment, environment-scoped identity, deployment record, environment drift, deployment lock a expand-contract migration.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Trigger, artifact a cache](trigger-artifact-cache.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Quality gates a approvals →](quality-gates-and-approvals.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

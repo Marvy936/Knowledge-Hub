@@ -483,3 +483,11 @@ Optional support potrebuje explicitný lifecycle a ownership.
 ## Glossary impact
 
 Relevantné pojmy: reusable pipeline, reusable job, workflow template, template contract, fan-out, fan-in, matrix pipeline, test sharding, shard imbalance, child pipeline, multi-project pipeline, fail-fast, continue-on-error, critical path a pipeline concurrency.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Pipeline as Code](pipeline-as-code.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

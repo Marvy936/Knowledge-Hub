@@ -112,12 +112,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md)
 - [x] [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md)
 - [x] [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md)
-- [ ] Pipeline, stage, job a runner
-- [ ] Trigger, artifact a cache
-- [ ] Environment a promotion
-- [ ] Quality gates a approvals
-- [ ] Pipeline as Code
-- [ ] Reusable a parallel pipelines
+- [x] [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md)
+- [x] [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md)
+- [x] [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md)
+- [x] [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md)
+- [x] [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md)
+- [x] [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md)
 - [ ] Artifact versioning
 - [ ] Semantic Versioning
 - [ ] Release management

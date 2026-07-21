@@ -426,3 +426,11 @@ Bez review sa bypass stane skrytou normou.
 ## Glossary impact
 
 Relevantné pojmy: quality gate, blocking gate, advisory gate, ratcheting, baseline debt, evidence freshness, approval, separation of duties, risk-based approval, protected environment, break-glass, exception, fail open a fail closed.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Environment a promotion](environment-and-promotion.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Pipeline as Code →](pipeline-as-code.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -431,3 +431,11 @@ Nedôveryhodný source context potrebuje oddelenú trust policy.
 ## Glossary impact
 
 Relevantné pojmy: trigger, event payload, push pipeline, merge-request pipeline, scheduled pipeline, manual dispatch, artifact, artifact digest, artifact repository, retention, build once promote many, cache, cache key, cache poisoning, cache invalidation a provenance.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Pipeline, stage, job a runner](pipeline-stage-job-runner.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Environment a promotion →](environment-and-promotion.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

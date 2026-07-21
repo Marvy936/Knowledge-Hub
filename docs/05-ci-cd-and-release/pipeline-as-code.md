@@ -444,3 +444,11 @@ Dynamic rules alebo conditions mohli job odstrániť. Skontroluj rendered execut
 ## Glossary impact
 
 Relevantné pojmy: Pipeline as Code, resolved pipeline configuration, pipeline schema, reusable template, template pinning, dynamic pipeline, child pipeline, policy as code, workload identity, pipeline permission boundary a canary template rollout.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Quality gates a approvals](quality-gates-and-approvals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Reusable a parallel pipelines →](reusable-and-parallel-pipelines.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
