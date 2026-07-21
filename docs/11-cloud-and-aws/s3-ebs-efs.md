@@ -771,3 +771,11 @@ Relevantné pojmy: Amazon S3, S3 bucket, object key, S3 storage class, S3 Lifecy
 - [Initialize EBS volumes](https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html)
 - [Amazon EFS User Guide](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html)
 - [Amazon EFS performance](https://docs.aws.amazon.com/efs/latest/ug/performance.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Elastic Load Balancing](elastic-load-balancing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RDS →](rds.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

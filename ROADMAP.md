@@ -252,11 +252,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md)
 - [x] [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md)
 - [x] [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md)
-- [ ] EC2 a Auto Scaling
-- [ ] Elastic Load Balancing
-- [ ] S3, EBS a EFS
-- [ ] RDS
-- [ ] Route 53 a CloudFront
+- [x] [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md)
+- [x] [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md)
+- [x] [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md)
+- [x] [RDS](docs/11-cloud-and-aws/rds.md)
+- [x] [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md)
 - [ ] Lambda
 - [ ] ECS a EKS
 - [ ] CloudWatch a CloudTrail

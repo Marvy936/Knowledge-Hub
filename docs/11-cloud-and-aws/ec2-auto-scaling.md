@@ -594,3 +594,11 @@ Relevantné pojmy: Amazon EC2, EC2 instance, AMI, launch template, instance prof
 - [Auto Scaling lifecycle hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
 - [Instance refresh](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html)
 - [IAM roles for Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Security Groups a Network ACLs](security-groups-network-acls.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Elastic Load Balancing →](elastic-load-balancing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

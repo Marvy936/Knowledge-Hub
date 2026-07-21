@@ -353,5 +353,5 @@ Relevantné pojmy: Security Group, stateful firewall, SG reference, Security Gro
 
 **Navigácia**
 
-[← Predchádzajúca: Internet Gateway a NAT Gateway](internet-gateway-nat-gateway.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Internet Gateway a NAT Gateway](internet-gateway-nat-gateway.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: EC2 a Auto Scaling →](ec2-auto-scaling.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

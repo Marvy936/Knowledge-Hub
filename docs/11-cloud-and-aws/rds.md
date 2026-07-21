@@ -772,3 +772,11 @@ Relevantné pojmy: Amazon RDS, DB instance, DB subnet group, RDS endpoint, Singl
 - [Backups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html)
 - [Monitoring Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Monitoring.html)
 - [RDS security](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: S3, EBS a EFS](s3-ebs-efs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Route 53 a CloudFront →](route53-cloudfront.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

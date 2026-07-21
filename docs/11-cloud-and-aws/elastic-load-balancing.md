@@ -627,3 +627,11 @@ Relevantné pojmy: Elastic Load Balancing, Application Load Balancer, Network Lo
 - [Gateway Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html)
 - [ALB target groups](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html)
 - [ALB target health checks](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: EC2 a Auto Scaling](ec2-auto-scaling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: S3, EBS a EFS →](s3-ebs-efs.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
