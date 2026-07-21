@@ -38,6 +38,10 @@ Maximálny celkový čas, počas ktorého môže Kubernetes Job zostať aktívny
 
 Reálny stav clusteru alebo external systému v konkrétnom okamihu, napríklad existujúce Pods, bežiace processes, attached volumes alebo cloud resources; controller ho nemusí okamžite celý pozorovať. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Additive authorization — Kubernetes RBAC
+
+Authorization model, v ktorom sa výsledné oprávnenia skladajú ako union všetkých matching RoleBindings a ClusterRoleBindings; prísnejšia rola neodoberie permission udelenú iným bindingom. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
 ## Additive NetworkPolicy
 
 Semantika, pri ktorej sa povolený traffic pre Pod skladá ako union pravidiel všetkých matching NetworkPolicies; neexistuje poradie pravidiel ani explicitné deny s vyššou prioritou v štandardnom API. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
@@ -70,6 +74,10 @@ Policy as Code pravidlo, ktorého výsledok je viditeľný a auditovaný, ale sa
 
 Model, v ktorom Ansible typicky nepotrebuje dlhodobo bežiaceho agenta na managed node a používa existujúci transport alebo API; stále však vyžaduje connection, identity a runtime capabilities. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Aggregated ClusterRole
+
+ClusterRole, ktorej rules controller automaticky skladá z iných ClusterRoles označených matching aggregation labels. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
 ## Alias — YAML
 
 YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komplikovať tooling a čitateľnosť. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -77,6 +85,10 @@ YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komp
 ## Allowed failure
 
 Pipeline stav, pri ktorom zlyhanie jobu zostane viditeľné, ale neblokuje definovaný downstream alebo celkový pipeline result. Musí mať explicitný dôvod a ownership. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
+## `allowPrivilegeEscalation`
+
+Container security setting riadiaci možnosť procesu získať nové privileges, na Linuxe typicky cez `no_new_privs` runtime mechanizmus. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## ALPN — Application-Layer Protocol Negotiation
 
@@ -206,6 +218,10 @@ Cluster-scoped object registrujúci aggregated API group/version a service, ktor
 
 Mandatory Access Control profil definujúci povolené paths, execute transitions, capabilities, network operations a ďalšie správanie programu. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## AppArmor profile — Kubernetes
+
+Host-level Linux Security Module profil obmedzujúci filesystem, capability, network a ďalšie operations container procesu podľa Node a runtime podpory. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
 ## Application-consistent backup
 
 Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point, nie iba náhodný filesystem okamih. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
@@ -290,6 +306,10 @@ Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane
 
 ServiceAccount alebo Pod setting určujúci, či kubelet automaticky pripojí štandardný ServiceAccount credential projection do Podu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
 
+## Autoscaling feedback loop
+
+Nežiaduca alebo zámerná interakcia viacerých autoscaling controllers a metrics, pri ktorej zmena replicas, requests alebo Node capacity mení vstup ďalšej scaling slučky. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
 ## Available replicas — Kubernetes
 
 Počet replík, ktoré sú Ready a spĺňajú príslušné availability timing podmienky controlleru; nie je totožný s počtom existujúcich alebo Running Podov. Pozri [Deployment](docs/09-kubernetes/deployment.md) a [ReplicaSet](docs/09-kubernetes/replicaset.md).
@@ -297,6 +317,10 @@ Počet replík, ktoré sú Ready a spĺňajú príslušné availability timing p
 ## AVC — Access Vector Cache
 
 SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie operácie medzi source a target security contexts. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Average utilization — HPA
+
+Priemerná resource utilization cieľovej Pod population vyjadrená ako percento resource requestu, používaná napríklad pri CPU HPA. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
 ## Backend migration — Terraform
 
@@ -329,6 +353,10 @@ Git repository bez working tree, používaný typicky ako serverový alebo integ
 ## Base image — Dockerfile
 
 Image reference použitá instruction `FROM` ako počiatočný filesystem a metadata graph build stage-u; je supply-chain a patch-lifecycle dependency. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Baseline Pod Security Standard
+
+Pod Security Standards profil blokujúci známe nebezpečné privilege escalations a host access pri širšej workload kompatibilite než profil Restricted. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Batch size
 
@@ -686,6 +714,14 @@ Stabilná virtuálna Service IP v cluster networku, ktorú Service dataplane map
 
 A alebo AAAA record bežného Kubernetes Service-u, ktorý resolve-ne na Service ClusterIP, nie priamo na Pod IP adresy. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
 
+## ClusterRole
+
+Cluster-scoped Kubernetes RBAC ruleset pre cluster resources, non-resource URLs alebo reusable namespaced permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## ClusterRoleBinding
+
+Cluster-scoped RBAC binding udeľujúci ClusterRole permissions subjects naprieč celým cluster scope-om. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
 ## Cmdlet
 
 PowerShell command implementovaný podľa jednotného Verb-Noun, parameter binding, object pipeline a error-stream modelu. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -785,6 +821,10 @@ Otvorený application-model specification pre multi-container services, networks
 ## Compose trust model
 
 Bezpečnostný model, podľa ktorého je Compose file privilegovaná executable configuration schopná spúšťať containers, mountovať host paths, pripájať devices a publikovať ports. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compute quota — Kubernetes
+
+ResourceQuota limit agregovaných CPU, memory, ephemeral-storage alebo ďalších deklarovaných requests/limits v namespace. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
 
 ## Computed value — Terraform
 
@@ -1158,6 +1198,10 @@ Deklaratívny Python model generujúci metódy pre dátovo orientovanú class, n
 
 Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Pozri [Declarative vs. Imperative Approach](docs/00-foundations/declarative-vs-imperative.md).
 
+## Dedicated Node pool
+
+Množina Nodes určená pre konkrétny workload alebo trust tier, typicky chránená kombináciou taintu, toleration, labelu a required node affinity. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Default backend — Ingress
 
 Backend Service použitý pre requests, ktoré nezodpovedajú žiadnemu host/path pravidlu Ingressu. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
@@ -1261,6 +1305,10 @@ Stabilná rollout skupina používateľov, tenantov, zariadení alebo regiónov 
 ## Deserialized object — PowerShell
 
 Prenesená reprezentácia vzdialeného PowerShell objektu, ktorá typicky zachováva properties, ale nie live methods a pôvodné runtime správanie. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Desired replica calculation — HPA
+
+Výpočet odporúčaného replica countu založený približne na pomere aktuálnej a cieľovej metric hodnoty, následne upravený tolerance, missing metrics a behavior policy. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
 ## Desired replicas — Kubernetes
 
@@ -1494,6 +1542,10 @@ Pattern file filtrujúci content zahrnutý do Docker build contextu; znižuje tr
 
 YAML stream obsahujúci jeden alebo viac documents oddelených markerom `---`. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## `DoNotSchedule` — topology spread
+
+Hard topology spread behavior, pri ktorom scheduler Pod nenaplánuje, ak by porušil deklarovaný `maxSkew` a ďalšie constraint pravidlá. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## DORA metrics
 
 Metriky software delivery performance sledujúce throughput a instability delivery systému. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
@@ -1686,6 +1738,10 @@ Point-in-time backup etcd data store-u používaný v testovanom Kubernetes cont
 
 Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a kontrolné metadata. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
 
+## Event-driven autoscaling
+
+Scaling model reagujúci na event-source alebo business metrics, napríklad queue backlog, často implementovaný ecosystem controllerom nad rámec core HPA. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
 ## Event — Kubernetes
 
 Časovo obmedzený diagnostický API object opisujúci významnú udalosť okolo iného resource-u, napríklad scheduling, image pull, probe alebo volume failure; nie je trvalým audit logom. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -1753,6 +1809,10 @@ Node resource s vendor alebo domain prefixom, napríklad GPU, publikovaný devic
 ## External build cache
 
 Build cache exportovaná mimo lokálneho buildera, napríklad do registry alebo CI backendu, s vlastnou access, trust, namespace a retention policy. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## External metric — HPA
+
+Metric pochádzajúca mimo Kubernetes object modelu, sprístupnená HPA cez external metrics API adapter. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
 ## External resource — Compose
 
@@ -1917,6 +1977,10 @@ Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého pri
 ## FQCN — Ansible
 
 Fully Qualified Collection Name explicitne identifikujúci module, plugin alebo iný content cez namespace, collection a object name, napríklad `ansible.builtin.template`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## `fsGroup`
+
+Pod security context group identity používaná pri ownership a access nastavení podporovaných mounted volumes. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Game day
 
@@ -2130,6 +2194,10 @@ Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, 
 
 IPv6 field znižovaný na každom router hop-e; IPv4 ekvivalentom je TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Horizontal Pod Autoscaler — HPA
+
+Kubernetes API resource a controller automaticky meniaci replica count škálovateľného workloadu podľa resource, custom alebo external metrics. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
 ## Host bind address — Docker
 
 Host IP adresa, na ktorej Docker publikuje port, napríklad `127.0.0.1` pre local-only alebo `0.0.0.0` pre všetky IPv4 interfaces. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
@@ -2149,6 +2217,10 @@ Port a bind address v host network namespace, ktorý forwarding alebo proxy mech
 ## `hostvars` — Ansible
 
 Magic mapping poskytujúci prístup k host-scoped variables iných inventory hosts; jeho použitie vytvára cross-host coupling a závisí od dostupnosti dát. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
+## HPA tolerance
+
+Mŕtve pásmo okolo cieľovej metric hodnoty, v ktorom HPA nemusí meniť replica count, aby obmedzil drobné oscillations. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
 ## HSTS — HTTP Strict Transport Security
 
@@ -2486,6 +2558,10 @@ Persistentná inštancia Kubernetes resource type-u reprezentujúca desired aleb
 
 API-exposed resource type s group/version, REST endpointom, schema, scope a podporovanými verbs. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Kubernetes SecurityContext
+
+Pod alebo container configuration definujúca runtime user/group identity, capabilities, privilege escalation, filesystem, seccomp a ďalšie security controls. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
 ## Kubernetes volume
 
 Pod-level mount alebo device source deklarovaný v `spec.volumes`, ktorého backing môže byť ephemeral, projected alebo persistent. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -2529,6 +2605,10 @@ Controller model, ktorý pri každom reconcile vyhodnocuje aktuálny desired a o
 ## Lifecycle meta-argument — Terraform
 
 Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ako `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, preconditions a postconditions. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## LimitRange
+
+Namespaced Kubernetes policy nastavujúca alebo validujúca per-container, per-Pod alebo per-PVC resource defaults, minimá, maximá a ratios. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
 
 ## Line coverage
 
@@ -2670,6 +2750,14 @@ Limit dočasnej capacity nad desired replica count, ktorú môže rolling update
 
 Limit počtu alebo percenta desired instances, ktoré môžu byť počas rolling update nedostupné. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
+## `maxLimitRequestRatio`
+
+LimitRange pravidlo obmedzujúce maximálny pomer resource limitu k requestu pre konkrétny resource. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
+## `maxSkew` — topology spread
+
+Maximálna povolená nerovnomernosť počtu matching Podov medzi topology domains podľa konkrétneho spread constraintu. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Media type — OCI
 
 Identifikátor semantic formátu descriptorom odkazovaného contentu, napríklad image manifest, image index, configuration alebo layer blob. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -2701,6 +2789,10 @@ Mechanizmus, ktorý testuje a integruje pull requests v plánovanom poradí prot
 ## Merge train — GitLab
 
 Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich integrácie do target branch, aby chránil mainline health pri concurrency. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
+
+## Metrics adapter — Kubernetes autoscaling
+
+Component publikujúci custom alebo external metrics cez Kubernetes aggregated API pre HPA alebo ďalších consumers. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
 ## MicroVM
 
@@ -2906,9 +2998,17 @@ Task alebo block control obmedzujúci zobrazenie citlivých arguments a results 
 
 Kernel flag zabraňujúci zvýšeniu privilege cez `execve()`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Node affinity
+
+Scheduling pravidlo vyberajúce alebo preferujúce Nodes podľa label expressions, hard alebo soft podľa použitého field-u. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Node allocatable
 
 Časť Node capacity dostupná pre scheduling Pods po odpočítaní resources rezervovaných pre operating system a Kubernetes components podľa configuration. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Node autoscaling
+
+Automatické pridávanie alebo odoberanie Node capacity podľa schedulovateľnosti a cluster demand modelu. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
 
 ## Node bootstrap dependency
 
@@ -2917,6 +3017,10 @@ Cyklická alebo kritická závislosť, pri ktorej Node potrebuje systémový Dae
 ## Node condition
 
 Štruktúrovaný status signál Node-u, napríklad Ready, MemoryPressure, DiskPressure alebo PIDPressure. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Node label — placement
+
+Key/value metadata na Node objekte používaná schedulerom pri nodeSelector, affinity a topology rozhodnutiach. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
 ## Node Lease
 
@@ -2938,6 +3042,14 @@ Voliteľná node-local DNS caching vrstva, typicky nasadená ako DaemonSet, ktor
 
 Service type publikujúci port na eligible Node addresses a smerujúci traffic cez Service dataplane na backend endpoints. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## `nodeSelector`
+
+Jednoduchý hard Pod placement constraint vyžadujúci, aby Node mal všetky uvedené label key/value páry. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## `NoExecute` taint
+
+Node taint effect blokujúci nové Pody bez matching toleration a schopný evictnuť už bežiace netolerujúce Pody. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Nominated Node
 
 Dočasný Pod status signal používaný schedulerom najmä pri preemption workflowe, ktorý označuje očakávaný kandidátny Node, ale nie je finálnym bindingom. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -2950,6 +3062,10 @@ PowerShell error record, pri ktorom command môže pokračovať; na zachytenie c
 
 Traffic medzi interným workloadom a externým klientom, internetom alebo službou mimo platformovej boundary. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
+## `NoSchedule` taint
+
+Node taint effect zabraňujúci scheduleru umiestniť nový Pod bez matching toleration na daný Node. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## NUL-delimited stream
 
 Textovo-binárny stream používajúci NUL byte ako oddeľovač, vhodný napríklad pre bezpečný prenos filesystem paths obsahujúcich whitespace alebo newline. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
@@ -2957,6 +3073,10 @@ Textovo-binárny stream používajúci NUL byte ako oddeľovač, vhodný naprík
 ## Number misscheduled — DaemonSet
 
 Počet DaemonSet Podov bežiacich na Nodes, ktoré podľa aktuálneho DaemonSet placement modelu už nie sú eligible. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## Object-count quota — Kubernetes
+
+ResourceQuota limit počtu API objektov konkrétneho typu, napríklad Pods, Jobs, Secrets, PVCs alebo LoadBalancer Services. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
 
 ## Object ID — Git
 
@@ -3206,6 +3326,10 @@ Reťaz procesov, v ktorej stdout jedného procesu smeruje do stdin ďalšieho. P
 
 Systém certificate authorities, policies, trust stores, issuance, validation, rotation a revocation pre public-key identities. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Placement deadlock
+
+Stav, keď kombinácia hard affinity, anti-affinity, taints, topology, storage alebo resource constraints nevytvára žiadny feasible Node. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Plan artifact — Terraform
 
 Uložený Terraform plan viazaný na configuration, variables, provider/module selections a prior state, ktorý má byť reviewovaný, policy-evaluovaný a následne aplikovaný ako ten istý immutable decision artifact. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
@@ -3226,6 +3350,14 @@ Najmenší deployable Kubernetes compute object predstavujúci jeden alebo viac 
 
 Proces, pri ktorom controller prevezme matching Pod bez controller owner reference a nastaví ho ako svoj dependent object. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
+## Pod affinity
+
+Scheduling pravidlo priťahujúce Pod do topology domain, kde už existujú matching Pody. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Pod anti-affinity
+
+Scheduling pravidlo oddeľujúce Pod od topology domains obsahujúcich matching Pody, hard alebo soft podľa konfigurácie. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Pod condition
 
 Štruktúrovaný Pod status signal, napríklad Scheduled, Initialized, ContainersReady alebo Ready, ktorý je odlišný od high-level Pod phase. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -3241,6 +3373,14 @@ Custom condition zahrnutá do Pod readiness rozhodnutia, ktorú musí nastavova�
 ## Pod sandbox
 
 Runtime prostredie Podu vytvorené cez CRI, ktoré drží najmä shared network namespace a infra lifecycle pre Pod containers. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md) a [Pod](docs/09-kubernetes/pod.md).
+
+## Pod Security Admission — PSA
+
+Built-in Kubernetes admission controller vyhodnocujúci Pods podľa versionovaných Pod Security Standards a namespace režimov enforce, audit a warn. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
+## Pod Security Standards — PSS
+
+Versionované Kubernetes security profily Privileged, Baseline a Restricted definujúce povolené Pod security fields a privilege model. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Pod selector — workload controller
 
@@ -3270,6 +3410,10 @@ Source alebo destination množina vyjadrená cez Pod selector, namespace selecto
 
 Routing model, ktorý môže vyberať table podľa source address, marku, ingress interface alebo ďalších selectors. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Policy version pinning — Pod Security
+
+Explicitné naviazanie Pod Security Admission režimu na konkrétnu Kubernetes minor policy verziu, aby cluster upgrade nezmenil enforcement bez testovaného rollout-u. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
 ## Port
 
 16-bit transportný identifikátor socket endpointu. Port sám neurčuje aplikačný protokol. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -3294,6 +3438,10 @@ SemVer časť za pomlčkou, napríklad `rc.1`, označujúca verziu s nižšou pr
 
 Mechanizmus, pri ktorom scheduler môže iniciovať odstránenie nižšie prioritných Podov, aby vytvoril priestor pre unschedulable Pod s vyššou prioritou. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
 
+## `PreferNoSchedule` taint
+
+Soft Node taint effect, ktorému sa scheduler pokúsi vyhnúť, ale pri nedostatku vhodných možností môže Pod na Node umiestniť. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## `prevent_destroy` — Terraform
 
 Lifecycle rule blokujúca plánované zničenie resource, pokiaľ je pravidlo stále prítomné v configuration; nenahrádza remote deletion protection ani backup. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -3305,6 +3453,14 @@ Cluster-scoped Kubernetes resource definujúci numerickú Pod priority a preempt
 ## Privileged container
 
 Container spustený s výrazne rozšírenými capabilities, device accessom a oslabenými security profiles, čím sa zásadne zmenšuje jeho isolation od hosta. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Privileged container — Kubernetes
+
+Container spustený s veľmi širokým host kernel, device a security-control prístupom; podľa mounts a namespaces môže byť prakticky host-root-equivalentný. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
+## Privileged namespace exception
+
+Auditovaná namespace výnimka povoľujúca systémovým workloadom širšie Pod privileges, s obmedzeným RBAC, ownerom, scope-om a expiry. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Probe-level termination grace
 
@@ -3450,9 +3606,25 @@ Dočasné vyradenie nestabilného testu z blocking suite pri zachovaní pravidel
 
 Transportný protokol nad UDP implementujúci reliable streams, congestion control, loss recovery a TLS 1.3 integráciu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Quota admission
+
+API admission kontrola odmietajúca create alebo update request, ktorý by prekročil ResourceQuota hard limit alebo nesplnil required quota fields. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
+## Quota saturation
+
+Stav, keď ResourceQuota `used` dosiahne alebo sa približuje k `hard`, takže nové Pody, Jobs, PVCs alebo iné objects nemôžu byť prijaté. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
 ## Ratcheting — quality
 
 Model, ktorý povoľuje iba zachovanie alebo zlepšenie predchádzajúceho akceptovaného quality baseline. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
+
+## RBAC privilege escalation
+
+Nepriame získanie širšej kontroly cez permissions ako workload creation, Secret read, exec/proxy, RBAC `bind`/`escalate`, impersonation alebo CSR approval. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## RBAC subject
+
+User, Group alebo ServiceAccount identita, ktorej RoleBinding alebo ClusterRoleBinding udeľuje permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
 ## Read compatibility
 
@@ -3461,6 +3633,10 @@ Schopnosť starej aj novej application verzie správne interpretovať dáta v ak
 ## Read-only root filesystem — container
 
 Runtime policy zakazujúca zápis do image-derived root filesystemu a povoľujúca iba explicitne pripojené writable paths. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Read-only root filesystem — Kubernetes
+
+Container security setting zakazujúci zápis do image root filesystemu a vyžadujúci explicitné writable mounts pre temp, cache alebo application state. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Readiness
 
@@ -3714,6 +3890,14 @@ Stav, keď aggregate runtime potential alebo limits presahujú fyzickú kapacitu
 
 Deklarované množstvo resource-u používané schedulerom na placement a platformou ako reservation alebo relative-share signal. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## `resourceNames` — Kubernetes RBAC
+
+RBAC rule field zužujúci vybrané permissions na explicitné object names, s limitmi pre create, list/watch a deletecollection semantics. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## ResourceQuota
+
+Namespaced Kubernetes API objekt obmedzujúci agregované resource requests/limits, storage alebo počet API objektov. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
 ## ResourceVersion — Kubernetes
 
 Opaque storage version objektu alebo collection snapshotu používaná na optimistic concurrency a list/watch continuity, nie ako business version. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -3729,6 +3913,10 @@ Opakovaný crash a automatický restart containeru podľa restart policy alebo e
 ## Restart storm
 
 Séria koordinovaných alebo opakovaných container restartov vyvolaná chybnou liveness/startup probe alebo spoločnou dependency failure, ktorá môže incident ďalej zhoršiť. Pozri [Probes](docs/09-kubernetes/probes.md).
+
+## Restricted Pod Security Standard
+
+Najprísnejší built-in PSS profil pre bežné workloads, vyžadujúci non-root a obmedzený privilege/capability/seccomp model podľa versionovaného štandardu. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Retransmission
 
@@ -3770,9 +3958,17 @@ Verejné a prevádzkové rozhranie role tvorené inputs, defaults, outputs/facts
 
 Metadata vzťah spôsobujúci vykonanie inej role pred závislou role; pri nadmernom používaní môže skryť orchestration graph. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Role — Kubernetes RBAC
+
+Namespaced RBAC ruleset definujúci povolené verbs nad resources a subresources v konkrétnom namespace scope-e. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
 ## Role vars — Ansible
 
 Role variables s vyššou precedence uložené typicky vo `vars/main.yml`, vhodné najmä pre interné constants namiesto bežných environment overrides. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## RoleBinding
+
+Namespaced RBAC binding udeľujúci Role alebo ClusterRole rules subjects v namespace bindingu. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
 ## Roll-forward
 
@@ -3849,6 +4045,10 @@ Množstvo pages procesu aktuálne resident v RAM. Pozri [Memory a CPU fundamenta
 ## RTO — Recovery Time Objective
 
 Maximálny prijateľný čas na obnovenie služby alebo business capability po katastrofickom zlyhaní. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## `runAsNonRoot`
+
+SecurityContext guard požadujúci, aby container process nebežal s root UID; potrebuje kompatibilný image a runtime-resolvable user identity. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## Runner — CI/CD
 
@@ -3934,6 +4134,18 @@ Performance test overujúci, ako sa kapacita a SLO menia po pridaní alebo odobr
 
 YAML node reprezentujúci jednu hodnotu, napríklad string, number, boolean alebo null. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Scale-down stabilization — HPA
+
+Časové okno, počas ktorého HPA zohľadňuje predchádzajúce odporúčania a tlmí príliš rýchle znižovanie replicas. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
+## Scale subresource — Kubernetes
+
+Štandardizované API rozhranie vystavujúce desired a current replica informácie škálovateľného workloadu pre HPA a ďalších clients. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
+## `ScheduleAnyway` — topology spread
+
+Soft topology spread behavior, pri ktorom scheduler môže Pod umiestniť aj pri porušení ideálneho skew a používa constraint pri scoring-u. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Scheduler profile
 
 Konfigurácia kube-scheduleru s vlastným `schedulerName`, aktívnymi Scheduling Framework plugins, weights a plugin arguments. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -3974,6 +4186,10 @@ Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Dev
 
 System-call filter policy aplikovaná na container processes s cieľom znížiť dostupný host-kernel attack surface. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
+## Seccomp profile — Kubernetes
+
+Runtime syscall filter vybraný cez Pod alebo container security context, napríklad RuntimeDefault alebo Localhost. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
 ## Second converge
 
 Druhý automation run nad už nakonfigurovaným targetom používaný na overenie, že desired state je stabilný a nevznikajú recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
@@ -4005,6 +4221,10 @@ Výraz vyberajúci objects podľa labels a tvoriaci kritický contract pre contr
 ## Selectorless Service
 
 Service bez `spec.selector`, ktorého backend EndpointSlices spravuje operator alebo iný explicitný owner, často pre external alebo manually discovered endpoints. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## SELinux options — Kubernetes
+
+SecurityContext fields nastavujúce SELinux label identity container procesu a volumes podľa host policy, runtime a storage podpory. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
 ## SELinux security context
 
@@ -4286,6 +4506,10 @@ Merateľné používateľské alebo prevádzkové správanie, ktoré má systém
 
 Mechanizmus zabezpečujúci, že starý alebo izolovaný writer už nemôže zapisovať na shared storage pred aktiváciou nového writer-a. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## Storage quota — Kubernetes
+
+ResourceQuota limit agregovaných PVC requests, počtu claims alebo StorageClass-specific storage consumption v namespace. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
 ## Storage version — Kubernetes
 
 Interná API verzia, v ktorej API server persistuje konkrétny resource type, pričom externé clients môžu používať iné podporované versions s conversion. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -4313,6 +4537,10 @@ Kontrolovaná náhrada dependency vracajúca vopred pripravené odpovede pre ria
 ## Subgroup — GitLab
 
 Group vnorená v parent group, používaná na delegovanie ownershipu, členstva a policy pre podmnožinu projects. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## SubjectAccessReview
+
+Kubernetes authorization API request zisťujúci, či konkrétna identita smie vykonať zadanú akciu nad resource-om alebo URL. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
 ## Subnet
 
@@ -4389,6 +4617,10 @@ Latency najpomalšej časti request distribúcie, typicky p95 alebo p99. Pozri [
 ## Taint analysis
 
 Statická analýza sledujúca nedôveryhodné dáta od source cez transformácie po citlivý sink. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
+
+## Taint — Kubernetes
+
+Key/value/effect značka na Node-e, ktorá odpudzuje Pody bez matching toleration pri scheduling-u alebo execution-e. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
 ## `targetPort` — Service
 
@@ -4542,9 +4774,25 @@ Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková p
 
 Kubernetes API subresource/mechanizmus na vydanie krátkodobého ServiceAccount tokenu s audience a expiration namiesto statického long-lived token Secretu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
 
+## Toleration — Kubernetes
+
+Pod rule povoľujúci workloadu tolerovať konkrétny Node taint; nepriťahuje Pod na tainted Node. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## `tolerationSeconds`
+
+Čas, počas ktorého Pod toleruje matching `NoExecute` taint pred možnou eviction. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
 ## Topology-aware routing — Service
 
 Service routing model využívajúci EndpointSlice zone/topology metadata na preferenciu bližších endpointov pri zachovaní dostupnosti a správnej capacity distribution. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Topology domain — Kubernetes
+
+Množina Nodes zdieľajúcich rovnakú hodnotu vybraného topology labelu, napríklad Node, zone, region alebo rack. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Topology spread constraint
+
+Pod scheduling pravidlo riadiace maximálnu nerovnomernosť matching Pod population medzi topology domains. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
 ## Traffic cutover
 
@@ -4690,6 +4938,10 @@ SemVer pravidlá určujúce poradie versions podľa MAJOR, MINOR, PATCH a pre-re
 
 Constraint vyjadrujúci množinu akceptovaných dependency versions, ktorého konkrétna syntax a význam závisia od package ecosystemu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Vertical Pod Autoscaler — VPA
+
+Samostatne inštalovaný Kubernetes controller a API odporúčajúci alebo aplikujúci zmeny Pod resource requests podľa observed usage a policy. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
 ## Veth pair
 
 Dvojica prepojených virtual Ethernet interfaces, ktorá typicky spája container network namespace s host bridge alebo routing vrstvou. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
@@ -4769,6 +5021,10 @@ Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade aleb
 ## Whiteout — image layer
 
 Marker vo filesystem changesete, ktorý v merged image view skryje path existujúci v staršom immutable layeri bez odstránenia jeho pôvodných bytes. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+
+## Wildcard permission — Kubernetes RBAC
+
+RBAC pravidlo s `*` pre verbs, resources alebo API groups, ktoré zahŕňa aj budúce resources alebo capabilities pridané po upgrade. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
 ## Word splitting
 
