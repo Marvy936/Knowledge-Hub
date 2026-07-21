@@ -32,8 +32,13 @@ Odporúča sa najprv dokončiť:
 14. [Service a EndpointSlice](service-endpointslice.md)
 15. [Ingress a Gateway API](ingress-gateway-api.md)
 16. [Cluster DNS](cluster-dns.md)
+17. [CNI a NetworkPolicy](cni-networkpolicy.md)
+18. [Volumes, PV, PVC a StorageClass](volumes-pv-pvc-storageclass.md)
+19. [Scheduling](scheduling.md)
+20. [Requests, limits a QoS](requests-limits-qos.md)
+21. [Probes](probes.md)
 
-Nasledujúci blok prejde na CNI a NetworkPolicy, volumes/PV/PVC/StorageClass, scheduling, requests/limits/QoS a probes. Potom sekcia rozvinie taints, affinity, topology, autoscaling, RBAC, Pod security, quotas, cluster lifecycle, etcd recovery, upgrades, observability a troubleshooting.
+Nasledujúci blok prejde na taints, tolerations, affinity a topology, HPA/autoscaling, RBAC, SecurityContext/Pod Security a ResourceQuota/LimitRange. Potom sekcia rozvinie cluster installation/lifecycle, etcd recovery, upgrades, logging/metrics/events a systematické Kubernetes troubleshooting.
 
 ## Cieľ zvládnutia
 
@@ -136,7 +141,37 @@ Po dokončení aktuálneho bloku má byť možné:
 - používať Service FQDN, namespace search domains, `ndots`, headless records a SRV records,
 - rozlíšiť DNS policies `ClusterFirst`, `Default`, `ClusterFirstWithHostNet` a `None`,
 - vyhodnotiť caching, negative caching, UDP/TCP fallback, NodeLocal DNSCache a resolver loop failure,
-- systematicky odlíšiť cluster-local DNS, upstream DNS, Service dataplane a application connectivity problém.
+- systematicky odlíšiť cluster-local DNS, upstream DNS, Service dataplane a application connectivity problém,
+- vysvetliť Kubernetes Pod network model a CNI `ADD`/`DEL` lifecycle,
+- rozlíšiť overlay, routed, cloud-native a chained CNI dataplane modely,
+- diagnostikovať IPAM exhaustion, stale routes, tunnel/MTU a `FailedCreatePodSandBox` failures,
+- vysvetliť NetworkPolicy selection, ingress/egress isolation a additive union semantics,
+- navrhnúť default-deny policy s explicitným DNS a platform dependency prístupom,
+- používať `podSelector`, `namespaceSelector`, `ipBlock`, ports a protocols bez YAML/identity omylov,
+- rozlíšiť L3/L4 NetworkPolicy od L7 authorization a transport encryption,
+- vysvetliť volume, PVC, PV a StorageClass ako oddelené storage lifecycle contracts,
+- rozlíšiť ephemeral a persistent volumes, static a dynamic provisioning a Filesystem/Block mode,
+- interpretovať RWO, ROX, RWX a RWOP bez zamieňania access mode za application locking,
+- navrhnúť reclaim policy, finalizers, backup, restore a deletion workflow pre kritické dáta,
+- vysvetliť `Immediate` a `WaitForFirstConsumer` binding a storage topology coordination,
+- popísať CSI provision/attach/stage/publish lifecycle a diagnostikovať PVC `Pending`, `FailedMount`, multi-attach a node-affinity konflikt,
+- vysvetliť scheduling queue, filter/score/bind flow a Scheduling Framework extension points,
+- rozlíšiť scheduler placement od kubelet execution a Scheduled Pod od Running/Ready Podu,
+- vyhodnotiť requests, node allocatable, selectors, affinity, taints, topology, host ports a volumes pri scheduling-u,
+- vysvetliť PriorityClass, preemption, nominated Node a hranice preemption mechanizmu,
+- systematicky analyzovať `FailedScheduling` bez ručného `nodeName` obchádzania scheduleru,
+- rozlíšiť resource requests ako placement/reservation signal a limits ako runtime enforcement boundary,
+- vysvetliť CPU millicores, CPU throttling, memory OOM a ephemeral-storage eviction,
+- rozlíšiť container cgroup OOM, Node-level OOM a kubelet eviction,
+- vysvetliť Guaranteed, Burstable a BestEffort QoS a ich trade-offy,
+- zohľadniť init/sidecar resources, RuntimeClass overhead, huge pages a extended resources,
+- prepojiť requests s HPA/VPA, capacity planningom a cost modelom,
+- rozlíšiť startup, liveness a readiness probe podľa otázky a failure action,
+- používať HTTP, TCP, exec a gRPC probes s realistickými thresholds a timeoutmi,
+- navrhnúť startup okno a liveness signal bez restart stormu počas dependency outage,
+- vysvetliť, ako readiness ovplyvňuje Pod conditions, EndpointSlices a Deployment rollout,
+- používať readiness gates a probe-level termination grace iba s jasným controller/lifecycle contractom,
+- odlíšiť kubelet probe od end-to-end synthetic monitoring-u a diagnostikovať false failures pri load-e alebo throttlingu.
 
 ## Stav
 
@@ -158,3 +193,8 @@ Po dokončení aktuálneho bloku má byť možné:
 | Service a EndpointSlice | Learning | L2 |
 | Ingress a Gateway API | Learning | L2 |
 | Cluster DNS | Learning | L2 |
+| CNI a NetworkPolicy | Learning | L2 |
+| Volumes, PV, PVC a StorageClass | Learning | L2 |
+| Scheduling | Learning | L2 |
+| Requests, limits a QoS | Learning | L2 |
+| Probes | Learning | L2 |
