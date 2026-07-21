@@ -457,3 +457,11 @@ Relevantné pojmy: Terraform drift, remote drift, configuration drift, state dri
 - [Manage resource drift](https://developer.hashicorp.com/terraform/tutorials/state/resource-drift)
 - [Manage Terraform state](https://developer.hashicorp.com/terraform/tutorials/state)
 - [Terraform state](https://developer.hashicorp.com/terraform/language/state)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Lifecycle, import a moved blocks](lifecycle-import-moved-blocks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform testing a policy →](terraform-testing-and-policy.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

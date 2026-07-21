@@ -574,5 +574,5 @@ Relevantné pojmy: Terraform backend, local backend, remote backend, backend con
 
 **Navigácia**
 
-[← Predchádzajúca: Terraform state](terraform-state.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Terraform state](terraform-state.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Modules →](modules.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

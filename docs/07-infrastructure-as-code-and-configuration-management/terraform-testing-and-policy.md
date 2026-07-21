@@ -663,3 +663,11 @@ Relevantné pojmy: Terraform test, test file, plan test, apply test, mock provid
 - [Testing features in Terraform](https://developer.hashicorp.com/terraform/cli/test)
 - [`terraform test` command](https://developer.hashicorp.com/terraform/cli/commands/test)
 - [Terraform test files](https://developer.hashicorp.com/terraform/language/files/tests)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

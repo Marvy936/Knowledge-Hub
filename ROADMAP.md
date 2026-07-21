@@ -154,10 +154,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md)
 - [x] [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md)
 - [x] [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md)
-- [ ] Modules
-- [ ] Lifecycle, import a moved blocks
-- [ ] Drift
-- [ ] Terraform testing a policy
+- [x] [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md)
+- [x] [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md)
+- [x] [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md)
+- [x] [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md)
 - [ ] Ansible architecture
 - [ ] Inventory
 - [ ] Modules, tasks, plays a playbooks

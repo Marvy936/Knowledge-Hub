@@ -473,3 +473,11 @@ Relevantné pojmy: lifecycle meta-argument, create before destroy, prevent destr
 - [Import block reference](https://developer.hashicorp.com/terraform/language/block/import)
 - [Moved block reference](https://developer.hashicorp.com/terraform/language/block/moved)
 - [Manage resource lifecycle](https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Modules](modules.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Drift →](drift.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

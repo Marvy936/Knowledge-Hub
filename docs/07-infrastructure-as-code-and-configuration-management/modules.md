@@ -392,3 +392,11 @@ Relevantné pojmy: Terraform module, root module, child module, module source, m
 - [Modules overview](https://developer.hashicorp.com/terraform/language/modules)
 - [Use modules in your configuration](https://developer.hashicorp.com/terraform/language/modules/configuration)
 - [Develop modules](https://developer.hashicorp.com/terraform/language/modules/develop)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Remote backend a state locking](remote-backend-and-state-locking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Lifecycle, import a moved blocks →](lifecycle-import-moved-blocks.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
