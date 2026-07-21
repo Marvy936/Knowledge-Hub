@@ -1,6 +1,6 @@
 # Container Fundamentals and Docker
 
-Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker Engine, images, networking, storage, security, Dockerfile, Compose, BuildKit a troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, image, runtime, build, distribution a lifecycle modelu.
+Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker Engine, images, networking, storage, security, Dockerfile, Compose, BuildKit a systematické troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, image, runtime, build, distribution, configuration a lifecycle modelu.
 
 Containers nadväzujú na Linux namespaces, cgroups, capabilities, networking, filesystems, artifact versioning, registries, CI/CD a Infrastructure as Code. Docker je konkrétna platforma a toolchain nad širšími container a OCI princípmi.
 
@@ -30,12 +30,16 @@ Odporúča sa najprv dokončiť:
 12. [Multi-stage builds](multi-stage-builds.md)
 13. [Volumes a bind mounts](volumes-bind-mounts.md)
 14. [Docker networks a port publishing](docker-networks-port-publishing.md)
+15. [Environment variables a health checks](environment-variables-health-checks.md)
+16. [Docker Compose](docker-compose.md)
+17. [BuildKit a Buildx](buildkit-buildx.md)
+18. [Docker troubleshooting](docker-troubleshooting.md)
 
-Posledný blok sekcie doplní environment variables a health checks, Docker Compose, BuildKit a Buildx a systematické Docker troubleshooting.
+Po tejto sekcii nasleduje Kubernetes. Docker a OCI model poskytujú základ pre pochopenie Pod sandboxu, container runtime interface, image pullu, probes, Services, volumes, security contextu a node-level troubleshooting.
 
 ## Cieľ zvládnutia
 
-Po dokončení aktuálneho bloku má byť možné:
+Po dokončení sekcie má byť možné:
 
 - vysvetliť container ako izolovaný process alebo skupinu procesov, nie ako malú VM,
 - porovnať shared-kernel container model s hardware virtualization a guest-kernel modelom VM,
@@ -79,7 +83,26 @@ Po dokončení aktuálneho bloku má byť možné:
 - navrhnúť volume backup, migration, access-mode, fencing a cleanup lifecycle,
 - rozlíšiť Docker network driver, user-defined bridge, embedded DNS, network alias a host network mode,
 - vysvetliť `HOST_PORT:CONTAINER_PORT`, bind address a rozdiel medzi `EXPOSE` a publishingom,
-- diagnostikovať Docker bridge, firewall/NAT, port collision, MTU, conntrack, DNS a IPv4/IPv6 connectivity.
+- diagnostikovať Docker bridge, firewall/NAT, port collision, MTU, conntrack, DNS a IPv4/IPv6 connectivity,
+- rozlíšiť image `ENV`, runtime environment, Compose interpolation, `environment`, `env_file` a CLI override,
+- navrhnúť required/default/empty configuration semantics a zabrániť secret leakage cez environment a inspection,
+- vysvetliť Docker health status, timing parameters, health history a rozdiel medzi process state a application health,
+- odlíšiť liveness, readiness, startup a dependency health a nepreceňovať jeden Docker healthcheck,
+- používať Compose `depends_on` conditions bez zámieny startup ordering za runtime resilience,
+- vysvetliť Compose project, service, resource naming, default network a reconciliation pri `docker compose up`,
+- navrhnúť Compose model s explicitnými images, networks, volumes, configs, secrets, profiles a health dependencies,
+- kontrolovať resolved model cez `docker compose config` vrátane merge, include, extends a environment precedence,
+- chrániť Compose trust boundary pred privileged containers, host mounts, Docker socketom a nedôveryhodnými remote includes,
+- vysvetliť BuildKit graph execution, Dockerfile frontend, builder instance, node, driver a output exporter,
+- rozlíšiť `docker`, `docker-container`, Kubernetes a remote builder modely,
+- navrhnúť multi-platform build cez emulation, native nodes alebo cross-compilation,
+- používať `--load`, `--push`, external cache, secrets, SSH forwarding, provenance a SBOM s explicitným trust modelom,
+- oddeliť untrusted, protected a release builders a zabrániť cache poisoning alebo credential leakage,
+- diagnostikovať Docker po vrstvách od client/contextu cez daemon, runtime, process, storage, network až po host kernel,
+- zachovať evidence pred restartom, delete alebo prune operáciou,
+- interpretovať container state, exit codes, OOMKilled, health, events, logs a resolved inspect configuration,
+- diagnostikovať disk/inode exhaustion, image pull/platform failure, dynamic linker, permissions, mounts, DNS, MTU a published ports,
+- vytvoriť controlled reproduction a odstrániť root cause cez versionovaný rebuild/recreate workflow namiesto ručného container driftu.
 
 ## Stav
 
@@ -99,3 +122,7 @@ Po dokončení aktuálneho bloku má byť možné:
 | Multi-stage builds | Learning | L2 |
 | Volumes a bind mounts | Learning | L2 |
 | Docker networks a port publishing | Learning | L2 |
+| Environment variables a health checks | Learning | L2 |
+| Docker Compose | Learning | L2 |
+| BuildKit a Buildx | Learning | L2 |
+| Docker troubleshooting | Learning | L2 |
