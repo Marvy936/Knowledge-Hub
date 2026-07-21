@@ -43,10 +43,10 @@ Aktívne sekcie:
 1. [DevOps Foundations](docs/00-foundations/README.md)
 2. [Linux and Systems](docs/01-linux-and-systems/README.md)
 3. [Networking and Web Fundamentals](docs/02-networking-and-web/README.md)
+4. [Git and Automation Basics](docs/03-git-and-automation/README.md)
 
 Plánované hlavné domény:
 
-- Git a source control
 - Testing a software quality
 - CI/CD a release engineering
 - GitLab
@@ -62,7 +62,6 @@ Plánované hlavné domény:
 - Databases
 - Distributed systems
 - GitOps a platform engineering
-- Automation a scripting
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 
