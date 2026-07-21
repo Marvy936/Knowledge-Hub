@@ -4,7 +4,7 @@ Rýchly referenčný index technických pojmov používaných v Knowledge Hube. 
 
 ## A/B testing
 
-Kontrolovaný produktový experiment porovnávajúci výsledok kontrolnej a experimentálnej skupiny podľa vopred definovanej hypotézy a metrík. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+Riadený experiment porovnávajúci control a treatment variant na súbežných skupinách používateľov podľa vopred definovaných outcome a guardrail metrík. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
 ## Abort criterion
 
@@ -844,7 +844,7 @@ Dočasná branch určená na izolovaný vývoj jednej zmeny. Pri trunk-based mod
 
 ## Feature flag
 
-Konfiguračný mechanizmus oddeľujúci deployment kódu od sprístupnenia funkcionality konkrétnym používateľom, cohortám alebo percentu trafficu. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+Runtime control oddeľujúci deployment kódu od sprístupnenia capability pomocou versionovaného evaluation pravidla. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
 
 ## Feedback loop
 
@@ -1468,7 +1468,7 @@ Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká a
 
 ## Progressive delivery
 
-Delivery model, ktorý postupne zvyšuje exposure novej verzie alebo funkcionality podľa observability, experimentálnych metrík a automatizovaných promotion či rollback pravidiel. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+Evidence-driven riadenie postupnej produkčnej exposure pomocou rollout stratégie, segmentácie, observability, promotion policy a recovery mechanizmov. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
 
 ## Promotion evidence
 
