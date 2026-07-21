@@ -357,3 +357,11 @@ Relevantné pojmy: container registry, repository, tag, digest reference, immuta
 
 - [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec)
 - [Docker Registry overview](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Images, layers a copy-on-write](images-layers-copy-on-write.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Container networking →](container-networking.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

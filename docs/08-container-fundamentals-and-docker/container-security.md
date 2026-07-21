@@ -473,3 +473,11 @@ Relevantné pojmy: container threat model, container security baseline, trusted 
 - [Docker rootless mode](https://docs.docker.com/engine/security/rootless/)
 - [Docker seccomp profiles](https://docs.docker.com/engine/security/seccomp/)
 - [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Container storage](container-storage.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

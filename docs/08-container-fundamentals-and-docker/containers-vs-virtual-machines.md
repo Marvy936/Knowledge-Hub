@@ -635,5 +635,5 @@ Relevantné pojmy: container, virtual machine, hypervisor, guest OS, shared kern
 
 **Navigácia**
 
-[← Predchádzajúca: Terraform vs. Ansible](../07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Terraform vs. Ansible](../07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Namespaces, cgroups a capabilities →](namespaces-cgroups-capabilities.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

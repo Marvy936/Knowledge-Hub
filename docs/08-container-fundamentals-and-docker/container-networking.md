@@ -363,3 +363,11 @@ Relevantné pojmy: container network namespace, veth pair, Linux bridge, contain
 - [Docker networking overview](https://docs.docker.com/engine/network/)
 - [Linux network namespaces](https://man7.org/linux/man-pages/man7/network_namespaces.7.html)
 - [Linux bridge](https://docs.kernel.org/networking/bridge.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Registries](registries.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Container storage →](container-storage.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -173,13 +173,13 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 ### Container Fundamentals and Docker
 
 - [x] [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md)
-- [ ] Namespaces, cgroups a capabilities
-- [ ] OCI image a runtime standards
-- [ ] Images, layers a copy-on-write
-- [ ] Registries
-- [ ] Container networking
-- [ ] Container storage
-- [ ] Container security
+- [x] [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md)
+- [x] [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md)
+- [x] [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md)
+- [x] [Registries](docs/08-container-fundamentals-and-docker/registries.md)
+- [x] [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md)
+- [x] [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md)
+- [x] [Container security](docs/08-container-fundamentals-and-docker/container-security.md)
 - [ ] Docker architecture
 - [ ] Dockerfile
 - [ ] Build context a layer cache

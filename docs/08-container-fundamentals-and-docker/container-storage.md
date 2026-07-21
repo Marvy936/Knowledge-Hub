@@ -406,3 +406,11 @@ Relevantné pojmy: container volume, bind mount, tmpfs mount, storage driver, sn
 - [Docker volumes](https://docs.docker.com/engine/storage/volumes/)
 - [Docker bind mounts](https://docs.docker.com/engine/storage/bind-mounts/)
 - [Docker tmpfs mounts](https://docs.docker.com/engine/storage/tmpfs/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Container networking](container-networking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Container security →](container-security.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

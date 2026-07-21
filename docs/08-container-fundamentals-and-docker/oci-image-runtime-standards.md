@@ -337,3 +337,11 @@ Relevantné pojmy: OCI, OCI Image Specification, OCI Runtime Specification, OCI 
 - [OCI Image Specification](https://github.com/opencontainers/image-spec)
 - [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec)
 - [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Namespaces, cgroups a capabilities](namespaces-cgroups-capabilities.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Images, layers a copy-on-write →](images-layers-copy-on-write.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -326,3 +326,11 @@ Relevantné pojmy: Linux namespace, PID namespace, mount namespace, network name
 - [Control Group v2](https://docs.kernel.org/admin-guide/cgroup-v2.html)
 - [Linux capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html)
 - [Seccomp](https://docs.kernel.org/userspace-api/seccomp_filter.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Containers vs. virtual machines](containers-vs-virtual-machines.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OCI image a runtime standards →](oci-image-runtime-standards.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

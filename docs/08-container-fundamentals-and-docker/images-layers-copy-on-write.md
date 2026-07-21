@@ -325,3 +325,11 @@ Relevantné pojmy: image layer, filesystem changeset, copy-on-write, copy-up, lo
 - [OCI Image Specification](https://github.com/opencontainers/image-spec)
 - [Docker storage drivers](https://docs.docker.com/engine/storage/drivers/)
 - [Images and layers](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: OCI image a runtime standards](oci-image-runtime-standards.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Registries →](registries.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
