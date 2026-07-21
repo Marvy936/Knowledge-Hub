@@ -2,7 +2,7 @@
 
 Táto sekcia vysvetľuje cloud computing od service a deployment modelov cez global infrastructure, shared responsibility a high availability až po AWS accounts, identity, networking, compute, storage, databases, observability, security, cost a disaster recovery.
 
-Cieľom nie je memorovať názvy AWS služieb. Každá téma má vysvetliť ownership boundary, control plane, data plane, failure domains, security model, cost drivers a troubleshooting evidence.
+Cieľom nie je memorovať názvy AWS služieb. Každá téma má vysvetliť ownership boundary, control plane, data plane, failure domains, security model, cost drivers a troubleshooting evidence. Sekcia zároveň obsahuje samostatný prípravný track pre AWS Certified CloudOps Engineer – Associate (SOA-C03), ktorý mapuje hlavnú osnovu na exam domains a dopĺňa timed reasoning, hands-on laby a troubleshooting drilly.
 
 ## Predpoklady
 
@@ -24,8 +24,25 @@ Odporúča sa najprv dokončiť:
 5. [Scalability, elasticity a fault tolerance](scalability-elasticity-fault-tolerance.md)
 6. [High availability a disaster recovery](high-availability-disaster-recovery.md)
 7. [AWS Organizations a accounts](aws-organizations-accounts.md)
+8. [IAM](iam.md)
+9. [VPC, subnets a route tables](vpc-subnets-route-tables.md)
+10. [Internet Gateway a NAT Gateway](internet-gateway-nat-gateway.md)
+11. [Security Groups a Network ACLs](security-groups-network-acls.md)
 
-Nasledujúci blok prejde na AWS identity a network foundation: IAM principals, policies a roles, STS a federation, VPC, subnets, routing, security groups, NACLs a hybrid connectivity.
+Nasledujúci AWS service blok prejde na EC2 a Auto Scaling, Elastic Load Balancing, S3/EBS/EFS, RDS a Route 53/CloudFront.
+
+## AWS Certified CloudOps Engineer – Associate track
+
+Certifikačný track nepoužíva druhú duplicitnú service osnovu. Mapuje hlavné AWS kapitoly na aktuálny SOA-C03 exam guide a pridáva samostatné praktické vrstvy:
+
+- [SOA-C03 exam guide a gap map](cloudops-engineer-associate-soa-c03.md)
+- [CloudOps domain review a timed reasoning](cloudops-domain-review-timed-reasoning.md)
+- [CloudOps hands-on labs](cloudops-hands-on-labs.md)
+- [CloudOps troubleshooting drills](cloudops-troubleshooting-drills.md)
+- [Praktické AWS CloudOps laby](../../labs/aws-cloudops/README.md)
+- [AWS CloudOps troubleshooting scenáre](../../troubleshooting/aws-cloudops/README.md)
+
+SOA-C03 je 130-minútová multiple-choice/multiple-response skúška, nie hands-on performance exam. Laby preto overujú reálne operations schopnosti a timed reasoning trénuje exam-format rozhodovanie. Po dokončení AWS service osnovy sa certifikačné kapitoly zaradia na jej koniec v lineárnej roadmape.
 
 ## Cieľ zvládnutia
 
@@ -71,7 +88,28 @@ Po dokončení aktuálneho bloku má byť možné:
 - vysvetliť SCP inheritance, deny-list a allow-list trade-offy a management-account výnimku,
 - navrhnúť account vending, federovaný workforce access, delegated administration a cross-account role model,
 - oddeliť log archive, security tooling, network, shared services, production, sandbox a quarantine accounts,
-- vykonať bezpečný account decommissioning a break-glass access test.
+- vykonať bezpečný account decommissioning a break-glass access test,
+- vysvetliť IAM ako request authorization system založený na principal, action, resource, request context a applicable policies,
+- rozlíšiť IAM user, role, role session, trust policy, identity policy a resource policy,
+- používať STS temporary credentials, federation a IAM Identity Center namiesto bežných long-lived user keys,
+- vyhodnotiť explicit deny, permissions boundary, session policy, SCP/RCP a cross-account policy boundary,
+- diagnostikovať `AccessDenied`, KMS-dependent permission, trust a `iam:PassRole` failure bez broad privilege escalation,
+- navrhnúť VPC CIDR a subnet model s growth, hybrid connectivity a IP-capacity headroomom,
+- vysvetliť VPC router, route table, main association, local route a longest-prefix-match,
+- rozlíšiť public, private a isolated subnet podľa reálneho route/addressing modelu,
+- používať VPC peering, Transit Gateway a gateway/interface endpoints podľa connectivity scope-u,
+- diagnostikovať routing cez source/destination ENI, subnet route, transit target, destination controls a return path,
+- vysvetliť Internet Gateway, public NAT Gateway, private NAT Gateway a egress-only Internet Gateway,
+- navrhnúť AZ-local private egress bez single-AZ NAT dependency,
+- vyhodnotiť NAT connection/port capacity, data-processing a cross-AZ cost,
+- používať VPC endpoints ako private a často cost-efficient alternative k NAT pathu pre podporované služby,
+- rozlíšiť stateful Security Groups od stateless ordered Network ACLs,
+- používať SG references, prefix lists a purpose-specific workload communication contracts,
+- diagnostikovať SG/NACL/load-balancer path cez VPC Flow Logs, Reachability Analyzer a live configuration,
+- vytvoriť SOA-C03 domain gap map s váhami 22/22/22/16/18,
+- riešiť scenario questions podľa outcome, constraints, scope, responsibility a operational trade-offu,
+- vykonávať cost-safe AWS hands-on laby s observability, fault injection, hard validation a cleanupom,
+- viesť CloudOps troubleshooting drilly cez account/Region baseline, evidence, minimálnu remediation a pozitívnu aj negatívnu validáciu.
 
 ## Stav
 
@@ -84,3 +122,7 @@ Po dokončení aktuálneho bloku má byť možné:
 | Scalability, elasticity a fault tolerance | Learning | L2 |
 | High availability a disaster recovery | Learning | L2 |
 | AWS Organizations a accounts | Learning | L2 |
+| IAM | Learning | L2 |
+| VPC, subnets a route tables | Learning | L2 |
+| Internet Gateway a NAT Gateway | Learning | L2 |
+| Security Groups a Network ACLs | Learning | L2 |
