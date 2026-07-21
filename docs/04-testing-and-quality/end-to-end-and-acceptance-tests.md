@@ -405,3 +405,11 @@ Business feedback prichádza príliš neskoro namiesto priebežnej collaboration
 ## Glossary impact
 
 Relevantné pojmy: end-to-end test, acceptance test, UAT, operational acceptance testing, critical user journey, service virtualization, BDD, executable specification, page object, synthetic transaction a failure artifact.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Contract a API tests](contract-and-api-tests.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Smoke a regression tests →](smoke-and-regression-tests.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

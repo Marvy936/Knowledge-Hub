@@ -417,3 +417,11 @@ Pri API runtime failure navyše kontroluj:
 ## Glossary impact
 
 Relevantné pojmy: API contract, contract test, consumer-driven contract, provider state, backward compatibility, forward compatibility, tolerant reader, schema registry, API test a compatibility matrix.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Unit, integration a component tests](unit-integration-component-tests.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: End-to-end a acceptance tests →](end-to-end-and-acceptance-tests.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

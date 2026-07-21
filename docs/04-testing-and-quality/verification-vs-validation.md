@@ -294,3 +294,11 @@ Pre každú významnú zmenu sa opýtaj:
 ## Glossary impact
 
 Relevantné pojmy: verification, validation, test oracle, requirement traceability, false positive, false negative, static analysis, dynamic testing a quality gate.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: YAML, JSON a regular expressions](../03-git-and-automation/yaml-json-regular-expressions.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Test pyramid →](test-pyramid.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

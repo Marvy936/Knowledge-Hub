@@ -302,3 +302,11 @@ Pre nový test sa opýtaj:
 ## Glossary impact
 
 Relevantné pojmy: test pyramid, test trophy, test diamond, ice cream cone, test scope, fidelity, determinism, test portfolio a quarantine.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Verification vs. validation](verification-vs-validation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Unit, integration a component tests →](unit-integration-component-tests.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

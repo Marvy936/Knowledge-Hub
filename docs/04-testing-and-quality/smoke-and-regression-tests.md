@@ -389,3 +389,11 @@ production
 ## Glossary impact
 
 Relevantné pojmy: smoke test, Build Verification Test, sanity test, regression test, visual regression, snapshot test, test impact analysis, risk-based testing, synthetic monitoring a baseline.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: End-to-end a acceptance tests](end-to-end-and-acceptance-tests.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

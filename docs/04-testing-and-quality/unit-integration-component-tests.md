@@ -372,3 +372,11 @@ Testy závisia od poradia a paralelného timing-u.
 ## Glossary impact
 
 Relevantné pojmy: unit test, integration test, component test, sociable unit test, solitary unit test, test double, stub, fake, mock, spy, hermetic test, fixture a mutation testing.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Test pyramid](test-pyramid.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Contract a API tests →](contract-and-api-tests.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

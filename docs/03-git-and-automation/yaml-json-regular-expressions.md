@@ -761,5 +761,5 @@ Relevantné pojmy: JSON object, JSON Schema, canonicalization, YAML mapping, YAM
 
 **Navigácia**
 
-[← Predchádzajúca: Python for automation](python-for-automation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Python for automation](python-for-automation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Verification vs. validation →](../04-testing-and-quality/verification-vs-validation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

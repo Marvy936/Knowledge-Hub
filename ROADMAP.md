@@ -91,12 +91,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Testing and Software Quality
 
-- [ ] Verification vs. validation
-- [ ] Test pyramid
-- [ ] Unit, integration a component tests
-- [ ] Contract a API tests
-- [ ] End-to-end a acceptance tests
-- [ ] Smoke a regression tests
+- [x] [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md)
+- [x] [Test pyramid](docs/04-testing-and-quality/test-pyramid.md)
+- [x] [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md)
+- [x] [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md)
+- [x] [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md)
+- [x] [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md)
 - [ ] Performance, load a stress tests
 - [ ] Security a infrastructure tests
 - [ ] Static analysis, linting a type checking
