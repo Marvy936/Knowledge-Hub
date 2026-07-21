@@ -37,8 +37,13 @@ Odporúča sa najprv dokončiť:
 19. [Scheduling](scheduling.md)
 20. [Requests, limits a QoS](requests-limits-qos.md)
 21. [Probes](probes.md)
+22. [Taints, tolerations, affinity a topology](taints-tolerations-affinity-topology.md)
+23. [HPA a autoscaling](hpa-autoscaling.md)
+24. [RBAC](rbac.md)
+25. [SecurityContext a Pod Security](securitycontext-pod-security.md)
+26. [ResourceQuota a LimitRange](resourcequota-limitrange.md)
 
-Nasledujúci blok prejde na taints, tolerations, affinity a topology, HPA/autoscaling, RBAC, SecurityContext/Pod Security a ResourceQuota/LimitRange. Potom sekcia rozvinie cluster installation/lifecycle, etcd recovery, upgrades, logging/metrics/events a systematické Kubernetes troubleshooting.
+Záverečný Kubernetes blok prejde na cluster installation a lifecycle, etcd backup/restore, upgrades, logging/metrics/events a systematické Kubernetes troubleshooting. Potom roadmapa pokračuje sekciou Helm and CKA.
 
 ## Cieľ zvládnutia
 
@@ -171,7 +176,37 @@ Po dokončení aktuálneho bloku má byť možné:
 - navrhnúť startup okno a liveness signal bez restart stormu počas dependency outage,
 - vysvetliť, ako readiness ovplyvňuje Pod conditions, EndpointSlices a Deployment rollout,
 - používať readiness gates a probe-level termination grace iba s jasným controller/lifecycle contractom,
-- odlíšiť kubelet probe od end-to-end synthetic monitoring-u a diagnostikovať false failures pri load-e alebo throttlingu.
+- odlíšiť kubelet probe od end-to-end synthetic monitoring-u a diagnostikovať false failures pri load-e alebo throttlingu,
+- rozlíšiť node labels, node affinity, Pod affinity/anti-affinity, taints/tolerations a topology spread podľa ich scheduling účelu,
+- navrhnúť dedicated Node pool kombináciou taintu, toleration, labelu a required node affinity,
+- vysvetliť `NoSchedule`, `PreferNoSchedule`, `NoExecute` a `tolerationSeconds`,
+- používať hard a soft affinity bez placement deadlocku,
+- navrhnúť zone a Node-level topology spread s realistickým `maxSkew` a rollout capacity,
+- diagnostikovať `FailedScheduling` spôsobený konfliktom placement, storage topology alebo Node autoscaling modelu,
+- vysvetliť HPA controller, scale subresource a desired replica calculation,
+- používať resource, container, custom, object a external metrics podľa business contractu,
+- navrhnúť scale-up/down policies, stabilization windows, min/max replicas a saturation alerting,
+- vysvetliť interakciu HPA s requests, readiness, Deployment rolloutom, StatefulSetom, GitOps a Node autoscalingom,
+- rozlíšiť HPA, VPA, Node autoscaling a event-driven autoscaling,
+- diagnostikovať unknown metrics, flapping, max-replica saturation a Pending Pody po scale-upe,
+- vysvetliť Kubernetes RBAC ako aditívnu authorization vrstvu oddelenú od authentication a admission,
+- rozlíšiť Role, ClusterRole, RoleBinding a ClusterRoleBinding,
+- navrhovať rules cez explicitné API groups, resources, verbs, subresources a namespace scope,
+- používať `kubectl auth can-i` a access review APIs pri diagnostike `403 Forbidden`,
+- rozpoznať privilege escalation cez Secrets, workload creation, exec/proxy, `bind`, `escalate`, `impersonate` alebo CSR approval,
+- obmedziť wildcard permissions, aggregated roles a GitOps identities podľa least privilege,
+- vysvetliť Pod a container `securityContext`, UID/GID, `fsGroup`, capabilities a `allowPrivilegeEscalation`,
+- používať non-root runtime, read-only root filesystem a explicitné writable mounts,
+- rozlíšiť seccomp, AppArmor a SELinux policy vrstvy,
+- vyhodnotiť riziká privileged containers, host namespaces, hostPath, devices a runtime sockets,
+- rozlíšiť Pod Security Standards profily Privileged, Baseline a Restricted,
+- zavádzať Pod Security Admission cez versionované `enforce`, `audit` a `warn` namespace labels,
+- navrhnúť auditovaný exception model pre privilegované systémové workloads,
+- rozlíšiť ResourceQuota ako agregovaný namespace strop a LimitRange ako per-object/defaulting policy,
+- používať compute, storage a object-count quota vrátane scope a PriorityClass modelu,
+- vysvetliť `default`, `defaultRequest`, min/max a `maxLimitRequestRatio`,
+- odôvodniť, prečo quota nie je rezervovaná Node capacity ani runtime throttling,
+- diagnostikovať admission rejection, quota saturation, HPA/Job scale failure a PVC quota konflikt.
 
 ## Stav
 
@@ -198,3 +233,8 @@ Po dokončení aktuálneho bloku má byť možné:
 | Scheduling | Learning | L2 |
 | Requests, limits a QoS | Learning | L2 |
 | Probes | Learning | L2 |
+| Taints, tolerations, affinity a topology | Learning | L2 |
+| HPA a autoscaling | Learning | L2 |
+| RBAC | Learning | L2 |
+| SecurityContext a Pod Security | Learning | L2 |
+| ResourceQuota a LimitRange | Learning | L2 |
