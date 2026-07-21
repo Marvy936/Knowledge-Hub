@@ -70,6 +70,10 @@ IPv4 protokol mapujúci lokálnu next-hop IP adresu na MAC adresu. Pozri [Ethern
 
 Jednoznačne identifikovateľný výstup build procesu určený na testovanie alebo distribúciu. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Artifact promotion
+
+Presun už vytvoreného a overeného immutable artifactu medzi environmentmi alebo release stages bez jeho opätovného rebuildovania. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
 ## Asymmetric routing
 
 Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
@@ -85,6 +89,14 @@ Zápis cez dočasný súbor, validáciu a atomický rename/replace tak, aby cons
 ## Attack surface
 
 Súbor rozhraní, vstupov, identities a trust boundaries, cez ktoré môže aktér ovplyvniť systém. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
+
+## Automated promotion
+
+Policy-driven rozhodnutie posunúť artifact alebo rollout do ďalšej fázy bez manuálneho approvalu na základe testov, provenance, health a risk signálov. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Automatic rollback
+
+Automatizovaný návrat na predchádzajúcu kompatibilnú verziu po detekcii spoľahlivého failure signálu. Nie je bezpečný pri každej stateful alebo nevratnej zmene. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Automation
 
@@ -154,9 +166,17 @@ Serverová policy obmedzujúca aktualizáciu dôležitej branch pomocou controls
 
 L2 oblasť, v ktorej sa šíri Ethernet broadcast. Typicky ju oddeľuje router alebo VLAN boundary. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
 
+## Broken main
+
+Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality gates a nemá byť považovaná za dôveryhodný integračný základ. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## Build
 
 Proces transformujúci zdrojové vstupy na spustiteľný alebo distribuovateľný artifact. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
+
+## Build once
+
+Princíp vytvoriť pre konkrétny source commit jeden immutable artifact a ten istý artifact následne testovať a promovať medzi prostrediami. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## Build Verification Test
 
@@ -169,6 +189,10 @@ HTTP response/request header definujúci freshness, revalidation, storage a shar
 ## CALMS
 
 DevOps rámec Culture, Automation, Lean, Measurement a Sharing. Pozri [CALMS framework](docs/00-foundations/calms.md).
+
+## Canary analysis
+
+Automatizované alebo riadené porovnanie novej verzie s baseline či kontrolnou skupinou podľa technických a business metrík počas obmedzeného rollout-u. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Canary release
 
@@ -310,6 +334,18 @@ Objekt alebo generator riadiaci vstup a výstup z lifecycle scope, napríklad ot
 
 Prechod CPU z vykonávania jedného threadu na iný. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
+## Continuous Delivery
+
+Schopnosť udržiavať systém a jeho artifacty v stave pripravenom na bezpečný, opakovateľný a auditovateľný produkčný deployment na požiadanie. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
+## Continuous Deployment
+
+Delivery model, v ktorom každá zmena spĺňajúca automatizované quality a policy podmienky pokračuje bez manuálneho release approvalu do produkcie. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Continuous Integration
+
+Pracovný a technický model častej integrácie malých zmien do spoločnej hlavnej línie s automatizovaným buildom, kontrolami a rýchlym feedbackom. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## Contract drift
 
 Rozdiel medzi správaním test double alebo dokumentovaného kontraktu a skutočnou dependency. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
@@ -394,6 +430,10 @@ Najmenej špecifická route `0.0.0.0/0` alebo `::/0`, použitá ak neexistuje pr
 
 Presne vyriešený zoznam versions priamych a transitívnych dependencies určený na reprodukovateľnú inštaláciu. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Deployable state
+
+Stav, v ktorom existuje dôveryhodný immutable artifact, potrebné dôkazy, kompatibilná konfigurácia, deployment automation, observability a recovery plán umožňujúci bezpečný deployment. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
 ## Deployment
 
 Technická operácia umiestnenia verzie aplikácie alebo konfigurácie do cieľového prostredia. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
@@ -401,6 +441,14 @@ Technická operácia umiestnenia verzie aplikácie alebo konfigurácie do cieľo
 ## Deployment frequency
 
 Ako často služba úspešne nasadzuje zmeny do produkcie. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
+
+## Deployment marker
+
+Časovo a verziou označená udalosť v observability systéme umožňujúca korelovať zmenu error rate, latency alebo business metrík s konkrétnym deploymentom. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Deployment pipeline
+
+Automatizovaný tok od source zmeny cez build, testy, artifact, environment deployment a validáciu až po produkčne pripraveného alebo nasadeného kandidáta. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
 ## Deployment rework rate
 
@@ -517,6 +565,10 @@ Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo pr
 ## Enforcing mode
 
 Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Environment promotion
+
+Riadený posun rovnakého artifactu do ďalšieho prostredia na základe dôkazov, policy a compatibility podmienok. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
 ## Environment variable
 
@@ -842,6 +894,10 @@ Link-layer identifikátor interface používaný na Ethernet forwarding v lokál
 
 Bezpečnostná politika vynútená systémom nad rámec rozhodnutí ownera objektu. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Mainline
+
+Spoločná integračná línia, typicky `main`, reprezentujúca najaktuálnejší dôveryhodný integrovaný stav projektu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## `memory.high`
 
 Cgroup v2 memory hranica vyvolávajúca reclaim pressure a throttling. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
@@ -1042,6 +1098,10 @@ Cgroup controller obmedzujúci počet procesov alebo threadov cez `pids.max`. Po
 
 Shell option, ktorá spôsobí, že pipeline vráti nenulový status pri zlyhaní ktoréhokoľvek člena, nie iba posledného príkazu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
 
+## Pipeline cache
+
+Dočasné znovupoužiteľné dáta určené na zrýchlenie pipeline, napríklad dependencies alebo compiler outputs. Cache nie je release artifact ani source of truth. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## Pipeline — shell
 
 Reťaz procesov, v ktorej stdout jedného procesu smeruje do stdin ďalšieho. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
@@ -1085,6 +1145,10 @@ Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká a
 ## Progressive delivery
 
 Delivery model, ktorý postupne zvyšuje exposure novej verzie alebo funkcionality podľa observability, experimentálnych metrík a automatizovaných promotion či rollback pravidiel. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Protected environment
+
+Environment s obmedzenou deployment identitou, approval alebo policy pravidlami a auditom, používaný najmä pre produkciu a citlivé stages. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
 ## Provider state
 
@@ -1166,6 +1230,10 @@ Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používate�
 
 Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
 
+## Reproducible build
+
+Build proces, pri ktorom rovnaké explicitné vstupy a toolchain vytvoria rovnaký alebo ekvivalentný výsledný artifact. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## Requirement traceability
 
 Väzba od business potreby a požiadavky cez risk a control až po test a dôkaz výsledku. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
@@ -1194,6 +1262,10 @@ Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočné
 
 Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad TLS termination, routing alebo caching. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
 
+## Risk-based deployment
+
+Rollout policy, ktorá mení exposure, observation window, approval alebo recovery mechanizmus podľa business criticality, blast radiusu a compatibility rizika konkrétnej zmeny. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
 ## Roll-forward
 
 Náprava zlyhania nasadením novej opravnej verzie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
@@ -1221,6 +1293,10 @@ Množstvo pages procesu aktuálne resident v RAM. Pozri [Memory a CPU fundamenta
 ## RTO — Recovery Time Objective
 
 Maximálny prijateľný čas na obnovenie služby alebo business capability po katastrofickom zlyhaní. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Runner isolation
+
+Oddelenie CI jobov, workspace, credentials, cache a execution environmentov tak, aby sa obmedzil cross-project contamination a persistence nedôveryhodného stavu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## Runspace — PowerShell
 
@@ -1265,6 +1341,10 @@ Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Dev
 ## SELinux security context
 
 Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne level/range. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Separation of duties
+
+Rozdelenie právomocí tak, aby citlivú zmenu nevytvorila, neschválila a nenasadila bez nezávislej kontroly jediná identita; môže byť implementované automatizovanými policy a approvals. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
 ## Service virtualization
 
@@ -1497,6 +1577,10 @@ Plánovateľná vykonávacia jednotka v rámci procesu. Pozri [Procesy, thready,
 ## Throughput
 
 Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Time to first feedback
+
+Čas od vzniku alebo odoslania zmeny po prvý relevantný a diagnostikovateľný výsledok pipeline. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## `TIME-WAIT`
 
