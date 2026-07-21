@@ -292,3 +292,11 @@ Vytvára drift. Použi reusable automation alebo central platform capability.
 ## Glossary impact
 
 Relevantné pojmy: monorepo, multirepo, atomic change, affected-project detection, dependency graph, path ownership, artifact registry, hybrid repository model.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Branching strategies](branching-strategies.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

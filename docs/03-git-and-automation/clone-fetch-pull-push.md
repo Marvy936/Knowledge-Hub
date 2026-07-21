@@ -363,3 +363,11 @@ Má obmedzený graph a odlišné správanie niektorých operácií.
 ## Glossary impact
 
 Relevantné pojmy: remote, origin, fetch, pull, push, refspec, upstream branch, remote-tracking ref, shallow clone, partial clone, bare repository, mirror.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Commit, branch, tag a HEAD](commit-branch-tag-head.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Merge a rebase →](merge-and-rebase.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -259,3 +259,11 @@ Apply je bezpečnejší, keď chceš najprv overiť výsledok.
 ## Glossary impact
 
 Relevantné pojmy: cherry-pick, backport, mainline parent, patch identity, stash, stash apply, stash pop, WIP commit.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Reset, revert a restore](reset-revert-restore.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Konflikty →](merge-conflicts.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

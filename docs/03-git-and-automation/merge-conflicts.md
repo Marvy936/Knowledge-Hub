@@ -283,3 +283,11 @@ Má sa regenerovať oficiálnym nástrojom podľa resolved source declarations.
 ## Glossary impact
 
 Relevantné pojmy: merge conflict, conflict marker, index stage, ours, theirs, semantic conflict, rename detection, merge driver, rerere.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cherry-pick a stash](cherry-pick-and-stash.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Branching strategies →](branching-strategies.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -206,3 +206,11 @@ Vytvorí nový commit object.
 ## Glossary impact
 
 Relevantné pojmy: reset, soft reset, mixed reset, hard reset, restore, revert, mainline parent, amend, ORIG_HEAD.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Merge a rebase](merge-and-rebase.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cherry-pick a stash →](cherry-pick-and-stash.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

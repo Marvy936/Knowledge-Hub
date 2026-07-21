@@ -296,3 +296,11 @@ Nie. Preferuje ours iba pri konfliktoch.
 ## Glossary impact
 
 Relevantné pojmy: merge base, three-way merge, fast-forward merge, merge commit, rebase, interactive rebase, squash merge, history rewrite, rerere, range-diff.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Clone, fetch, pull a push](clone-fetch-pull-push.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Reset, revert a restore →](reset-revert-restore.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

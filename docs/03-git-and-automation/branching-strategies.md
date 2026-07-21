@@ -301,3 +301,11 @@ release branches iba pri reálnej podpore viacerých verzií
 ## Glossary impact
 
 Relevantné pojmy: trunk-based development, feature branch, Git Flow, release branch, hotfix branch, feature flag, branch protection, merge queue, squash merge.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Konflikty](merge-conflicts.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Monorepo vs. multirepo →](monorepo-vs-multirepo.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

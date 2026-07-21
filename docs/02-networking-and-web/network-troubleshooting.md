@@ -565,5 +565,5 @@ Treba overiť správny business výsledok, latency a všetky failure domains.
 
 **Navigácia**
 
-[← Predchádzajúca: REST APIs a WebSockets](rest-apis-and-websockets.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: REST APIs a WebSockets](rest-apis-and-websockets.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Git object model →](../03-git-and-automation/git-object-model.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

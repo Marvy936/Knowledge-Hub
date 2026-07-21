@@ -72,16 +72,16 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Git and Automation Basics
 
-- [ ] Git object model
-- [ ] Working tree, staging area a repository
-- [ ] Commit, branch, tag a HEAD
-- [ ] Clone, fetch, pull a push
-- [ ] Merge a rebase
-- [ ] Reset, revert a restore
-- [ ] Cherry-pick a stash
-- [ ] Konflikty
-- [ ] Branching strategies
-- [ ] Monorepo vs. multirepo
+- [x] [Git object model](docs/03-git-and-automation/git-object-model.md)
+- [x] [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md)
+- [x] [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md)
+- [x] [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md)
+- [x] [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md)
+- [x] [Reset, revert a restore](docs/03-git-and-automation/reset-revert-restore.md)
+- [x] [Cherry-pick a stash](docs/03-git-and-automation/cherry-pick-and-stash.md)
+- [x] [Konflikty](docs/03-git-and-automation/merge-conflicts.md)
+- [x] [Branching strategies](docs/03-git-and-automation/branching-strategies.md)
+- [x] [Monorepo vs. multirepo](docs/03-git-and-automation/monorepo-vs-multirepo.md)
 - [ ] Bash automation
 - [ ] PowerShell fundamentals
 - [ ] Python for automation

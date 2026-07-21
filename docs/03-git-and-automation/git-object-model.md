@@ -311,3 +311,11 @@ Hash dokazuje väzbu identity objektu na obsah, nie ľudskú alebo organizačnú
 ## Glossary impact
 
 Relevantné pojmy: blob, tree, commit object, object ID, content-addressable storage, ref, reachability, packfile, reflog.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Network troubleshooting](../02-networking-and-web/network-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Working tree, staging area a repository →](working-tree-staging-repository.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

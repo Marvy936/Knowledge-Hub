@@ -335,3 +335,11 @@ Nie je v repository.
 ## Glossary impact
 
 Relevantné pojmy: working tree, staging area, index, tracked, untracked, ignored file, partial staging, conflict stages, sparse checkout.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Git object model](git-object-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Commit, branch, tag a HEAD →](commit-branch-tag-head.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

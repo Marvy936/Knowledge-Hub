@@ -317,3 +317,11 @@ Nie. Je to validný stav, iba commits nemajú automaticky branch ref.
 ## Glossary impact
 
 Relevantné pojmy: branch, tag, annotated tag, HEAD, detached HEAD, ref, remote-tracking ref, upstream branch, fast-forward, reflog.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Working tree, staging area a repository](working-tree-staging-repository.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Clone, fetch, pull a push →](clone-fetch-pull-push.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
