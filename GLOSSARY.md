@@ -582,6 +582,22 @@ Inventory transformation model vytvárajúci derived variables a groups z existu
 
 Kontrakt definovaný consumerom podľa interactions, ktoré reálne potrebuje, a overovaný providerom v jeho pipeline. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
 
+## Container
+
+Izolovaný runtime process alebo skupina procesov používajúca host kernel a oddelený pohľad na resources cez namespaces, cgroups a ďalšie security controls. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Container escape
+
+Prelomenie container isolation boundary, pri ktorom process získa access k hostu alebo iným workloads. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Container image
+
+Versionovaný a typicky content-addressed filesystem a runtime-metadata artifact používaný na vytvorenie container instance; bežne neobsahuje kernel použitý pri runtime. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Container runtime
+
+Software vrstva pripravujúca container filesystem, namespaces, cgroups, process a lifecycle podľa runtime configuration alebo štandardu. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
 ## Container scanning — GitLab
 
 Security scan konkrétneho container image digestu zameraný najmä na známe vulnerabilities v OS packages a podľa capability scanneru aj ďalšom image obsahu. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
@@ -1022,6 +1038,10 @@ Stav, keď host alebo NAT nemá voľný transportný port pre nový flow. Pozri 
 
 Runner worker alebo execution instance vytvorená pre jeden job alebo krátky workload interval a po dokončení zrušená, čím sa znižuje cross-job state contamination. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
 
+## Ephemeral runtime instance
+
+Nahraditeľná runtime inštancia, ktorej lokálny procesový a writable-layer stav nie je považovaný za jediný persistentný zdroj dát. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
 ## ETag
 
 HTTP validator reprezentácie používaný na cache revalidation a optimistic concurrency cez conditional requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
@@ -1306,6 +1326,10 @@ Udelenie accessu projektu alebo group členom inej group s definovaným maximum 
 
 Metrika chrániaca experiment alebo rollout pred neprijateľným vedľajším dopadom, aj keď primary metric vyzerá pozitívne. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Guest operating system
+
+Operačný systém bežiaci vo virtual machine nad virtualizovaným hardware a vlastným guest kernelom. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
 ## Handler deduplication — Ansible
 
 Správanie, pri ktorom viac notifications rovnakého handlera v príslušnej handler phase vedie typicky k jednému vykonaniu handlera na host. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
@@ -1377,6 +1401,10 @@ HTTP verzia používajúca QUIC nad UDP s nezávislejším stream loss recovery 
 ## Hypercare
 
 Dočasne zvýšená prevádzková a support pozornosť po významnom release, vrátane posilneného monitoringu, owner dostupnosti a rýchleho rozhodovacieho pathu. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
+## Hypervisor
+
+Virtualization vrstva poskytujúca virtual hardware a izoláciu pre virtual machines. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## IaC scanning
 
@@ -1497,6 +1525,10 @@ Adresy `10.0.0.0/8`, `172.16.0.0/12` a `192.168.0.0/16`, ktoré nie sú globáln
 ## IPv6 link-local address
 
 IPv6 adresa z `fe80::/10` platná v lokálnom linkovom scope. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Isolation boundary
+
+Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads, napríklad shared-kernel container boundary alebo hypervisor/VM boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Jinja template — Ansible
 
@@ -1681,6 +1713,10 @@ Mechanizmus, ktorý testuje a integruje pull requests v plánovanom poradí prot
 ## Merge train — GitLab
 
 Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich integrácie do target branch, aby chránil mainline health pri concurrency. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
+
+## MicroVM
+
+Minimalizovaná virtual machine navrhnutá na rýchlejší startup a menší overhead pri zachovaní samostatnej virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Minimum detectable effect
 
@@ -2438,6 +2474,10 @@ Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpe�
 
 Významný rozdiel medzi plánovaným a reálnym pomerom experimentálnych variantov, ktorý môže signalizovať assignment, exposure, crash, logging alebo eligibility problém. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Sandboxed container runtime
+
+Runtime model pridávajúci medzi container workload a host kernel ďalšiu isolation vrstvu, napríklad user-space kernel alebo lightweight virtual machine. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
 ## Sanity test
 
 Krátka cielená kontrola konkrétnej zmeny alebo opravy. Význam sa medzi tímami líši, preto musí mať explicitný scope. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
@@ -2533,6 +2573,10 @@ Kópia reálneho produkčného trafficu posielaná novému systému bez použiti
 ## Shallow clone
 
 Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižuje prenos, ale obmedzuje operácie závislé od plného commit graphu. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Shared kernel
+
+Model, v ktorom viac host a container processes používa ten istý kernel, hoci môže mať odlišné namespace views a resource limits. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Shell executor — GitLab Runner
 
@@ -3006,6 +3050,10 @@ Constraint vyjadrujúci množinu akceptovaných dependency versions, ktorého ko
 
 Izolované Python prostredie s vlastným interpreter contextom a nainštalovanými packages. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Virtual machine — VM
+
+Izolovaný machine environment s virtualizovaným hardware, vlastným guest kernelom a guest userspace, ktorý poskytuje hypervisor. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
 ## Virtual memory
 
 Abstrakcia, pri ktorej má proces vlastný virtuálny adresný priestor mapovaný kernelom na RAM, files alebo swap. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -3013,6 +3061,10 @@ Abstrakcia, pri ktorej má proces vlastný virtuálny adresný priestor mapovan�
 ## VLAN — Virtual LAN
 
 Logicky oddelený Ethernet broadcast domain, často prenášaný cez 802.1Q tagging. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## VM escape
+
+Prelomenie guest/hypervisor isolation boundary, pri ktorom code z virtual machine ovplyvní hypervisor, host alebo inú VM. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## VSZ — Virtual Set Size
 
@@ -3054,9 +3106,17 @@ Versionovaný reusable opis viacerých jobs, dependencies a policy hooks poskytu
 
 Filesystem materialization aktuálne checkoutnutého Git snapshotu, ktorú používateľ a nástroje priamo menia. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
 
+## Workload density
+
+Počet alebo množstvo workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločnej infraštruktúre pri danom resource a isolation modeli. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
 ## Workload identity federation — CI/CD
 
 Model, v ktorom job vymení krátkodobý signed identity token za scoped cloud alebo secret-provider credential bez uloženia dlhodobého access key v GitLabe. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## Writable layer — container
+
+Dočasná zapisovateľná filesystem vrstva konkrétnej container instance umiestnená nad read-only image layers, ktorej lifecycle je typicky viazaný na container. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Write compatibility
 
