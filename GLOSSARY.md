@@ -98,6 +98,50 @@ ClusterRole, ktorej rules controller automaticky skladá z iných ClusterRoles o
 
 Prioritizované Layer 7 pravidlo Application Load Balancera, ktoré vyhodnocuje host, path, header, method, query alebo source-IP conditions a vykoná forward, redirect, fixed-response alebo podporovanú authentication action. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Alert annotation — Prometheus
+
+Dynamický ľudský context alerting rule, napríklad summary, description, current value alebo runbook URL, ktorý nie je súčasťou alert identity. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alert fingerprint
+
+Stabilný identifikátor Alertmanager alertu odvodený z jeho úplného label setu; používa sa na deduplication a alert identity. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alert group — Alertmanager
+
+Množina firing alebo resolved alerts zoskupená podľa `group_by` labels a odosielaná ako jedna notification. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alert identity
+
+Identita alertu určená stabilným label setom; zmena dynamického labelu vytvorí novú alert identity. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alert label — Prometheus
+
+Stabilný key/value atribút alertu používaný na identity, grouping, routing, silences a inhibition. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alert storm
+
+Veľké množstvo súvisiacich alebo duplicitných alerts a notifications, ktoré zahlcuje Alertmanager, receivers alebo on-call tím. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alerting rule — Prometheus
+
+PromQL expression vyhodnocovaná Prometheus rule engine-om, ktorá po splnení condition a voliteľného `for` vytvára firing alert. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Alertmanager
+
+Komponent Prometheus ekosystému, ktorý prijíma alerts, deduplikuje ich, zoskupuje, routuje, mutuje a posiela notifications do receivers. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alertmanager HA
+
+Viac Alertmanager replicas koordinovaných peer meshom a replikáciou silence/notification state-u; zvyšuje dostupnosť, ale negarantuje exactly-once notifications. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alertmanager notification log
+
+Runtime state používaný Alertmanagerom na deduplication, group timing a rozhodovanie o update/repeat notifications. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alertmanager peer mesh
+
+Peer-to-peer cluster communication medzi Alertmanager replicas na replikáciu silences a notification state-u. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Alias — YAML
 
 YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komplikovať tooling a čitateľnosť. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -173,6 +217,10 @@ YAML mechanizmus pomenovania node, na ktorý môže odkazovať alias. Pozri [YAM
 ## Annotated tag
 
 Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, message a voliteľným kryptografickým podpisom. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Annotation — Grafana
+
+Časovo označený deployment, incident, configuration alebo iný event zobrazený v dashboardoch na koreláciu telemetry so zmenami. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Annotation — Kubernetes
 
@@ -1754,6 +1802,22 @@ Directed Acyclic Graph vyjadrujúci explicitné dependencies medzi jobs. Umožň
 
 Nasadenie capability do produkčného prostredia bez jej priameho sprístupnenia používateľom, používané na overenie integrácie, capacity alebo prevádzkového správania. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Dashboard as code
+
+Správa dashboard definitions cez version-controlled JSON, provisioning files, API, Terraform, Operator alebo generátor namiesto neauditovaných UI-only zmien. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Dashboard — Grafana
+
+Usporiadaná množina panels, variables, annotations, links a time settings navrhnutá na konkrétny operational alebo business účel. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Dashboard link
+
+Odkaz z dashboardu na ďalší dashboard alebo external systém s voliteľným prenosom time range-u a variables. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Dashboard provisioning
+
+Automatické vytváranie a synchronizácia Grafana dashboards z deklaratívneho source-u, typicky files alebo IaC. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## DAST — Dynamic Application Security Testing
 
 Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
@@ -1762,9 +1826,17 @@ Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri
 
 Dáta uložené na disku, v repository, databáze alebo inom persistentnom storage; Ansible Vault chráni tento stav, nie automaticky dáta po dešifrovaní. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Data frame — Grafana
+
+Normalizovaná štruktúra query výsledku zložená z fields, ktorú Grafana transformuje a vizualizuje. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Data key — KMS
 
 Symmetric key vygenerovaný cez KMS na local encryption dát, poskytovaný ako plaintext pre okamžité použitie a ako encrypted copy na uloženie. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Data link — Grafana
+
+Odkaz naviazaný na konkrétnu field hodnotu, napríklad trace ID, Pod, error code alebo deployment revision. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Data plane
 
@@ -1777,6 +1849,18 @@ Zlyhanie reálneho workload trafficu, request processingu, storage I/O alebo DNS
 ## Data portability
 
 Schopnosť exportovať dáta, metadata a configuration zo služby do použiteľného formátu a obnoviť ich v inom prostredí bez neprimeranej straty alebo downtime-u. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## Data source — Grafana
+
+Plugin a configuration umožňujúca Grafane queryovať externý metrics, logs, traces, SQL, cloud alebo iný backend. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Data-source-managed alert
+
+Alert rule uložená a vyhodnocovaná v Prometheus, Mimir, Loki alebo inom podporovanom ruler systéme, pričom Grafana poskytuje management UI. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Data-source plugin
+
+Grafana plugin implementujúci query, authentication, health-check a data-frame integration pre konkrétny backend. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Data source — Terraform
 
@@ -2558,6 +2642,10 @@ Deklarovaná požiadavka Podu alebo containeru na Node-local ephemeral storage p
 
 Volume s lifecycle viazaným na Pod alebo konkrétnu projection, napríklad `emptyDir`, ConfigMap/Secret projection alebo generic ephemeral volume. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Equal labels — Alertmanager
+
+Labels, ktorých hodnoty musia byť zhodné medzi source a target alertom, aby sa aplikovala inhibition. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Error rate — RED
 
 Podiel failed operations voči relevantnému počtu valid operations pri rovnakom scope-e a success contracte. Pozri [RED method](docs/12-observability/red-method.md).
@@ -2682,6 +2770,10 @@ Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant,
 
 Policy statement s `Effect: Deny`, ktorý pre applicable request prevažuje nad explicitnými allows v ostatných vyhodnocovaných policy vrstvách. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
+## Exporter — Prometheus
+
+Komponent, ktorý číta stav systému bez native Prometheus instrumentation a vystavuje ho v Prometheus metrics formáte. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Exporter — telemetry
 
 Komponent telemetry pipeline, ktorý odosiela spracované signals do backendu alebo ďalšieho collectora. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -2697,6 +2789,10 @@ Node resource s vendor alebo domain prefixom, napríklad GPU, publikovaný devic
 ## External build cache
 
 Build cache exportovaná mimo lokálneho buildera, napríklad do registry alebo CI backendu, s vlastnou access, trust, namespace a retention policy. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## External labels — Prometheus
+
+Labels pridávané Prometheus serverom pri komunikácii s externými systémami na identifikáciu clusteru, Regionu, tenant-u alebo replica topology. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## External metric — HPA
 
@@ -2826,9 +2922,17 @@ Dočasná branch určená na izolovaný vývoj jednej zmeny. Pri trunk-based mod
 
 Runtime control oddeľujúci deployment kódu od sprístupnenia capability pomocou versionovaného evaluation pravidla. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
 
+## Federation — Prometheus
+
+Hierarchický model, v ktorom jeden Prometheus scrape-ne vybrané series z federation endpointu iného Prometheus servera. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Feedback loop
 
 Cesta od vykonanej zmeny k informácii o jej výsledku. Pozri [Feedback Loops](docs/00-foundations/feedback-loops.md).
+
+## Field — Grafana
+
+Jedna typed column alebo series v Grafana data frame s values, labels a display konfiguráciou. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Field manager — Kubernetes
 
@@ -2866,6 +2970,10 @@ Qualified metadata string blokujúci finálne odstránenie objectu, kým zodpove
 
 Operating model spájajúci engineering, finance a business pri rozhodovaní o cloud value, cost, usage a trade-offoch. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Firing alert
+
+Alert, ktorého rule condition je splnená a prešiel voliteľnou pending dobou; Prometheus ho odosiela Alertmanageru. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## First-attempt pass rate
 
 Podiel testov, ktoré prejdú na prvý pokus bez retry. Je citlivejším signálom flakiness než finálna pass rate po opakovaniach. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
@@ -2889,6 +2997,10 @@ TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát
 ## Flow log — CNI
 
 Dataplane observability záznam o povolenom alebo zamietnutom network flowe vrátane source/destination identity, portu, policy a action metadata podľa CNI implementácie. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## Folder permission — Grafana
+
+Prístupové pravidlo pre dashboardy a folders; samo osebe nemusí obmedziť možnosť queryovať underlying data source. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Force unlock — Terraform
 
@@ -3062,6 +3174,46 @@ Schopnosť systému pri nedostupnosti časti dependencies zachovať obmedzenú, 
 
 Riadené ukončenie, pri ktorom proces prestane prijímať novú prácu, bezpečne spracuje alebo preruší rozpracovaný stav, uvoľní resources a vráti správny status. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Grafana
+
+Platforma na queryovanie, vizualizáciu, alerting a interaktívne skúmanie telemetry z externých data sources. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana correlation
+
+Konfigurácia prepájajúca fields a query context medzi metrics, logs, traces alebo ďalšími data sources počas investigation. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana Explore
+
+Ad hoc query a investigation workspace na interaktívne skúmanie metrics, logs a traces bez vytvorenia dashboardu. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana expression
+
+Server-side alebo alerting calculation nad výsledkami jednej či viacerých data-source queries, napríklad math, reduce, resample alebo threshold. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana HA
+
+Multi-instance Grafana deployment so spoločnou podporovanou SQL database, konzistentnou configuration, plugins a load-balancing modelom. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana-managed alert
+
+Alert rule uložená a vyhodnocovaná Grafana alerting engine-om nad podporovanými data sources a expressions. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana notification policy
+
+Routing a grouping policy Grafana Alerting, ktorá mapuje alert instances na contact points podľa labels a inheritance. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana panel
+
+Základný dashboard component kombinujúci query, transformations, field configuration a visualization. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana variable
+
+Dashboard placeholder získaný z query, custom listu alebo iného source-u a interpolovaný do queries, titles alebo links. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana variable interpolation
+
+Nahradenie variable jej aktuálnou hodnotou pred odoslaním query data source-u, vrátane data-source-specific escaping a formatting. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Graph-shaping value — Terraform
 
 Hodnota, ktorá určuje samotnú množinu alebo identity graph objektov, napríklad `count` alebo `for_each` keys, a preto musí byť známa pred apply. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
@@ -3074,9 +3226,17 @@ ARP announcement používaný napríklad na aktualizáciu neighbor caches po pre
 
 Regex quantifier, ktorý najprv spotrebuje najväčší možný rozsah a podľa potreby backtrackuje. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Group interval
+
+Minimálny interval pred ďalšou notification aktualizáciou existujúcej Alertmanager group po zmene jej alert setu. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Group sharing — GitLab
 
 Udelenie accessu projektu alebo group členom inej group s definovaným maximum role scope-om. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Group wait
+
+Čas, ktorý Alertmanager čaká pred prvou notification novej alert group, aby mohol zhromaždiť súvisiace alerts alebo inhibiting parent alert. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## GroupVersionKind — GVK
 
@@ -3125,6 +3285,10 @@ Explicitný command alebo observable criterion dokazujúci, že úloha spĺňa p
 ## `hasKey` — Helm
 
 Map function rozlišujúca neprítomný key od prítomnej hodnoty ako `false`, `0` alebo empty string. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## Head block — Prometheus
+
+Aktívna in-memory a WAL-backed časť Prometheus TSDB obsahujúca najnovšie samples pred vytvorením immutable blockov. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## HEAD — Git
 
@@ -3598,6 +3762,10 @@ Cluster-scoped resource určujúci, ktorý Ingress controller a class parameters
 
 Access získaný cez membership v parent group alebo inom hierarchicky relevantnom namespace namiesto priameho pridania na project. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Inhibition — Alertmanager
+
+Automatické muting pravidlo, ktoré potlačí target alert notifications, keď firing source alert matchuje definovaný scope. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Init container
 
 Container, ktorý musí úspešne dokončiť prípravnú úlohu pred spustením bežných application containers v Pode. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -3625,6 +3793,10 @@ Host-local ephemeral block storage, ktorého dáta sa môžu stratiť pri stop, 
 ## instance warmup — Auto Scaling
 
 Interval reprezentujúci čas, kým newly launched instance dosiahne plnú application a metric readiness pre scaling decisions. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## Instant vector — PromQL
+
+Množina time series s jednou sample hodnotou pre každý label set v konkrétnom evaluation čase. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Instrumentation
 
@@ -4010,6 +4182,10 @@ Kubernetes Service type, ktorý prostredníctvom cloud alebo platform controller
 
 PV reprezentujúci storage fyzicky viazaný na konkrétny Node alebo topology domain, s vysokým výkonom, ale bez automatickej multi-node dostupnosti. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Local TSDB — Prometheus
+
+Lokálny time-series storage Prometheus servera založený na head blocku, WAL, immutable blocks, compaction a retention. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Local value — Terraform
 
 Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú caller nemôže priamo nastaviť. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
@@ -4122,6 +4298,10 @@ Najvyšší organization account s billing a Organizations administrative capabi
 
 CI/CD variable, ktorej hodnota spĺňajúca GitLab constraints sa pri výpise do job logu nahrádza maskovaným textom; masking nezabraňuje úmyselnej exfiltration jobom. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
 
+## Matcher — Alertmanager
+
+Podmienka nad alert labels používaná v route, silence alebo inhibition pravidle. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Matrix pipeline
 
 Pipeline model generujúci viac jobs z kombinácie dimensions ako OS, architecture, runtime version alebo deployment target. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
@@ -4181,6 +4361,10 @@ Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich int
 ## Metric
 
 Agregovateľný číselný signal v čase používaný napríklad na rate, latency distribution, utilization, saturation alebo SLO measurement. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Metric relabeling
+
+Prometheus relabeling fáza po scrape-nutí a pred ingestion, používaná na drop alebo transformáciu metric samples a labels. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Metrics adapter — Kubernetes autoscaling
 
@@ -4366,6 +4550,10 @@ Podiel zámerných code mutations, ktoré test suite odhalí zlyhaním. Pozri [C
 
 Technika zámerne meniaca produkčný kód a overujúca, či test suite tieto zmeny zachytí. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Mute time interval — Alertmanager
+
+Opakujúce sa časové pravidlo, ktoré mutuje notifications na matched route počas definovaných intervalov. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Named context — Docker build
 
 Dodatočný explicitne pomenovaný build context dostupný Dockerfile-u podobne ako stage, používaný na užšie oddelenie source alebo external image inputs. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -4405,6 +4593,10 @@ Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá tr
 ## Native builder
 
 Builder node vykonávajúci build priamo na rovnakej architecture ako target bez user-mode emulation. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Native histogram — Prometheus
+
+Histogram sample reprezentácia s dynamickejším rozlíšením a kompaktnejším prenosom než samostatné classic histogram bucket series, pri kompatibilnej pipeline. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## `ndots`
 
@@ -4545,6 +4737,14 @@ Traffic medzi interným workloadom a externým klientom, internetom alebo služb
 ## `NoSchedule` taint
 
 Node taint effect zabraňujúci scheduleru umiestniť nový Pod bez matching toleration na daný Node. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Notification — Alertmanager
+
+Receiver-specific správa vytvorená z jednej alert group podľa routing, timing, muting a template pravidiel. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Notification template — Alertmanager
+
+Go template používaný na renderovanie notification title, body, links a receiver-specific payloadu. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## NUL-delimited stream
 
@@ -4774,6 +4974,10 @@ Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupn�
 
 Framework na skladanie authentication, account, session a password policy. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Panel inspector
+
+Grafana nástroj na zobrazenie raw data, query requests, statistics, transformations a panel JSON pri diagnostike. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Parallel Pod management — StatefulSet
 
 StatefulSet policy umožňujúca vytváranie alebo odstraňovanie Podov bez čakania na ordered readiness predchádzajúceho ordinalu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
@@ -4821,6 +5025,10 @@ Zraniteľnosť, pri ktorej vstup s prvkami ako `..` alebo absolútnou cestou uni
 ## PathType — Ingress
 
 Ingress field určujúci semantics HTTP path matching-u ako `Exact`, `Prefix` alebo `ImplementationSpecific`. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Pending alert
+
+Alert, ktorého condition je splnená, ale ešte neuplynula nakonfigurovaná `for` doba potrebná na firing state. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Pending rollback — Helm
 
@@ -5142,9 +5350,21 @@ Kubelet-driven aktualizácia ConfigMap alebo Secret volume projection s eventual
 
 ServiceAccount token vložený do projected volume s explicitnou audience, expiration a kubelet rotation semantics. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
 
+## Prometheus
+
+Metrics monitoring a alerting systém založený na multidimenzionálnych time series, pull-based scrapingu, local TSDB a PromQL. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Prometheus HA
+
+Model viacerých nezávislých Prometheus replicas, ktoré samostatne scrape-ujú, ukladajú a vyhodnocujú rules; downstream vrstva musí riešiť deduplication. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Promotion evidence
 
 Súbor výsledkov a metadata viazaných na konkrétny artifact digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+
+## PromQL
+
+Prometheus Query Language na selection, aggregation a výpočty nad time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Protected branch — GitLab
 
@@ -5250,6 +5470,10 @@ Lokálny registry cache model, ktorý pri prvom pull-e načíta content z upstre
 
 Build exporter skratka publikujúca image alebo multi-platform index priamo do registry. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Pushgateway
+
+Prometheus ecosystem component na dočasné vystavenie service-level metrics short-lived batch jobov, ktoré nemôžu byť prirodzene scrape-nuté počas behu. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## PVC retention policy — StatefulSet
 
 Policy určujúca, či sa StatefulSet-created PVCs zachovajú alebo odstránia pri scale-down alebo deletion podľa podporovaného API a storage lifecycle modelu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
@@ -5266,6 +5490,10 @@ Organizational unit s prísnymi incident alebo decommission guardrails určená 
 
 Dočasné vyradenie nestabilného testu z blocking suite pri zachovaní pravidelného spúšťania, ownera, issue a expiry. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Query storm — Grafana
+
+Nadmerný počet alebo objem backend queries spôsobený kombináciou panels, variables, repeats, users a krátkeho refresh intervalu. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## QUIC
 
 Transportný protokol nad UDP implementujúci reliable streams, congestion control, loss recovery a TLS 1.3 integráciu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -5277,6 +5505,10 @@ API admission kontrola odmietajúca create alebo update request, ktorý by prekr
 ## Quota saturation
 
 Stav, keď ResourceQuota `used` dosiahne alebo sa približuje k `hard`, takže nové Pody, Jobs, PVCs alebo iné objects nemôžu byť prijaté. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
+## Range vector — PromQL
+
+Množina time series so samples za definované časové okno, používaná napríklad ako vstup `rate()` alebo `increase()`. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Ratcheting — quality
 
@@ -5358,6 +5590,10 @@ Zber performance a error telemetry zo skutočných používateľských klientov 
 
 Operácia, ktorá replayuje commits na nový base a vytvára nové commit objects s novými IDs. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
 
+## Receiver — Alertmanager
+
+Pomenovaná kolekcia notification integrations, napríklad webhook, email, chat alebo on-call služba. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Receiver — telemetry
 
 Komponent telemetry pipeline, ktorý prijíma signals cez OTLP, scrape, logs alebo iný podporovaný protocol. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -5377,6 +5613,10 @@ Stabilná identity resource-u, typicky `namespace/name`, vložená do controller
 ## Reconciliation loop
 
 Opakovaný proces observe, compare, act a report, ktorý približuje actual state Kubernetes alebo external systému k desired state-u. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Recording rule — Prometheus
+
+Pravidelne vyhodnocovaná PromQL expression, ktorej výsledok sa uloží ako nová time series pre opakované alebo drahé výpočty. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Recovery package
 
@@ -5546,13 +5786,29 @@ Rozdiel vzniknutý zmenou managed remote objektu mimo authoritative Terraform wo
 
 Model, v ktorom plan/apply nevykonáva lokálny CLI proces, ale spravovaný remote worker alebo platforma s vlastnou queue, identity, variables a policy vrstvou. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Remote read — Prometheus
+
+Mechanizmus, ktorým Prometheus query engine načíta series z kompatibilného externého storage receivera. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Remote-tracking ref
 
 Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
 
+## Remote write — Prometheus
+
+Asynchrónny pipeline odosielajúci ingested samples cez queues, batching a retries do kompatibilného remote-storage receivera. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Rendered manifest — Helm
 
 Výsledný Kubernetes YAML vytvorený kombináciou chart templates, effective values, release contextu a capabilities pred aplikovaním na API server. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Repeat interval
+
+Interval opakovania Alertmanager notification pre nezmenenú group, ktorá zostáva firing. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Repeating panel — Grafana
+
+Panel alebo row dynamicky duplikovaný pre každú vybranú variable value; pri veľkom scope-e môže vytvoriť query storm. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## `replace_triggered_by` — Terraform
 
@@ -5621,6 +5877,10 @@ Výsledná configuration po interpolation, merge, profiles, includes a overrides
 ## Resolved configuration — GitLab CI/CD
 
 Konečný pipeline YAML model po spracovaní includes, components, defaults, inheritance, references a rules-relevantnej konfigurácie. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
+## Resolved notification
+
+Notification informujúca receiver, že predtým firing alert group alebo alert identity už nie je aktívna. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## Resolved pipeline configuration
 
@@ -5862,6 +6122,10 @@ Automatické pridávanie routes z podporovaného gateway alebo dynamic routing s
 
 Reprezentácia viacerých menších prefixes jedným väčším aggregate prefixom. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Route tree — Alertmanager
+
+Hierarchická konfigurácia matchers, receivers, grouping a timing, podľa ktorej Alertmanager spracuje každý alert. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Routed Pod network
 
 Pod network model, v ktorom sú Pod CIDRs alebo addresses priamo routovateľné medzi Nodes alebo upstream sieťou bez overlay encapsulation. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
@@ -5966,6 +6230,10 @@ Software as a Service: model poskytujúci hotovú application službu, pričom z
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Sample — Prometheus
+
+Timestampovaná hodnota patriaca ku konkrétnej Prometheus time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Sample ratio mismatch
 
 Významný rozdiel medzi plánovaným a reálnym pomerom experimentálnych variantov, ktorý môže signalizovať assignment, exposure, crash, logging alebo eligibility problém. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
@@ -6057,6 +6325,10 @@ Overenie dát voči deklarovaným typom, required fields a constraints. Neoveruj
 ## Score plugin — Kubernetes scheduler
 
 Scheduling Framework plugin prideľujúci feasible Nodes relatívne skóre podľa soft preferencií a placement stratégie. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
+
+## Scrape — Prometheus
+
+Periodické HTTP načítanie metrics endpointu targetu, validácia samples a ich ingestion do Prometheus TSDB. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Scratch image
 
@@ -6182,6 +6454,10 @@ Rozdelenie právomocí tak, aby citlivú zmenu nevytvorila, neschválila a nenas
 
 Monotónne rastúce číslo snapshotu v jednej state lineage používané na rozpoznanie novšej verzie a ochranu pred stale overwrite. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## Series churn
+
+Rýchle vytváranie a zanikanie time series, typicky pre nestabilné alebo vysokokardinalitné labels, ktoré zvyšuje TSDB a query overhead. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Server-side apply — Kubernetes
 
 Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -6201,6 +6477,10 @@ Node alebo network-plugin mechanizmus implementujúci Service virtual IP, backen
 ## Service dataplane — Kubernetes
 
 Node alebo cluster networking vrstva implementujúca virtual Service IP a forwarding na EndpointSlice backends, napríklad cez kube-proxy alebo alternatívny eBPF dataplane. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Service discovery — Prometheus
+
+Mechanizmus dynamicky vytvárajúci potenciálne scrape targets a dočasné metadata labels z Kubernetes, cloud, Consul, DNS alebo iného source-u. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Service FQDN
 
@@ -6338,6 +6618,10 @@ CloudFront private-content authorization token v cookies, ktorý môže oprávni
 
 Časovo alebo policy obmedzená CloudFront URL podpísaná trusted keyom pre access ku konkrétnemu private resource-u. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Silence — Alertmanager
+
+Časovo ohraničené muting pravidlo nad alert label matchers vytvorené používateľom alebo API. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Silent error
 
 Failure, ktorý neprodukuje bežný explicitný error status, napríklad `200` s chybným obsahom, nespracovaná async message alebo neobnoviteľný backup. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
@@ -6461,6 +6745,10 @@ Logická skupina jobs alebo broad ordering barrier v pipeline. Stage nie je samo
 ## Staging area
 
 Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho commitu. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Staleness — Prometheus
+
+Semantics, ktorou Prometheus prestane považovať starú sample za aktuálnu po zmiznutí targetu alebo series. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Starting deadline — CronJob
 
@@ -6714,6 +7002,14 @@ Backend registration, protocol, port, health-check a traffic-lifecycle contract 
 
 Per-target-group stav vyjadrujúci, či registrovaný target prešiel health checks a je vhodný na routing trafficu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Target — Prometheus
+
+Network endpoint a associated labels, ktorý Prometheus plánuje pravidelne scrape-ovať. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Target relabeling
+
+Prometheus relabeling fáza pred scrape-nutím, ktorá filtruje targets a mapuje discovery metadata na address, path, scheme a stabilné target labels. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## target tracking — Auto Scaling
 
 Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na target hodnote zmenou desired capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
@@ -6886,6 +7182,10 @@ EFS configuration určujúca, ako filesystem získava a účtuje dostupný aggre
 
 Počet unikátnych kombinácií metric label values; nekontrolované dynamické labels výrazne zvyšujú memory, storage a query náklady. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Time series — Prometheus
+
+Prúd timestampovaných samples identifikovaný metric name a úplným label setom. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Time to first feedback
 
 Čas od vzniku alebo odoslania zmeny po prvý relevantný a diagnostikovateľný výsledok pipeline. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
@@ -6973,6 +7273,10 @@ Kopírovanie produkčných requestov do shadow systému bez použitia jeho respo
 ## Traffic splitting — Gateway API
 
 Rozdelenie Route trafficu medzi viac backendRefs podľa weights, používané napríklad pre canary alebo migration rollout. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Transformation — Grafana
+
+Operácia aplikovaná na query results po ich získaní z data source-u na úpravu data frame-u pred vizualizáciou. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Transit Gateway — AWS
 
@@ -7146,6 +7450,10 @@ Label priradený k encrypted Vault contentu a password source-u na oddelenie env
 
 Secret použitý na šifrovanie a dešifrovanie Ansible Vault contentu, ktorý musí byť uložený oddelene od encrypted repository dát. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Vector matching — PromQL
+
+Pravidlá spájania series pri binary operation podľa labels vrátane `on`, `ignoring`, `group_left` a `group_right`. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Vendored chart — Helm
 
 Dependency chart uložený priamo v parent `charts/` directory ako archive alebo unpacked directory namiesto stiahnutia počas build-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
@@ -7193,6 +7501,10 @@ Izolovaný machine environment s virtualizovaným hardware, vlastným guest kern
 ## Virtual memory
 
 Abstrakcia, pri ktorej má proces vlastný virtuálny adresný priestor mapovaný kernelom na RAM, files alebo swap. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Visualization — Grafana
+
+Prezentačný model panelu, napríklad time series, stat, table, heatmap alebo state timeline, zvolený podľa data shape-u a operational otázky. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## VLAN — Virtual LAN
 
@@ -7261,6 +7573,10 @@ L7 security control vyhodnocujúci HTTP requests podľa aplikačných pravidiel;
 ## `WaitForFirstConsumer`
 
 StorageClass binding mode odkladajúci provisioning alebo PV binding, kým scheduler pozná Pod placement constraints a vie koordinovať storage topology s vybraným Node-om. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## WAL — Prometheus
+
+Write-Ahead Log uchovávajúci nedávne ingested samples a metadata pre recovery aktívneho TSDB head state-u po reštarte. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## warm pool — Auto Scaling
 
