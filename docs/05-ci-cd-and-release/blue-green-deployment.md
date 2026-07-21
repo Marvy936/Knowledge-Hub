@@ -474,5 +474,5 @@ Relevantné pojmy: blue-green deployment, blue environment, green environment, t
 
 **Navigácia**
 
-[← Predchádzajúca: Rolling update](rolling-update.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Rolling update](rolling-update.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Canary deployment →](canary-deployment.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

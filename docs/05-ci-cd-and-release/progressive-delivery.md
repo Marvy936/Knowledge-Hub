@@ -355,3 +355,11 @@ Flags, staré versions a dočasné configy zostávajú ako dlh.
 ## Glossary impact
 
 Relevantné pojmy: progressive delivery, rollout controller, rollout contract, evidence-driven promotion, progressive exposure, rollout pause, rollout abort, policy override, exposure before detection, automated analysis a cleanup phase.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Feature flags](feature-flags.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Rollback a roll-forward →](rollback-and-roll-forward.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -287,3 +287,11 @@ Version skew, support complexity a technical debt rastú.
 ## Glossary impact
 
 Relevantné pojmy: ring deployment, deployment ring, rollout wave, ring membership, early-adopter ring, release channel, staged rollout, ring promotion, version skew a ring-specific telemetry.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Shadow deployment](shadow-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Feature flags →](feature-flags.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

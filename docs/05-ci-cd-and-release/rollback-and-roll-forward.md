@@ -334,3 +334,11 @@ Prvý skutočný test potom prebehne počas incidentu.
 ## Glossary impact
 
 Relevantné pojmy: rollback, roll-forward, artifact rollback, configuration rollback, traffic rollback, data rollback, last known good, recovery package, compensating action, rollback window, automatic rollback, recovery oscillation a forward-fix migration.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Progressive delivery](progressive-delivery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Databázová kompatibilita počas deploymentu →](database-compatibility-during-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

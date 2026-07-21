@@ -310,3 +310,11 @@ Rýchlosť nesmie odstrániť rekonštruovateľnosť rozhodnutia.
 ## Glossary impact
 
 Relevantné pojmy: feature flag, release flag, experiment flag, operational flag, kill switch, flag evaluation, targeting rule, stable bucketing, flag dependency, flag debt, flag cleanup, propagation lag a stale flag state.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ring deployment](ring-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Progressive delivery →](progressive-delivery.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

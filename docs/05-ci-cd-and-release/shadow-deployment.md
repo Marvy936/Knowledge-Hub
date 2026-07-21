@@ -310,3 +310,11 @@ Shadow neoveril user-facing response ani všetky state transitions.
 ## Glossary impact
 
 Relevantné pojmy: shadow deployment, traffic mirroring, dark launch, shadow mode, mirror point, shadow identity, response diffing, mirror sampling, side-effect sink, shadow consumer group a primary-path isolation.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: A/B testing](a-b-testing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ring deployment →](ring-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

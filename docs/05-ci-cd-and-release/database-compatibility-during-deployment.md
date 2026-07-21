@@ -477,3 +477,11 @@ Kalendár nepotvrdzuje, že starí consumers zmizli.
 ## Glossary impact
 
 Relevantné pojmy: expand-contract, schema compatibility, read compatibility, write compatibility, semantic compatibility, dual write, reconciliation, shadow read, backfill, online schema change, contract phase, compatibility matrix, forward-only migration, migration lock a fallback read.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Rollback a roll-forward](rollback-and-roll-forward.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

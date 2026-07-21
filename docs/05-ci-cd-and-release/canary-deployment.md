@@ -292,3 +292,11 @@ Evidence sa nevzťahuje na skutočný production target.
 ## Glossary impact
 
 Relevantné pojmy: canary deployment, canary cohort, stable cohort, traffic weight, cohort assignment, observation window, promotion criterion, abort criterion, automated canary analysis, version-level telemetry, sample size a progressive exposure.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Blue-green deployment](blue-green-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: A/B testing →](a-b-testing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -315,3 +315,11 @@ Rozhodnutie musí zahŕňať practical effect, guardrails, náklady, ethics a dl
 ## Glossary impact
 
 Relevantné pojmy: A/B testing, control variant, treatment variant, experiment unit, deterministic assignment, eligibility, exposure event, intention-to-treat, primary metric, guardrail metric, minimum detectable effect, statistical power, sample ratio mismatch, A-A test a experiment namespace.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Canary deployment](canary-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Shadow deployment →](shadow-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

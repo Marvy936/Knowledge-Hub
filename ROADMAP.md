@@ -124,14 +124,14 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md)
 - [x] [Rolling update](docs/05-ci-cd-and-release/rolling-update.md)
 - [x] [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md)
-- [ ] Canary deployment
-- [ ] A/B testing
-- [ ] Shadow deployment
-- [ ] Ring deployment
-- [ ] Feature flags
-- [ ] Progressive delivery
-- [ ] Rollback a roll-forward
-- [ ] Databázová kompatibilita počas deploymentu
+- [x] [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md)
+- [x] [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md)
+- [x] [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md)
+- [x] [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md)
+- [x] [Feature flags](docs/05-ci-cd-and-release/feature-flags.md)
+- [x] [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md)
+- [x] [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md)
+- [x] [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md)
 
 ### GitLab
 
