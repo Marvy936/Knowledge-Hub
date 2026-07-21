@@ -2,6 +2,14 @@
 
 Rýchly referenčný index technických pojmov používaných v Knowledge Hube. Glossary nenahrádza plné kapitoly: každé heslo obsahuje stručnú definíciu a odkaz na autoritatívny článok, ak už existuje.
 
+## A/B testing
+
+Kontrolovaný produktový experiment porovnávajúci výsledok kontrolnej a experimentálnej skupiny podľa vopred definovanej hypotézy a metrík. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Abort criterion
+
+Vopred definovaná podmienka, pri ktorej sa rollout alebo experiment okamžite zastaví, pretože dopad prekročil prijateľnú hranicu. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md) a [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Acceptance test
 
 Test overujúci, či systém spĺňa dohodnuté business alebo používateľské acceptance criteria. Môže bežať na API, UI alebo inej vrstve. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -110,6 +118,10 @@ Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú
 
 Collaboration a discovery prístup používajúci príklady správania a spoločný jazyk na spresnenie požiadaviek; Gherkin je iba jedna možná reprezentácia. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Blast radius
+
+Maximálny rozsah používateľov, trafficu, dát, komponentov alebo failure domains, ktoré môže zmena, incident alebo experiment ovplyvniť. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Blob — Git object
 
 Nemenný Git object obsahujúci bytes jedného súboru bez filename a path metadata. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
@@ -158,6 +170,10 @@ HTTP response/request header definujúci freshness, revalidation, storage a shar
 
 DevOps rámec Culture, Automation, Lean, Measurement a Sharing. Pozri [CALMS framework](docs/00-foundations/calms.md).
 
+## Canary release
+
+Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľov s porovnávaním technických a business signálov pred širšou promotion. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Capability — Linux capability
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
@@ -197,6 +213,14 @@ Podiel deploymentov, ktoré spôsobia degradáciu služby a vyžadujú nápravu.
 ## Change lead time
 
 Čas od vzniku sledovanej zmeny po jej úspešný deployment do produkcie. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
+
+## Chaos engineering
+
+Disciplína formulovania a vykonávania kontrolovaných experimentov, ktoré overujú schopnosť systému zachovať prijateľné správanie pri poruchách a neistote. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Chaos testing
+
+Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state hypotézu v definovanom scope s bezpečnostnými kontrolami. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Cherry-pick
 
@@ -294,6 +318,10 @@ Rozdiel medzi správaním test double alebo dokumentovaného kontraktu a skutoč
 
 Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distribuovaný systém. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
 
+## Control group — experiment
+
+Skupina používateľov, requestov alebo systémových instances, ktorá nedostane experimentálnu zmenu a poskytuje súbežnú baseline na porovnanie. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Control plane
 
 Časť systému vytvárajúca stav, podľa ktorého data plane rozhoduje. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
@@ -333,6 +361,10 @@ Model oprávnení založený najmä na UID/GID, mode bits a ACL. Pozri [SELinux 
 ## Daemon
 
 Dlhšie bežiaci proces poskytujúci systémovú alebo aplikačnú službu bez priamej interaktívnej session. Pozri [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md).
+
+## Dark launch
+
+Nasadenie capability do produkčného prostredia bez jej priameho sprístupnenia používateľom, používané na overenie integrácie, capacity alebo prevádzkového správania. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## DAST — Dynamic Application Security Testing
 
@@ -462,6 +494,10 @@ Prevádzka IPv4 aj IPv6 na rovnakom hoste alebo službe. Pozri [IPv4, IPv6 a sub
 
 Hodnota potrebná iba na vyplnenie parametra bez aktívneho použitia v testovanom scenári. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Early feedback
+
+Informácia o kvalite alebo riziku získaná v najskoršom bode, v ktorom má kontrola dostatočnú fidelity a diagnostickú hodnotu. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
+
 ## eBPF — extended Berkeley Packet Filter
 
 Kernel technológia na spúšťanie overeného bytecode na definovaných hooks, používaná aj na observability a profiling. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -514,6 +550,10 @@ Príklad alebo pravidlo zapísané vo forme, ktorú možno automaticky spustiť 
 
 Číselný výsledok ukončeného procesu alebo shell príkazu. Pozri [Shell, Bash, pipes, redirection a exit codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md).
 
+## Experiment contract
+
+Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania, abort criteria, recovery, ownershipu a dôkazov chaos experimentu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Failed deployment recovery time
 
 Čas potrebný na obnovenie služby po zlyhaní spôsobenom deploymentom. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
@@ -538,9 +578,17 @@ Výsledok, pri ktorom test hlási chybu, hoci testované správanie je správne.
 
 Aktualizácia refu, pri ktorej je starý tip ancestor nového tipu, takže sa ref iba posunie bez odstránenia existujúcej ancestry. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
 
+## Fault injection
+
+Kontrolované zavedenie konkrétneho failure condition, napríklad latency, process termination, resource pressure alebo dependency erroru. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Feature branch
 
 Dočasná branch určená na izolovaný vývoj jednej zmeny. Pri trunk-based modeli má byť krátkodobá a často integrovaná. Pozri [Branching strategies](docs/03-git-and-automation/branching-strategies.md).
+
+## Feature flag
+
+Konfiguračný mechanizmus oddeľujúci deployment kódu od sprístupnenia funkcionality konkrétnym používateľom, cohortám alebo percentu trafficu. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Feedback loop
 
@@ -582,6 +630,10 @@ Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy 
 
 Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého private key automaticky neodhalí staré TLS sessions. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Game day
+
+Plánované tímové resilience cvičenie kombinujúce technické faults, observability, incident response, komunikáciu a následné learning actions. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Git index
 
 Binárna dátová štruktúra predstavujúca pripravovaný snapshot nasledujúceho commitu; obsahuje paths, modes, object IDs a pri konfliktoch viac stages. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
@@ -594,6 +646,14 @@ Pomenovaný ukazovateľ na Git object ID, typicky commit. Príkladmi sú branche
 
 Shell expansion, ktorá nahrádza wildcard pattern paths zodpovedajúcimi filesystem entries. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
 
+## Golden path
+
+Podporovaný a automatizovaný spôsob vývoja a delivery poskytujúci bezpečné defaults, reusable tooling, observability a policy guardrails. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
+
+## Graceful degradation
+
+Schopnosť systému pri nedostupnosti časti dependencies zachovať obmedzenú, ale stále užitočnú a bezpečnú funkcionalitu namiesto úplného zlyhania. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Graceful shutdown
 
 Riadené ukončenie, pri ktorom proces prestane prijímať novú prácu, bezpečne spracuje alebo preruší rozpracovaný stav, uvoľní resources a vráti správny status. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
@@ -605,6 +665,10 @@ ARP announcement používaný napríklad na aktualizáciu neighbor caches po pre
 ## Greedy quantifier — regex
 
 Regex quantifier, ktorý najprv spotrebuje najväčší možný rozsah a podľa potreby backtrackuje. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Guardrail metric
+
+Metrika chrániaca experiment alebo rollout pred neprijateľným vedľajším dopadom, aj keď primary metric vyzerá pozitívne. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Hard link
 
@@ -722,6 +786,10 @@ Deklaratívny schema jazyk na validáciu štruktúry, typov a vybraných constra
 
 Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## Kill switch
+
+Technický mechanizmus umožňujúci rýchlo zastaviť fault injection, experiment alebo feature exposure pri prekročení bezpečných hraníc. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## L4 load balancing
 
 Rozdelenie transportných flows podľa IP, portu, protokolu a connection state bez interpretácie aplikačného obsahu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -752,7 +820,7 @@ Priemerný počet runnable tasks a určitých tasks v uninterruptible sleep. Poz
 
 ## Load shedding
 
-Kontrolované odmietnutie časti práce pri preťažení s cieľom chrániť jadro služby a zabrániť cascading failure. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+Riadené odmietanie alebo obmedzenie časti práce pri preťažení, aby systém chránil kritické workflow a zabránil úplnému kolapsu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Load test
 
@@ -1006,9 +1074,17 @@ Bežiaca inštancia programu s adresným priestorom, file descriptormi, credenti
 
 Testovacie dáta odvodené z produkcie, ktoré vyžadujú data minimization, anonymizáciu, access control a retention policy. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Production validation
+
+Overenie technického, funkčného a business výsledku zmeny v skutočnom produkčnom kontexte po deploymente alebo počas kontrolovaného rollout-u. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Profile — performance profile
 
 Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká alebo alokuje memory. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Progressive delivery
+
+Delivery model, ktorý postupne zvyšuje exposure novej verzie alebo funkcionality podľa observability, experimentálnych metrík a automatizovaných promotion či rollback pravidiel. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Provider state
 
@@ -1049,6 +1125,10 @@ Model, ktorý povoľuje iba zachovanie alebo zlepšenie predchádzajúceho akcep
 ## Readiness
 
 Stav vyjadrujúci, či instance má prijímať nový traffic. Nie je totožný s liveness. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Real User Monitoring — RUM
+
+Zber performance a error telemetry zo skutočných používateľských klientov a sessions s možnosťou segmentácie podľa zariadenia, browsera, regiónu alebo journey. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Rebase
 
@@ -1098,6 +1178,10 @@ Git mechanizmus `reuse recorded resolution`, ktorý zaznamená riešenie konflik
 
 Anti-pattern opakovania zlyhaného testu dovtedy, kým náhodne neprejde, bez riešenia príčiny alebo zachovania prvého failure signálu. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Resilience engineering
+
+Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## REST
 
 Architectural style pre distributed hypermedia systems založený na constraints ako statelessness, cacheability a uniform interface. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
@@ -1126,9 +1210,17 @@ Pravidlo určujúce next hop, interface a ďalšie parametre pre destination pre
 
 Reprezentácia viacerých menších prefixes jedným väčším aggregate prefixom. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## RPO — Recovery Point Objective
+
+Maximálne prijateľné množstvo dát vyjadrené časovým bodom, ktoré môže byť pri obnove po katastrofe stratené. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## RSS — Resident Set Size
 
 Množstvo pages procesu aktuálne resident v RAM. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## RTO — Recovery Time Objective
+
+Maximálny prijateľný čas na obnovenie služby alebo business capability po katastrofickom zlyhaní. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Runspace — PowerShell
 
@@ -1182,6 +1274,10 @@ Nahradenie externého systému kontrolovaným simulátorom alebo sandboxom tak, 
 
 Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Shadow traffic
+
+Kópia reálneho produkčného trafficu posielaná novému systému bez použitia jeho response ako výsledku pre používateľa; vyžaduje kontrolu side effects a citlivých dát. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Shallow clone
 
 Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižuje prenos, ale obmedzuje operácie závislé od plného commit graphu. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -1189,6 +1285,14 @@ Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižu
 ## Shell expansion
 
 Fáza, v ktorej shell spracuje parameter, command a arithmetic expansion, word splitting a pathname expansion pred spustením príkazu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Shift-left
+
+Presun vhodných rozhodnutí, kontrol a feedbacku do skorších fáz delivery, kde možno riziko zachytiť lacnejšie bez neprimeranej straty fidelity. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
+
+## Shift-right
+
+Rozšírenie validácie, observability a experimentovania do deploymentu a produkcie s kontrolovaným blast radiusom a jasnými rozhodovacími kritériami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## `ShouldProcess` — PowerShell
 
@@ -1266,6 +1370,10 @@ Firewall posudzujúci každý packet podľa explicitných pravidiel bez connecti
 
 Analýza source alebo jeho reprezentácie bez vykonania celej aplikácie, napríklad linting, type checking alebo data-flow analysis. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
 
+## Steady state — chaos engineering
+
+Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## `strace`
 
 Nástroj na sledovanie system calls, ich výsledkov a trvania. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -1317,6 +1425,10 @@ Deklaratívny objekt spravovaný systemd, napríklad `.service`, `.socket` alebo
 ## T-shaped engineer
 
 Inžinier so širokou orientáciou a hlbokou expertízou aspoň v jednej oblasti. Pozri [T-shaped engineer](docs/00-foundations/t-shaped-engineer.md).
+
+## Tabletop exercise
+
+Simulované incident alebo disaster-recovery cvičenie bez technického fault injection, ktoré overuje rozhodovanie, prístupy, runbooky, komunikáciu a ownership. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Tag — Git tag
 
