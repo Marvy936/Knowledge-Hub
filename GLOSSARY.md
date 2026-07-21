@@ -118,6 +118,10 @@ TLS extension, ktorou klient a server počas handshake dohodnú aplikačný prot
 
 AWS content-delivery service, ktorá distribuuje a cache-uje content cez global edge locations a smeruje cache misses na nakonfigurované origins. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Amazon CloudWatch
+
+AWS observability služba pre metrics, logs, alarms, dashboards, queries, traces a automated operational reactions. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Amazon EBS
 
 Zonálny durable block-storage service pre EC2 a podporované AWS compute služby, sprístupnený ako block device s voliteľným typom, IOPS, throughputom, snapshotmi a encryption. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -126,9 +130,17 @@ Zonálny durable block-storage service pre EC2 a podporované AWS compute služb
 
 AWS compute služba poskytujúca virtuálne instances s voliteľnou instance family, image, networking, storage, IAM a lifecycle konfiguráciou. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Amazon ECS
+
+AWS-native container orchestrator používajúci clusters, task definitions, tasks, services a capacity providers. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## Amazon EFS
 
 Managed NFS file service poskytujúci shared POSIX filesystem pre viac clients cez mount targets vo VPC. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Amazon EKS
+
+Managed Kubernetes služba poskytujúca AWS-managed Kubernetes control plane a integráciu s AWS networking, identity, compute a storage službami. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Amazon RDS
 
@@ -386,6 +398,10 @@ Release behavior, pri ktorom Helm po failed upgrade-e vytvorí rollback na predc
 
 Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane vykonateľný mechanizmus. Pozri [Automation Mindset](docs/00-foundations/automation-mindset.md).
 
+## Automation runbook — Systems Manager
+
+Versionovaný YAML alebo JSON workflow obsahujúci sequential Automation actions, parameters, branching, outputs, approvals a AWS resource operations. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## `automountServiceAccountToken`
 
 ServiceAccount alebo Pod setting určujúci, či kubelet automaticky pripojí štandardný ServiceAccount credential projection do Podu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
@@ -422,6 +438,22 @@ Associate-level AWS certifikácia overujúca deployment, management a operations
 
 Časovo obmedzený AWS fault-injection scenár s jednou známou primárnou chybou, evidence pathom, minimálnou remediation, hard validation a cleanupom. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
 
+## AWS CloudTrail
+
+AWS audit služba zaznamenávajúca API a ďalšiu account activity vrátane identity, action, time, request context, resources a výsledku. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## AWS Fargate
+
+Service-managed container compute engine pre ECS a EKS, pri ktorom zákazník spravuje workload sizing, identity, networking a application lifecycle bez priamej správy host nodes. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## AWS KMS
+
+Managed cryptographic key service poskytujúca KMS keys, policy/grant authorization a cryptographic operations pre applications a AWS services. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## AWS Lambda
+
+AWS event-driven compute služba, ktorá spúšťa function code v service-managed execution environments a škáluje invocations podľa event a concurrency modelu. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## AWS Organizations
 
 AWS služba na centrálne riadenie kolekcie účtov cez management account, root, OUs, organization policies, consolidated billing a delegated administration. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -438,9 +470,17 @@ Geografická AWS infraštruktúrna oblasť obsahujúca viac Availability Zones a
 
 Izolovaný AWS account určený na laby a experimenty s budget guardrails, bez production dát a s explicitným cleanup lifecycle. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
 
+## AWS Secrets Manager
+
+Managed secret lifecycle služba pre encrypted storage, retrieval, versioning, staging labels, rotation a monitoring credentials a ďalších secret values. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## AWS Shared Responsibility Model
 
 Model rozdeľujúci bezpečnostné a prevádzkové responsibilities medzi AWS ako prevádzkovateľa infraštruktúry a zákazníka ako vlastníka identities, configuration, data a workloadu podľa konkrétnej služby. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
+## AWS Systems Manager
+
+AWS operations platforma pre central management managed nodes a AWS resources cez remote commands, sessions, patching, state, inventory, automation a configuration storage. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## AZ ID — AWS
 
@@ -946,6 +986,38 @@ Mapovanie aktuálnych SOA-C03 task statements na existujúce kapitoly, služby, 
 
 Tréning riešenia AWS scenario questions pod časovým limitom cez outcome, constraints, scope, responsibility boundary a operational trade-off. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
 
+## CloudTrail data event
+
+High-volume CloudTrail event pre data-plane operáciu nad vybranými resource types, ktorý sa zapína cez event selectors. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudTrail Event history
+
+Regionálny recent view management events, typicky za posledných 90 dní, určený na rýchle vyhľadávanie a nie ako dlhodobý central audit archive. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudTrail management event
+
+CloudTrail event pre control-plane operáciu nad AWS resources alebo account configuration. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudTrail trail
+
+Configuration zabezpečujúca priebežný výber a delivery CloudTrail events do S3 a voliteľných integrations. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudWatch alarm
+
+State machine hodnotiaca metric alebo query podľa period, statistic, threshold, evaluation a missing-data pravidiel a voliteľne spúšťajúca actions. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudWatch dimension
+
+Name-value attribute, ktorý spolu s namespace a metric name identifikuje konkrétnu CloudWatch time series. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudWatch log group
+
+CloudWatch Logs policy, retention, encryption a access boundary obsahujúca jeden alebo viac log streams. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## CloudWatch Logs Insights
+
+Query engine na interaktívnu analýzu CloudWatch log events v zadaných log groups a time window. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Cluster add-on
 
 Component dopĺňajúci Kubernetes cluster o DNS, networking, storage, metrics, routing, policy alebo inú platformovú schopnosť mimo základného API/control-plane procesu. Pozri [Cluster installation a lifecycle](docs/09-kubernetes/cluster-installation-lifecycle.md).
@@ -1034,6 +1106,10 @@ Používateľ alebo skupina priradená k paths v `CODEOWNERS`; pri správnej pro
 
 Deterministické priradenie subjektu do rollout alebo experiment skupiny pomocou stabilnej identity a versionovaného pravidla. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md) a [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Cold start — Lambda
+
+Invocation, pri ktorom Lambda musí pripraviť nové execution environment a vykonať runtime, extension a static initialization pred handlerom. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Collection dependency — Ansible
 
 Versionovaný vzťah collection k inej collection, ktorý ovplyvňuje resolved executable content, compatibility a supply-chain risk. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
@@ -1109,6 +1185,10 @@ Otvorený application-model specification pre multi-container services, networks
 ## Compose trust model
 
 Bezpečnostný model, podľa ktorého je Compose file privilegovaná executable configuration schopná spúšťať containers, mountovať host paths, pripájať devices a publikovať ports. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Composite alarm — CloudWatch
+
+CloudWatch alarm kombinujúci boolean stav viacerých underlying alarmov na koreláciu, suppression alebo zníženie alert noise. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
 ## Compute quota — Kubernetes
 
@@ -1458,6 +1538,10 @@ Počet Podov aktuálne pozorovaných ReplicaSet controllerom ako súčasť jeho 
 
 Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred rozhodnutím, či je potrebná zmena. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Customer managed key — KMS
+
+KMS key v zákazníckom account-e, ktorého policy, aliases, rotation, enablement, grants a deletion lifecycle spravuje zákazník. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Customer-managed layer
 
 Vrstva služby, ktorej configuration, patching, security, availability alebo recovery zostáva zodpovednosťou zákazníka. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -1513,6 +1597,10 @@ Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri
 ## Data at rest
 
 Dáta uložené na disku, v repository, databáze alebo inom persistentnom storage; Ansible Vault chráni tento stav, nie automaticky dáta po dešifrovaní. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Data key — KMS
+
+Symmetric key vygenerovaný cez KMS na local encryption dát, poskytovaný ako plaintext pre okamžité použitie a ako encrypted copy na uloženie. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Data plane
 
@@ -2014,6 +2102,10 @@ Dočasný migration model, v ktorom application zapisuje rovnakú logickú zmenu
 
 Hodnota potrebná iba na vyplnenie parametra bez aktívneho použitia v testovanom scenári. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Durable function — Lambda
+
+Lambda execution model pre dlhšie workflowy so service-managed durable state a checkpointingom, odlišný od štandardného krátkodobého invocation contractu. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Dynamic child pipeline — GitLab
 
 Child pipeline, ktorého CI configuration je vytvorená alebo zvolená počas parent pipeline podľa repository alebo runtime metadata. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -2062,6 +2154,34 @@ Persistent block device v jednej Availability Zone, ktorý možno attachnúť k 
 
 Konkrétna spustená alebo zastavená virtual machine identity vytvorená z AMI a launch configuration, s vlastným instance ID, network interfaces, storage a lifecycle stavom. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## ECS capacity provider
+
+ECS abstraction určujúca compute capacity, napríklad Fargate, Fargate Spot, Managed Instances alebo EC2 Auto Scaling Group, a jej rozdelenie cez base/weight strategy. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## ECS cluster
+
+Logická skupina ECS tasks, services a compute capacity, nad ktorou scheduler vykonáva placement a service lifecycle. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## ECS service
+
+ECS controller udržiavajúci desired count tasks, vykonávajúci replacement, deployment a integráciu s load balancingom alebo service connectivity. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## ECS task
+
+Jedna runtime inštancia konkrétnej ECS task definition revision pozostávajúca z jedného alebo viacerých containers. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## ECS task definition
+
+Versionovaný immutable template určujúci containers, image, resources, ports, roles, logging, secrets, networking a storage pre ECS task. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## ECS task execution role
+
+IAM role používaná ECS agentom alebo Fargate platformou napríklad na image pull, log delivery a secret injection pred alebo počas štartu tasku. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## ECS task role
+
+IAM role poskytujúca AWS permissions application containers bežiacim v ECS tasku. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## Edge cloud
 
 Compute a storage platforma umiestnená bližšie k používateľom, zariadeniam alebo výrobnému procesu pre nízku latency, lokálne spracovanie alebo prerušovanú konektivitu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
@@ -2094,6 +2214,22 @@ Pod vybraný aspoň jednou NetworkPolicy pre egress, ktorého outbound traffic j
 
 VPC component poskytujúci outbound-initiated IPv6 internet connectivity bez všeobecného unsolicited inbound pathu. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
+## EKS access entry
+
+EKS resource mapujúci AWS IAM principal na cluster access configuration a Kubernetes identity/groups podľa podporovaného access modelu. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## EKS Auto Mode
+
+EKS compute a infrastructure management model, v ktorom AWS automatizuje väčšiu časť node, networking, storage a load-balancing operations podľa aktuálnych service capabilities. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## EKS Fargate profile
+
+Configuration vyberajúca Kubernetes Pods podľa namespace a labels a určujúca ich spustenie na AWS Fargate. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
+## EKS managed node group
+
+EKS-integrated skupina EC2 worker nodes založená na Auto Scaling Group-e, pri ktorej AWS koordinuje časť node lifecycle a update operácií. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## Elastic Load Balancing — ELB
 
 AWS managed load-balancing family zahŕňajúca Application, Network a Gateway Load Balancers. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
@@ -2118,6 +2254,10 @@ Používateľ, ktorého membership, role a approval-rule context oprávňujú po
 
 Node, ktorý spĺňa DaemonSet placement podmienky vrátane labels, affinity, taints/tolerations, platformy, admission a scheduling constraints. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
+## Embedded Metric Format
+
+Structured log format, z ktorého CloudWatch extrahuje custom metrics a dimensions bez samostatného per-metric API publish callu. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Empty value — Helm
 
 Hodnota považovaná template functions ako `default` alebo `coalesce` za neprítomnú, napríklad `nil`, prázdny string, nula, `false` alebo prázdna collection podľa typu. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
@@ -2138,6 +2278,10 @@ Súbor, ktorého celý obsah je zašifrovaný Ansible Vaultom a musí byť deši
 
 Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľnom súbore. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Encryption context — KMS
+
+Non-secret key-value context kryptograficky viazaný na podporovanú KMS encrypt/decrypt operation a použiteľný v policy conditions a audite. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## End-to-end test
 
 Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo procesných hraníc od vstupu po observable výsledok. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -2153,6 +2297,10 @@ Namespaced `discovery.k8s.io` object reprezentujúci časť backend endpointov S
 ## Enforcing mode
 
 Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Envelope encryption
+
+Model, v ktorom data key šifruje application data a dlhodobejší KMS key šifruje samotný data key. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Environment drift
 
@@ -2253,6 +2401,10 @@ Scaling model reagujúci na event-source alebo business metrics, napríklad queu
 ## Event series — Kubernetes
 
 Agregovaný Kubernetes Event reprezentujúci opakovaný rovnaký reason/message v čase namiesto neobmedzeného vytvárania samostatných objektov. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
+
+## Event source mapping — Lambda
+
+Lambda resource s pollermi, ktoré čítajú batches z podporovaných queue alebo stream sources a invoke-ujú function podľa batching, concurrency a retry konfigurácie. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Eventual consistency — Kubernetes
 
@@ -3306,6 +3458,10 @@ Subnet bez všeobecného inbound internet pathu aj bez general outbound internet
 
 Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads, napríklad shared-kernel container boundary alebo hypervisor/VM boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
+## Iterator age — Lambda
+
+Metric vyjadrujúca oneskorenie medzi vznikom stream recordu a jeho spracovaním Lambda consumerom; rast signalizuje backlog alebo pomalé spracovanie. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Jinja template — Ansible
 
 Textový template renderovaný typicky na control node v host-specific variable context-e a následne použitý ako configuration alebo iný artifact. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
@@ -3346,9 +3502,21 @@ Deklaratívny schema jazyk na validáciu štruktúry, typov a vybraných constra
 
 Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## Key policy — KMS
+
+Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčasťou autorizácie management a cryptographic operations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Kill switch
 
 Technický mechanizmus umožňujúci rýchlo zastaviť fault injection, experiment alebo feature exposure pri prekročení bezpečných hraníc. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## KMS grant
+
+Programaticky vytvorený permission objekt umožňujúci grantee principalovi konkrétne cryptographic operations na KMS key, často používaný AWS service integrations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## KMS key
+
+Logical AWS KMS resource reprezentujúci cryptographic key, jeho metadata, policy, state, aliases a key-material lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## kube-apiserver
 
@@ -3438,9 +3606,25 @@ Rozdelenie requestov podľa aplikačných údajov, napríklad HTTP hostu, pathu 
 
 Indexovateľné key/value metadata určené na grouping a selection Kubernetes objects. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Lambda alias
+
+Pomenovaný pointer na Lambda version, ktorý môže podporovať weighted routing medzi dvoma versions a slúži ako stabilný deployment target. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Lambda@Edge
 
 CloudFront-integrated Lambda runtime pre pokročilé viewer alebo origin request/response transformácie distribuované do edge locations podľa service modelu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Lambda execution environment
+
+Izolované runtime prostredie vytvorené AWS Lambda pre initialization a spracovanie jedného alebo viacerých sequential invocations; jeho reuse nie je durable-state garancia. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
+## Lambda rotation — Secrets Manager
+
+Rotation model používajúci Lambda function na create, set, test a finish kroky pre secret a target service. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Lambda version
+
+Immutable published snapshot Lambda function code a podporovaných configuration properties používaný ako stabilná release identity. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Last known good
 
@@ -3638,6 +3822,14 @@ Kubernetes control plane, ktorého časť lifecycle-u a availability prevádzkuj
 
 Host, zariadenie alebo API target, na ktorý Ansible aplikuje automation cez connection plugin alebo provider-specific module workflow. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Managed node — Systems Manager
+
+EC2 alebo non-EC2 machine zaregistrovaná v Systems Manager s funkčnou identity, agentom a network connectivity. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## Managed rotation — Secrets Manager
+
+Rotation model, pri ktorom podporovaná managed service integrácia riadi rotation bez zákazníckej Lambda rotation function. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Managed service
 
 Služba, pri ktorej provider preberá definovanú časť deploymentu, patchingu, availability alebo operations, pričom zákazníkovi zostáva configuration, identity, data a business outcome podľa konkrétneho contractu. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -3833,6 +4025,10 @@ Jeden build workflow produkujúci platform-specific manifests a typicky spoločn
 ## Multi-platform image
 
 OCI image index a súvisiaci graph poskytujúci platform-specific manifests pod jednou higher-level reference, napríklad pre `linux/amd64` a `linux/arm64`. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Multi-Region key — KMS
+
+Súvisiace KMS key resources v rôznych Regions zdieľajúce key material a key ID properties, ale s oddelenými policies, grants a lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Multi-site active-active — DR
 
@@ -4158,6 +4354,10 @@ Defaultný usporiadaný StatefulSet Pod management model, ktorý vytvára alebo 
 
 Najvyšší kontajner AWS Organizations hierarchy, pod ktorým sa nachádzajú OUs a member accounts a z ktorého sa dedia podporované organization policies. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Organization trail — CloudTrail
+
+Trail vytvorený pre AWS Organization, ktorý centralizuje event coverage member accounts do chráneného audit destination modelu. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Organizational unit — OU
 
 Logická skupina AWS accounts v Organizations hierarchy určená na spoločné policy a lifecycle riadenie; nie je network ani Region boundary. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -4254,9 +4454,17 @@ Framework na skladanie authentication, account, session a password policy. Pozri
 
 StatefulSet policy umožňujúca vytváranie alebo odstraňovanie Podov bez čakania na ordered readiness predchádzajúceho ordinalu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## Parameter Store
+
+Systems Manager configuration store pre hierarchické String, StringList a KMS-protected SecureString parameters. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## ParentRef — Gateway API
 
 Reference z Route na Gateway, listener alebo iný supported parent, ku ktorému sa Route pokúša pripojiť. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Partial batch response — Lambda
+
+Event-source-mapping contract umožňujúci označiť iba konkrétne records v batchi ako neúspešné, aby sa nemuselo retryovať celé spracované batch. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Partial clone
 
@@ -4273,6 +4481,10 @@ Executable helper poskytujúci vault password z chráneného zdroja, typicky po 
 ## PAT — Port Address Translation
 
 NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
+## Patch Manager
+
+Systems Manager capability pre patch scan, installation, baselines, policies a compliance reporting na managed nodes. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## PATCH version
 
@@ -4645,6 +4857,10 @@ Deklarácia provider source addressu a povoleného version rozsahu v `required_p
 ## Provider state
 
 Deterministicky pripravený stav providera potrebný na overenie konkrétnej consumer-driven contract interaction. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## Provisioned concurrency — Lambda
+
+Počet predinicializovaných Lambda execution environments pripravených na invocations pre konkrétnu version alebo alias s cieľom znížiť startup latency. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Provisioning
 
@@ -5022,6 +5238,10 @@ Git mechanizmus `reuse recorded resolution`, ktorý zaznamená riešenie konflik
 
 Anti-pattern opakovania zlyhaného testu dovtedy, kým náhodne neprejde, bez riešenia príčiny alebo zachovania prvého failure signálu. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Reserved concurrency — Lambda
+
+Per-function limit, ktorý rezervuje časť regional concurrency poolu a zároveň určuje maximálny počet concurrent invocations danej funkcie. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Resilience engineering
 
 Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -5282,6 +5502,10 @@ Množstvo pages procesu aktuálne resident v RAM. Pozri [Memory a CPU fundamenta
 
 Maximálny prijateľný čas na obnovenie služby alebo business capability po katastrofickom zlyhaní. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Run Command — Systems Manager
+
+Capability na vzdialené vykonanie versionovaného command documentu na jednom alebo viacerých managed nodes s targetingom, rate controls a per-node outputom. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## `runAsNonRoot`
 
 SecurityContext guard požadujúci, aby container process nebežal s root UID; potrebuje kompatibilný image a runtime-resolvable user identity. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
@@ -5478,9 +5702,25 @@ Namespaced API objekt pre citlivé bytes alebo strings, ktorého base64 reprezen
 
 Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patterns pred prijatím commitu a môže push zablokovať. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
+## Secret replication — Secrets Manager
+
+Service capability vytvárajúca regionálne replicas secretu s vlastným per-Region encryption a status contractom. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Secret resource policy
+
+Resource-based policy na Secrets Manager secret-e určujúca principals a conditions pre access, najmä pri cross-account modeli. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Secret rotation
 
 Riadený lifecycle vytvorenia nového credentialu, distribúcie a rollout-u consumerov, overlap/verification, revocation starého credentialu a cleanup starých copies. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Secret staging label
+
+Pomenovaný movable label, napríklad `AWSCURRENT`, `AWSPREVIOUS` alebo `AWSPENDING`, ktorý označuje úlohu konkrétnej secret version v lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Secret version — Secrets Manager
+
+Immutable secret value revision identifikovaná version ID a voliteľnými staging labels. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Security Group — AWS
 
@@ -5617,6 +5857,10 @@ Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend
 ## Session affinity — Service
 
 Service behavior preferujúci rovnaký backend pre klienta podľa ClientIP a timeoutu; nie je náhradou durable session storage. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Session Manager
+
+Systems Manager capability poskytujúca IAM-authorized interactive shell alebo port-forwarding sessions bez potreby inbound SSH/RDP portu. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## Shadow deployment
 
@@ -5762,6 +6006,10 @@ DNS record vytvorený pre pomenovaný Service port, ktorý publikuje protocol, p
 
 Proces vykonávajúci podpisové operácie pomocou odomknutých private keys v pamäti. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
 
+## SSM Agent
+
+Node-side agent komunikujúci so Systems Manager control plane a vykonávajúci podporované command, session, inventory, patch a state operations. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## Stable bucketing
 
 Deterministické mapovanie subjektov do percentuálnych rollout alebo experiment buckets tak, aby sa variant nemenil náhodne medzi requestmi. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
@@ -5813,6 +6061,10 @@ Rozsah resources zdieľajúcich jeden state, lock, permissions, plan/apply lifec
 ## State locking — Terraform
 
 Backend-supported koordinácia, ktorá bráni súbežným Terraform write operáciám pracovať s rovnakým state-om a vytvoriť lost update alebo corruption. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## State Manager
+
+Systems Manager capability periodicky aplikujúca idempotentné document associations na target managed nodes na udržiavanie desired configuration. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## State snapshot — Terraform
 
@@ -5981,6 +6233,10 @@ Kontrolovaný prechod z user space do kernel space. Pozri [Kernel a user space](
 ## systemd unit
 
 Deklaratívny objekt spravovaný systemd, napríklad `.service`, `.socket` alebo `.timer`. Pozri [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md).
+
+## Systems Manager rate controls
+
+Concurrency a error-threshold nastavenia obmedzujúce paralelný rollout command alebo automation operácie a zastavujúce ďalšie targets po failure prahu. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## T-shaped engineer
 
@@ -6490,6 +6746,10 @@ Cluster-scoped storage API object reprezentujúci attach požiadavku alebo stav 
 
 StatefulSet šablóny, z ktorých controller vytvára samostatné PVCs pre jednotlivé ordinal replicas. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## VPC CNI — EKS
+
+Kubernetes networking plugin integrujúci Pod networking s Amazon VPC ENIs a IP addressingom; jeho IPAM a subnet capacity ovplyvňujú Pod scheduling. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## VPC Flow Logs
 
 AWS telemetry zachytávajúca metadata IP flows pre VPC, subnet alebo ENI scope a podporujúca network path a accept/reject analýzu bez application payloadu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -6529,6 +6789,10 @@ Pôvodná deployment farba ponechaná po cutover-e v pripravenom a priebežne he
 ## Warm standby — DR
 
 Recovery stratégia s priebežne bežiacou zmenšenou, ale funkčnou kópiou workloadu v náhradnej lokalite, ktorá sa pri incidente rozšíri a prevezme traffic. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Warm start — Lambda
+
+Invocation v už existujúcom Lambda execution environment, ktorý môže reuse-nuť initialized code, connections a temporary files bez garancie ďalšieho reuse. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Wavelength Zone — AWS
 
