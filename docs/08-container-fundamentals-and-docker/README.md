@@ -1,6 +1,6 @@
 # Container Fundamentals and Docker
 
-Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker images, networking, storage, security, Compose, BuildKit a troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, image, runtime, distribution a lifecycle modelu.
+Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker Engine, images, networking, storage, security, Dockerfile, Compose, BuildKit a troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, image, runtime, build, distribution a lifecycle modelu.
 
 Containers nadväzujú na Linux namespaces, cgroups, capabilities, networking, filesystems, artifact versioning, registries, CI/CD a Infrastructure as Code. Docker je konkrétna platforma a toolchain nad širšími container a OCI princípmi.
 
@@ -24,8 +24,14 @@ Odporúča sa najprv dokončiť:
 6. [Container networking](container-networking.md)
 7. [Container storage](container-storage.md)
 8. [Container security](container-security.md)
+9. [Docker architecture](docker-architecture.md)
+10. [Dockerfile](dockerfile.md)
+11. [Build context a layer cache](build-context-layer-cache.md)
+12. [Multi-stage builds](multi-stage-builds.md)
+13. [Volumes a bind mounts](volumes-bind-mounts.md)
+14. [Docker networks a port publishing](docker-networks-port-publishing.md)
 
-Nasledujúci blok prejde na Docker implementation vrstvu: Docker architecture, Dockerfile, build context a layer cache, multi-stage builds, volumes/bind mounts, Docker networks/port publishing, environment variables/health checks, Compose, BuildKit/Buildx a troubleshooting.
+Posledný blok sekcie doplní environment variables a health checks, Docker Compose, BuildKit a Buildx a systematické Docker troubleshooting.
 
 ## Cieľ zvládnutia
 
@@ -54,7 +60,26 @@ Po dokončení aktuálneho bloku má byť možné:
 - navrhnúť defense-in-depth container security baseline od source/build/registry až po runtime a host,
 - používať non-root/rootless model, capability drop, seccomp, SELinux/AppArmor, read-only root filesystem, resource limits a network segmentation,
 - chrániť runtime socket, devices, secrets a workload identities a vykonať bezpečný rebuild/replace patch lifecycle,
-- rozhodnúť, kedy shared-kernel boundary nestačí a workload potrebuje VM, microVM alebo sandboxed runtime.
+- rozhodnúť, kedy shared-kernel boundary nestačí a workload potrebuje VM, microVM alebo sandboxed runtime,
+- vysvetliť Docker client-server architecture, Docker contexts, Engine API, `dockerd`, containerd, runtime shim a OCI runtime responsibilities,
+- popísať `docker run` lifecycle od image resolution cez snapshot, network a mounts až po PID 1,
+- chrániť Docker socket, remote API a daemon host ako privilegovanú platformovú boundary,
+- rozlíšiť Docker Engine, Docker Desktop, rootful a rootless execution model,
+- navrhnúť Dockerfile s kontrolovaným base image-om, non-root runtime, správnym `ENTRYPOINT`/`CMD`, signals a metadata,
+- rozlíšiť build-time `RUN`/`ARG`/secret mounts od runtime `CMD`/`ENTRYPOINT`/`ENV`,
+- používať `COPY`, ownership, permissions, package installation a image labels bez secret leakage a nejasnej reproducibility,
+- vysvetliť build context, context root, `.dockerignore`, named contexts a Git context trust boundary,
+- navrhnúť instruction ordering, layer cache, cache mounts a external cache bez correctness dependency alebo cache poisoning,
+- diagnostikovať cache invalidation a vytvoriť clean-room build/reproducibility kontrolu,
+- používať multi-stage builds na oddelenie build, test, artifact, development a final runtime stages,
+- preukázať, že release image pochádza z testovaného graphu a obsahuje iba narrow runtime artifacts,
+- diagnostikovať dynamic linker, architecture, `scratch`/distroless a multi-platform build problémy,
+- rozlíšiť Docker named/anonymous volume, bind mount a tmpfs podľa ownershipu, portability a persistence modelu,
+- riešiť mount obscuring, UID/GID, user namespaces, SELinux/AppArmor labels, bind propagation a Docker Desktop file sharing,
+- navrhnúť volume backup, migration, access-mode, fencing a cleanup lifecycle,
+- rozlíšiť Docker network driver, user-defined bridge, embedded DNS, network alias a host network mode,
+- vysvetliť `HOST_PORT:CONTAINER_PORT`, bind address a rozdiel medzi `EXPOSE` a publishingom,
+- diagnostikovať Docker bridge, firewall/NAT, port collision, MTU, conntrack, DNS a IPv4/IPv6 connectivity.
 
 ## Stav
 
@@ -68,3 +93,9 @@ Po dokončení aktuálneho bloku má byť možné:
 | Container networking | Learning | L2 |
 | Container storage | Learning | L2 |
 | Container security | Learning | L2 |
+| Docker architecture | Learning | L2 |
+| Dockerfile | Learning | L2 |
+| Build context a layer cache | Learning | L2 |
+| Multi-stage builds | Learning | L2 |
+| Volumes a bind mounts | Learning | L2 |
+| Docker networks a port publishing | Learning | L2 |
