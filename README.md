@@ -44,10 +44,10 @@ Aktívne sekcie:
 2. [Linux and Systems](docs/01-linux-and-systems/README.md)
 3. [Networking and Web Fundamentals](docs/02-networking-and-web/README.md)
 4. [Git and Automation Basics](docs/03-git-and-automation/README.md)
+5. [Testing and Software Quality](docs/04-testing-and-quality/README.md)
 
 Plánované hlavné domény:
 
-- Testing a software quality
 - CI/CD a release engineering
 - GitLab
 - Terraform a Infrastructure as Code
