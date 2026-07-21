@@ -18,6 +18,10 @@ Test overujúci, či systém spĺňa dohodnuté business alebo používateľské
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Action plugin — Ansible
+
+Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action, napríklad spracuje arguments, transfer files alebo remote module result. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Address refactoring — Terraform
 
 Zmena resource alebo module addressy pri zachovaní identity toho istého remote objektu, typicky deklarovaná cez `moved` block, aby nevznikol neúmyselný destroy/create. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -33,6 +37,10 @@ Quality gate, ktorý reportuje výsledok, ale neblokuje ďalší delivery krok. 
 ## Advisory policy — Terraform
 
 Policy as Code pravidlo, ktorého výsledok je viditeľný a auditovaný, ale samo neblokuje plan alebo apply. Používa sa pri kalibrácii alebo nízkom riziku. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Agentless automation — Ansible
+
+Model, v ktorom Ansible typicky nepotrebuje dlhodobo bežiaceho agenta na managed node a používa existujúci transport alebo API; stále však vyžaduje connection, identity a runtime capabilities. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Alias — YAML
 
@@ -57,6 +65,54 @@ YAML mechanizmus pomenovania node, na ktorý môže odkazovať alias. Pozri [YAM
 ## Annotated tag
 
 Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, message a voliteľným kryptografickým podpisom. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Ansible collection
+
+Versionovaný distribuovateľný balík modules, plugins, roles, playbooks, documentation a ďalšieho executable Ansible contentu. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Ansible conditional
+
+Expression, typicky v `when`, ktorá rozhoduje, či sa task, block alebo iný podporovaný content vykoná pre konkrétny host a item context. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
+## Ansible control node
+
+Systém alebo execution environment, na ktorom beží `ansible-core`, načítava sa inventory a content, plánujú sa tasks a spravujú connections k targets. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Ansible facts
+
+Host-scoped runtime údaje objavené o managed node, napríklad OS, addresses, filesystems alebo hardware metadata, dostupné najmä cez `ansible_facts`. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
+## Ansible handler
+
+Task zaradený do handler queue na základe notification od tasku, ktorý reportoval zmenu; typicky aplikuje runtime reakciu ako reload alebo restart. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
+## `ansible_host`
+
+Connection address alebo hostname použitý Ansible transportom pre inventory host, ktorý môže byť odlišný od jeho logickej identity `inventory_hostname`. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Ansible inventory
+
+Výsledný runtime model hosts, groups, connection metadata a variables vytvorený z jedného alebo viacerých inventory sources. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Ansible module
+
+Executable automation jednotka implementujúca konkrétnu operáciu a vracajúca štruktúrovaný result, napríklad `changed`, `failed` a module-specific fields. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Ansible play
+
+Časť playbooku mapujúca host pattern na ordered tasks, roles, variables, privilege a execution controls. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Ansible playbook
+
+YAML dokument obsahujúci jeden alebo viac plays, ktorý zaznamenáva opakovateľný configuration, deployment alebo orchestration workflow. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Ansible task
+
+Jedna deklarovaná action s module arguments a execution controls aplikovaná na relevantný host context v playi. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Ansible variable
+
+Pomenovaná hodnota použitá na parametrizáciu playbooku, role, inventory, tasku alebo template, ktorej výsledok závisí od source, scope a precedence. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Anycast
 
@@ -274,6 +330,10 @@ Stav, keď nedôveryhodný alebo chybný pipeline uloží cache, ktorú neskôr 
 
 Versioning schéma odvodená primárne z kalendárneho dátumu alebo release cadence, napríklad `2026.07.21`. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Callback plugin — Ansible
+
+Plugin spracúvajúci execution events a výsledky pre console output, logs, profiling alebo external observability integrations. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## CALMS
 
 DevOps rámec Culture, Automation, Lean, Measurement a Sharing. Pozri [CALMS framework](docs/00-foundations/calms.md).
@@ -334,6 +394,10 @@ Podiel deploymentov, ktoré spôsobia degradáciu služby a vyžadujú nápravu.
 
 Čas od vzniku sledovanej zmeny po jej úspešný deployment do produkcie. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
 
+## Changed state — Ansible
+
+Task result signal `changed: true`, ktorým module alebo custom `changed_when` oznamuje, že target state bol zmenený; používa sa aj na handler notifications. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
 ## Changelog
 
 Dlhodobý chronologický záznam významných zmien produktu alebo komponentu naprieč releases. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -345,6 +409,10 @@ Disciplína formulovania a vykonávania kontrolovaných experimentov, ktoré ove
 ## Chaos testing
 
 Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state hypotézu v definovanom scope s bezpečnostnými kontrolami. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Check mode — Ansible
+
+Best-effort režim predikcie zmien bez ich vykonania pri modules, ktoré ho podporujú; nie je transakčnou ani saved-plan garanciou. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Cherry-pick
 
@@ -454,6 +522,10 @@ Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej
 
 Postup, pri ktorom sa backendu prestane posielať nový traffic, ale existujúce requests alebo connections dostanú čas na dokončenie. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Connection plugin — Ansible
+
+Plugin definujúci transport a remote execution semantics medzi control node a targetom, napríklad SSH, local, WinRM alebo network API connection. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Conntrack
 
 State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Pozri [NAT](docs/02-networking-and-web/nat.md) a [Firewally](docs/02-networking-and-web/firewalls.md).
@@ -461,6 +533,10 @@ State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Po
 ## Consistent hashing
 
 Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Constructed inventory — Ansible
+
+Inventory transformation model vytvárajúci derived variables a groups z existujúcich host metadata pomocou expressions a grouping pravidiel. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
 ## Consumer-driven contract
 
@@ -726,6 +802,10 @@ Switchová ochrana povoľujúca DHCP server responses iba na trusted portoch. Po
 
 Coverage vypočítaná iba pre nový alebo zmenený kód voči zvolenému merge base. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Diff mode — Ansible
+
+Režim zobrazujúci content rozdiel pri podporovaných modules; output môže obsahovať citlivé údaje a potrebuje access a retention policy. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Direct membership — GitLab
 
 Členstvo pridané priamo na konkrétny project alebo group, na rozdiel od accessu zdedeného z parent group alebo získaného sharingom. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
@@ -805,6 +885,14 @@ Child pipeline, ktorého CI configuration je vytvorená alebo zvolená počas pa
 ## Dynamic environment — GitLab
 
 Dočasný environment vytvorený pre branch, merge request alebo inú krátkodobú jednotku a ukončený stop jobom, TTL alebo reconcilerom. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
+## Dynamic include — Ansible
+
+Reusable task, role alebo playbook content načítaný počas executionu podľa runtime contextu, na rozdiel od skoršie spracovaného static importu. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Dynamic inventory — Ansible
+
+Inventory získaný cez plugin alebo external script z API, CMDB, cloud platformy alebo iného meniaceho sa source-u. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
 ## Early feedback
 
@@ -890,6 +978,10 @@ Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `ra
 
 Príklad alebo pravidlo zapísané vo forme, ktorú možno automaticky spustiť ako dôkaz behavior. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Execution environment — Ansible
+
+Versionovaný runtime image alebo prostredie obsahujúce `ansible-core`, Python dependencies, collections a system tools potrebné na reprodukovateľné vykonanie automation. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Executor — CI/CD
 
 Mechanizmus použitý runnerom na vykonanie jobu, napríklad host shell, container, virtual machine alebo Kubernetes pod. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -921,6 +1013,10 @@ Telemetry udalosť dokazujúca, že subjekt reálne dostal konkrétny experiment
 ## External secret provider — GitLab CI/CD
 
 Secret-management systém, z ktorého job explicitne načíta citlivú hodnotu po overení federovanej alebo inej scoped identity. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## Fact cache — Ansible
+
+Cache backend uchovávajúci host facts medzi runs podľa definovanej freshness, access a invalidation policy. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Fail closed — gate policy
 
@@ -1034,6 +1130,10 @@ Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy 
 
 Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého private key automaticky neodhalí staré TLS sessions. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## FQCN — Ansible
+
+Fully Qualified Collection Name explicitne identifikujúci module, plugin alebo iný content cez namespace, collection a object name, napríklad `ansible.builtin.template`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
 ## Game day
 
 Plánované tímové resilience cvičenie kombinujúce technické faults, observability, incident response, komunikáciu a následné learning actions. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -1138,6 +1238,14 @@ Udelenie accessu projektu alebo group členom inej group s definovaným maximum 
 
 Metrika chrániaca experiment alebo rollout pred neprijateľným vedľajším dopadom, aj keď primary metric vyzerá pozitívne. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Handler deduplication — Ansible
+
+Správanie, pri ktorom viac notifications rovnakého handlera v príslušnej handler phase vedie typicky k jednému vykonaniu handlera na host. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
+## Handler notification — Ansible
+
+Event vytvorený changed taskom cez `notify`, ktorý zaradí pomenovaný handler alebo `listen` topic do pending handler queue pre host. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
 ## Hard link
 
 Ďalší directory entry odkazujúci na ten istý inode. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
@@ -1177,6 +1285,10 @@ IPv6 field znižovaný na každom router hop-e; IPv4 ekvivalentom je TTL. Pozri 
 ## Host key — SSH host key
 
 Kryptografický kľúč, ktorým SSH server preukazuje svoju identitu klientovi. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
+
+## `hostvars` — Ansible
+
+Magic mapping poskytujúci prístup k host-scoped variables iných inventory hosts; jeho použitie vytvára cross-host coupling a závisí od dostupnosti dát. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## HSTS — HTTP Strict Transport Security
 
@@ -1266,6 +1378,34 @@ Test reálnej spolupráce komponentov alebo systému s technickou dependency, na
 
 Testovanie, ktoré overuje komunikáciu a side effects medzi objektmi alebo komponentmi, napríklad volanie gateway s konkrétnymi argumentmi. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Inventory cache — Ansible
+
+Cache výsledkov dynamic inventory discovery, ktorá znižuje API náklady, ale vytvára freshness a stale-target riziko. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Inventory group — Ansible
+
+Pomenovaná množina inventory hosts alebo child groups používaná na targeting, topology model a group variables. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Inventory host — Ansible
+
+Logická target identita v Ansible inventory, ktorá môže používať samostatnú connection addressu cez `ansible_host`. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## `inventory_hostname`
+
+Stabilná logická identita hostu v Ansible inventory a host variable context-e, ktorá nemusí byť DNS alebo connection addressou. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Inventory pattern — Ansible
+
+Expression vyberajúca hosts alebo groups pomocou union, intersection a exclusion semantics pre play alebo CLI run. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Inventory plugin — Ansible
+
+Plugin parsujúci static alebo dynamic inventory source a vytvárajúci hosts, groups a variables v runtime inventory model-i. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Inventory source — Ansible
+
+File, directory, plugin configuration, script alebo external source, z ktorého Ansible vytvára časť výsledného inventory. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## IP packet
 
 Network-layer jednotka obsahujúca source a destination IP adresu a payload vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
@@ -1277,6 +1417,10 @@ Adresy `10.0.0.0/8`, `172.16.0.0/12` a `192.168.0.0/16`, ktoré nie sú globáln
 ## IPv6 link-local address
 
 IPv6 adresa z `fe80::/10` platná v lokálnom linkovom scope. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Jinja template — Ansible
+
+Textový template renderovaný typicky na control node v host-specific variable context-e a následne použitý ako configuration alebo iný artifact. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Jitter
 
@@ -1342,6 +1486,10 @@ Podiel vykonaných source riadkov počas testov. Vysoká hodnota sama osebe nedo
 
 Jedinečný identifikátor histórie state-u používaný na rozlíšenie nezávisle vzniknutých states a ochranu pred prepísaním nesúvisiaceho snapshotu. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## `listen` topic — Ansible
+
+Pomenovaný notification contract, na ktorý môže reagovať viac handlers bez priameho viazania notifying tasku na konkrétne handler names. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
 ## Listening socket
 
 Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný connected socket. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -1378,6 +1526,10 @@ Routing pravidlo, podľa ktorého vyhráva zhodná route s najväčším počtom
 
 Zero-width regex assertion overujúca text pred alebo za aktuálnou pozíciou bez jeho zahrnutia do matchu. Nie je podporovaná vo všetkých engines. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Loop control — Ansible
+
+Task loop metadata a správanie riadené cez `loop_control`, napríklad pomenovaný `loop_var`, label, index alebo pause. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
 ## MAC address
 
 Link-layer identifikátor interface používaný na Ethernet forwarding v lokálnom broadcast domain. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
@@ -1385,6 +1537,10 @@ Link-layer identifikátor interface používaný na Ethernet forwarding v lokál
 ## MAC — Mandatory Access Control
 
 Bezpečnostná politika vynútená systémom nad rámec rozhodnutí ownera objektu. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Magic variable — Ansible
+
+Reserved variable poskytovaná Ansible engine-om na opis inventory alebo execution contextu, napríklad `hostvars`, `groups` alebo `inventory_hostname`. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Mainline
 
@@ -1401,6 +1557,10 @@ Vopred definovaný časový interval, počas ktorého je povolená plánovaná �
 ## MAJOR version
 
 Prvá časť SemVer verzie, ktorá sa zvyšuje pri nekompatibilnej zmene deklarovaného public API alebo compatibility contractu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## Managed node — Ansible
+
+Host, zariadenie alebo API target, na ktorý Ansible aplikuje automation cez connection plugin alebo provider-specific module workflow. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Masked variable — GitLab
 
@@ -1906,6 +2066,10 @@ Pravidlo mapujúce source ref na destination ref pri fetch alebo push operácii.
 
 Konkrétna syntax a semantics regular expression engine-u, napríklad POSIX ERE, .NET, Python, PCRE alebo RE2. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Registered variable — Ansible
+
+Host-scoped variable vytvorená cez `register`, ktorá uchováva štruktúrovaný result konkrétneho tasku pre ďalšie conditions, loops alebo reporting. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
 ## Regression test
 
 Test chrániaci existujúce funkčné alebo nefunkčné správanie pred nechcenou zmenou. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
@@ -2021,6 +2185,10 @@ Architectural style pre distributed hypermedia systems založený na constraints
 ## Retransmission
 
 Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočného potvrdenia. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Retry loop — Ansible
+
+Opakovanie rovnakého tasku podľa `until`, `retries` a `delay`, určené pre bounded transient conditions, nie pre iteráciu business items. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Reusable pipeline
 
@@ -2338,6 +2506,14 @@ Analýza source alebo jeho reprezentácie bez vykonania celej aplikácie, naprí
 
 Dlhodobo opakovane používaný environment s pevným názvom, napríklad staging alebo production. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
+## Static import — Ansible
+
+Reusable content spracovaný staticky pri parse phase, čím sa od dynamic include odlišuje v timing-u, listovaní, tags a variable/condition semantics. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Static inventory — Ansible
+
+Inventory hosts, groups a variables deklarované v versionovanom INI alebo YAML source namiesto runtime discovery cez external API. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## Steady state — chaos engineering
 
 Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -2345,6 +2521,10 @@ Merateľné používateľské alebo prevádzkové správanie, ktoré má systém
 ## `strace`
 
 Nástroj na sledovanie system calls, ich výsledkov a trvania. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Strategy plugin — Ansible
+
+Plugin určujúci, ako Ansible plánuje postup hosts cez tasks a synchronization body počas play executionu. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Stress test
 
@@ -2437,6 +2617,10 @@ Praktický vrstvený model Application, Transport, Internet a Link používaný 
 ## Template contract — CI/CD
 
 Versionované pravidlá reusable template definujúce inputs, defaults, outputs, artifacts, permissions, supported scenarios, failure semantics a compatibility policy. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
+## Template validation — Ansible
+
+Kontrola renderovaného dočasného file-u pomocou target parsera alebo validatora pred jeho nahradením na destination path. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Terminating error — PowerShell
 
@@ -2633,6 +2817,10 @@ Overenie, či systém rieši správny používateľský alebo business problém 
 ## Value stream
 
 Celý tok práce a informácií od potreby po hodnotu doručenú používateľovi. Pozri [Value Stream Mapping](docs/00-foundations/value-stream-mapping.md).
+
+## Variable precedence — Ansible
+
+Pravidlá rozhodujúce, ktorá z viacerých definitions rovnakého variable name sa použije podľa source a explicitnosti. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Verification — testing
 
