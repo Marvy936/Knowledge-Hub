@@ -162,6 +162,10 @@ Linux capability, ktorú môže proces za presných podmienok zachovať pri `exe
 
 Versionovateľný EC2 boot-image a block-device contract používaný pri vytváraní nových instances. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Amortized cost — AWS
+
+Cost view, ktorý rozkladá upfront a recurring commitment fees cez obdobie ich benefitu, aby zobrazil ekonomický cost používania namiesto iba cash invoice momentu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Anchor — YAML
 
 YAML mechanizmus pomenovania node, na ktorý môže odkazovať alias. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -292,7 +296,7 @@ Host-level Linux Security Module profil obmedzujúci filesystem, capability, net
 
 ## Application-consistent backup
 
-Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point, nie iba náhodný filesystem okamih. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Backup vytvorený tak, aby zachoval logicky konzistentný application state, napríklad po flushnutí buffers, filesystem freeze alebo koordinovanom database checkpoint-e. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## application-consistent snapshot
 
@@ -430,6 +434,22 @@ Priemerná resource utilization cieľovej Pod population vyjadrená ako percento
 
 Základná AWS resource ownership, IAM, billing, quota, telemetry a blast-radius boundary s vlastným dvanásťmiestnym account ID. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## AWS Backup
+
+Centralizovaná AWS služba na policy-driven backup, copy, retention, restore, monitoring a audit podporovaných resource types. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## AWS Backup Audit Manager
+
+Capability na hodnotenie backup controls a generovanie compliance evidence pre coverage, frequency, retention, encryption, copies, Vault Lock a restore testing. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## AWS Backup Vault Lock
+
+Ochranný mechanizmus presadzujúci immutable retention pravidlá backup vaultu v governance alebo compliance modeli podľa konfigurácie. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## AWS Budgets
+
+AWS Cost Management capability na sledovanie cost, usage, commitment utilization alebo coverage voči definovaným thresholds s notifications a voliteľnými actions. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## AWS Certified CloudOps Engineer – Associate
 
 Associate-level AWS certifikácia overujúca deployment, management a operations workloads na AWS v oblastiach monitoring/remediation, reliability, automation, security a networking. Pozri [SOA-C03 guide](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
@@ -441,6 +461,22 @@ Associate-level AWS certifikácia overujúca deployment, management a operations
 ## AWS CloudTrail
 
 AWS audit služba zaznamenávajúca API a ďalšiu account activity vrátane identity, action, time, request context, resources a výsledku. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## AWS Cost Anomaly Detection
+
+Capability používajúca modely na identifikovanie neobvyklých spend patterns podľa definovaného monitoru a alert subscription. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## AWS Cost Explorer
+
+Analytická AWS Cost Management vrstva na filtrovanie, grouping, forecasting a analýzu cost a usage vrátane amortized views a optimization reports. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## AWS Cost Optimization Hub
+
+Centralizovaná capability agregujúca a prioritizujúca cost-optimization opportunities naprieč AWS accounts a Regions. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## AWS Data Exports
+
+AWS capability na pravidelný export detailných billing, cost, usage a related datasets do analytického storage a query workflowu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## AWS Fargate
 
@@ -482,6 +518,14 @@ Model rozdeľujúci bezpečnostné a prevádzkové responsibilities medzi AWS ak
 
 AWS operations platforma pre central management managed nodes a AWS resources cez remote commands, sessions, patching, state, inventory, automation a configuration storage. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
+## AWS Well-Architected Framework
+
+Konzistentný review framework na hodnotenie workloadov podľa šiestich pilierov a vytváranie evidence-driven improvement plánu. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## AWS Well-Architected Tool
+
+AWS služba na dokumentovanie workload reviews, lenses, risk issues, improvement plans, milestones a reports podľa Well-Architected Frameworku. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## AZ ID — AWS
 
 Stabilný identifikátor fyzickej Availability Zone, napríklad `euc1-az2`, konzistentný naprieč AWS accounts a vhodný na cross-account topology koordináciu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
@@ -517,6 +561,14 @@ Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, 
 ## Backup and restore — DR
 
 Recovery stratégia, pri ktorej sa náhradné prostredie a state obnovujú zo záloh po incidente; má nízky steady-state cost a typicky vyššie RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Backup plan — AWS
+
+Policy expression určujúci schedule, windows, vault, lifecycle, retention, copy actions a ďalšie backup semantics pre priradené resources. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Backup vault — AWS
+
+Logický container recovery points s vlastnou access policy, encryption, retention, lock a audit boundary. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Bare repository
 
@@ -561,6 +613,10 @@ Finálny scheduler krok zapisujúci vybraný Node do Podu; po bindingu kubelet n
 ## Blast radius
 
 Maximálny rozsah používateľov, trafficu, dát, komponentov alebo failure domains, ktoré môže zmena, incident alebo experiment ovplyvniť. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Blended cost — AWS
+
+Cost view používajúci pri niektorých consolidated-billing scenároch priemernú rate naprieč organization family. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Blob — Git object
 
@@ -633,6 +689,10 @@ L2 oblasť, v ktorej sa šíri Ethernet broadcast. Typicky ju oddeľuje router a
 ## Broken main
 
 Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality gates a nemá byť považovaná za dôveryhodný integračný základ. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
+## Budget action — AWS
+
+Voliteľná automatická action naviazaná na AWS Budget threshold, napríklad policy alebo bounded resource-control operácia podľa podporovaných možností. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Build
 
@@ -874,6 +934,10 @@ Disciplína formulovania a vykonávania kontrolovaných experimentov, ktoré ove
 
 Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state hypotézu v definovanom scope s bezpečnostnými kontrolami. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Chargeback — FinOps
+
+Interný model, ktorý finančne priraďuje cloud cost konkrétnemu tímu, produktu, cost centru alebo business ownerovi. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Chart CI pipeline — Helm
 
 Versionovaný validačný workflow od dependency locku, values schema, render matrix a policy checks cez ephemeral cluster install, `helm test`, upgrade/rollback scenár až po publikovanie immutable chart artifactu. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
@@ -942,6 +1006,10 @@ Certified Kubernetes Administrator, performance-based Linux Foundation/CNCF cert
 
 Build vykonaný bez dôvery v existujúcu local alebo external cache, používaný na overenie reproducibility, úplnosti dependencies a absencie skrytých cache assumptions. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
+## Clean-room recovery
+
+Obnova do izolovaného a kontrolovaného prostredia pred production promotion, aby sa overila integrita a zabránilo opätovnému kompromitovaniu obnovených dát. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## ClickOps
 
 Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez versionovaného, reviewovaného a reprodukovateľného change pathu. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -965,6 +1033,10 @@ Voliteľný Kubernetes control-plane component spúšťajúci cloud-provider-spe
 ## Cloud deployment model
 
 Klasifikácia určujúca, kde cloud infraštruktúra beží, komu je určená a ako sa prepája a riadi, napríklad public, private alebo hybrid cloud. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Cloud financial management
+
+Disciplína merania, alokácie, plánovania, kontroly a optimalizácie cloud spendu podľa business value a operational trade-offov. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Cloud portability
 
@@ -1362,6 +1434,10 @@ Root path build contextu, voči ktorému sa vyhodnocujú local source paths v `C
 
 Prechod CPU z vykonávania jedného threadu na iný. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
+## Continuous backup — AWS Backup
+
+Backup model, ktorý pri podporovaných resources priebežne zachytáva zmeny a umožňuje point-in-time recovery v retention window. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Continuous Delivery
 
 Schopnosť udržiavať systém a jeho artifacty v stave pripravenom na bezpečný, opakovateľný a auditovateľný produkčný deployment na požiadanie. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
@@ -1381,6 +1457,10 @@ Opakované vyhodnocovanie už známych SBOM components, dependencies alebo image
 ## Continuous validation — Terraform
 
 Opakované overovanie infraštruktúrnych invariánt po apply pomocou checks, drift plans, asset policy, security rescanningu alebo runtime verification. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Continuous Well-Architected
+
+Integrácia architektúrnych controls, review questions, operational evidence a improvement backlogu do priebežného delivery a operations lifecycle-u. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Contract drift
 
@@ -1474,6 +1554,26 @@ Bežná Kubernetes cluster DNS implementation a extensible DNS server konfigurov
 
 Browser-enforced HTTP policy určujúca, ktoré origins môžu čítať responses alebo odosielať vybrané cross-origin requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
+## Cost allocation coverage
+
+Podiel cloud spendu, ktorý možno spoľahlivo priradiť podľa accounts, tags, Cost Categories alebo iného allocation modelu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Cost allocation tag — AWS
+
+Aktivovaný resource tag používaný v AWS billing a cost datasets na grouping, allocation, showback alebo chargeback. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Cost Category — AWS
+
+Business mapping vrstva, ktorá klasifikuje billing line items podľa rules nad accounts, services, tags a ďalšími dimensions. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Cost incident
+
+Neočakávaný alebo nekontrolovaný spend event spôsobený napríklad útokom, retry loopom, autoscalingom, telemetry explóziou alebo chybnou konfiguráciou. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Cost Optimization pillar
+
+Well-Architected pillar zameraný na poskytovanie business value pri efektívnom total cost počas lifecycle-u. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## CPU millicore
 
 Kubernetes CPU quantity, kde `1000m` predstavuje jednu CPU jednotku a `250m` štvrtinu CPU. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
@@ -1506,9 +1606,17 @@ Najdlhšia dependency cesta od triggeru po požadovaný výsledok pipeline. Urč
 
 Časový scheduler spúšťajúci príkazy podľa crontab pravidiel. Pozri [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md).
 
+## Cross-account backup copy
+
+Kópia recovery pointu do oddeleného AWS accountu na zníženie credential a administrative blast radiusu. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Cross-compilation — container build
 
 Vytváranie binary pre target platform odlišnú od build host platformy pomocou toolchainu a automatic platform arguments ako `TARGETOS` a `TARGETARCH`. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Cross-Region backup copy
+
+Kópia recovery pointu do iného AWS Regionu pre regionálnu isolation a disaster-recovery model. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Cross-state contract
 
@@ -2410,6 +2518,10 @@ Lambda resource s pollermi, ktoré čítajú batches z podporovaných queue aleb
 
 Model, v ktorom API write uloží desired state okamžite, ale controllers, scheduler, kubelet a external systems ho realizujú asynchrónne a stav sa zhoduje až po čase. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Evidence-driven review
+
+Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, telemetry, tests, policies, incidents a ďalšie overiteľné dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Evidence freshness
 
 Pravidlá určujúce, či test result, scan, review alebo approval stále patrí k aktuálnemu commitu, artifactu, policy a environment state. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
@@ -2645,6 +2757,10 @@ Stage, ktorého filesystem a image config tvoria publikovaný runtime image; má
 ## Finalizer — Kubernetes
 
 Qualified metadata string blokujúci finálne odstránenie objectu, kým zodpovedný controller nedokončí cleanup a finalizer neodstráni. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## FinOps
+
+Operating model spájajúci engineering, finance a business pri rozhodovaní o cloud value, cost, usage a trade-offoch. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## First-attempt pass rate
 
@@ -3030,6 +3146,10 @@ Masked CI/CD variable, ktorej hodnotu po uložení nemožno znovu zobraziť v Gi
 
 Architektonická schopnosť minimalizovať prerušenie služby pri očakávateľných component, host alebo zonal failures pomocou redundancy, health checks a failoveru. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## High-risk issue — Well-Architected
+
+Významná odchýlka od Well-Architected best practices s relevantným security, reliability, operations, performance, cost alebo sustainability rizikom. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## History rewrite
 
 Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, napríklad rebase, amend alebo reset publikovanej branch. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
@@ -3305,6 +3425,10 @@ Statické načítanie Ansible role spracované počas parse fázy, ktoré sa lí
 ## `import-values` — Helm
 
 Dependency declaration mechanism prenášajúci vybrané exported alebo mapped child values do parent values scope-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Improvement plan — Well-Architected
+
+Prioritizovaný súbor konkrétnych remediation položiek s ownerom, target state-om a validation criteria po workload review. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## `include` — Helm
 
@@ -3654,6 +3778,10 @@ Controller nasadený vo viacerých instances, ktoré cez Lease koordinujú aktí
 
 Lightweight object v `coordination.k8s.io` používaný napríklad na Node heartbeats alebo leader election components. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
 
+## Lens — Well-Architected
+
+Sada questions, best practices a improvement guidance pre konkrétny architecture alebo industry domain. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Level-based reconciliation
 
 Controller model, ktorý pri každom reconcile vyhodnocuje aktuálny desired a observed state namiesto závislosti na jedinom nevynechanom evente. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -3757,6 +3885,10 @@ Oddelený AWS member account určený na centrálne, dlhodobo chránené uložen
 ## Logical version
 
 Ľudsky alebo procesne významná verzia, napríklad `2.8.1`, ktorá komunikuje release alebo compatibility význam, ale sama nemusí identifikovať konkrétne bytes bez väzby na digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
+
+## Logically air-gapped vault — AWS Backup
+
+Špeciálny backup vault s dodatočnou logical isolation a Vault Lock compliance ochranou pre ransomware a recovery use cases. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Longest-prefix match
 
@@ -3913,6 +4045,10 @@ Alpha, beta alebo stable lifecycle contract system metrics ovplyvňujúci ich de
 ## MicroVM
 
 Minimalizovaná virtual machine navrhnutá na rýchlejší startup a menší overhead pri zachovaní samostatnej virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Milestone — Well-Architected
+
+Snapshot stavu workload review-u v konkrétnom čase používaný na meranie zmeny risku a improvement progressu. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Minimum detectable effect
 
@@ -4338,6 +4474,10 @@ Model, v ktorom requests prichádzajú podľa arrival rate nezávisle od aktuál
 
 Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/restore, capacity, runbooks, access controls a deployment/rollback mechanizmy. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Operational Excellence pillar
+
+Well-Architected pillar zameraný na efektívny development, operations insight, safe change a continuous improvement. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## option group — RDS
 
 Engine-specific RDS configuration object povoľujúci vybrané database features alebo integrations s vlastným lifecycle, restart a licensing modelom. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
@@ -4514,6 +4654,10 @@ CPU, memory, storage, network a operational cost jedného DaemonSet Podu vynáso
 
 PersistentVolumeClaim viazaný na konkrétny StatefulSet ordinal a znovu použitý náhradným Podom s rovnakou logical identity. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## Performance Efficiency pillar
+
+Well-Architected pillar zameraný na efektívny výber a používanie compute resources podľa workload requirements a technologického vývoja. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Performance test
 
 Test časových a kapacitných vlastností systému pri explicitnom workload modeli, prostredí a success criteria. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
@@ -4657,6 +4801,10 @@ Label selector určujúci population Podov, ktorú workload controller pozoruje 
 ## Pod template
 
 Embedded desired Pod metadata a spec v workload controller resource-e, z ktorého controller vytvára nové Pod instances. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Point-in-time recovery — AWS Backup
+
+Obnova podporovaného resource-u do konkrétneho času z continuous backup recovery pointu. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## point-in-time recovery — RDS
 
@@ -5010,6 +5158,10 @@ Počet replík, ktorých Pody majú aktuálne Ready condition; nevypovedá autom
 
 Zber performance a error telemetry zo skutočných používateľských klientov a sessions s možnosťou segmentácie podľa zariadenia, browsera, regiónu alebo journey. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Realized savings
+
+Úspora reálne overená po implementácii optimization change-u, nie iba estimated recommendation. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Rebase
 
 Operácia, ktorá replayuje commits na nový base a vytvára nové commit objects s novými IDs. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
@@ -5037,6 +5189,14 @@ Predpripravený súbor identity, kompatibility informácií, workflows a rozhodo
 ## Recovery Point Actual — RPA
 
 Skutočný vek alebo bod obnovených dát dosiahnutý pri recovery teste alebo incidente, porovnávaný s cieľovým RPO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery-point age
+
+Čas od vytvorenia posledného validného recovery pointu, používaný ako praktický signal voči RPO požiadavke. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Recovery point — AWS Backup
+
+Backup reprezentujúci obsah resource-u v konkrétnom čase spolu s lifecycle, encryption a recovery metadata. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Recovery Point Objective — RPO
 
@@ -5161,6 +5321,10 @@ Cadence model, v ktorom zmeny pripravené do definovaného cutoffu vstúpia do s
 ## Release unit
 
 Presne definovaná množina artifactov, configov, migrations alebo koordinovaných komponentov, ktoré sa schvaľujú a release-ujú ako jeden celok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
+## Reliability pillar
+
+Well-Architected pillar zameraný na správne a konzistentné fungovanie workloadu, capacity, change a failure management. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Remediation hierarchy — Kubernetes
 
@@ -5342,6 +5506,10 @@ Séria koordinovaných alebo opakovaných container restartov vyvolaná chybnou 
 
 Pravidelný test obnovy reálneho backup artifactu v izolovanom prostredí vrátane merania RTO a application consistency validation. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
 
+## Restore testing — AWS Backup
+
+Policy-driven pravidelné obnovenie recovery pointu do test targetu s následnou technical a application validation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Restored etcd cluster identity
 
 Nové member a cluster metadata vytvorené snapshot restore operáciou; starý a obnovený member state sa nesmie nekontrolovane miešať. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
@@ -5373,6 +5541,10 @@ Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad
 ## Review app — GitLab
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Rightsizing
+
+Úprava alebo odstránenie resource-u podľa reálneho utilization, performance, reliability a capacity modelu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Ring deployment
 
@@ -5738,6 +5910,10 @@ Zákaznícka responsibility vrstva zahŕňajúca identity, configuration, data, 
 
 AWS responsibility vrstva zahŕňajúca physical facilities, hardware, host platform, virtualization a provider-managed service infrastructure. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
+## Security pillar — Well-Architected
+
+Well-Architected pillar zameraný na identity, traceability, infrastructure protection, data protection, detection a incident response. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Security report artifact — GitLab
 
 Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security findings v pipeline, merge requeste alebo vulnerability-management vrstvách. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
@@ -5913,6 +6089,10 @@ Rozšírenie validácie, observability a experimentovania do deploymentu a produ
 ## `ShouldProcess` — PowerShell
 
 PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené mutation operácie. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Showback — FinOps
+
+Interné zobrazenie costu tímom alebo produktom bez priameho finančného preúčtovania. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Sidecar container
 
@@ -6202,6 +6382,10 @@ Pravidlá určujúce, ktoré release lines dostávajú opravy, security updates 
 
 Job s pozastaveným execution lifecycle, ktorý nevytvára novú prácu a po resume pokračuje z persisted Job statusu, nie z memory state-u ukončeného procesu. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
+## Sustainability pillar
+
+Well-Architected pillar zameraný na minimalizovanie environmentálneho dopadu workloadu cez demand, utilization, software, data a hardware efficiency. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Swap
 
 Storage-backed priestor pre niektoré anonymné memory pages. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -6482,6 +6666,10 @@ Pod scheduling pravidlo riadiace maximálnu nerovnomernosť matching Pod populat
 
 Celkové náklady služby zahŕňajúce provider bill, engineering a operations prácu, support, compliance, migration, egress, downtime risk a opportunity cost. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## Total cost of ownership — TCO
+
+Celkový ekonomický cost zahŕňajúci cloud spend, engineering, operations, licensing, support, migration a risk. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## `toYaml` — Helm
 
 Template function serializujúca hodnotu do YAML textu, ktorý musí byť vložený s korektným indentation contractom. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
@@ -6553,6 +6741,14 @@ Acceptance activity vykonaná alebo schválená reprezentatívnym business použ
 ## UDP datagram
 
 Samostatná transportná správa bez zabudovanej garancie doručenia, poradia alebo retransmission. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Unblended cost — AWS
+
+Cost view zobrazujúci konkrétnu rate účtovanú za jednotlivé usage line items bez organization average. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Unit cost
+
+Cloud cost prepočítaný na business jednotku, napríklad request, transakciu, build alebo aktívneho používateľa. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Unit test
 
@@ -6849,6 +7045,10 @@ Versionovaný reusable opis viacerých jobs, dependencies a policy hooks poskytu
 ## Working tree
 
 Filesystem materialization aktuálne checkoutnutého Git snapshotu, ktorú používateľ a nástroje priamo menia. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Workload boundary — Well-Architected
+
+Explicitný scope komponentov, ľudí, procesov, dát a dependencies, ktoré spoločne poskytujú hodnotený business outcome. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Workload density
 
