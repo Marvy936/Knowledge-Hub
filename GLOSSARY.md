@@ -342,6 +342,10 @@ Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality ga
 
 Proces transformujúci zdrojové vstupy na spustiteľný alebo distribuovateľný artifact. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Build attestation
+
+Machine-readable statement viazaný na build output digest, napríklad provenance alebo SBOM, používaný na overenie source, build procesu a supply-chain policy. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Build bind mount — Dockerfile
 
 Dočasný bind mount dostupný iba počas `RUN --mount=type=bind`, ktorý sprístupní build context, stage alebo named context bez automatického uloženia mount contentu do výslednej layer. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -353,6 +357,18 @@ Znovupoužiteľné výsledky build graph nodes alebo instructions identifikovan�
 ## Build context — Docker
 
 Explicitná množina files, directories a metadata dostupná builderu ako source pre `COPY`, `ADD` alebo build mounts; context root nemusí byť directory Dockerfile-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Build driver — Buildx
+
+Konfigurácia určujúca, kde a ako beží BuildKit backend, napríklad `docker`, `docker-container`, Kubernetes alebo remote driver. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Build exporter — BuildKit
+
+Komponent určujúci výsledný output build-u, napríklad registry image, local Docker image store, OCI artifact, tar alebo local filesystem. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Build frontend — BuildKit
+
+Parser a translator, ktorý premieňa Dockerfile alebo iný build language na interný BuildKit graph. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
 ## Build metadata — SemVer
 
@@ -377,6 +393,26 @@ Samostatný build filesystem a graph scope vytvorený instruction `FROM`, ktorý
 ## Build Verification Test
 
 Krátky smoke test nad novým buildom overujúci, či je artifact spustiteľný a vhodný na drahšie testovanie. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
+
+## Builder instance — Buildx
+
+Logical Buildx objekt združujúci jeden alebo viac BuildKit nodes, driver, endpoints, podporované platforms a configuration. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Builder node — Buildx
+
+Jedna execution jednotka v builder instance, ktorá poskytuje BuildKit worker capabilities a konkrétne podporované target platforms. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Builder trust domain
+
+Izolovaná bezpečnostná oblasť pre build workloads, cache a credentials; untrusted pull-request buildy nemajú zdieľať release signing alebo production registry oprávnenia. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## BuildKit
+
+Moderný container build backend vykonávajúci dependency graph, content-aware cache, build mounts, exporters, multi-platform outputs a attestations. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Buildx
+
+Docker CLI plugin na správu BuildKit builders a pokročilých build workflows vrátane multi-platform builds, external cache a output exporters. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
 ## Cache — CI/CD
 
@@ -594,6 +630,38 @@ AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [
 
 Test celého deployovateľného komponentu cez jeho verejné rozhranie, pričom externé dependencies môžu byť nahradené controlled doubles. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
 
+## Compose include
+
+Mechanizmus importu ďalšieho Compose application modelu; celý transitive source a jeho privileged mounts, images, networks a commands musia byť auditované. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose interpolation
+
+Nahrádzanie `${VARIABLE}` výrazov pri zostavovaní resolved Compose modelu; nie je totožné s environmentom odovzdaným procesu v containeri. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md) a [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose merge
+
+Pravidlá kombinovania viacerých Compose files, pri ktorých mappings, sequences a špeciálne fields ako `command`, `entrypoint` alebo `healthcheck.test` môžu mať odlišné merge semantics. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose profile
+
+Pomenovaná podmienka aktivujúca optional services, napríklad development alebo debug tooling, bez zmeny core application modelu. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose project
+
+Logical application scope, ktorým Docker Compose zoskupuje services, containers, networks, volumes a labels pod spoločnú project identity. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose service
+
+Deklaratívna definícia workloadu v Compose modeli, z ktorej môže vzniknúť jedna alebo viac runtime container inštancií. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose Specification
+
+Otvorený application-model specification pre multi-container services, networks, volumes, configs, secrets a súvisiace lifecycle metadata. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose trust model
+
+Bezpečnostný model, podľa ktorého je Compose file privilegovaná executable configuration schopná spúšťať containers, mountovať host paths, pripájať devices a publikovať ports. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
 ## Computed value — Terraform
 
 Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
@@ -613,6 +681,10 @@ Neželaný rozdiel medzi deklaráciami, ktoré majú reprezentovať rovnaký env
 ## Configuration management
 
 Riadenie požadovaného runtime stavu operačných systémov, aplikácií, zariadení alebo služieb pomocou opakovateľných a overiteľných zmien. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Configuration recreate — container
+
+Nahradenie container instance po zmene runtime environment alebo inej immutable container configuration, pretože už spustený process bežne neprevezme nové hodnoty automaticky. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Congestion control
 
@@ -654,9 +726,21 @@ Izolovaný runtime process alebo skupina procesov používajúca host kernel a o
 
 Network model, v ktorom host-side konce veth pairs pripájajú container network namespaces k Linux bridge-u a následne k host routing, firewall alebo NAT vrstve. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
+## Container drift
+
+Nezdokumentovaná runtime zmena vo writable layeri alebo container configuration, ktorá nie je súčasťou versionovaného image-u alebo deployment modelu a zanikne alebo sa zmení pri recreate. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Container environment
+
+Sada environment variables dostupná runtime procesu po zlúčení image defaults a runtime overrides. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
 ## Container escape
 
 Prelomenie container isolation boundary, pri ktorom process získa access k hostu alebo iným workloads. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Container exit code
+
+Numerický status ukončenia PID 1 procesu; musí sa interpretovať spolu so signalom, OOM stavom, daemon/kernel logs a application contractom. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## Container image
 
@@ -758,6 +842,10 @@ Skupina používateľov, requestov alebo systémových instances, ktorá nedosta
 
 Referenčný variant experimentu reprezentujúci existujúce alebo baseline správanie, voči ktorému sa hodnotí treatment. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Controlled reproduction — Docker
+
+Diagnostický postup používajúci pinned image digest, rovnakú platformu a explicitnú runtime configuration, pričom sa mení iba jedna premenná a zachováva evidence. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
 ## Controller
 
 Komponent porovnávajúci desired state s aktuálnym stavom a vykonávajúci korekčné akcie. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
@@ -806,6 +894,10 @@ Najdlhšia dependency cesta od triggeru po požadovaný výsledok pipeline. Urč
 
 Časový scheduler spúšťajúci príkazy podľa crontab pravidiel. Pozri [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md).
 
+## Cross-compilation — container build
+
+Vytváranie binary pre target platform odlišnú od build host platformy pomocou toolchainu a automatic platform arguments ako `TARGETOS` a `TARGETARCH`. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Cross-state contract
 
 Explicitné rozhranie medzi samostatnými Terraform states, typicky cez publikované outputs alebo externý registry, ktoré musí mať ownership, compatibility a access policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
@@ -833,6 +925,10 @@ Model oprávnení založený najmä na UID/GID, mode bits a ACL. Pozri [SELinux 
 ## Daemon
 
 Dlhšie bežiaci proces poskytujúci systémovú alebo aplikačnú službu bez priamej interaktívnej session. Pozri [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md).
+
+## Daemon log — Docker
+
+Log Docker daemon-u a súvisiacich runtime components používaný na diagnostiku startupu, API, storage, networking a container lifecycle failures. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## DAG — CI/CD
 
@@ -1054,6 +1150,14 @@ Dlhodobo bežiaci server Docker Engine-u spravujúci images, containers, network
 
 Desktop platforma zahŕňajúca Docker Engine, CLI, UI, build, credential, networking a virtualizačné komponenty; na Windows a macOS typicky používa Linux virtualizačnú vrstvu pre Linux containers. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
+## Docker diagnostic baseline
+
+Minimálna sada evidence zahŕňajúca versions, context, `docker info`, container state, inspect, logs, events, resource usage a disk stav pred deštruktívnym zásahom. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Docker disk usage
+
+Storage spotrebovaný images, writable layers, volumes, build cache, logs a runtime content stores, analyzovaný napríklad cez `docker system df`. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
 ## Docker embedded DNS
 
 DNS service poskytovaná Docker Engine-om pre name resolution containers a aliases v user-defined networks. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
@@ -1066,9 +1170,25 @@ Client-server container platforma pozostávajúca z daemon-u, API a súvisiacich
 
 Versionované HTTP API, cez ktoré clients a integrations riadia Docker daemon; prístup k nemu je privilegovaná platformová capability. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
+## Docker event
+
+Časovo zoradená runtime udalosť Docker daemon-u, napríklad create, start, die, health status, network connect alebo image pull, použitá na incident koreláciu. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
 ## Docker executor — GitLab Runner
 
 Executor, ktorý spúšťa každý job v containeri vytvorenom z definovaného image a môže pripájať service containers, volumes a cache. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+
+## Docker health history
+
+Obmedzený záznam posledných healthcheck executions, exit statuses a outputu dostupný cez container inspection. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Docker health status
+
+Runtime stav `starting`, `healthy` alebo `unhealthy` odvodený z healthchecku a oddelený od process state `running` alebo `exited`. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Docker healthcheck
+
+Periodický command definovaný image-om alebo runtime modelom, ktorého exit status určuje health state bežiaceho containeru. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Docker host network
 
@@ -1198,6 +1318,10 @@ Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct
 
 Používateľ, ktorého membership, role a approval-rule context oprávňujú poskytnúť approval započítaný pre konkrétny merge request. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Emulation — multi-platform build
+
+Spustenie target-architecture build binaries cez emulačnú vrstvu, napríklad QEMU, na hoste s odlišnou architecture; nenahrádza úplný native runtime test. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Encapsulation
 
 Proces, pri ktorom každá sieťová vrstva pridá svoje metadata okolo payloadu vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
@@ -1225,6 +1349,10 @@ Rozdiel medzi deklarovaným desired state environmentu a jeho skutočným runtim
 ## Environment parity — deployment
 
 Miera, do akej blue a green alebo iné deployment targety zachovávajú rovnaké produkčne relevantné konfigurácie, topológiu, permissions, limits a dependencies. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## Environment precedence — Docker
+
+Pravidlá určujúce výslednú environment hodnotu pri kombinácii CLI overrides, Compose `environment`, `env_file`, image `ENV` a application defaults. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Environment promotion
 
@@ -1265,6 +1393,10 @@ Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a k
 ## Evidence freshness
 
 Pravidlá určujúce, či test result, scan, review alebo approval stále patrí k aktuálnemu commitu, artifactu, policy a environment state. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
+## Evidence preservation — Docker incident
+
+Zachovanie inspect dát, logs, events, versions, image digestov, resource a host evidence pred restartom, delete alebo prune operáciou. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## Exception chaining — Python
 
@@ -1309,6 +1441,10 @@ Telemetry udalosť dokazujúca, že subjekt reálne dostal konkrétny experiment
 ## External build cache
 
 Build cache exportovaná mimo lokálneho buildera, napríklad do registry alebo CI backendu, s vlastnou access, trust, namespace a retention policy. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## External resource — Compose
+
+Network, volume, config alebo secret deklarovaný ako vlastnený mimo aktuálneho Compose projektu; Compose ho používa, ale nemá automaticky riadiť jeho celý lifecycle. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
 ## External secret provider — GitLab CI/CD
 
@@ -1578,6 +1714,10 @@ Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu
 
 Aktívny alebo pasívny test určujúci, či backend môže prijímať nový traffic. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Health start period
+
+Warm-up interval healthchecku, počas ktorého startup failures nemusia prispievať k označeniu containeru za unhealthy podľa health configuration. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
 ## Hermetic test
 
 Test, ktorý kontroluje všetky významné vstupy a nespolieha sa na nepredvídateľný externý stav. Môže používať disposable reálne dependencies. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -1734,6 +1874,10 @@ Access získaný cez membership v parent group alebo inom hierarchicky relevantn
 
 Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Inode exhaustion
+
+Stav, keď filesystem nemôže vytvárať ďalšie files napriek voľnej byte capacity, čo môže narušiť image pull, logs, snapshots alebo container writes. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
 ## Integration test
 
 Test reálnej spolupráce komponentov alebo systému s technickou dependency, napríklad databázou, brokerom, filesystemom alebo cloud API. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -1818,6 +1962,10 @@ Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, device
 
 Technický mechanizmus umožňujúci rýchlo zastaviť fault injection, experiment alebo feature exposure pri prekročení bezpečných hraníc. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Kubernetes builder driver — Buildx
+
+Buildx driver prevádzkujúci BuildKit workers v Kubernetes, s cluster schedulingom, resource controls a možnosťou native multi-architecture nodes. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Kubernetes executor — GitLab Runner
 
 Executor, ktorý pre CI/CD job vytvorí Kubernetes pod s build, helper a podľa konfigurácie service containers. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
@@ -1866,9 +2014,21 @@ Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný conne
 
 Queueing vzťah `concurrency = throughput × time in system`. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Liveness
+
+Schopnosť procesu pokračovať v užitočnej práci bez potreby restartu; nie je automaticky totožná s readiness alebo external availability. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## LLB — BuildKit
+
+Low-Level Build graph representation používaná BuildKitom na opis operations, dependencies, mounts, cache keys a execution flow prekladom z frontendu. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Load average
 
 Priemerný počet runnable tasks a určitých tasks v uninterruptible sleep. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## `--load` — Buildx
+
+Build exporter skratka importujúca vhodný build output do local Docker image store-u, typicky pre single-platform local workflow. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
 ## Load shedding
 
@@ -2062,6 +2222,10 @@ TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS,
 
 Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Multi-platform build
+
+Jeden build workflow produkujúci platform-specific manifests a typicky spoločný image index pre viac OS/architecture kombinácií. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Multi-platform image
 
 OCI image index a súvisiaci graph poskytujúci platform-specific manifests pod jednou higher-level reference, napríklad pre `linux/amd64` a `linux/arm64`. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -2121,6 +2285,10 @@ Mechanizmus meniaci source alebo destination IP adresy a často ports pri precho
 ## NAT64/DNS64
 
 Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá traffic IPv6-only klienta na IPv4 server. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
+## Native builder
+
+Builder node vykonávajúci build priamo na rovnakej architecture ako target bez user-mode emulation. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
 ## NDP — Neighbor Discovery Protocol
 
@@ -2198,6 +2366,10 @@ Low-level runtime implementujúci OCI Runtime Specification a vytvárajúci cont
 
 Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## One-shot service — Compose
+
+Service určená na jednorazové úspešné dokončenie úlohy, napríklad migration, ktorú môže dependency vyžadovať cez `service_completed_successfully`. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
 ## Online schema change
 
 Databázová schema operácia navrhnutá tak, aby minimalizovala blocking a downtime počas aktívnej prevádzky; jej skutočné správanie závisí od engine, verzie a dátového objemu. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
@@ -2205,6 +2377,10 @@ Databázová schema operácia navrhnutá tak, aby minimalizovala blocking a down
 ## OOM killer
 
 Kernel mechanizmus poslednej možnosti ukončujúci proces pri memory exhaustion. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## OOMKilled — Docker
+
+Container state signal indikujúci, že process bol ukončený v súvislosti s out-of-memory mechanizmom; root cause treba potvrdiť cgroup a kernel evidence. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## Open workload model
 
@@ -2217,6 +2393,10 @@ Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/r
 ## Option injection
 
 Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako option namiesto dátového argumentu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Orphan container — Compose
+
+Container patriaci Compose projektu, ktorého service už nie je prítomná v aktuálnom resolved modeli. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
 ## Orphan volume — Docker
 
@@ -2346,6 +2526,10 @@ Uložený Terraform plan viazaný na configuration, variables, provider/module s
 
 Native Terraform test run používajúci `command = plan` na overenie plan-time contractu bez vytvorenia reálnej infraštruktúry. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
+## Platform mismatch — container image
+
+Nesúlad medzi target OS/architecture a vybraným image manifestom alebo executable, ktorý môže viesť k pull failure alebo `exec format error`. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
 ## Policy as Code
 
 Strojovo vyhodnotiteľná bezpečnostná alebo prevádzková policy spravovaná ako verzovaný kód s testami a exception lifecycle. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
@@ -2405,6 +2589,10 @@ Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká a
 ## Progressive delivery
 
 Evidence-driven riadenie postupnej produkčnej exposure pomocou rollout stratégie, segmentácie, observability, promotion policy a recovery mechanizmov. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
+## Project name — Compose
+
+Stabilná identity Compose projektu ovplyvňujúca názvy a scope containers, networks, volumes a lifecycle commandov. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
 ## Promotion evidence
 
@@ -2482,6 +2670,10 @@ Deklarovaná compatibility boundary zahŕňajúca nielen programové interfaces,
 
 Lokálny registry cache model, ktorý pri prvom pull-e načíta content z upstream registry a ďalším clients ho poskytuje lokálne podľa cache a freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
+## `--push` — Buildx
+
+Build exporter skratka publikujúca image alebo multi-platform index priamo do registry. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Quality gate
 
 Automatizovaný alebo kombinovaný rozhodovací bod, ktorý vyhodnotí versionovanú policy nad konkrétnou evidence a povolí, zablokuje alebo eskaluje ďalší krok delivery. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
@@ -2508,7 +2700,7 @@ Runtime policy zakazujúca zápis do image-derived root filesystemu a povoľujú
 
 ## Readiness
 
-Stav vyjadrujúci, či instance má prijímať nový traffic. Nie je totožný s liveness. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+Stav, v ktorom má workload prijímať traffic alebo prácu; process môže byť live, ale ešte nemusí byť ready. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Readiness boundary
 
@@ -2614,6 +2806,10 @@ Presne definovaná množina artifactov, configov, migrations alebo koordinovaný
 
 Backend ukladajúci Terraform state mimo lokálneho working directory a podľa typu poskytujúci collaboration, locking, versioning alebo remote-operation capabilities. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Remote builder — Buildx
+
+BuildKit daemon spravovaný mimo lokálneho Docker Engine-u, ku ktorému sa Buildx pripája cez explicitný remote endpoint a trust model. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
 ## Remote drift — Terraform
 
 Rozdiel vzniknutý zmenou managed remote objektu mimo authoritative Terraform workflowu. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
@@ -2638,6 +2834,10 @@ Machine-readable job artifact v podporovanej schéme, ktorý GitLab interpretuje
 
 Build proces, pri ktorom rovnaké explicitné vstupy a toolchain vytvoria rovnaký alebo ekvivalentný výsledný artifact. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
+## Required configuration
+
+Runtime configuration field, bez ktorého application nemôže bezpečne začať a má zlyhať s redigovanou validačnou chybou. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
 ## Requirement traceability
 
 Väzba od business potreby a požiadavky cez risk a control až po test a dôkaz výsledku. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
@@ -2658,6 +2858,10 @@ Anti-pattern opakovania zlyhaného testu dovtedy, kým náhodne neprejde, bez ri
 
 Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Resolved Compose model
+
+Výsledná configuration po interpolation, merge, profiles, includes a overrides, ktorú možno kontrolovať cez `docker compose config`. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
 ## Resolved configuration — GitLab CI/CD
 
 Konečný pipeline YAML model po spracovaní includes, components, defaults, inheritance, references a rules-relevantnej konfigurácie. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -2665,6 +2869,10 @@ Konečný pipeline YAML model po spracovaní includes, components, defaults, inh
 ## Resolved pipeline configuration
 
 Výsledná pipeline definícia po spracovaní includes, templates, inheritance, parameters, rules a generated configu; predstavuje konfiguráciu, ktorú platforma skutočne vykoná. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
+
+## Resolved runtime configuration — Docker
+
+Skutočná configuration vytvoreného containeru vrátane image, commandu, environmentu, mounts, networks, limits a security options dostupná cez inspection. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## Resource address — Terraform
 
@@ -2685,6 +2893,10 @@ Automation model sledujúci identity resources a plánujúci ich create, update,
 ## REST
 
 Architectural style pre distributed hypermedia systems založený na constraints ako statelessness, cacheability a uniform interface. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## Restart loop — container
+
+Opakovaný crash a automatický restart containeru podľa restart policy alebo external controllera, ktorý potrebuje koreláciu exit code, logs, events a dependencies. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## Retransmission
 
@@ -2817,6 +3029,14 @@ Job failure spôsobený runnerom, executorom, infrastructure alebo prepare/clean
 ## Runspace — PowerShell
 
 Izolovaný PowerShell execution environment s vlastným session state, používaný aj pri paralelnom spracovaní. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Runtime configuration — container
+
+Configuration dodaná pri vytvorení containeru, napríklad environment, command, mounts, ports, resources a security options, oddelená od immutable image artifactu. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Runtime dependency failure
+
+Zlyhanie knižnice, dynamic linkeru, interpreteru, certificate store alebo iného runtime componentu, ktoré môže vyzerať ako chýbajúci executable napriek existencii file-u. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
 ## Runtime shim — containerd
 
@@ -3033,6 +3253,10 @@ Logická skupina jobs alebo broad ordering barrier v pipeline. Stage nie je samo
 ## Staging area
 
 Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho commitu. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Startup health
+
+Schopnosť workloadu dokončiť inicializáciu v očakávanom čase; je odlišná od dlhodobej liveness a readiness. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Stash — Git
 
