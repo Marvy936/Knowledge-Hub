@@ -988,5 +988,5 @@ Relevantné pojmy: Grafana, data source, data-source plugin, dashboard, panel, d
 
 **Navigácia**
 
-[← Predchádzajúca: Alertmanager](alertmanager.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Alertmanager](alertmanager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Loki →](loki.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

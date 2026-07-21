@@ -957,3 +957,11 @@ Relevantné pojmy: Jaeger, Jaeger collector, Jaeger query, Jaeger ingester, Jaeg
 - [Tempo query frontend](https://grafana.com/docs/tempo/latest/reference-tempo-architecture/components/query-frontend/)
 - [Tempo TraceQL](https://grafana.com/docs/tempo/latest/traceql/)
 - [OpenTelemetry sampling](https://opentelemetry.io/docs/concepts/sampling/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Fluent Bit](fluent-bit.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

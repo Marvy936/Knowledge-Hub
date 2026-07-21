@@ -850,3 +850,11 @@ Relevantné pojmy: Fluent Bit, input plugin, Tail input, position database, mult
 - [Backpressure](https://docs.fluentbit.io/manual/administration/backpressure)
 - [Monitoring](https://docs.fluentbit.io/manual/administration/monitoring)
 - [Tail input](https://docs.fluentbit.io/manual/pipeline/inputs/tail)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Elasticsearch alebo OpenSearch](elasticsearch-opensearch.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Jaeger a Tempo →](jaeger-tempo.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

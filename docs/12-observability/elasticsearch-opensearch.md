@@ -909,3 +909,11 @@ Relevantné pojmy: Elasticsearch, OpenSearch, Lucene, document, index, primary s
 - [OpenSearch Index State Management](https://docs.opensearch.org/latest/im-plugin/ism/index/)
 - [OpenSearch indexes and shards](https://docs.opensearch.org/latest/api-reference/index-apis/index/)
 - [OpenSearch cluster health](https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-health/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Loki](loki.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Fluent Bit →](fluent-bit.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

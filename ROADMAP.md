@@ -281,10 +281,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Prometheus](docs/12-observability/prometheus.md)
 - [x] [Alertmanager](docs/12-observability/alertmanager.md)
 - [x] [Grafana](docs/12-observability/grafana.md)
-- [ ] Loki
-- [ ] Elasticsearch alebo OpenSearch
-- [ ] Fluent Bit
-- [ ] Jaeger a Tempo
+- [x] [Loki](docs/12-observability/loki.md)
+- [x] [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md)
+- [x] [Fluent Bit](docs/12-observability/fluent-bit.md)
+- [x] [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md)
 - [ ] OpenTelemetry
 - [ ] Alert design a alert fatigue
 - [ ] Cardinality

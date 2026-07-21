@@ -733,3 +733,11 @@ Relevantné pojmy: Loki, log stream, stream selector, Loki labels, structured me
 - [Loki deployment modes](https://grafana.com/docs/loki/latest/get-started/deployment-modes/)
 - [Loki retention](https://grafana.com/docs/loki/latest/operations/storage/retention/)
 - [Loki limits](https://grafana.com/docs/loki/latest/operations/request-validation-rate-limits/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Grafana](grafana.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Elasticsearch alebo OpenSearch →](elasticsearch-opensearch.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
