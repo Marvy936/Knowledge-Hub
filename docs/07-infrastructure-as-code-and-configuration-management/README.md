@@ -1,6 +1,6 @@
 # Infrastructure as Code and Configuration Management
 
-Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť pokrýva Terraform execution model, state, modules, bezpečné refaktoringy, drift management, testing a Policy as Code. Druhá časť aplikuje rovnaké princípy na Ansible control node, inventory, playbooks, variables, templates a change-driven execution.
+Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť pokrýva Terraform execution model, state, modules, bezpečné refaktoringy, drift management, testing a Policy as Code. Druhá časť aplikuje rovnaké princípy na Ansible control node, inventory, playbooks, variables, templates, reusable content, secrets a idempotentnú konfiguráciu.
 
 Cieľom nie je memorovať HCL alebo YAML syntax ani cloud-specific resources. Dôležité je rozumieť desired state, provider a connection boundaries, dependency graphu, resource a host identity, state, inventory, blast radiusu, driftu, reusable contracts, testovateľnosti a bezpečnému execution lifecycle.
 
@@ -33,12 +33,16 @@ Odporúča sa najprv dokončiť:
 13. [Modules, tasks, plays a playbooks](modules-tasks-plays-playbooks.md)
 14. [Variables, facts a templates](variables-facts-templates.md)
 15. [Handlers, loops a conditionals](handlers-loops-conditionals.md)
+16. [Roles a collections](roles-and-collections.md)
+17. [Vault](vault.md)
+18. [Ansible idempotencia](ansible-idempotency.md)
+19. [Terraform vs. Ansible](terraform-vs-ansible.md)
 
-Posledný blok sekcie doplní Ansible roles a collections, Vault, idempotenciu a porovnanie Terraform vs. Ansible.
+Po tejto sekcii nasleduje [Container Fundamentals and Docker](../08-container-fundamentals-and-docker/README.md). Terraform resource lifecycle, Ansible host configuration, Linux namespaces/cgroups a artifact/registry princípy tam vytvoria základ pre pochopenie images, containers, runtime a Docker build/deployment modelu.
 
 ## Cieľ zvládnutia
 
-Po dokončení aktuálneho bloku má byť možné:
+Po dokončení sekcie má byť možné:
 
 - vysvetliť Infrastructure as Code ako change-control a reconciliation model, nie iba automatizačný skript,
 - rozlíšiť deklaratívny a imperatívny prístup, desired state, actual state a Terraformom známy state,
@@ -97,7 +101,19 @@ Po dokončení aktuálneho bloku má byť možné:
 - používať facts, fact cache, magic variables a registered values s explicitným freshness a coupling modelom,
 - vytvárať deterministické Jinja templates s validáciou, bezpečnou serializáciou, atomic update a secret-aware loggingom,
 - používať `when`, tests, loops, `loop_control`, retry/`until` a registered loop results bez skrytého partial state-u,
-- navrhnúť handlers, notifications, `listen` topics, deduplication a flush/failure správanie podľa správneho changed signal-u.
+- navrhnúť handlers, notifications, `listen` topics, deduplication a flush/failure správanie podľa správneho changed signal-u,
+- navrhnúť Ansible role contract, namespaced variables, defaults, handlers, dependencies a supported platform matrix,
+- rozlíšiť role od collection a bezpečne versionovať collection artifacts, dependencies a execution environments,
+- používať FQCN, immutable collection versions a supply-chain review pre external automation content,
+- vysvetliť, čo Ansible Vault chráni a prečo encryption at rest nenahrádza runtime secret management,
+- navrhnúť vault IDs, password sources, `no_log`, diff protection, rotation a break-glass lifecycle,
+- rozlíšiť encryption-key rekey od rotation cieľového credentialu,
+- vytvárať idempotentné modules/tasks/templates a pravdivý `changed` signal bez skrývania side effects,
+- overiť idempotenciu cez druhý converge run a diagnostikovať recurring change, partial failure a ownership conflict,
+- rozlíšiť idempotenciu, convergence a reproducibility,
+- porovnať Terraform resource lifecycle/state/graph model s Ansible inventory/task/configuration modelom,
+- definovať provisioning/configuration boundary a jedného authoritative writera pre každý mutable attribute,
+- navrhnúť hybridný Terraform–Ansible pipeline, inventory contract, readiness gate a recovery workflow.
 
 ## Stav
 
@@ -118,3 +134,7 @@ Po dokončení aktuálneho bloku má byť možné:
 | Modules, tasks, plays a playbooks | Learning | L2 |
 | Variables, facts a templates | Learning | L2 |
 | Handlers, loops a conditionals | Learning | L2 |
+| Roles a collections | Learning | L2 |
+| Vault | Learning | L2 |
+| Ansible idempotencia | Learning | L2 |
+| Terraform vs. Ansible | Learning | L2 |
