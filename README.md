@@ -50,10 +50,10 @@ Aktívne sekcie:
 8. [Infrastructure as Code and Configuration Management](docs/07-infrastructure-as-code-and-configuration-management/README.md)
 9. [Container Fundamentals and Docker](docs/08-container-fundamentals-and-docker/README.md)
 10. [Kubernetes](docs/09-kubernetes/README.md)
+11. [Helm and CKA](docs/10-helm-and-cka/README.md)
 
 Plánované hlavné domény:
 
-- Helm a CKA
 - Cloud fundamentals a AWS
 - Observability
 - Security, IAM a supply-chain security
