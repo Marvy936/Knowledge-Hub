@@ -114,6 +114,10 @@ Zápis cez dočasný súbor, validáciu a atomický rename/replace tak, aby cons
 
 Súbor rozhraní, vstupov, identities a trust boundaries, cez ktoré môže aktér ovplyvniť systém. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## Authoritative source — IaC
+
+Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu požadovaného infraštruktúrneho stavu; manuálne runtime zmeny sa voči nemu musia adoptovať, vrátiť alebo explicitne vyriešiť. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## Automated canary analysis
 
 Automatizované vyhodnotenie canary verzie voči baseline podľa technických a business metrík, sample size, observation window a promotion/abort policy. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md).
@@ -133,6 +137,10 @@ Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane
 ## AVC — Access Vector Cache
 
 SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie operácie medzi source a target security contexts. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Backend migration — Terraform
+
+Riadený presun state lineage a snapshots z jedného backendu do druhého so zastavením writers, backupom, overením destination identity a následným planom. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
 ## Backfill
 
@@ -346,6 +354,10 @@ Krátkodobá GitLab job identity používaná na podporované API, artifact, pac
 
 Zápis IP prefixu pomocou adresy a počtu network bitov, napríklad `192.0.2.0/24`. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## ClickOps
+
+Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez versionovaného, reviewovaného a reprodukovateľného change pathu. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## `CLOSE-WAIT`
 
 TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavrela socket. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -401,6 +413,10 @@ AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [
 ## Component test
 
 Test celého deployovateľného komponentu cez jeho verejné rozhranie, pričom externé dependencies môžu byť nahradené controlled doubles. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
+## Computed value — Terraform
+
+Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
 ## Condition-based wait
 
@@ -518,6 +534,10 @@ Najdlhšia dependency cesta od triggeru po požadovaný výsledok pipeline. Urč
 
 Časový scheduler spúšťajúci príkazy podľa crontab pravidiel. Pozri [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md).
 
+## Cross-state contract
+
+Explicitné rozhranie medzi samostatnými Terraform states, typicky cez publikované outputs alebo externý registry, ktoré musí mať ownership, compatibility a access policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
 ## CSR — Certificate Signing Request
 
 Podpísaná žiadosť obsahujúca public key a požadované certificate identity attributes pre CA. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
@@ -550,6 +570,10 @@ Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri
 
 Časť systému spracúvajúca konkrétne frames alebo packets podľa existujúceho forwarding a policy stavu. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
+## Data source — Terraform
+
+Provider-defined read-only query, ktorá načíta informácie o existujúcom alebo odvodenom objekte bez správy jeho lifecycle Terraform resource bindingom. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
 ## Dataclass — Python
 
 Deklaratívny Python model generujúci metódy pre dátovo orientovanú class, napríklad constructor, equality a representation. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
@@ -566,9 +590,21 @@ Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic aleb
 
 Najmenej špecifická route `0.0.0.0/0` alebo `::/0`, použitá ak neexistuje presnejšia route. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Dependency cycle — Terraform
+
+Kruhový vzťah v dependency grafe, pri ktorom objekt priamo alebo nepriamo závisí sám od seba a Terraform nevie zostaviť bezpečné execution poradie. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
+
+## Dependency graph — Terraform
+
+Directed graph vytvorený z references, provider vzťahov a explicitných dependencies, ktorý určuje plan/apply poradie a možnú paralelizáciu objektov. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
+
 ## Dependency lock
 
 Presne vyriešený zoznam versions priamych a transitívnych dependencies určený na reprodukovateľnú inštaláciu. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Dependency lock file — Terraform
+
+Súbor `.terraform.lock.hcl` zachytávajúci vybrané provider versions a package checksums pre reprodukovateľnejšiu inštaláciu dependencies. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
 ## Dependency scanning — GitLab
 
@@ -938,6 +974,10 @@ Test, ktorý pri rovnakom kóde a deklarovaných vstupoch nedeterministicky prec
 
 TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Force unlock — Terraform
+
+Riziková operácia odstránenia backend locku podľa lock ID bez ukončenia pôvodného procesu; smie sa použiť iba po potvrdení, že pôvodný writer už neexistuje. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
 ## Force-with-lease
 
 Bezpečnejšia forma force pushu, ktorá aktualizuje remote ref iba vtedy, keď stále zodpovedá očakávanej hodnote. Stále ide o history rewrite. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -1037,6 +1077,10 @@ Schopnosť systému pri nedostupnosti časti dependencies zachovať obmedzenú, 
 ## Graceful shutdown
 
 Riadené ukončenie, pri ktorom proces prestane prijímať novú prácu, bezpečne spracuje alebo preruší rozpracovaný stav, uvoľní resources a vráti správny status. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Graph-shaping value — Terraform
+
+Hodnota, ktorá určuje samotnú množinu alebo identity graph objektov, napríklad `count` alebo `for_each` keys, a preto musí byť známa pred apply. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
 ## Gratuitous ARP
 
@@ -1150,6 +1194,10 @@ Automatická interpretácia plain scalaru ako boolean, number, date alebo null p
 
 Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je merge base, stage 2 ours a stage 3 theirs. Pozri [Konflikty](docs/03-git-and-automation/merge-conflicts.md).
 
+## Infrastructure as Code — IaC
+
+Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného plan/apply alebo reconciliation procesu, review, policy a auditovateľného recovery lifecycle. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## Inherited membership — GitLab
 
 Access získaný cez membership v parent group alebo inom hierarchicky relevantnom namespace namiesto priameho pridania na project. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
@@ -1234,6 +1282,10 @@ Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitL
 
 Podiel vykonaných source riadkov počas testov. Vysoká hodnota sama osebe nedokazuje správnosť testov. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Lineage — Terraform state
+
+Jedinečný identifikátor histórie state-u používaný na rozlíšenie nezávisle vzniknutých states a ochranu pred prepísaním nesúvisiaceho snapshotu. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
 ## Listening socket
 
 Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný connected socket. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -1253,6 +1305,10 @@ Riadené odmietanie alebo obmedzenie časti práce pri preťažení, aby systém
 ## Load test
 
 Performance test overujúci očakávaný workload a splnenie latency, throughput, error-rate a resource kritérií. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## Local value — Terraform
+
+Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú caller nemôže priamo nastaviť. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
 ## Logical version
 
@@ -1370,6 +1426,10 @@ TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS,
 
 Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Multi-writer race — Terraform
+
+Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa zapísať konfliktujúce snapshots alebo remote zmeny bez účinného locku a serialization. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
 ## Multirepo
 
 Model, v ktorom sú služby alebo projekty rozdelené medzi viac repositories a integrujú sa cez versioned artifacts a explicitné contracts. Pozri [Monorepo vs. multirepo](docs/03-git-and-automation/monorepo-vs-multirepo.md).
@@ -1473,6 +1533,10 @@ Sedemvrstvový konceptuálny model sieťovej komunikácie. Pozri [OSI a TCP/IP m
 ## Outdated deployment — GitLab
 
 Deployment zo staršieho pipeline, ktorý sa pokúša prepísať environment po tom, čo už bol nasadený novší pipeline alebo artifact. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
+## Output value — Terraform
+
+Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre callerov, CLI alebo ďalšiu automatizáciu. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
 ## Over-specification — testing
 
@@ -1626,6 +1690,18 @@ CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa Gi
 
 Strojovo overiteľné tvrdenie o pôvode artifactu, jeho source, build procese, vstupoch a builder identity. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Provider alias — Terraform
+
+Pomenovanie alternatívnej konfigurácie rovnakého providera používané napríklad pre inú region, account alebo endpoint boundary. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Provider configuration — Terraform
+
+Runtime nastavenie providera, napríklad region, endpoint alebo authentication context, ktoré resource alebo module používa na API operácie. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Provider requirement — Terraform
+
+Deklarácia provider source addressu a povoleného version rozsahu v `required_providers`, ktorú modul potrebuje pre svoje resources a data sources. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
 ## Provider state
 
 Deterministicky pripravený stav providera potrebný na overenie konkrétnej consumer-driven contract interaction. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
@@ -1754,6 +1830,14 @@ Cadence model, v ktorom zmeny pripravené do definovaného cutoffu vstúpia do s
 
 Presne definovaná množina artifactov, configov, migrations alebo koordinovaných komponentov, ktoré sa schvaľujú a release-ujú ako jeden celok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Remote backend — Terraform
+
+Backend ukladajúci Terraform state mimo lokálneho working directory a podľa typu poskytujúci collaboration, locking, versioning alebo remote-operation capabilities. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## Remote execution — Terraform
+
+Model, v ktorom plan/apply nevykonáva lokálny CLI proces, ale spravovaný remote worker alebo platforma s vlastnou queue, identity, variables a policy vrstvou. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
 ## Remote-tracking ref
 
 Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -1789,6 +1873,14 @@ Konečný pipeline YAML model po spracovaní includes, components, defaults, inh
 ## Resolved pipeline configuration
 
 Výsledná pipeline definícia po spracovaní includes, templates, inheritance, parameters, rules a generated configu; predstavuje konfiguráciu, ktorú platforma skutočne vykoná. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
+
+## Resource address — Terraform
+
+Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resource type/name a prípadného `count` indexu alebo `for_each` key. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Resource binding — Terraform
+
+State mapovanie medzi Terraform resource instance addressou, provider contextom a konkrétnou remote object identity. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
 ## Resource group — GitLab CI/CD
 
@@ -1966,6 +2058,10 @@ Versioning kontrakt vo formáte `MAJOR.MINOR.PATCH`, ktorý komunikuje význam z
 
 Rozdelenie právomocí tak, aby citlivú zmenu nevytvorila, neschválila a nenasadila bez nezávislej kontroly jediná identita; môže byť implementované automatizovanými policy a approvals. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
+## Serial — Terraform state
+
+Monotónne rastúce číslo snapshotu v jednej state lineage používané na rozpoznanie novšej verzie a ochranu pred stale overwrite. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
 ## Service virtualization
 
 Nahradenie externého systému kontrolovaným simulátorom alebo sandboxom tak, aby bol test deterministickejší a lacnejší. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -2077,6 +2173,22 @@ Lokálny Git stav uchovávajúci dočasné working-tree a index changes pod `ref
 ## State-based testing
 
 Testovanie výsledného outputu alebo stavu namiesto detailného overovania interných interakcií. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## State boundary — Terraform
+
+Rozsah resources zdieľajúcich jeden state, lock, permissions, plan/apply lifecycle a failure blast radius. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md) a [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## State locking — Terraform
+
+Backend-supported koordinácia, ktorá bráni súbežným Terraform write operáciám pracovať s rovnakým state-om a vytvoriť lost update alebo corruption. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## State snapshot — Terraform
+
+Konkrétna verzia Terraform state-u obsahujúca resource bindings, known attributes, outputs a metadata ako lineage a serial. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## State surgery — Terraform
+
+Riadená zmena state metadata pomocou príkazov ako `state mv`, `state rm` alebo výnimočne recovery push, vykonaná s lockom, backupom, review a následným planom. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
 ## Stateful firewall
 
@@ -2198,6 +2310,22 @@ Versionované pravidlá reusable template definujúce inputs, defaults, outputs,
 
 PowerShell error, ktorý zastaví aktuálnu operáciu alebo scope a môže byť zachytený cez `try/catch`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Terraform backend
+
+Terraform Core komponent určujúci state storage a podľa backendu aj locking, workspaces alebo remote execution behavior. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## Terraform input variable
+
+Deklarovaný vstup modulu dostupný cez `var.<name>` s type constraintom, defaultom, validation a ďalšími contract vlastnosťami. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
+## Terraform provider
+
+Samostatne versionovaný plugin implementujúci resource types, data sources, schemas a API operácie pre konkrétnu platformu alebo službu. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Terraform state
+
+Persistentný model mapujúci Terraform resource addresses na remote identities a uchovávajúci metadata potrebné na ďalší plan/apply lifecycle. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
 ## Test data factory
 
 Programový builder vytvárajúci minimálne validné testovacie objekty so stabilnými defaults a explicitnými overrides. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
@@ -2313,6 +2441,10 @@ Samostatná transportná správa bez zabudovanej garancie doručenia, poradia al
 ## Unit test
 
 Rýchly test malej izolovanej jednotky správania s úzkym diagnostickým scope-om. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
+## Unknown value — Terraform
+
+Typovo známa, ale konkrétne neurčená hodnota počas planu, ktorú Terraform získa až pri apply alebo neskoršom provider read-e. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
 ## Upstream branch
 
