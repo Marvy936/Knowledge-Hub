@@ -378,6 +378,10 @@ Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú
 
 Collaboration a discovery prístup používajúci príklady správania a spoločný jazyk na spresnenie požiadaviek; Gherkin je iba jedna možná reprezentácia. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## `before-hook-creation` — Helm
+
+Default hook cleanup behavior, pri ktorom Helm pred spustením nového hook resource-u odstráni predchádzajúci resource s rovnakou identity. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
 ## Behavioral equivalence — environment
 
 Miera, do akej nižší environment zachováva produkčne relevantné protokoly, konfiguráciu, topology, limits a security behavior aj bez úplnej veľkostnej parity. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
@@ -405,6 +409,10 @@ Nemenný Git object obsahujúci bytes jedného súboru bez filename a path metad
 ## Block device
 
 Kernelové zariadenie poskytujúce blokovo adresovaný storage. Pozri [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md).
+
+## `block` — Helm
+
+Go template action, ktorá definuje default named template content a zároveň ho vykreslí; globálna override semantics môže byť menej explicitná než values alebo library-chart contract. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
 
 ## Blocking gate
 
@@ -666,6 +674,14 @@ Disciplína formulovania a vykonávania kontrolovaných experimentov, ktoré ove
 
 Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state hypotézu v definovanom scope s bezpečnostnými kontrolami. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## `Chart.lock`
+
+Helm-generated lock file zachytávajúci resolved dependency graph a digest metadata pre reprodukovateľnú reconstruction dependencies. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Chart-prefixed helper — Helm
+
+Named template pomenovaný s chart-specific prefixom, napríklad `payments.labels`, aby sa znížilo riziko globálnej name collision s parent alebo dependency chartom. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Chart repository — Helm
 
 HTTP repository model pre publikovanie packaged Helm charts a index metadata, alternatívny k OCI registry distribution. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
@@ -789,6 +805,10 @@ CNI lifecycle operácie, ktorými runtime žiada plugin o vytvorenie alebo odstr
 ## CNI chaining
 
 Model, v ktorom sa počas jedného Pod network setupu vykoná viac CNI plugins v poradí, napríklad connectivity, port mapping, tuning alebo bandwidth policy. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## `coalesce` — Helm
+
+Template function vracajúca prvú non-empty hodnotu zo zoznamu kandidátov podľa Helm/Sprig empty semantics. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## Code coverage
 
@@ -1294,6 +1314,10 @@ Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic aleb
 
 Policy pattern vyberajúci všetky Pody v namespace a nepovoľujúci žiadny traffic pre deklarovaný ingress alebo egress smer, kým ho nepovolí iná additive policy. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
 
+## `default` — Helm
+
+Template function vracajúca fallback, keď input je považovaný za empty; pri explicitnom `false` alebo `0` môže zmeniť zamýšľaný význam. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
 ## Default route
 
 Najmenej špecifická route `0.0.0.0/0` alebo `::/0`, použitá ak neexistuje presnejšia route. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
@@ -1306,9 +1330,25 @@ ServiceAccount automaticky vytvorený v každom namespace a použitý Podom, kto
 
 StorageClass označená clusterom ako default pre PVCs bez explicitného `storageClassName`; zmena defaultu môže zmeniť cost, topology a lifecycle nových volumes bez zmeny workload manifestu. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## `define` — Helm
+
+Go template action deklarujúca named template pod globálnym menom bez okamžitého render outputu. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Deletion timestamp — Kubernetes
 
 Serverom nastavený čas označujúci, že object bol prijatý na deletion a čaká na graceful termination alebo finalizer cleanup. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Dependency alias — Helm
+
+Local identity dependency chartu umožňujúca použiť rovnaký chart viackrát s oddelenými values a resource-name contracts. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Dependency condition — Helm
+
+Boolean values path v dependency declaration, ktorý povoľuje alebo zakazuje načítanie konkrétneho subchartu. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Dependency constraint — Helm
+
+Exact SemVer alebo version range v `Chart.yaml`, podľa ktorého `helm dependency update` vyberá kompatibilnú dependency version. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
 ## Dependency cycle — Terraform
 
@@ -1329,6 +1369,10 @@ Súbor `.terraform.lock.hcl` zachytávajúci vybrané provider versions a packag
 ## Dependency scanning — GitLab
 
 Analýza direct a transitive software dependencies podľa manifestov, lockfiles alebo SBOM a ich porovnanie s vulnerability advisory databázou. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Dependency tag — Helm
+
+Label priradený jednej alebo viacerým dependencies, ktorý umožňuje ich skupinové enable/disable cez top-level `tags` values. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
 ## Deployable state
 
@@ -1722,6 +1766,10 @@ Používateľ, ktorého membership, role a approval-rule context oprávňujú po
 
 Node, ktorý spĺňa DaemonSet placement podmienky vrátane labels, affinity, taints/tolerations, platformy, admission a scheduling constraints. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
+## Empty value — Helm
+
+Hodnota považovaná template functions ako `default` alebo `coalesce` za neprítomnú, napríklad `nil`, prázdny string, nula, `false` alebo prázdna collection podľa typu. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
 ## Emulation — multi-platform build
 
 Spustenie target-architecture build binaries cez emulačnú vrstvu, napríklad QEMU, na hoste s odlišnou architecture; nenahrádza úplný native runtime test. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -1945,6 +1993,10 @@ Cache backend uchovávajúci host facts medzi runs podľa definovanej freshness,
 ## Fail closed — gate policy
 
 Policy, pri ktorej chýbajúca alebo nedostupná evidence spôsobí blokovanie operácie. Používa sa pri kontrolách, ktorých obídenie predstavuje neprijateľné riziko. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
+## `fail` — Helm
+
+Template function okamžite ukončujúca render s chart-specific error message pri porušení explicitného invariantu. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## Fail open — gate policy
 
@@ -2190,6 +2242,14 @@ Agent, ktorý prijíma eligible CI/CD jobs z GitLabu a vykonáva ich pomocou nak
 
 Static Application Security Testing integrované do GitLab CI/CD na detekciu potenciálnych vulnerabilities v source code pomocou language-specific analyzers a rules. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
+## Global template namespace — Helm
+
+Spoločný namespace named templates kompilovaných z parent chartu a všetkých subcharts; rovnaké helper name môže byť prepísané inou definition. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Global value — Helm
+
+Value uložená pod top-level `global`, ktorú môžu čítať parent chart aj subcharts; je vhodná iba pre explicitný cross-chart contract. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
 ## Globbing
 
 Shell expansion, ktorá nahrádza wildcard pattern paths zodpovedajúcimi filesystem entries. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
@@ -2266,6 +2326,10 @@ Event vytvorený changed taskom cez `notify`, ktorý zaradí pomenovaný handler
 
 Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu, používané pre stabilné invariants s vysokým rizikom porušenia. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
+## `hasKey` — Helm
+
+Map function rozlišujúca neprítomný key od prítomnej hodnoty ako `false`, `0` alebo empty string. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
 ## HEAD — Git
 
 Špeciálny ref reprezentujúci aktuálnu checkout pozíciu. Typicky symbolicky ukazuje na current branch, ale môže ukazovať priamo na commit. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
@@ -2294,6 +2358,34 @@ Kubernetes package, templating a release-lifecycle tool, ktorý renderuje charts
 
 Versionovaný balík obsahujúci `Chart.yaml`, default values, Kubernetes templates, voliteľné CRDs, dependencies a pomocné files. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
+## Helm chart dependency
+
+Chart deklarovaný alebo vendored ako súčasť parent chartu, ktorého templates a resources sa agregujú do rovnakého Helm release-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## `helm dependency build`
+
+Command rekonštruujúci `charts/` podľa existujúceho `Chart.lock` bez nového version negotiation, pokiaľ lock existuje. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## `helm dependency update`
+
+Command re-resolvujúci dependency constraints z `Chart.yaml`, aktualizujúci `charts/` a generujúci alebo meniaci `Chart.lock`. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Helm hook
+
+Kubernetes resource template označený annotation `helm.sh/hook`, ktorý Helm vykoná v konkrétnom bode install, upgrade, rollback, delete alebo test lifecycle. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Helm merge
+
+Template operation spájajúca dictionaries podľa konkrétnej direction a overwrite semantics; pri nested maps môže vyžadovať `deepCopy`, aby sa zabránilo neúmyselnej mutation vstupu. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## Helm partial
+
+Reusable template fragment, typicky uložený v underscore-prefixed súbore ako `_helpers.tpl`, ktorý sám nevytvára Kubernetes manifest. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Helm pipeline
+
+Template expression, v ktorom sa výsledok ľavej časti posiela ako posledný argument nasledujúcej funkcie. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
 ## Helm release
 
 Konkrétna pomenovaná inštancia chartu nasadená do Kubernetes namespace-u s effective values, rendered manifestom, statusom a revision history. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
@@ -2306,9 +2398,29 @@ Sekvenčné číslo konkrétnej install, upgrade alebo rollback verzie Helm rele
 
 Metadata, chart/configuration a rendered manifest uložené Helm storage driverom v clustri pre konkrétnu release revision. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
+## Helm subchart
+
+Stand-alone chart vložený ako dependency parent chartu, s vlastným values scope-om a templates, ale spoločným výsledným release lifecycle. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
 ## Helm template
 
 Go-template source file v chart `templates/` directory, ktorý Helm renderuje s values, release metadata a cluster capabilities na Kubernetes manifest. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm template function
+
+Funkcia dostupná v Helm template engine z Go templates, Sprig alebo Helm-specific extension, ktorá transformuje input na textový alebo štruktúrovaný render output. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## Helper contract — Helm
+
+Dokumentovaný input scope, očakávané keys, output shape, whitespace a stability semantics named template helpera. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Helper scope — Helm
+
+Object odovzdaný named template-u cez `template` alebo `include`, ktorý určuje význam `.` aj root symbolu `$` vo vnútri helpera. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## `_helpers.tpl`
+
+Konvenčný underscore-prefixed súbor v `templates/` určený na definitions reusable named templates, ktorý sa sám nerenderuje ako Kubernetes manifest. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
 
 ## Hermetic test
 
@@ -2325,6 +2437,42 @@ Masked CI/CD variable, ktorej hodnotu po uložení nemožno znovu zobraziť v Gi
 ## History rewrite
 
 Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, napríklad rebase, amend alebo reset publikovanej branch. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
+
+## Hook delete policy — Helm
+
+Annotation `helm.sh/hook-delete-policy` určujúca cleanup hook resource-u pred ďalším spustením, po úspechu alebo po failure. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## `hook-failed` — Helm
+
+Hook delete-policy hodnota požadujúca odstránenie hook resource-u po neúspešnom vykonaní; môže znížiť dostupnosť incident evidence. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook idempotency — Helm
+
+Vlastnosť hook operácie, pri ktorej opakované alebo čiastočne dokončené vykonanie bezpečne konverguje bez duplicitných side effects. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook lifecycle point — Helm
+
+Konkrétny release moment, napríklad `pre-install`, `post-upgrade` alebo `pre-delete`, v ktorom Helm spustí označený hook resource. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook readiness — Helm
+
+Podmienka, pri ktorej Helm považuje hook za dokončený; pri Job alebo Pod hooku čaká na úspešné completion, pri mnohých iných resource kinds stačí úspešné API načítanie. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook resource retention — Helm
+
+Lifecycle rozhodnutie, ako dlho ponechať dokončený alebo failed hook resource pre audit a diagnostiku a kedy ho odstráni delete policy alebo Kubernetes TTL. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook side effect — Helm
+
+Zmena external alebo durable state-u vykonaná hookom, napríklad database migration, backup alebo API registrácia, ktorú Helm manifest rollback nemusí automaticky zvrátiť. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## `hook-succeeded` — Helm
+
+Hook delete-policy hodnota požadujúca odstránenie hook resource-u po úspešnom vykonaní. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook weight — Helm
+
+Stringovo zapísané číslo v annotation `helm.sh/hook-weight`, podľa ktorého Helm vykonáva hooks od nižšej hodnoty k vyššej. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## Hop limit
 
@@ -2489,6 +2637,14 @@ Versionovaná configuration deklarácia mapujúca existujúci remote objekt cez 
 ## `import_role`
 
 Statické načítanie Ansible role spracované počas parse fázy, ktoré sa líši od runtime `include_role` v condition, tag a variable semantics. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## `import-values` — Helm
+
+Dependency declaration mechanism prenášajúci vybrané exported alebo mapped child values do parent values scope-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## `include` — Helm
+
+Helm function renderujúca named template do stringu, ktorý možno ďalej spracovať v pipeline napríklad cez `nindent` alebo `sha256sum`. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
 
 ## `include_role`
 
@@ -2762,6 +2918,10 @@ Lightweight object v `coordination.k8s.io` používaný napríklad na Node heart
 
 Controller model, ktorý pri každom reconcile vyhodnocuje aktuálny desired a observed state namiesto závislosti na jedinom nevynechanom evente. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Library chart — Helm
+
+Chart typu `library`, ktorý poskytuje reusable template primitives a helpers pre iné charts bez bežného application resource lifecycle. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Lifecycle meta-argument — Terraform
 
 Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ako `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, preconditions a postconditions. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -2849,6 +3009,10 @@ Routing pravidlo, podľa ktorého vyhráva zhodná route s najväčším počtom
 ## Lookaround — regex
 
 Zero-width regex assertion overujúca text pred alebo za aktuálnou pozíciou bez jeho zahrnutia do matchu. Nie je podporovaná vo všetkých engines. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## `lookup` — Helm
+
+Template function čítajúca live Kubernetes API počas server-connected renderu; zavádza RBAC dependency a cluster-state-dependent output. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## Loop control — Ansible
 
@@ -3102,6 +3266,10 @@ Technika zámerne meniaca produkčný kód a overujúca, či test suite tieto zm
 
 Dodatočný explicitne pomenovaný build context dostupný Dockerfile-u podobne ako stage, používaný na užšie oddelenie source alebo external image inputs. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
+## Named template — Helm
+
+Globálne pomenovaný reusable template fragment deklarovaný cez `define` a použitý cez `template`, `include` alebo `block`. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Named volume — Docker
 
 Docker volume s explicitným user-defined menom a samostatným lifecycle, vhodné na auditovateľnejší persistence a cleanup workflow. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
@@ -3161,6 +3329,10 @@ Namespace s vlastnými interfaces, addresses, routes, sockets a firewall state. 
 ## NetworkPolicy
 
 Namespaced Kubernetes API object deklarujúci povolený L3/L4 ingress a egress traffic pre Pods vybrané label selectorom; vyžaduje podporujúci dataplane. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## `nindent` — Helm
+
+Template function pridávajúca newline a následne odsadzujúca každý riadok o zadaný počet spaces, vhodná pre vkladanie YAML blocks. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## `no_log` — Ansible
 
@@ -3233,6 +3405,10 @@ Dočasný Pod status signal používaný schedulerom najmä pri preemption workf
 ## Non-terminating error — PowerShell
 
 PowerShell error record, pri ktorom command môže pokračovať; na zachytenie cez `catch` sa často používa `-ErrorAction Stop`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Nondeterministic template — Helm
+
+Template používajúci live lookup, čas, random generation alebo iný mutable input, takže rovnaký chart a values nemusia vytvoriť rovnaký manifest. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## North-south traffic
 
@@ -3505,6 +3681,10 @@ Dočasné znovupoužiteľné dáta určené na zrýchlenie pipeline, napríklad 
 ## Pipeline — CI/CD
 
 Runtime inštancia versionovaného delivery workflowu vytvorená konkrétnym triggerom a viazaná na commit, event context, variables, jobs, artifacts a results. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
+## Pipeline last argument — Helm
+
+Pravidlo, podľa ktorého pipeline odovzdá svoj ľavý výsledok ako posledný positional argument nasledujúcej template funkcie. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## Pipeline — shell
 
@@ -4018,6 +4198,10 @@ Build proces, pri ktorom rovnaké explicitné vstupy a toolchain vytvoria rovnak
 
 Runtime configuration field, bez ktorého application nemôže bezpečne začať a má zlyhať s redigovanou validačnou chybou. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
+## `required` — Helm
+
+Template function zlyhávajúca render, keď požadovaná hodnota je empty, a vracajúca explicitnú error message. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
 ## Requirement traceability
 
 Väzba od business potreby a požiadavky cez risk a control až po test a dôkaz výsledku. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
@@ -4430,6 +4614,10 @@ Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security
 
 Výraz vyberajúci objects podľa labels a tvoriaci kritický contract pre controllers, Services, policy alebo CLI queries. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Selector-label helper — Helm
+
+Named template generujúci stabilné labels použité workload selectorom aj Pod template-om; nesmie obsahovať mutable chart alebo application version metadata. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Selectorless Service
 
 Service bez `spec.selector`, ktorého backend EndpointSlices spravuje operator alebo iný explicitný owner, často pre external alebo manually discovered endpoints. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
@@ -4557,6 +4745,10 @@ PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené
 ## Sidecar container
 
 Auxiliary container bežiaci v rovnakom Pode ako hlavná aplikácia a zdieľajúci jej placement, network a Pod lifecycle boundary. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Single-release dependency graph — Helm
+
+Model, v ktorom parent chart a všetky enabled first-level aj transitive subcharts vytvárajú jednu release revision a spoločný upgrade/rollback failure domain. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
 ## Single-writer storage
 
@@ -4750,6 +4942,10 @@ Plugin určujúci, ako Ansible plánuje postup hosts cez tasks a synchronization
 
 Performance test nad plánovanou kapacitou zameraný na failure mode, ochranné mechanizmy a recovery. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## Structured helper output — Helm
+
+Textový output named template-u, ktorý reprezentuje YAML/JSON object a caller ho môže parsovať cez `fromYaml` alebo `fromJson`; ide o serialize/parse contract, nie natívny typed return. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Stub — test double
 
 Kontrolovaná náhrada dependency vracajúca vopred pripravené odpovede pre riadenie testovacieho scenára. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
@@ -4874,6 +5070,10 @@ Kubernetes probe overujúca úspešné otvorenie TCP connectionu na Pod IP a por
 
 Versionované pravidlá reusable template definujúce inputs, defaults, outputs, artifacts, permissions, supported scenarios, failure semantics a compatibility policy. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
+## `template` — Helm
+
+Go template action vkladajúca named template inline; na rozdiel od `include` neposkytuje output ako pipeline string. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
 ## Template validation — Ansible
 
 Kontrola renderovaného dočasného file-u pomocou target parsera alebo validatora pred jeho nahradením na destination path. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
@@ -4925,6 +5125,10 @@ Kontrolovaná náhrada dependency používaná v teste; zahŕňa dummy, stub, fa
 ## Test fidelity
 
 Miera, do akej test zachováva produkčne relevantné komponenty, protokoly, konfiguráciu a failure modes. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
+
+## Test hook — Helm
+
+Hook resource označený hodnotou `test`, ktorý sa vykoná cez `helm test` a má overiť release-specific invariant s explicitným exit statusom. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## Test isolation
 
@@ -5022,6 +5226,14 @@ Množina Nodes zdieľajúcich rovnakú hodnotu vybraného topology labelu, napr�
 
 Pod scheduling pravidlo riadiace maximálnu nerovnomernosť matching Pod population medzi topology domains. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## `toYaml` — Helm
+
+Template function serializujúca hodnotu do YAML textu, ktorý musí byť vložený s korektným indentation contractom. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## `tpl` — Helm
+
+Function vyhodnocujúca string ako Helm template v odovzdanom scope-e; rozširuje input trust boundary a môže znížiť deterministickosť renderu. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
 ## Traffic cutover
 
 Riadené presmerovanie nových requestov alebo connections zo starej deployment farby na novú. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -5033,6 +5245,10 @@ Kopírovanie produkčných requestov do shadow systému bez použitia jeho respo
 ## Traffic splitting — Gateway API
 
 Rozdelenie Route trafficu medzi viac backendRefs podľa weights, používané napríklad pre canary alebo migration rollout. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Transitive chart dependency — Helm
+
+Dependency, ktorú parent chart získava nepriamo cez dependency vlastného subchartu; rozširuje render, hook, RBAC a supply-chain surface celého release-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
 ## Trap — shell
 
@@ -5178,6 +5394,10 @@ Label priradený k encrypted Vault contentu a password source-u na oddelenie env
 
 Secret použitý na šifrovanie a dešifrovanie Ansible Vault contentu, ktorý musí byť uložený oddelene od encrypted repository dát. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Vendored chart — Helm
+
+Dependency chart uložený priamo v parent `charts/` directory ako archive alebo unpacked directory namiesto stiahnutia počas build-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
 ## Verification — testing
 
 Overenie, či systém alebo artifact zodpovedá explicitnej špecifikácii, kontraktu alebo pravidlu. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
@@ -5277,6 +5497,10 @@ Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade aleb
 ## Whiteout — image layer
 
 Marker vo filesystem changesete, ktorý v merged image view skryje path existujúci v staršom immutable layeri bez odstránenia jeho pôvodných bytes. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+
+## Whitespace control — Helm
+
+Použitie trim markers `{{-` a `-}}` a indentation functions na riadenie whitespace a newline v renderovanom YAML. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
 ## Wildcard permission — Kubernetes RBAC
 
