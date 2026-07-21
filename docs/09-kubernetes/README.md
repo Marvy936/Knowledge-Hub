@@ -27,8 +27,13 @@ Odporúča sa najprv dokončiť:
 9. [StatefulSet](statefulset.md)
 10. [DaemonSet](daemonset.md)
 11. [Job a CronJob](job-cronjob.md)
+12. [ConfigMap a Secret](configmap-secret.md)
+13. [ServiceAccount](serviceaccount.md)
+14. [Service a EndpointSlice](service-endpointslice.md)
+15. [Ingress a Gateway API](ingress-gateway-api.md)
+16. [Cluster DNS](cluster-dns.md)
 
-Nasledujúci blok prejde na configuration a identity resources: ConfigMap, Secret a ServiceAccount. Potom sekcia rozvinie Services, EndpointSlices, Ingress/Gateway API, cluster DNS, CNI/NetworkPolicy, storage, scheduling, resources, probes, autoscaling, security, cluster lifecycle a troubleshooting.
+Nasledujúci blok prejde na CNI a NetworkPolicy, volumes/PV/PVC/StorageClass, scheduling, requests/limits/QoS a probes. Potom sekcia rozvinie taints, affinity, topology, autoscaling, RBAC, Pod security, quotas, cluster lifecycle, etcd recovery, upgrades, observability a troubleshooting.
 
 ## Cieľ zvládnutia
 
@@ -102,7 +107,36 @@ Po dokončení aktuálneho bloku má byť možné:
 - rozlíšiť NonIndexed, Indexed a work-queue batch model,
 - navrhnúť idempotentnú batch prácu s checkpointom, deduplication a bezpečnými side effects,
 - vysvetliť CronJob schedule, time zone, starting deadline, concurrency policy, suspend a history limits,
-- odôvodniť, prečo Job/CronJob neposkytujú end-to-end exactly-once execution.
+- odôvodniť, prečo Job/CronJob neposkytujú end-to-end exactly-once execution,
+- rozlíšiť ConfigMap a Secret podľa citlivosti, API semantics a consumer contractu,
+- používať `data`, `binaryData`, `stringData`, environment injection, `envFrom` a volume projections,
+- vysvetliť rozdiel medzi environment a mounted-file update semantics vrátane `subPath` limitu,
+- navrhnúť immutable/versioned configuration a explicitný checksum-driven Pod rollout,
+- vysvetliť, prečo base64 nie je encryption a prečo Secret vyžaduje RBAC, etcd encryption, audit a node security,
+- navrhnúť credential rotation, TLS Secret a imagePullSecret lifecycle bez plaintext leakage,
+- vyhodnotiť external secret provider a workload identity trade-offy,
+- vysvetliť ServiceAccount ako namespaced workload identity oddelenú od RBAC permissions,
+- používať bound projected tokens, TokenRequest, audience, expiry a token rotation,
+- rozhodnúť, kedy vypnúť `automountServiceAccountToken`,
+- diagnostikovať `401` authentication oproti `403` authorization failure,
+- navrhnúť least-privilege ServiceAccount a external workload identity federation,
+- vysvetliť Service ako stabilnú logical network identity pre meniacu sa Pod population,
+- rozlíšiť Service selector, port, targetPort a EndpointSlice backend model,
+- vysvetliť ClusterIP, NodePort, LoadBalancer, ExternalName a headless Service,
+- interpretovať EndpointSlice readiness, serving, terminating, topology a address-family metadata,
+- vysvetliť kube-proxy alebo alternate Service dataplane a oddeliť DNS od packet forwarding-u,
+- diagnostikovať Service cez selector → EndpointSlice → readiness → targetPort → dataplane → application chain,
+- vysvetliť Ingress, IngressClass a controller/dataplane dependency,
+- navrhnúť host/path/TLS routing bez neauditovaných implementation-specific annotations,
+- rozlíšiť GatewayClass, Gateway, listener a Route resources,
+- používať `parentRefs`, `backendRefs`, `allowedRoutes`, ReferenceGrant a Route status conditions,
+- porovnať Ingress a Gateway API podľa role separation, portability, protocols a traffic-policy capabilities,
+- diagnostikovať routing cez DNS/load-balancer → Gateway/Ingress → Service → EndpointSlice → Pod,
+- vysvetliť cluster DNS request path cez Pod resolver, DNS Service, CoreDNS a upstream resolver,
+- používať Service FQDN, namespace search domains, `ndots`, headless records a SRV records,
+- rozlíšiť DNS policies `ClusterFirst`, `Default`, `ClusterFirstWithHostNet` a `None`,
+- vyhodnotiť caching, negative caching, UDP/TCP fallback, NodeLocal DNSCache a resolver loop failure,
+- systematicky odlíšiť cluster-local DNS, upstream DNS, Service dataplane a application connectivity problém.
 
 ## Stav
 
@@ -119,3 +153,8 @@ Po dokončení aktuálneho bloku má byť možné:
 | StatefulSet | Learning | L2 |
 | DaemonSet | Learning | L2 |
 | Job a CronJob | Learning | L2 |
+| ConfigMap a Secret | Learning | L2 |
+| ServiceAccount | Learning | L2 |
+| Service a EndpointSlice | Learning | L2 |
+| Ingress a Gateway API | Learning | L2 |
+| Cluster DNS | Learning | L2 |
