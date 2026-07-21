@@ -2,6 +2,10 @@
 
 Rýchly referenčný index technických pojmov používaných v Knowledge Hube. Glossary nenahrádza plné kapitoly: každé heslo obsahuje stručnú definíciu a odkaz na autoritatívny článok, ak už existuje.
 
+## Acceptance test
+
+Test overujúci, či systém spĺňa dohodnuté business alebo používateľské acceptance criteria. Môže bežať na API, UI alebo inej vrstve. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
 ## ACL — Access Control List
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
@@ -33,6 +37,14 @@ Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, 
 ## Anycast
 
 Routing model, v ktorom viac lokalít oznamuje rovnakú IP adresu a routing privedie klienta k topologicky preferovanému endpointu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## API contract
+
+Dohoda o observable API behavior zahŕňajúca paths, methods, schemas, status codes, errors, authentication, compatibility a ďalšie semantics. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## API test
+
+Runtime test verejného API rozhrania overujúci response, semantics, authorization a side effects. Jeho scope môže byť component, integration alebo E2E. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
 
 ## AppArmor profile
 
@@ -86,6 +98,10 @@ Git repository bez working tree, používaný typicky ako serverový alebo integ
 
 Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú blast radius a skracujú feedback. Pozri [Three Ways of DevOps](docs/00-foundations/three-ways.md).
 
+## BDD — Behavior-Driven Development
+
+Collaboration a discovery prístup používajúci príklady správania a spoločný jazyk na spresnenie požiadaviek; Gherkin je iba jedna možná reprezentácia. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
 ## Blob — Git object
 
 Nemenný Git object obsahujúci bytes jedného súboru bez filename a path metadata. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
@@ -113,6 +129,10 @@ L2 oblasť, v ktorej sa šíri Ethernet broadcast. Typicky ju oddeľuje router a
 ## Build
 
 Proces transformujúci zdrojové vstupy na spustiteľný alebo distribuovateľný artifact. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
+
+## Build Verification Test
+
+Krátky smoke test nad novým buildom overujúci, či je artifact spustiteľný a vhodný na drahšie testovanie. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
 
 ## Cache-Control
 
@@ -190,6 +210,10 @@ Git object obsahujúci root tree snapshotu, parent commits, author/committer met
 
 AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Component test
+
+Test celého deployovateľného komponentu cez jeho verejné rozhranie, pričom externé dependencies môžu byť nahradené controlled doubles. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
 ## Congestion control
 
 Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej kapacity a congestion signálov network pathu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -206,6 +230,10 @@ State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Po
 
 Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Consumer-driven contract
+
+Kontrakt definovaný consumerom podľa interactions, ktoré reálne potrebuje, a overovaný providerom v jeho pipeline. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
 ## Content-addressable storage
 
 Storage model, v ktorom je identita objektu odvodená z jeho typu a obsahu. Git používa tento model pre blobs, trees, commits a tags. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
@@ -221,6 +249,10 @@ Objekt alebo generator riadiaci vstup a výstup z lifecycle scope, napríklad ot
 ## Context switch
 
 Prechod CPU z vykonávania jedného threadu na iný. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Contract test
+
+Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distribuovaný systém. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
 
 ## Control plane
 
@@ -386,6 +418,10 @@ Množina Linux capabilities aktuálne používaná kernelom pri privilege checks
 
 Proces, pri ktorom každá sieťová vrstva pridá svoje metadata okolo payloadu vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
 
+## End-to-end test
+
+Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo procesných hraníc od vstupu po observable výsledok. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
 ## Enforcing mode
 
 Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -414,6 +450,10 @@ Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a k
 
 Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `raise ... from ...`. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Executable specification
+
+Príklad alebo pravidlo zapísané vo forme, ktorú možno automaticky spustiť ako dôkaz behavior. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
 ## Exit status
 
 Číselný výsledok ukončeného procesu alebo shell príkazu. Pozri [Shell, Bash, pipes, redirection a exit codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md).
@@ -421,6 +461,18 @@ Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `ra
 ## Failed deployment recovery time
 
 Čas potrebný na obnovenie služby po zlyhaní spôsobenom deploymentom. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
+
+## Failure artifact
+
+Diagnostický dôkaz zachovaný pri zlyhaní testu, napríklad screenshot, trace, log, packet capture, request ID alebo environment metadata. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
+## False negative — testing
+
+Výsledok, pri ktorom test prejde, hoci systém obsahuje chybu relevantnú pre testovaný risk. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
+
+## False positive — testing
+
+Výsledok, pri ktorom test hlási chybu, hoci testované správanie je správne. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
 
 ## Fast-forward
 
@@ -498,6 +550,10 @@ Regex quantifier, ktorý najprv spotrebuje najväčší možný rozsah a podľa 
 
 Aktívny alebo pasívny test určujúci, či backend môže prijímať nový traffic. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
 
+## Hermetic test
+
+Test, ktorý kontroluje všetky významné vstupy a nespolieha sa na nepredvídateľný externý stav. Môže používať disposable reálne dependencies. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
 ## History rewrite
 
 Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, napríklad rebase, amend alebo reset publikovanej branch. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
@@ -553,6 +609,10 @@ Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je m
 ## Inode
 
 Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
+
+## Integration test
+
+Test reálnej spolupráce komponentov alebo systému s technickou dependency, napríklad databázou, brokerom, filesystemom alebo cloud API. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
 
 ## IP packet
 
@@ -674,6 +734,10 @@ Model, v ktorom sú služby alebo projekty rozdelené medzi viac repositories a 
 
 Model, v ktorom sa existujúce stroje priebežne menia na mieste. Pozri [Immutable vs. Mutable Infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md).
 
+## Mutation testing
+
+Technika zámerne meniaca produkčný kód a overujúca, či test suite tieto mutácie zachytí. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
 ## Namespace — Linux namespace
 
 Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu systémového stavu. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
@@ -729,6 +793,10 @@ Protokol na zisťovanie revocation statusu certificate; server môže status pos
 ## OOM killer
 
 Kernel mechanizmus poslednej možnosti ukončujúci proces pri memory exhaustion. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Operational acceptance testing
+
+Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/restore, capacity, runbooks, access controls a deployment/rollback mechanizmy. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
 ## Option injection
 
@@ -822,6 +890,10 @@ Bežiaca inštancia programu s adresným priestorom, file descriptormi, credenti
 
 Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká alebo alokuje memory. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Provider state
+
+Deterministicky pripravený stav providera potrebný na overenie konkrétnej consumer-driven contract interaction. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
 ## Proxy
 
 Sprostredkovateľ ukončujúci jednu komunikáciu a vytvárajúci samostatnú komunikáciu k ďalšiemu endpointu. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
@@ -837,6 +909,10 @@ Odhad memory procesu, pri ktorom sa zdieľané pages pomerne rozdelia medzi proc
 ## PSScriptAnalyzer
 
 Static analysis nástroj pre PowerShell scripts a modules, ktorý kontroluje conventions, compatibility a vybrané security patterns. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Quarantine — testing
+
+Dočasné oddelenie nestabilného testu z blocking suite s explicitným ownerom, issue a termínom opravy; nie trvalé ignorovanie failure. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
 
 ## QUIC
 
@@ -870,6 +946,10 @@ Pravidlo mapujúce source ref na destination ref pri fetch alebo push operácii.
 
 Konkrétna syntax a semantics regular expression engine-u, napríklad POSIX ERE, .NET, Python, PCRE alebo RE2. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Regression test
+
+Test chrániaci existujúce funkčné alebo nefunkčné správanie pred nechcenou zmenou. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
+
 ## Release
 
 Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používateľom. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
@@ -877,6 +957,10 @@ Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používate�
 ## Remote-tracking ref
 
 Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Requirement traceability
+
+Väzba od business potreby a požiadavky cez risk a control až po test a dôkaz výsledku. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
 
 ## Rerere
 
@@ -922,6 +1006,10 @@ Izolovaný PowerShell execution environment s vlastným session state, používa
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Sanity test
+
+Krátka cielená kontrola konkrétnej zmeny alebo opravy. Význam sa medzi tímami líši, preto musí mať explicitný scope. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
+
 ## Saturation
 
 Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká queueing alebo throttling. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -942,6 +1030,10 @@ Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Dev
 
 Label subjectu alebo objektu obsahujúci SELinux user, role, type a prípadne level/range. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Service virtualization
+
+Nahradenie externého systému kontrolovaným simulátorom alebo sandboxom tak, aby bol test deterministickejší a lacnejší. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
 ## Session affinity
 
 Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -961,6 +1053,10 @@ PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené
 ## SLAAC — Stateless Address Autoconfiguration
 
 IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Advertisement. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Smoke test
+
+Krátky široký test overujúci, či je build alebo deployment dostatočne funkčný na pokračovanie ďalších kontrol alebo prevádzky. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
 
 ## SNAT — Source NAT
 
@@ -1026,6 +1122,10 @@ Storage-backed priestor pre niektoré anonymné memory pages. Pozri [Memory a CP
 
 Filesystem objekt obsahujúci textovú cestu na iný objekt. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Synthetic monitoring
+
+Pravidelné spúšťanie kontrolovaného produkčného scenára z definovanej lokality na overenie používateľskej cesty. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
+
 ## system call
 
 Kontrolovaný prechod z user space do kernel space. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
@@ -1065,6 +1165,26 @@ Praktický vrstvený model Application, Transport, Internet a Link používaný 
 ## Terminating error — PowerShell
 
 PowerShell error, ktorý zastaví aktuálnu operáciu alebo scope a môže byť zachytený cez `try/catch`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Test double
+
+Kontrolovaná náhrada dependency používaná v teste; zahŕňa napríklad stub, fake, mock alebo spy. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
+## Test fidelity
+
+Miera, do akej test zachováva produkčne relevantné komponenty, protokoly, konfiguráciu a failure modes. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
+
+## Test oracle
+
+Mechanizmus alebo pravidlo rozhodujúce, či je pozorovaný test result správny. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
+
+## Test pyramid
+
+Model test portfolio s veľkou vrstvou rýchlych úzkych kontrol, menšou integračnou vrstvou a obmedzeným počtom drahých E2E testov. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
+
+## Test trophy
+
+Alternatívny model zvýrazňujúci static checks a integration tests ako hlavný zdroj hodnoty, s menšou unit a E2E vrstvou. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
 
 ## Thread
 
@@ -1110,9 +1230,17 @@ SELinux policy model založený na source type, target type, object class a perm
 
 Anotácia očakávaného typu používaná static analysis nástrojmi a IDE; sama osebe nie je runtime validáciou. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## UAT — User Acceptance Testing
+
+Acceptance activity vykonaná alebo schválená reprezentatívnym business používateľom či stakeholderom na overenie fitu s reálnym procesom. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
 ## UDP datagram
 
 Samostatná transportná správa bez zabudovanej garancie doručenia, poradia alebo retransmission. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Unit test
+
+Rýchly test malej izolovanej jednotky správania s úzkym diagnostickým scope-om. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
 
 ## Upstream branch
 
@@ -1138,9 +1266,17 @@ Menej privilegované prostredie, v ktorom bežia aplikácie a systémové proces
 
 Miera použitia dostupnej kapacity resource. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Validation — testing
+
+Overenie, či systém rieši správny používateľský alebo business problém v reálnom kontexte. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
+
 ## Value stream
 
 Celý tok práce a informácií od potreby po hodnotu doručenú používateľovi. Pozri [Value Stream Mapping](docs/00-foundations/value-stream-mapping.md).
+
+## Verification — testing
+
+Overenie, či systém alebo artifact zodpovedá explicitnej špecifikácii, kontraktu alebo pravidlu. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
 
 ## Virtual environment — Python
 
