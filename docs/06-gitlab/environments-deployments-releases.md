@@ -402,3 +402,11 @@ Relevantné pojmy: GitLab environment, static environment, dynamic environment, 
 - [Deployments](https://docs.gitlab.com/ci/environments/deployments/)
 - [Releases](https://docs.gitlab.com/user/project/releases/)
 - [Review apps](https://docs.gitlab.com/ci/review_apps/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Container a package registry](container-and-package-registry.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Security scanning →](security-scanning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -445,3 +445,11 @@ Relevantné pojmy: GitLab SAST, dependency scanning, container scanning, secret 
 - [Secret detection](https://docs.gitlab.com/user/application_security/secret_detection/)
 - [DAST](https://docs.gitlab.com/user/application_security/dast/)
 - [Security policies](https://docs.gitlab.com/user/application_security/policies/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Environments, deployments a releases](environments-deployments-releases.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

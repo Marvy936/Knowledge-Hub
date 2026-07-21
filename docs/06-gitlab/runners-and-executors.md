@@ -423,3 +423,11 @@ Relevantné pojmy: GitLab Runner, runner scope, runner tag, protected runner, ex
 - [Docker executor](https://docs.gitlab.com/runner/executors/docker/)
 - [Kubernetes executor](https://docs.gitlab.com/runner/executors/kubernetes/)
 - [Shell executor](https://docs.gitlab.com/runner/executors/shell/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: GitLab CI/CD syntax](gitlab-ci-cd-syntax.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables a secrets →](variables-and-secrets.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

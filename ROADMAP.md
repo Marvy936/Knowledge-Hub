@@ -138,13 +138,13 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md)
 - [x] [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md)
 - [x] [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md)
-- [ ] GitLab CI/CD syntax
-- [ ] Runners a executors
-- [ ] Variables a secrets
-- [ ] Artifacts a cache
-- [ ] Container a package registry
-- [ ] Environments, deployments a releases
-- [ ] Security scanning
+- [x] [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md)
+- [x] [Runners a executors](docs/06-gitlab/runners-and-executors.md)
+- [x] [Variables a secrets](docs/06-gitlab/variables-and-secrets.md)
+- [x] [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md)
+- [x] [Container a package registry](docs/06-gitlab/container-and-package-registry.md)
+- [x] [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md)
+- [x] [Security scanning](docs/06-gitlab/security-scanning.md)
 
 ### Infrastructure as Code and Configuration Management
 

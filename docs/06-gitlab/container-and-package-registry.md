@@ -352,3 +352,11 @@ Relevantné pojmy: GitLab Container Registry, GitLab Package Registry, OCI diges
 - [Container Registry](https://docs.gitlab.com/user/packages/container_registry/)
 - [Package Registry](https://docs.gitlab.com/user/packages/package_registry/)
 - [Dependency Proxy](https://docs.gitlab.com/user/packages/dependency_proxy/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Artifacts a cache](artifacts-and-cache.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Environments, deployments a releases →](environments-deployments-releases.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

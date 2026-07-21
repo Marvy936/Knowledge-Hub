@@ -341,3 +341,11 @@ Relevantné pojmy: CI/CD variable, file-type variable, masked variable, hidden v
 - [Use external secrets in CI/CD](https://docs.gitlab.com/ci/secrets/)
 - [ID token authentication](https://docs.gitlab.com/ci/secrets/id_token_authentication/)
 - [CI/CD job token](https://docs.gitlab.com/ci/jobs/ci_job_token/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Runners a executors](runners-and-executors.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Artifacts a cache →](artifacts-and-cache.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

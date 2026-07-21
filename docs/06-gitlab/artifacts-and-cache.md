@@ -365,3 +365,11 @@ Relevantné pojmy: GitLab job artifact, report artifact, artifact retention, art
 - [Job artifacts](https://docs.gitlab.com/ci/jobs/job_artifacts/)
 - [Caching in GitLab CI/CD](https://docs.gitlab.com/ci/caching/)
 - [CI/CD YAML syntax](https://docs.gitlab.com/ci/yaml/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Variables a secrets](variables-and-secrets.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Container a package registry →](container-and-package-registry.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

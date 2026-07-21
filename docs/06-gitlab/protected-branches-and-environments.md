@@ -391,5 +391,5 @@ Relevantné pojmy: protected branch, branch rule, protected tag, allowed to push
 
 **Navigácia**
 
-[← Predchádzajúca: Merge requests a approvals](merge-requests-and-approvals.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Merge requests a approvals](merge-requests-and-approvals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: GitLab CI/CD syntax →](gitlab-ci-cd-syntax.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

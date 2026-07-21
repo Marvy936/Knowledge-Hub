@@ -442,3 +442,11 @@ Relevantné pojmy: GitLab pipeline configuration, `workflow:rules`, job rules, C
 - [CI/CD YAML syntax reference](https://docs.gitlab.com/ci/yaml/)
 - [CI/CD components](https://docs.gitlab.com/ci/components/)
 - [Pipeline editor](https://docs.gitlab.com/ci/pipeline_editor/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Protected branches a environments](protected-branches-and-environments.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Runners a executors →](runners-and-executors.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
