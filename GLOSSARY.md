@@ -234,6 +234,10 @@ Host-level Linux Security Module profil obmedzujúci filesystem, capability, net
 
 Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point, nie iba náhodný filesystem okamih. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## Application version — Helm
+
+Version aplikácie deklarovaná chart metadata fieldom `appVersion`; je informačná a nie je automaticky chart version, image tag ani release revision. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
 ## Apply test — Terraform
 
 Terraform test run, ktorý vykoná apply proti reálnemu alebo testovaciemu provider environmentu, vyhodnotí assertions a následne sa pokúsi vytvorenú infraštruktúru odstrániť. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
@@ -661,6 +665,14 @@ Disciplína formulovania a vykonávania kontrolovaných experimentov, ktoré ove
 ## Chaos testing
 
 Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state hypotézu v definovanom scope s bezpečnostnými kontrolami. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Chart repository — Helm
+
+HTTP repository model pre publikovanie packaged Helm charts a index metadata, alternatívny k OCI registry distribution. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Chart version — Helm
+
+Semantic version package contractu uvedená v `Chart.yaml`, ktorá identifikuje konkrétnu verziu templates, defaults, metadata a dependencies. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
 ## Check mode — Ansible
 
@@ -2274,6 +2286,30 @@ Aktívny alebo pasívny test určujúci, či backend môže prijímať nový tra
 
 Warm-up interval healthchecku, počas ktorého startup failures nemusia prispievať k označeniu containeru za unhealthy podľa health configuration. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
+## Helm
+
+Kubernetes package, templating a release-lifecycle tool, ktorý renderuje charts na Kubernetes manifests a uchováva release metadata bez vlastného serverového Tiller componentu. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm chart
+
+Versionovaný balík obsahujúci `Chart.yaml`, default values, Kubernetes templates, voliteľné CRDs, dependencies a pomocné files. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm release
+
+Konkrétna pomenovaná inštancia chartu nasadená do Kubernetes namespace-u s effective values, rendered manifestom, statusom a revision history. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm release revision
+
+Sekvenčné číslo konkrétnej install, upgrade alebo rollback verzie Helm release-u; nie je to Kubernetes Deployment revision ani Git commit. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm release state
+
+Metadata, chart/configuration a rendered manifest uložené Helm storage driverom v clustri pre konkrétnu release revision. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm template
+
+Go-template source file v chart `templates/` directory, ktorý Helm renderuje s values, release metadata a cluster capabilities na Kubernetes manifest. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
 ## Hermetic test
 
 Test, ktorý kontroluje všetky významné vstupy a nespolieha sa na nepredvídateľný externý stav. Môže používať disposable reálne dependencies. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -3246,6 +3282,10 @@ Stav, ktorý controller alebo agent aktuálne vidí cez API cache, runtime alebo
 
 Content uložený pomocou OCI image/distribution modelu, ktorý nemusí byť runnable image, napríklad SBOM, signature, provenance, Helm chart alebo policy bundle. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## OCI chart
+
+Helm chart artifact distribuovaný cez OCI-compatible registry s version/digest identity a registry authentication modelom. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
 ## OCI — Open Container Initiative
 
 Otvorená governance organizácia definujúca industry standards pre container image format, runtime bundle/lifecycle a registry distribution. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -3949,6 +3989,10 @@ Model, v ktorom plan/apply nevykonáva lokálny CLI proces, ale spravovaný remo
 ## Remote-tracking ref
 
 Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri poslednom fetchi. Nie je to živý pohľad na server. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Rendered manifest — Helm
+
+Výsledný Kubernetes YAML vytvorený kombináciou chart templates, effective values, release contextu a capabilities pred aplikovaním na API server. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
 ## `replace_triggered_by` — Terraform
 
@@ -5062,6 +5106,10 @@ Vopred definovaná SLO, error-rate, control-plane alebo dataplane podmienka, pri
 
 Pre-upgrade kontrola API, etcd, Nodes, add-ons, certificates, capacity a backup stavu zabraňujúca upgradu už degraded clusteru. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## `upgrade --install` — Helm
+
+Helm deployment pattern, ktorý vytvorí release, ak neexistuje, alebo aktualizuje existujúcu release; nerieši automaticky concurrency, migrations, drift ani secret management. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
 ## Upgrade test — Terraform module
 
 Testovací workflow, ktorý vytvorí infraštruktúru podporovanou staršou module/provider verziou, následne vykoná upgrade plan/apply a overí compatibility, moved mappings a absence nečakaných replacements. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
@@ -5105,6 +5153,18 @@ Overenie, či systém rieši správny používateľský alebo business problém 
 ## Value stream
 
 Celý tok práce a informácií od potreby po hodnotu doručenú používateľovi. Pozri [Value Stream Mapping](docs/00-foundations/value-stream-mapping.md).
+
+## Values — Helm
+
+Konfiguračné vstupy chart templates získané z default `values.yaml`, override files a command-line overrides. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Values precedence — Helm
+
+Merge a override poradie, v ktorom neskoršie values files a explicitné command-line overrides prepisujú chart defaults a skoršie values. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Values schema — Helm
+
+Voliteľný `values.schema.json` contract validujúci typy, required fields, enums a štruktúru Helm values pred render/install/upgrade. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
 ## Variable precedence — Ansible
 
