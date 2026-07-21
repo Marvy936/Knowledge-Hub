@@ -412,3 +412,11 @@ Relevantné pojmy: AWS Shared Responsibility Model, security of the cloud, secur
 
 - [AWS Shared Responsibility Model](https://docs.aws.amazon.com/whitepapers/latest/aws-risk-and-compliance/shared-responsibility-model.html)
 - [Shared responsibility — Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/shared-responsibility.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Regions a Availability Zones](regions-availability-zones.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Scalability, elasticity a fault tolerance →](scalability-elasticity-fault-tolerance.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

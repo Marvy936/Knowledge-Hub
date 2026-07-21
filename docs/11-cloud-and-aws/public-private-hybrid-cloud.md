@@ -404,3 +404,11 @@ Relevantné pojmy: cloud deployment model, public cloud, private cloud, hybrid c
 - [Types of cloud computing](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/types-of-cloud-computing.html)
 - [Hybrid Cloud with AWS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-with-aws/hybrid-cloud-with-aws.html)
 - [Hybrid cloud best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/hybrid-cloud-best-practices/overview.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: IaaS, PaaS a SaaS](iaas-paas-saas.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Regions a Availability Zones →](regions-availability-zones.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

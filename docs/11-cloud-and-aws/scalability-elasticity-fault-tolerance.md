@@ -486,3 +486,11 @@ Relevantné pojmy: scalability, vertical scaling, horizontal scaling, diagonal s
 
 - [Reliability Pillar](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html)
 - [AWS fault isolation boundaries](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/welcome.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Shared responsibility model](shared-responsibility-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: High availability a disaster recovery →](high-availability-disaster-recovery.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

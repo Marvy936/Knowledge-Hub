@@ -513,3 +513,11 @@ Relevantné pojmy: high availability, disaster recovery, disaster, Business Impa
 - [Plan for Disaster Recovery](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html)
 - [High availability is not disaster recovery](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/high-availability-is-not-disaster-recovery.html)
 - [Disaster Recovery of Workloads on AWS](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/welcome.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Scalability, elasticity a fault tolerance](scalability-elasticity-fault-tolerance.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Organizations a accounts →](aws-organizations-accounts.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

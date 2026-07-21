@@ -371,3 +371,11 @@ Relevantné pojmy: AWS Region, Availability Zone, AZ name, AZ ID, zonal resource
 - [Availability Zones](https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-availability-zones.html)
 - [AZ IDs](https://docs.aws.amazon.com/global-infrastructure/latest/regions/az-ids.html)
 - [AWS fault isolation boundaries](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/regions.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Public, private a hybrid cloud](public-private-hybrid-cloud.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Shared responsibility model →](shared-responsibility-model.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

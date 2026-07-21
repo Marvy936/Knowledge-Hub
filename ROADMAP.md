@@ -242,12 +242,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 ### Cloud and AWS
 
 - [x] [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md)
-- [ ] Public, private a hybrid cloud
-- [ ] Regions a Availability Zones
-- [ ] Shared responsibility model
-- [ ] Scalability, elasticity a fault tolerance
-- [ ] High availability a disaster recovery
-- [ ] AWS Organizations a accounts
+- [x] [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md)
+- [x] [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md)
+- [x] [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md)
+- [x] [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md)
+- [x] [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md)
+- [x] [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md)
 - [ ] IAM
 - [ ] VPC, subnets a route tables
 - [ ] Internet Gateway a NAT Gateway
