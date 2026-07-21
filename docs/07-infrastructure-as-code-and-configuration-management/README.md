@@ -1,8 +1,8 @@
 # Infrastructure as Code and Configuration Management
 
-Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť sa sústreďuje na Terraform execution model; nasledujúca časť rozšíri tému o modules, lifecycle, import, drift, testing, Policy as Code a Ansible configuration management.
+Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť sa sústreďuje na Terraform execution model, reusable modules, bezpečné refaktoringy, drift management, testing a Policy as Code. Nasledujúca časť prejde na Ansible configuration management.
 
-Cieľom nie je memorovať HCL syntax alebo cloud-specific resources. Dôležité je rozumieť desired state, provider boundary, dependency graphu, resource identity, state a backendu, blast radiusu, driftu, module contracts a bezpečnému plan/apply lifecycle.
+Cieľom nie je memorovať HCL alebo YAML syntax ani cloud-specific resources. Dôležité je rozumieť desired state, provider boundary, dependency graphu, resource identity, state a backendu, blast radiusu, driftu, module contracts, testovateľnosti a bezpečnému plan/apply lifecycle.
 
 ## Predpoklady
 
@@ -24,12 +24,16 @@ Odporúča sa najprv dokončiť:
 4. [Expressions a dependency graph](expressions-and-dependency-graph.md)
 5. [Terraform state](terraform-state.md)
 6. [Remote backend a state locking](remote-backend-and-state-locking.md)
+7. [Modules](modules.md)
+8. [Lifecycle, import a moved blocks](lifecycle-import-moved-blocks.md)
+9. [Drift](drift.md)
+10. [Terraform testing a policy](terraform-testing-and-policy.md)
 
-Nasledujúci Terraform blok doplní modules, lifecycle, import a `moved` blocks, drift, Terraform testing a Policy as Code. Potom sekcia prejde na Ansible architecture, inventory, playbooks, variables, templates, handlers, roles, collections, Vault a idempotenciu.
+Nasledujúci blok začne Ansible časť: architecture, inventory, modules/tasks/plays/playbooks, variables/facts/templates, handlers/loops/conditionals, roles/collections, Vault, idempotencia a porovnanie Terraform vs. Ansible.
 
 ## Cieľ zvládnutia
 
-Po dokončení aktuálneho bloku má byť možné:
+Po dokončení Terraform časti má byť možné:
 
 - vysvetliť Infrastructure as Code ako change-control a reconciliation model, nie iba automatizačný skript,
 - rozlíšiť deklaratívny a imperatívny prístup, desired state, actual state a Terraformom známy state,
@@ -53,7 +57,27 @@ Po dokončení aktuálneho bloku má byť možné:
 - rozlíšiť local a remote backend, remote state storage a remote execution,
 - vysvetliť backend initialization, migration, partial configuration a environment isolation,
 - navrhnúť state locking, CI concurrency, force-unlock a network-partition recovery model,
-- chrániť state pomocou least privilege, short-lived identity, encryption, versioning, retention a auditu.
+- chrániť state pomocou least privilege, short-lived identity, encryption, versioning, retention a auditu,
+- vysvetliť root a child module, module source, contract, composition a registry model,
+- navrhnúť typované module inputs, stabilné outputs, provider mappings a compatibility policy,
+- vybrať primeranú module boundary podľa capability, ownershipu, lifecycle a blast radiusu,
+- versionovať a bezpečne upgradovať reusable modules bez mutable source dependencies,
+- používať `count` a `for_each` na module calls so stabilnou instance identitou,
+- testovať examples, module releases a podporované upgrade paths,
+- správne aplikovať `create_before_destroy`, `prevent_destroy`, `ignore_changes` a `replace_triggered_by`,
+- rozlíšiť configuration-driven import od CLI state mutation a vykonať bezpečný post-import review,
+- používať `moved` blocks na versionovaný refaktoring resource a module addresses,
+- rozlíšiť `moved` block od `terraform state mv` a zachovať podporovanú moved history,
+- klasifikovať remote, configuration, state, provider a dependency drift,
+- používať refresh-only workflow bez automatického adoptovania nesprávneho remote stavu,
+- navrhnúť scheduled drift detection, classification, ownership a reconciliation proces,
+- odlíšiť drift od unmanaged infrastructure a state recovery incidentu,
+- vrstviť `fmt`, `validate`, static analysis, native tests, integration tests a post-apply verification,
+- používať `.tftest.hcl` plan/apply runs, assertions, mocks a izolované test environments,
+- vytvoriť module upgrade testy a reprezentatívnu Terraform/provider version matrix,
+- pracovať s immutable saved planom a machine-readable plan JSON ako policy evidence,
+- navrhnúť Policy as Code rules, advisory/mandatory gates, exceptions a policy tests,
+- prepojiť delivery tests s continuous validation, drift detection a security rescanning.
 
 ## Stav
 
@@ -65,3 +89,7 @@ Po dokončení aktuálneho bloku má byť možné:
 | Expressions a dependency graph | Learning | L2 |
 | Terraform state | Learning | L2 |
 | Remote backend a state locking | Learning | L2 |
+| Modules | Learning | L2 |
+| Lifecycle, import a moved blocks | Learning | L2 |
+| Drift | Learning | L2 |
+| Terraform testing a policy | Learning | L2 |
