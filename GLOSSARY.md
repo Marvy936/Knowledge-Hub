@@ -66,6 +66,10 @@ YAML mechanizmus pomenovania node, na ktorý môže odkazovať alias. Pozri [YAM
 
 Git tag reprezentovaný samostatným tag objectom s targetom, taggerom, časom, message a voliteľným kryptografickým podpisom. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
 
+## Anonymous volume — Docker
+
+Docker-managed volume bez user-defined mena, vytvorené pre konkrétny mount request a schopné prežiť zmazanie containeru; bez explicitného ownershipu a cleanup policy ľahko vzniká orphan state. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
 ## Ansible collection
 
 Versionovaný distribuovateľný balík modules, plugins, roles, playbooks, documentation a ďalšieho executable Ansible contentu. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -141,6 +145,10 @@ Dohoda o observable API behavior zahŕňajúca paths, methods, schemas, status c
 ## API test
 
 Runtime test verejného API rozhrania overujúci response, semantics, authorization a side effects. Jeho scope môže byť component, integration alebo E2E. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## API version negotiation — Docker
+
+Mechanizmus, ktorým Docker client a Engine vyberú spoločnú podporovanú verziu Engine API; neznamená, že starší server podporuje všetky features novšieho CLI. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
 ## AppArmor profile
 
@@ -254,6 +262,10 @@ Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, 
 
 Git repository bez working tree, používaný typicky ako serverový alebo integračný endpoint. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
 
+## Base image — Dockerfile
+
+Image reference použitá instruction `FROM` ako počiatočný filesystem a metadata graph build stage-u; je supply-chain a patch-lifecycle dependency. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
 ## Batch size
 
 Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú blast radius a skracujú feedback. Pozri [Three Ways of DevOps](docs/00-foundations/three-ways.md).
@@ -330,6 +342,18 @@ Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality ga
 
 Proces transformujúci zdrojové vstupy na spustiteľný alebo distribuovateľný artifact. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## Build bind mount — Dockerfile
+
+Dočasný bind mount dostupný iba počas `RUN --mount=type=bind`, ktorý sprístupní build context, stage alebo named context bez automatického uloženia mount contentu do výslednej layer. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Build cache — Docker
+
+Znovupoužiteľné výsledky build graph nodes alebo instructions identifikované cache keys a relevantnými inputs, určené na zrýchlenie build-u, nie ako jediný correctness source. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Build context — Docker
+
+Explicitná množina files, directories a metadata dostupná builderu ako source pre `COPY`, `ADD` alebo build mounts; context root nemusí byť directory Dockerfile-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
 ## Build metadata — SemVer
 
 Informácie za znakom `+` v Semantic Versioning verzii, napríklad build number alebo commit SHA. Neovplyvňujú SemVer version precedence. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
@@ -341,6 +365,14 @@ Princíp vytvoriť pre konkrétny source commit jeden immutable artifact a ten i
 ## Build once, promote many
 
 Delivery princíp, pri ktorom sa source zostaví raz do immutable artifactu a rovnaký digest sa overuje a promotionuje cez všetky environments. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+
+## Build secret — Dockerfile
+
+Citlivý build-time input sprístupnený cez BuildKit secret mount bez zámerného uloženia do image layer alebo build argumentu; command ho stále nesmie zapísať do outputu, cache alebo logs. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Build stage — Dockerfile
+
+Samostatný build filesystem a graph scope vytvorený instruction `FROM`, ktorý môže slúžiť na kompiláciu, testovanie, export artifacts alebo zostavenie final image-u. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Build Verification Test
 
@@ -354,9 +386,17 @@ Odstrániteľná optimalizácia pipeline na znovupoužitie dependencies alebo in
 
 HTTP response/request header definujúci freshness, revalidation, storage a shared/private cache policy. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
+## Cache invalidation — Docker build
+
+Stav, keď zmena instruction, parent resultu alebo relevantného inputu zmení cache key a builder musí príslušný graph node znovu vykonať. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
 ## Cache key
 
 Identifikátor cache odvodený zo všetkých významných vstupov, napríklad OS, architecture, toolchain version, lockfile hash a build configuration. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+
+## Cache mount — Dockerfile
+
+Persistentnejší pomocný directory pripojený počas `RUN --mount=type=cache`, napríklad pre compiler alebo package-manager cache; môže byť odstránený a nesmie ovplyvňovať correctness build-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Cache poisoning
 
@@ -485,6 +525,10 @@ Krátkodobá GitLab job identity používaná na podporované API, artifact, pac
 ## CIDR — Classless Inter-Domain Routing
 
 Zápis IP prefixu pomocou adresy a počtu network bitov, napríklad `192.0.2.0/24`. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Clean-room build
+
+Build vykonaný bez dôvery v existujúcu local alebo external cache, používaný na overenie reproducibility, úplnosti dependencies a absencie skrytých cache assumptions. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## ClickOps
 
@@ -646,6 +690,10 @@ Minimálna kombinácia controls, napríklad trusted digest, non-root user, capab
 
 Runtime-managed storage object s lifecycle oddeleným od konkrétnej container instance, ktorý môže poskytovať persistence, ale nie automaticky backup, replication alebo multi-host durability. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## containerd — Docker Engine
+
+Container lifecycle a image/snapshot komponent používaný Docker Engine-om na koordináciu tasks, runtime shims, content a snapshots podľa konkrétnej konfigurácie platformy. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
 ## Content-addressable storage
 
 Storage model, v ktorom je identita objektu odvodená z jeho typu a obsahu. Git používa tento model pre blobs, trees, commits a tags. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
@@ -661,6 +709,10 @@ HTTP mechanizmus, ktorým klient deklaruje preferované representations a server
 ## Context manager — Python
 
 Objekt alebo generator riadiaci vstup a výstup z lifecycle scope, napríklad otvorenie a bezpečné zatvorenie súboru, locku alebo session. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Context root — Docker build
+
+Root path build contextu, voči ktorému sa vyhodnocujú local source paths v `COPY` a `ADD`, nezávisle od umiestnenia Dockerfile-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Context switch
 
@@ -906,6 +958,10 @@ Stav, v ktorom `HEAD` ukazuje priamo na commit namiesto symbolického odkazu na 
 
 Serializácia, pri ktorej rovnaký logický vstup vytvára stabilný byte alebo textový výstup podľa definovaných pravidiel. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Development target — Dockerfile
+
+Multi-stage build target obsahujúci development-only tools, debugger, hot reload alebo source-mount contract, ktorý nesmie byť neúmyselne publikovaný ako production runtime image. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## DevOps
 
 Kultúrne princípy, organizačné praktiky a technické mechanizmy na rýchle a bezpečné dodávanie zmien. Pozri [DevOps](docs/00-foundations/devops.md).
@@ -954,6 +1010,10 @@ CI cache uložená v shared backend-e, typicky object storage, aby ju mohli pou�
 
 Content digest registry blobu alebo manifestu v jeho distribuovanej reprezentácii, používaný na integrity verification a immutable references. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## Distroless image
+
+Minimalizovaný runtime image bez bežného shellu alebo package managera, určený na spustenie konkrétnej aplikácie s menším mutable surface; vyžaduje external observability a premyslený debugging model. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## DNAT — Destination NAT
 
 Preklad destination adresy alebo portu, používaný napríklad pri publikovaní internej služby. Pozri [NAT](docs/02-networking-and-web/nat.md).
@@ -974,9 +1034,89 @@ Komponent vykonávajúci alebo sprostredkujúci DNS resolution. Pozri [DNS](docs
 
 Rozšírenie DNS poskytujúce kryptografické overenie autenticity a integrity DNS dát cez chain of trust. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
+## Docker bind mount
+
+Runtime mount konkrétneho host filesystem pathu do container mount namespace-u, ktorý prenáša host path, permissions, labels a lifecycle coupling. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Docker CLI
+
+Client program `docker`, ktorý parsuje príkazy a komunikuje s Docker Engine API; container primitives typicky nevytvára priamo. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker context
+
+Pomenovaný client-side connection profil určujúci Docker daemon endpoint, TLS/SSH metadata a ďalšie connection nastavenia; nesprávny context môže nasmerovať deštruktívny príkaz na iný host. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker daemon — `dockerd`
+
+Dlhodobo bežiaci server Docker Engine-u spravujúci images, containers, networks, volumes, builds a komunikáciu s nižšími runtime components. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker Desktop
+
+Desktop platforma zahŕňajúca Docker Engine, CLI, UI, build, credential, networking a virtualizačné komponenty; na Windows a macOS typicky používa Linux virtualizačnú vrstvu pre Linux containers. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker embedded DNS
+
+DNS service poskytovaná Docker Engine-om pre name resolution containers a aliases v user-defined networks. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker Engine
+
+Client-server container platforma pozostávajúca z daemon-u, API a súvisiacich components na správu Docker objects a container lifecycle. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker Engine API
+
+Versionované HTTP API, cez ktoré clients a integrations riadia Docker daemon; prístup k nemu je privilegovaná platformová capability. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
 ## Docker executor — GitLab Runner
 
 Executor, ktorý spúšťa každý job v containeri vytvorenom z definovaného image a môže pripájať service containers, volumes a cache. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+
+## Docker host network
+
+Network mode, v ktorom container process zdieľa host network namespace, binduje priamo host ports a nemá bežnú samostatnú container network isolation. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker internal network
+
+Docker network deklarovaná tak, aby obmedzila bežný external routing/egress podľa driver capabilities, používaná na užšie backend communication boundaries. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker network
+
+Pomenovaný runtime connectivity object s konkrétnym driverom, IPAM a isolation/discovery semantics pre pripojené containers. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker network alias
+
+Dodatočné logical DNS meno container endpointu platné v konkrétnej Docker network boundary. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker none network
+
+Runtime network mode poskytujúci containeru minimálny network namespace bez bežnej external connectivity, typicky iba s loopback interfaceom. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker object
+
+Daemon-managed objekt ako image, container, network alebo volume s vlastnou identity a lifecycle semantics. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker port publishing
+
+Runtime forwarding alebo routing konfigurácia mapujúca host address a port na port v container network namespace; je odlišná od Dockerfile `EXPOSE`. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker socket
+
+Local Unix socket alebo obdobný endpoint poskytujúci prístup k Docker Engine API; write access je často prakticky host-administration capability. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker volume
+
+Docker-managed storage object s lifecycle oddeleným od konkrétnej container instance; persistence neznamená automatický backup, replication ani multi-host durability. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Dockerfile
+
+Versionovaný build program obsahujúci instructions, z ktorých builder vytvorí image filesystem layers a runtime metadata. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Dockerfile frontend
+
+Parser a build frontend implementujúci Dockerfile syntax a prekladajúci instructions do BuildKit build graphu, často vybraný cez `# syntax=` directive. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## `.dockerignore`
+
+Pattern file filtrujúci content zahrnutý do Docker build contextu; znižuje transfer, cache invalidation a accidental exposure, ale nie je secret manager ani náhrada za odstránenie secrets z repository history. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Document stream — YAML
 
@@ -1166,6 +1306,10 @@ Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant,
 
 Telemetry udalosť dokazujúca, že subjekt reálne dostal konkrétny experiment alebo feature variant; assignment bez exposure nemusí znamenať ovplyvnenie. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## External build cache
+
+Build cache exportovaná mimo lokálneho buildera, napríklad do registry alebo CI backendu, s vlastnou access, trust, namespace a retention policy. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
 ## External secret provider — GitLab CI/CD
 
 Secret-management systém, z ktorého job explicitne načíta citlivú hodnotu po overení federovanej alebo inej scoped identity. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
@@ -1245,6 +1389,10 @@ CI/CD variable, ktorej hodnota je zapísaná do dočasného súboru a environmen
 ## Filesystem
 
 Štruktúra mapujúca pathname na metadata a dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
+
+## Final stage — Dockerfile
+
+Stage, ktorého filesystem a image config tvoria publikovaný runtime image; má obsahovať iba potrebné runtime artifacts a dependencies. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## First-attempt pass rate
 
@@ -1450,6 +1598,10 @@ Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, 
 
 IPv6 field znižovaný na každom router hop-e; IPv4 ekvivalentom je TTL. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Host bind address — Docker
+
+Host IP adresa, na ktorej Docker publikuje port, napríklad `127.0.0.1` pre local-only alebo `0.0.0.0` pre všetky IPv4 interfaces. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
 ## Host key — SSH host key
 
 Kryptografický kľúč, ktorým SSH server preukazuje svoju identitu klientovi. Pozri [SSH](docs/01-linux-and-systems/ssh.md).
@@ -1533,6 +1685,10 @@ Immutable filesystem changeset v ordered image graph-e, ktorý sa skladá s osta
 ## Image manifest — OCI
 
 OCI artifact odkazujúci descriptorom na jednu image configuration a ordered list filesystem layer blobs. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Image runtime metadata — Dockerfile
+
+Image configuration fields ako default command, entrypoint, environment, user, working directory, exposed ports, labels a stop signal použité pri vytváraní runtime containeru. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Immutable infrastructure
 
@@ -1882,6 +2038,10 @@ Pripojenie filesystemu alebo iného mountable objektu do spoločného filesystem
 
 Namespace poskytujúci samostatný pohľad na mount table a propagation. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
 
+## Mount obscuring — container
+
+Runtime efekt, pri ktorom volume alebo bind mount pripojený na path prekryje files existujúce na rovnakom path-e v image filesysteme. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
 ## `moved` block — Terraform
 
 Versionovaná deklarácia `from` a `to` addressy, ktorou Terraform zachová resource alebo module identity počas configuration refaktoringu bez state surgery v každom environment-e. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -1905,6 +2065,10 @@ Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozr
 ## Multi-platform image
 
 OCI image index a súvisiaci graph poskytujúci platform-specific manifests pod jednou higher-level reference, napríklad pre `linux/amd64` a `linux/arm64`. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Multi-stage build
+
+Dockerfile build s viacerými `FROM` stages, ktorý oddeľuje compilation, test, artifact a runtime filesystemy a umožňuje kopírovať do final image-u iba explicitné artifacts. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Multi-writer automation
 
@@ -1934,9 +2098,21 @@ Podiel zámerných code mutations, ktoré test suite odhalí zlyhaním. Pozri [C
 
 Technika zámerne meniaca produkčný kód a overujúca, či test suite tieto zmeny zachytí. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Named context — Docker build
+
+Dodatočný explicitne pomenovaný build context dostupný Dockerfile-u podobne ako stage, používaný na užšie oddelenie source alebo external image inputs. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Named volume — Docker
+
+Docker volume s explicitným user-defined menom a samostatným lifecycle, vhodné na auditovateľnejší persistence a cleanup workflow. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
 ## Namespace — Linux namespace
 
 Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu systémového stavu. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## Narrow artifact copy — Dockerfile
+
+Princíp kopírovania iba presne potrebných build outputs z build stage do final stage namiesto širokého prenosu celého stage filesystemu. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## NAT — Network Address Translation
 
@@ -1961,6 +2137,10 @@ Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Pozri [DNS](docs/02
 ## Network ACL
 
 Network policy aplikovaná typicky na subnet alebo segment boundary; v cloud prostredí býva často stateless. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## Network driver — Docker
+
+Implementácia Docker network connectivity modelu, napríklad bridge, host, none, overlay, macvlan alebo ipvlan. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Network namespace
 
@@ -2010,6 +2190,10 @@ Artifact alebo discovery vzťah odkazujúci na subject digest, používaný napr
 
 Directory forma pre low-level runtime obsahujúca `rootfs` a `config.json` s process, mount, namespace, capability a resource configuration. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## OCI runtime — Docker
+
+Low-level runtime implementujúci OCI Runtime Specification a vytvárajúci container process, namespaces, mounts a security/resource controls z runtime bundle-u. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
 ## OCSP — Online Certificate Status Protocol
 
 Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
@@ -2033,6 +2217,10 @@ Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/r
 ## Option injection
 
 Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako option namiesto dátového argumentu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Orphan volume — Docker
+
+Volume, ktoré už nemá aktívneho workload ownera alebo referenciu, ale stále obsahuje dáta a spotrebúva storage; pred odstránením potrebuje ownership a retention overenie. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## OSI model
 
@@ -2578,6 +2766,10 @@ Konfigurácia v working directory, nad ktorou sa vykonáva plan/apply; skladá c
 
 Container a runtime model fungujúci bez host-root daemon identity, typicky cez user namespaces a unprivileged networking/storage helpers. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
+## Rootless Docker
+
+Docker daemon a containers spustené bez host root identity s user-namespace a userspace mechanizmami, znižujúce niektoré host privilege riziká za cenu feature a networking obmedzení. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
 ## Route
 
 Pravidlo určujúce next hop, interface a ďalšie parametre pre destination prefix. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
@@ -2626,6 +2818,10 @@ Job failure spôsobený runnerom, executorom, infrastructure alebo prepare/clean
 
 Izolovaný PowerShell execution environment s vlastným session state, používaný aj pri paralelnom spracovaní. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Runtime shim — containerd
+
+Per-container alebo per-runtime lifecycle proces oddeľujúci container process od containerd daemon lifecycle a poskytujúci task I/O a exit-state coordination. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
 ## Runtime socket exposure
 
 Sprístupnenie container-engine API socketu workloadu, ktoré často umožňuje vytvárať privileged containers, mounts alebo inak ovládať host a predstavuje host-admin trust boundary. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
@@ -2673,6 +2869,10 @@ Schopnosť aktívnych application a data consumers fungovať s aktuálnou sadou 
 ## Schema validation
 
 Overenie dát voči deklarovaným typom, required fields a constraints. Neoveruje automaticky všetky business a runtime podmienky. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Scratch image
+
+Minimalistický Dockerfile stage `FROM scratch` bez base filesystemu, vhodný iba pre artifact s kompletne vyriešenými runtime dependencies. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## SDLC — Software Development Life Cycle
 
@@ -3062,6 +3262,10 @@ Model test portfolio s veľkou vrstvou rýchlych úzkych kontrol, menšou integr
 
 Rozdelenie test suite medzi paralelné jobs podľa súborov, test IDs alebo historical duration s následnou validáciou úplnosti a agregáciou reportov. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
+## Test stage — Dockerfile
+
+Multi-stage build target určený na vykonanie testov; ak nie je v dependency graph-e final targetu, pipeline ho musí explicitne buildnúť ako quality evidence. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## Test trophy
 
 Alternatívny model zvýrazňujúci static checks a integration tests ako hlavný zdroj hodnoty, s menšou unit a E2E vrstvou. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
@@ -3097,6 +3301,10 @@ Protokol poskytujúci šifrovanie, integritu a autentifikáciu komunikácie. Poz
 ## tmpfs mount — container
 
 Memory-backed temporary filesystem pripojený do containeru s lifecycle viazaným na runtime a potrebným explicitným size, memory a permissions limitom. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## tmpfs mount — Docker
+
+Memory-backed runtime filesystem mount s ephemeral lifecycle, vhodný pre dočasné dáta alebo secrets podľa memory, swap a forensic threat modelu. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Toil
 
@@ -3178,6 +3386,10 @@ Identifikátor resource; URL je typ URI, ktorý zároveň opisuje spôsob alebo 
 
 Performance metodika kontrolujúca utilization, saturation a errors každého resource. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## User-defined bridge — Docker
+
+Explicitne vytvorená single-host bridge network poskytujúca vlastnú lifecycle identity, embedded DNS, aliases a isolation boundary pre pripojené containers. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
 ## User namespace
 
 Namespace izolujúci UID/GID mapping a capability scope. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
@@ -3249,6 +3461,10 @@ Logicky oddelený Ethernet broadcast domain, často prenášaný cez 802.1Q tagg
 ## VM escape
 
 Prelomenie guest/hypervisor isolation boundary, pri ktorom code z virtual machine ovplyvní hypervisor, host alebo inú VM. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Volume driver — Docker
+
+Plugin alebo built-in implementation určujúca storage backend a mount semantics Docker volume-u; application consistency, backup a access modes zostávajú samostatným contractom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## VSZ — Virtual Set Size
 
