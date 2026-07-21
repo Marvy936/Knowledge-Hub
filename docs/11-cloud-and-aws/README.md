@@ -33,8 +33,13 @@ Odporúča sa najprv dokončiť:
 14. [S3, EBS a EFS](s3-ebs-efs.md)
 15. [RDS](rds.md)
 16. [Route 53 a CloudFront](route53-cloudfront.md)
+17. [Lambda](lambda.md)
+18. [ECS a EKS](ecs-eks.md)
+19. [CloudWatch a CloudTrail](cloudwatch-cloudtrail.md)
+20. [Systems Manager](systems-manager.md)
+21. [KMS a Secrets Manager](kms-secrets-manager.md)
 
-Nasledujúci AWS service blok prejde na Lambda, ECS a EKS, CloudWatch a CloudTrail, Systems Manager a KMS a Secrets Manager.
+Nasledujúci AWS service blok uzavrie osnovu témami AWS Backup, Well-Architected Framework a Cost management a FinOps. Potom sa certifikačné kapitoly SOA-C03 zaradia na koniec lineárnej navigácie.
 
 ## AWS Certified CloudOps Engineer – Associate track
 
@@ -133,6 +138,25 @@ Po dokončení aktuálneho bloku má byť možné:
 - vysvetliť CloudFront origins, cache behaviors, cache key, cache policy, origin request policy, OAC, invalidations a origin failover,
 - chrániť CloudFront viewer/origin TLS, private content, WAF a authenticated caching bez data leakage,
 - diagnostikovať Route 53 `NXDOMAIN`/`SERVFAIL` a CloudFront 403/404/502/503/504 podľa DNS, edge, cache, policy a origin evidence,
+- vysvetliť Lambda execution environment, cold/warm lifecycle, invocation modely, event-source mappings a at-least-once delivery,
+- navrhnúť Lambda concurrency, idempotenciu, DLQ/destinations, version/alias deployment a downstream backpressure,
+- diagnostikovať Lambda throttle, timeout, event-age, duplicate processing, VPC connectivity a secret/configuration failures,
+- rozlíšiť ECS cluster, task definition, task, service, capacity provider, task role a task execution role,
+- navrhnúť ECS deployment a capacity model cez Fargate, Managed Instances alebo EC2 capacity providers,
+- vysvetliť EKS managed control plane, compute options, access entries, Pod identity, add-ons a upgrade ownership,
+- diagnostikovať ECS placement/deployment a EKS node, scheduler, CNI, IAM/RBAC a load-balancer failures,
+- rozlíšiť CloudWatch metrics/logs/alarms od CloudTrail API audit events,
+- navrhnúť bounded metric dimensions, missing-data behavior, actionable alarms, log retention a cross-account observability,
+- vytvoriť organization trail s central S3/KMS ochranou a rozlíšiť management, data a network activity events,
+- korelovať performance incident cez CloudWatch, configuration actor cez CloudTrail a data/network evidence cez ďalšie telemetry vrstvy,
+- vysvetliť Systems Manager managed node prerequisites, Run Command, Session Manager, State Manager, Patch Manager a Automation,
+- navrhnúť fleet rate controls, patch rings, maintenance, idempotentné documents/runbooks a auditovateľný Session Manager access,
+- rozlíšiť Parameter Store a Secrets Manager podľa configuration a secret lifecycle contractu,
+- diagnostikovať offline managed node, command delivery, session logging, patch compliance a Automation role failures,
+- vysvetliť KMS key types, key policy, grants, envelope encryption, data keys, encryption context, aliases a rotation,
+- odlíšiť KMS cryptographic key lifecycle od Secrets Manager version, staging-label, retrieval a rotation lifecycle,
+- navrhnúť least-privilege cross-account/Region secret a encryption model s private endpoints, cache a rotation-safe clients,
+- diagnostikovať KMS `AccessDenied`, disabled/pending-deletion key, secret retrieval, stale credentials a rotation failures,
 - vytvoriť SOA-C03 domain gap map s váhami 22/22/22/16/18,
 - riešiť scenario questions podľa outcome, constraints, scope, responsibility a operational trade-offu,
 - vykonávať cost-safe AWS hands-on laby s observability, fault injection, hard validation a cleanupom,
@@ -158,3 +182,8 @@ Po dokončení aktuálneho bloku má byť možné:
 | S3, EBS a EFS | Learning | L2 |
 | RDS | Learning | L2 |
 | Route 53 a CloudFront | Learning | L2 |
+| Lambda | Learning | L2 |
+| ECS a EKS | Learning | L2 |
+| CloudWatch a CloudTrail | Learning | L2 |
+| Systems Manager | Learning | L2 |
+| KMS a Secrets Manager | Learning | L2 |
