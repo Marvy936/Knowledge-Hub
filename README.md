@@ -45,10 +45,10 @@ Aktívne sekcie:
 3. [Networking and Web Fundamentals](docs/02-networking-and-web/README.md)
 4. [Git and Automation Basics](docs/03-git-and-automation/README.md)
 5. [Testing and Software Quality](docs/04-testing-and-quality/README.md)
+6. [CI/CD and Release Engineering](docs/05-ci-cd-and-release/README.md)
 
 Plánované hlavné domény:
 
-- CI/CD a release engineering
 - GitLab
 - Terraform a Infrastructure as Code
 - Ansible a configuration management
