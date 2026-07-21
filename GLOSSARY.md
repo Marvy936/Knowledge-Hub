@@ -14,6 +14,10 @@ Vopred definovaná podmienka, pri ktorej sa rollout alebo experiment okamžite z
 
 Test overujúci, či systém spĺňa dohodnuté business alebo používateľské acceptance criteria. Môže bežať na API, UI alebo inej vrstve. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Accepted condition — Gateway API
+
+Route alebo Gateway status condition indikujúca, že zodpovedný controller prijal resource alebo jeho attachment k parentu podľa class, listener a policy pravidiel. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## ACL — Access Control List
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
@@ -274,6 +278,10 @@ Automatizovaný návrat na predchádzajúcu kompatibilnú verziu po detekcii spo
 
 Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane vykonateľný mechanizmus. Pozri [Automation Mindset](docs/00-foundations/automation-mindset.md).
 
+## `automountServiceAccountToken`
+
+ServiceAccount alebo Pod setting určujúci, či kubelet automaticky pripojí štandardný ServiceAccount credential projection do Podu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
 ## Available replicas — Kubernetes
 
 Počet replík, ktoré sú Ready a spĺňajú príslušné availability timing podmienky controlleru; nie je totožný s počtom existujúcich alebo Running Podov. Pozri [Deployment](docs/09-kubernetes/deployment.md) a [ReplicaSet](docs/09-kubernetes/replicaset.md).
@@ -285,6 +293,10 @@ SELinux decision a auditný kontext opisujúci povolenie alebo zamietnutie oper�
 ## Backend migration — Terraform
 
 Riadený presun state lineage a snapshots z jedného backendu do druhého so zastavením writers, backupom, overením destination identity a následným planom. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## BackendRef — Gateway API
+
+Typed reference z Route rule na backend resource, typicky Kubernetes Service a port, spolu s voliteľnou weight alebo policy metadata. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
 ## Backfill
 
@@ -349,6 +361,10 @@ Deployment stratégia s dvoma oddelenými produkčne relevantnými targetmi, kde
 ## Bootstrap configuration
 
 Minimálna počiatočná konfigurácia potrebná na bezpečné pripojenie targetu k dlhodobému management workflowu, napríklad identity, trusted CA, management transport a inventory registration. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Bound ServiceAccount token
+
+Časovo obmedzený ServiceAccount bearer token vytvorený cez TokenRequest API, typicky viazaný na audience a Pod/object identity a projected kubeletom do workloadu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
 
 ## Bounding set — capability bounding set
 
@@ -630,9 +646,25 @@ Voliteľný Kubernetes control-plane component spúšťajúci cloud-provider-spe
 
 Platformová služba nasadená nad core clusterom, napríklad DNS, metrics, ingress/gateway, policy alebo log collection, ktorá nie je automaticky core control-plane componentom. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
 
+## Cluster DNS — Kubernetes
+
+Cluster add-on poskytujúci DNS records pre Services a vybrané Pod identities a forwardujúci non-cluster queries na upstream resolvery. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
+## Cluster domain — Kubernetes
+
+DNS suffix cluster-local service discovery namespace-u, často `cluster.local`, ale konfigurovateľný pri vytvorení clusteru. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
 ## Cluster-scoped resource — Kubernetes
 
 Kubernetes resource, ktorého identity a API scope nie sú viazané na namespace, napríklad Node, Namespace alebo ClusterRole. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## ClusterIP
+
+Stabilná virtuálna Service IP v cluster networku, ktorú Service dataplane mapuje na aktuálne EndpointSlice backendy. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## ClusterIP DNS record
+
+A alebo AAAA record bežného Kubernetes Service-u, ktorý resolve-ne na Service ClusterIP, nie priamo na Pod IP adresy. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
 
 ## Cmdlet
 
@@ -741,6 +773,14 @@ Coverage metrika sledujúca, či jednotlivé boolean podmienky nadobudli relevan
 ## Condition — Kubernetes
 
 Štruktúrovaný status signál s typom, boolean-like stavom, reason, message a transition time, ktorý opisuje aktuálne významný aspekt resource state-u. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## ConfigMap
+
+Namespaced Kubernetes API objekt pre necitlivé UTF-8 alebo binary configuration dáta používané Podmi cez environment alebo mounted volumes. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Configuration checksum — Kubernetes
+
+Deterministický hash configuration contentu vložený do Pod template metadata, aby jeho zmena vytvorila novú workload revision a explicitný rollout. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
 ## Configuration drift — Terraform
 
@@ -958,6 +998,10 @@ Filesystem model, pri ktorom read-only image layer content zostáva zdieľaný a
 
 Operácia, pri ktorej sa file z read-only lower layeru pri prvom zápise prenesie do writable upper layeru a ďalšie zmeny sa vykonávajú nad touto kópiou. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
+## CoreDNS
+
+Bežná Kubernetes cluster DNS implementation a extensible DNS server konfigurovaný pluginmi pre Kubernetes records, caching, forwarding, health a ďalšie funkcie. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
 ## CORS — Cross-Origin Resource Sharing
 
 Browser-enforced HTTP policy určujúca, ktoré origins môžu čítať responses alebo odosielať vybrané cross-origin requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
@@ -1070,6 +1114,10 @@ Deklaratívny Python model generujúci metódy pre dátovo orientovanú class, n
 
 Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Pozri [Declarative vs. Imperative Approach](docs/00-foundations/declarative-vs-imperative.md).
 
+## Default backend — Ingress
+
+Backend Service použitý pre requests, ktoré nezodpovedajú žiadnemu host/path pravidlu Ingressu. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## Default deny
 
 Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic alebo operácie a všetko ostatné sa zamietne. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
@@ -1077,6 +1125,10 @@ Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic aleb
 ## Default route
 
 Najmenej špecifická route `0.0.0.0/0` alebo `::/0`, použitá ak neexistuje presnejšia route. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
+
+## Default ServiceAccount
+
+ServiceAccount automaticky vytvorený v každom namespace a použitý Podom, ktorý nemá explicitné `serviceAccountName`; nemá byť zdieľanou privilegovanou workload identity. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
 
 ## Deletion timestamp — Kubernetes
 
@@ -1246,13 +1298,33 @@ Preklad destination adresy alebo portu, používaný napríklad pri publikovaní
 
 Distribuovaný hierarchický systém mapujúci mená na resource records. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
+## DNS negative caching
+
+Dočasné cache-ovanie odpovede, že DNS meno neexistuje alebo nemá požadovaný record, ktoré môže predĺžiť NXDOMAIN symptóm po neskoršom vytvorení Service-u. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
+## DNS policy — Kubernetes
+
+Pod-level pravidlo určujúce zdroj a spôsob resolver configuration, napríklad `ClusterFirst`, `Default`, `ClusterFirstWithHostNet` alebo `None`. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
 ## DNS resolver
 
 Komponent vykonávajúci alebo sprostredkujúci DNS resolution. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
+## DNS search domain
+
+Suffix v Pod `/etc/resolv.conf`, ktorý resolver pridáva ku krátkym menám pri service discovery, napríklad `<namespace>.svc.<cluster-domain>`. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
+## DNS TCP fallback
+
+Prechod DNS klienta z UDP na TCP, napríklad po truncated alebo veľkej odpovedi; firewall musí podľa potreby povoľovať oba transporty na porte 53. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
 ## DNS TTL
 
 Čas, počas ktorého môže resolver cacheovať DNS resource record. Pozri [DNS](docs/02-networking-and-web/dns.md).
+
+## `dnsConfig` — Kubernetes
+
+Pod spec configuration dopĺňajúca alebo pri `dnsPolicy: None` definujúca nameservers, search domains a resolver options. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
 
 ## DNSSEC
 
@@ -1470,6 +1542,14 @@ Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľ
 
 Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo procesných hraníc od vstupu po observable výsledok. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Endpoint readiness — Kubernetes
+
+EndpointSlice condition signalizujúci, či je backend vhodný pre bežný Service traffic podľa Pod readiness a publication policy. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## EndpointSlice
+
+Namespaced `discovery.k8s.io` object reprezentujúci časť backend endpointov Service-u vrátane addresses, ports, conditions a topology metadata. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
 ## Enforcing mode
 
 Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -1477,6 +1557,10 @@ Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú.
 ## Environment drift
 
 Rozdiel medzi deklarovaným desired state environmentu a jeho skutočným runtime stavom, napríklad po manuálnej config alebo infrastructure zmene. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+
+## Environment injection — Kubernetes
+
+Odovzdanie ConfigMap alebo Secret hodnoty do environmentu pri vytvorení container procesu; neskoršia zmena source objektu environment bežiaceho procesu nezmení. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
 ## Environment parity — deployment
 
@@ -1598,9 +1682,17 @@ Build cache exportovaná mimo lokálneho buildera, napríklad do registry alebo 
 
 Network, volume, config alebo secret deklarovaný ako vlastnený mimo aktuálneho Compose projektu; Compose ho používa, ale nemá automaticky riadiť jeho celý lifecycle. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
+## External secret provider
+
+Systém mimo Kubernetes API, ktorý vydáva alebo uchováva citlivé hodnoty a sprístupňuje ich workloadu cez synchronizáciu, CSI projection alebo runtime fetch s workload identity. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
 ## External secret provider — GitLab CI/CD
 
 Secret-management systém, z ktorého job explicitne načíta citlivú hodnotu po overení federovanej alebo inej scoped identity. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## ExternalName Service
+
+Kubernetes Service type poskytujúci DNS alias na external name bez bežného ClusterIP proxy a selector-based EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Fact cache — Ansible
 
@@ -1745,6 +1837,18 @@ Control-plane proces odstraňujúci dependent objects podľa owner references a 
 ## Garbage collection — registry
 
 Proces odstraňovania manifestov alebo blobs, ktoré už nie sú reachable z retained references, vykonávaný s koordináciou voči pushes, deletes, referrers a retention policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+
+## Gateway API
+
+Kubernetes SIG Network API family s role-oriented modelom GatewayClass, Gateway a Routes pre extensible a portable service networking. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Gateway — Gateway API
+
+Namespaced infrastructure resource definujúci traffic entry point, listeners, addresses, TLS a pravidlá pre pripojenie Routes. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## GatewayClass
+
+Cluster-scoped Gateway API resource vyberajúci controller implementation a class-level lifecycle pre Gateway objekty. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
 ## Generation — Kubernetes
 
@@ -1892,7 +1996,11 @@ Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu
 
 ## Headless Service
 
-Kubernetes Service bez virtuálnej ClusterIP, ktorý publikuje priamo endpoint identities a často poskytuje stabilnú DNS vrstvu pre StatefulSet Pody. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+Kubernetes Service s `clusterIP: None`, ktorého DNS typicky publikuje priamo endpoint addresses namiesto jednej virtuálnej ClusterIP. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Headless Service DNS
+
+A/AAAA alebo SRV records headless Service-u vracajúce priamo backend alebo per-Pod identities, pričom client nesie selection a failover zodpovednosť. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
 
 ## Health check
 
@@ -1958,6 +2066,10 @@ HTTP verzia používajúca binary framing a multiplexované streams nad jedným 
 
 HTTP verzia používajúca QUIC nad UDP s nezávislejším stream loss recovery modelom. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
+## HTTPRoute
+
+Gateway API Route resource pre HTTP routing cez host, path, header alebo query matching, backend references, traffic weights a filters. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## Hypercare
 
 Dočasne zvýšená prevádzková a support pozornosť po významnom release, vrátane posilneného monitoringu, owner dostupnosti a rýchleho rozhodovacieho pathu. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -2022,9 +2134,17 @@ OCI artifact odkazujúci descriptorom na jednu image configuration a ordered lis
 
 Image configuration fields ako default command, entrypoint, environment, user, working directory, exposed ports, labels a stop signal použité pri vytváraní runtime containeru. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
+## ImagePullSecret
+
+Kubernetes Secret reference používaná kubeletom alebo container runtime pri autentifikovanom image pull-e; nejde o application ani ServiceAccount API credential. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md) a [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
 ## ImageService — CRI
 
 Časť CRI používaná kubeletom na image pull, list, status a removal operácie v container runtime. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Immutable ConfigMap alebo Secret
+
+ConfigMap alebo Secret s `immutable: true`, ktorý nemožno in-place meniť a vyžaduje nový versioned object a consumer rollout. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
 ## Immutable infrastructure
 
@@ -2070,6 +2190,18 @@ Client-side mechanism kombinujúci list/watch, local cache a event handlers na e
 
 Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného plan/apply alebo reconciliation procesu, review, policy a auditovateľného recovery lifecycle. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
 
+## Ingress
+
+Stable Kubernetes API resource pre HTTP/HTTPS host a path routing k Services, ktorý potrebuje samostatný Ingress controller a dataplane. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Ingress controller
+
+Controller a dataplane integration sledujúca Ingress resources a konfiguruje reverse proxy, load balancer alebo inú implementation. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## IngressClass
+
+Cluster-scoped resource určujúci, ktorý Ingress controller a class parameters spracúvajú konkrétne Ingress objekty. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## Inherited membership — GitLab
 
 Access získaný cez membership v parent group alebo inom hierarchicky relevantnom namespace namiesto priameho pridania na project. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
@@ -2093,6 +2225,10 @@ Test reálnej spolupráce komponentov alebo systému s technickou dependency, na
 ## Interaction-based testing
 
 Testovanie, ktoré overuje komunikáciu a side effects medzi objektmi alebo komponentmi, napríklad volanie gateway s konkrétnymi argumentmi. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Internal traffic policy — Service
+
+Service policy ovplyvňujúca výber cluster-wide alebo node-local backendov pre traffic prichádzajúci z clusteru. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Inventory cache — Ansible
 
@@ -2286,6 +2422,10 @@ API klient najprv získa collection snapshot cez list a následne sleduje zmeny 
 
 Pomenovaný notification contract, na ktorý môže reagovať viac handlers bez priameho viazania notifying tasku na konkrétne handler names. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Listener — Gateway API
+
+Port, protocol, hostname, TLS a allowed-route boundary definovaná na Gateway resourci. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## Listening socket
 
 Socket čakajúci na nové TCP spojenia. Po `accept()` vzniká samostatný connected socket. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -2317,6 +2457,10 @@ Riadené odmietanie alebo obmedzenie časti práce pri preťažení, aby systém
 ## Load test
 
 Performance test overujúci očakávaný workload a splnenie latency, throughput, error-rate a resource kritérií. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## LoadBalancer Service
+
+Kubernetes Service type, ktorý prostredníctvom cloud alebo platform controlleru žiada external alebo internal load balancer a publikuje jeho address v status-e. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Local value — Terraform
 
@@ -2586,6 +2730,10 @@ Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá tr
 
 Builder node vykonávajúci build priamo na rovnakej architecture ako target bez user-mode emulation. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## `ndots`
+
+Resolver option určujúca, koľko bodiek musí meno obsahovať, aby sa najprv považovalo za absolute; vysoká hodnota môže znásobiť search-domain DNS queries. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
 ## NDP — Neighbor Discovery Protocol
 
 IPv6 mechanizmus pre neighbor resolution, router discovery a prefix discovery. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
@@ -2637,6 +2785,14 @@ Lease v namespace `kube-node-lease` používaný ako lightweight heartbeat konkr
 ## Node-local agent
 
 Workload poskytujúci funkciu konkrétnemu Node-u, napríklad logging, monitoring, networking, storage alebo device integration, typicky nasadený cez DaemonSet. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## NodeLocal DNSCache
+
+Voliteľná node-local DNS caching vrstva, typicky nasadená ako DaemonSet, ktorá znižuje latency a pressure na central cluster DNS za cenu ďalšej per-node failure a cache vrstvy. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
+## NodePort
+
+Service type publikujúci port na eligible Node addresses a smerujúci traffic cez Service dataplane na backend endpoints. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Non-terminating error — PowerShell
 
@@ -2794,6 +2950,10 @@ Framework na skladanie authentication, account, session a password policy. Pozri
 
 StatefulSet policy umožňujúca vytváranie alebo odstraňovanie Podov bez čakania na ordered readiness predchádzajúceho ordinalu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## ParentRef — Gateway API
+
+Reference z Route na Gateway, listener alebo iný supported parent, ku ktorému sa Route pokúša pripojiť. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## Partial clone
 
 Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa potreby, napríklad s `--filter=blob:none`. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -2817,6 +2977,10 @@ Tretia časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible oprave d
 ## Path traversal
 
 Zraniteľnosť, pri ktorej vstup s prvkami ako `..` alebo absolútnou cestou unikne z povoleného adresára. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## PathType — Ingress
+
+Ingress field určujúci semantics HTTP path matching-u ako `Exact`, `Prefix` alebo `ImplementationSpecific`. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
 ## Per-node overhead — DaemonSet
 
@@ -2994,6 +3158,14 @@ Evidence-driven riadenie postupnej produkčnej exposure pomocou rollout stratég
 
 Stabilná identity Compose projektu ovplyvňujúca názvy a scope containers, networks, volumes a lifecycle commandov. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
+## Projected configuration update
+
+Kubelet-driven aktualizácia ConfigMap alebo Secret volume projection s eventual sync semantics; application musí podporovať reload a `subPath` mount zvyčajne aktualizáciu nedostane. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Projected ServiceAccount token
+
+ServiceAccount token vložený do projected volume s explicitnou audience, expiration a kubelet rotation semantics. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
 ## Promotion evidence
 
 Súbor výsledkov a metadata viazaných na konkrétny artifact digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
@@ -3150,6 +3322,10 @@ Deployment stratégia, ktorá odstráni starú Pod population pred vytvorením n
 
 Denial-of-service riziko spôsobené regexom s patologickou runtime complexity nad útočníkom kontrolovaným vstupom. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## ReferenceGrant
+
+Gateway API object vytvorený v namespace referencovaného resource-u, ktorý explicitne povoľuje vybraným Routes z iného namespace cross-namespace reference. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
 ## Reflog
 
 Lokálna evidencia pohybov refs a `HEAD`, použiteľná na recovery commitov po reset, rebase alebo zmazaní branch pred expiráciou záznamov. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
@@ -3302,6 +3478,14 @@ Výsledná pipeline definícia po spracovaní includes, templates, inheritance, 
 
 Skutočná configuration vytvoreného containeru vrátane image, commandu, environmentu, mounts, networks, limits a security options dostupná cez inspection. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
+## ResolvedRefs condition — Gateway API
+
+Route status condition indikujúca, či controller úspešne vyriešil backend, Secret a ďalšie references vrátane cross-namespace permission. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Resolver forwarding loop
+
+DNS failure, pri ktorom cluster DNS forwarduje query na Node stub resolver a ten ju pošle späť na cluster DNS, často pre nesprávny kubelet `resolvConf`. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
 ## Resource address — Terraform
 
 Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resource type/name a prípadného `count` indexu alebo `for_each` key. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
@@ -3421,6 +3605,10 @@ Docker daemon a containers spustené bez host root identity s user-namespace a u
 ## Route
 
 Pravidlo určujúce next hop, interface a ďalšie parametre pre destination prefix. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
+
+## Route attachment — Gateway API
+
+Proces, ktorým Route po splnení `parentRefs`, listener `allowedRoutes`, hostname/protocol a reference pravidiel začne byť prijatá a programovaná controllerom. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
 ## Route summarization
 
@@ -3546,13 +3734,21 @@ System-call filter policy aplikovaná na container processes s cieľom znížiť
 
 Druhý automation run nad už nakonfigurovaným targetom používaný na overenie, že desired state je stabilný a nevznikajú recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Secret encryption at rest
+
+API server configuration šifrujúca persisted Secret payloady pred uložením do etcd; nerieši disclosure cez API, Node, Pod memory, logs alebo kompromitovanú workload identity. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Secret — Kubernetes
+
+Namespaced API objekt pre citlivé bytes alebo strings, ktorého base64 reprezentácia nie je encryption a vyžaduje RBAC, encryption-at-rest, audit a bezpečný consumer lifecycle. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
 ## Secret push protection — GitLab
 
 Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patterns pred prijatím commitu a môže push zablokovať. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
 ## Secret rotation
 
-Riadená zmena cieľového credentialu vrátane distribúcie novej hodnoty, overenia consumers a revokácie starej hodnoty. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+Riadený lifecycle vytvorenia nového credentialu, distribúcie a rollout-u consumerov, overlap/verification, revocation starého credentialu a cleanup starých copies. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
 ## Security report artifact — GitLab
 
@@ -3561,6 +3757,10 @@ Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security
 ## Selector — Kubernetes
 
 Výraz vyberajúci objects podľa labels a tvoriaci kritický contract pre controllers, Services, policy alebo CLI queries. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Selectorless Service
+
+Service bez `spec.selector`, ktorého backend EndpointSlices spravuje operator alebo iný explicitný owner, často pre external alebo manually discovered endpoints. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## SELinux security context
 
@@ -3586,17 +3786,53 @@ Monotónne rastúce číslo snapshotu v jednej state lineage používané na roz
 
 Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Service dataplane
+
+Node alebo network-plugin mechanizmus implementujúci Service virtual IP, backend selection a packet forwarding podľa EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
 ## Service dataplane — Kubernetes
 
 Node alebo cluster networking vrstva implementujúca virtual Service IP a forwarding na EndpointSlice backends, napríklad cez kube-proxy alebo alternatívny eBPF dataplane. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Service FQDN
+
+Plné cluster-local DNS meno Service-u v tvare `<service>.<namespace>.svc.<cluster-domain>`. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
+
+## Service — Kubernetes
+
+Namespaced API contract poskytujúci stabilné meno, virtual address a port model pre dynamickú backend population reprezentovanú EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Service port
+
+Port publikovaný Kubernetes Service contractom pre klientov, odlišný od backend `targetPort`. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Service selector
+
+Label selector, podľa ktorého EndpointSlice controller odvodzuje backend Pods pre selector-based Service. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Service virtualization
 
 Nahradenie externého systému kontrolovaným simulátorom alebo sandboxom tak, aby bol test deterministickejší a lacnejší. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## ServiceAccount
+
+Namespaced non-human Kubernetes identity používaná Podmi a automation; permissions získava oddelene cez RBAC alebo inú authorization policy. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
+## ServiceAccount token audience
+
+Identifikátor intended recipienta tokenu, ktorý zabraňuje použitiu tokenu vydaného pre jednu službu voči inému verifierovi. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
+## ServiceAccount username
+
+Canonical authenticated identity `system:serviceaccount:<namespace>:<name>` používaná v authorization a audit logoch. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
 ## Session affinity
 
 Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Session affinity — Service
+
+Service behavior preferujúci rovnaký backend pre klienta podľa ClientIP a timeoutu; nie je náhradou durable session storage. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Shadow deployment
 
@@ -3689,6 +3925,10 @@ Test double alebo wrapper zaznamenávajúci uskutočnené interakcie na neskorš
 ## Squash merge
 
 Integrácia, ktorá vytvorí jeden výsledný commit bez merge ancestry na feature tip. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
+
+## SRV record — Kubernetes DNS
+
+DNS record vytvorený pre pomenovaný Service port, ktorý publikuje protocol, port a target service alebo per-endpoint hostname. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
 
 ## SSH agent
 
@@ -3822,6 +4062,10 @@ Group vnorená v parent group, používaná na delegovanie ownershipu, členstva
 
 Časť IP address space definovaná prefixom a použitá ako logická routing alebo topology jednotka. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## `subPath` update limitation
+
+Kubernetes volume-mount hranica, pri ktorej ConfigMap alebo Secret pripojený cez `subPath` typicky nedostáva priebežné projection updates. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
 ## Subresource — Kubernetes
 
 Samostatný API endpoint pre vybranú časť alebo operáciu resource-u, napríklad `/status`, `/scale`, `/log`, `/exec` alebo `/eviction`. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -3889,6 +4133,10 @@ Latency najpomalšej časti request distribúcie, typicky p95 alebo p99. Pozri [
 ## Taint analysis
 
 Statická analýza sledujúca nedôveryhodné dáta od source cez transformácie po citlivý sink. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
+
+## `targetPort` — Service
+
+Port alebo pomenovaný Pod container port, na ktorý Service dataplane smeruje traffic z publikovaného Service `port`. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
 ## Task-oriented automation
 
@@ -4006,6 +4254,10 @@ Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshoo
 
 TCP state držaný po aktívnom close na ochranu pred starými segments a opätovným použitím rovnakého tuple. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## TLS Secret
+
+Kubernetes Secret typu `kubernetes.io/tls`, typicky obsahujúci `tls.crt` a `tls.key` pre controller alebo workload; celý certificate trust a rotation contract zostáva zodpovednosťou consumer workflowu. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
 ## TLS termination
 
 Ukončenie TLS spojenia na proxy alebo load balanceri, ktorý následne vytvorí samostatné upstream spojenie. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
@@ -4026,6 +4278,14 @@ Memory-backed runtime filesystem mount s ephemeral lifecycle, vhodný pre dočas
 
 Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková práca. Pozri [Toil and Technical Debt](docs/00-foundations/toil-and-technical-debt.md).
 
+## TokenRequest
+
+Kubernetes API subresource/mechanizmus na vydanie krátkodobého ServiceAccount tokenu s audience a expiration namiesto statického long-lived token Secretu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
+## Topology-aware routing — Service
+
+Service routing model využívajúci EndpointSlice zone/topology metadata na preferenciu bližších endpointov pri zachovaní dostupnosti a správnej capacity distribution. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
 ## Traffic cutover
 
 Riadené presmerovanie nových requestov alebo connections zo starej deployment farby na novú. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -4033,6 +4293,10 @@ Riadené presmerovanie nových requestov alebo connections zo starej deployment 
 ## Traffic mirroring
 
 Kopírovanie produkčných requestov do shadow systému bez použitia jeho response na primary request path. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
+
+## Traffic splitting — Gateway API
+
+Rozdelenie Route trafficu medzi viac backendRefs podľa weights, používané napríklad pre canary alebo migration rollout. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
 ## Trap — shell
 
@@ -4194,6 +4458,10 @@ Prelomenie guest/hypervisor isolation boundary, pri ktorom code z virtual machin
 
 Plugin alebo built-in implementation určujúca storage backend a mount semantics Docker volume-u; application consistency, backup a access modes zostávajú samostatným contractom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
+## Volume projection — Kubernetes configuration
+
+Kubeletom materializované files z ConfigMapu, Secretu, ServiceAccount tokenu alebo ďalších sources v Pod mount namespace. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
 ## `volumeClaimTemplates` — StatefulSet
 
 StatefulSet šablóny, z ktorých controller vytvára samostatné PVCs pre jednotlivé ordinal replicas. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
@@ -4258,9 +4526,17 @@ Filesystem materialization aktuálne checkoutnutého Git snapshotu, ktorú použ
 
 Počet alebo množstvo workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločnej infraštruktúre pri danom resource a isolation modeli. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
+## Workload identity federation
+
+Výmena ServiceAccount OIDC tokenu za krátkodobý external cloud alebo service credential podľa issuer, audience, subject a trust-policy podmienok. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
 ## Workload identity federation — CI/CD
 
 Model, v ktorom job vymení krátkodobý signed identity token za scoped cloud alebo secret-provider credential bez uloženia dlhodobého access key v GitLabe. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## Workload identity — Kubernetes
+
+Non-human identity workloadu, typicky reprezentovaná ServiceAccountom a krátkodobým tokenom alebo federovaným external credentialom. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
 
 ## Writable layer — container
 
