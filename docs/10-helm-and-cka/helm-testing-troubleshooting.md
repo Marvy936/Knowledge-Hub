@@ -582,3 +582,11 @@ Relevantné pojmy: Helm test pyramid, values test matrix, render validation, ser
 - [helm status](https://helm.sh/docs/helm/helm_status/)
 - [Chart Tests](https://helm.sh/docs/topics/chart_tests/)
 - [Debugging Templates](https://helm.sh/docs/chart_template_guide/debugging/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Upgrade a rollback](upgrade-rollback.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CKA timed labs →](cka-timed-labs.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -232,10 +232,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Named templates](docs/10-helm-and-cka/named-templates.md)
 - [x] [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md)
 - [x] [Hooks](docs/10-helm-and-cka/hooks.md)
-- [ ] Upgrade a rollback
-- [ ] Helm testing a troubleshooting
-- [ ] CKA timed labs
-- [ ] CKA troubleshooting drills
+- [x] [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md)
+- [x] [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md)
+- [x] [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md)
+- [x] [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md)
 
 ## Fáza 4 — Cloud, security a prevádzka
 

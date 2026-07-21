@@ -545,3 +545,11 @@ Relevantné pojmy: Helm upgrade, effective release values, release revision, Hel
 - [helm rollback](https://helm.sh/docs/helm/helm_rollback/)
 - [helm history](https://helm.sh/docs/helm/helm_history/)
 - [helm status](https://helm.sh/docs/helm/helm_status/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Hooks](hooks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Helm testing a troubleshooting →](helm-testing-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

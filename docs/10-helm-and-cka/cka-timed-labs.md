@@ -514,3 +514,11 @@ Relevantné pojmy: CKA, performance-based exam, timed lab, domain-weighted lab, 
 - [CKA Program Changes and Domains](https://training.linuxfoundation.org/certified-kubernetes-administrator-cka-program-changes/)
 - [Kubernetes Tasks](https://kubernetes.io/docs/tasks/)
 - [kubectl reference](https://kubernetes.io/docs/reference/kubectl/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Helm testing a troubleshooting](helm-testing-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CKA troubleshooting drills →](cka-troubleshooting-drills.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

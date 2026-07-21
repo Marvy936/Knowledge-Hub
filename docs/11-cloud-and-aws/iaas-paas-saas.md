@@ -443,5 +443,5 @@ Relevantné pojmy: cloud service model, IaaS, PaaS, SaaS, shared responsibility,
 
 **Navigácia**
 
-[← Predchádzajúca: Hooks](../10-helm-and-cka/hooks.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: CKA troubleshooting drills](../10-helm-and-cka/cka-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

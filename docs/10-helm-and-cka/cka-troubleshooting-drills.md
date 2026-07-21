@@ -712,3 +712,11 @@ Relevantné pojmy: CKA troubleshooting drill, failure-domain narrowing, root-cau
 - [Debug Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/)
 - [Debug Services](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/)
 - [Troubleshoot Clusters](https://kubernetes.io/docs/tasks/debug/debug-cluster/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CKA timed labs](cka-timed-labs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IaaS, PaaS a SaaS →](../11-cloud-and-aws/iaas-paas-saas.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
