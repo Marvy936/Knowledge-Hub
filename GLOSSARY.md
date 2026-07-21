@@ -22,6 +22,10 @@ Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Us
 
 Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action, napríklad spracuje arguments, transfer files alebo remote module result. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Active deadline — Job
+
+Maximálny celkový čas, počas ktorého môže Kubernetes Job zostať aktívny; po jeho prekročení controller ukončí aktívne Pody a Job označí ako failed. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
 ## Actual state — Kubernetes
 
 Reálny stav clusteru alebo external systému v konkrétnom okamihu, napríklad existujúce Pods, bežiace processes, attached volumes alebo cloud resources; controller ho nemusí okamžite celý pozorovať. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -269,6 +273,10 @@ Automatizovaný návrat na predchádzajúcu kompatibilnú verziu po detekcii spo
 ## Automation
 
 Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane vykonateľný mechanizmus. Pozri [Automation Mindset](docs/00-foundations/automation-mindset.md).
+
+## Available replicas — Kubernetes
+
+Počet replík, ktoré sú Ready a spĺňajú príslušné availability timing podmienky controlleru; nie je totožný s počtom existujúcich alebo Running Podov. Pozri [Deployment](docs/09-kubernetes/deployment.md) a [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
 ## AVC — Access Vector Cache
 
@@ -674,6 +682,10 @@ Explicitná tabuľka určujúca, ktoré application, client, event a schema verz
 
 AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Completion index — Job
+
+Stabilný index konkrétneho logical completion slotu pri Indexed Job-e, používaný na deterministické rozdelenie batch práce medzi Pody. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
 ## Component test
 
 Test celého deployovateľného komponentu cez jeho verejné rozhranie, pričom externé dependencies môžu byť nahradené controlled doubles. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -713,6 +725,10 @@ Bezpečnostný model, podľa ktorého je Compose file privilegovaná executable 
 ## Computed value — Terraform
 
 Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Concurrency policy — CronJob
+
+Pravidlo `Allow`, `Forbid` alebo `Replace`, ktoré určuje, ako CronJob reaguje, keď má začať nový scheduled run a predchádzajúci Job ešte beží. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
 ## Condition-based wait
 
@@ -918,6 +934,10 @@ Lokálna cache napĺňaná typicky cez list/watch, ktorú controller používa n
 
 Model, v ktorom vyšší controller vytvára desired state pre nižší resource a ďalšie controllers ho postupne realizujú, napríklad Deployment → ReplicaSet → Pod → kubelet. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## ControllerRevision — Kubernetes
+
+API object uchovávajúci revision metadata workload controllerov, napríklad StatefulSetu, pre rollout history a porovnanie current/update revision. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## Convergence — configuration management
 
 Proces, pri ktorom opakované pozorovanie a aplikovanie automation vedie target k stabilnému požadovanému stavu. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
@@ -978,6 +998,10 @@ Explicitné rozhranie medzi samostatnými Terraform states, typicky cez publikov
 
 Podpísaná žiadosť obsahujúca public key a požadované certificate identity attributes pre CA. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Current replicas — ReplicaSet
+
+Počet Podov aktuálne pozorovaných ReplicaSet controllerom ako súčasť jeho replica population; nemusí byť zhodný s Ready alebo Available počtom. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
+
 ## Current-state detection — Ansible
 
 Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred rozhodnutím, či je potrebná zmena. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
@@ -1001,6 +1025,18 @@ Dlhšie bežiaci proces poskytujúci systémovú alebo aplikačnú službu bez p
 ## Daemon log — Docker
 
 Log Docker daemon-u a súvisiacich runtime components používaný na diagnostiku startupu, API, storage, networking a container lifecycle failures. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## DaemonSet
+
+Kubernetes workload controller zabezpečujúci Pod na každom eligible Node-e alebo na každom Node-e z vybranej množiny. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## DaemonSet `OnDelete`
+
+Update stratégia, pri ktorej nový DaemonSet Pod template začne platiť pre konkrétny Node až po odstránení starého Podu. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## DaemonSet rolling update
+
+Riadené postupné nahrádzanie DaemonSet Podov novou template revision pri zachovaní nastavenej unavailable alebo surge hranice. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
 ## DAG — CI/CD
 
@@ -1072,7 +1108,7 @@ Stav, v ktorom existuje dôveryhodný immutable artifact, potrebné dôkazy, kom
 
 ## Deployment
 
-Technická operácia umiestnenia verzie aplikácie alebo konfigurácie do cieľového prostredia. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
+Kubernetes workload controller, ktorý deklaratívne riadi ReplicaSety a rollout zameniteľných Podov. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
 ## Deployment downtime
 
@@ -1102,6 +1138,10 @@ Automatizovaný tok od source zmeny cez build, testy, artifact, environment depl
 
 Auditovateľný záznam spájajúci environment, artifact digest, configuration revision, pipeline run, identity, čas a výsledok konkrétneho deploymentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
+## Deployment revision
+
+Verzia Deployment Pod template-u reprezentovaná príslušným ReplicaSetom a použitá pre rollout history alebo rollback. Pozri [Deployment](docs/09-kubernetes/deployment.md).
+
 ## Deployment rework rate
 
 Podiel deploymentov, ktoré sú neplánovanou opravou predchádzajúceho deploymentu. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
@@ -1117,6 +1157,10 @@ Stabilná rollout skupina používateľov, tenantov, zariadení alebo regiónov 
 ## Deserialized object — PowerShell
 
 Prenesená reprezentácia vzdialeného PowerShell objektu, ktorá typicky zachováva properties, ale nie live methods a pôvodné runtime správanie. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Desired replicas — Kubernetes
+
+Počet replík požadovaný v workload spec-e alebo odvodený controllerom, ku ktorému sa controller snaží priblížiť observed replica population. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
 ## Desired state
 
@@ -1401,6 +1445,10 @@ Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct
 ## Eligible approver — GitLab
 
 Používateľ, ktorého membership, role a approval-rule context oprávňujú poskytnúť approval započítaný pre konkrétny merge request. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
+
+## Eligible Node — DaemonSet
+
+Node, ktorý spĺňa DaemonSet placement podmienky vrátane labels, affinity, taints/tolerations, platformy, admission a scheduling constraints. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
 ## Emulation — multi-platform build
 
@@ -1842,6 +1890,10 @@ Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu
 
 Špeciálny ref reprezentujúci aktuálnu checkout pozíciu. Typicky symbolicky ukazuje na current branch, ale môže ukazovať priamo na commit. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
 
+## Headless Service
+
+Kubernetes Service bez virtuálnej ClusterIP, ktorý publikuje priamo endpoint identities a často poskytuje stabilnú DNS vrstvu pre StatefulSet Pody. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## Health check
 
 Aktívny alebo pasívny test určujúci, či backend môže prijímať nový traffic. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -1938,6 +1990,10 @@ Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-i
 
 Test vykonávajúci po prvom converge ďalší run s rovnakými inputs a overujúci, že nevzniknú neplánované changes ani side effects. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Idempotent batch execution
+
+Batch návrh, pri ktorom opakované alebo duplicitné vykonanie toho istého logical work itemu nevytvorí nekonzistentné dodatočné side effects. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
 ## Idempotent reconcile
 
 Controller behavior, pri ktorom opakované spracovanie rovnakého desired a actual state-u nevytvára neplánované duplicity alebo ďalšie side effects. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -2001,6 +2057,10 @@ Dynamické načítanie Ansible role počas executionu podľa runtime contextu. P
 ## Index stages
 
 Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je merge base, stage 2 ours a stage 3 theirs. Pozri [Konflikty](docs/03-git-and-automation/merge-conflicts.md).
+
+## Indexed Job
+
+Kubernetes Job s `completionMode: Indexed`, kde každý completion slot dostáva stabilný index pre statické alebo deterministické rozdelenie práce. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
 ## Informer — Kubernetes
 
@@ -2086,9 +2146,21 @@ Textový template renderovaný typicky na control node v host-specific variable 
 
 Náhodná odchýlka pridaná k retry delay, ktorá znižuje synchronizované opakovanie veľkého množstva klientov. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Job
+
+Kubernetes workload controller, ktorý vytvára Pody a retryuje ich dovtedy, kým sa nedosiahne požadovaný completion alebo failure stav. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
 ## Job — CI/CD
 
 Najmenšia samostatne plánovaná execution unit pipeline s vlastným runtime, inputs, permissions, commands, timeoutom, resultom a outputs. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
+## Job completion
+
+Úspešne dokončený logical execution slot Jobu potvrdený Podom alebo controller statusom podľa zvoleného completion modelu. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Job history limit — CronJob
+
+Počet úspešných alebo failed Job objektov, ktoré CronJob zachováva ako krátkodobú API históriu; nejde o dlhodobú log alebo audit retention. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
 ## Job rules — GitLab
 
@@ -2550,6 +2622,10 @@ Kernel flag zabraňujúci zvýšeniu privilege cez `execve()`. Pozri [Linux capa
 
 Časť Node capacity dostupná pre scheduling Pods po odpočítaní resources rezervovaných pre operating system a Kubernetes components podľa configuration. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
 
+## Node bootstrap dependency
+
+Cyklická alebo kritická závislosť, pri ktorej Node potrebuje systémový DaemonSet agent na plnú funkčnosť, zatiaľ čo agent sám potrebuje funkčný scheduling, runtime alebo časť node infraštruktúry. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
 ## Node condition
 
 Štruktúrovaný status signál Node-u, napríklad Ready, MemoryPressure, DiskPressure alebo PIDPressure. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
@@ -2557,6 +2633,10 @@ Kernel flag zabraňujúci zvýšeniu privilege cez `execve()`. Pozri [Linux capa
 ## Node Lease
 
 Lease v namespace `kube-node-lease` používaný ako lightweight heartbeat konkrétneho Kubernetes Node-u. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
+
+## Node-local agent
+
+Workload poskytujúci funkciu konkrétnemu Node-u, napríklad logging, monitoring, networking, storage alebo device integration, typicky nasadený cez DaemonSet. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
 ## Non-terminating error — PowerShell
 
@@ -2569,6 +2649,10 @@ Traffic medzi interným workloadom a externým klientom, internetom alebo služb
 ## NUL-delimited stream
 
 Textovo-binárny stream používajúci NUL byte ako oddeľovač, vhodný napríklad pre bezpečný prenos filesystem paths obsahujúcich whitespace alebo newline. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Number misscheduled — DaemonSet
+
+Počet DaemonSet Podov bežiacich na Nodes, ktoré podľa aktuálneho DaemonSet placement modelu už nie sú eligible. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
 ## Object ID — Git
 
@@ -2642,6 +2726,10 @@ Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/r
 
 Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako option namiesto dátového argumentu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
 
+## `OrderedReady` — StatefulSet
+
+Defaultný usporiadaný StatefulSet Pod management model, ktorý vytvára alebo aktualizuje ordinaly postupne a čaká na readiness pred pokračovaním. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## Orphan container — Compose
 
 Container patriaci Compose projektu, ktorého service už nie je prítomná v aktuálnom resolved modeli. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
@@ -2649,6 +2737,10 @@ Container patriaci Compose projektu, ktorého service už nie je prítomná v ak
 ## Orphan volume — Docker
 
 Volume, ktoré už nemá aktívneho workload ownera alebo referenciu, ale stále obsahuje dáta a spotrebúva storage; pred odstránením potrebuje ownership a retention overenie. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Orphaned Pod — Kubernetes
+
+Pod bez controller owner reference, ktorý môže zostať po orphan deletion alebo strate ownershipu a môže byť adoptovaný matching controllerom. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
 ## OSI model
 
@@ -2665,6 +2757,10 @@ Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre cal
 ## Over-specification — testing
 
 Test anti-pattern, pri ktorom assertions overujú nepodstatné interné poradie alebo implementačné detaily a blokujú bezpečný refactoring. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Overlapping selectors — Kubernetes
+
+Nebezpečný stav, keď viac controllerov zodpovedá rovnakým Pod labelom a môže sa pokúšať adoptovať alebo riadiť tú istú population. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
 ## OwnerReference — Kubernetes
 
@@ -2694,6 +2790,10 @@ Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupn�
 
 Framework na skladanie authentication, account, session a password policy. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Parallel Pod management — StatefulSet
+
+StatefulSet policy umožňujúca vytváranie alebo odstraňovanie Podov bez čakania na ordered readiness predchádzajúceho ordinalu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## Partial clone
 
 Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa potreby, napríklad s `--filter=blob:none`. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -2717,6 +2817,14 @@ Tretia časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible oprave d
 ## Path traversal
 
 Zraniteľnosť, pri ktorej vstup s prvkami ako `..` alebo absolútnou cestou unikne z povoleného adresára. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Per-node overhead — DaemonSet
+
+CPU, memory, storage, network a operational cost jedného DaemonSet Podu vynásobený počtom eligible Nodes v clustri. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## Per-replica PVC — StatefulSet
+
+PersistentVolumeClaim viazaný na konkrétny StatefulSet ordinal a znovu použitý náhradným Podom s rovnakou logical identity. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
 ## Performance test
 
@@ -2790,6 +2898,10 @@ Nesúlad medzi target OS/architecture a vybraným image manifestom alebo executa
 
 Najmenší deployable Kubernetes compute object predstavujúci jeden alebo viac co-scheduled containers so spoločnou Pod network identity, lifecycle boundary a volumes. Pozri [Pod](docs/09-kubernetes/pod.md).
 
+## Pod adoption — Kubernetes
+
+Proces, pri ktorom controller prevezme matching Pod bez controller owner reference a nastaví ho ako svoj dependent object. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
+
 ## Pod condition
 
 Štruktúrovaný Pod status signal, napríklad Scheduled, Initialized, ContainersReady alebo Ready, ktorý je odlišný od high-level Pod phase. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -2805,6 +2917,10 @@ Custom condition zahrnutá do Pod readiness rozhodnutia, ktorú musí nastavova�
 ## Pod sandbox
 
 Runtime prostredie Podu vytvorené cez CRI, ktoré drží najmä shared network namespace a infra lifecycle pre Pod containers. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md) a [Pod](docs/09-kubernetes/pod.md).
+
+## Pod selector — workload controller
+
+Label selector určujúci population Podov, ktorú workload controller pozoruje a riadi; tvorí zásadnú ownership a reconciliation boundary. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
 ## Pod template
 
@@ -2865,6 +2981,10 @@ Overenie technického, funkčného a business výsledku zmeny v skutočnom produ
 ## Profile — performance profile
 
 Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká alebo alokuje memory. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Progress deadline — Deployment
+
+Časová hranica, po ktorej Deployment status označí rollout ako nepostupujúci; sama osebe nevykoná automatický rollback. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
 ## Progressive delivery
 
@@ -2954,6 +3074,10 @@ Lokálny registry cache model, ktorý pri prvom pull-e načíta content z upstre
 
 Build exporter skratka publikujúca image alebo multi-platform index priamo do registry. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## PVC retention policy — StatefulSet
+
+Policy určujúca, či sa StatefulSet-created PVCs zachovajú alebo odstránia pri scale-down alebo deletion podľa podporovaného API a storage lifecycle modelu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## Quality gate
 
 Automatizovaný alebo kombinovaný rozhodovací bod, ktorý vyhodnotí versionovanú policy nad konkrétnou evidence a povolí, zablokuje alebo eskaluje ďalší krok delivery. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
@@ -2986,6 +3110,10 @@ Stav, v ktorom má workload prijímať traffic alebo prácu; process môže byť
 
 Podmienka dokazujúca, že novovytvorený resource je nielen prítomný, ale pripravený na ďalší configuration alebo deployment krok. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Ready replicas — Kubernetes
+
+Počet replík, ktorých Pody majú aktuálne Ready condition; nevypovedá automaticky o dlhodobej availability alebo business correctness. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
+
 ## Real User Monitoring — RUM
 
 Zber performance a error telemetry zo skutočných používateľských klientov a sessions s možnosťou segmentácie podľa zariadenia, browsera, regiónu alebo journey. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -3013,6 +3141,10 @@ Predpripravený súbor identity, kompatibility informácií, workflows a rozhodo
 ## Recreate deployment
 
 Deployment stratégia, ktorá ukončí starú version fleet pred spustením a pripravenosťou novej, čo typicky vytvára downtime alebo výrazný capacity dip. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md).
+
+## Recreate strategy — Deployment
+
+Deployment stratégia, ktorá odstráni starú Pod population pred vytvorením novej, čím akceptuje downtime alebo minimalizuje mixed-version overlap. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
 ## ReDoS — Regular Expression Denial of Service
 
@@ -3113,6 +3245,14 @@ Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri posledno
 ## `replace_triggered_by` — Terraform
 
 Lifecycle rule vyžadujúca replacement resource, keď sa zmení referencovaný managed objekt alebo atribút predstavujúci explicitný lifecycle signal. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Replacement Pod
+
+Nový Pod object vytvorený controllerom ako náhrada zaniknutého alebo nevyhovujúceho Podu; má nový UID, IP a runtime lifecycle aj pri podobnom mene alebo template. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
+
+## ReplicaSet
+
+Kubernetes workload controller udržiavajúci požadovaný počet matching zameniteľných Podov. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
 ## Report artifact — GitLab
 
@@ -3261,6 +3401,10 @@ Deployment stratégia postupne nahrádzajúca staré instances novými pri zacho
 ## Rollout contract
 
 Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observation windows, promotion/abort policy, recovery actions a ownera progressive rollout-u. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
+## Rollout rollback — Deployment
+
+Návrat Deployment Pod template-u na zachovanú staršiu revision; nevracia databázu, queues ani iný external state. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
 ## Root module — Terraform
 
@@ -3558,6 +3702,14 @@ Deterministické mapovanie subjektov do percentuálnych rollout alebo experiment
 
 Vstup s kontrolovanou identitou, typom a lifecycle, ktorého neočakávaná mutácia nespôsobuje nepredvídateľné recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Stable network identity — StatefulSet
+
+Predvídateľné per-ordinal DNS meno StatefulSet Podu, ktoré pretrváva ako logical slot identity naprieč Pod replacementom. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
+## Stable ordinal identity — StatefulSet
+
+Logical identita StatefulSet repliky odvodená z názvu a ordinalu, napríklad `db-0`, zachovaná pri replacement-e, hoci Pod UID a process sa zmenia. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## Stage — CI/CD
 
 Logická skupina jobs alebo broad ordering barrier v pipeline. Stage nie je samostatná execution unit a pri presnom DAG modeli nemusí určovať všetky dependencies. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -3565,6 +3717,10 @@ Logická skupina jobs alebo broad ordering barrier v pipeline. Stage nie je samo
 ## Staging area
 
 Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho commitu. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Starting deadline — CronJob
+
+Maximálne oneskorenie po plánovanom čase, počas ktorého môže CronJob controller ešte vytvoriť príslušný Job. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
 ## Startup health
 
@@ -3597,6 +3753,14 @@ Riadená zmena state metadata pomocou príkazov ako `state mv`, `state rm` alebo
 ## Stateful firewall
 
 Firewall udržiavajúci connection/flow state a používajúci ho pri rozhodovaní o packets. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## StatefulSet
+
+Kubernetes workload controller poskytujúci skupine Podov stabilné ordinal identities, ordered lifecycle a možnosť per-replica persistent storage. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
+## StatefulSet partition
+
+RollingUpdate hranica, ktorá aktualizuje iba StatefulSet Pody s ordinalom väčším alebo rovným nastavenej partition hodnote. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
 ## Stateless firewall
 
@@ -3669,6 +3833,10 @@ Oddelený shell execution context, ktorého zmeny premenných a working director
 ## Supported version policy
 
 Pravidlá určujúce, ktoré release lines dostávajú opravy, security updates a podporu a kedy dosiahnu end of life. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
+## Suspended Job
+
+Job s pozastaveným execution lifecycle, ktorý nevytvára novú prácu a po resume pokračuje z persisted Job statusu, nie z memory state-u ukončeného procesu. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
 ## Swap
 
@@ -3882,6 +4050,10 @@ Udalosť alebo explicitný pokyn, ktorý vytvorí pipeline run a určí jeho com
 
 Branching model založený na častej integrácii malých zmien do jednej hlavnej branch, podporený krátkodobými branches, CI a feature flags. Pozri [Branching strategies](docs/03-git-and-automation/branching-strategies.md).
 
+## TTL-after-finished
+
+Controller mechanizmus odstraňujúci dokončený alebo failed Job a jeho dependent resources po uplynutí `ttlSecondsAfterFinished`. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
 ## TTL — Time To Live
 
 IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
@@ -3917,6 +4089,10 @@ Typovo známa, ale konkrétne neurčená hodnota počas planu, ktorú Terraform 
 ## Unmanaged infrastructure — Terraform context
 
 Remote objekt bez bindingu v danom Terraform state-e, ktorý bežný plan nemusí objaviť, pokiaľ ho explicitne nenačíta provider data source, import alebo externý asset inventory. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Updated replicas — Deployment
+
+Počet Deployment replík bežiacich z aktuálnej Pod template revision. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
 ## Upgrade test — Terraform module
 
@@ -4018,6 +4194,10 @@ Prelomenie guest/hypervisor isolation boundary, pri ktorom code z virtual machin
 
 Plugin alebo built-in implementation určujúca storage backend a mount semantics Docker volume-u; application consistency, backup a access modes zostávajú samostatným contractom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
+## `volumeClaimTemplates` — StatefulSet
+
+StatefulSet šablóny, z ktorých controller vytvára samostatné PVCs pre jednotlivé ordinal replicas. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
 ## VSZ — Virtual Set Size
 
 Veľkosť virtuálneho adresného priestoru procesu. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -4049,6 +4229,10 @@ Marker vo filesystem changesete, ktorý v merged image view skryje path existuj�
 ## Word splitting
 
 Shell rozdelenie nequoted expansion výsledku na viac slov podľa `IFS`. Je častým zdrojom chýb pri paths a argumentoch. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Work queue Job
+
+Job model, v ktorom viac worker Podov odoberá položky z external queue a completion correctness závisí od acknowledgment, retry a deduplication semantics tejto queue. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
 ## Work queue — Kubernetes controller
 
