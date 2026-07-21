@@ -46,9 +46,17 @@ Maximálny celkový čas, počas ktorého môže Kubernetes Job zostať aktívny
 
 Architektúra, v ktorej primárny component spracúva workload a standby component prevezme úlohu po failover-e; zjednodušuje write ownership za cenu standby driftu a failover latency. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
+## Active stream — Loki
+
+Log stream, pre ktorý Loki ingester aktuálne drží alebo spracúva recent entries; veľký počet active streams zvyšuje memory a chunk overhead. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Actual state — Kubernetes
 
 Reálny stav clusteru alebo external systému v konkrétnom okamihu, napríklad existujúce Pods, bežiace processes, attached volumes alebo cloud resources; controller ho nemusí okamžite celý pozorovať. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Adaptive sampling — tracing
+
+Sampling model, ktorý priebežne upravuje head-sampling probabilities podľa pozorovaného trafficu a target volume-u. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Add-on compatibility — Kubernetes
 
@@ -209,6 +217,10 @@ Versionovateľný EC2 boot-image a block-device contract používaný pri vytvá
 ## Amortized cost — AWS
 
 Cost view, ktorý rozkladá upfront a recurring commitment fees cez obdobie ich benefitu, aby zobrazil ekonomický cost používania namiesto iba cash invoice momentu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Analyzer — search
+
+Komponent Lucene-based search engine-u, ktorý tokenizuje a normalizuje text pri indexing alebo query time. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Anchor — YAML
 
@@ -598,6 +610,14 @@ Account-visible názov Availability Zone, napríklad `eu-central-1a`, ktorého h
 
 Riadený presun state lineage a snapshots z jedného backendu do druhého so zastavením writers, backupom, overením destination identity a následným planom. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Backend scheduler — Tempo
+
+Tempo component, ktorý plánuje maintenance jobs ako compaction, retention alebo redaction a prideľuje ich backend workers. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Backend worker — Tempo
+
+Tempo component vykonávajúci maintenance jobs pridelené backend schedulerom nad object-storage blocks. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## BackendRef — Gateway API
 
 Typed reference z Route rule na backend resource, typicky Kubernetes Service a port, spolu s voliteľnou weight alebo policy metadata. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
@@ -605,6 +625,10 @@ Typed reference z Route rule na backend resource, typicky Kubernetes Service a p
 ## Backfill
 
 Riadené doplnenie alebo transformácia existujúcich dát, typicky v bounded batches s checkpointingom, rate limitom, validáciou a možnosťou pause/resume. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
+## Backing index
+
+Skrytý fyzický index patriaci data streamu; writes smerujú do aktuálneho write backing indexu a searches prechádzajú všetky relevantné generations. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Backoff
 
@@ -689,6 +713,10 @@ Cost view používajúci pri niektorých consolidated-billing scenároch priemer
 ## Blob — Git object
 
 Nemenný Git object obsahujúci bytes jedného súboru bez filename a path metadata. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
+
+## Block builder — Tempo
+
+Component, ktorý konzumuje trace records z durable queue, skladá ich do Parquet blocks a zapisuje do object storage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Block device
 
@@ -837,6 +865,10 @@ Moderný container build backend vykonávajúci dependency graph, content-aware 
 ## Buildx
 
 Docker CLI plugin na správu BuildKit builders a pokročilých build workflows vrátane multi-platform builds, external cache a output exporters. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Bulk API
+
+Search-engine API na odoslanie viacerých indexing/update/delete operations v jednom requeste; response môže obsahovať partial item failures aj pri úspešnom HTTP statuse. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Bulkhead isolation
 
@@ -1057,6 +1089,18 @@ Reusable Terraform konfigurácia volaná z root alebo iného child modulu cez `m
 ## Child pipeline
 
 Samostatný pipeline run vytvorený parent pipelineom pre component, matrix časť alebo dynamicky generovaný workflow, s explicitnými input/output a failure-propagation pravidlami. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
+## Chunk — Fluent Bit
+
+Interná jednotka zoskupujúca telemetry records na buffering, routing a output flush. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Chunk — Loki
+
+Komprimovaný container log entries jedného streamu za určitý časový interval uložený typicky v object storage. Pozri [Loki](docs/12-observability/loki.md).
+
+## Chunk utilization — Loki
+
+Miera naplnenia Loki chunks; príliš veľa malých streamov vytvára underutilized chunks a zvyšuje storage/index overhead. Pozri [Loki](docs/12-observability/loki.md).
 
 ## CI/CD component — GitLab
 
@@ -1313,6 +1357,10 @@ Stabilný index konkrétneho logical completion slotu pri Indexed Job-e, použí
 ## Component metrics — Kubernetes
 
 Prometheus-style metrics publikované API serverom, schedulerom, controller-managerom, kubeletom, etcd a ďalšími system components. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
+
+## Component template — search
+
+Reusable časť index template-u obsahujúca mappings, settings alebo aliases pre Elasticsearch/OpenSearch index model podľa produktu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Component test
 
@@ -1866,6 +1914,14 @@ Grafana plugin implementujúci query, authentication, health-check a data-frame 
 
 Provider-defined read-only query, ktorá načíta informácie o existujúcom alebo odvodenom objekte bez správy jeho lifecycle Terraform resource bindingom. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Data Stream Lifecycle — Elasticsearch
+
+Elasticsearch lifecycle mechanizmus na retention a správu backing indexes data streamu podľa podporovaného deployment modelu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Data stream — search
+
+Logical abstraction nad rolling backing indexes optimalizovaná pre timestamped a prevažne append-only data ako logs, events a metrics. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Dataclass — Python
 
 Deklaratívny Python model generujúci metódy pre dátovo orientovanú class, napríklad constructor, equality a representation. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
@@ -2138,6 +2194,10 @@ Režim zobrazujúci content rozdiel pri podporovaných modules; output môže ob
 
 Pod vytvorený bez vyššieho workload controlleru; po strate alebo Node failure nemá automatický replica replacement a rollout model. Pozri [Pod](docs/09-kubernetes/pod.md).
 
+## Direct-to-storage tracing
+
+Jaeger deployment model, v ktorom collectors zapisujú traces priamo do external storage bez durable Kafka bufferu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Disaster recovery — DR
 
 People, process a technology capability obnoviť business službu a jej dáta po udalosti presahujúcej bežný high-availability design podľa definovaných RPO a RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -2149,6 +2209,10 @@ Koordinovaný proces obnovy control-plane state-u, PKI, encryption keys, externa
 ## Disconnected operation
 
 Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime pri strate spojenia s central cloud control plane alebo WAN dependency. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Disk watermark — search cluster
+
+Threshold disk usage ovplyvňujúci shard allocation, relocation alebo write blocks v Elasticsearch/OpenSearch clusteri. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Distributed cache — GitLab Runner
 
@@ -2322,6 +2386,10 @@ Parser a build frontend implementujúci Dockerfile syntax a prekladajúci instru
 
 Pattern file filtrujúci content zahrnutý do Docker build contextu; znižuje transfer, cache invalidation a accidental exposure, ale nie je secret manager ani náhrada za odstránenie secrets z repository history. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
+## Document — search
+
+JSON objekt uložený v Elasticsearch/OpenSearch indexe a spracovaný podľa mappingu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Document stream — YAML
 
 YAML stream obsahujúci jeden alebo viac documents oddelených markerom `---`. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -2393,6 +2461,10 @@ Reusable task, role alebo playbook content načítaný počas executionu podľa 
 ## Dynamic inventory — Ansible
 
 Inventory získaný cez plugin alebo external script z API, CMDB, cloud platformy alebo iného meniaceho sa source-u. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Dynamic mapping
+
+Automatické vytváranie field mappings podľa prichádzajúcich documents; bez governance môže spôsobiť schema conflicts a mapping explosion. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Dynamic provisioning — Kubernetes storage
 
@@ -2521,6 +2593,10 @@ EBS capability na online zmenu veľkosti, typu, IOPS alebo throughputu podporova
 ## Elasticity
 
 Schopnosť systému dynamicky pridávať alebo odoberať kapacitu podľa demandu, provisioning latency, policy, quotas a cost guardrails. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
+## Elasticsearch
+
+Distribuovaný search, analytics a document-store systém založený na Apache Lucene. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Eligible approver — GitLab
 
@@ -2746,6 +2822,10 @@ Mechanizmus použitý runnerom na vykonanie jobu, napríklad host shell, contain
 
 Mechanizmus určujúci runtime jobu, napríklad Docker container, Kubernetes pod, autoscaled instance alebo host shell. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
 
+## Exemplar
+
+Reference z metric sample alebo histogram observation na konkrétny trace ID, ktorá umožňuje prechod z agregovanej metriky na trace. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Exit status
 
 Číselný výsledok ukončeného procesu alebo shell príkazu. Pozri [Shell, Bash, pipes, redirection a exit codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md).
@@ -2954,6 +3034,10 @@ CI/CD variable, ktorej hodnota je zapísaná do dočasného súboru a environmen
 
 Štruktúra mapujúca pathname na metadata a dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
 
+## Filesystem buffering — Fluent Bit
+
+Buffering telemetry chunks na local filesystem na zvýšenie backlog capacity a restart recovery oproti memory-only modelu. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Filter plugin — Kubernetes scheduler
 
 Scheduling Framework plugin vyhodnocujúci, či konkrétny Node spĺňa hard constraints Podu. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -2997,6 +3081,10 @@ TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát
 ## Flow log — CNI
 
 Dataplane observability záznam o povolenom alebo zamietnutom network flowe vrátane source/destination identity, portu, policy a action metadata podľa CNI implementácie. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## Fluent Bit
+
+Ľahký telemetry agent na inputs, parsing, filtering, buffering, routing a export logs, metrics a traces. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Folder permission — Grafana
 
@@ -3173,6 +3261,10 @@ Schopnosť systému pri nedostupnosti časti dependencies zachovať obmedzenú, 
 ## Graceful shutdown
 
 Riadené ukončenie, pri ktorom proces prestane prijímať novú prácu, bezpečne spracuje alebo preruší rozpracovaný stav, uvoľní resources a vráti správny status. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Graceful shutdown — telemetry agent
+
+Riadené ukončenie inputov, flush queued chunks a uloženie offset state-u pred zastavením agenta. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Grafana
 
@@ -3726,9 +3818,21 @@ Helm function renderujúca named template do stringu, ktorý možno ďalej sprac
 
 Dynamické načítanie Ansible role počas executionu podľa runtime contextu. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Index — search
+
+Logical collection documents s vlastným mappingom, settings a shard topology. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Index stages
 
 Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je merge base, stage 2 ours a stage 3 theirs. Pozri [Konflikty](docs/03-git-and-automation/merge-conflicts.md).
+
+## Index State Management — ISM
+
+OpenSearch policy framework na riadenie index lifecycle-u cez states, transitions a actions. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Index template
+
+Policy aplikovaná na nové indexes alebo backing indexes podľa patternu, ktorá definuje mappings, settings a lifecycle integration. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Indexed Job
 
@@ -3741,6 +3845,14 @@ Client-side mechanism kombinujúci list/watch, local cache a event handlers na e
 ## Infrastructure as Code — IaC
 
 Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného plan/apply alebo reconciliation procesu, review, policy a auditovateľného recovery lifecycle. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Ingest pipeline — search
+
+Server-side pipeline, ktorá pred indexingom parsuje, normalizuje, enrichuje, rediguje alebo routuje documents. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Ingester — Loki
+
+Loki write-path component, ktorý prijíma recent log entries, drží active streams a vytvára chunks pred flushom do storage. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Ingress
 
@@ -3894,6 +4006,30 @@ Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných 
 
 Metric vyjadrujúca oneskorenie medzi vznikom stream recordu a jeho spracovaním Lambda consumerom; rast signalizuje backlog alebo pomalé spracovanie. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Jaeger
+
+Distributed tracing backend s collector, query, ingester a all-in-one roles, aktuálne postavený na OpenTelemetry Collector frameworku. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Jaeger all-in-one
+
+Jaeger deployment role spájajúca collector a query/UI v jednom procese, vhodná najmä pre development a bounded use cases. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Jaeger collector
+
+Jaeger role prijímajúca trace data a zapisujúca ich do storage alebo durable queue podľa deploymentu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Jaeger ingester
+
+Jaeger role, ktorá konzumuje spans z Kafka a zapisuje ich do trace storage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Jaeger query
+
+Jaeger role poskytujúca query APIs a user interface nad trace storage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Jaeger remote sampling
+
+Centralizovaný head-sampling model, v ktorom SDKs získavajú sampling strategies z Jaeger backendu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Jinja template — Ansible
 
 Textový template renderovaný typicky na control node v host-specific variable context-e a následne použitý ako configuration alebo iný artifact. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
@@ -3930,6 +4066,10 @@ Systémová logging služba systemd sprístupnená cez `journalctl`. Pozri [jour
 
 Deklaratívny schema jazyk na validáciu štruktúry, typov a vybraných constraints JSON dát. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Kafka-buffered tracing
+
+Tracing architecture, v ktorej durable Kafka-compatible queue oddeľuje trace ingestion od storage consumers. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Kernel space
 
 Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
@@ -3937,6 +4077,10 @@ Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, device
 ## Key policy — KMS
 
 Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčasťou autorizácie management a cryptographic operations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## `keyword` field
+
+Search field type určený na exact matching, sorting a aggregations bez full-text analysis. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Kill switch
 
@@ -4202,6 +4346,22 @@ AWS infrastructure extension približujúca vybrané služby k určitej metropol
 
 Oddelený AWS member account určený na centrálne, dlhodobo chránené uloženie organization-wide audit a security logs. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Log canary
+
+Periodicky generovaný synthetic log event používaný na overenie end-to-end collection, ingestion, storage a query latency. Pozri [Loki](docs/12-observability/loki.md).
+
+## Log loss boundary
+
+Konkrétny stav, pri ktorom telemetry pipeline môže zahodiť logs, napríklad full buffer, volatile crash, permanent output error alebo odstránený file pred dočítaním. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Log replay
+
+Opätovné načítanie a odoslanie log records po reštarte, offset strate alebo backlog recovery, ktoré môže vytvoriť duplicates. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Log stream — Loki
+
+Množina log entries s rovnakým tenant ID a úplným label setom. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Logical operation
 
 Jedna business alebo caller-visible operácia bez ohľadu na počet interných retry attempts a fan-out calls. Pozri [RED method](docs/12-observability/red-method.md).
@@ -4213,6 +4373,30 @@ Jedna business alebo caller-visible operácia bez ohľadu na počet interných r
 ## Logically air-gapped vault — AWS Backup
 
 Špeciálny backup vault s dodatočnou logical isolation a Vault Lock compliance ochranou pre ransomware a recovery use cases. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## LogQL
+
+Loki query language kombinujúci stream selectors, line filters, parsing a metric aggregations nad logs. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki
+
+Label-indexed log aggregation systém ukladajúci log body komprimovane v chunks a používajúci object-storage-oriented storage model. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki Compactor
+
+Maintenance component, ktorý compactuje index blocks a podľa konfigurácie vykonáva retention a log deletion lifecycle. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki labels
+
+Bounded metadata tvoriace identity log streamov a indexovaný výberový priestor pre LogQL. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki retention
+
+Policy a maintenance proces určujúci, ako dlho sa log chunks a index data uchovávajú a kedy sa bezpečne odstránia. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki ruler
+
+Component vyhodnocujúci LogQL recording alebo alerting rules. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Longest-prefix match
 
@@ -4237,6 +4421,10 @@ Task loop metadata a správanie riadené cez `loop_control`, napríklad pomenova
 ## Low-level container runtime
 
 Runtime implementácia, ktorá vytvorí a spustí izolovaný process podľa OCI runtime bundle a spravuje jeho low-level lifecycle, namespaces, mounts a credentials. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Lucene
+
+Search library tvoriaca základ Elasticsearch a OpenSearch shards a segment-based indexing/search modelu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## MAC address
 
@@ -4294,6 +4482,14 @@ Služba, pri ktorej provider preberá definovanú časť deploymentu, patchingu,
 
 Najvyšší organization account s billing a Organizations administrative capabilities; SCPs neobmedzujú jeho principals a preto má byť bez bežných workloadov a s minimálnym accessom. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Mapping explosion
+
+Nekontrolovaný rast počtu mapped fields, často spôsobený dynamic keys alebo nekonzistentnými documents, ktorý zvyšuje cluster-state a heap overhead. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Mapping — search
+
+Schema určujúca field names, types, analyzers a object structure dokumentov v indexe. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Masked variable — GitLab
 
 CI/CD variable, ktorej hodnota spĺňajúca GitLab constraints sa pri výpise do job logu nahrádza maskovaným textom; masking nezabraňuje úmyselnej exfiltration jobom. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
@@ -4329,6 +4525,10 @@ Identifikátor semantic formátu descriptorom odkazovaného contentu, napríklad
 ## Member account — AWS Organizations
 
 AWS account patriaci do organization a umiestnený pod root alebo OU, s vlastnými resources a IAM, ale podliehajúci relevantným organization policies. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Memory buffering — Fluent Bit
+
+Dočasné držanie telemetry chunks v RAM; poskytuje nízku latency, ale obmedzenú capacity a slabšiu crash durability. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## `memory.high`
 
@@ -4369,6 +4569,10 @@ Prometheus relabeling fáza po scrape-nutí a pred ingestion, používaná na dr
 ## Metrics adapter — Kubernetes autoscaling
 
 Component publikujúci custom alebo external metrics cez Kubernetes aggregated API pre HPA alebo ďalších consumers. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
+
+## Metrics-generator — Tempo
+
+Tempo component, ktorý odvodzuje span metrics, service graphs a ďalšie metrics z ingestovaných traces. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Metrics-server
 
@@ -4522,6 +4726,10 @@ Stav, keď viac automation systémov alebo runs súbežne mení ten istý resour
 
 Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa zapísať konfliktujúce snapshots alebo remote zmeny bez účinného locku a serialization. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Multiline parser
+
+Parser rekonštruujúci viac fyzických log lines do jedného logical recordu, napríklad stack trace-u. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## multipart upload — S3
 
 S3 upload protocol rozdeľujúci veľký object na samostatne prenášané parts a dokončený explicitným complete requestom. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -4605,6 +4813,10 @@ Resolver option určujúca, koľko bodiek musí meno obsahovať, aby sa najprv p
 ## NDP — Neighbor Discovery Protocol
 
 IPv6 mechanizmus pre neighbor resolution, router discovery a prefix discovery. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Near-real-time search
+
+Search model, v ktorom acknowledged document nemusí byť okamžite viditeľný, kým neprebehne refresh. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## `needs` DAG — GitLab
 
@@ -4842,6 +5054,10 @@ Container state signal indikujúci, že process bol ukončený v súvislosti s o
 
 Model, v ktorom requests prichádzajú podľa arrival rate nezávisle od aktuálnej response time systému. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## OpenSearch
+
+Distribuovaný search a analytics systém založený na Apache Lucene s vlastným plugin, security a lifecycle ekosystémom. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## OpenTelemetry API
 
 Vendor-neutral programming contract používaný application a libraries na vytváranie telemetry bez vynútenia konkrétneho backendu alebo SDK konfigurácie. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -4922,6 +5138,10 @@ OpenTelemetry Protocol používaný na prenos telemetry medzi SDKs, Collectors a
 
 Deployment zo staršieho pipeline, ktorý sa pokúša prepísať environment po tom, čo už bol nasadený novší pipeline alebo artifact. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
+## Output plugin — Fluent Bit
+
+Plugin odosielajúci routed telemetry records do konkrétneho backendu alebo destination. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Output value — Terraform
 
 Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre callerov, CLI alebo ďalšiu automatizáciu. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
@@ -4989,6 +5209,10 @@ Systems Manager configuration store pre hierarchické String, StringList a KMS-p
 ## ParentRef — Gateway API
 
 Reference z Route na Gateway, listener alebo iný supported parent, ku ktorému sa Route pokúša pripojiť. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Parquet trace block
+
+Columnar Tempo storage block obsahujúci traces a attributes v Apache Parquet formáte pre efektívnejšie selective querying. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Partial batch response — Lambda
 
@@ -5238,6 +5462,10 @@ Explicitné naviazanie Pod Security Admission režimu na konkrétnu Kubernetes m
 
 Host-side forwarding alebo proxy konfigurácia, ktorá sprístupní container port cez zvolený host bind address a port. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
+## Position database — Fluent Bit
+
+Persistentný state Tail inputu uchovávajúci file identity a read offset na restart a rotation recovery. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Post-import plan — Terraform
 
 Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či configuration remote stav adoptuje, zmení alebo by nebezpečne vyvolala update či replacement. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -5269,6 +5497,10 @@ Spravovaný zoznam CIDR prefixes použiteľný v route tables alebo Security Gro
 ## `prevent_destroy` — Terraform
 
 Lifecycle rule blokujúca plánované zničenie resource, pokiaľ je pravidlo stále prítomné v configuration; nenahrádza remote deletion protection ani backup. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Primary shard
+
+Autoritatívna shard kópia subsetu documents, z ktorej sa koordinuje replication. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## PriorityClass
 
@@ -5490,6 +5722,22 @@ Organizational unit s prísnymi incident alebo decommission guardrails určená 
 
 Dočasné vyradenie nestabilného testu z blocking suite pri zachovaní pravidelného spúšťania, ownera, issue a expiry. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Querier — Loki
+
+Component vykonávajúci LogQL subqueries nad recent ingestion state-om a historical object-storage dátami. Pozri [Loki](docs/12-observability/loki.md).
+
+## Query frontend — Loki
+
+Read-path component, ktorý prijíma LogQL queries, splituje ich, aplikuje caching/limits a zlučuje výsledky. Pozri [Loki](docs/12-observability/loki.md).
+
+## Query frontend — Tempo
+
+Read-path component, ktorý sharduje trace lookup alebo TraceQL search na jobs, distribuuje ich queriers a zlučuje výsledky. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Query scheduler — Loki
+
+Component koordinujúci a frontujúci query work medzi query frontendmi a queriers. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Query storm — Grafana
 
 Nadmerný počet alebo objem backend queries spôsobený kombináciou panels, variables, repeats, users a krátkeho refresh intervalu. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -5682,6 +5930,10 @@ Lokálna evidencia pohybov refs a `HEAD`, použiteľná na recovery commitov po 
 
 Plan režim, ktorý ukáže zmeny state-u potrebné na zosúladenie s remote observations bez plánovania remote infraštruktúry k desired configuration. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
+## Refresh — search
+
+Operácia sprístupňujúca nové Lucene segments pre search; nie je totožná s durable flushom alebo backupom. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Refspec
 
 Pravidlo mapujúce source ref na destination ref pri fetch alebo push operácii. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
@@ -5817,6 +6069,10 @@ Lifecycle rule vyžadujúca replacement resource, keď sa zmení referencovaný 
 ## Replacement Pod
 
 Nový Pod object vytvorený controllerom ako náhrada zaniknutého alebo nevyhovujúceho Podu; má nový UID, IP a runtime lifecycle aj pri podobnom mene alebo template. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
+
+## Replica shard
+
+Kópia primary shardu poskytujúca redundancy a read capacity, ale nie ochranu pred logical corruption alebo deletion. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## ReplicaSet
 
@@ -5998,6 +6254,10 @@ Explicitný limit množstva alebo času retry pokusov, ktorý zabraňuje nekone�
 
 Opakovanie rovnakého tasku podľa `until`, `retries` a `delay`, určené pre bounded transient conditions, nie pre iteráciu business items. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Retry queue — Fluent Bit
+
+Queue chunks čakajúcich na opakovaný output flush po retryable failure. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Reusable pipeline
 
 Versionovaný pipeline component alebo workflow s explicitným input, output, permissions a failure contractom určený na použitie vo viacerých projects. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
@@ -6081,6 +6341,10 @@ Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observ
 ## Rollout rollback — Deployment
 
 Návrat Deployment Pod template-u na zachovanú staršiu revision; nevracia databázu, queues ani iný external state. Pozri [Deployment](docs/09-kubernetes/deployment.md).
+
+## Rollover — search
+
+Lifecycle operácia vytvárajúca nový write index po splnení age, size, document-count alebo shard-size conditions. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Root module — Terraform
 
@@ -6318,6 +6582,10 @@ Interná scheduler štruktúra pre nové, backoff a unschedulable Pods čakajúc
 
 Schopnosť aktívnych application a data consumers fungovať s aktuálnou sadou tables, columns, constraints, types a indexov počas deploymentu. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Schema period — Loki
+
+Časovo ohraničená Loki storage schema configuration používaná na forward-compatible zmenu index/storage formátu pre nové dáta. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Schema validation
 
 Overenie dát voči deklarovaným typom, required fields a constraints. Neoveruje automaticky všetky business a runtime podmienky. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -6410,6 +6678,10 @@ Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security
 
 Oddelený member account používaný ako delegated administrator a operational scope pre organization-wide security findings, detection a response tooling. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Segment — Lucene
+
+Immutable index fragment v rámci shardu; nové documents sa sprístupňujú refreshom a segments sa neskôr zlučujú merge procesom. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Selector — Kubernetes
 
 Výraz vyberajúci objects podľa labels a tvoriaci kritický contract pre controllers, Services, policy alebo CLI queries. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -6486,6 +6758,10 @@ Mechanizmus dynamicky vytvárajúci potenciálne scrape targets a dočasné meta
 
 Plné cluster-local DNS meno Service-u v tvare `<service>.<namespace>.svc.<cluster-domain>`. Pozri [Cluster DNS](docs/09-kubernetes/cluster-dns.md).
 
+## Service graph
+
+Derived graph caller/callee relationships a performance characteristics vytvorený zo spans; jeho úplnosť závisí od instrumentation a sampling coverage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Service — Kubernetes
 
 Namespaced API contract poskytujúci stabilné meno, virtual address a port model pre dynamickú backend population reprezentovanú EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
@@ -6557,6 +6833,10 @@ Kópia reálneho produkčného trafficu posielaná novému systému bez použiti
 ## Shallow clone
 
 Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižuje prenos, ale obmedzuje operácie závislé od plného commit graphu. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Shard allocation
+
+Rozhodovanie search clusteru, na ktorom node a failure domain-e budú umiestnené primary a replica shard copies. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Shared control — cloud
 
@@ -6870,6 +7150,10 @@ Nástroj na sledovanie system calls, ich výsledkov a trvania. Pozri [Performanc
 
 Plugin určujúci, ako Ansible plánuje postup hosts cez tasks a synchronization body počas play executionu. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Stream selector — LogQL
+
+Label matcher expression, ktorá vyberie Loki log streamy pred line filteringom a parsingom. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Stress test
 
 Performance test nad plánovanou kapacitou zameraný na failure mode, ochranné mechanizmy a recovery. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
@@ -6881,6 +7165,10 @@ Textový output named template-u, ktorý reprezentuje YAML/JSON object a caller 
 ## Structured log
 
 Log record so stabilnými typed fields a schema namiesto závislosti na parsovaní voľného textu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Structured metadata — Loki
+
+Per-entry key/value metadata uložené bez vytvorenia novej stream identity, vhodné pre high-cardinality correlation fields. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Stub — test double
 
@@ -6977,6 +7265,10 @@ Simulované incident alebo disaster-recovery cvičenie bez technického fault in
 ## Tag — Git tag
 
 Ref používaný typicky na stabilné označenie konkrétneho release commitu alebo iného objektu. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Tail input — Fluent Bit
+
+Input plugin sledujúci log files, ich offsets a rotation lifecycle. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Tail latency
 
@@ -7078,6 +7370,18 @@ Go template action vkladajúca named template inline; na rozdiel od `include` ne
 
 Kontrola renderovaného dočasného file-u pomocou target parsera alebo validatora pred jeho nahradením na destination path. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## Tempo
+
+Object-storage-oriented distributed tracing backend s TraceQL, Grafana integráciou a oddeleným write/read lifecycle-om. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Tempo distributor
+
+Write-path component prijímajúci trace data, validujúci limits a sharding records podľa trace ID. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Tempo live store
+
+Read-path component poskytujúci recent trace data pred alebo nezávisle od ich historical object-storage availability. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Temporality — metric
 
 Semantics určujúca, či metric export reprezentuje cumulative hodnotu od začiatku alebo delta zmenu za konkrétny interval. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
@@ -7085,6 +7389,10 @@ Semantics určujúca, či metric export reprezentuje cumulative hodnotu od zači
 ## Temporary credentials — AWS
 
 Časovo obmedzená sada access key ID, secret access key a session tokenu vydaná AWS STS pre role alebo federated session. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Tenant ID — Loki
+
+Identifier oddeľujúci ingestion, storage, query a limits jednotlivých Loki tenantov. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Terminating error — PowerShell
 
@@ -7161,6 +7469,10 @@ Multi-stage build target určený na vykonanie testov; ak nie je v dependency gr
 ## Test trophy
 
 Alternatívny model zvýrazňujúci static checks a integration tests ako hlavný zdroj hodnoty, s menšou unit a E2E vrstvou. Pozri [Test pyramid](docs/04-testing-and-quality/test-pyramid.md).
+
+## `text` field
+
+Search field type analyzovaný pre full-text search a relevance, nie primárne pre exact aggregations. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Thread
 
@@ -7262,6 +7574,22 @@ Template function serializujúca hodnotu do YAML textu, ktorý musí byť vlože
 
 Function vyhodnocujúca string ako Helm template v odovzdanom scope-e; rozširuje input trust boundary a môže znížiť deterministickosť renderu. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
+## Trace attribute governance
+
+Policy určujúca povolené, bounded, sensitive a searchable span attributes spolu s retention a sampling použitím. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Trace completeness
+
+Miera, do akej backend obsahuje všetky relevantné spans a relationships konkrétneho trace-u; ovplyvňuje ju propagation, sampling, export a storage loss. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Trace-to-logs
+
+Correlation workflow, ktorý z trace ID, span ID, service a času vytvorí query do log backendu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## TraceQL
+
+Tempo query language na trace a span search podľa attributes, duration, status a structural conditions. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Traffic cutover
 
 Riadené presmerovanie nových requestov alebo connections zo starej deployment farby na novú. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -7286,6 +7614,10 @@ Regionálny network transit hub prepájajúci viac VPCs a hybrid networks cez at
 
 Dependency, ktorú parent chart získava nepriamo cez dependency vlastného subchartu; rozširuje render, hook, RBAC a supply-chain surface celého release-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
+## Translog
+
+Elasticsearch/OpenSearch transaction-log mechanism používaný pri write durability a shard recovery podľa konkrétnej konfigurácie a produktu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Trap — shell
 
 Shell handler spustený pri definovanom signále alebo pseudo-signále ako `EXIT` či `ERR`. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
@@ -7301,6 +7633,10 @@ Udalosť alebo explicitný pokyn, ktorý vytvorí pipeline run a určí jeho com
 ## Trunk-based development
 
 Branching model založený na častej integrácii malých zmien do jednej hlavnej branch, podporený krátkodobými branches, CI a feature flags. Pozri [Branching strategies](docs/03-git-and-automation/branching-strategies.md).
+
+## TSDB index store — Loki
+
+Odporúčaný Loki index format ukladajúci TSDB index blocks v object storage popri chunks. Pozri [Loki](docs/12-observability/loki.md).
 
 ## TTL-after-finished
 
@@ -7353,6 +7689,10 @@ Remote objekt bez bindingu v danom Terraform state-e, ktorý bežný plan nemus�
 ## Unsupported cluster version
 
 Kubernetes minor verzia mimo upstream alebo provider support window, pre ktorú nemusia byť dostupné security fixes, compatibility garancie ani support. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
+
+## `unwrap` — LogQL
+
+LogQL operation premieňajúca parsed numerický field log entry na sample hodnotu pre range aggregation. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Updated replicas — Deployment
 
@@ -7681,6 +8021,10 @@ Dočasná zapisovateľná filesystem vrstva konkrétnej container instance umies
 ## Write compatibility
 
 Schopnosť každej súčasne aktívnej application verzie zapisovať dáta, ktoré ostatné aktívne verzie bezpečne prečítajú a interpretujú. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
+## Write index
+
+Aktuálny backing index data streamu, do ktorého smerujú nové documents. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## `X-Forwarded-For`
 
