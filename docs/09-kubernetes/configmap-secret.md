@@ -469,3 +469,11 @@ Relevantné pojmy: ConfigMap, Secret, `data`, `binaryData`, `stringData`, immuta
 - [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [Good practices for Kubernetes Secrets](https://kubernetes.io/docs/concepts/security/secrets-good-practices/)
 - [Encrypting confidential data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Job a CronJob](job-cronjob.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ServiceAccount →](serviceaccount.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -428,3 +428,11 @@ Relevantné pojmy: ServiceAccount, workload identity, ServiceAccount username, d
 - [Configure Service Accounts for Pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
 - [Managing Service Accounts](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/)
 - [Accessing the Kubernetes API from a Pod](https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ConfigMap a Secret](configmap-secret.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Service a EndpointSlice →](service-endpointslice.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

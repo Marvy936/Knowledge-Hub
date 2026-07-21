@@ -464,3 +464,11 @@ Relevantné pojmy: Kubernetes Service, Service selector, ClusterIP, NodePort, Lo
 - [EndpointSlices](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/)
 - [Virtual IPs and Service Proxies](https://kubernetes.io/docs/reference/networking/virtual-ips/)
 - [Debug Services](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ServiceAccount](serviceaccount.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ingress a Gateway API →](ingress-gateway-api.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

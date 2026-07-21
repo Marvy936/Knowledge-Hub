@@ -484,5 +484,5 @@ Relevantné pojmy: Job, CronJob, Job completion, `parallelism`, `completions`, I
 
 **Navigácia**
 
-[← Predchádzajúca: DaemonSet](daemonset.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: DaemonSet](daemonset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ConfigMap a Secret →](configmap-secret.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

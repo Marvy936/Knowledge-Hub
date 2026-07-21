@@ -204,11 +204,11 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [StatefulSet](docs/09-kubernetes/statefulset.md)
 - [x] [DaemonSet](docs/09-kubernetes/daemonset.md)
 - [x] [Job a CronJob](docs/09-kubernetes/job-cronjob.md)
-- [ ] ConfigMap a Secret
-- [ ] ServiceAccount
-- [ ] Service a EndpointSlice
-- [ ] Ingress a Gateway API
-- [ ] Cluster DNS
+- [x] [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md)
+- [x] [ServiceAccount](docs/09-kubernetes/serviceaccount.md)
+- [x] [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md)
+- [x] [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md)
+- [x] [Cluster DNS](docs/09-kubernetes/cluster-dns.md)
 - [ ] CNI a NetworkPolicy
 - [ ] Volumes, PV, PVC a StorageClass
 - [ ] Scheduling

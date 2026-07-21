@@ -526,3 +526,11 @@ Relevantné pojmy: Ingress, Ingress controller, IngressClass, pathType, default 
 - [Ingress Controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 - [Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/)
 - [Gateway API documentation](https://gateway-api.sigs.k8s.io/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Service a EndpointSlice](service-endpointslice.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cluster DNS →](cluster-dns.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
