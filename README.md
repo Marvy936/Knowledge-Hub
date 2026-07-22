@@ -53,10 +53,10 @@ Aktívne sekcie:
 11. [Helm and CKA](docs/10-helm-and-cka/README.md)
 12. [Cloud and AWS](docs/11-cloud-and-aws/README.md)
 13. [Observability](docs/12-observability/README.md)
+14. [Security and Identity](docs/13-security-and-identity/README.md)
 
 Plánované hlavné domény:
 
-- Security and Identity,
 - SRE and Operations,
 - Databases and Distributed Systems,
 - GitOps and Platform Engineering.
