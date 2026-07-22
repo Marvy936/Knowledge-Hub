@@ -36,8 +36,10 @@ Odporúča sa najprv dokončiť:
 15. [Supply-chain security](supply-chain-security.md)
 16. [SBOM](sbom.md)
 17. [Image signing](image-signing.md)
+18. [Policy as Code](policy-as-code.md)
+19. [Zero Trust](zero-trust.md)
 
-Aktuálny blok uzatvára Image signing. Nasledujúci blok dokončí sekciu témami Policy as Code a Zero Trust.
+Sekciu uzatvára Zero Trust. Security and Identity je týmto dokončená v aktuálnom rozsahu roadmapy; ďalšia hlavná sekcia pokračuje SRE and Operations.
 
 ## Cieľ zvládnutia
 
@@ -264,6 +266,36 @@ Po dokončení aktuálneho bloku má byť možné:
 - presadzovať digest pinning a signature/provenance policy pri promotion alebo admission,
 - riešiť trust-root rotation, revocation, quarantine, offline verification a compromise response.
 
+### Policy as Code
+
+- vysvetliť policy intent, executable policy a celý policy lifecycle od authoring-u po retirement,
+- rozlíšiť Policy Administration, Decision, Enforcement a Information Points,
+- navrhnúť structured decision, explicitný default a combining semantics,
+- používať versionované a signed policy bundles s rollout, rollback a revision observability,
+- vysvetliť OPA, Rego, undefined result, partial evaluation a WebAssembly execution,
+- testovať policies cez positive, negative, boundary, property a differential cases,
+- kombinovať shift-left configuration testing s runtime enforcementom a auditom,
+- vysvetliť Kubernetes ValidatingAdmissionPolicy, MutatingAdmissionPolicy a CEL failure semantics,
+- navrhnúť Gatekeeper ConstraintTemplate/Constraint, audit a multi-enforcement-point model,
+- používať aktuálne Kyverno policy types a rozlíšiť Policy Reports od historical audit logu,
+- riadiť exceptions, break-glass, canary rollout, decision logs a sensitive-data masking,
+- diagnostikovať input, data, revision, distribution, failure-policy a enforcement bypass failures.
+
+### Zero Trust
+
+- vysvetliť Zero Trust ako resource-centric architecture bez implicitnej dôvery podľa network location,
+- rozlíšiť Policy Engine, Policy Administrator, Policy Enforcement Point, control plane a data plane,
+- navrhnúť human, device a workload identity vrátane posture a attestation boundaries,
+- vysvetliť SPIFFE ID, SVID, SPIRE, trust domains a workload federation,
+- odlíšiť mTLS, service identity, delegation a application-level authorization,
+- používať microsegmentation, egress policy, identity-aware proxy a ZTNA ako samostatné controls,
+- aplikovať NIST SP 800-207A model na API gateways, service mesh a multi-cloud workloads,
+- navrhnúť risk-adaptive access, step-up, bounded sessions a revocation latency,
+- vysvetliť CISA Zero Trust pillars a cross-cutting visibility, automation a governance capabilities,
+- plánovať staged migration s inventory, enforcement coverage a odstránením parallel bypass paths,
+- navrhnúť degraded modes pre IdP, posture a workload-identity outages,
+- reagovať na compromise identity providera, PEP alebo policy plane-u a obnoviť dôveryhodný stav.
+
 ## Stav
 
 | Téma | Status | Úroveň |
@@ -285,3 +317,5 @@ Po dokončení aktuálneho bloku má byť možné:
 | Supply-chain security | Learning | L2 |
 | SBOM | Learning | L2 |
 | Image signing | Learning | L2 |
+| Policy as Code | Learning | L2 |
+| Zero Trust | Learning | L2 |
