@@ -523,5 +523,5 @@ Relevantné pojmy: Kerberos, realm, principal, KDC, Authentication Service, Tick
 
 **Navigácia**
 
-[← Predchádzajúca: LDAP](ldap.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: LDAP](ldap.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OAuth 2.0 →](oauth-2.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

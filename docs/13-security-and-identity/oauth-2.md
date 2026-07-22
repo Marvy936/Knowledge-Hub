@@ -831,3 +831,11 @@ Relevantné pojmy: OAuth 2.0, resource owner, client, authorization server, reso
 - [OAuth 2.0 mTLS — RFC 8705](https://www.rfc-editor.org/rfc/rfc8705)
 - [DPoP — RFC 9449](https://www.rfc-editor.org/rfc/rfc9449)
 - [OAuth 2.0 Token Exchange — RFC 8693](https://www.rfc-editor.org/rfc/rfc8693)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Kerberos](kerberos.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OpenID Connect →](openid-connect.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

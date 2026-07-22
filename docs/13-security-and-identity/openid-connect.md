@@ -808,3 +808,11 @@ Relevantné pojmy: OpenID Connect, Relying Party, OpenID Provider, End-User, ID 
 - [OAuth 2.0 Security Best Current Practice — RFC 9700](https://www.rfc-editor.org/rfc/rfc9700)
 - [JSON Web Token — RFC 7519](https://www.rfc-editor.org/rfc/rfc7519)
 - [JSON Web Key — RFC 7517](https://www.rfc-editor.org/rfc/rfc7517)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: OAuth 2.0](oauth-2.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SAML →](saml.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -298,10 +298,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Active Directory](docs/13-security-and-identity/active-directory.md)
 - [x] [LDAP](docs/13-security-and-identity/ldap.md)
 - [x] [Kerberos](docs/13-security-and-identity/kerberos.md)
-- [ ] OAuth 2.0
-- [ ] OpenID Connect
-- [ ] SAML
-- [ ] Secrets management
+- [x] [OAuth 2.0](docs/13-security-and-identity/oauth-2.md)
+- [x] [OpenID Connect](docs/13-security-and-identity/openid-connect.md)
+- [x] [SAML](docs/13-security-and-identity/saml.md)
+- [x] [Secrets management](docs/13-security-and-identity/secrets-management.md)
 - [ ] Encryption at rest a in transit
 - [ ] Vulnerability a patch management
 - [ ] Threat modeling

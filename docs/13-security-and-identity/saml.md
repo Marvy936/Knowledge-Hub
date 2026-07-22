@@ -790,3 +790,11 @@ Relevantné pojmy: SAML, principal, Identity Provider, Service Provider, SAML as
 - [SAML 2.0 Metadata](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf)
 - [SAML 2.0 Authentication Context](https://docs.oasis-open.org/security/saml/v2.0/saml-authn-context-2.0-os.pdf)
 - [SAML 2.0 Security and Privacy Considerations](https://docs.oasis-open.org/security/saml/v2.0/saml-sec-consider-2.0-os.pdf)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: OpenID Connect](openid-connect.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Secrets management →](secrets-management.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -1110,3 +1110,11 @@ Relevantné pojmy: secret, secrets management, secret lifecycle, static secret, 
 - [Vault database secrets engine](https://developer.hashicorp.com/vault/docs/secrets/databases)
 - [Vault seal and unseal](https://developer.hashicorp.com/vault/docs/concepts/seal)
 - [Vault audit devices](https://developer.hashicorp.com/vault/docs/audit)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: SAML](saml.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
