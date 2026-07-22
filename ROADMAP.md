@@ -291,7 +291,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Security and Identity
 
-- [ ] CIA triáda
+- [x] [CIA triáda](docs/13-security-and-identity/cia-triad.md)
 - [ ] Authentication, authorization a auditing
 - [ ] Least privilege
 - [ ] IAM a RBAC

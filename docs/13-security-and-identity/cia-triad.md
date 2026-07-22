@@ -704,3 +704,11 @@ Relevantné pojmy: CIA triad, confidentiality, integrity, availability, asset, t
 - [NIST — Information Security](https://csrc.nist.gov/glossary/term/information_security)
 - [NIST — Security Control](https://csrc.nist.gov/glossary/term/security_control)
 - [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Jaeger a Tempo](../12-observability/jaeger-tempo.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
