@@ -30,8 +30,11 @@ Odporúča sa najprv dokončiť:
 9. [OpenID Connect](openid-connect.md)
 10. [SAML](saml.md)
 11. [Secrets management](secrets-management.md)
+12. [Encryption at rest a in transit](encryption-at-rest-and-in-transit.md)
+13. [Vulnerability a patch management](vulnerability-and-patch-management.md)
+14. [Threat modeling](threat-modeling.md)
 
-Nasledujúci blok rozšíri security základ o Encryption at rest a in transit, Vulnerability a patch management a Threat modeling. Neskôr sekcia pokračuje supply-chain security, SBOM, image signing, Policy as Code a Zero Trust.
+Aktuálny blok uzatvára Threat modeling. Nasledujúci blok rozšíri sekciu o Supply-chain security, SBOM a Image signing; neskôr pokračuje Policy as Code a Zero Trust.
 
 ## Cieľ zvládnutia
 
@@ -168,6 +171,51 @@ Po dokončení aktuálneho bloku má byť možné:
 - navrhnúť Vault HA, snapshot, DR a application behavior počas outage-u,
 - reagovať na secret leakage v Git-e, CI logs, images alebo Terraform state.
 
+### Encryption at rest a in transit
+
+- rozlíšiť data at rest, in transit a in use a priradiť im správne threat boundaries,
+- odlíšiť encryption od encoding, hashingu, MAC a digital signature,
+- vysvetliť symmetric, asymmetric a hybrid cryptography,
+- používať AEAD a vysvetliť nonce, IV, authentication tag a AAD,
+- navrhnúť DEK, KEK a envelope-encryption model s oddelenými permissions,
+- riadiť key lifecycle, cryptoperiod, rotation, rekey, re-encryption, rewrap a revocation,
+- vyhodnotiť full-disk, volume, file, database, object-storage a backup encryption boundaries,
+- vysvetliť TLS handshake, certificate chain, hostname validation a forward secrecy,
+- navrhnúť certificate lifecycle, mTLS, TLS termination a interný service-to-service encryption model,
+- vysvetliť Kubernetes etcd encryption at rest a KMS dependency,
+- pripraviť crypto inventory, agility a post-quantum migration model,
+- diagnostikovať key access, corrupted ciphertext, certificate, trust-chain, SNI a protocol failures.
+
+### Vulnerability a patch management
+
+- rozlíšiť vulnerability, weakness, exposure, misconfiguration, patch, mitigation a upgrade,
+- vysvetliť vulnerability-management lifecycle od inventory po verified remediation,
+- vytvoriť asset a software inventory použiteľný na ownership, prioritization a runtime verification,
+- vysvetliť CVE, CNA, NVD, CPE, Package URL a limity version-based detection,
+- rozlíšiť scanner finding, false positive, false negative a vendor backport,
+- používať CVSS v4.0, EPSS, KEV, exploit evidence, exposure a asset criticality ako samostatné risk signals,
+- navrhnúť routine a emergency patching cez test, rings, maintenance, rollback a verification,
+- patchovať immutable images, containers, Kubernetes nodes, managed services, firmware a dependencies,
+- riešiť EOL assets, vulnerability exceptions, virtual patching a remediation debt,
+- odlíšiť patch deployment od effective runtime remediation,
+- prepojiť active exploitation s incident response a persistence investigation,
+- merať risk reduction, SLA age, exposure window, reopen rate a inventory coverage bez metric gamingu.
+
+### Threat modeling
+
+- definovať security objectives, scope, assets, actors, attacker model, assumptions a dependencies,
+- identifikovať entry points, exit points a trust boundaries vrátane identity a administrative boundaries,
+- vytvoriť Data Flow Diagram s external entities, processes, data stores a data flows,
+- písať konkrétne threat statements s actorom, condition, assetom a impactom,
+- používať abuse cases, misuse cases, STRIDE, attack trees, CAPEC a ATT&CK primerane ich účelu,
+- rozlíšiť likelihood, impact, risk treatment, mitigation a residual risk,
+- premeniť threats na testovateľné security requirements a negative tests,
+- modelovať authentication, authorization, multi-tenancy, cloud, Kubernetes, CI/CD a secrets boundaries,
+- zahrnúť availability, privacy, observability, recovery a unsafe fallback behavior,
+- udržiavať threat model vo version control a aktualizovať ho pri architecture, trust alebo incident changes,
+- prepojiť threat modeling s design review, pen testingom, red teamingom a incident learnings,
+- diagnostikovať nejasný scope, chýbajúce boundaries, generic threats a controls bez verification evidence.
+
 ## Stav
 
 | Téma | Status | Úroveň |
@@ -183,3 +231,6 @@ Po dokončení aktuálneho bloku má byť možné:
 | OpenID Connect | Learning | L2 |
 | SAML | Learning | L2 |
 | Secrets management | Learning | L2 |
+| Encryption at rest a in transit | Learning | L2 |
+| Vulnerability a patch management | Learning | L2 |
+| Threat modeling | Learning | L2 |
