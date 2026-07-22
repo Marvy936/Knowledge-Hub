@@ -20,20 +20,26 @@ Cieľom nie je vytvoriť zbierku izolovaných definícií. Každá dôležitá t
 5. Hlavným cieľom je praktické porozumenie a schopnosť diagnostiky, nie memorovanie.
 6. Technické názvy zostávajú v angličtine; vysvetlenia sú primárne v slovenčine.
 7. Každý nový obsahový blok priebežne udržiava aj `GLOSSARY.md`.
+8. Konceptuálna sekcia nesmie zostať iba pri jednej vete a zozname. Musí vysvetliť definíciu, mechanizmus, význam nových pojmov a podľa kontextu aj príklad, hranicu alebo failure mode.
+9. Odrážky sumarizujú už vysvetlený model; nenahrádzajú súvislý učebný výklad.
+
+Podrobný štandard je v [AUTHORING-GUIDE.md](AUTHORING-GUIDE.md). Automatický audit hĺbky výkladu vytvára [DOCUMENTATION-AUDIT.md](DOCUMENTATION-AUDIT.md).
 
 ## Štruktúra repozitára
 
 ```text
 Knowledge-Hub/
-├── docs/               # Teória, mechanizmy a mentálne modely
-├── examples/           # Samostatne použiteľné manifesty, konfigurácie a skripty
-├── labs/               # Praktické úlohy a experimenty
-├── troubleshooting/    # Poruchové scenáre, diagnostika a root cause
-├── templates/          # Jednotné šablóny dokumentov
-├── scripts/            # Generátory a validátory dokumentácie
-├── ROADMAP.md          # Odporúčané poradie učenia
-├── GLOSSARY.md         # Rýchle definície pojmov
-└── REVIEW.md           # Stav zvládnutia a opakovanie
+├── docs/                       # Teória, mechanizmy a mentálne modely
+├── examples/                   # Samostatne použiteľné manifesty, konfigurácie a skripty
+├── labs/                       # Praktické úlohy a experimenty
+├── troubleshooting/            # Poruchové scenáre, diagnostika a root cause
+├── templates/                  # Jednotné šablóny dokumentov
+├── scripts/                    # Generátory, validátory a obsahový audit
+├── AUTHORING-GUIDE.md          # Povinný štandard vysvetľovania konceptov
+├── DOCUMENTATION-AUDIT.md      # Generovaný prioritizovaný audit učebnej hĺbky
+├── ROADMAP.md                  # Odporúčané poradie učenia
+├── GLOSSARY.md                 # Rýchle definície pojmov
+└── REVIEW.md                   # Stav zvládnutia a opakovanie
 ```
 
 ## Oblasti
@@ -103,6 +109,16 @@ Pri každej novej kapitole alebo obsahovom bloku sa musí vyhodnotiť:
 - či nevznikli synonymá alebo duplicitné heslá s odlišným významom.
 
 Glossary sa aktualizuje v rovnakom pracovnom bloku ako články. Nepatria doň všetky názvy príkazov a konfiguračných polí; patria tam stabilné koncepty potrebné na orientáciu naprieč doménami.
+
+## Documentation learning-depth audit
+
+Audit všetkých Markdown súborov pod `docs/`:
+
+```bash
+python scripts/audit_learning_depth.py --all-docs
+```
+
+Výsledkom je prioritizovaný report a machine-readable JSON. Audit je zámerne heuristický: hľadá najmä sekcie, ktoré začínajú zoznamom, majú priveľa odrážok oproti súvislému textu, zavádzajú pojmy prevažne v odrážkach alebo neukazujú mechanizmus, príklad či failure boundary. Nález znamená potrebu ľudskej kontroly, nie automatický dôkaz technickej chyby.
 
 ## Úrovne zvládnutia
 
