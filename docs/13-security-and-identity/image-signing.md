@@ -1,860 +1,458 @@
 # Image signing
 
-Image signing cryptographically viaže container image digest na signing identity alebo key a umožňuje consumerovi vyhodnotiť, či artifact spĺňa jeho trust policy. Signature je evidence o presnom obsahu a signerovi; nie je automatickou zárukou bezpečného source, build procesu ani absence vulnerabilities.
+Image signing cryptographically viaže konkrétny OCI artifact digest na signing key alebo overenú signing identity. Consumer môže následne overiť, že signed payload nebol zmenený a že podpis vytvoril držiteľ príslušného private keyu alebo identity credentialu.
 
-## 1. Mentálny model
+Podpis však nie je všeobecná známka bezpečnosti. Cryptographically valid signature môže patriť neautorizovanému signerovi, compromised workflowu alebo artifactu obsahujúcemu vulnerability. Reálny control preto kombinuje immutable subject identity, signature verification, signer authorization, provenance alebo ďalšie attestations a enforcement policy.
 
 ```text
-immutable image digest
-→ signature alebo keyless certificate
-→ signer identity a trust root
-→ transparency/bundle evidence
-→ verification policy
-→ admission alebo promotion decision
+OCI digest
+→ signature a signer evidence
+→ trust-root validation
+→ identity a authorization policy
+→ required attestations
+→ promotion alebo deployment decision
 ```
 
-Správna otázka nie je iba „je image podpísaný?“, ale:
+## 1. Čo signature dokazuje a čo nedokazuje
+
+Pri správnej verification signature dokazuje integrity signed payloadu a control nad signing credentialom. Ak payload obsahuje image manifest digest, consumer vie preukázať, že podpis patrí presne týmto bytes.
+
+Signature sama nedokazuje:
+
+- že source code bol reviewovaný;
+- že builder bol izolovaný alebo dôveryhodný;
+- že image neobsahuje vulnerabilities alebo malware;
+- že signer mal oprávnenie podpisovať daný product;
+- že artifact je vhodný pre konkrétny environment;
+- že signing key alebo OIDC workflow nebol compromised.
+
+Preto sa musia oddeliť dve otázky:
 
 ```text
-Kto podpísal ktorý digest?
-→ V akom autorizovanom kontexte?
-→ Aké claims a evidence overujeme?
-→ Čo sa stane pri zlyhaní verification?
+Je signature cryptographically valid?
+→ Kto ju vytvoril a smel tento signer podpísať tento subject v tomto kontexte?
 ```
 
-## 2. Čo signature dokazuje
+Prvá otázka patrí cryptography. Druhá patrí authorization a supply-chain policy.
 
-Pri správnej verification signature dokazuje:
+## 2. OCI content-addressable identity
 
-- integrity signed payloadu,
-- control nad private keyom alebo ephemeral signing identity,
-- binding na konkrétny image digest,
-- voliteľné signed claims.
+OCI image nie je jeden archive súbor. Tvorí ho graph manifestov, configuration objectov a layers. Každý descriptor obsahuje digest a veľkosť target contentu.
 
-Nedokazuje automaticky:
-
-- že image je bez vulnerabilities,
-- že source bol reviewovaný,
-- že builder bol izolovaný,
-- že signer bol oprávnený,
-- že artifact je vhodný pre daný environment,
-- že key nebol kompromitovaný.
-
-## 3. Content-addressable identity
-
-OCI artifact identity je digest manifestu:
+Image manifest opisuje jednu platform-specific image variantu: config a filesystem layers. Image index môže odkazovať na viac manifests, napríklad `linux/amd64` a `linux/arm64`.
 
 ```text
-registry.example/app@sha256:...
-```
-
-Digest sa zmení pri zmene signed manifest bytes.
-
-Image tag:
-
-```text
-registry.example/app:1.4
-```
-
-je mutable reference. Verification a policy majú byť vyhodnocované nad resolved digestom.
-
-## 4. Tag, manifest a config digest
-
-Rozlišuj:
-
-- tag → mutable name,
-- image index digest → multi-platform manifest list,
-- image manifest digest → konkrétna platform variant,
-- config digest,
-- layer digests.
-
-Signature musí jasne určiť subject. Podpísanie indexu nemusí znamenať samostatný policy statement pre každý platform manifest.
-
-## 5. Multi-architecture images
-
-```text
-index digest
+image index digest
 ├─ linux/amd64 manifest digest
-├─ linux/arm64 manifest digest
-└─ windows/amd64 manifest digest
+│  ├─ config digest
+│  └─ layer digests
+└─ linux/arm64 manifest digest
+   ├─ config digest
+   └─ layer digests
 ```
 
-Policy rozhodne, či vyžaduje:
+Digest manifestu alebo indexu je content identity vypočítaná z presných serialized bytes. Zmena descriptoru, layeru alebo configu zmení príslušný parent digest. Podpis preto musí jednoznačne uviesť, ktorý digest je subject.
 
-- signature indexu,
-- signature každej platform variant,
-- obe vrstvy,
-- platform-specific provenance a SBOM.
+## 3. Tag nie je immutable subject
 
-Consumer musí overiť digest, ktorý runtime skutočne pullne.
+OCI tag, napríklad `registry.example/app:1.4`, je mutable repository reference. Registry operator alebo oprávnený publisher ho môže presunúť na nový manifest.
 
-## 6. Signature payload
+Digest reference, napríklad `registry.example/app@sha256:...`, identifikuje konkrétny manifest content. Verification nástroj môže najprv resolve-nuť tag na digest, ale decision a cache musia byť viazané na resolved digest.
 
-Signature typicky chráni:
+Ak pipeline overí tag `1.4` a deployment neskôr znovu resolve-ne rovnaký tag, môže stiahnuť iný artifact než ten, ktorý bol schválený. Bezpečný promotion contract preto prenáša immutable digest od buildu po deployment.
 
-- subject digest,
-- artifact identity alebo reference,
-- optional claims/annotations,
-- signature metadata.
+## 4. Subject pri multi-architecture image
 
-Unsigned registry tag alebo external metadata sa nesmie považovať za cryptographically bound claim.
+Pri multi-platform image treba rozhodnúť, či dôverujeme indexu ako release unit alebo každej platform variante samostatne.
 
-## 7. Key-based signing
+Podpísanie index digestu viaže signer-a na presný zoznam platform manifests. Ak sa zmení amd64 alebo arm64 descriptor, zmení sa index digest. To je vhodné, keď release policy schvaľuje celý multi-platform set.
 
-Key-based model:
+Niektoré organizations zároveň vyžadujú platform-specific provenance alebo SBOM, pretože jednotlivé variants môžu byť vytvorené na rozdielnych builders a obsahovať rozdielne packages. Runtime alebo admission controller musí vedieť, ktorý platform manifest node skutočne pullne.
+
+Policy má explicitne uviesť:
+
+- či sa overuje index digest, manifest digest alebo obe vrstvy;
+- či každá platform potrebuje vlastnú provenance a SBOM;
+- či sú povolené všetky platforms v indexe;
+- ako sa spracuje nová platform pridaná do release-u.
+
+## 5. Základný signing flow
+
+Key-based flow vyzerá takto:
 
 ```text
-private signing key
-→ podpis image digestu
-→ public key alebo certificate
-→ consumer trust store
+release workflow získa immutable digest
+→ private key podpíše canonical payload
+→ signature sa uloží ako related OCI artifact alebo samostatný bundle
+→ consumer načíta public key alebo certificate
+→ overí signature a subject digest
+→ policy rozhodne, či je signer trusted pre daný use case
 ```
 
-Výhody:
+Signing operation má prebiehať až po tom, čo release workflow vie, ktorý digest schvaľuje. Podpisovanie tagu pred pushom alebo podpisovanie lokálneho image name bez overenia remote digestu vytvára ambiguity.
 
-- jednoduchý offline trust model,
-- kontrola nad key lifecycle,
-- použiteľnosť bez public identity provider.
+Consumer musí overiť celý cryptographic chain a následne policy. Úspešný CLI output „verified“ môže znamenať iba validnú signature, nie splnenie environment-specific authorization.
 
-Riziká:
+## 6. Key-based signing
 
-- key distribution,
-- long-lived compromise window,
-- rotation a revocation,
-- shared key attribution,
-- backup/recovery.
+Pri self-managed key modeli organization vytvorí asymmetric key pair. Private key zostáva signing authority; public key sa distribuuje verification clients.
 
-## 8. Signing-key lifecycle
+Výhodou je jednoduchý a často offline-capable trust model. Organization kontroluje key lifecycle a nemusí závisieť od external OIDC alebo public transparency service.
 
-Definuj:
+Nevýhodou je dlhodobý secret lifecycle. Treba riešiť generation, storage, access policy, cryptoperiod, rotation, revocation, backup a compromise response. Shared key pre množstvo repositories znižuje attribution a zväčšuje blast radius.
 
-- generation alebo import,
-- ownera a purpose,
-- storage,
-- authorized workloads,
-- cryptoperiod,
-- rotation,
-- revocation,
-- audit,
-- backup,
-- destruction,
-- compromise response.
+Public key odpovedá „ktorý key podpísal payload“. Ak jeden key používa viac workflows, neodpovedá presne „ktorý repository, branch a workflow run artifact schválil“.
 
-Signing key nemá byť uložený ako plaintext CI secret.
+## 7. KMS a HSM signing
 
-## 9. KMS a HSM
+KMS alebo HSM umožňuje signing bez exportu private key materialu. CI workload odošle digest alebo payload do signing API a dostane signature.
 
-KMS/HSM model umožňuje signing bez exportu private keyu.
+KMS zlepšuje key custody, audit a authorization, ale nevie sám určiť, či workflow podpisuje správny artifact. Ak compromised CI identity má permission volať `Sign`, môže podpisovať malicious digests.
 
-Controls:
+KMS policy preto musí byť viazaná na konkrétny workload, environment a purpose. Pre high-impact keys možno použiť approval, quorum, rate limits a delete protection.
 
-- workload-specific authorization,
-- key usage restriction,
-- audit operations,
-- region/account boundary,
-- quorum alebo approval pre critical keys,
-- rate limits,
-- disable/delete protection,
-- recovery.
+Availability KMS je súčasť release dependency. Outage nemá viesť k tomu, že pipeline preskočí signing a publikuje unsigned production artifact cez fallback path.
 
-KMS chráni key material, ale nevaliduje, či build job podpisuje správny digest.
+## 8. Keyless Sigstore model
 
-## 10. Shared key vs identity
-
-Jeden shared key pre viac projects znižuje attribution a zväčšuje blast radius.
-
-Preferuj identity alebo keys oddelené podľa:
-
-- organization,
-- repository,
-- release pipeline,
-- environment,
-- product risk.
-
-Public key odpovedá „ktorý key“, nie vždy „ktorý workflow a source context“.
-
-## 11. Keyless signing
-
-Sigstore keyless model používa:
+„Keyless“ signing nepoužíva permanentný user-managed signing key. Cryptographic keys stále existujú, ale signer vytvorí ephemeral key pair a identity authority viaže krátkodobý certificate na OIDC identity.
 
 ```text
-OIDC identity
-→ ephemeral key pair
-→ short-lived signing certificate
-→ signature
-→ transparency evidence alebo verification bundle
+CI workload získa OIDC token
+→ vytvorí ephemeral key pair
+→ Fulcio overí OIDC identity a vydá short-lived signing certificate
+→ workload podpíše artifact
+→ signature a transparency evidence sa publikujú
+→ private ephemeral key sa zahodí
 ```
 
-Private key je krátkodobý a nemusí byť dlhodobo uložený.
+Výhodou je silnejšia väzba na workload identity a odstránenie dlhodobého signing secretu z CI. Trust sa však presúva na OIDC issuer, Fulcio, transparency infrastructure, trust-root distribution a correctness identity policy.
 
-„Keyless“ neznamená bez cryptographic keys; znamená bez manuálne spravovaného long-lived signing keyu pre každého signera.
+## 9. OIDC identity pri signing-u
 
-## 12. OIDC identity
+OIDC token môže niesť claims o repository, workflow, branch, tag, event type alebo environment. Presné claims závisia od issuer-a a CI platformy.
 
-OIDC provider autentizuje workload alebo používateľa.
+Verification policy nemá dôverovať celému issuer-u. Napríklad dôvera v každý certificate vydaný pre GitHub Actions by umožnila podpísať artifact ľubovoľnému public repository workflowu.
 
-Verification policy má obmedziť:
+Policy má obmedziť najmenej:
 
-- issuer,
-- subject alebo certificate identity,
-- repository,
-- workflow,
-- branch/tag/environment,
-- organization,
-- event type,
-- audience podľa implementation.
+- expected OIDC issuer;
+- certificate subject alebo SAN identity;
+- organization a repository;
+- workflow definition alebo reusable workflow identity;
+- protected branch, tag alebo environment;
+- event type a audience, ak sú decision-relevant.
 
-Dôvera v celý issuer bez identity restriction je príliš široká.
+Regex identity rules musia byť anchored a testované proti attacker-controlled podobným menám. Pattern `.*trusted-repo.*` môže povoliť repository `trusted-repo-malicious`.
 
-## 13. Fulcio
+## 10. Fulcio, Rekor a transparency evidence
 
-V Sigstore public-good architecture Fulcio vydáva short-lived code-signing certificates pre overenú OIDC identity.
+Fulcio je Sigstore certificate authority, ktorá vydáva short-lived code-signing certificates po overení OIDC identity. Certificate obsahuje identity-relevant claims alebo extensions a viaže ich na ephemeral public key.
 
-Consumer dôveruje:
+Rekor je transparency log pre signed software supply-chain entries. Append-only log poskytuje inclusion evidence a umožňuje monitorovať, či sa pod určitou identity neobjavili neočakávané signatures.
 
-- Fulcio trust root,
-- OIDC issuer/identity claims,
-- certificate validity a extensions,
-- signed artifact binding.
+Transparency log nie je preventive authorization control. Nezabráni compromised, ale stále oprávnenému workflowu podpísať malicious artifact. Umožní však získať audit evidence a detegovať podpis pri správnom monitoringu.
 
-Certificate issuance nie je application authorization; policy určuje, ktoré identities smú podpisovať konkrétny artifact.
+Verification musí overiť certificate chain, identity claims, signature, subject a požadované transparency alebo timestamp evidence podľa použitého Sigstore profile-u.
 
-## 14. Rekor
+## 11. Verification bundle a offline verification
 
-Rekor je transparency log pre signed software supply-chain metadata.
+Moderný Sigstore bundle môže obsahovať signature, certificate, certificate-chain material a proof transparency-log inclusion. Bundle uchová evidence potrebnú na neskoršiu verification bez okamžitého query remote logu.
 
-Transparency poskytuje:
+Offline verification stále potrebuje trusted roots a policy. Bundle nie je self-authenticating; attacker by mohol vytvoriť vlastný certificate chain a log evidence, ak consumer nedôveruje správnym roots.
 
-- append-only evidence,
-- inclusion proof,
-- discoverability,
-- detection unexpected signing.
+Historical verification musí používať semantics času podpisu. Krátkodobý signing certificate bude pri neskoršej kontrole expirovaný, ale transparency/timestamp evidence môže preukázať, že signature vznikla počas validity. Consumer musí používať implementáciu, ktorá tento model správne podporuje.
 
-Transparency log nezabráni signerovi podpísať malicious artifact. Umožní však audit a odhalenie podľa monitoringu a policy.
+## 12. Trust roots a TUF
 
-## 15. Verification bundle
+Verification clients potrebujú trust roots pre certificate authority, transparency log, timestamp authority alebo self-managed public keys. Initial bootstrap týchto roots je samostatná security boundary.
 
-Moderný bundle môže uchovať:
+Sigstore tooling používa TUF metadata na bezpečnú distribúciu a rotation trust materialu. TUF používa role separation, expirations, versioning a threshold signatures na ochranu pred rollback, freeze a key-compromise scenarios.
 
-- signature,
-- signing certificate,
-- certificate chain,
-- transparency inclusion evidence,
-- timestamp-related material.
+Trust-root update nemá byť automatické stiahnutie neovereného súboru z rovnakého channelu ako artifact. Client musí validovať TUF chain alebo použiť organization-controlled root distribution.
 
-Bundle umožňuje neskoršiu alebo offline verification bez závislosti na okamžite dostupnom remote logu, ak trust roots a policy sú dostupné.
+Air-gapped environment potrebuje plán, ako pravidelne importovať aktualizované roots a ako reagovať na emergency revocation bez neobmedzeného internet accessu.
 
-## 16. Trust root
+## 13. Cryptographic verification oproti authorization policy
 
-Consumer potrebuje trusted roots pre:
+Cryptographic verification odpovedá, či signature sedí k payloadu a či certificate/key chainuje k trusted rootu. Authorization policy odpovedá, či konkrétna identity smela podpísať konkrétny artifact pre daný environment.
 
-- certificate authority,
-- transparency log,
-- timestamp service,
-- self-managed public keys,
-- TUF-distributed trust metadata.
+Príklad: certificate môže byť validný a identity môže patriť repository `example/demo`. Production policy však povoľuje iba protected workflow v `example/payments`. Výsledok musí byť deny, hoci cryptography je správna.
 
-Trust root bootstrap je mimo samotnej artifact signature. Musí byť distribuovaný a aktualizovaný bezpečným channelom.
-
-## 17. TUF pre trust metadata
-
-TUF môže distribuovať a rotovať trusted keys a metadata s:
-
-- root role,
-- targets,
-- snapshot,
-- timestamp,
-- threshold signatures,
-- expirations.
-
-Pomáha chrániť verification clients pred rollback a freeze útokmi pri trust-root updates.
-
-## 18. Identity policy
-
-Príklad policy intentu:
+Policy tiež môže vyžadovať viac evidence:
 
 ```text
-accept image iba ak:
-- signature je cryptographically valid,
-- OIDC issuer je approved,
-- signer identity patrí protected release workflowu,
-- subject digest sa zhoduje,
-- source repository je approved,
-- release event je protected,
-- required provenance a SBOM sú validné.
+valid signature
++ approved signer identity
++ expected OCI digest
++ SLSA provenance
++ SBOM attestation
++ žiadna active quarantine
+→ deployment allowed
 ```
 
-Regex musí byť anchored a presne testovaný. Príliš široká identity pattern môže povoliť attacker-controlled repository alebo branch.
+Tento decision patrí do [Policy as Code](policy-as-code.md) a má byť logovaný s policy revision.
 
-## 19. Signing v CI/CD
+## 14. Signing v CI/CD
 
-Signing job má:
+Production signing job má bežať iba v trusted release context-e. Untrusted pull-request code nesmie získať production signing identity.
 
-- bežať po trusted build verification,
-- používať protected environment,
-- mať short-lived identity,
-- podpisovať resolved digest,
-- nevykonávať untrusted build code,
-- mať minimálne registry permissions,
-- generovať audit evidence,
-- publikovať signature atomicky s release workflowom.
-
-## 20. Untrusted pull requests
-
-Pull-request workflow nesmie získať signing identity pre production namespace.
-
-Threat:
+Bezpečný flow oddeľuje untrusted build/test od protected release:
 
 ```text
-attacker-controlled source
-+ trusted signing permission
-→ validne podpísaný malicious artifact
+pull request
+→ build a tests bez production signing permissions
+→ merge do protected branch
+→ trusted rebuild alebo verified artifact promotion
+→ protected release approval
+→ short-lived signing identity
+→ signature a attestations
+→ immutable publication
 ```
 
-Policy musí viazať identity na trusted event, branch a environment, nie iba repository name.
+Ak release job spúšťa attacker-controlled scripts pred získaním identity, malicious code môže signing credential použiť na ľubovoľný digest. OIDC claim o trusted branch nepomôže, ak samotný workflow načíta a spustí nedôveryhodný content.
 
-## 21. Build a signing separation
+Signing permission má byť úzka: iba relevantný repository namespace, registry repository a signing purpose. Job nemá mať broad admin permission k registry ani policy roots.
 
-Oddelenie:
+## 15. Build a signing authority
 
-```text
-build job → vytvorí digest a provenance
-verification/release job → overí evidence
-signing job → podpíše approved digest
-```
+Build system vytvára artifact. Signing authority schvaľuje, že artifact spĺňa release policy. Tieto roly môžu byť v jednom pipeline-e, ale ich trust assumptions majú byť explicitné.
 
-Znižuje riziko, že arbitrary build step priamo použije signing authority.
+Ak builder automaticky podpisuje každý output bez nezávislých checks, signature iba dokazuje „tento builder vytvoril artifact“. To môže byť stále hodnotná provenance, ale nie nevyhnutne release approval.
 
-Separation nie je účinná, ak build môže meniť digest po approval.
+Organization môže používať viac signatures alebo attestations:
 
-## 22. Release approval
+- builder identity podpisuje provenance;
+- security scanner vydá scan attestation;
+- protected release workflow podpisuje release approval;
+- environment-specific authority schváli promotion.
 
-High-risk release môže vyžadovať:
+Verification policy potom presne určuje, ktoré evidence sú potrebné pre staging a ktoré pre production.
 
-- protected environment approval,
-- two-person review,
-- change ticket,
-- provenance verification,
-- vulnerability exception approval,
-- exact digest confirmation.
+## 16. Signature oproti attestation
 
-Human approval nemá byť click bez zobrazenia subject digestu a evidence.
+Signature je cryptographic envelope alebo statement viazaný na subject. **Attestation** je signed claim o subjecte, napríklad ako vznikol, aké dependencies obsahuje alebo aký scan absolvoval.
 
-## 23. Annotations a claims
+in-toto Attestation Framework používa Statement obsahujúci subject descriptors a predicate type. Predicate nesie domain-specific data, napríklad SLSA provenance alebo vulnerability scan result.
 
-Signed annotations môžu niesť:
+DSSE — Dead Simple Signing Envelope — podpisuje payload type a payload spôsobom, ktorý oddeľuje signature envelope od konkrétnej serialization semantics. Consumer musí overiť envelope aj schema predicate-u.
 
-- repository,
-- commit,
-- workflow,
-- release channel,
-- environment,
-- build ID.
+Validná attestation neznamená pravdivý claim. Dôvera závisí od identity attestor-a a procesu, ktorý evidence vytvoril.
 
-Nepoužívaj free-form annotation ako jediný authorization source, ak authoritative claims existujú v certificate alebo provenance.
+## 17. Provenance a SBOM attestations
 
-## 24. Signature vs attestation
+Provenance vysvetľuje, z akého source, build definitionu a builder contextu artifact vznikol. SBOM opisuje components a relationships v artifacte. Ide o rozdielne evidence types.
 
-```text
-signature   → signer schválil alebo podpísal subject/payload
-attestation → signer tvrdí konkrétny predicate o subjecte
-```
+Attestation musí byť viazaná na rovnaký immutable digest ako nasadzovaný image. SBOM pre tag alebo pre source tree nemožno automaticky považovať za inventory final runtime image-u.
 
-Príklady attestations:
+Policy môže vyžadovať:
 
-- SLSA provenance,
-- SBOM,
-- vulnerability scan,
-- test result,
-- policy verification summary.
+- provenance od approved builder identity;
+- source repository a revision z trusted namespace;
+- build parameters bez unsafe external inputs;
+- SBOM od approved generatora;
+- predicate schema a version, ktorú consumer podporuje.
 
-Signature a attestation môžu používať rovnaký cryptographic infrastructure, ale majú odlišnú semantics.
+Ak artifact promotion zmení image manifest, napríklad pridá metadata alebo repackage-ne layers, pôvodná attestation nemusí patriť novému digestu.
 
-## 25. in-toto Statement
+## 18. OCI artifacts, subject a Referrers API
 
-in-toto Statement model:
+OCI image manifest alebo index môže reprezentovať aj non-image artifacts. `artifactType` opisuje typ artifactu a `subject` descriptor vytvára väzbu na iný manifest digest.
 
-```json
-{
-  "_type": "...Statement...",
-  "subject": [{"name": "image", "digest": {"sha256": "..."}}],
-  "predicateType": "...",
-  "predicate": {}
-}
-```
-
-Consumer musí validovať:
-
-- statement schema,
-- subject digest,
-- predicate type,
-- signer identity,
-- predicate-specific policy.
-
-## 26. DSSE
-
-Dead Simple Signing Envelope oddeľuje payload type, payload bytes a signatures.
-
-DSSE chráni proti cross-protocol confusion cez pre-authentication encoding.
-
-Envelope nerieši dôveryhodnosť predicate ani authorization signer-a.
-
-## 27. Provenance attestation
-
-Provenance policy môže overovať:
-
-- approved builder identity,
-- build type,
-- source repository,
-- source revision,
-- invocation parameters,
-- dependencies,
-- completeness,
-- build environment properties.
-
-Artifact signature bez provenance nevysvetľuje, ako artifact vznikol.
-
-## 28. SBOM attestation
-
-SBOM attestation viaže SBOM predicate na image digest.
-
-Consumer overí:
-
-- signer,
-- subject,
-- format/schema,
-- primary component,
-- platform,
-- generation tool,
-- completeness policy.
-
-Podpísaná chybná SBOM zostáva chybná.
-
-## 29. OCI artifact storage
-
-Signatures a attestations možno uložiť v OCI registry ako related artifacts.
-
-OCI manifest môže používať:
-
-- `artifactType`,
-- `subject`,
-- descriptors,
-- annotations.
-
-Consumer potrebuje registry API alebo fallback mechanism na discovery related artifacts.
-
-## 30. OCI Referrers
-
-Referrers query vracia manifests, ktoré referencujú subject digest.
-
-Use cases:
+Signature, SBOM alebo provenance artifact môže mať `subject` ukazujúci na image digest. OCI Distribution Specification 1.1 definuje Referrers API, ktorým consumer získa related manifests pre daný subject a voliteľne ich filtruje podľa `artifactType`.
 
 ```text
 image digest
-← signature
-← SBOM
-← provenance
-← scan report
+├─ signature artifact
+├─ provenance attestation
+└─ SBOM artifact
 ```
 
-Registry support, retention a copy semantics musia byť otestované end to end.
+Referrers väzba je discoverability mechanism, nie trust decision. Attacker s registry write permission môže pridať vlastný referrer. Consumer musí každý related artifact cryptographically a semantically overiť.
 
-## 31. Tag-based fallback
+Registries bez Referrers API môžu používať fallback tag schema. Promotion tools musia zachovať related artifacts aj ich subject relationships.
 
-Staršie registries môžu ukladať signatures pod convention-based tags odvodenými z digestu.
+## 19. Registry promotion, replication a garbage collection
 
-Riziká:
+Build-once-promote-many znamená presúvať alebo replikovať ten istý content digest medzi environments bez rebuild-u. Signatures a attestations musia zostať dostupné v cieľovom registry.
 
-- tag mutability,
-- collisions/conventions,
-- garbage collection,
-- copy tools, ktoré tags neprenesú,
-- namespace pollution.
+Nie každý copy tool automaticky prenesie referrers. Ak sa skopíruje iba image manifest a layers, production verification nenájde signature alebo SBOM.
 
-Preferuj native OCI subject/referrers support, keď je interoperabilný v celom path-e.
+Garbage collection a retention policy musia rozumieť related artifacts. Odstránenie tagu nemá neúmyselne odstrániť signature potrebnú na historical audit, pokiaľ subject digest stále patrí k retained release-u.
 
-## 32. Registry garbage collection
+Replication môže meniť repository name, ale digest contentu zostáva rovnaký, ak sa manifest nemení. Identity policy musí rozhodnúť, či signature viazaná na source repository reference zostáva platná v destination namespace.
 
-Garbage collector môže odstrániť unattached alebo neviditeľné signature/attestation manifests.
+## 20. Digest pinning a deployment contract
 
-Testuj:
+Deployment manifest má používať image digest alebo admission controller musí tag resolve-nuť a uložiť verified digest deterministicky. Inak vzniká time-of-check/time-of-use gap.
 
-- push,
-- discovery,
-- replication,
-- retention,
-- garbage collection,
-- deletion subjectu,
-- restore.
+```yaml
+image: registry.example/payments@sha256:...
+```
 
-Evidence lifecycle musí byť aspoň taký dlhý ako artifact lifecycle a incident-retention požiadavky.
+Digest pinning zaručí content identity, nie dôveryhodnosť. Stále treba signature a policy. Naopak, signature verification nad tagom bez pinningu môže overiť jeden digest a runtime neskôr stiahnuť iný.
 
-## 33. Registry replication a mirror
+Rollout a rollback history majú uchovávať digests. „Rollback na tag `stable`“ nie je reproducible recovery, ak tag medzičasom ukazuje inde.
 
-Pri copy/mirror over:
+## 21. Admission verification
 
-- digest preservation,
-- platform indexes,
-- signatures,
-- attestations,
-- referrers,
-- media types,
-- annotations,
-- repository identity claims.
+Kubernetes admission alebo deployment controller môže fungovať ako PEP. Zachytí workload object, resolve-ne image reference, overí signature/attestations a aplikuje environment policy pred persistence alebo rolloutom.
 
-Niektoré signatures môžu viazať repository name alebo registry reference; promotion model musí rozumieť claim semantics.
+Ordering je dôležitý. Mutating component môže zmeniť image po skoršej verification. Final validation musí overiť digest, ktorý zostáva v stored objecte.
 
-## 34. Digest pinning
+Policy scope musí pokryť všetky image-bearing fields: init containers, ephemeral containers a custom workload CRDs, ak ich controller neskôr prekladá na Pods.
 
-Digest pinning zabezpečí, že workload pullne presné bytes.
+Admission neoveruje images spustené mimo Kubernetes ani už running workloads pri neskoršej revocation. Background audit a runtime inventory dopĺňajú request-time verification.
 
-Signing zabezpečí, že digest bol schválený dôveryhodnou identity.
+## 22. Failure semantics a availability
+
+Verification závisí od registry, trust roots, certificate/transparency evidence, policy data a niekedy external services. Každá dependency potrebuje timeout a failure behavior.
+
+Production admission môže fail-closed pri neznámej signature, ale outage verification service-u môže zablokovať všetky deployments vrátane incident recovery. Návrh potrebuje local cache, verification bundles, replicated roots alebo auditovaný break-glass.
+
+Cache musí byť viazaná na:
+
+- subject digest;
+- signer/trust policy revision;
+- required attestation set;
+- verification result time;
+- revocation alebo quarantine generation.
+
+Cached allow podľa tagu alebo repository name je unsafe. Po policy change alebo key compromise treba cache invalidovať.
+
+## 23. Key a identity rotation
+
+Key rotation pridá nový trusted key a postupne odstráni starý. Počas overlapu môže policy akceptovať oba keys, ale musí vedieť rozlíšiť new releases od historical signatures.
+
+Keyless identity rotation môže znamenať zmenu OIDC issuer claims, workflow path, repository rename alebo Fulcio trust roots. Identity patterny a tests sa musia aktualizovať koordinovane.
+
+Revocation signing keyu neznamená automaticky, že každý historical artifact je malicious. Organization potrebuje exposure interval a evidence o tom, ktoré signatures vznikli počas compromise window.
+
+Pre production možno zablokovať nové deployments affected artifacts, zatiaľ čo running workloads prejdú risk-based quarantine alebo controlled replacement.
+
+## 24. Artifact revocation a quarantine
+
+OCI signature standards typicky nevytvárajú univerzálne „unsign“ tlačidlo. Artifact content a historical signature môžu zostať immutable. Authorization policy musí pridať deny alebo quarantine state.
+
+Quarantine record má byť viazaný na digest a obsahovať reason, scope, owner, timestamp a recovery condition. Mutable tag removal nestačí, pretože digest možno stále pullnuť priamo.
+
+Enforcement points musia dostať quarantine update rýchlo. Revocation latency je čas medzi security decisionom a skutočným odmietnutím artifactu vo všetkých deployment paths.
+
+## 25. Compromised signing key alebo workflow
+
+Incident response začína zastavením ďalšieho signing-u a identifikáciou trust scope-u.
 
 ```text
-digest pinning → čo presne
-signature      → kto/čo to schválilo
-provenance     → ako to vzniklo
-policy         → či je to prijateľné
+zablokovať signing identity alebo key
+→ zachovať KMS/OIDC/CI/transparency evidence
+→ určiť compromise interval
+→ enumerovať signed digests v intervale
+→ zablokovať nové deployments alebo quarantine artifacts
+→ rotovať keys, trust roots alebo workflow identity
+→ opraviť source compromise a rebuildnúť artifacts
+→ overiť, že stará identity už nie je trusted
+→ pridať regression policy a monitoring
 ```
 
-Potrebné sú kombinovane.
+Ak bol compromised iba repository workflow, nie celý OIDC issuer, revocation má byť čo najpresnejšia. Global distrust issuer-u môže spôsobiť rozsiahly outage.
 
-## 35. Verification stages
+Re-signing rovnakého malicious digestu novým keyom problém nevyrieši. Artifact musí byť rebuildnutý z dôveryhodného source a builder pathu.
 
-Verification môže prebehnúť:
+## 26. Kompletný production flow
 
-- pri registry promotion,
-- v deployment pipeline,
-- admission controllerom,
-- node/runtime agentom,
-- periodickým inventory auditom.
+Príklad bezpečného release-u:
 
-Čím neskôr sa control uplatní, tým väčší je exposure window.
+1. Protected build workflow checkoutne immutable source revision.
+2. Isolated builder vytvorí multi-platform image a provenance.
+3. SBOM generator analyzuje final variants a vytvorí digest-bound SBOMs.
+4. Testy a security gates vyhodnotia release evidence.
+5. Protected release job získa short-lived OIDC identity a podpíše image index digest.
+6. Signature, provenance a SBOM artifacts sa publikujú cez OCI subject/referrers model.
+7. Promotion skopíruje image aj related artifacts do production registry bez rebuild-u.
+8. Deployment manifest používa index digest.
+9. Admission policy overí signer identity, issuer, subject, provenance builder a required SBOMs.
+10. Decision log zaznamená policy revision a evidence digests.
+11. Runtime inventory sleduje nasadené platform manifests a reaguje na quarantine.
 
-## 36. Admission policy
+Každá šípka má samostatnú trust boundary. Podpis na konci nemôže opraviť compromised source alebo builder; iba viaže release authority na konkrétny výsledok.
 
-Kubernetes admission control môže odmietnuť Pod, ak image:
+## 27. Troubleshooting verification
 
-- nie je digest-pinned,
-- nemá approved signature,
-- má nesprávneho issuer/signer-a,
-- nemá required provenance/SBOM,
-- pochádza z neapproved registry,
-- porušuje environment policy.
-
-Policy má fail behavior explicitne definovaný.
-
-## 37. Mutation a verification order
-
-Ak admission webhook prepíše tag na digest alebo registry mirror, verification musí používať final effective subject.
-
-Ordering problém:
+Postupuj od subject identity k policy:
 
 ```text
-verify original reference
-→ mutation zmení reference
-→ runtime pullne iný artifact
+resolved tag a digest
+→ index alebo platform manifest subject
+→ signature discovery
+→ signature payload
+→ certificate/public-key chain
+→ OIDC issuer a signer identity
+→ transparency/bundle evidence
+→ attestations a predicate schemas
+→ policy revision
+→ enforcement result
 ```
 
-Preferuj deterministic resolution a jasné admission ordering.
+Ak signature „neexistuje“, over Referrers API, fallback tag schema, repository namespace a promotion behavior. Ak cryptography je validná, ale policy deny, porovnaj exact identity claims, issuer, workflow path a subject digest.
 
-## 38. Policy as Code boundary
+Pri multi-arch probléme zisti, či signer podpísal index alebo iba jednu variantu a ktorý digest runtime vybral. Pri historical verification over trusted roots a časové evidence v bundle-i.
 
-Verification policy má byť:
+Pri admission timeout-e rozlíš registry latency, external Rekor/Fulcio dependency, policy engine outage a local cache. Nemeň fail-closed na global fail-open bez scope-u a incident evidence.
 
-- versionovaná,
-- reviewovaná,
-- testovaná positive/negative cases,
-- oddelená od artifact producer-a,
-- auditovaná,
-- rolloutovaná cez observe/enforce phases,
-- chránená proti bypassu.
+## 28. Časté anti-patterny
 
-Detailný policy-engine model patrí do nasledujúcej kapitoly Policy as Code.
+**Podpisovanie tagu bez digest contractu.** Tag sa po verification môže presunúť.
 
-## 39. Offline verification
+**Akceptovanie ľubovoľného validného certificate-u.** Cryptographic validity sa zamieňa za signer authorization.
 
-Offline alebo disconnected environment potrebuje:
+**Broad OIDC regex.** Attacker-controlled repository alebo branch spĺňa neukotvený pattern.
 
-- artifact,
-- signature/bundle,
-- trusted roots,
-- identity policy,
-- revocation/expiry semantics,
-- required attestations.
+**Production signing v pull-request jobe.** Untrusted code získa trusted signing identity.
 
-„Offline“ nesmie znamenať vypnutie transparency alebo certificate validation; potrebné evidence sa prenesú vopred.
+**Jeden shared long-lived key.** Compromise zasiahne všetky products a attribution je slabá.
 
-## 40. Verification cache
+**Copy image bez referrers.** Promotion stratí signature, SBOM alebo provenance.
 
-Cache môže znížiť latency a outage impact.
+**Admission verification bez digest pinningu.** Runtime môže pullnúť iný content než overený.
 
-Cache key musí obsahovať:
+**Transparency log ako preventive control.** Log poskytuje evidence, ale nezabráni oprávnenému signerovi podpísať zlý artifact.
 
-- subject digest,
-- signature/attestation digest,
-- policy version,
-- trust-root version,
-- verifier version,
-- decision time/expiry.
+**Re-signing bez rebuild-u.** Nový podpis nemení compromised content.
 
-Cache iba podľa image tagu je nebezpečná.
+## 29. Kontrolné otázky
 
-## 41. Availability a fail behavior
-
-Pri nedostupnom registry, transparency logu alebo identity metadata:
-
-- fail closed pre nové production artifacts,
-- použi validný bounded cache,
-- allow existing verified workloads,
-- degraded read-only operations,
-- explicit break-glass s expiry.
-
-Neobmedzený fail-open neguje verification.
-
-## 42. Certificate expiry
-
-Keyless certificate môže byť expired v čase neskoršej verification, ale signature môže zostať overiteľná, ak bundle a transparency/timestamp evidence dokazujú, že podpis vznikol počas platnosti.
-
-Consumer musí používať správny historical verification model, nie iba porovnať aktuálny čas s certificate expiry.
-
-## 43. Revocation
-
-Revocation môže znamenať:
-
-- revoke key/certificate authority,
-- odstrániť identity trust,
-- deny konkrétny digest,
-- deny repository/workflow,
-- quarantine artifact,
-- update policy.
-
-Transparency log entry sa nemaže; policy musí vedieť odmietnuť formerly valid signature.
-
-## 44. Key a identity rotation
-
-Rotation plán:
-
-```text
-pridať nový trust
-→ začať podpisovať novým identity/keyom
-→ overiť dual-trust obdobie
-→ zastaviť staré signing
-→ odstrániť starý trust
-→ zachovať historical verification evidence
-```
-
-Náhla removal môže zneplatniť recovery alebo verification starších releases.
-
-## 45. Compromised signing key
-
-Postup:
-
-```text
-disable/revoke key
-→ zastaviť release pipeline
-→ identifikovať všetky signatures keyu
-→ určiť compromise window
-→ mapovať artifacts a deployments
-→ quarantine neoverené digests
-→ obnoviť signing z trusted environment
-→ rotate trust policy
-→ vydať advisory
-→ monitorovať reuse
-```
-
-Re-signing compromised artifact novým keyom bez rebuild/forensics nie je remediation.
-
-## 46. Compromised OIDC workflow identity
-
-Over:
-
-- repository a workflow changes,
-- branch/environment rules,
-- reusable workflows,
-- token claims,
-- cloud/registry trust policies,
-- runner compromise,
-- issued certificates/signatures,
-- organization account takeover.
-
-Keyless model presúva lifecycle z private-key storage na identity a workload policy security.
-
-## 47. Artifact quarantine
-
-Quarantine môže:
-
-- zakázať promotion,
-- deny digest v admission policy,
-- odstrániť mutable tags,
-- obmedziť registry pull,
-- označiť artifact ako revoked,
-- alertovať owners,
-- zachovať forensic copy.
-
-Samotné delete môže poškodiť evidence a neodstrániť cached/running copies.
-
-## 48. Audit a telemetry
-
-Sleduj:
-
-- signing identity,
-- issuer,
-- repository/workflow/event claims,
-- subject digest,
-- signature and bundle location,
-- transparency inclusion,
-- policy version,
-- verification result a reason,
-- bypass/break-glass,
-- registry copy/delete,
-- trust-root rotation,
-- admission decision,
-- runtime digest.
-
-Neloguj private keys, OIDC tokens ani secret KMS material.
-
-## 49. Metrics
-
-Užitočné metrics:
-
-- signed production image coverage,
-- keyless/KMS signing coverage,
-- identity-policy precision,
-- digest-pinned deployment coverage,
-- required-attestation coverage,
-- verification failure reasons,
-- policy bypass count,
-- unsigned artifact age,
-- time to revoke compromised identity,
-- registry referrer retention success,
-- cached-decision age,
-- runtime image verification drift.
-
-## 50. Governance
-
-Definuj:
-
-- approved signing models,
-- signer identities a namespaces,
-- trust roots,
-- key lifecycle,
-- protected release workflows,
-- required attestations,
-- verification stages,
-- environment-specific policies,
-- break-glass,
-- revocation/quarantine,
-- historical verification retention,
-- registry compatibility baseline.
-
-## 51. Troubleshooting
-
-### `no matching signatures`
-
-Over subject digest, repository, signature discovery, referrers/fallback tag, media type a registry permissions.
-
-### Certificate identity mismatch
-
-Over exact OIDC issuer, subject claims, repository/workflow rename, reusable workflow identity a regex anchoring.
-
-### Signature valid, policy deny
-
-Cryptography je správna, ale signer, builder, source alebo environment nie je approved. Neobchádzaj policy cez „signature predsa platí“.
-
-### Signature zmizla po mirrorovaní
-
-Copy tool nepreniesol referrers alebo fallback tags. Porovnaj source/destination registry APIs a GC.
-
-### Admission timeout
-
-Over verifier availability, registry latency, trust metadata, cache a webhook failure policy. Nenastav trvalý `Ignore` bez risk decisionu.
-
-### Multi-arch workload zlyháva iba na arm64
-
-Over signature a attestations konkrétneho platform manifestu, nie iba indexu alebo amd64 variantu.
-
-## 52. Anti-patterny
-
-- verify tag namiesto resolved digestu,
-- jeden shared signing key pre celú organizáciu,
-- private key ako CI secret,
-- keyless trust na celý OIDC issuer,
-- untrusted PR s signing permission,
-- regex identity bez anchors,
-- signature bez subject match,
-- admission `fail-open` bez bounded cache,
-- registry copy bez attestations,
-- delete compromised artifact bez deny policy,
-- signature považovaná za vulnerability approval,
-- current certificate expiry použitá na odmietnutie historicky validného bundled podpisu bez správneho time modelu.
-
-## 53. Mini príklad
-
-```text
-source revision abc123
-→ protected build workflow
-→ image index digest sha256:index
-→ platform provenance + SBOM
-→ protected release workflow získa OIDC identity
-→ keyless podpis digestu
-→ signature/bundle + attestations v registry
-→ deployment resolves digest
-→ admission overí:
-   issuer
-   workflow identity
-   repository
-   subject digest
-   provenance builder/source
-   SBOM presence
-→ Pod admitted
-```
-
-Negative tests:
-
-- signature z fork repository je odmietnutá,
-- signature z pull-request workflowu je odmietnutá,
-- copied tag s iným digestom je odmietnutý,
-- image podpísaný approved identity, ale bez required provenance, je odmietnutý,
-- arm64 manifest bez evidence je odmietnutý,
-- revoked digest zostane odmietnutý aj s historicky validnou signature.
-
-## 54. Kontrolné otázky
-
-1. Čo image signature dokazuje a čo nedokazuje?
-2. Prečo je digest silnejšia identity než tag?
-3. Aký je rozdiel medzi image index a platform manifest?
-4. Ako funguje key-based a keyless signing?
-5. Akú úlohu majú OIDC, Fulcio a Rekor?
-6. Čo musí identity policy validovať?
-7. Prečo untrusted PR nesmie mať signing authority?
-8. Ako sa líši signature a attestation?
-9. Čo je in-toto Statement a DSSE?
-10. Ako OCI Referrers viažu evidence na image?
-11. Prečo registry copy môže stratiť signatures?
-12. Ako sa kombinuje digest pinning, signing a provenance?
-13. Ako navrhnúť fail behavior admission verification?
-14. Ako sa overuje historical keyless signature po expiry certificate?
-15. Ako reagovať na compromised signing identity?
+1. Čo presne signature dokazuje a ktoré security vlastnosti nedokazuje?
+2. Prečo je OCI tag nevhodný ako immutable signed subject?
+3. Aký je rozdiel medzi image index digestom a platform manifest digestom?
+4. Čo „keyless“ znamená a ktoré cryptographic keys stále existujú?
+5. Prečo dôvera v celý OIDC issuer nestačí?
+6. Aké roly majú Fulcio, Rekor a TUF trust metadata?
+7. Ako sa líši cryptographic verification od authorization policy?
+8. Prečo build provenance a release signature môžu pochádzať od rozdielnych identities?
+9. Čo je attestation a ako sa líši od obyčajnej signature?
+10. Ako OCI `subject` a Referrers API spájajú image so signatures a SBOMs?
+11. Ako zabrániš time-of-check/time-of-use problému pri deployment-e?
+12. Čo musí obsahovať verification cache key?
+13. Ako zablokuješ compromised digest, keď historical signature zostáva validná?
+14. Ako vyšetríš compromise signing workflowu bez global distrust všetkých artifacts?
+15. Navrhni end-to-end image verification pre multi-platform production release.
 
 ## Glossary impact
 
-Relevantné pojmy: image signing, signed subject, OCI image digest, image index, platform manifest, key-based signing, keyless signing, signing key lifecycle, Sigstore, Cosign, Fulcio, Rekor, transparency log, verification bundle, signing identity policy, trust root, DSSE, in-toto Statement, provenance attestation, SBOM attestation, OCI artifact, artifactType, OCI subject, OCI Referrers, signature discovery, admission verification, verification cache, artifact revocation a artifact quarantine.
+Relevantné pojmy: image signing, signed subject, OCI image digest, image index, image manifest, platform manifest, tag-to-digest resolution, key-based signing, signing-key lifecycle, keyless signing, signing identity, Fulcio, Rekor, transparency log, verification bundle, trust root, TUF trust metadata, identity policy, signing workflow, release authority, signature, attestation, in-toto Statement, DSSE, provenance attestation, SBOM attestation, OCI artifact, artifact type, OCI subject, OCI Referrers API, referrers tag schema, digest pinning, admission verification, verification cache, offline verification, artifact revocation, artifact quarantine a signing-key compromise.
 
 ## Primárne zdroje
 
-- [Sigstore Overview](https://docs.sigstore.dev/about/overview/)
-- [Cosign Signing Containers](https://docs.sigstore.dev/cosign/signing/signing_with_containers/)
-- [Cosign Verifying Signatures](https://docs.sigstore.dev/cosign/verifying/verify/)
-- [Cosign Signing Blobs and Bundles](https://docs.sigstore.dev/cosign/signing/signing_with_blobs/)
-- [Sigstore Security Model](https://docs.sigstore.dev/about/security/)
-- [in-toto Attestation Framework](https://github.com/in-toto/attestation)
-- [DSSE Protocol](https://github.com/secure-systems-lab/dsse)
-- [OCI Image Manifest Specification](https://specs.opencontainers.org/image-spec/manifest/)
-- [OCI Distribution Specification](https://specs.opencontainers.org/distribution-spec/)
-- [ORAS Attached Artifacts and Referrers](https://oras.land/docs/concepts/reftypes/)
-- [The Update Framework Specification](https://theupdateframework.github.io/specification/latest/)
-- [SLSA Provenance](https://slsa.dev/spec/v1.2/provenance)
+- [Sigstore security model](https://docs.sigstore.dev/about/security/)
+- [Cosign signing containers](https://docs.sigstore.dev/cosign/signing/signing_with_containers/)
+- [Cosign verifying signatures](https://docs.sigstore.dev/cosign/verifying/verify/)
+- [Cosign self-managed keys](https://docs.sigstore.dev/cosign/key_management/signing_with_self-managed_keys/)
+- [Sigstore custom components and trust roots](https://docs.sigstore.dev/cosign/system_config/custom_components/)
+- [Cosign attestations](https://docs.sigstore.dev/cosign/verifying/attestation/)
+- [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/main/manifest.md)
+- [OCI Image Index Specification](https://github.com/opencontainers/image-spec/blob/main/image-index.md)
+- [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec/blob/main/spec.md)
+- [in-toto Attestation Framework specifications](https://in-toto.io/docs/specs/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
