@@ -1,836 +1,799 @@
 # OAuth 2.0
 
-OAuth 2.0 je authorization framework, ktorý umožňuje client aplikácii získať obmedzený prístup k protected resource v mene resource ownera alebo vo vlastnom machine identity kontexte. OAuth neurčuje univerzálny login protocol ani formát používateľskej identity. Jeho hlavným výstupom je access token určený pre resource server.
+OAuth 2.0 je authorization framework, ktorým client získa obmedzený access k protected resource-u bez toho, aby resource owner odovzdal clientovi svoj primary credential. Authorization Server sprostredkuje grant, vydá access token s obmedzeným scope-om a audience a Resource Server token validuje pri každej API operation.
 
-## 1. Mentálny model
+OAuth nie je samostatný login protocol. Access token je credential pre API, nie štandardný dôkaz, že client autentizoval konkrétneho usera. Ak application potrebuje login a identity claims, používa OpenID Connect.
 
 ```text
 resource owner alebo workload
-→ client požiada authorization server o oprávnenie
-→ authorization server vydá obmedzený token
-→ client predloží access token resource serveru
-→ resource server overí token, audience, scope a policy
-→ vykoná alebo odmietne operáciu
+→ client požiada Authorization Server o delegovaný access
+→ Authorization Server autentizuje relevantných actors a vyhodnotí policy
+→ vydá authorization code alebo iný grant artifact
+→ client získa access token
+→ Resource Server overí token, audience, scope a local resource policy
+→ token expiry, refresh, revocation a audit uzatvárajú lifecycle
 ```
 
-OAuth oddeľuje:
+## 1. Problém delegovaného accessu
 
-- používateľské credentials od client aplikácie,
-- authorization decision od API enforcementu,
-- krátkodobý access token od dlhodobejšieho credential lifecycle-u,
-- client identity od resource-owner identity.
+Bez OAuth by third-party application často potrebovala user password k cieľovej službe. Tým by získala všetky privileges usera, mohla by credential ukladať a používateľ by nevedel odobrať iba jednej application access bez zmeny hesla všade.
 
-## 2. Role
+OAuth oddeľuje actors a capabilities:
 
-### Resource owner
+- client dostane token namiesto primary credentialu;
+- token môže mať obmedzený scope, resource a lifetime;
+- authorization možno revoke-nuť per client/grant;
+- Resource Server môže auditovať clienta aj subject;
+- Authorization Server centralizuje consent, policy a credential lifecycle.
 
-Entita, ktorá môže autorizovať prístup k protected resource.
+Delegation však stále vytvára trust. Malicious client môže zneužiť legitimate token v rámci granted scope-u. OAuth preto potrebuje least privilege, client governance a resource-level authorization.
 
-Často ide o používateľa, ale pri machine-to-machine flowe nemusí byť prítomný človek.
+## 2. Štyri základné role
 
-### Client
+**Resource Owner** je actor oprávnený rozhodnúť o access-e k resource-u. Pri user-facing flowe je to často End-User; pri machine flowe môže authorization vyplývať z administrative policy.
 
-Aplikácia, ktorá požaduje access token a používa ho voči resource serveru.
+**Client** je application žiadajúca access. Client nevlastní protected resource a používa access token voči Resource Serveru.
 
-Client môže byť:
+**Authorization Server — AS** autentizuje clienta a podľa grant type-u aj resource ownera, vyhodnotí authorization policy a vydáva tokens.
 
-- confidential — vie bezpečne chrániť vlastné credentials,
-- public — nedokáže spoľahlivo udržať client secret, napríklad browser alebo native aplikácia.
+**Resource Server — RS** hostuje protected API. Overuje token a rozhoduje, či request smie vykonať konkrétnu action na konkrétnom resource-e.
 
-### Authorization server
+Roly môžu byť implementované rovnakým produktom, ale security responsibilities ostávajú oddelené.
 
-Autentizuje relevantného principal-a, získava alebo vyhodnocuje authorization grant a vydáva tokens.
+## 3. Authorization Server nie je Resource Server
 
-### Resource server
+Authorization Server rozhoduje o vydaní tokenu a jeho broad capabilities. Resource Server pozná actual business objects, tenant ownership, transaction state a operation impact.
 
-API alebo služba, ktorá prijíma access token, validuje ho a presadzuje resource-level authorization.
+```text
+AS:
+  client X môže dostať scope orders.read pre Orders API
 
-Resource server nesmie považovať samotnú existenciu tokenu za dostatočný dôkaz prístupu.
+RS:
+  subject môže čítať iba orders svojho tenant-a
+  a iba records, na ktoré má local permission
+```
 
-## 3. Authorization endpoint a token endpoint
-
-### Authorization endpoint
-
-Používa user agent redirect flow.
-
-Typicky rieši:
-
-- authentication používateľa,
-- consent alebo policy decision,
-- redirect späť ku clientovi,
-- vydanie authorization code-u.
-
-### Token endpoint
-
-Server-to-server endpoint, ktorý vymieňa grant alebo refresh token za access token.
-
-Token endpoint typicky vyžaduje:
-
-- client authentication, ak je client confidential,
-- validáciu grant type-u,
-- redirect URI binding,
-- PKCE verifier,
-- scope a policy evaluation.
+Scope preto nie je kompletná business authorization. Resource Server musí vykonať object/tenant/action checks aj pri validnom token-e.
 
 ## 4. Authorization grant
 
-Authorization grant je credential reprezentujúci authorization udelenú clientovi.
+Authorization grant je credential alebo protocol result reprezentujúci authorization udelenú resource ownerom alebo policy. Client ho vymení za access token.
 
-Nie je totožný s access tokenom.
+Najčastejšie grant types:
 
-Príklady:
+- Authorization Code — user-interactive browser flow;
+- Client Credentials — client/workload koná vo vlastnom mene;
+- Device Authorization — zariadenie bez vhodného browser/inputu;
+- Refresh Token — pokračovanie už udeleného grant lifecycle-u;
+- Token Exchange — výmena identity/delegation contextu pre downstream resource.
 
-- authorization code,
-- refresh token,
-- device code,
-- client credentials context,
-- token-exchange subject token podľa extension protocolu.
-
-Grant musí byť:
-
-- viazaný na správneho clienta,
-- krátkodobý alebo revoke-nuteľný,
-- chránený pred replay,
-- obmedzený scope-om a audience,
-- auditovateľný.
+Grant type určuje actors, authentication a threat model. Nie je to iba parameter, ktorý možno ľubovoľne zameniť.
 
 ## 5. Authorization Code flow
 
-Odporúčaný browser-based model:
+Authorization Code flow oddeľuje browser authorization interaction od token issuance.
 
 ```text
-client
-→ redirect na authorization endpoint
-→ používateľ sa autentizuje a autorizuje
-→ authorization server vráti authorization code
-→ client vymení code na token endpoint-e
-→ dostane access token a voliteľne refresh token
+1. client vytvorí authorization transaction
+2. browser ide na authorization endpoint
+3. AS autentizuje usera a vyhodnotí consent/policy
+4. AS vráti short-lived one-time code cez redirect
+5. client backend/token component vymení code na token endpoint-e
+6. AS overí code binding, PKCE a client authentication
+7. vydá access token a optional refresh token
 ```
 
-Authorization code:
+Browser nevidí access token v authorization response. Code sám nie je API credential a má byť krátkodobý, single-use a viazaný na client, redirect URI a PKCE transaction.
 
-- má byť krátkodobý,
-- jednorazový,
-- viazaný na clienta,
-- viazaný na redirect URI,
-- chránený PKCE.
+## 6. Authorization request
 
-Access token sa nemá vracať priamo cez browser URL, ak sa tomu dá vyhnúť.
+Client posiela na authorization endpoint typicky:
 
-## 6. PKCE
+- `response_type=code`;
+- `client_id`;
+- exact `redirect_uri`;
+- requested `scope`;
+- `state`;
+- PKCE `code_challenge` a `code_challenge_method=S256`;
+- optional `resource` indicators;
+- OIDC parameters ako `nonce`, ak ide o OpenID Connect.
 
-Proof Key for Code Exchange chráni authorization code pred odcudzením a injection útokmi.
+Client uloží transaction context: expected issuer, state, PKCE verifier, redirect URI, requested resources/scopes a return destination. Authorization response sa nesmie spracovať bez nájdenia tejto pending transaction.
 
-Flow:
+## 7. Redirect URI ako security boundary
+
+Redirect URI je endpoint, kam AS pošle authorization response. Ak attacker presmeruje code na svoj endpoint, môže sa pokúsiť grant ukradnúť alebo injectnúť.
+
+RFC 9700 vyžaduje exact string matching registered redirect URI, s úzkou výnimkou variable localhost portu pre native loopback redirects. Wildcards, prefix matching a arbitrary subdomains zväčšujú attack surface.
+
+Client redirect endpoint nesmie byť open redirector. Return URL aplikácie sa uloží server-side alebo allowlistuje; nesmie ovplyvniť OAuth redirect URI validation.
+
+## 8. `state`
+
+`state` viaže callback na client browser transaction a chráni pred CSRF/response injection.
 
 ```text
-client vytvorí náhodný code_verifier
-→ odvodí code_challenge
-→ pošle challenge v authorization requeste
-→ authorization server uloží binding
-→ client pri token exchange pošle verifier
-→ server overí, že verifier zodpovedá challenge
+client vygeneruje random state
+→ uloží ho spolu s transaction contextom
+→ callback musí obsahovať exact value
+→ state sa po použití atomicky zneplatní
 ```
 
-Používaj:
+State nemá byť predictable ani iba plaintext destination URL. Pri parallel authorization flows potrebuje každá transaction vlastnú value.
 
-- transaction-specific náhodný verifier,
-- `S256` challenge method,
-- PKCE pre public clients povinne,
-- PKCE aj pre confidential clients ako defense in depth.
+OIDC nonce a PKCE chránia iné edges; state zostáva dôležitý pre client transaction integrity.
 
-PKCE nenahrádza:
+## 9. PKCE
 
-- exact redirect URI validation,
-- `state`/transaction binding,
-- client authentication confidential clienta,
-- ID Token `nonce` pri OpenID Connect.
+Proof Key for Code Exchange — PKCE — chráni authorization code pred interception a injection.
 
-## 7. Redirect URI
-
-Redirect URI je kritická security boundary.
-
-Požiadavky:
-
-- pre-registration,
-- exact string matching okrem štandardom definovaných native-loopback výnimiek,
-- HTTPS pre web clients,
-- žiadny open redirector,
-- oddelenie development a production URI,
-- žiadne wildcardy bez veľmi presného threat modelu.
-
-Chybná redirect URI validácia umožňuje ukradnúť authorization code alebo token.
-
-## 8. State a transaction binding
-
-`state` pomáha viazať authorization response na pôvodnú client transaction a chrániť pred CSRF a response confusion.
-
-Musí byť:
-
-- náhodný,
-- nepredvídateľný,
-- session-bound,
-- jednorazový,
-- validovaný pred použitím response.
-
-Do `state` nevkladaj citlivé údaje v plaintext-e.
-
-Pri OpenID Connect sa navyše používa `nonce` na binding ID Token-u k authentication requestu.
-
-## 9. Access token
-
-Access token reprezentuje oprávnenie volať resource server.
-
-Môže byť:
-
-- opaque reference token,
-- structured token, často JWT,
-- sender-constrained token.
-
-Resource server musí overiť minimálne:
-
-- issuer alebo dôveryhodný introspection endpoint,
-- audience/resource binding,
-- expiration a časové claims,
-- signature alebo introspection status,
-- scope/permissions,
-- token type,
-- sender binding, ak sa používa,
-- application authorization policy.
-
-Access token nie je určený client aplikácii ako používateľský profil.
-
-## 10. Bearer token
-
-Bearer token môže použiť každý, kto ho získa.
-
-Preto vyžaduje:
-
-- TLS end to end,
-- krátku lifetime,
-- bezpečné storage,
-- žiadne logovanie,
-- žiadne URL query parameters,
-- audience restriction,
-- scope restriction,
-- incidentný revocation model.
-
-Bearer token leakage je ekvivalent credential compromise počas jeho platnosti.
-
-## 11. Sender-constrained token
-
-Sender-constrained token vyžaduje, aby client preukázal vlastníctvo konkrétneho key materialu.
-
-Príklady:
-
-- mutual TLS-bound access token,
-- DPoP.
-
-Výhoda:
-
-- ukradnutý token nestačí bez príslušného private key alebo proofu.
-
-Zostávajúce riziká:
-
-- compromised client runtime,
-- stolen private key,
-- nesprávna nonce/replay validácia,
-- proxy, ktorý odstráni sender-binding context,
-- resource server, ktorý binding neoveruje.
-
-## 12. Scope
-
-Scope je client-requested a server-approved obmedzenie oprávnení.
-
-Dobré scopes sú:
-
-- stabilné,
-- zrozumiteľné,
-- viazané na API capability,
-- dostatočne jemné pre least privilege,
-- nie extrémne granularizované na každý resource instance.
-
-Príklady:
+Client vytvorí high-entropy `code_verifier` a pošle jeho SHA-256 transformáciu ako `code_challenge`. Token endpoint vydá token iba ak predložený verifier zodpovedá challenge uloženému pri code-e.
 
 ```text
-orders.read
-orders.write
-payments.refund
+code_challenge = BASE64URL(SHA256(code_verifier))
 ```
 
-Scope nie je kompletná authorization policy. Resource server stále môže vyhodnocovať:
+RFC 9700 vyžaduje PKCE pre public clients a Authorization Server ho musí podporovať. Odporúča sa aj confidential clients ako defense in depth a protection proti code injection. Používaj `S256`, nie `plain`, ak nejde o legacy interoperability.
 
-- resource ownership,
-- tenant,
-- account status,
-- transaction amount,
-- environment,
-- ABAC/RBAC pravidlá.
+## 10. PKCE downgrade protection
 
-## 13. Audience a resource indicators
+Ak authorization request obsahoval challenge, token request musí obsahovať matching verifier. AS nesmie akceptovať token exchange bez verifiera.
 
-Audience určuje, pre ktorý resource server je token určený.
+Ak token request pošle verifier, ale original transaction challenge nemala, AS ho nesmie považovať za PKCE-protected. Inak attacker odstráni challenge z front-channel requestu a neskôr obíde kontrolu.
 
-Bez správnej audience restriction môže token vydaný pre jedno API prijať iné API.
+Client má publikované AS metadata použiť na overenie supportu `S256`, ale trustuje iba metadata z expected issuer bootstrapu.
 
-Resource server musí odmietnuť token:
+## 11. Authorization code properties
 
-- s nesprávnym `aud`,
-- bez očakávaného resource bindingu,
-- z nedôveryhodného issuera,
-- určený pre iné environment alebo tenant boundary.
+Code má byť:
 
-Scope a audience riešia odlišné otázky:
+- random a neuhádnuteľný;
+- krátkodobý;
+- single-use;
+- viazaný na client ID;
+- viazaný na exact redirect URI, keď je súčasť requestu;
+- viazaný na PKCE challenge;
+- viazaný na issuer/authorization transaction;
+- nepoužiteľný priamo na Resource Serveri.
+
+Opakovaný token exchange musí zlyhať a môže signalizovať interception alebo retry race. Client nemá pri `invalid_grant` slepo opakovať rovnaký code.
+
+## 12. Token endpoint
+
+Token endpoint je direct client-to-AS channel chránený TLS. Browser ho bežne nevolá za confidential web clienta.
+
+Pri code exchange AS overí:
+
+- grant type a code state;
+- client binding;
+- redirect URI binding;
+- PKCE verifier;
+- client authentication, ak je required;
+- issuer/tenant context;
+- replay a expiry.
+
+Token response obsahuje access token, token type, expiry, granted scope a optional refresh token. Neloguj response body ani request secrets.
+
+## 13. Public a confidential clients
+
+**Confidential client** dokáže chrániť client credentials, napríklad backend service s private keyom alebo secretom v controlled server environment-e.
+
+**Public client** nedokáže spoľahlivo chrániť distributed credential. SPA, mobile app a desktop binary možno inspectovať alebo modifikovať.
+
+Client ID nie je secret. Embedded mobile/SPA client secret nemá authentication value, pretože každý inštalovaný client ho môže extrahovať.
+
+Client type ovplyvňuje token endpoint authentication, PKCE a token storage, nie automaticky trustworthiness business code-u.
+
+## 14. Client authentication
+
+Confidential client sa autentizuje na token/introspection/revocation endpoints podľa registered method.
+
+Metódy môžu zahŕňať:
+
+- HTTP Basic s client secretom;
+- POST client secret, ak interoperabilita vyžaduje;
+- signed JWT assertion s shared secretom;
+- `private_key_jwt`;
+- mutual TLS;
+- workload identity/federated assertion podľa platform profile-u.
+
+`private_key_jwt` assertion potrebuje issuer/subject client ID, token-endpoint audience, short expiry, unique `jti` a signature trusted registered keyom. Client authentication neznamená resource-owner authorization; iba preukazuje client identity.
+
+## 15. Access token
+
+Access token je credential pre Resource Server. Reprezentuje authorization grant a môže niesť subject, client, audience, scopes a ďalší context.
+
+Token má byť:
+
+- určený presnému resource-u alebo audience;
+- obmedzený scopes/actions;
+- krátkodobý podľa risku;
+- prenášaný iba cez TLS;
+- chránený pred URL/log/cache leakage;
+- validovaný Resource Serverom;
+- podľa potreby sender-constrained.
+
+Client nemá token parsovať ako stabilný business API, ak formát nie je súčasť explicitného contractu. Opaque token je pre clienta iba string.
+
+## 16. Bearer token
+
+Bearer token môže použiť každý, kto ho drží. Resource Server nevie z tokenu samotného odlíšiť legitímneho clienta od thief-a.
+
+Preto bearer model vyžaduje secure storage, TLS, no-logging, short lifetime, audience restriction a minimal scope. Token v URL môže uniknúť cez browser history, referrer, proxy logs a analytics.
+
+Bearer token je jednoduchý a interoperabilný, ale high-value use case môže potrebovať proof-of-possession mechanizmus.
+
+## 17. Scope
+
+Scope je client-visible authorization dimension, často reprezentovaná space-delimited strings ako `orders.read` alebo `payments.create`.
+
+Scope semantics definuje Authorization Server a Resource Server contract. `read` bez resource namespace-u môže byť ambiguous. Scope má predstavovať capabilities, nie internú implementation role bez stability.
+
+Granted scope môže byť užší než requested. Client používa token response, nie original request, ako source granted scope-u.
+
+Scope neoveruje object ownership, transaction limits, tenant ani current business state. Tie zostávajú Resource Server policy.
+
+## 18. Audience a resource indicators
+
+Audience určuje Resource Server, pre ktorý je token určený. Resource indicator parameter podľa RFC 8707 umožňuje clientovi explicitne požiadať token pre konkrétny protected resource.
 
 ```text
-audience → kde možno token použiť
-scope    → čo možno vykonať
+client potrebuje Orders API a Payments API
+→ žiada oddelené audience-restricted tokens
+→ compromise Orders tokenu neotvorí Payments API
 ```
 
-## 14. Refresh token
+Jeden broad token pre všetky internal APIs vytvára confused-deputy risk a veľký blast radius. Resource Server musí odmietnuť token, ktorý nebol vydaný preň, aj keď issuer a signature sú validné.
 
-Refresh token umožňuje získať nový access token bez opakovanej user interaction.
+## 19. Resource Server validation
 
-Je spravidla citlivejší než access token, pretože:
+Resource Server vykoná dve vrstvy:
 
-- má dlhšiu lifetime,
-- môže vydávať viac access tokens,
-- kompromitácia môže prežiť krátku access-token expiráciu.
+1. **Token validation** — token je active, trusted issuer, expected audience, non-expired a správne sender-bound.
+2. **Authorization** — scope/claims a local state povoľujú requested action na exact resource-e.
 
-Controls:
+Pre JWT access token typicky overuje signature, `iss`, `aud`, `exp`, `iat`, client/subject claims a profile-specific fields. Pre opaque token používa introspection alebo AS-supported validation.
 
-- rotation,
-- reuse detection,
-- client binding,
-- sender constraint, ak je dostupná,
-- inactivity a absolute expiration,
-- revocation pri logout/credential compromise,
-- bezpečné storage,
-- minimálny scope.
+RS nesmie trustovať identity header od gateway, kým nevie, že direct access je blokovaný a header inbound od clienta odstránený.
 
-Public clients musia používať refresh-token rotation alebo sender-constrained refresh tokens podľa security modelu authorization servera.
+## 20. `401` oproti `403`
 
-## 15. Refresh-token rotation
+`401 Unauthorized` v HTTP semantics typicky znamená chýbajúci, invalidný, expired alebo neakceptovateľný authentication credential pre Resource Server. Response môže obsahovať `WWW-Authenticate` s bounded error information.
 
-Pri každom použití sa vydá nový refresh token a starý sa stane neplatným.
+`403 Forbidden` znamená, že credential môže byť validný, ale current principal/client nemá permission na operation/resource.
 
 ```text
-RT1 → access token + RT2
-RT2 → access token + RT3
+invalid audience alebo expired token → 401
+valid token, chýba payments.approve → 403
+valid scope, ale order patrí inému tenantovi → 403
 ```
 
-Ak sa po použití RT1 objaví ďalší request s RT1, server môže detegovať reuse a revoke-nuť token family.
+Neodhaľuj sensitive resource existence viac, než application policy dovoľuje.
 
-Riziká:
+## 21. Opaque access token
 
-- race conditions medzi súbežnými refreshmi,
-- client, ktorý neuloží nový token atomicky,
-- nejasný recovery model,
-- distributed authorization-server consistency.
-
-## 16. Client authentication
-
-Confidential client sa autentizuje voči token endpointu.
-
-Možnosti:
-
-- client secret,
-- `private_key_jwt`,
-- mutual TLS,
-- ďalšie štandardizované metódy.
-
-Preferuj asymmetric authentication, keď je praktická:
-
-- authorization server nemusí držať rovnaký symmetric secret,
-- jednoduchšia key rotation boundary,
-- menší dopad server-side credential leakage.
-
-Client secret zabudovaný v browseri, mobile aplikácii alebo distribuovanom binary nie je dôveryhodný secret.
-
-## 17. Client Credentials grant
-
-Používa sa pre machine-to-machine access, kde client koná vo vlastnom mene.
-
-```text
-workload identity
-→ client authentication
-→ token endpoint
-→ access token pre API
-```
-
-Nejde o používateľskú delegation.
-
-Controls:
-
-- workload-specific client identity,
-- krátkodobé credentials alebo federation,
-- úzky scope/audience,
-- environment isolation,
-- rotation,
-- audit podľa workload instance/session,
-- zákaz shared client credentials medzi viacerými tímami.
-
-## 18. Device Authorization flow
-
-Vhodný pre zariadenia bez pohodlného browser inputu.
-
-Model:
-
-```text
-device získa device code a user code
-→ používateľ otvorí verification URI na inom zariadení
-→ autentizuje sa a autorizuje
-→ device polluje token endpoint
-→ po schválení dostane token
-```
-
-Controls:
-
-- dostatočne náhodný user code,
-- obmedzená lifetime,
-- správny polling interval,
-- rate limiting,
-- jasné zobrazenie clienta a požadovaného accessu,
-- ochrana proti phishingu a code substitution.
-
-## 19. Deprecated alebo neodporúčané patterns
-
-### Implicit grant
-
-Access token sa vracia cez browser redirect. Moderné security odporúčania preferujú Authorization Code flow, aby token nebol vystavený v browser URL a aby bolo možné použiť PKCE a ďalšie controls.
-
-### Resource Owner Password Credentials
-
-Client priamo zbiera user password a vymieňa ho za token.
-
-Tento model:
-
-- ruší separation medzi clientom a credentials,
-- komplikuje MFA a federation,
-- podporuje password reuse,
-- nemá byť používaný v nových systémoch.
-
-### Wildcard redirect URIs
-
-Zväčšujú attack surface a umožňujú code leakage.
-
-### Long-lived broad bearer tokens
-
-Zvyšujú blast radius compromise.
-
-## 20. Token format: opaque oproti JWT
-
-### Opaque token
-
-Resource server používa introspection alebo lokálnu reference cache.
+Opaque token nemá clientom interpretovateľný self-contained format. Resource Server ho overí introspection endpointom alebo local authoritative lookupom/cache.
 
 Výhody:
 
-- okamžitejšia central revocation,
-- claims nie sú vystavené clientovi,
-- authorization server kontroluje aktuálny stav.
+- AS môže centralizovať current active state;
+- token claims nie sú viditeľné clientovi;
+- revocation môže byť rýchlejšia;
+- format sa môže meniť bez client coupling-u.
 
 Nevýhody:
 
-- runtime dependency na introspection,
-- latency a availability,
-- cache consistency.
+- runtime dependency a latency;
+- introspection capacity a outage risk;
+- cache staleness;
+- shared token lookup infrastructure.
 
-### JWT access token
+Opaque neznamená „encrypted JWT“ automaticky. Je to contract, že consumer ho neinterpretuje lokálne.
 
-Resource server validuje token lokálne.
+## 22. JWT access token
 
-Výhody:
+JWT access token profile podľa RFC 9068 definuje interoperabilnejší signed token pre Resource Servers. Môže obsahovať issuer, subject, audience, expiry, client ID a scopes.
 
-- nižšia runtime dependency na authorization server,
-- škálovateľnosť,
-- explicitné claims.
+Výhody sú local validation a nižšia per-request dependency na AS. Nevýhody sú revocation latency, JWKS cache, claim exposure a risk nesprávnej validation.
 
-Nevýhody:
+JWT je signed, nie automaticky encrypted. Client alebo holder môže claims čítať. Do tokenu nevkladaj unnecessary sensitive data.
 
-- revocation je ťažšia,
-- stale authorization do expirácie,
-- key rotation/JWKS cache failures,
-- claim leakage,
-- chybná algorithm/issuer/audience validácia.
+Resource Server má explicitný algorithm/key/issuer/audience allowlist. Base64 decode bez signature a semantic validation je security vulnerability.
 
-JWT nie je automaticky bezpečnejší než opaque token.
+## 23. Token introspection
 
-## 21. Token introspection
+RFC 7662 introspection umožňuje authorized Resource Serveru zistiť, či token je active a získať metadata.
 
-Introspection endpoint umožňuje resource serveru zistiť, či je token aktívny a aké metadata sa naň viažu.
+RS musí:
 
-Resource server musí:
+- autentizovať sa voči endpointu;
+- chrániť token aj response cez TLS;
+- vyhodnotiť `active` a required audience/scope/subject metadata;
+- definovať bounded cache TTL;
+- rozlíšiť inactive token od endpoint outage-u;
+- fail behavior prispôsobiť operation risku;
+- monitorovať latency a availability.
 
-- autentizovať sa voči introspection endpointu,
-- chrániť response,
-- validovať `active`, audience a scope,
-- definovať cache TTL,
-- správať sa bezpečne pri timeout-e,
-- monitorovať dependency availability.
+Fail-open pri introspection timeout-e môže povoliť revoked alebo attacker token. Fail-closed môže spôsobiť API outage. Local cache a short degraded window musia byť explicitné.
 
-Fail-open pri nefunkčnej introspection službe môže porušiť authorization.
+## 24. Access-token lifetime
 
-## 22. Token revocation
+Krátka lifetime obmedzuje replay window a stale authorization. Príliš krátka lifetime zvyšuje token issuance load a failure coupling.
 
-Revocation endpoint umožňuje clientovi alebo operátorovi zneplatniť token alebo grant.
+Lifetime závisí od:
 
-Revocation model musí určiť:
+- bearer vs sender-constrained modelu;
+- audience a privileges;
+- client storage risku;
+- Resource Server revocation capability;
+- transaction duration;
+- offline/background use;
+- incident response requirements.
 
-- access token vs refresh token,
-- token family,
-- propagáciu do distributed resource servers,
-- cache invalidation,
-- logout semantics,
-- incident response,
-- audit.
+Long-running operation môže autorizovať start tokenom a následne spracovanie dokončiť pod durable job identity, nie držať broad bearer token hodiny.
 
-JWT access token môže zostať technicky validný do expirácie, pokiaľ resource server nepoužíva denylist, introspection alebo veľmi krátku lifetime.
+## 25. Refresh token
 
-## 23. Authorization Server Metadata
+Refresh token je credential pre Authorization Server, nie Resource Server. Client ho použije na získanie nového access tokenu bez opakovania full authorization interaction.
 
-Metadata discovery znižuje configuration drift.
+Je často hodnotnejší než access token, pretože predlžuje grant a môže vydávať nové tokens. Potrebuje secure storage, client binding, scope/audience controls, expiry, revocation a compromise detection.
 
-Môže publikovať:
+Refresh token issuance má zodpovedať client type-u a use case-u. Public/browser clients potrebujú obzvlášť silný model; RFC 9700 vyžaduje pre public clients refresh-token rotation alebo sender-constrained refresh tokens.
 
-- authorization endpoint,
-- token endpoint,
-- issuer,
-- JWKS URI,
-- supported grants,
-- PKCE methods,
-- token endpoint authentication methods,
-- revocation/introspection endpoints.
+## 26. Refresh-token rotation
 
-Client musí metadata načítať z dôveryhodného issuer location a validovať issuer identity.
+Pri rotation každý úspešný refresh vráti nový refresh token a starý zneplatní.
 
-Dynamic discovery bez trust policy môže viesť na attacker-controlled endpoints.
+```text
+RT1 → refresh → AT2 + RT2
+RT1 je invalid
+RT2 → refresh → AT3 + RT3
+```
 
-## 24. Key management
+Server uchová token family a lineage. Ak sa starý token neskôr objaví, legitímny client a attacker pravdepodobne držia kópiu tej istej family.
 
-Authorization server používa cryptographic keys na signing alebo client authentication.
+Rotation znižuje reusable lifetime, ale potrebuje atomicity a retry handling. Client, ktorý stratí response s RT2 a retry-ne RT1, môže spustiť reuse detection; implementation musí mať jasné idempotency/family semantics.
 
-Potrebné controls:
+## 27. Refresh-token reuse detection
 
-- oddelenie signing a encryption keys,
-- stable key IDs,
-- JWKS publication,
-- overlap počas rotation,
-- cache refresh,
-- emergency revocation,
-- HSM/KMS podľa risku,
-- audit key lifecycle-u,
-- zákaz weak alebo unexpected algorithms.
+Pri použití už rotated tokenu AS identifikuje compromise alebo race. Bez spoľahlivého rozlíšenia, kto je attacker, bezpečný response typicky revoke-ne active family/grant a vyžaduje reauthorization.
 
-Resource server nesmie automaticky akceptovať algorithm určený neovereným token headerom bez vlastnej allowlist policy.
+Audit zachytí client, subject, family identifier, token generation, source/device context a timestamp bez raw tokenu.
 
-## 25. Consent
+Reuse detection nie je useful, ak server udržiava staré refresh tokens validné počas neobmedzeného overlapu.
 
-Consent je user-facing authorization interaction, nie náhrada server-side policy.
+## 28. Token revocation
 
-Dobrý consent:
+RFC 7009 definuje revocation endpoint, kde client požiada o invalidation tokenu. Server môže revoke-nuť token aj related grant podľa policy.
 
-- identifikuje clienta,
-- uvádza požadované capabilities,
-- odlišuje povinný a voliteľný access,
-- nezahlcuje technickými scope názvami,
-- umožňuje revocation,
-- rešpektuje organization policy.
+Revocation semantics musia určiť:
 
-Pri first-party enterprise aplikácii môže authorization vychádzať z administratívnej policy bez individuálneho consentu.
+- refresh token a family;
+- access token behavior;
+- distributed JWT propagation;
+- introspection/cache invalidation;
+- local application sessions;
+- downstream exchanged tokens;
+- audit a incident workflow.
 
-## 26. Multi-tenant model
+Self-contained JWT môže zostať cryptographically validný do expiry. Resource Server potrebuje short lifetime, denylist/status/introspection mechanismus alebo acceptable residual window.
 
-Explicitne definuj:
+## 29. Consent a administrative authorization
 
-- issuer per tenant alebo shared issuer,
-- tenant claim a validation,
-- client registration boundary,
-- redirect URI ownership,
-- admin consent,
-- cross-tenant access,
-- token audience,
-- audit ownera.
+Consent je user-facing authorization decision. Má používateľovi zrozumiteľne ukázať clienta, requested capabilities, data a duration.
 
-Resource server nesmie veriť tenant claimu bez overenia issuera a authorization contextu.
+Scope string `contacts.read` môže byť pre engineer-a jasný, ale UI má vysvetliť praktický access. Consent fatigue a bundled broad scope znižujú meaningful choice.
 
-## 27. Browser applications a BFF
+Enterprise first-party application môže používať administrative authorization bez individual consentu. To nemení potrebu least privilege, audit a revocation.
 
-Browser-based applications nevedia spoľahlivo chrániť long-lived secrets.
+Consent nie je Resource Server policy. User nemôže consentom obísť organization restriction alebo získať access k cudziemu tenantovi.
 
-Patterns:
+## 30. Client registration
 
-- Authorization Code + PKCE priamo v browseri,
-- Backend for Frontend, ktorý drží tokens server-side a browseru vydáva chránenú session cookie.
+Client registration vytvára trust contract:
 
-BFF môže znížiť token exposure v browser runtime, ale pridáva:
+- client ID a type;
+- redirect URIs;
+- allowed grant/response types;
+- token endpoint authentication method;
+- public keys/JWKS;
+- allowed scopes/resources;
+- tenant/environment owner;
+- logout/revocation metadata podľa profile-u;
+- lifecycle a secret/key rotation.
 
-- session a CSRF security,
-- backend availability,
-- cookie configuration,
-- proxy authorization boundary.
+Redirect URI ownership a client metadata changes sú high-impact. Dynamic client registration potrebuje initial access policy, software statements alebo approval; arbitrary self-registration nemá automaticky dostať privileged scopes.
 
-## 28. Native applications
+## 31. Authorization Server metadata
 
-Native application je public client.
+RFC 8414 metadata publikujú issuer, authorization/token endpoints, JWKS URI, supported grants, PKCE methods, client auth methods a optional introspection/revocation endpoints.
 
-Požiadavky:
+Client začne trusted issuerom a načíta metadata z issuer-derived location. Metadata `issuer` musí exactne sedieť. Arbitrary discovery URL z user inputu nevytvára trust.
 
-- system browser namiesto embedded webview,
-- Authorization Code + PKCE,
-- loopback alebo claimed HTTPS/custom URI podľa platform guidance,
-- exact redirect validation,
-- secure OS storage podľa možností,
-- žiadny embedded client secret považovaný za confidential.
+Metadata cache potrebuje expiry, last-known-good behavior a monitoring endpoint/key changes.
 
-## 29. API gateway a token propagation
+## 32. Authorization Server key lifecycle
 
-Gateway môže validovať token, ale downstream service musí poznať trust contract.
+AS používa signing keys pre JWT tokens/metadata assertions a môže používať encryption alebo client-auth verification keys.
+
+Controls:
+
+- oddelený purpose a environment;
+- stable `kid` a algorithm allowlist;
+- JWKS publication;
+- overlap pri rotation;
+- bounded Resource Server cache;
+- emergency compromise removal;
+- HSM/KMS podľa risku;
+- audit generation/use/deletion;
+- historical verification podľa token lifetime.
+
+Token header nesmie prinútiť RS stiahnuť attacker key alebo akceptovať unexpected algorithm.
+
+## 33. Client Credentials grant
+
+Client Credentials sa používa, keď confidential client/workload koná vo vlastnom mene. Nie je to user delegation.
+
+```text
+workload autentizuje client identity na token endpoint-e
+→ AS vyhodnotí client/service policy
+→ vydá audience/scoped access token
+→ RS audit identifikuje client/workload actor-a
+```
+
+Shared client secret medzi množstvom instances znižuje attribution. Preferuj workload identity, mTLS alebo private-key client authentication s short-lived credentials.
+
+Grant sa nesmie používať na predstieranie human subjecta bez explicitného impersonation/delegation modelu.
+
+## 34. Device Authorization Grant
+
+RFC 8628 je určený pre devices bez vhodného browsera alebo text inputu, napríklad TV alebo CLI.
+
+```text
+device požiada AS o device_code a user_code
+→ zobrazí verification URI a user code
+→ user otvorí trusted browser na inom zariadení
+→ autentizuje sa a schváli client/device
+→ device polluje token endpoint s device_code
+→ po approval dostane tokens
+```
+
+User code je human-friendly a nie dostatočne secret sám osebe. Flow potrebuje short expiry, rate-limited polling, `slow_down` handling, jasné zobrazenie clienta a protection pred phishing/code substitution.
+
+Device nesmie usera presmerovať na attacker verification site. User má vidieť domain/brand dôveryhodného AS.
+
+## 35. Implicit flow
+
+Implicit flow vracia access token priamo v authorization response cez browser. Token môže skončiť vo fragment handlingu, browser history, scripts alebo redirect chain-e a chýba protected code exchange.
+
+RFC 9700 odporúča nepoužívať response types, ktoré vydávajú access token na authorization endpoint-e, pre nové návrhy. Authorization Code + PKCE poskytuje lepšiu ochranu proti leakage, injection a sender-constraining integration.
+
+Existing legacy deployments potrebujú migration plan a strict redirect/fragment handling; nový client nemá implicit zvoliť iba preto, že je „jednoduchší“.
+
+## 36. Resource Owner Password Credentials
+
+ROPC grant necháva client priamo zbierať user password a vymeniť ho za token. Ruší separation medzi clientom a Authorization Serverom.
+
+Dôsledky:
+
+- password sa dostane do ďalšej application boundary;
+- client môže credential ukladať alebo phishovať;
+- MFA, WebAuthn, federation a adaptive authentication sa nedajú správne vložiť;
+- users sa učia zadávať credentials mimo originu AS;
+- recovery/consent/session semantics sú nejasné.
+
+RFC 9700 stanovuje, že tento grant sa nesmie používať. Legacy migration má presunúť user authentication na browser/AS flow.
+
+## 37. Browser clients a BFF
+
+SPA je public client a browser origin je vystavený XSS. Authorization Code + PKCE chráni authorization transaction, ale JavaScript-accessible access token môže malicious script ukradnúť.
+
+Backend for Frontend drží OAuth tokens server-side a browseru vydáva application session cookie. BFF proxy volá APIs v mene session.
+
+BFF znižuje token exposure, ale pridáva:
+
+- CSRF protection;
+- Secure/HttpOnly/SameSite cookie lifecycle;
+- session fixation/revocation;
+- backend availability;
+- correct API audience/token selection;
+- no open generic proxy;
+- propagation original actor a audit.
+
+## 38. Native applications
+
+Native app je public client. Používa external system browser a Authorization Code + PKCE podľa RFC 8252.
+
+Redirect options zahŕňajú claimed HTTPS URI, private-use custom scheme alebo loopback URI podľa platformy. Exact registration a OS app-link binding znižujú code interception.
+
+Embedded webview umožňuje clientovi pozorovať credentials a znižuje SSO/browser security. Client secret zabudovaný do binary nie je confidential.
+
+Tokens ukladaj v OS secure storage podľa možností a používaj rotation/revocation pre compromised device.
+
+## 39. mTLS client authentication
+
+RFC 8705 umožňuje client authentication mutual TLS certificate-om. AS overí client certificate pri token endpoint connection a mapuje ho na registered client.
+
+Toto autentizuje client transport identity. Certificate lifecycle, trusted CAs, subject/SAN mapping a rotation musia byť presné.
+
+mTLS client authentication sa môže používať nezávisle od certificate-bound access tokens. Jedno rieši, kto žiada token; druhé viaže issued token na certificate holdera pri Resource Serveri.
+
+## 40. Certificate-bound access tokens
+
+AS vloží do token metadata/thumbprint client certificate-u. Resource Server pri requeste vyžaduje mTLS a overí, že presented certificate zodpovedá token bindingu.
+
+Ukradnutý token bez private keyu/certificate proofu je nepoužiteľný. Token theft risk sa znižuje, ale certificate/private key compromise zostáva.
+
+Load balancer alebo mesh termination musí bezpečne preniesť verified certificate identity. Spoofable header medzi proxy a RS by binding obchádzal.
+
+## 41. DPoP
+
+Demonstrating Proof of Possession — DPoP — viaže token na asymmetric key clienta na application layer-i.
+
+Client pri token requeste a API call-e posiela signed DPoP proof JWT obsahujúci HTTP method, URI, issued time, unique `jti` a public key identity. AS vydá token s confirmation thumbprintom; RS overí proof signature a binding.
+
+DPoP znižuje použiteľnosť stolen tokenu bez private keyu. Nie je transport encryption a stále vyžaduje TLS.
+
+Replay protection potrebuje `jti`, time window, exact method/URI a podľa profile-u nonce. Proxy normalization URI musí byť konzistentná.
+
+## 42. Bearer oproti sender-constrained tokenu
+
+| Vlastnosť | Bearer | Sender-constrained |
+|---|---|---|
+| Kto môže token použiť | každý holder | holder + private-key/certificate proof |
+| Deployment complexity | nižšia | vyššia |
+| Replay po leakage | vysoké riziko | obmedzené bez keyu |
+| Proxy/load balancer requirements | bežné TLS | proof/cert binding musí prežiť topology |
+| Key lifecycle | iba token storage | token + client key/certificate |
+
+Sender constraint neznižuje broad scope alebo nesprávnu audience. Je ďalšia vrstva, nie náhrada least privilege.
+
+## 43. API gateway
+
+Gateway môže validovať external access token a fungovať ako policy enforcement point. Downstream architecture musí explicitne rozhodnúť, čo ďalej propaguje.
 
 Možnosti:
 
-- propagovať originálny access token,
-- token exchange na downstream audience,
-- signed internal identity context,
-- service-to-service workload token.
+- original token pre service, ktorá je jeho intended audience;
+- token exchange na narrower downstream audience;
+- internal signed identity/delegation context;
+- service workload token oddelený od user delegation.
 
-Riziká:
+Gateway musí odstrániť client-supplied security headers a backend musí akceptovať internal identity header iba z authenticated gateway pathu. Direct backend access je bypass.
 
-- confused deputy,
-- broad token použiteľný vo všetkých services,
-- spoofed identity headers,
-- proxy, ktorý neodstráni inbound security headers,
-- strata original actor/delegation chain.
+## 44. Token propagation a confused deputy
 
-## 30. Token exchange a delegation
+Propagovanie jedného broad tokenu cez všetky services umožní každému downstream holderovi volať všetky audiences/scopes, ktoré token povoľuje.
 
-Token exchange umožňuje vymeniť token za iný token vhodný pre downstream resource alebo delegation context.
+Confused deputy vznikne, keď privileged service vykoná operation pre attacker-controlled request bez zachovania correct subject, actor, audience alebo target bindingu.
 
-Musí byť explicitné:
+Narrow token per service/resource a explicitný delegation context znižujú blast radius. Downstream authorization má overiť initiating subject aj executing service podľa use case-u.
 
-- subject,
-- actor,
-- audience,
-- scope,
-- delegation vs impersonation,
-- chain depth,
-- audit correlation.
+## 45. Token Exchange
 
-Downstream token nemá automaticky zdediť všetky oprávnenia upstream tokenu.
+RFC 8693 definuje Security Token Service-like exchange. Client predloží subject token a optional actor token a žiada nový token s konkrétnym resource/audience/scope.
 
-## 31. Audit
+Dôležité semantics:
 
-Audit record pre OAuth má obsahovať podľa udalosti:
+- **subject** — identity, za ktorú sa nový token vydáva;
+- **actor** — service alebo principal konajúci v mene subjectu;
+- **delegation** — subject zostáva v chain-e;
+- **impersonation** — resulting token reprezentuje identity bez rovnakého actor contextu podľa policy;
+- **audience/resource** — intended downstream consumer;
+- **scope** — narrowed capabilities.
 
-- issuer,
-- client ID,
-- resource owner/subject,
-- actor/delegated identity,
-- grant type,
-- requested a granted scopes,
-- audience/resource,
-- authentication method,
-- token family alebo opaque correlation identifier,
-- result/error,
-- source context,
-- timestamp,
-- revocation/rotation event.
+Exchange nesmie automaticky kopírovať všetky upstream privileges. Chain depth, trust, revocation a audit musia byť bounded.
 
-Neloguj:
+## 46. Multi-tenant authorization
 
-- access token,
-- refresh token,
-- authorization code,
-- client secret,
-- PKCE verifier.
+Multi-tenant model potrebuje explicitný issuer, client-registration a resource boundary.
 
-## 32. Threats a mitigations
+Shared issuer môže vydávať tenant claim, ale RS ho trustuje iba po issuer/audience validation a authoritative mapping. Client-supplied tenant parameter nie je authority.
 
-### Authorization code interception
+Cross-tenant controls:
 
-Mitigácia: PKCE, short lifetime, one-time code, exact redirect URI.
+- token audience per API;
+- tenant claim type a source;
+- server-side object ownership;
+- admin consent scope;
+- client registration owner;
+- redirect URI isolation;
+- no automatic identity linking podľa emailu;
+- audit tenant + subject + client + actor.
 
-### Authorization code injection
+Scope `orders.read` bez tenant enforcementu môže stále povoliť cross-tenant leak.
 
-Mitigácia: PKCE alebo OIDC nonce binding podľa správneho flowu, issuer validation.
+## 47. Audit
 
-### CSRF
+Audit events podľa stage zachytávajú:
 
-Mitigácia: transaction-bound `state`, secure session/cookies, PKCE defense in depth.
+- issuer a AS instance;
+- client ID a authentication method;
+- subject/resource owner a optional actor;
+- grant type;
+- requested a granted scopes/resources;
+- redirect URI/result bez sensitive query;
+- token family/generation alebo opaque correlation ID;
+- audience;
+- consent/admin policy;
+- refresh rotation/reuse;
+- revocation/exchange;
+- RS authorization decision;
+- timestamp, source context a correlation ID.
 
-### Mix-up attack
+Neloguj authorization code, PKCE verifier, access/refresh token, client secret ani private-key assertion.
 
-Mitigácia: issuer binding, metadata validation, distinct endpoints/redirect bindings.
+## 48. Threats a controls
 
-### Token replay
+**Authorization code interception** — PKCE, short one-time code, exact redirect URI.
 
-Mitigácia: sender-constrained tokens, short lifetime, secure storage, audience restriction.
+**Code injection** — PKCE, transaction state a issuer binding.
 
-### Token leakage
+**CSRF** — random state viazaný na browser transaction; secure cookies/session.
 
-Mitigácia: TLS, no URL/logs, browser/storage controls, redaction.
+**Mix-up** — expected issuer binding, RFC 9207 `iss` response parameter alebo equivalent protected issuer signal.
 
-### Refresh-token theft
+**Redirect leakage** — exact registration, no open redirectors, no token in authorization response.
 
-Mitigácia: rotation, reuse detection, sender binding, revocation.
+**Token replay** — short lifetime, audience restriction, secure storage, DPoP/mTLS sender constraint.
 
-### Confused deputy
+**Refresh theft** — rotation/reuse detection alebo sender-bound token; family revocation.
 
-Mitigácia: audience/resource binding, explicit actor/subject, downstream token exchange.
+**Confused deputy** — explicit audience/resource, narrowed token exchange, actor/subject tracking.
 
-## 33. Troubleshooting authorization flow
+**Client compromise** — scoped credentials, key rotation, deployment integrity a incident revocation.
 
-```text
-client registration a redirect URI?
-→ issuer/metadata?
-→ authorization request parameters?
-→ user authentication a consent/policy?
-→ state/nonce transaction binding?
-→ authorization code lifetime a reuse?
-→ PKCE verifier/challenge?
-→ client authentication?
-→ token endpoint response?
-→ access-token issuer/audience/scope?
-→ resource-server policy?
-```
-
-Zachovaj correlation ID bez zachytenia secret values.
-
-## 34. Typické chyby
-
-### `invalid_redirect_uri`
-
-Over exact registration, scheme, host, port, path, encoding a environment.
-
-### `invalid_grant`
-
-Možné:
-
-- code expired alebo už použitý,
-- redirect URI mismatch,
-- PKCE mismatch,
-- refresh token revoked/rotated,
-- wrong client binding,
-- clock problem.
-
-### `invalid_client`
-
-Over client ID, authentication method, secret/key rotation, JWT audience a clock.
-
-### `invalid_scope`
-
-Over scope allowlist, grant type, client policy, resource indicator a tenant.
-
-### API vracia `401`
-
-Over token presence, format, signature/introspection, issuer, audience, expiration a sender proof.
-
-### API vracia `403`
-
-Authentication/token validation mohli uspieť, ale chýba scope alebo resource-level oprávnenie.
-
-## 35. Operational monitoring
+## 49. Operational monitoring
 
 Sleduj:
 
-- authorization success/error rate,
-- token endpoint latency/errors,
-- errors podľa grant type-u a clienta v bounded forme,
-- PKCE/state/nonce validation failures,
-- refresh reuse detection,
-- token revocation,
-- JWKS/key rotation failures,
-- introspection latency a availability,
-- client authentication failures,
-- suspicious consent alebo scope escalation,
-- DPoP/mTLS proof failures.
+- authorization success/error rate;
+- callback state/issuer/PKCE failures;
+- token endpoint latency a errors podľa grant/client v bounded form;
+- authorization-code reuse;
+- client authentication failures;
+- refresh rotation/reuse detection;
+- introspection latency/cache/outage;
+- JWKS/key rotation;
+- invalid issuer/audience/scope;
+- 401/403 rates per API/action;
+- revocation propagation latency;
+- DPoP/mTLS proof failures;
+- suspicious scope/consent escalation;
+- token-exchange chain depth a denied delegations.
 
-High-cardinality identifiers drž v logs/audit records, nie metric labels.
+Client IDs môžu byť bounded labels; subject/token IDs patria do logs, nie high-cardinality metrics.
 
-## 36. Incident response
+## 50. Troubleshooting flow
 
-Pri token alebo client credential compromise:
+```text
+expected issuer a metadata?
+→ client registration/type/auth method?
+→ exact redirect URI?
+→ authorization request, state, PKCE a resource/scope?
+→ user authentication/consent/policy?
+→ response issuer/state a code lifetime?
+→ token endpoint client auth, redirect URI a verifier?
+→ granted audience/scope/token type?
+→ JWT validation alebo introspection?
+→ sender proof?
+→ RS resource-level authorization?
+→ refresh/revocation/exchange lifecycle?
+```
 
-1. identifikuj token/grant/client scope,
-2. revoke-ni refresh token family a sessions,
-3. rotate client secret/private key podľa compromise,
-4. skráť alebo denylistni access tokens podľa možností,
-5. zachovaj audit evidence,
-6. analyzuj použité audiences/scopes,
-7. obnov dôveryhodný client deployment,
-8. monitoruj replay a ďalšie token issuance,
-9. oprav root cause.
+`invalid_redirect_uri` — compare exact scheme, host, port, path a encoding s registration.
 
-## 37. Anti-patterny
+`invalid_grant` — expired/reused code, redirect mismatch, PKCE mismatch, revoked refresh token, wrong client binding alebo race.
 
-### OAuth ako login bez OpenID Connect
+`invalid_client` — client ID, auth method, secret/key/certificate rotation, JWT assertion audience/time.
 
-Access token nie je štandardný proof používateľskej authentication pre clienta.
+API `401` — token presence, issuer, audience, expiry, signature/introspection a sender proof.
 
-### JWT decode bez validácie
+API `403` — token valid, ale scope, tenant, object alebo business policy deny.
 
-Claims z neovereného tokenu sú attacker-controlled input.
+## 51. Incident response
 
-### Jeden token pre všetky APIs
+Pri access/refresh token alebo client credential compromise:
 
-Chýba audience isolation a rastie blast radius.
+1. identifikuj issuer, client, subject, audience, scope a token family;
+2. revoke-ni refresh family/grant a relevantné local sessions;
+3. rotate client secret/private key/certificate podľa compromise;
+4. zablokuj alebo skráť access tokens cez available RS mechanisms;
+5. zachovaj AS, RS, gateway a client audit evidence;
+6. analyzuj token use naprieč audiences a exchanged descendants;
+7. obnov dôveryhodný client deployment;
+8. monitoruj replay a nové issuance;
+9. oprav leakage/root cause;
+10. over staré credentials a paths ako neplatné.
 
-### Scope ako jediná authorization vrstva
+Pri AS signing-key compromise posúď všetky tokens z exposure interval-u a koordinuj JWKS/trust change so Resource Servers.
 
-Resource ownership, tenant a business policy zostanú neoverené.
+## 52. Časté anti-patterny
 
-### Client secret v SPA/mobile aplikácii
+**OAuth ako login bez OIDC.** Access token sa nesprávne používa ako user authentication proof.
 
-Distribuovaný secret nemožno považovať za confidential.
+**Client secret v SPA/mobile.** Distributed credential nie je confidential.
 
-### Tokens v local storage bez threat analýzy
+**Wildcard redirect URI.** Code/token môže uniknúť attacker-controlled endpointu.
 
-XSS môže token odcudziť.
+**Implicit flow v novom clientovi.** Token je vydaný cez browser bez protected code exchange.
 
-### Long-lived refresh token bez rotation
+**ROPC.** Client zbiera user password a obchádza modern authentication.
 
-Kompromitácia sa ťažko deteguje a revoke-nuje.
+**Jeden token pre všetky APIs.** Chýba audience isolation.
 
-### Wildcard redirect URI
+**Scope ako jediná authorization.** Object ownership, tenant a business rules sa neoveria.
 
-Umožňuje code leakage alebo redirect abuse.
+**JWT decode bez validation.** Claims sú attacker-controlled.
 
-### Access token poslaný inému audience
+**Long-lived bearer refresh token bez rotation.** Theft sa ťažko deteguje a revoke-nuje.
 
-Vzniká confused-deputy a cross-service abuse.
+**Gateway identity header bez backend trust boundary.** Client ho spoofne alebo obíde gateway.
 
-## 38. Kontrolné otázky
+**Token exchange bez actor/subject modelu.** Delegation sa mení na broad impersonation.
 
-1. Aké sú štyri hlavné OAuth role?
+## 53. Kompletný production príklad
+
+Third-party reporting application potrebuje read-only access k user orders.
+
+1. Client registration povoľuje exact HTTPS redirect URI, Authorization Code grant, PKCE S256 a scopes `orders.read` pre Orders API resource.
+2. Client vytvorí state, PKCE verifier/challenge a resource indicator pre Orders API.
+3. AS autentizuje usera a zobrazí meaningful consent pre read-only orders.
+4. Browser vráti short-lived code; client overí state.
+5. Backend vymení code s verifierom a private-key client authentication.
+6. AS vydá audience-restricted JWT access token s `orders.read` a rotated refresh token.
+7. Orders API overí issuer, signature, audience, expiry, client/subject a scope.
+8. API server-side filtruje orders podľa authenticated subject/tenant; scope sám nestačí.
+9. Refresh každým use vydá nový token; reuse old generation revoke-ne family.
+10. Audit prepája client, subject, consent, token family a API decision bez raw tokens.
+11. Pri client compromise sa rotate-ne client key, revoke-nú grants/families a RS monitoruje access-token replay do expiry.
+
+## 54. Kontrolné otázky
+
+1. Aké sú štyri OAuth role a kde sa vykonáva business authorization?
 2. Prečo OAuth nie je login protocol?
-3. Ako funguje Authorization Code + PKCE?
-4. Aký je rozdiel medzi `state`, PKCE a OIDC `nonce`?
-5. Ako sa líši scope a audience?
-6. Prečo bearer token potrebuje krátku lifetime?
-7. Čo rieši sender-constrained token?
-8. Ako funguje refresh-token rotation a reuse detection?
-9. Kedy použiť Client Credentials grant?
-10. Ako sa líši opaque a JWT access token?
-11. Prečo úspešná token validation neznamená resource authorization?
-12. Ako diagnostikuješ `401` oproti `403`?
+3. Čo je authorization grant?
+4. Ako Authorization Code flow oddeľuje browser od token issuance?
+5. Prečo redirect URI potrebuje exact matching?
+6. Ako sa `state` a PKCE líšia?
+7. Ako PKCE downgrade attack funguje?
+8. Ako sa public a confidential client líšia?
+9. Čo access token reprezentuje a kto ho validuje?
+10. Ako sa scope, audience/resource a local authorization dopĺňajú?
+11. Kedy API vráti 401 a kedy 403?
+12. Aké trade-offs majú opaque a JWT access tokens?
+13. Ako introspection cache ovplyvňuje revocation a availability?
+14. Prečo refresh token býva hodnotnejší než access token?
+15. Ako rotation a reuse detection fungujú?
+16. Prečo implicit a ROPC nie sú vhodné pre nové návrhy?
+17. Ako Device Authorization flow oddelí constrained device od user browsera?
+18. Ako mTLS a DPoP viažu token na sendera?
+19. Ako API gateway bezpečne propaguje identity downstream?
+20. Ako token exchange rozlišuje subject, actor, delegation a impersonation?
+21. Ako navrhnúť multi-tenant audience a tenant authorization?
+22. Navrhni complete OAuth incident response pre stolen refresh-token family.
 
 ## Glossary impact
 
-Relevantné pojmy: OAuth 2.0, resource owner, client, authorization server, resource server, authorization endpoint, token endpoint, authorization grant, authorization code, PKCE, code verifier, code challenge, redirect URI, state, access token, bearer token, sender-constrained token, scope, audience, refresh token, refresh-token rotation, token family, client authentication, client credentials grant, device authorization flow, opaque token, JWT access token, token introspection, token revocation, authorization-server metadata, consent, BFF, token exchange a confused deputy.
+Relevantné pojmy: OAuth 2.0, Resource Owner, Client, Authorization Server, Resource Server, authorization grant, Authorization Code flow, authorization endpoint, token endpoint, redirect URI, state, PKCE, code verifier, code challenge, public client, confidential client, client authentication, access token, bearer token, scope, audience, resource indicator, opaque token, JWT access token, token introspection, refresh token, refresh-token rotation, token family, reuse detection, token revocation, consent, client registration, Authorization Server Metadata, Client Credentials grant, Device Authorization Grant, implicit flow, Resource Owner Password Credentials, Backend for Frontend, mutual-TLS client authentication, certificate-bound access token, DPoP, sender-constrained token, API gateway token propagation, confused deputy, OAuth Token Exchange, subject token, actor token, delegation a impersonation.
 
 ## Primárne zdroje
 
-- [OAuth 2.0 Authorization Framework — RFC 6749](https://www.rfc-editor.org/rfc/rfc6749)
-- [OAuth 2.0 Security Best Current Practice — RFC 9700](https://www.rfc-editor.org/rfc/rfc9700)
-- [Bearer Token Usage — RFC 6750](https://www.rfc-editor.org/rfc/rfc6750)
-- [PKCE — RFC 7636](https://www.rfc-editor.org/rfc/rfc7636)
-- [OAuth 2.0 Authorization Server Metadata — RFC 8414](https://www.rfc-editor.org/rfc/rfc8414)
-- [Token Introspection — RFC 7662](https://www.rfc-editor.org/rfc/rfc7662)
-- [Token Revocation — RFC 7009](https://www.rfc-editor.org/rfc/rfc7009)
-- [Device Authorization Grant — RFC 8628](https://www.rfc-editor.org/rfc/rfc8628)
-- [OAuth 2.0 mTLS — RFC 8705](https://www.rfc-editor.org/rfc/rfc8705)
-- [DPoP — RFC 9449](https://www.rfc-editor.org/rfc/rfc9449)
-- [OAuth 2.0 Token Exchange — RFC 8693](https://www.rfc-editor.org/rfc/rfc8693)
+- [RFC 6749 — OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [RFC 6750 — Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+- [RFC 9700 — Best Current Practice for OAuth 2.0 Security](https://datatracker.ietf.org/doc/html/rfc9700)
+- [RFC 7636 — Proof Key for Code Exchange](https://datatracker.ietf.org/doc/html/rfc7636)
+- [RFC 8414 — OAuth 2.0 Authorization Server Metadata](https://datatracker.ietf.org/doc/html/rfc8414)
+- [RFC 9207 — Authorization Server Issuer Identification](https://datatracker.ietf.org/doc/html/rfc9207)
+- [RFC 8707 — Resource Indicators for OAuth 2.0](https://datatracker.ietf.org/doc/html/rfc8707)
+- [RFC 9068 — JWT Profile for OAuth 2.0 Access Tokens](https://datatracker.ietf.org/doc/html/rfc9068)
+- [RFC 7662 — OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662)
+- [RFC 7009 — OAuth 2.0 Token Revocation](https://datatracker.ietf.org/doc/html/rfc7009)
+- [RFC 8628 — OAuth 2.0 Device Authorization Grant](https://datatracker.ietf.org/doc/html/rfc8628)
+- [RFC 8252 — OAuth 2.0 for Native Apps](https://datatracker.ietf.org/doc/html/rfc8252)
+- [RFC 8705 — OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](https://datatracker.ietf.org/doc/html/rfc8705)
+- [RFC 9449 — OAuth 2.0 Demonstrating Proof of Possession](https://datatracker.ietf.org/doc/html/rfc9449)
+- [RFC 8693 — OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
