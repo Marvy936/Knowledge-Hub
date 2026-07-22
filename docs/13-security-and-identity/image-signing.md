@@ -861,5 +861,5 @@ Relevantné pojmy: image signing, signed subject, OCI image digest, image index,
 
 **Navigácia**
 
-[← Predchádzajúca: SBOM](sbom.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: SBOM](sbom.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Policy as Code →](policy-as-code.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

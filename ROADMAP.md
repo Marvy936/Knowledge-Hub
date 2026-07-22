@@ -308,8 +308,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md)
 - [x] [SBOM](docs/13-security-and-identity/sbom.md)
 - [x] [Image signing](docs/13-security-and-identity/image-signing.md)
-- [ ] Policy as Code
-- [ ] Zero Trust
+- [x] [Policy as Code](docs/13-security-and-identity/policy-as-code.md)
+- [x] [Zero Trust](docs/13-security-and-identity/zero-trust.md)
 
 ### SRE and Operations
 
