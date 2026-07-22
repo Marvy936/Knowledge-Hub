@@ -963,3 +963,11 @@ Relevantné pojmy: OpenTelemetry, OTel API, OTel SDK, OTLP, Resource, Resource D
 - [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
 - [OpenTelemetry sampling](https://opentelemetry.io/docs/concepts/sampling/)
 - [OpenTelemetry logs specification](https://opentelemetry.io/docs/specs/otel/logs/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Jaeger a Tempo](jaeger-tempo.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Alert design a alert fatigue →](alert-design-alert-fatigue.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

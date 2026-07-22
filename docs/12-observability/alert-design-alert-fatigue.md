@@ -740,3 +740,11 @@ Relevantné pojmy: actionable alert, page, ticket alert, symptom alert, cause al
 - [Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
 - [Google SRE — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
 - [Google SRE — Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: OpenTelemetry](opentelemetry.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cardinality →](cardinality.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

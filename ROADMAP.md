@@ -285,9 +285,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md)
 - [x] [Fluent Bit](docs/12-observability/fluent-bit.md)
 - [x] [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md)
-- [ ] OpenTelemetry
-- [ ] Alert design a alert fatigue
-- [ ] Cardinality
+- [x] [OpenTelemetry](docs/12-observability/opentelemetry.md)
+- [x] [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md)
+- [x] [Cardinality](docs/12-observability/cardinality.md)
 
 ### Security and Identity
 

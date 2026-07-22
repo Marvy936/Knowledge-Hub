@@ -710,5 +710,5 @@ Relevantné pojmy: CIA triad, confidentiality, integrity, availability, asset, t
 
 **Navigácia**
 
-[← Predchádzajúca: Jaeger a Tempo](../12-observability/jaeger-tempo.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Cardinality](../12-observability/cardinality.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

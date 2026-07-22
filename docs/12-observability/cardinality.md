@@ -765,3 +765,11 @@ Relevantné pojmy: cardinality, bounded dimension, unbounded dimension, combinat
 - [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
 - [Elasticsearch mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html)
 - [OpenSearch mappings](https://docs.opensearch.org/latest/field-types/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Alert design a alert fatigue](alert-design-alert-fatigue.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CIA triáda →](../13-security-and-identity/cia-triad.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

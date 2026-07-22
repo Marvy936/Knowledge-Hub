@@ -963,5 +963,5 @@ Relevantné pojmy: Jaeger, Jaeger collector, Jaeger query, Jaeger ingester, Jaeg
 
 **Navigácia**
 
-[← Predchádzajúca: Fluent Bit](fluent-bit.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CIA triáda →](../13-security-and-identity/cia-triad.md)
+[← Predchádzajúca: Fluent Bit](fluent-bit.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OpenTelemetry →](opentelemetry.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
