@@ -1,795 +1,588 @@
 # SAML
 
-Security Assertion Markup Language 2.0 je XML-based federation framework na výmenu authentication, attribute a authorization assertions medzi Identity Providerom a Service Providerom. Najčastejšie sa používa pre enterprise browser Single Sign-On, kde Service Provider dôveruje signed SAML assertions vydaným Identity Providerom.
+Security Assertion Markup Language 2.0 je XML-based federation framework, ktorým Identity Provider odovzdáva Service Providerovi cryptographically protected assertions o authenticated subjecte a jeho attributes. Najčastejšie sa používa pri enterprise browser Single Sign-On, kde používateľ autentizuje na IdP a application SP vytvorí vlastnú session až po kompletnej validácii SAML transaction.
 
-## 1. Mentálny model
+SAML neprenáša user password do každej application. Prenáša assertion: časovo obmedzené vyhlásenie vydané konkrétnym issuerom pre konkrétny audience a recipient. Platná XML signature je iba jedna podmienka. SP musí overiť aj issuer, audience, destination, recipient, čas, request binding, replay state a local identity mapping.
 
 ```text
-používateľ otvorí Service Provider
-→ SP vytvorí AuthnRequest
-→ browser presmeruje request na Identity Provider
-→ IdP autentizuje používateľa
-→ IdP vytvorí signed SAML Response/Assertion
-→ browser odošle response na Assertion Consumer Service
-→ SP validuje XML signature, issuer, audience, recipient a čas
-→ SP vytvorí lokálnu application session
+browser otvorí Service Provider
+→ SP vytvorí AuthnRequest a uloží transaction state
+→ browser prenesie request na Identity Provider
+→ IdP autentizuje usera a vyhodnotí federation policy
+→ IdP vydá signed Response/Assertion
+→ browser odošle message na SP Assertion Consumer Service
+→ SP bezpečne parsuje a validuje celú transaction
+→ SP mapuje subject/attributes na local account
+→ application vytvorí vlastnú session a vykonáva local authorization
 ```
 
-SAML je federation protocol. Neprenáša používateľské heslo zo Service Providera do Identity Providera.
+## 1. Prečo federation existuje
 
-## 2. Hlavné role
+Bez federation musí každá application spravovať vlastné passwords, MFA, recovery a identity lifecycle. To zvyšuje počet credentials, nekonzistentné controls a offboarding delay.
 
-### Principal
+Pri SAML federation sa authentication centralizuje na IdP. SP dôveruje definovanému issuerovi, jeho signing keys a agreed identity/attribute contractu. SP však stále vlastní local session a resource-level authorization.
 
-Používateľ alebo iný subject, ktorého sa assertion týka.
+Federation presúva risk. Compromise IdP signing authority alebo attribute source môže ovplyvniť množstvo applications naraz. Metadata, key rotation, incident coordination a assurance mapping sú preto súčasť protocol designu, nie iba onboarding configuration.
 
-### Identity Provider
+## 2. Štyri vrstvy SAML štandardu
 
-Autentizuje principal-a a vydáva SAML assertions.
+SAML 2.0 nie je jeden XML dokument. OASIS štandard oddeľuje viac vrstiev:
 
-### Service Provider
+- **Assertions** definujú statements o subjecte.
+- **Protocols** definujú request/response messages ako `AuthnRequest`, `Response` a logout messages.
+- **Bindings** určujú, ako sa protocol message prenesie cez HTTP Redirect, HTTP POST, SOAP alebo artifact mechanismus.
+- **Profiles** kombinujú assertions, protocols a bindings do konkrétneho interoperabilného use case-u, napríklad Web Browser SSO.
+- **Metadata** opisujú identities, endpoints, bindings, keys a capabilities federation entities.
+- **Authentication Context** štandardizuje claims o spôsobe alebo assurance authentication.
 
-Poskytuje aplikáciu alebo službu a dôveruje assertions od nakonfigurovaného Identity Providera.
+Táto separácia vysvetľuje, prečo rovnaký `AuthnRequest` možno preniesť rôznymi bindings a prečo samotná assertion nepopisuje celý browser flow.
 
-### User agent
+## 3. Hlavné role
 
-Browser, ktorý prenáša protocol messages medzi SP a IdP pri Web Browser SSO profile.
+**Principal** je subject, najčastejšie human user, ktorého authentication assertion opisuje.
 
-## 3. Assertion, protocol, binding a profile
+**Identity Provider — IdP** autentizuje principal-a, získava identity attributes a vydáva SAML assertions podľa federation contractu.
 
-SAML 2.0 sa skladá z viacerých vrstiev.
+**Service Provider — SP** poskytuje application. Prijíma SAML messages, validuje ich, mapuje external subject na local identity a vytvára application session.
 
-### Assertion
+**User agent** je browser prenášajúci front-channel messages. Browser nie je trusted message processor; user môže payload pozorovať, zopakovať alebo zmeniť. Security preto musí vychádzať zo signatures, transaction bindingu, TLS, replay cache a strict validation.
 
-XML dokument obsahujúci statements o subjecte.
+## 4. Assertion ako security artifact
 
-### Protocol
+SAML assertion je XML element s statements o subjecte. Môže obsahovať:
 
-Definuje request a response messages, napríklad `AuthnRequest` a `Response`.
+- `Issuer` — entity, ktorá assertion vydala;
+- `Subject` — identity a SubjectConfirmation;
+- `Conditions` — časové a audience obmedzenia;
+- `AuthnStatement` — informáciu o authentication evente;
+- `AttributeStatement` — identity alebo entitlement attributes;
+- voliteľné authorization statements;
+- XML Signature.
 
-### Binding
+Assertion nie je iba data container. Je bearer-like security artifact v bežnom Web SSO profile. Každý, kto ju dokáže replay-nuť v platnom okne a pre správneho recipienta, môže potenciálne získať session, ak SP nemá request a replay controls.
 
-Definuje transport SAML message cez konkrétny protocol, napríklad HTTP Redirect alebo HTTP POST.
+## 5. Response oproti Assertion
 
-### Profile
+`Response` je protocol message. Obsahuje status, issuer, destination, correlation metadata a jednu alebo viac plain alebo encrypted assertions.
 
-Kombinuje assertions, protocols a bindings pre konkrétny use case, napríklad Web Browser SSO.
+Signature môže chrániť Response, Assertion alebo obe podľa federation profile-u a implementation contractu. SP musí presne vedieť, ktorý element vyžaduje podpísaný a ktorý element application spracuje.
 
-## 4. SAML assertion
-
-Assertion môže obsahovať:
-
-- issuer,
-- subject,
-- conditions,
-- authentication statement,
-- attribute statement,
-- authorization decision statement,
-- signature.
-
-Najčastejšie enterprise SSO používa:
-
-- authentication statement,
-- attribute statement.
-
-Assertion je security artifact a musí byť validovaná ako celok, nie iba parsovaná.
-
-## 5. SAML Response
-
-`Response` je protocol message, ktorá môže obsahovať jednu alebo viac assertions.
-
-Dôležité fields:
-
-- `ID`,
-- `InResponseTo`,
-- `IssueInstant`,
-- `Destination`,
-- `Issuer`,
-- `Status`,
-- `Assertion` alebo `EncryptedAssertion`,
-- signature.
-
-SP musí rozhodnúť, či vyžaduje signature na Response, Assertion alebo oboch, podľa interoperability a threat modelu.
+Nebezpečný model je „v dokumente sa nachádza jedna validná signature“. XML document môže obsahovať viac elements; security library a business logic musia pracovať s tým istým signed node-om.
 
 ## 6. AuthnRequest
 
-SP-initiated login začína `AuthnRequest`.
+Pri SP-initiated login-e SP vytvorí `AuthnRequest`. Typicky obsahuje:
 
-Typicky obsahuje:
+- unique request ID;
+- SP entity ID v `Issuer`;
+- IdP destination;
+- requested ACS URL alebo index;
+- expected response binding;
+- optional NameID policy;
+- `ForceAuthn` alebo `IsPassive` flags;
+- optional `RequestedAuthnContext`.
 
-- request ID,
-- issuer/entity ID SP,
-- Assertion Consumer Service URL alebo index,
-- protocol binding,
-- requested NameID format,
-- force authentication alebo passive flags,
-- requested authentication context.
+SP uloží request ID, creation time, expected IdP a return state. IdP overí, že requester je registrovaný SP, requested ACS patrí k jeho metadata a optional signed request používa trusted SP key.
 
-IdP musí validovať, že request pochádza od dôveryhodného SP a že ACS endpoint je registrovaný v metadata.
+## 7. SP-initiated browser SSO
 
-## 7. SP-initiated flow
+SP-initiated flow poskytuje explicitný request/response binding.
 
 ```text
-SP vytvorí AuthnRequest
-→ uloží request ID a RelayState
-→ presmeruje browser na IdP
-→ IdP autentizuje používateľa
-→ signed Response na SP ACS
-→ SP overí InResponseTo
-→ vytvorí session
+GET protected resource
+→ SP zistí chýbajúcu session
+→ vytvorí AuthnRequest ID=_abc a server-side transaction state
+→ Redirect browser na IdP
+→ IdP autentizuje usera
+→ POST Response InResponseTo=_abc na registered ACS
+→ SP overí signature, issuer, audience, recipient, time a replay
+→ SP spotrebuje transaction state
+→ vytvorí local session
 ```
 
-Výhody:
+`InResponseTo` a stored request state znižujú login CSRF, unsolicited response confusion a replay. Return URL sa má uchovať server-side alebo integrity-protected, nie ako ľubovoľný redirect parameter.
 
-- request/response binding,
-- kontrola cieľového SP endpointu,
-- možnosť step-up alebo requested contextu,
-- bezpečnejší návrat na pôvodnú resource.
+## 8. IdP-initiated browser SSO
 
-## 8. IdP-initiated flow
+Pri IdP-initiated flowe user klikne application tile v IdP portáli a SP dostane unsolicited Response bez svojho `AuthnRequest`.
 
-Pri IdP-initiated flowe používateľ spustí aplikáciu z IdP portálu a SP dostane unsolicited Response bez vlastného AuthnRequestu.
+Chýba transaction ID, ktorý by dokazoval, že konkrétny browser začal login na konkrétnom SP. SP musí preto zvlášť chrániť login CSRF, account confusion, replay a RelayState.
 
-Riziká:
-
-- chýba `InResponseTo` binding,
-- vyššie riziko login CSRF alebo account confusion,
-- komplikovanejšie RelayState validation,
-- slabšia transaction correlation.
-
-Používaj iba s explicitným threat modelom a robustnou replay, recipient, audience a session ochranou.
+IdP-initiated flow môže byť business requirement pre legacy SaaS, ale má slabší transaction binding. Nemal by sa automaticky povoľovať len preto, že knižnica unsolicited responses akceptuje.
 
 ## 9. Web Browser SSO profile
 
-Najbežnejší SAML profile používa:
+Najbežnejšia kombinácia používa HTTP Redirect pre AuthnRequest a HTTP POST pre Response. Browser je transport medzi IdP a SP, ale sensitive message validity nevychádza z browser trustu.
 
-- HTTP Redirect binding pre AuthnRequest,
-- HTTP POST binding pre SAML Response,
-- browser form auto-submit na ACS endpoint.
+Flow musí používať TLS na oboch legs. XML Signature poskytuje message integrity/authenticity, ale TLS chráni transport metadata, cookies, credentials na IdP a application session na SP.
 
-SAML Response môže byť veľká kvôli XML, signatures, certificates a attributes. Preto sa bežne neposiela query stringom.
+Response býva väčšia pre XML, certificates, attributes a encryption, preto sa bežne posiela form POST namiesto URL query.
 
 ## 10. HTTP Redirect binding
 
-Message je:
+Redirect binding serializuje SAML message, aplikuje raw DEFLATE podľa binding rules, base64 a URL encoding a prenesie výsledok v query parameters.
 
-- DEFLATE-compressed podľa binding pravidiel,
-- base64-encoded,
-- URL-encoded,
-- prenesená v query parameters.
+Ak sa podpisuje query-level message, signature covers presnú kombináciu encoded `SAMLRequest`/`SAMLResponse`, optional `RelayState` a `SigAlg` v definovanom ordering-u. Framework nesmie parameters dekódovať a znovu serializovať pred verification.
 
-Voliteľná query-level signature používa presné canonical parameter ordering semantics.
-
-Proxy, WAF alebo application framework nesmie meniť signed bytes pred validáciou.
+URL size limits a proxy normalization môžu spôsobovať interoperability failures. Redirect binding je preto častejší pre menší AuthnRequest než pre veľkú Response.
 
 ## 11. HTTP POST binding
 
-SAML message sa prenáša ako base64 value v HTML form field-e.
+POST binding vloží base64-encoded SAML message do hidden form field-u, typicky `SAMLResponse`, a browser form automaticky odošle na ACS. `RelayState` je samostatné field.
 
-Typické fields:
+Base64 neposkytuje confidentiality ani integrity. Message môže user dekódovať a meniť; SP musí overiť XML Signature a všetky semantic constraints.
 
-- `SAMLResponse`,
-- `RelayState`.
+ACS má používať request size limit a nelogovať raw form body, pretože assertion môže obsahovať personal data a reusable authentication artifact.
 
-Base64 nie je encryption. Confidentiality závisí od TLS alebo XML Encryption.
+## 12. HTTP Artifact binding
 
-## 12. Artifact binding
+Artifact binding prenáša cez browser krátky opaque artifact. SP potom cez authenticated back-channel SOAP exchange získa plnú SAML message od IdP.
 
-Browser prenáša krátky artifact a SP následne získa plnú message cez back-channel SOAP exchange.
+Výhodou je menší front-channel payload a skrytie assertion pred browserom. Nevýhodou je ďalšia network/TLS/authentication dependency medzi SP a IdP a komplexnejší failure model.
 
-Výhody:
+Artifact musí byť single-use, krátkodobý a viazaný na intended requester. Back-channel endpoint a certificate trust patria do metadata contractu.
 
-- assertion nie je priamo v browseri,
-- menší front-channel payload.
+## 13. Metadata ako trust bootstrap
 
-Nevýhody:
+SAML metadata sú signed alebo out-of-band trusted XML configuration describing federation entity. Môžu obsahovať:
 
-- back-channel connectivity,
-- ďalšia availability dependency,
-- TLS a client authentication,
-- komplexnejšia prevádzka.
+- entity ID;
+- SSO a SLO endpoints;
+- Assertion Consumer Service endpoints a indexes;
+- supported bindings;
+- signing a encryption certificates;
+- NameID formats;
+- validity a cache metadata;
+- organization/contact information.
 
-## 13. Metadata
+Metadata nie sú iba convenience auto-configuration. Určujú, komu SP dôveruje, kam sa messages posielajú a ktoré keys sa používajú.
 
-SAML metadata vytvára trust a configuration contract.
-
-Môže obsahovať:
-
-- entity ID,
-- SSO/SLO endpoints,
-- ACS endpoints,
-- supported bindings,
-- signing a encryption certificates,
-- NameID formats,
-- organization/contact údaje,
-- valid-until a cache duration.
-
-Metadata nemajú byť načítavané z ľubovoľnej user-provided URL.
-
-Trust bootstrap musí určiť:
-
-- autoritatívny source,
-- signature validation,
-- certificate rollover,
-- refresh interval,
-- emergency revocation.
+User-provided metadata URL nesmie automaticky rozšíriť trust. Bootstrap má určiť authoritative source, metadata signature validation, refresh, certificate rollover a emergency revocation.
 
 ## 14. Entity ID
 
-Entity ID je stabilný identifier IdP alebo SP.
+Entity ID je stable federation identifier IdP alebo SP. Často vyzerá ako URL alebo URN, ale nemusí byť browsable endpoint.
 
-Môže vyzerať ako URL, ale nemusí byť browsable endpoint.
+SP porovná assertion `Issuer` s configured trusted entity ID. Certificate samotný nestačí na issuer identity: rovnaký key môže byť omylom použitý viacerými entities alebo environments.
 
-SP musí validovať očakávaného `Issuer` proti dôveryhodnej metadata konfigurácii.
-
-Rovnaký certificate použitý viacerými entities neznamená, že issuers sú zameniteľní.
+Production a test entity IDs majú byť oddelené. Assertion vydaná test IdP nemá byť akceptovaná production SP iba preto, že zdieľajú certificate chain.
 
 ## 15. Assertion Consumer Service
 
-ACS je endpoint SP, ktorý prijíma SAML Response.
+ACS je SP endpoint, ktorý prijíma browser-delivered SAML Response a mení federation artifact na local session. Je preto high-risk authentication boundary.
 
-Controls:
+ACS musí:
 
-- HTTPS,
-- exact metadata registration,
-- povolené bindings,
-- CSRF/login transaction protection,
-- payload size limits,
-- secure XML parser,
-- replay cache,
-- no sensitive response logging.
+- používať HTTPS;
+- akceptovať iba configured binding a registered endpoint identity;
+- používať secure XML parser a bounded payload;
+- validovať signature a semantic constraints;
+- používať replay cache a transaction state;
+- chrániť local session pred fixation a CSRF;
+- nelogovať assertion plaintext;
+- odmietnuť ambiguous alebo extra unsigned assertions.
 
-SP nemá dôverovať ľubovoľnej ACS URL dodanej v requeste bez metadata validation.
+Ak je SP za reverse proxy, musí bezpečne rekonštruovať external URL. Attacker-controlled forwarding headers nesmú ovplyvniť recipient/destination validation.
 
-## 16. NameID
+## 16. Subject a NameID
 
-NameID identifikuje subject podľa konkrétneho format-u.
+Assertion `Subject` identifikuje principal-a a obsahuje SubjectConfirmation rules. `NameID` je jeden identifier s declared formatom.
 
-Možné formats:
+Persistent opaque NameID je typicky vhodnejší ako email. Email sa môže zmeniť, recyklovať, líšiť case normalizationom a vytvárať privacy correlation naprieč SPs.
 
-- persistent,
-- transient,
-- email address,
-- unspecified,
-- ďalšie definované formáty.
+Local identity key má obsahovať issuer/entity context aj external subject identifier:
 
-Preferuj stabilný opaque identifier.
+```text
+IdP entity ID + NameID value + NameID format
+→ stable federation identity key
+```
 
-Email ako NameID prináša riziká:
-
-- zmena,
-- recyklácia,
-- case normalization,
-- cross-tenant kolízia,
-- privacy correlation.
-
-Internal identity key má zahŕňať aj issuer/entity context.
+SP nemá account linkovať iba podľa display emailu bez verified linking processu.
 
 ## 17. SubjectConfirmation
 
-Bearer Web SSO assertion typicky používa `SubjectConfirmationData` s fields ako:
+Web Browser SSO typicky používa bearer SubjectConfirmation. `SubjectConfirmationData` môže obsahovať:
 
-- `Recipient`,
-- `NotOnOrAfter`,
-- `InResponseTo`.
+- `Recipient` — ACS endpoint, kde možno assertion použiť;
+- `NotOnOrAfter` — expiry bearer confirmation;
+- `InResponseTo` — request ID pri SP-initiated flowe.
 
-SP musí validovať:
+SP musí validovať všetky applicable fields. Signature over assertion neznamená, že ju možno použiť na ľubovoľnom endpoint-e alebo opakovane.
 
-- správny recipient/ACS,
-- časové obmedzenie,
-- request binding pri SP-initiated flowe.
-
-Ignorovanie SubjectConfirmation validation umožňuje replay alebo token substitution.
+Recipient binding a krátke expiry obmedzujú stolen assertion. Replay cache a request state poskytujú ďalšiu vrstvu.
 
 ## 18. Conditions
 
-`Conditions` obmedzujú platnosť assertion.
+`Conditions` definujú global validity assertion. Najdôležitejšie sú `NotBefore`, `NotOnOrAfter` a `AudienceRestriction`.
 
-Dôležité:
+`NotOnOrAfter` je exclusive boundary: assertion nie je validná presne v uvedenom čase ani neskôr. Clock-skew tolerance má byť malá a zdokumentovaná, nie vypnutá.
 
-- `NotBefore`,
-- `NotOnOrAfter`,
-- `AudienceRestriction`,
-- ďalšie profile-specific conditions.
-
-SP musí používať bounded clock-skew tolerance, nie vypnúť time validation.
+SP má odmietnuť unknown critical condition, ktorú nevie bezpečne interpretovať podľa profile-u. Ignorovanie conditions mení scoped assertion na broad bearer credential.
 
 ## 19. AudienceRestriction
 
-Audience určuje, pre ktorý SP je assertion určená.
+Audience určuje intended relying party. SP akceptuje assertion iba ak jeho expected entity ID spĺňa AudienceRestriction podľa agreed semantics.
 
-SP musí odmietnuť assertion:
+Valid signature pre audience `https://staging.example/sp` nesmie vytvoriť production session na `https://prod.example/sp`. Audience je protection against token substitution medzi applications a environments.
 
-- bez očakávaného audience podľa policy,
-- určenú pre inú aplikáciu,
-- z iného environmentu alebo tenant trustu.
+Audience nie je URL, na ktorú sa message posiela; to riešia Destination a Recipient. Je to logical intended consumer identity.
 
-Valid signature bez správnej audience nestačí.
+## 20. Destination, Recipient a ACS URL
 
-## 20. Destination a Recipient
+`Destination` patrí protocol Response a označuje endpoint, kam bola message adresovaná. `Recipient` patrí bearer SubjectConfirmationData a označuje endpoint, kde možno assertion prezentovať.
 
-### Destination
+Obe hodnoty majú zodpovedať configured external ACS URL podľa profile-u. Porovnávanie musí riešiť scheme, host, port a path presne podľa implementation policy.
 
-Určuje endpoint pre protocol Response.
+Reverse proxy mismatch často spôsobí validáciu proti internal `http://service:8080/acs` namiesto external `https://login.example/acs`. Oprava patrí do trusted proxy configuration, nie do vypnutia recipient validation.
 
-### Recipient
+## 21. InResponseTo a transaction state
 
-Určuje endpoint pre bearer subject confirmation.
+SP vytvorí high-entropy request ID a uloží ho s expected IdP, ACS, timestampom, requested resource a browser transaction state. Response a SubjectConfirmation ho referencujú cez `InResponseTo`.
 
-Obe hodnoty musia zodpovedať reálnemu a registrovanému ACS endpointu podľa profile pravidiel.
+SP pri prijatí:
 
-Reverse proxy configuration musí správne rekonštruovať external scheme, host a port.
+1. nájde non-expired pending request;
+2. overí exact match;
+3. overí, že response prišla v správnom browser transaction context-e;
+4. po successful consumption state atomicky odstráni;
+5. odmietne ďalšie použitie.
 
-## 21. InResponseTo
-
-`InResponseTo` viaže Response alebo SubjectConfirmationData na konkrétny AuthnRequest.
-
-SP musí:
-
-- uložiť request ID,
-- validovať exact match,
-- použiť jednorazový request state,
-- po úspechu ID odstrániť,
-- nastaviť krátku expiry.
-
-Tým sa znižuje replay, login CSRF a response confusion.
+V clusteri potrebuje state shared store alebo sticky transaction design. Request ID uložené iba na jednom node spôsobí intermittent `unknown InResponseTo`.
 
 ## 22. RelayState
 
-RelayState prenáša application state, napríklad pôvodnú URL.
+RelayState prenáša application state mimo samotnej SAML message, často pôvodnú resource URL. Jeho integrity a confidentiality nie sú automaticky poskytované každým bindingom/profile-om.
 
-Musí byť:
+Najbezpečnejší model je random server-side handle viazaný na pending request a browser cookie. Ak sa prenáša URL, musí byť allowlisted/relative a chránená pred tamperingom a open redirectom.
 
-- chránený integrity mechanizmom alebo server-side reference,
-- viazaný na session/request,
-- validovaný proti open redirectu,
-- bez citlivých údajov.
+RelayState nemá obsahovať secret, token ani personal data. IdP-initiated RelayState potrebuje zvlášť strict destination mapping.
 
-Útočník nesmie pomocou RelayState presmerovať používateľa na ľubovoľnú doménu.
+## 23. AuthnStatement
 
-## 23. Authentication statement
+`AuthnStatement` opisuje authentication event: `AuthnInstant`, optional `SessionIndex`, session expiry a `AuthnContext`.
 
-Authentication statement opisuje:
+Nevyjadruje automaticky, že authentication je dosť silná pre každú SP operation. SP musí mapovať context na vlastnú assurance policy.
 
-- čas authentication,
-- session index,
-- authentication context,
-- subject local session.
+Old IdP session môže umožniť SSO bez fresh user interaction. Pre sensitive operation môže SP požadovať `ForceAuthn`, stricter RequestedAuthnContext alebo local reauthentication podľa federation capabilities.
 
-SP musí rozhodnúť:
+## 24. Authentication Context
 
-- akú authentication freshness potrebuje,
-- ktoré contexts akceptuje,
-- či vyžaduje MFA alebo phishing-resistant method,
-- kedy spustiť step-up.
+Authentication Context Class Reference je URI označujúca class authentication mechanismu alebo assurance. IdP a SP musia mať shared interpretation.
 
-Samotná existencia assertion neznamená požadovanú assurance úroveň.
+SP nemá neznámu URI považovať za „aspoň MFA“. RequestedAuthnContext môže používať comparison semantics ako exact/minimum/better/maximum, ale interoperability závisí od IdP implementation a agreed ordering.
 
-## 24. Authentication context
+Security contract má presne uviesť, ktoré context values znamenajú phishing-resistant, MFA, password-only alebo other assurance. Display label v IdP UI nie je protocol guarantee.
 
-SAML authentication context vyjadruje class alebo declaration použitej authentication.
+## 25. AttributeStatement
 
-Interoperability vyžaduje dohodu medzi IdP a SP.
+AttributeStatement prenáša named attributes, napríklad employee ID, department, group, tenant alebo role. Každý attribute má Name, optional NameFormat a jednu alebo viac values.
 
-SP nesmie interpretovať neznámu URI ako ekvivalent silnej MFA.
-
-RequestedAuthnContext môže byť:
-
-- exact,
-- minimum,
-- better,
-- maximum,
-
-podľa profile semantics a implementácie.
-
-## 25. Attribute statement
-
-Attributes prenášajú identity alebo entitlement údaje.
-
-Príklady:
-
-- department,
-- employee identifier,
-- email,
-- group,
-- role,
-- tenant.
-
-SP potrebuje explicitný mapping:
+SP potrebuje explicitný contract:
 
 ```text
-attribute Name/NameFormat
-→ expected type a cardinality
+SAML attribute Name/NameFormat
+→ expected XML value type a cardinality
 → normalization
-→ internal attribute
+→ local identity field alebo entitlement input
 → authorization policy
 ```
 
-Attribute prítomnosť nie je automaticky dôveryhodná pre privileged access.
+Attribute prítomnosť nie je automaticky dôveryhodná pre admin permission. Dôležité je, či IdP číta hodnotu z authoritative source, ako rýchlo sa deprovisionuje a či federation partner smie daný entitlement vydávať.
 
 ## 26. Attribute governance
 
-Kontroluj:
+Pre každý attribute definuj:
 
-- autoritatívny source,
-- required a optional attributes,
-- multi-value behavior,
-- maximum count/size,
-- case sensitivity,
-- stale directory data,
-- group overage/truncation,
-- privacy a minimization,
-- deprovisioning latency.
+- authoritative source;
+- required/optional status;
+- single alebo multi-value semantics;
+- case, Unicode a whitespace normalization;
+- maximum count a size;
+- privacy purpose a minimization;
+- stale-data/deprovisioning latency;
+- allowed values a mapping owner;
+- behavior pri missing alebo duplicate value.
 
-Role alebo admin access nemajú byť odvodené z neovereného display attribute-u.
+Group list môže byť truncated alebo príliš veľký. Privileged role nemá byť derived z arbitrary display stringu alebo email domainu.
 
-## 27. XML Signature
+SP local authorization má používať normalized, allowlisted claims a auditovať mapping revision.
 
-XML Signature poskytuje integrity a issuer authenticity pre signed element.
+## 27. XML Signature model
 
-Validácia musí:
+XML Signature podpisuje selected XML element reference, nie automaticky celý parsed document. Verification zahŕňa reference URI resolution, canonicalization, digest validation a signature verification proti trusted keyu.
 
-- používať dôveryhodný metadata certificate/key,
-- overiť signature nad správnym elementom,
-- overiť reference URI,
-- odmietnuť duplicate IDs,
-- používať bezpečnú canonicalization implementation,
-- zakázať weak algorithms,
-- nevyberať assertion jednoduchým XPath bez signature bindingu.
+Bezpečný SAML implementation musí:
+
+- používať key z trusted metadata, nie embedded untrusted certificate ako nový trust root;
+- registrovať ID attributes bezpečným spôsobom;
+- odmietnuť duplicate IDs;
+- overiť expected signed element;
+- spracovať presne element, ktorý verification vrátila ako signed;
+- zakázať weak algorithms a external references;
+- nepoužívať custom ad hoc XML signature code.
+
+Cryptographic success bez application bindingu k signed node-u je nedostatočný.
 
 ## 28. XML Signature Wrapping
 
-Wrapping attack využíva rozdiel medzi elementom overeným signature knižnicou a elementom spracovaným application logic.
+Wrapping attack vloží alebo premiestni XML elements tak, aby signature library overila benign signed assertion, ale application spracovala attacker-controlled unsigned assertion na inom XPath location.
 
-Mitigácie:
-
-- používať udržiavanú SAML knižnicu,
-- secure ID registration,
-- spracovať presne signed element,
-- odmietnuť duplicate/ambiguous structures,
-- strict schema/profile validation,
-- neimplementovať vlastnú XML signature logiku.
-
-## 29. XML Encryption
-
-Assertion alebo vybrané elements môžu byť šifrované pre SP.
-
-Encryption poskytuje confidentiality, ale:
-
-- nenahrádza TLS,
-- komplikuje key rotation,
-- zvyšuje payload a CPU,
-- vyžaduje bezpečný parser,
-- môže spôsobiť outage pri certificate mismatch.
-
-Signing a encryption majú odlišné key lifecycle-y.
-
-## 30. Certificate model
-
-SAML metadata často obsahujú X.509 certificates ako key containers.
-
-Trust typicky nevychádza z public Web PKI hostname validation, ale z explicitnej metadata trust konfigurácie.
-
-Certificate expiry, rollover a overlap musia byť riadené.
-
-Bezpečný rollover:
-
-1. publikovať nový key spolu so starým,
-2. počkať na metadata propagation,
-3. začať podpisovať novým key,
-4. sledovať validation failures,
-5. odstrániť starý key po overlap intervale.
-
-## 31. Clock synchronization
-
-SAML assertions majú krátke time windows.
-
-Potrebné:
-
-- spoľahlivý NTP/time service,
-- bounded skew tolerance,
-- monitoring clock offsetu,
-- UTC logging,
-- správna interpretácia `NotOnOrAfter` ako exclusive boundary.
-
-Veľké skew tolerance predlžuje replay window.
-
-## 32. Replay protection
-
-SP má uchovávať krátkodobú cache:
-
-- assertion IDs,
-- response IDs,
-- request IDs,
-- session indexes podľa potreby.
-
-Pri opakovanom ID musí response odmietnuť.
-
-Replay cache potrebuje:
-
-- HA/shared-state model,
-- expiry,
-- memory/storage limits,
-- tenant isolation,
-- fail-safe behavior.
-
-## 33. Local application session
-
-Po úspešnej SAML validation SP vytvorí vlastnú session.
-
-Session controls:
-
-- secure, HttpOnly a SameSite cookies,
-- session fixation protection,
-- idle/absolute timeout,
-- local revocation,
-- CSRF protection,
-- reauthentication pre citlivé operácie,
-- audit.
-
-SAML assertion sa nemá používať opakovane ako session bearer artifact.
-
-## 34. Single Logout
-
-SLO sa pokúša koordinovať ukončenie sessions medzi IdP a SPs.
-
-Komponenty:
-
-- `LogoutRequest`,
-- `LogoutResponse`,
-- NameID,
-- SessionIndex,
-- front-channel alebo back-channel binding podľa implementácie.
-
-Riziká:
-
-- partial failure,
-- browser restrictions,
-- unavailable SP,
-- stale session indexes,
-- logout loops,
-- signed-message requirements.
-
-SLO nie je automaticky spoľahlivá globálna revocation všetkých tokens a sessions.
-
-## 35. IdP discovery
-
-V multi-IdP prostredí musí SP vybrať správneho providera.
-
-Možnosti:
-
-- tenant-specific URL,
-- organization discovery,
-- preconfigured domain mapping,
-- federation metadata.
-
-Nepoužívaj user-provided IdP metadata alebo entity ID bez allowlist/trust policy.
-
-Email-domain discovery môže byť iba routing hint, nie proof organizácie.
-
-## 36. Federation trust
-
-Trust contract zahŕňa:
-
-- entity IDs,
-- signing/encryption keys,
-- endpoints a bindings,
-- attribute contract,
-- authentication assurance,
-- certificate rotation,
-- incident contacts,
-- deprovisioning latency,
-- metadata refresh,
-- audit a privacy.
-
-Technicky validná assertion môže stále porušiť business federation contract.
-
-## 37. SAML oproti OpenID Connect
-
-| Vlastnosť | SAML 2.0 | OpenID Connect |
-|---|---|---|
-| Formát | XML | JSON/JWT |
-| Typický use case | enterprise browser SSO | web, mobile, API ecosystem |
-| Hlavný identity artifact | SAML Assertion | ID Token |
-| Configuration | metadata XML | discovery JSON + JWKS |
-| Transport | browser bindings, SOAP | OAuth endpoints cez HTTP |
-| Modern native/mobile fit | slabší | silnejší |
-
-Výber závisí od ekosystému, nie od tvrdenia, že jeden protocol je univerzálne bezpečnejší.
-
-## 38. SAML a authorization
-
-SAML môže preniesť role/group attributes, ale SP stále vykonáva local authorization.
+Mitigation je structural, nie iba cryptographic:
 
 ```text
-IdP assertion
-→ identity a attributes
-→ SP normalization
-→ local account/session
-→ application authorization
+parse secure schema/profile shape
+→ resolve unique signed element by verified ID
+→ reject duplicate/extra assertions a ambiguous nesting
+→ pass verified element directly to claims processing
 ```
 
-IdP nemá automaticky rozhodovať o každom resource-level action, pokiaľ federation contract výslovne neurčuje inak.
+Library musí byť SAML-aware a maintained. Generic XML parser + ručný XPath je vysoké riziko.
 
-## 39. Security controls
+## 29. Secure XML processing
 
-Minimálny production baseline:
+XML parser na ACS spracúva attacker-controlled input. Zakáž DTD, external entities, external schema/resource resolution a unsafe entity expansion. Nastav size, depth, attribute a element count limits.
 
-- TLS,
-- trusted metadata,
-- XML signature validation,
-- strict issuer/audience/recipient/destination validation,
-- time validation,
-- replay cache,
-- `InResponseTo` pre SP-initiated flow,
-- RelayState protection,
-- secure XML parser,
-- attribute allowlist,
-- bounded payload size,
-- certificate rollover,
-- safe audit logging.
+XXE môže čítať local files alebo volať internal services. Billion Laughs/entity expansion môže spôsobiť DoS. Oversized base64/XML môže vyčerpať memory ešte pred signature validation.
 
-## 40. Secure XML processing
+Schema validation pomáha, ale nesmie načítavať remote schemas pri requeste. Použi locally pinned schemas a profile-specific structural checks.
 
-Parser musí zakázať alebo bezpečne riadiť:
+## 30. XML Encryption
 
-- external entities,
-- DTDs,
-- entity expansion,
-- external resource resolution,
-- oversized documents,
-- excessive nesting,
-- duplicate IDs.
+Assertion alebo selected elements môžu byť encrypted pre SP public key. IdP encryptuje content a SP používa private decryption key.
 
-XXE alebo XML bomb môže ohroziť confidentiality aj availability ACS endpointu.
+XML Encryption poskytuje front-channel confidentiality nad rámec base64 a môže chrániť attributes pred browserom alebo intermediaries. Nenahrádza TLS, pretože TLS chráni cookies, endpoints a surrounding transport.
 
-## 41. Troubleshooting SSO flow
+Signing a encryption keys majú odlišný purpose a lifecycle. Encryption certificate rollover musí byť koordinovaný tak, aby IdP nezačal encryptovať novým keyom skôr, než všetky SP nodes majú private key.
+
+Po decryption musí SP stále vykonať signature a semantic validation. „Dalo sa decryptovať“ nie je authentication proof.
+
+## 31. Certificate a key trust model
+
+SAML metadata často používajú X.509 certificates ako containers public keys. Trust typicky nevychádza z Web PKI hostname validation; SP explicitne dôveruje keys publikovaným trusted metadata entity.
+
+Certificate expiry môže byť relevantná podľa library/policy, ale federation trust lifecycle sa riadi metadata validity a rollover contractom. Nepredpokladaj, že rovnaké rules ako browser TLS sa aplikujú automaticky.
+
+Bezpečný signing rollover:
+
+1. IdP publikuje nový aj starý verification key v metadata;
+2. SPs metadata načítajú a potvrdia;
+3. IdP začne podpisovať novým keyom;
+4. monitoring sleduje failures;
+5. starý key sa odstráni po bounded overlap;
+6. emergency process existuje pre compromise.
+
+## 32. Clock a time validation
+
+SAML používa krátke validity windows a `IssueInstant`, `NotBefore`, `NotOnOrAfter`, SubjectConfirmation expiry a request expiration.
+
+IdP aj SP potrebujú reliable time synchronization a monitoring clock offsetu. Logs majú používať UTC a zachytiť local receive time aj message timestamps.
+
+Veľká skew tolerance zvyšuje replay window. Zero tolerance môže spôsobovať outages pre malé network/clock differences. Policy má byť bounded a testovaná.
+
+## 33. Replay protection
+
+SP ukladá consumed Response IDs a Assertion IDs minimálne do konca ich validity plus small safety interval. Duplicate ID sa odmietne.
+
+SP-initiated flow navyše atomicky spotrebuje pending request ID. Replay cache v HA deployment-e musí byť shared alebo consistent pre všetky ACS nodes.
+
+Cache potrebuje tenant/issuer separation, expiry a bounded storage. Pri cache outage má high-risk login typicky fail-closed; inak attacker môže využiť práve unavailable replay control.
+
+## 34. Local identity a session
+
+Po successful SAML validation SP mapuje issuer + NameID a attributes na local account. JIT provisioning môže account vytvoriť, ale potrebuje duplicate prevention, allowed tenant a lifecycle ownera.
+
+SP potom vytvorí vlastnú session cookie s Secure, HttpOnly a appropriate SameSite, regeneruje session ID a nastaví idle/absolute timeout. Assertion sa nemá používať ako opakovane prezentovaný application bearer token.
+
+Local session môže prežiť IdP session alebo SAML assertion expiry. SP preto potrebuje vlastnú revocation, risk re-evaluation a reauthentication pre sensitive actions.
+
+## 35. SAML authentication oproti authorization
+
+SAML úspešne odpovie, kto user je a ktoré attributes IdP vydal. Application stále rozhoduje, či user smie čítať invoice, meniť production alebo spravovať tenant.
 
 ```text
-SP metadata a entity ID?
-→ AuthnRequest destination/binding/signature?
-→ IdP authentication a policy?
-→ Response status?
-→ ACS URL a proxy reconstruction?
-→ XML parse/decode?
-→ signature a certificate?
-→ issuer/audience/destination/recipient?
-→ time a clock skew?
-→ InResponseTo/replay cache?
-→ NameID a attribute mapping?
-→ local session/authorization?
+validated assertion
+→ external subject identity
+→ local account/link
+→ normalized attributes
+→ local roles/policies
+→ resource-level authorization
 ```
 
-## 42. Typické chyby
+Priamy mapping broad IdP groupu na application admin rolu vytvára federation-wide privilege path. Mapping má byť explicitný, versionovaný a auditovaný.
 
-### Invalid signature
+## 36. Single Logout
 
-Over:
+SAML Single Logout používa `LogoutRequest`, `LogoutResponse`, NameID a optional SessionIndex na koordináciu IdP a SP sessions cez front alebo back channel.
 
-- správny metadata certificate,
-- signing key rollover,
-- signed element,
-- canonicalization,
-- message transform/proxy,
-- algorithm policy.
+SLO nie je atomic distributed transaction. Niektorý SP môže byť unavailable, browser môže blokovať front-channel request, session index môže chýbať a local API tokens môžu mať vlastný lifecycle.
 
-### Audience mismatch
+SP musí vždy vedieť ukončiť local session nezávisle. Security incident nemá spoliehať iba na „global logout succeeded“ UI status; treba revoke-nuť relevantné local sessions a downstream tokens.
 
-Assertion je určená pre inú SP entity ID alebo environment.
+## 37. Federation discovery a multi-tenant trust
 
-### Recipient/Destination mismatch
+V multi-IdP SP musí vybrať správny trust configuration. Routing môže používať tenant-specific URL, organization selection alebo verified domain mapping.
 
-Často spôsobené reverse proxy scheme/host/port alebo nesprávnym ACS endpointom.
+Email domain je routing hint, nie proof organization. User-provided entity ID alebo metadata URL nesmie automaticky vytvoriť trusted issuer.
 
-### Assertion expired alebo not yet valid
+Každý tenant trust má oddelené entity IDs, keys, attribute contract, assurance mapping a account-linking boundary. Assertion jedného tenant IdP nesmie provisionovať account v inom tenantovi podľa rovnakého emailu.
 
-Over NTP, time zone logging, skew policy a IdP/SP clocks.
+## 38. Federation contract
 
-### InResponseTo unknown
+Technická metadata konfigurácia je iba časť contractu. Production federation agreement má definovať:
 
-Request state expiroval, session sa stratila, response patrí inému node-u alebo ide o unsolicited response.
+- entity IDs, endpoints a bindings;
+- signing/encryption requirements;
+- supported key rollover process;
+- required NameID format;
+- attribute names, types a authorities;
+- authentication assurance semantics;
+- clock/skew a replay policy;
+- provisioning/deprovisioning latency;
+- incident contacts a emergency key removal;
+- logging, privacy a data retention;
+- test a change-management process.
 
-### User authenticated, ale account nevznikol
+Cryptographically valid assertion môže porušiť business contract, napríklad obsahovať admin role od partnera, ktorý ju nesmie vydávať.
 
-Over NameID, required attributes, case/type normalization, JIT provisioning a duplicate identity.
+## 39. SAML oproti OpenID Connect
 
-### Login loop
+SAML používa XML assertions, browser bindings a XML metadata. OIDC používa OAuth 2.0 endpoints, JSON/JWT ID Tokens, discovery a JWKS.
 
-Over session cookie, SameSite, IdP session, entity ID, proxy headers a authorization failure po login-e.
+SAML zostáva bežný pri enterprise SaaS a established workforce federation. OIDC lepšie zapadá do moderných web/native clients a API ecosystemu.
 
-## 43. Observability a audit
+Bezpečnosť závisí od implementation a configuration. XML nie je automaticky menej bezpečné než JWT; má však odlišnú parser, canonicalization a signature-wrapping attack surface.
 
-Sleduj:
+## 40. Observability
 
-- AuthnRequest a Response success/failure rate,
-- failures podľa IdP/SP v bounded labels,
-- signature/certificate errors,
-- issuer/audience/recipient failures,
-- clock-skew failures,
-- replay detections,
-- attribute mapping/provisioning failures,
-- local session creation,
-- SLO failures,
-- metadata refresh/expiry.
+Sleduj protocol stage, nie iba „SSO failed“:
 
-Neloguj plnú SAML Response, assertion alebo citlivé attributes. Použi request/response IDs a redacted audit fields.
+- AuthnRequest creation a redirect;
+- IdP response status;
+- parse/schema failures;
+- signature/key/certificate failures;
+- issuer, audience, recipient a destination failures;
+- clock-skew a expiry;
+- unknown `InResponseTo` a replay detection;
+- NameID/account-linking failures;
+- attribute mapping/JIT provisioning;
+- local session creation;
+- metadata refresh a key rollover;
+- SLO partial failures.
 
-## 44. Incident response
+Použi request/response IDs a redacted issuer/SP labels. Neloguj raw assertion, SAMLResponse form field ani sensitive attributes.
 
-Pri signing-key compromise:
+## 41. Troubleshooting flow
 
-1. identifikuj affected IdP/SP entity a key,
-2. odstráň compromised key z trustu,
-3. publikuj/načítaj emergency metadata,
-4. invaliduj relevantné sessions podľa risku,
-5. analyzuj assertions vydané počas compromise window,
-6. monitoruj replay a validation failures,
-7. obnov certificate rollover process,
-8. dokumentuj federation partner coordination.
+```text
+SP entity ID a metadata?
+→ AuthnRequest destination, binding a request state?
+→ IdP authentication a response Status?
+→ browser POST na správny ACS?
+→ base64/XML parse a secure schema?
+→ expected signing key a signed element?
+→ issuer a audience?
+→ destination a recipient?
+→ time conditions?
+→ InResponseTo a replay cache?
+→ NameID/attribute mapping?
+→ local session cookie a authorization?
+```
 
-Pri attribute-source compromise analyzuj aj authorization dopad, nie iba authentication.
+Pri `invalid signature` najprv over key rollover a actual signed element, nie iba certificate expiry. Pri recipient mismatch over proxy external URL. Pri unknown request over shared transaction store a SameSite/cookie behavior.
 
-## 45. Anti-patterny
+Login loop môže vzniknúť po successful SAML authentication, keď local authorization odmietne usera alebo session cookie sa neuloží. Rozlišuj protocol success od application session success.
 
-### Base64 decode považovaný za validáciu
+## 42. Incident response
 
-Assertion môže byť attacker-controlled.
+Pri IdP signing-key compromise:
 
-### Signature validná, teda všetko je validné
+```text
+identifikovať entity a key
+→ zastaviť trust k compromised keyu
+→ publikovať/načítať emergency metadata
+→ posúdiť assertions z exposure intervalu
+→ revoke-nuť local sessions podľa risku
+→ monitorovať replay a anomalous provisioning
+→ zaviesť nový key s controlled rollover
+→ koordinovať všetkých federation partners
+```
 
-Stále treba issuer, audience, recipient, time, request a replay validation.
+Pri attribute-source compromise analyzuj authorization impact: attacker mohol vydávať admin/group claims aj s validnou signature.
 
-### Email ako permanent identity key
+Pri SP decryption-key compromise posúď captured encrypted assertions a rotate encryption key. Pri ACS vulnerability izoluj endpoint a zachovaj raw malicious samples bezpečne mimo bežných logs.
 
-Email sa môže meniť a recyklovať.
+## 43. Časté anti-patterny
 
-### Metadata fetch z user-provided URL
+**Base64 decode považovaný za authentication.** Payload je attacker-controlled, kým neprejde komplet validation.
 
-Umožňuje attacker-controlled issuer a keys.
+**Valid signature = valid login.** Chýba issuer, audience, recipient, time, request a replay validation.
 
-### IdP-initiated flow bez replay a login-CSRF modelu
+**Email ako global identity key.** Zmena alebo recyklácia spojí nesprávne accounts.
 
-Chýba request binding.
+**Embedded certificate ako trust root.** Attacker pošle assertion podpísanú vlastným keyom aj vlastný certificate.
 
-### Vlastná XML Signature implementácia
+**Generic XPath po signature verification.** Application môže spracovať unsigned wrapped assertion.
 
-Veľké riziko wrapping a canonicalization chýb.
+**IdP-initiated login bez transaction threat modelu.** Login CSRF a account confusion ostávajú.
 
-### SAML attributes priamo ako admin permissions
+**Attributes priamo ako admin permissions.** Chýba authority, mapping a deprovisioning governance.
 
-Bez mapping, allowlist a authoritative contractu vzniká privilege escalation.
+**SLO ako spoľahlivá global revocation.** Partial failures nechajú local sessions aktívne.
 
-### SLO považované za spoľahlivú revocation
+**Vypnutá destination/recipient validation za proxy.** Misconfiguration sa „opraví“ odstránením security bindingu.
 
-Partial failures a lokálne sessions môžu zostať aktívne.
+## 44. Kompletný production príklad
 
-## 46. Kontrolné otázky
+Enterprise user otvorí `https://expenses.example/reports`.
 
-1. Aký je rozdiel medzi assertion, protocol, binding a profile?
-2. Aké role majú IdP a SP?
-3. Ako sa líši SP-initiated a IdP-initiated flow?
-4. Na čo slúžia metadata a entity ID?
-5. Čo musí SP validovať v SAML Response?
-6. Aký je rozdiel medzi audience, destination a recipient?
-7. Na čo slúži `InResponseTo` a RelayState?
-8. Ako funguje XML Signature a wrapping attack?
-9. Prečo certificate rollover potrebuje overlap?
-10. Ako sa líši NameID a attribute?
-11. Ako SAML súvisí s local authorization?
-12. Ako diagnostikuješ signature, time a ACS mismatch?
+1. SP vytvorí random AuthnRequest ID, uloží return path server-side a presmeruje na configured workforce IdP.
+2. IdP overí signed request/registered ACS podľa contractu a autentizuje usera phishing-resistant MFA.
+3. IdP vydá Response s Assertion, persistent opaque NameID, employee ID a department attribute. Assertion je určená audience SP entity ID a bearer Recipient exact ACS.
+4. Browser POSTne Response cez TLS.
+5. ACS použije secure XML parser, overí expected signed assertion key z metadata a spracuje presne signed element.
+6. SP overí issuer, audience, destination, recipient, time, `InResponseTo` a uniqueness Response/Assertion IDs.
+7. Identity key `issuer + NameID` nájde local account. Department sa normalizuje, ale admin entitlement sa odvodzuje z separate allowlisted group contractu.
+8. SP atomicky spotrebuje request state, regeneruje session ID a nastaví secure cookie.
+9. Application vykoná local resource authorization pre konkrétny expense report.
+10. Audit spojí request ID, assertion ID, IdP entity, local user, authentication context a authorization result bez uloženia raw assertion.
+
+## 45. Kontrolné otázky
+
+1. Aký je rozdiel medzi assertion, protocol, binding, profile a metadata?
+2. Prečo browser nie je trusted SAML participant?
+3. Ako sa Response líši od Assertion?
+4. Čo vytvára SP-initiated transaction binding?
+5. Aké additional risks má IdP-initiated flow?
+6. Ako fungujú Redirect, POST a Artifact binding?
+7. Prečo metadata predstavujú trust bootstrap?
+8. Čo je entity ID a prečo certificate sám nestačí?
+9. Ako sa NameID má mapovať na local identity?
+10. Akú úlohu má SubjectConfirmation?
+11. Ako sa audience, destination a recipient líšia?
+12. Ako `InResponseTo` a replay cache spolupracujú?
+13. Prečo RelayState môže vytvoriť login CSRF alebo open redirect?
+14. Čo AuthnContext dokazuje a čo musí byť dohodnuté?
+15. Ako sa attributes menia na local authorization inputs?
+16. Ako funguje XML Signature Wrapping?
+17. Prečo embedded signing certificate nesmie vytvoriť trust?
+18. Ako bezpečne vykonať signing/encryption key rollover?
+19. Prečo SLO nie je úplná session revocation?
+20. Navrhni kompletnú validation pipeline SAML Response.
 
 ## Glossary impact
 
-Relevantné pojmy: SAML, principal, Identity Provider, Service Provider, SAML assertion, SAML protocol, binding, profile, SAML Response, AuthnRequest, Web Browser SSO profile, HTTP Redirect binding, HTTP POST binding, artifact binding, SAML metadata, entity ID, Assertion Consumer Service, NameID, SubjectConfirmation, Conditions, AudienceRestriction, Destination, Recipient, InResponseTo, RelayState, authentication statement, authentication context, attribute statement, XML Signature, XML Signature Wrapping, XML Encryption, replay cache, Single Logout a SAML federation trust.
+Relevantné pojmy: SAML, principal, Identity Provider, Service Provider, SAML assertion, SAML Response, AuthnRequest, SAML protocol, SAML binding, SAML profile, Web Browser SSO profile, HTTP Redirect binding, HTTP POST binding, HTTP Artifact binding, SAML metadata, entity ID, Assertion Consumer Service, NameID, SubjectConfirmation, Conditions, AudienceRestriction, Destination, Recipient, InResponseTo, RelayState, AuthnStatement, Authentication Context, AttributeStatement, XML Signature, XML Signature Wrapping, XML Encryption, SAML certificate rollover, replay cache, local application session, Single Logout, federation discovery a federation contract.
 
 ## Primárne zdroje
 
-- [SAML 2.0 Core](https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf)
-- [SAML 2.0 Bindings](https://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf)
-- [SAML 2.0 Profiles](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf)
-- [SAML 2.0 Metadata](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf)
-- [SAML 2.0 Authentication Context](https://docs.oasis-open.org/security/saml/v2.0/saml-authn-context-2.0-os.pdf)
-- [SAML 2.0 Security and Privacy Considerations](https://docs.oasis-open.org/security/saml/v2.0/saml-sec-consider-2.0-os.pdf)
+- [OASIS SAML V2.0 standard documents](https://docs.oasis-open.org/security/saml/v2.0/)
+- [SAML V2.0 Core](https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf)
+- [SAML V2.0 Bindings](https://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf)
+- [SAML V2.0 Profiles](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf)
+- [SAML V2.0 Metadata](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf)
+- [SAML V2.0 Authentication Context](https://docs.oasis-open.org/security/saml/v2.0/saml-authn-context-2.0-os.pdf)
+- [OASIS SAML V2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html)
+- [OWASP SAML Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
