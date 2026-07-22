@@ -1,813 +1,703 @@
 # OpenID Connect
 
-OpenID Connect 1.0 je federated identity a authentication vrstva postavená nad OAuth 2.0. Umožňuje clientovi overiť, že End-User bol autentizovaný OpenID Providerom, a získať štandardizované identity claims. Hlavným identity artifactom je ID Token; access token zostáva určený pre resource server.
+OpenID Connect 1.0 — OIDC — je interoperabilná authentication a identity vrstva nad OAuth 2.0. OAuth definuje, ako client získa obmedzený access k resource serveru. OIDC pridáva štandardizovaný spôsob, ktorým client overí, že OpenID Provider autentizoval konkrétneho End-Usera pre konkrétneho clienta, a získa claims o tejto identity.
 
-## 1. Mentálny model
-
-```text
-End-User
-→ Relying Party spustí OpenID Connect request
-→ OpenID Provider autentizuje používateľa
-→ authorization code
-→ token endpoint
-→ ID Token + access token + voliteľne refresh token
-→ Relying Party validuje ID Token
-→ vytvorí vlastnú application session
-```
-
-OpenID Connect rieši otázku:
+Hlavným authentication artifactom je ID Token. Je určený Relying Party, nie API. Application po jeho validácii vytvorí vlastnú local session. Access token má inú audience a lifecycle: používa sa voči UserInfo alebo inému resource serveru.
 
 ```text
-Ktorý issuer autentizoval ktorého subjecta pre ktorého clienta a v akom kontexte?
+End-User otvorí Relying Party
+→ RP vytvorí OIDC authorization request a transaction state
+→ OpenID Provider autentizuje usera
+→ browser vráti authorization code
+→ RP backend vymení code za tokens
+→ RP validuje ID Token a optional UserInfo claims
+→ identity key issuer + subject nájde local account
+→ RP vytvorí vlastnú application session
+→ local authorization rozhoduje o resources a actions
 ```
+
+## 1. Problém, ktorý OIDC rieši
+
+Samotný OAuth access token nepredstavuje štandardný dôkaz authentication eventu pre client application. Token môže byť opaque, určený inému API, vydaný bez aktívneho user loginu alebo obsahovať claims s resource-server semantics.
+
+OIDC definuje:
+
+- authentication request pomocou scope `openid`;
+- ID Token s issuer, subject, audience a time claims;
+- exact validation rules;
+- standard identity claims;
+- UserInfo endpoint;
+- discovery a client metadata;
+- subject identifier privacy model;
+- session a logout specifications.
+
+Client teda nemusí interpretovať vendor-specific access token ako login response.
 
 ## 2. Role
 
-### End-User
+**End-User** je human subject, ktorého authentication event Provider potvrdzuje.
 
-Používateľ, ktorého identitu a authentication event OpenID Provider potvrdzuje.
+**Relying Party — RP** je OAuth client, ktorý používa OIDC na login. Môže byť server-side web application, native app, SPA s Backend for Frontend alebo iný client type.
 
-### Relying Party
+**OpenID Provider — OP** je OAuth Authorization Server podporujúci OIDC a vydávajúci ID Tokens.
 
-OAuth client používajúci OpenID Connect na authentication používateľa.
+**UserInfo endpoint** je OAuth-protected resource vracajúci claims o subjecte pre access token s vhodným scope-om.
 
-Relying Party sa často označuje ako OIDC client.
+Role sú logical. Jeden product môže byť OP aj API platforma, ale token consumers a audiences zostávajú oddelené.
 
-### OpenID Provider
+## 3. OAuth oproti OIDC
 
-Authorization server podporujúci OpenID Connect a vydávajúci ID Tokens.
-
-### UserInfo endpoint
-
-Protected resource, z ktorého môže client s access tokenom získať ďalšie user claims.
-
-## 3. OAuth oproti OpenID Connect
-
-### OAuth 2.0
-
-Primárny cieľ:
-
-- delegovaný alebo workload access k API.
-
-Hlavný artifact:
-
-- access token.
-
-### OpenID Connect
-
-Primárny cieľ:
-
-- authentication a interoperabilná identity federation.
-
-Hlavný artifact:
-
-- ID Token.
+OAuth odpovedá:
 
 ```text
-OAuth access token
-→ čo môže client vykonať voči resource serveru
-
-OIDC ID Token
-→ koho OpenID Provider autentizoval pre konkrétneho clienta
+Aký access môže tento client vykonať voči resource serveru?
 ```
 
-Access token sa nemá používať ako náhrada ID Token-u pre client login.
+OIDC odpovedá:
+
+```text
+Ktorý issuer autentizoval ktorého subjecta pre ktorého clienta,
+kedy a s akým authentication contextom?
+```
+
+Access token je credential pre resource server. ID Token je signed authentication assertion pre client. Resource server nemá štandardne akceptovať ID Token a client nemá používať access token ako náhradu ID Token-u.
+
+OIDC používa OAuth authorization endpoint, token endpoint, client registration, redirect URI a code exchange. Preto všetky OAuth transaction protections zostávajú relevantné.
 
 ## 4. Scope `openid`
 
-OIDC request musí obsahovať scope:
+Authorization request sa stáva OIDC requestom iba vtedy, keď scope obsahuje `openid`. Bez neho ide o OAuth request a Provider nie je povinný vydať ID Token.
+
+Ďalšie štandardné scopes žiadajú claim categories:
+
+- `profile` — meno, preferred username, locale a podobné profile claims;
+- `email` — email a `email_verified`;
+- `address`;
+- `phone`;
+- `offline_access` — požiadavka na refresh-token/offline semantics podľa Provider policy.
+
+Scope nie je guarantee, že každá claim bude vydaná. OP zohľadňuje consent, privacy, client registration a policy.
+
+## 5. Authorization Code flow
+
+Moderný OIDC web/native design používa Authorization Code flow s PKCE. Browser front channel prenáša iba krátkodobý code; tokens sa získajú na token endpoint-e.
 
 ```text
-openid
+RP → authorization endpoint:
+  client_id, redirect_uri, scope=openid,
+  state, nonce, code_challenge
+
+OP → RP redirect URI:
+  code, state
+
+RP → token endpoint:
+  code, redirect_uri, code_verifier,
+  client authentication podľa client type-u
+
+OP → RP:
+  ID Token, access token, optional refresh token
 ```
 
-Bez neho ide o OAuth request, nie OpenID Connect authentication request.
+Code je single-use a viazaný na client, redirect URI a PKCE verifier. Confidential RP navyše autentizuje svoju client identity na token endpoint-e.
 
-Ďalšie štandardné scopes:
+## 6. Authorization request
 
-- `profile`,
-- `email`,
-- `address`,
-- `phone`,
-- `offline_access`.
+OIDC authorization request obsahuje OAuth parameters a OIDC-specific context.
 
-Scope vyjadruje requested claim categories alebo refresh semantics; konkrétne claims stále závisia od policy a consentu providera.
+Dôležité fields:
 
-## 5. ID Token
+- `client_id` — registered RP identity;
+- `redirect_uri` — exact registered callback;
+- `response_type=code`;
+- `scope` obsahujúci `openid`;
+- `state` — client transaction binding a CSRF protection;
+- `nonce` — ID Token binding k authentication requestu;
+- PKCE `code_challenge` a method;
+- optional `prompt`, `max_age`, `login_hint`, `acr_values`, claims request.
 
-ID Token je signed JWT obsahujúci claims o authentication evente a subjecte.
+RP uloží transaction state server-side alebo v integrity-protected browser state. Parallel login attempts sa musia rozlišovať; jedna global nonce pre celý browser je nesprávna.
 
-Minimálne relevantné claims:
+## 7. `state`
 
-- `iss` — issuer,
-- `sub` — subject identifier,
-- `aud` — client audience,
-- `exp` — expiration,
-- `iat` — issued at.
+`state` koreluje authorization response s konkrétnou RP transaction a pomáha brániť login CSRF a response injection.
 
-Ďalšie možné claims:
+Flow:
 
-- `auth_time`,
-- `nonce`,
-- `acr`,
-- `amr`,
-- `azp`,
-- `at_hash`,
-- `c_hash`,
-- user profile claims.
+```text
+RP vytvorí random state
+→ uloží ho s issuerom, nonce, PKCE verifierom, redirect URI a return pathom
+→ po callbacku porovná exact value
+→ atomicky transaction spotrebuje
+```
 
-ID Token nie je API authorization token.
+`state` nemá byť iba pôvodná URL. Return destination sa uloží server-side alebo podpíše a allowlistuje. Sensitive data nepatria do URL-visible state.
 
-## 6. Subject identifier
+## 8. `nonce`
 
-`sub` je lokálne unikátny a stabilný identifier používateľa u konkrétneho issuera.
+`nonce` viaže ID Token na konkrétny authentication request. RP ho pošle OP a očakáva exact value v ID Token-e.
 
-Správna identity key je typicky:
+Ak attacker vloží validný ID Token z inej transaction, signature a audience môžu sedieť, ale nonce mismatch odhalí, že token nepatrí k aktuálnemu loginu.
+
+Nonce má byť random, transaction-specific, jednorazová a uložená oddelene pre parallel attempts. Validuje sa pred vytvorením local session.
+
+## 9. PKCE
+
+Proof Key for Code Exchange via Code Exchange — PKCE — viaže authorization code na RP instance, ktorá vytvorila `code_verifier`.
+
+```text
+RP vygeneruje secret code_verifier
+→ odošle hash ako code_challenge
+→ OP uloží binding k code-u
+→ token request musí predložiť original verifier
+```
+
+Attacker, ktorý zachytí code, ho bez verifiera nevymení. PKCE nerieši ID Token replay ani login CSRF; preto dopĺňa nonce a state.
+
+## 10. State, nonce a PKCE spolu
+
+Tieto values chránia rozdielne edges:
+
+```text
+state
+→ callback patrí k RP browser transaction
+
+nonce
+→ ID Token patrí k authentication requestu
+
+PKCE
+→ code exchange patrí k client instance
+```
+
+Jedna value nemá byť mechanicky používaná ako náhrada všetkých troch bez formálneho protocol profile-u. RP library má ich lifecycle spravovať ako jednu transaction, ale validovať ich individuálne.
+
+## 11. Authorization response a issuer binding
+
+Callback obsahuje `code`, `state` alebo protocol error. Pri clients komunikujúcich s viacerými issuers vzniká mix-up risk: response z jedného OP môže byť nesprávne poslaná na token endpoint druhého.
+
+RP preto uchová expected issuer v transaction state a presne validuje issuer ID v následnom ID Token-e. OAuth Authorization Server Issuer Identification podľa RFC 9207 môže pridať `iss` priamo do authorization response, ak Provider podporuje profile.
+
+User-controlled tenant/issuer parameter nesmie automaticky vybrať arbitrary discovery URL.
+
+## 12. Token endpoint exchange
+
+RP posiela code na token endpoint z trusted discovery/configuration. Request obsahuje exact `redirect_uri`, PKCE verifier a client authentication, ak je client confidential.
+
+`invalid_grant` môže znamenať expired alebo reused code, PKCE mismatch, redirect URI mismatch alebo code vydaný inému clientovi. Retry rovnakého code-u nemá pokračovať nekonečne; code je single-use.
+
+Token response je citlivá. Neloguj ID Token, access token, refresh token ani client assertion. RP má overiť TLS a expected endpoint origin.
+
+## 13. ID Token
+
+ID Token je JSON Web Token obsahujúci claims o subjecte a authentication evente. V Authorization Code flowe sa typicky vracia z token endpointu a je podpísaný OP keyom.
+
+Core claims:
+
+- `iss` — exact issuer identifier;
+- `sub` — stable subject identifier v issuer scope-e;
+- `aud` — intended RP client ID alebo audiences;
+- `exp` — expiry;
+- `iat` — issuance time.
+
+Context claims môžu zahŕňať `nonce`, `auth_time`, `acr`, `amr`, `azp`, `at_hash`, `c_hash` a profile claims podľa flowu a Provider policy.
+
+ID Token je input do RP authentication. Nie je local session ani API access credential.
+
+## 14. Complete ID Token validation pipeline
+
+RP validuje token v presnom context-e transaction:
+
+1. bounded-size JWT sa syntakticky parsuje;
+2. JOSE algorithm je na allowliste pre daného issuera/clienta;
+3. key sa vyberie iba z trusted issuer JWKS;
+4. signature sa overí;
+5. `iss` sa exactne porovná s expected issuerom;
+6. `aud` obsahuje RP client ID;
+7. `azp` sa validuje pri multiple audiences podľa Core rules;
+8. `exp`, `iat` a optional `nbf` sa kontrolujú s bounded skew;
+9. nonce sa exactne zhoduje s pending transaction;
+10. `auth_time`, `acr`, `amr` spĺňajú requested assurance, ak sú required;
+11. `at_hash`/`c_hash` sa validujú, keď ich flow vyžaduje;
+12. transaction sa atomicky spotrebuje;
+13. až potom sa claims mapujú na local identity/session.
+
+Base64 decode alebo úspešná signature bez issuer/audience/nonce validation nie je authentication.
+
+## 15. Issuer ako trust boundary
+
+Issuer je stable URL identifier OP a primary trust namespace OIDC relationshipu. RP ho konfiguruje alebo získa cez trusted onboarding a následne porovnáva exact string.
+
+Development, production a tenant issuers sa nemajú zamieňať. Token podpísaný známym keyom, ale s neočakávaným `iss`, sa odmietne.
+
+RP nesmie načítať JWKS URI alebo token endpoint z token-provided arbitrary URL. Discovery metadata sú trusted iba po issuer bootstrap a issuer consistency validation.
+
+## 16. Subject identifier
+
+`sub` je locally unique a never-reassigned identifier subjectu u konkrétneho issuer-a podľa Provider contractu. Globálna identity key je kombinácia:
 
 ```text
 issuer + subject
 ```
 
-Nie:
+Email, username alebo display name sa môžu zmeniť, recyklovať alebo kolidovať medzi issuers. Použitie emailu ako primary key umožňuje account takeover pri reassignment alebo malicious federation.
 
-- email,
-- display name,
-- username bez issuer contextu.
+Application môže email používať ako contact attribute, nie ako immutable external identity key.
 
-Email môže byť:
+## 17. Public a pairwise subjects
 
-- zmenený,
-- recyklovaný,
-- neoverený,
-- zdieľaný,
-- odlišný medzi tenants.
+Public subject type používa rovnaký `sub` pre clients v danom issuer scope-e. Uľahčuje account correlation a linking, ale zvyšuje privacy correlation medzi applications.
 
-## 7. Public a pairwise subject
+Pairwise subject generuje odlišný `sub` pre každého sector identifiera alebo client grouping. Dve nesúvisiace RPs nedokážu jednoducho zistiť, že ide o rovnakého usera.
 
-### Public subject
+Pairwise model komplikuje linking a migration. Enterprise suite môže používať controlled sector grouping, ale musí rozumieť privacy a lifecycle dôsledkom.
 
-Rovnaký `sub` pre všetkých clients v danom issuer scope-e.
+## 18. Audience a authorized party
 
-### Pairwise subject
+`aud` identifikuje clients, pre ktoré je ID Token určený. RP odmietne token, ktorý neobsahuje jeho client ID.
 
-Odlišný `sub` pre rôzne sectors alebo clients.
+Keď `aud` obsahuje viac values, `azp` identifikuje authorized party podľa OIDC rules. RP má odmietnuť unexpected `azp`.
 
-Výhoda pairwise identifiers:
+Audience validation zabraňuje tomu, aby attacker použil ID Token získaný pre inú application. Valid issuer a signature bez správnej audience nestačia.
 
-- znižujú možnosť korelovať používateľa medzi nesúvisiacimi aplikáciami.
+## 19. JWT signature a algorithm policy
 
-Nevýhoda:
+RP nemá veriť JOSE `alg` iba preto, že je v token headeri. Pre každého Provider-a/clienta má configured allowlist očakávaných ID Token signing algorithms.
 
-- zložitejšie account linking a migration.
+Odmietni `none` a algorithm confusion. Symmetric algorithm vyžaduje shared client secret a má iný trust model než asymmetric issuer signature; library configuration musí zodpovedať registration metadata.
 
-## 8. Authorization Code flow
+Token header `kid` vyberá candidate key, ale nevytvára trust. Unknown `kid` môže spustiť bounded JWKS refresh, nie arbitrary key fetch.
 
-Odporúčaný OIDC browser flow:
+## 20. JWKS a key rotation
+
+JSON Web Key Set publikuje OP public signing keys. RP ho načíta z trusted `jwks_uri`, cache-uje a používa `kid`/algorithm/key type na selection.
+
+Rotation flow:
 
 ```text
-Relying Party
-→ authorization request s response_type=code
-→ OpenID Provider autentizuje používateľa
-→ authorization code
-→ token endpoint + PKCE/client authentication
-→ ID Token + access token
+OP publikuje nový key popri starom
+→ RPs JWKS obnovia
+→ OP začne podpisovať novým keyom
+→ old tokens zostávajú validovateľné do expiry
+→ starý key sa odstráni po overlap intervale
 ```
 
-Výhody:
+RP má bounded cache TTL, refresh-once behavior pri unknown key a protection pred refresh stormom. Emergency key compromise môže vyžadovať okamžité odstránenie trustu a invalidáciu sessions, nie čakanie na normal expiry.
 
-- tokens nejdú priamo cez browser URL,
-- code je jednorazový a krátkodobý,
-- PKCE chráni code exchange,
-- confidential client môže použiť silnú client authentication.
+## 21. Discovery
 
-## 9. Authorization request
+OpenID Provider Configuration je JSON metadata document typicky na well-known endpoint-e. Obsahuje issuer, authorization/token/UserInfo endpoints, JWKS URI, supported response types, subject types, algorithms, scopes a optional logout capabilities.
 
-Dôležité parameters:
-
-- `scope=openid`,
-- `response_type=code`,
-- `client_id`,
-- `redirect_uri`,
-- `state`,
-- `nonce`,
-- PKCE `code_challenge`,
-- voliteľne `prompt`, `max_age`, `login_hint`, `acr_values`.
-
-Client musí uchovať transaction state bezpečne a jednorazovo ho validovať pri callbacku.
-
-## 10. Nonce
-
-`nonce` viaže ID Token na konkrétny authentication request a pomáha chrániť pred replay a token injection.
-
-Flow:
+Trusted flow:
 
 ```text
-client vytvorí náhodný nonce
-→ odošle ho v authorization requeste
-→ provider ho vloží do ID Token-u
-→ client overí exact match
+operator alebo tenant onboarding určí expected issuer
+→ RP fetchne discovery z issuer-derived well-known URL
+→ metadata issuer musí exactne sedieť
+→ endpoints/JWKS sa uložia pod týmto trust namespace-om
 ```
 
-Nonce musí byť:
+Discovery znižuje configuration drift, ale nevytvára trust z arbitrary URL. Metadata refresh potrebuje TLS, cache, error a last-known-good policy.
 
-- náhodný,
-- transaction-specific,
-- session-bound,
-- jednorazový,
-- validovaný pred vytvorením session.
+## 22. UserInfo endpoint
 
-Nonce nenahrádza `state` ani PKCE; každý rieši inú boundary.
+UserInfo je OAuth-protected resource. RP mu pošle access token a dostane claims o subjecte.
 
-## 11. State, nonce a PKCE
+RP musí overiť, že `sub` v UserInfo response exactne zodpovedá validated ID Token `sub`. Inak by response mohla zmeniť authenticated identity.
 
-```text
-state
-→ viaže authorization response na client transaction a pomáha proti CSRF
+UserInfo claims sa môžu meniť medzi loginom a callom a majú data-classification/privacy lifecycle. RP žiada iba potrebné scopes a neloguje response.
 
-nonce
-→ viaže ID Token na authentication request
+UserInfo nepridáva nový authentication event. Je to supplemental claims retrieval via access token.
 
-PKCE
-→ viaže authorization code exchange na client instance
-```
+## 23. Standard claims a ich authority
 
-Bezpečný flow typicky používa všetky tri podľa client modelu.
+Standard claim name poskytuje interoperabilnú syntax, nie universal business authority.
 
-## 12. ID Token validation
+Examples:
 
-Relying Party musí validovať minimálne:
+- `name`, `given_name`, `family_name` — display profile;
+- `preferred_username` — mutable display/login hint;
+- `email` a `email_verified` — provider-specific verification semantics;
+- `phone_number` a verification;
+- `locale`, `zoneinfo`, `address`.
 
-1. token je syntakticky validný JWT,
-2. signature používa povolený algorithm,
-3. signing key pochádza z dôveryhodného issuera,
-4. `iss` presne zodpovedá nakonfigurovanému issueru,
-5. `aud` obsahuje client ID,
-6. `azp` sa validuje, keď je relevantné,
-7. `exp` ešte neuplynulo,
-8. `iat` a ďalšie časové claims sú rozumné,
-9. `nonce` zodpovedá pôvodnej transakcii,
-10. `auth_time`, `acr`, `amr` spĺňajú požadovaný assurance context,
-11. hash claims sa validujú podľa použitého flowu.
+`email_verified=true` znamená iba to, čo Provider contract definuje o control nad emailom. Neznamená employment, tenant membership ani authorization role.
 
-Samotné base64 decode nie je validácia.
+## 24. Claims mapping
 
-## 13. Issuer validation
-
-Issuer je trust anchor OIDC relationshipu.
-
-Client musí:
-
-- poznať očakávaný issuer,
-- porovnať exact issuer URL,
-- nepoužívať issuer odvodený z neovereného request parametra,
-- zabrániť mix-up attacku,
-- oddeliť tenants/environments.
-
-Token z development issuera nemá byť prijatý v production iba preto, že signature key vyzerá dôveryhodne.
-
-## 14. Audience a authorized party
-
-`aud` určuje, pre ktorý client je ID Token vydaný.
-
-Ak obsahuje viac audiences, `azp` môže identifikovať authorized party.
-
-Client musí odmietnuť ID Token:
-
-- bez svojho client ID v `aud`,
-- s neočakávaným `azp`,
-- určený pre inú aplikáciu.
-
-ID Token ukradnutý z iného clienta sa nesmie dať použiť na login.
-
-## 15. Signature, JWKS a key rotation
-
-Provider publikuje public signing keys cez JWKS URI.
-
-Client potrebuje:
-
-- algorithm allowlist,
-- `kid` lookup,
-- JWKS cache,
-- bezpečný refresh pri unknown key,
-- overlap počas rotation,
-- ochranu proti untrusted JWKS URL,
-- emergency key revocation model.
-
-Chyby:
-
-- akceptovanie `none`,
-- algorithm confusion,
-- použitie token-provided key URL bez trust policy,
-- nekonečné JWKS refresh loops,
-- stará cache po rotácii.
-
-## 16. Discovery
-
-OpenID Provider Configuration je typicky dostupná cez well-known endpoint.
-
-Metadata môže obsahovať:
-
-- issuer,
-- authorization endpoint,
-- token endpoint,
-- UserInfo endpoint,
-- JWKS URI,
-- supported scopes,
-- response types,
-- subject types,
-- signing algorithms,
-- logout capabilities.
-
-Client musí validovať, že metadata issuer zodpovedá očakávanej hodnote.
-
-Discovery znižuje configuration drift, ale neodstraňuje potrebu trust bootstrap-u.
-
-## 17. UserInfo endpoint
-
-UserInfo je OAuth-protected endpoint, ktorý vracia claims o subjecte.
-
-Client:
-
-- používa access token,
-- validuje TLS a issuer relationship,
-- overí, že `sub` v UserInfo response zodpovedá `sub` z ID Token-u,
-- minimalizuje requested claims,
-- chráni response ako osobné údaje.
-
-UserInfo response nemá meniť authenticated subject identity bez validácie.
-
-## 18. Standard claims
-
-Bežné claims:
-
-- `name`,
-- `given_name`,
-- `family_name`,
-- `preferred_username`,
-- `email`,
-- `email_verified`,
-- `locale`,
-- `zoneinfo`,
-- `phone_number`.
-
-Claims sú assertions od issuera, nie automaticky autoritatívne business údaje.
-
-Príklady:
-
-- `email_verified=true` neznamená, že email patrí zamestnancovi,
-- group claim môže byť stale alebo truncated,
-- role claim môže mať iný význam medzi aplikáciami.
-
-## 19. Claims mapping
-
-Application musí mať explicitný mapping:
+RP prekladá external claims do internal modelu:
 
 ```text
-issuer claim
+issuer + claim name
+→ expected type a cardinality
 → normalization
-→ internal identity attribute
-→ authorization policy
+→ internal attribute
+→ local policy alebo display use
 ```
 
-Kontroluj:
+Pre každý mapping definuj required/optional behavior, maximum size/count, Unicode/case rules, trusted source a deprovisioning freshness.
 
-- source claim,
-- type,
-- required/optional,
-- multi-value semantics,
-- case sensitivity,
-- missing claim behavior,
-- tenant boundary,
-- maximum size,
-- trust level.
+Privileged role nemá vzniknúť z arbitrary group stringu bez allowlistu a federation contractu. Missing optional claim nesmie prepnúť usera do unsafe default tenant-a.
 
-Dynamický claim nemá automaticky vytvárať privileged role.
+## 25. ACR
 
-## 20. Authentication Context Class Reference
+Authentication Context Class Reference — `acr` — je identifier authentication assurance alebo policy class. Jeho semantics vznikajú dohodou medzi OP a RP alebo profile specification.
 
-`acr` vyjadruje authentication context class podľa dohody ekosystému.
+RP môže požadovať `acr_values` a následne overiť returned `acr`. Nemá interpretovať unknown string ako „MFA“ alebo porovnávať values lexicographically.
 
-Môže reprezentovať:
+Example enterprise contract môže definovať:
 
-- assurance level,
-- policy class,
-- phishing-resistant authentication,
-- step-up requirement.
+```text
+urn:example:loa:1 → password alebo existing low-assurance session
+urn:example:loa:2 → MFA
+urn:example:phishing-resistant → WebAuthn hardware-backed authentication
+```
 
-Client nesmie interpretovať ľubovoľnú `acr` hodnotu bez contractu s providerom.
+Mapping musí byť versionovaný a auditovaný.
 
-## 21. Authentication Methods References
+## 26. AMR
 
-`amr` opisuje použité authentication methods.
+Authentication Methods References — `amr` — je array identifiers použitých methods, napríklad password, OTP, hardware key alebo federated authentication podľa Provider convention.
 
-Príklady môžu reprezentovať:
+`amr` často opisuje components, zatiaľ čo `acr` opisuje resulting class/policy. RP nemá skladať high-impact authorization z náhodných AMR strings bez contractu.
 
-- password,
-- OTP,
-- hardware key,
-- biometric,
-- federated authentication.
+Federated OP môže uviesť method len na základe upstream assertion. RP musí dôverovať celému federation chain-u alebo používať ACR/profile s jasnými semantics.
 
-`amr` je informatívne podľa provider contractu. Authorization rozhodnutie má vychádzať z definovanej assurance policy, nie z náhodnej string hodnoty.
+## 27. `auth_time` a `max_age`
 
-## 22. Authentication time a max age
+`auth_time` je čas aktívnej End-User authentication. Nie je to ID Token issuance time; OP môže vydať nový token z existujúcej SSO session.
 
-`auth_time` uvádza čas aktívnej authentication.
+`max_age` žiada, aby authentication nebola staršia než určitý interval. OP potom vracia `auth_time`, ktorý RP validuje.
 
-`max_age` umožňuje clientovi požadovať čerstvú authentication.
+Sensitive operation môže vyžadovať fresh authentication aj keď application session je validná. Reauthentication freshness a method assurance sú samostatné: fresh password nemusí spĺňať phishing-resistant requirement.
 
-Použitie:
+## 28. `prompt`
 
-- citlivá operácia,
-- step-up,
-- zmena security settings,
-- financial action.
+`prompt` ovplyvňuje interaction policy:
 
-Existing SSO session nemusí spĺňať požadovanú freshness alebo assurance.
+- `none` — žiadna user interaction; ak nie je vhodná OP session/consent, vráti sa protocol error;
+- `login` — žiada reauthentication;
+- `consent` — žiada consent interaction;
+- `select_account` — žiada account selection.
 
-## 23. Prompt
+RP nesmie považovať `prompt=login` samo osebe za guarantee konkrétnej authentication method. Výsledné `auth_time` a `acr`/`amr` sa stále validujú.
 
-`prompt` ovplyvňuje interaction behavior.
+Silent login failure pri `prompt=none` je normálny branch, nie system outage.
 
-Príklady:
+## 29. Local application session
 
-- `none` — bez user interaction,
-- `login` — požadovať reauthentication,
-- `consent` — požadovať consent,
-- `select_account` — account selection.
+Validated ID Token je evidence pre vytvorenie local session. RP má vlastný session lifecycle:
 
-`prompt=none` failure je normálny protocol outcome, ak neexistuje vhodná session alebo consent.
+- regeneruje session ID po login-e;
+- používa Secure, HttpOnly a appropriate SameSite cookie;
+- chráni state-changing requests pred CSRF;
+- má idle a absolute timeout;
+- server-side revocation alebo bounded self-contained session;
+- step-up/reauthentication pre sensitive actions;
+- audit identity a authentication contextu.
 
-## 24. Session model
+ID Token nemá byť automaticky uložený ako long-lived browser session cookie. Jeho expiry a OP claims nemusia zodpovedať application session policy.
 
-OIDC authentication vytvorí identity evidence; application si typicky vytvorí vlastnú session.
+## 30. ID Token oproti access tokenu
 
-Application session musí mať:
+| Vlastnosť | ID Token | Access token |
+|---|---|---|
+| Primárny consumer | OIDC Relying Party | Resource server/API |
+| Audience | client ID | API/resource audience |
+| Účel | authentication assertion | authorization credential |
+| Validácia | issuer, client audience, nonce, auth context | API-specific token/introspection policy |
+| Posielať API | nie | áno |
+| Použiť ako local session | iba ako initial evidence | nie |
 
-- secure, HttpOnly a SameSite cookies podľa flowu,
-- session fixation protection,
-- idle a absolute timeout,
-- reauthentication/step-up policy,
-- server-side revocation alebo bounded lifetime,
-- CSRF protection,
-- logout semantics.
+Token types môžu byť obe JWT, ale rovnaký serialization neznamená rovnakú semantics.
 
-ID Token nemá byť automaticky používaný ako browser session cookie.
+## 31. Refresh token a `offline_access`
 
-## 25. Logout
+Refresh token je OAuth credential, ktorým client získava nové access tokens bez opätovného user authorization flowu. OIDC `offline_access` signalizuje požiadavku na access mimo aktívnej End-User session podľa Provider policy a consent.
 
-Logout môže znamenať viac vecí:
+Refresh token nepredstavuje nový user authentication event. Nový ID Token vydaný pri refresh-i môže opisovať pôvodný authentication context.
 
-- ukončenie local application session,
-- revocation refresh tokenu,
-- ukončenie provider session,
-- front-channel/back-channel notification ďalším clients,
-- device-wide alebo account-wide logout.
+Refresh token potrebuje secure storage, rotation/reuse detection, revocation, client binding a bounded scope. Browser exposure výrazne zvyšuje risk; BFF môže držať refresh token server-side.
 
-Client musí presne definovať požadovaný scope logoutu.
+## 32. Account linking
 
-Local logout bez provider logoutu umožní okamžitý SSO návrat. Provider logout môže ovplyvniť ďalšie aplikácie.
+Rovnaký človek môže mať identities od viacerých issuers alebo viac pairwise subjects. Linking je security-sensitive operation, pretože zlúčenie identities prenáša access a account history.
 
-## 26. Front-channel a back-channel logout
-
-### Front-channel
-
-Browser komunikuje s logout endpoints ďalších clients.
-
-Riziká:
-
-- browser restrictions,
-- third-party cookie policy,
-- unreliable delivery,
-- UI dependency.
-
-### Back-channel
-
-Provider posiela signed logout token priamo client backendu.
-
-Výhody:
-
-- nezávislosť od browseru,
-- server-to-server delivery.
-
-Client musí validovať logout token, issuer, audience, events claim a session/subject binding.
-
-## 27. Refresh token a offline access
-
-`offline_access` môže signalizovať požiadavku na refresh token pre access bez aktívnej user session.
-
-Provider stále rozhoduje podľa:
-
-- client type,
-- consent/policy,
-- risk,
-- requested scopes,
-- session assurance.
-
-Refresh token patrí do OAuth credential lifecycle-u a vyžaduje rotation, revocation a secure storage.
-
-## 28. Pairwise federation a account linking
-
-Pri viacerých issueroch môže rovnaký človek mať viac identities.
-
-Account linking musí byť explicitný a bezpečný.
-
-Nebezpečný pattern:
+Unsafe pattern:
 
 ```text
 rovnaký email → automaticky zlúčiť účty
 ```
 
-Bezpečnejšie možnosti:
+Bezpečnejšie patterns:
 
-- authenticated linking oboch identities,
-- administratívne schválenie,
-- autoritatívny enterprise identifier,
-- audit a unlink recovery.
+- user sa autentizuje oboma identities v jednej protected session;
+- enterprise authoritative identifier a verified tenant contract;
+- administrator approval s auditom;
+- notification a recovery/unlink process;
+- prevention duplicate privileged account takeover.
 
-## 29. Multi-tenant OIDC
+Email reassignment alebo malicious issuer nesmie prevziať existing account.
 
-Definuj:
+## 33. Multi-tenant OIDC
 
-- issuer per tenant alebo shared issuer,
-- tenant discovery,
-- allowed issuer list,
-- client registration boundary,
-- subject uniqueness,
-- claims mapping,
-- admin consent,
-- logout scope.
+Multi-tenant RP musí definovať trust onboarding a identity namespace.
 
-Používateľ-controlled tenant parameter nesmie viesť na ľubovoľný issuer bez trust policy.
+Možnosti sú issuer per tenant alebo shared issuer s explicitným tenant claimom. V oboch prípadoch treba určiť:
 
-## 30. Native a browser clients
+- allowed issuers a discovery bootstrap;
+- client registration ownership;
+- `issuer + sub` uniqueness;
+- tenant claim authority;
+- account-linking isolation;
+- admin consent a lifecycle;
+- logout/session scope;
+- behavior pri tenant removal.
 
-### Native application
+User input ako `?issuer=https://attacker.example` nesmie vytvoriť trust. Email-domain discovery je routing hint a musí mapovať iba na pre-approved issuer.
 
-- system browser,
-- Authorization Code + PKCE,
-- public-client model,
-- platform-approved redirect URI,
-- secure token storage podľa OS možností.
+## 34. Native applications
 
-### Browser SPA
+Native app je public client: binary beží na user device a client secret nemožno považovať za confidential.
 
-- Authorization Code + PKCE,
-- minimálna token lifetime,
-- XSS threat model,
-- zváženie Backend for Frontend,
-- secure transaction state.
+Používa system browser, Authorization Code + PKCE a platform-approved redirect pattern, napríklad claimed HTTPS URI alebo loopback URI podľa platform guidance. Embedded webview znižuje phishing a session isolation properties.
 
-OIDC neznižuje browser security requirements.
+Tokens sa ukladajú v OS-provided secure storage podľa threat modelu. Compromised device môže stále získať tokens; short lifetime, refresh rotation a device/application binding znižujú impact.
 
-## 31. Workload a service identity
+## 35. Browser SPA a Backend for Frontend
 
-OIDC sa používa aj pri workload identity federation.
+SPA beží v browser origin a je vystavená XSS. Authorization Code + PKCE chráni code interception, ale malicious script v origin-e môže čítať browser-accessible tokens.
 
-Workload môže získať signed identity token od platform issuera a použiť ho voči trustujúcej službe alebo token exchange endpointu.
+Backend for Frontend — BFF — drží tokens server-side a browser dostane application session cookie. Znižuje token exposure v JavaScript, ale pridáva CSRF, session, backend availability a proxy authorization requirements.
 
-Controls:
+Výber závisí od application architecture. OIDC neodstraňuje CSP, dependency security, output encoding ani session-cookie protections.
 
-- issuer/audience restriction,
-- krátka lifetime,
-- workload-specific subject,
-- podmienky na repository, branch, service account alebo environment,
-- replay protection,
-- no static cloud credentials.
+## 36. Workload identity federation
 
-User OIDC login a workload OIDC federation používajú podobný token model, ale odlišný identity lifecycle a threat model.
+OIDC-compatible JWT issuers sa používajú aj pre non-human workloads. Kubernetes, CI platforma alebo cloud runtime vydá short-lived identity token; cloud/Vault/resource service ho validuje alebo vymení za scoped credential.
 
-## 32. ID Token oproti access tokenu
+Trust policy kontroluje:
 
-| Vlastnosť | ID Token | Access token |
-|---|---|---|
-| Audience | OIDC client | resource server |
-| Účel | authentication assertion | API authorization |
-| Konzument | Relying Party | API |
-| Claims | issuer, subject, auth context | scope/permissions/resource context |
-| Posielať API | nie | áno |
-| Použiť na login | áno po validácii | nie ako štandardný login artifact |
+- exact issuer;
+- audience určenú target service-u;
+- workload-specific subject;
+- repository/workflow/branch/environment alebo ServiceAccount/namespace claims;
+- short lifetime;
+- replay/exchange semantics;
+- no broad wildcard mapping.
 
-Resource server nemá akceptovať ID Token ako access token.
+Workload token nie je human ID Token login. Má odlišný subject lifecycle, authentication mechanism a authorization model, hoci používa JWT/OIDC discovery/JWKS primitives.
 
-## 33. ID Token encryption
+## 37. ID Token encryption
 
-ID Token môže byť podpísaný a voliteľne šifrovaný.
+ID Token je vždy integrity-protected podľa configured signing/MAC semantics a môže byť voliteľne JWE-encrypted pre RP.
 
-Signing poskytuje:
+Encryption skryje claims pred browserom/intermediaries, ale RP stále musí validovať inner signed token alebo agreed nested JWT structure. Encryption nenahrádza TLS.
 
-- integrity,
-- issuer authenticity.
+Pridáva client decryption key lifecycle, rotation, algorithm negotiation a outage risk. Sensitive claims je často lepšie nevkladať do ID Token-u a získať ich server-side cez UserInfo alebo domain API.
 
-Encryption pridáva:
+## 38. Logout meanings
 
-- confidentiality claims voči intermediaries alebo client front channelu.
+„Logout“ môže znamenať:
 
-Encryption:
+- zrušenie local RP session;
+- revocation refresh tokenu;
+- ukončenie OP browser session;
+- notification ďalším RPs;
+- account-wide alebo device-wide session termination.
 
-- nenahrádza TLS,
-- komplikuje key management,
-- vyžaduje správny recipient key lifecycle,
-- nie je potrebná pri každom use case-e.
+Tieto lifecycles nie sú automaticky synchronizované. Local logout bez OP logoutu môže viesť k okamžitému SSO loginu. OP logout nemusí revoke-nuť API access tokeny alebo application-specific sessions.
 
-## 34. Privacy
+RP musí presne definovať desired scope a user expectation.
 
-OIDC prenáša identity data a vyžaduje privacy design.
+## 39. RP-Initiated Logout
 
-Controls:
+RP-Initiated Logout umožňuje RP presmerovať usera na OP end-session endpoint. Môže poslať `id_token_hint`, `post_logout_redirect_uri`, `state` a ďalšie parameters podľa specification/Provider supportu.
 
-- minimal scopes/claims,
-- pairwise subjects,
-- consent/transparency,
-- retention,
-- data residency,
-- purpose limitation,
-- no sensitive claims v browser logs/URLs,
-- audit accessu k claims,
-- account deletion/unlink lifecycle.
+Post-logout redirect URI musí byť pre-registered. `state` viaže callback k local logout transaction.
 
-ID Token môže byť čitateľný clientom a ďalšími držiteľmi, aj keď je podpísaný.
+RP má local session ukončiť bezpečne aj keď OP logout zlyhá. Nesmie držať local account authenticated iba preto, že browser nedokončil external redirect.
 
-## 35. Threats a mitigations
+## 40. Front-channel logout
 
-### Token replay
+OP komunikuje logout k RPs cez browser a RP front-channel logout URI. Delivery závisí od browser behavior, cookies, iframes/GET requests a network availability.
 
-- nonce,
-- short lifetime,
-- secure storage,
-- sender constraint pre access tokens.
+Third-party cookie restrictions môžu zabrániť RP identifikovať session. Front-channel je preto best-effort distributed notification, nie guaranteed transaction.
 
-### Mix-up attack
+Endpoint nesmie vykonávať unsafe state changes bez protocol validation a má byť idempotentný.
 
-- exact issuer validation,
-- authorization response issuer binding,
-- trusted discovery.
+## 41. Back-channel logout
 
-### Login CSRF
+OP posiela signed logout token priamo RP backendu. Token obsahuje issuer, audience, issued/expiry time, unique `jti`, events claim a `sid` alebo `sub` binding podľa profile-u.
 
-- `state`,
-- transaction-bound session,
-- PKCE,
-- issuer validation.
+RP validuje signature, issuer, audience, event, replay a session binding a následne zruší local sessions. Server-to-server delivery je menej závislá od browseru, ale potrebuje reachable endpoint a retry/idempotency model.
 
-### ID Token injection
+Logout token nie je ID Token ani access token a nemá byť použitý na login.
 
-- signature, audience, issuer, nonce a time validation.
+## 42. Privacy
 
-### Key confusion
+OIDC claims sú personal data. ID Token je podpísaný, nie automaticky encrypted; každý holder ho môže base64 decode-nuť.
 
-- algorithm allowlist,
-- trusted JWKS URI,
-- no token-controlled key fetch.
+Privacy controls:
 
-### Account linking takeover
+- minimal scopes a claims;
+- pairwise subjects;
+- purpose limitation;
+- informed consent/transparency podľa contextu;
+- retention a access audit;
+- no claims v URL/logs;
+- tenant/data residency policy;
+- unlink/delete lifecycle;
+- avoidance sensitive entitlements v browser-visible tokens.
 
-- neprepájať iba podľa emailu,
-- vyžadovať authenticated proof oboch identities.
+Discovery a federation configuration môžu tiež odhaliť organization relationships a endpoints.
 
-### Claim escalation
+## 43. Threats a controls
 
-- claim allowlist a normalization,
-- privileged role mapping iba z dôveryhodného authoritative source-u.
+**Login CSRF / response injection** — state a browser transaction binding.
 
-## 36. Troubleshooting login flow
+**Authorization code interception** — PKCE, exact redirect URI, single-use code.
+
+**ID Token replay/injection** — nonce, issuer/audience/time/signature validation a transaction consumption.
+
+**Mix-up** — expected issuer binding, trusted discovery, optional authorization response `iss`.
+
+**Key confusion** — algorithm allowlist, trusted JWKS URI, bounded key selection.
+
+**Account linking takeover** — never auto-link solely by email; authenticate both identities or use authoritative contract.
+
+**Claim escalation** — explicit mapping, allowlisted values, authoritative source a local authorization.
+
+**Token theft** — secure storage, short lifetimes, sender-constrained access tokens where applicable and XSS/session defenses.
+
+## 44. Observability
+
+Sleduj stage-specific metrics a logs:
+
+- authorization requests/callbacks;
+- state, nonce a PKCE failures;
+- authorization error codes;
+- token endpoint latency a `invalid_client`/`invalid_grant`;
+- ID Token signature/JWKS refresh failures;
+- issuer/audience/azp/time failures;
+- ACR/AMR/max-age mismatch;
+- account-link/JIT provisioning failures;
+- local session creation/revocation;
+- front/back-channel logout delivery;
+- discovery/JWKS freshness a key rotation.
+
+Neloguj codes, tokens, client secrets ani full claims. Použi transaction ID, issuer, client ID a redacted subject hash podľa privacy policy.
+
+## 45. Troubleshooting flow
 
 ```text
-správny issuer a discovery?
-→ client registration a redirect URI?
-→ scope obsahuje openid?
-→ state/nonce/PKCE uložené?
-→ authentication/consent?
-→ code exchange?
-→ client authentication?
-→ ID Token signature a JWKS?
-→ iss/aud/azp/exp/nonce?
-→ claims mapping?
-→ application session creation?
-→ authorization po login-e?
+expected issuer a discovery metadata?
+→ client registration a exact redirect URI?
+→ state, nonce a PKCE transaction uložená?
+→ OP authentication/consent/prompt outcome?
+→ callback state a optional response issuer?
+→ code exchange endpoint, client auth, verifier a redirect URI?
+→ ID Token JOSE key/algorithm/signature?
+→ iss, aud, azp, exp, iat a nonce?
+→ auth_time/acr/amr requirements?
+→ UserInfo sub consistency?
+→ claims mapping a local account?
+→ session cookie a application authorization?
 ```
 
-## 37. Typické chyby
+Login ending in application `403` usually means authentication succeeded, ale local authorization denied. Redirect loop môže byť SameSite/proxy/session issue, nie OP authentication failure.
 
-### `invalid_client`
+Unknown `kid` po rotation má spustiť bounded refresh. Repeated refresh bez keyu môže znamenať wrong issuer, stale metadata alebo malicious token.
 
-Over client ID, authentication method, secret/key rotation a token endpoint audience.
+## 46. Incident response
 
-### `invalid_grant`
+Pri OP signing-key compromise:
 
-Over code expiry/reuse, redirect URI, PKCE, refresh rotation a client binding.
+```text
+identifikovať issuer, key IDs a exposure interval
+→ odstrániť compromised key z trustu alebo quarantine issuer
+→ obnoviť trusted discovery/JWKS
+→ invalidovať affected RP sessions podľa risku
+→ analyzovať login a account-linking audit
+→ rotate/recover OP keys
+→ testovať issuer, audience, nonce a algorithm validation
+```
 
-### Signature validation failure
+Pri RP client credential compromise rotate secret/private key a revoke refresh-token/session families. Public client nemá recoverable confidentiality client secretu.
 
-Over issuer, `kid`, JWKS cache, algorithm allowlist a clock.
+Pri claim-source compromise analyzuj authorization impact, nie iba login count. Validly signed admin claims môžu byť malicious.
 
-### Audience mismatch
+## 47. Časté anti-patterny
 
-Token bol vydaný pre iného clienta alebo environment.
+**Access token ako login token.** Client nevie štandardne overiť authentication context a intended client audience.
 
-### Nonce mismatch
+**Email ako primary identity key.** Reassignment alebo cross-issuer collision prevezme account.
 
-Možný replay, zamenená transaction, session loss alebo parallel-login bug.
+**Decode bez validation.** JWT claims sú attacker-controlled.
 
-### Login funguje, ale role chýba
+**Issuer z user inputu.** Arbitrary Provider sa stane trusted.
 
-Authentication uspela; over claims mapping, group/role source, token size, stale directory data a application authorization.
+**JWKS URL z token headera.** Attacker určí verification keys.
 
-### Redirect loop
+**Group claim priamo na admin role.** Chýba authoritative mapping a deprovisioning contract.
 
-Over session cookie, proxy scheme/host headers, redirect URI, SameSite, clock a provider session.
+**ID Token poslaný API.** Resource server akceptuje token určený clientovi.
 
-## 38. Observability a audit
+**ID Token ako browser session cookie.** Token lifetime/claims sa zamieňajú s application session policy.
 
-Sleduj:
+**Logout ako global revocation.** Local sessions, OP session, access a refresh tokens majú rozdielne lifecycles.
 
-- login success/failure rate,
-- errors podľa clienta/issuera v bounded forme,
-- nonce/state/PKCE failures,
-- signature/JWKS failures,
-- unknown issuer/audience,
-- reauthentication a step-up outcomes,
-- logout delivery failures,
-- claim mapping failures,
-- session creation/revocation,
-- suspicious account linking.
+## 48. Kompletný production príklad
 
-Neloguj authorization codes, tokens, client secrets ani citlivé claims.
+User otvorí workforce expense application.
 
-## 39. Incident response
+1. RP vytvorí transaction s expected issuerom, random state/nonce, PKCE verifierom a return pathom.
+2. Browser ide na authorization endpoint z trusted discovery.
+3. OP autentizuje usera WebAuthn a vráti code, state a podporované issuer binding metadata.
+4. RP overí state a vymení code na token endpoint-e s verifierom a private-key client authentication.
+5. RP vyberie OP key z cached JWKS a overí ID Token signature, `iss`, `aud`, `azp`, `exp`, `iat`, nonce a required `acr`.
+6. `issuer + sub` nájde local account. Email sa aktualizuje ako mutable contact claim; privileged role sa mapuje iba z allowlisted enterprise entitlement.
+7. RP optional zavolá UserInfo a overí rovnaké `sub`.
+8. Transaction sa spotrebuje a RP vytvorí secure local session cookie s vlastným timeoutom.
+9. Application vykonáva resource authorization nezávisle od loginu.
+10. Audit zachytí transaction ID, issuer, subject hash, ACR, local account a session ID bez raw tokens.
+11. Back-channel logout token môže session zrušiť podľa `sid`; refresh token má samostatnú rotation/revocation policy.
 
-Pri signing-key alebo provider compromise:
+## 49. Kontrolné otázky
 
-1. identifikuj affected issuer a key IDs,
-2. zastav dôveru alebo quarantine-ni issuer podľa dopadu,
-3. rotate/revoke keys,
-4. invaliduj application sessions podľa risku,
-5. analyzuj vydané tokens a login audit,
-6. obnov trusted discovery/JWKS,
-7. testuj issuer/audience/nonce validation,
-8. komunikuj account recovery.
-
-Pri client compromise rotate client credentials a revokuj refresh-token/session families.
-
-## 40. Anti-patterny
-
-### Access token používaný ako ID Token
-
-Client nevie štandardne overiť authentication event a audience.
-
-### Email ako primary key
-
-Email sa môže zmeniť alebo recyklovať.
-
-### Decode bez signature validation
-
-Claims sú attacker-controlled.
-
-### Issuer vybraný user inputom
-
-Umožňuje dôveru attacker-controlled provideru.
-
-### Group claim priamo na admin role
-
-Bez authoritative contractu vzniká privilege escalation.
-
-### ID Token poslaný API
-
-Token je určený clientovi, nie resource serveru.
-
-### Logout považovaný za automatickú globálnu revocation
-
-Local session, provider session a tokens majú odlišný lifecycle.
-
-## 41. Kontrolné otázky
-
-1. Čo OpenID Connect pridáva nad OAuth 2.0?
-2. Aký je rozdiel medzi Relying Party a OpenID Providerom?
-3. Prečo je scope `openid` povinný?
-4. Ktoré ID Token claims musí client validovať?
-5. Prečo je identity key `issuer + subject`?
-6. Aký je rozdiel medzi `state`, `nonce` a PKCE?
-7. Ako sa líši ID Token a access token?
-8. Na čo slúžia discovery a JWKS?
-9. Ako sa používajú `acr`, `amr` a `auth_time`?
-10. Prečo nie je bezpečné linkovať účty iba podľa emailu?
-11. Ako funguje local, front-channel a back-channel logout?
-12. Ako diagnostikuješ login, ktorý skončí `403` v aplikácii?
+1. Čo OIDC pridáva nad OAuth 2.0?
+2. Ako sa RP, OP, End-User a UserInfo role líšia?
+3. Prečo scope `openid` mení protocol semantics?
+4. Ako Authorization Code + PKCE flow prenáša authentication evidence?
+5. Aký rozdiel je medzi state, nonce a PKCE?
+6. Ktoré claims a context musí RP validovať v ID Token-e?
+7. Prečo je issuer primary trust boundary?
+8. Prečo identity key tvorí `issuer + sub`?
+9. Ako public a pairwise subject ovplyvňujú privacy/linking?
+10. Ako `aud` a `azp` bránia token substitution?
+11. Ako JWKS rotation funguje bez outage-u?
+12. Prečo discovery nevytvára trust z arbitrary URL?
+13. Aké pravidlo platí pre UserInfo `sub`?
+14. Ako sa ACR, AMR a `auth_time` líšia?
+15. Prečo local session nie je ID Token?
+16. Aké riziká má automatic account linking podľa emailu?
+17. Ako sa native app, SPA a BFF threat modely líšia?
+18. Ako OIDC primitives podporujú workload identity federation?
+19. Ako sa local, RP-initiated, front-channel a back-channel logout líšia?
+20. Navrhni complete OIDC ID Token validation a session creation flow.
 
 ## Glossary impact
 
-Relevantné pojmy: OpenID Connect, Relying Party, OpenID Provider, End-User, ID Token, `openid` scope, subject identifier, public subject, pairwise subject, nonce, issuer validation, audience validation, authorized party, JWKS, OIDC discovery, UserInfo endpoint, standard claims, claims mapping, ACR, AMR, authentication time, max age, prompt, OIDC session, front-channel logout, back-channel logout, offline access, account linking a workload identity federation.
+Relevantné pojmy: OpenID Connect, End-User, Relying Party, OpenID Provider, UserInfo endpoint, scope `openid`, Authorization Code OIDC flow, OIDC transaction, state, nonce, PKCE, ID Token, issuer, subject identifier, public subject, pairwise subject, audience, authorized party, ID Token validation, JWKS, OIDC discovery, standard claims, claims mapping, Authentication Context Class Reference, Authentication Methods References, authentication time, max age, prompt, local application session, offline access, account linking, multi-tenant OIDC, Backend for Frontend, workload identity federation, ID Token encryption, RP-Initiated Logout, front-channel logout, back-channel logout a logout token.
 
 ## Primárne zdroje
 
-- [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
-- [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)
+- [OpenID Connect Core 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-core-1_0.html)
+- [OpenID Connect Discovery 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-discovery-1_0.html)
 - [OpenID Connect Session Management 1.0](https://openid.net/specs/openid-connect-session-1_0.html)
+- [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
 - [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
 - [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
-- [OAuth 2.0 Security Best Current Practice — RFC 9700](https://www.rfc-editor.org/rfc/rfc9700)
-- [JSON Web Token — RFC 7519](https://www.rfc-editor.org/rfc/rfc7519)
-- [JSON Web Key — RFC 7517](https://www.rfc-editor.org/rfc/rfc7517)
+- [RFC 9207 — OAuth 2.0 Authorization Server Issuer Identification](https://datatracker.ietf.org/doc/html/rfc9207)
+- [RFC 7636 — Proof Key for Code Exchange](https://datatracker.ietf.org/doc/html/rfc7636)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
