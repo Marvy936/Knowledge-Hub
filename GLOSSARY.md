@@ -106,6 +106,10 @@ Zmena resource alebo module addressy pri zachovaní identity toho istého remote
 
 Request-time vrstva Kubernetes API, ktorá po authentication a authorization mutuje alebo validuje relevantné create, update a delete requests pred persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
 
+## Admission verification
+
+Pre-deployment policy decision, ktorý validuje image digest, signature identity, attestations a environment rules pred prijatím workloadu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Admission webhook dependency
 
 Synchronous external alebo in-cluster dependency API write pathu, ktorej latency, TLS, availability a failure policy priamo ovplyvňujú matching Kubernetes requests. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
@@ -277,6 +281,10 @@ Versionovateľný EC2 boot-image a block-device contract používaný pri vytvá
 ## Amortized cost — AWS
 
 Cost view, ktorý rozkladá upfront a recurring commitment fees cez obdobie ich benefitu, aby zobrazil ekonomický cost používania namiesto iba cash invoice momentu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Analyzed SBOM
+
+SBOM odvodená analýzou existujúceho binary, package, image alebo filesystemu bez plnej závislosti na source metadata. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Analyzer — search
 
@@ -462,9 +470,21 @@ Content-derived immutable identifikátor artifactu, napríklad SHA-256 digest co
 
 Presun už vytvoreného a overeného immutable artifactu medzi environmentmi alebo release stages bez jeho opätovného rebuildovania. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
+## Artifact quarantine
+
+Riadené zablokovanie promotion, pull alebo deploymentu konkrétneho artifact digestu pri zachovaní forensic evidence. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md) a [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Artifact revocation
+
+Policy decision zneplatňujúci predtým akceptovaný artifact digest, signing identity alebo trust path bez nutnosti odstrániť historickú transparency evidence. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Artifact version
 
 Logical identifier artifactu používaný na komunikáciu release identity alebo compatibility významu. Má byť mapovateľný na konkrétny immutable content digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
+
+## `artifactType` — OCI
+
+OCI manifest field opisujúci semantic media type artifactu, najmä keď config descriptor neposkytuje dostatočnú type informáciu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Assertion Consumer Service — ACS
 
@@ -513,6 +533,10 @@ Explicitný opis schopností, prístupov, motivácie a obmedzení uvažovaného 
 ## Attempt rate
 
 Počet technických pokusov o vykonanie operácie za čas vrátane retries; môže byť vyšší než počet logical operations. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Attestation — supply chain
+
+Signed statement, ktorý viaže subject digest na konkrétny predicate a identity vydávajúcu dané tvrdenie. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Attribute-Based Access Control — ABAC
 
@@ -970,6 +994,10 @@ Znovupoužiteľné výsledky build graph nodes alebo instructions identifikovan�
 
 Explicitná množina files, directories a metadata dostupná builderu ako source pre `COPY`, `ADD` alebo build mounts; context root nemusí byť directory Dockerfile-u. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
+## Build definition
+
+Versionovaný contract build procesu zahŕňajúci workflow, scripts, toolchain, environment, flags, inputs a target platform. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Build driver — Buildx
 
 Konfigurácia určujúca, kde a ako beží BuildKit backend, napríklad `docker`, `docker-container`, Kubernetes alebo remote driver. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -993,6 +1021,18 @@ Princíp vytvoriť pre konkrétny source commit jeden immutable artifact a ten i
 ## Build once, promote many
 
 Delivery princíp, pri ktorom sa source zostaví raz do immutable artifactu a rovnaký digest sa overuje a promotionuje cez všetky environments. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+
+## Build platform
+
+Systém vykonávajúci build definitions, získavajúci inputs a vytvárajúci artifacts a provenance; predstavuje kritickú supply-chain trust boundary. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Build provenance
+
+Attestation viažuca artifact digest na builder identity, build type, source revision, inputs a relevantné invocation metadata. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Build SBOM
+
+SBOM generovaná počas build procesu z resolved dependencies, build metadata a vytváraného artifactu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Build secret — Dockerfile
 
@@ -1598,6 +1638,10 @@ Stabilný index konkrétneho logical completion slotu pri Indexed Job-e, použí
 
 Prometheus-style metrics publikované API serverom, schedulerom, controller-managerom, kubeletom, etcd a ďalšími system components. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Component relationship — SBOM
+
+Machine-readable väzba medzi SBOM elements, napríklad `dependsOn`, `contains`, `generatedFrom` alebo `distributedAs`. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Component template — search
 
 Reusable časť index template-u obsahujúca mappings, settings alebo aliases pre Elasticsearch/OpenSearch index model podľa produktu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -1958,6 +2002,10 @@ Identifikátor používaný na spojenie logs, requests, events alebo ďalších 
 
 Browser-enforced HTTP policy určujúca, ktoré origins môžu čítať responses alebo odosielať vybrané cross-origin requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
+## Cosign
+
+Sigstore nástroj na signing a verification container images, blobs a supply-chain attestations. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Cost allocation coverage
 
 Podiel cloud spendu, ktorý možno spoľahlivo priradiť podľa accounts, tags, Cost Categories alebo iného allocation modelu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -2054,6 +2102,10 @@ Zneprístupnenie encrypted dát bezpečným zničením všetkých key copies pot
 
 Schopnosť inventarizovať a kontrolovane meniť cryptographic algorithms, protocols, parameters, certificates a key mechanisms bez neplánovaného prepisu celého systému. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Cryptographic BOM — CBOM
+
+Inventory cryptographic algorithms, keys, certificates, protocols a dependencies používaný na crypto governance a migration planning. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Cryptoperiod
 
 Schválené časové alebo usage obdobie, počas ktorého môže byť cryptographic key použitý na definované operations. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -2101,6 +2153,10 @@ Common Vulnerabilities and Exposures identifier pre verejne známy vulnerability
 ## CVSS v4.0
 
 Common Vulnerability Scoring System version 4.0; štandardizovaný model severity characteristics, ktorý treba kombinovať s exploitation evidence, exposure, asset criticality a business contextom. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
+## CycloneDX 1.7
+
+Verzia CycloneDX BOM specification pre components, services, dependency graphs, formulation, vulnerabilities, cryptographic assets a ďalšie transparency data. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## DAC — Discretionary Access Control
 
@@ -2318,6 +2374,10 @@ Local identity dependency chartu umožňujúca použiť rovnaký chart viackrát
 
 Boolean values path v dependency declaration, ktorý povoľuje alebo zakazuje načítanie konkrétneho subchartu. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
+## Dependency confusion
+
+Supply-chain attack, pri ktorom dependency resolver vyberie attacker-controlled package z iného registry alebo namespace namiesto zamýšľaného interného package-u. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Dependency constraint — Helm
 
 Exact SemVer alebo version range v `Chart.yaml`, podľa ktorého `helm dependency update` vyberá kompatibilnú dependency version. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
@@ -2346,6 +2406,10 @@ Rate, Errors a Duration merané pre outbound dependency calls, používané na o
 
 Analýza direct a transitive software dependencies podľa manifestov, lockfiles alebo SBOM a ich porovnanie s vulnerability advisory databázou. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
+## Dependency scope — SBOM
+
+Klasifikácia účelu componentu, napríklad runtime, development, test, optional, build-only alebo externally provided. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Dependency tag — Helm
 
 Label priradený jednej alebo viacerým dependencies, ktorý umožňuje ich skupinové enable/disable cez top-level `tags` values. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
@@ -2353,6 +2417,10 @@ Label priradený jednej alebo viacerým dependencies, ktorý umožňuje ich skup
 ## Deployable state
 
 Stav, v ktorom existuje dôveryhodný immutable artifact, potrebné dôkazy, kompatibilná konfigurácia, deployment automation, observability a recovery plán umožňujúci bezpečný deployment. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
+## Deployed SBOM
+
+Inventory komponentov viazaný na artifact alebo system nasadený v konkrétnom environment kontexte. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Deployment
 
@@ -2505,6 +2573,10 @@ Digest uncompressed filesystem layer changesetu uložený v OCI image configurat
 ## Diff mode — Ansible
 
 Režim zobrazujúci content rozdiel pri podporovaných modules; output môže obsahovať citlivé údaje a potrebuje access a retention policy. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Digest pinning
+
+Viazanie dependency, action, image alebo artifact reference na immutable cryptographic content digest namiesto mutable tagu alebo version range. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Direct membership — GitLab
 
@@ -2769,6 +2841,10 @@ Riadené rozhodnutie drift revertovať, adoptovať do configuration, zmeniť own
 ## Drop — firewall action
 
 Tiché zahodenie packetu bez explicitnej odpovede klientovi. Typickým symptómom je timeout. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
+
+## DSSE
+
+Dead Simple Signing Envelope; envelope format viažuci payload type a payload bytes k signatures s ochranou proti cross-protocol confusion. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Dual stack
 
@@ -3088,7 +3164,7 @@ Stav, keď host alebo NAT nemá voľný transportný port pre nový flow. Pozri 
 
 ## Ephemeral runner
 
-Runner worker alebo execution instance vytvorená pre jeden job alebo krátky workload interval a po dokončení zrušená, čím sa znižuje cross-job state contamination. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+Build worker vytvorený pre obmedzený job alebo run a následne zničený, aby sa znížilo cross-job contamination a persistence risk. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Ephemeral runtime instance
 
@@ -3237,6 +3313,10 @@ Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant,
 ## Explicit deny — IAM
 
 Policy statement s `Effect: Deny`, ktorý pre applicable request prevažuje nad explicitnými allows v ostatných vyhodnocovaných policy vrstvách. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Exploitability status
+
+Machine-readable tvrdenie o tom, či a prečo je konkrétna vulnerability relevantná pre konkrétny artifact alebo product context. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Exporter — Prometheus
 
@@ -3541,6 +3621,10 @@ OIDC logout model využívajúci browser na komunikáciu s logout endpoints jedn
 ## `fsGroup`
 
 Pod security context group identity používaná pri ownership a access nastavení podporovaných mounted volumes. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
+## Fulcio
+
+Sigstore certificate authority vydávajúca short-lived code-signing certificates pre overené OIDC identities. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Game day
 
@@ -3950,6 +4034,10 @@ Object odovzdaný named template-u cez `template` alebo `include`, ktorý určuj
 
 Konvenčný underscore-prefixed súbor v `templates/` určený na definitions reusable named templates, ktorý sa sám nerenderuje ako Kubernetes manifest. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
 
+## Hermetic build
+
+Build, ktorý získava všetky inputs cez deklarovaný a kontrolovaný mechanism bez nezdokumentovaného host alebo network dependency accessu. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Hermetic test
 
 Test, ktorý kontroluje všetky významné vstupy a nespolieha sa na nepredvídateľný externý stav. Môže používať disposable reálne dependencies. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -4218,6 +4306,10 @@ OCI artifact odkazujúci descriptorom na jednu image configuration a ordered lis
 
 Image configuration fields ako default command, entrypoint, environment, user, working directory, exposed ports, labels a stop signal použité pri vytváraní runtime containeru. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
+## Image signing
+
+Cryptographic binding container image digestu na signing key alebo identity, ktorý consumer vyhodnocuje podľa verification policy. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## ImagePullSecret
 
 Kubernetes Secret reference používaná kubeletom alebo container runtime pri autentifikovanom image pull-e; nejde o application ani ServiceAccount API credential. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md) a [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
@@ -4285,6 +4377,14 @@ Dependency declaration mechanism prenášajúci vybrané exported alebo mapped c
 ## Improvement plan — Well-Architected
 
 Prioritizovaný súbor konkrétnych remediation položiek s ownerom, target state-om a validation criteria po workload review. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## in-toto
+
+Framework a metadata model pre zaznamenanie a overenie supply-chain steps, materials, products a autorizovaných functionaries. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## in-toto Statement
+
+Supply-chain attestation structure obsahujúca subject digest, predicate type a predicate. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## `include` — Helm
 
@@ -4582,6 +4682,10 @@ Ticket-based network authentication protocol používajúci KDC, TGT a service t
 
 Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## Key-based signing
+
+Signing model používajúci dlhodobejší private key a distribuovaný public key alebo certificate ako trust anchor. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Key Encryption Key — KEK
 
 Cryptographic key používaný na wrap alebo encryption iných keys, najmä Data Encryption Keys v envelope-encryption architektúre. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -4597,6 +4701,10 @@ Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčas�
 ## Key version number — KVNO
 
 Číslo verzie Kerberos long-term key-u používané na zosúladenie ticketu s aktuálnym alebo starším keytab entry. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Keyless signing
+
+Identity-based signing model používajúci OIDC authentication, ephemeral key pair a short-lived signing certificate namiesto manuálne spravovaného long-lived signing keyu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Keytab
 
@@ -4905,6 +5013,10 @@ Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú call
 ## Local Zone — AWS
 
 AWS infrastructure extension približujúca vybrané služby k určitej metropolitnej oblasti pre latency-sensitive workloady a závislá od parent Regionu podľa service modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Lockfile — dependency resolution
+
+Versionovaný záznam konkrétneho resolved dependency graphu, často vrátane integrity hashes, ktorý stabilizuje opakovanie dependency resolution. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Log
 
@@ -5258,6 +5370,10 @@ TLS model autentifikujúci server aj klienta pomocou certificates. Pozri [HTTPS,
 
 Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## Multi-architecture SBOM
+
+SBOM model, ktorý explicitne rozlišuje OCI image index a jednotlivé platform manifests a ich odlišné component inventories. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Multi-AZ architecture — AWS
 
 Workload design rozkladajúci compute, networking a stateful capabilities cez viac Availability Zones tak, aby zlyhanie jednej zóny neodstavilo definovanú službu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
@@ -5373,6 +5489,10 @@ SAML subject identifier s definovaným formatom, napríklad persistent alebo tra
 ## Namespace — Linux namespace
 
 Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu systémového stavu. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## Namespace takeover — package
+
+Získanie kontroly nad opusteným, expirovaným alebo nesprávne rezervovaným package namespace-om a jeho použitie na distribúciu attacker-controlled contentu. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Namespaced resource — Kubernetes
 
@@ -5640,7 +5760,7 @@ Stav, ktorý controller alebo agent aktuálne vidí cez API cache, runtime alebo
 
 ## OCI artifact
 
-Content uložený pomocou OCI image/distribution modelu, ktorý nemusí byť runnable image, napríklad SBOM, signature, provenance, Helm chart alebo policy bundle. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Non-container alebo auxiliary content distribuovaný cez OCI manifest a registry semantics, napríklad signature, SBOM alebo provenance. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## OCI chart
 
@@ -5653,6 +5773,10 @@ Otvorená governance organizácia definujúca industry standards pre container i
 ## OCI referrer
 
 Artifact alebo discovery vzťah odkazujúci na subject digest, používaný napríklad na pripojenie signature, SBOM alebo provenance k image-u. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md) a [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+
+## OCI Referrers
+
+OCI distribution model na discovery manifests, ktoré cez `subject` odkazujú na artifact digest, napríklad signatures, SBOMs alebo provenance. Pozri [SBOM](docs/13-security-and-identity/sbom.md) a [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## OCI runtime bundle
 
@@ -5705,6 +5829,10 @@ OIDC authorization server, ktorý autentizuje End-Usera a vydáva ID Tokens. Poz
 ## OpenSearch
 
 Distribuovaný search a analytics systém založený na Apache Lucene s vlastným plugin, security a lifecycle ekosystémom. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## OpenSSF Scorecard
+
+Automatizovaný nástroj hodnotiaci vybrané open-source project security heuristics; jeho score je triage signal, nie security certifikácia. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## OpenTelemetry
 
@@ -6222,6 +6350,10 @@ Lifecycle rule blokujúca plánované zničenie resource, pokiaľ je pravidlo st
 
 Control znižujúci pravdepodobnosť vzniku bezpečnostného incidentu. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Primary component — SBOM
+
+Hlavný product, application alebo artifact, ktorého composition daná SBOM opisuje. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Primary shard
 
 Autoritatívna shard kópia subsetu documents, z ktorej sa koordinuje replication. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -6352,7 +6484,7 @@ CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa Gi
 
 ## Provenance attestation
 
-Strojovo overiteľné tvrdenie o pôvode artifactu, jeho source, build procese, vstupoch a builder identity. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
+Signed statement viažuci artifact na builder, source revision, build type a inputs podľa definovaného provenance predicate-u. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Provider alias — Terraform
 
@@ -6729,6 +6861,10 @@ Test chrániaci existujúce funkčné alebo nefunkčné správanie pred nechceno
 ## Rekey — Ansible Vault
 
 Zmena passwordu alebo vault identity použitej na šifrovanie existujúceho Vault contentu; nemení automaticky samotný cieľový application credential. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Rekor
+
+Sigstore transparency log pre signed software supply-chain metadata a inclusion evidence. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Relative Distinguished Name — RDN
 
@@ -7314,6 +7450,10 @@ Bucket capability zachovávajúca viac object versions a používajúca delete m
 
 Software as a Service: model poskytujúci hotovú application službu, pričom zákazník typicky vlastní tenant configuration, identities, data usage, retention a integrations. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## SaaSBOM
+
+Bill of Materials opisujúci software-as-a-service components, services, providers a dependencies v continuously deployed service modeli. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Safe loader — YAML
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -7377,6 +7517,38 @@ Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká que
 ## Saturation — USE
 
 Množstvo práce, ktoré resource nedokáže okamžite obslúžiť a prejavuje sa queueingom, wait time, throttlingom alebo rejection. Pozri [USE method](docs/12-observability/use-method.md).
+
+## SBOM
+
+Machine-readable inventory software components a relationships viazaný na konkrétny software artifact alebo system. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM accuracy
+
+Miera, do akej component identities, versions, digests, suppliers a relationships zodpovedajú skutočnému artifactu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM attestation
+
+Signed supply-chain statement, ktorý viaže SBOM predicate na konkrétny artifact digest a producer identity. Pozri [SBOM](docs/13-security-and-identity/sbom.md) a [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## SBOM completeness
+
+Deklarovaný rozsah a miera, do akej SBOM zachytáva všetky components a relationships v definovanom subjecte. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM diff
+
+Semantic comparison dvoch SBOM versions zamerané na component, version, relationship, supplier a license changes namiesto textového JSON diffu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM freshness
+
+Vzťah SBOM ku konkrétnemu aktuálnemu immutable release artifactu a času jeho generation; creation timestamp bez digest bindingu freshness nedokazuje. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM ingestion
+
+Pipeline na authentication source-u, schema validation, signature verification, subject binding, normalization a indexing prijatej SBOM. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM subject
+
+Konkrétny artifact alebo system, ktorý SBOM opisuje, preferovane identifikovaný immutable digestom a doplňujúcimi package metadata. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## SCA — Software Composition Analysis
 
@@ -7830,13 +8002,29 @@ Typ telemetry reprezentujúci určitý pohľad na systém, napríklad metric, lo
 
 Hodnotenie telemetry podľa correctness, completeness, freshness, contextu, correlation, schema stability, security, cost a ownershipu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Signature discovery
+
+Proces nájdenia signatures a attestations súvisiacich s artifact digestom cez OCI Referrers alebo ecosystem-specific fallback convention. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## signed cookie — CloudFront
 
 CloudFront private-content authorization token v cookies, ktorý môže oprávniť clienta na skupinu paths alebo resources podľa policy a expiry. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Signed image subject
+
+OCI image index alebo platform manifest digest, ku ktorému sa signature alebo attestation explicitne viaže. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## signed URL — CloudFront
 
 Časovo alebo policy obmedzená CloudFront URL podpísaná trusted keyom pre access ku konkrétnemu private resource-u. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Signing identity policy
+
+Authorization pravidlá určujúce, ktoré issuers, identities, repositories, workflows a contexts smú podpisovať konkrétne artifacts. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Sigstore
+
+Open-source ecosystem pre software signing, identity-bound certificates, transparency a verification tooling. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Silence — alerting
 
@@ -7882,6 +8070,26 @@ Dlhšie mierne prekračovanie reliability targetu, ktoré spotrebúva error budg
 
 ALB target-group mechanismus postupne zvyšujúci traffic newly healthy targetu počas warmup intervalu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## SLSA Build L1
+
+SLSA Build level, pri ktorom pre artifact existuje automaticky generovaná provenance, ale nemusí poskytovať silnú tamper resistance. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## SLSA Build L2
+
+SLSA Build level vyžadujúci signed provenance generovanú hosted build platformou a consumer-side authenticity verification. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## SLSA Build L3
+
+SLSA Build level vyžadujúci hardened build platformu s izoláciou build runs a oddelením provenance signing materialu od user-defined build steps. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## SLSA Build track
+
+SLSA track definujúci guarantees pre build provenance, hosted build platform a hardened build isolation. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## SLSA Source track
+
+SLSA track definujúci rastúce guarantees pre version-controlled source, history, source provenance, kontinuálne technical controls a two-party review. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Smoke test
 
 Krátky široký test overujúci, či je build alebo deployment dostatočne funkčný na pokračovanie ďalších kontrol alebo prevádzky. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
@@ -7910,9 +8118,25 @@ Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [
 
 Analýza application dependencies a package metadata na identifikáciu známych vulnerabilities, license information a component inventory; potrebuje reachability a runtime context pre presnejšiu prioritizáciu. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
+## Software supply chain
+
+Súbor ľudí, identities, source repositories, dependencies, build systems, tools, registries, release procesov a deployment controls, ktoré môžu ovplyvniť výsledný software artifact. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Source/destination check — AWS
 
 EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo destination trafficu; network appliance alebo NAT instance ju môže potrebovať vypnúť. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Source provenance
+
+Attestation opisujúca, ako konkrétna source revision vznikla, kto a aký process ju vytvoril a ktoré source-control controls boli presadené. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Source revision
+
+Konkrétny logicky immutable snapshot repository identifikovaný revision ID, napríklad Git commit SHA, spolu s relevantnou version-control metadata. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Source SBOM
+
+SBOM generovaná zo source manifests, lockfiles a repository contentu pred vytvorením final artifactu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Span
 
@@ -7925,6 +8149,10 @@ Jednotka distributed trace-u reprezentujúca jednu časovo ohraničenú operatio
 ## Span link
 
 Vzťah medzi spanmi používaný pri async, batch alebo fan-out causalite, ktorá nevytvára jednoduchý parent-child strom. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## SPDX 3.0.1
+
+Verzia System Package Data Exchange specification s profile-oriented modelom pre software, licensing, security, build a ďalšie system information. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Spike test
 
@@ -8170,6 +8398,10 @@ Entita, ktorá iniciuje operation alebo pristupuje k resource-u a je reprezentov
 
 Hodnota `sub`, ktorá spolu s issuerom stabilne identifikuje End-Usera v OIDC trust doméne. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## `subject` — OCI manifest
+
+OCI descriptor viažuci artifact manifest na iný manifest digest, ktorý predstavuje jeho subject. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## SubjectAccessReview
 
 Kubernetes authorization API request zisťujúci, či konkrétna identita smie vykonať zadanú akciu nad resource-om alebo URL. Pozri [RBAC](docs/09-kubernetes/rbac.md).
@@ -8197,6 +8429,10 @@ Oddelený shell execution context, ktorého zmeny premenných a working director
 ## Successful latency
 
 Latency operácií, ktoré splnili success contract, sledovaná oddelene od rýchlych alebo pomalých failures. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Supplier due diligence
+
+Risk-based overovanie identity, procesov, controls, evidence, maintenance, incident response a transitive dependencies software supplier-a. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Support boundary — cloud
 
@@ -8718,6 +8954,10 @@ Controller mechanizmus odstraňujúci dokončený alebo failed Job a jeho depend
 
 IPv4 field znižovaný na každom router hop-e; pri nule sa packet zahodí. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## TUF — The Update Framework
+
+Framework pre secure software updates používajúci role separation, threshold signatures, metadata expiration a rollback, freeze a mix-and-match ochrany. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Type checking
 
 Statická kontrola konzistencie typových kontraktov a operácií. Nenahrádza runtime validáciu nedôveryhodných vstupov. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
@@ -8729,6 +8969,10 @@ SELinux policy model založený na source type, target type, object class a perm
 ## Type hint — Python
 
 Anotácia očakávaného typu používaná static analysis nástrojmi a IDE; sama osebe nie je runtime validáciou. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Typosquatting — package
+
+Publikovanie malicious alebo deceptive package-u s názvom podobným legitimate dependency s cieľom využiť chybu používateľa alebo automatizácie. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## UAT — User Acceptance Testing
 
@@ -8902,6 +9146,14 @@ Pravidlá spájania series pri binary operation podľa labels vrátane `on`, `ig
 
 Dependency chart uložený priamo v parent `charts/` directory ako archive alebo unpacked directory namiesto stiahnutia počas build-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
+## Vendored component
+
+External code alebo binary skopírovaný priamo do repository alebo artifactu namiesto štandardnej package-manager dependency. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Verification bundle — Sigstore
+
+Prenositeľný súbor obsahujúci signature, certificate chain a transparency alebo timestamp evidence potrebnú na neskoršiu verification. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Verification pass — CKA
 
 Vyhradená záverečná časť timed labu, počas ktorej sa všetky úlohy znovu overia cez hard validation a context kontrolu. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -8933,6 +9185,10 @@ Zmena kapacity jedného resource-u, napríklad väčšia VM alebo database insta
 ## Veth pair
 
 Dvojica prepojených virtual Ethernet interfaces, ktorá typicky spája container network namespace s host bridge alebo routing vrstvou. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+
+## VEX
+
+Vulnerability Exploitability eXchange statement vyjadrujúci affected, not affected, fixed alebo under-investigation status vulnerability voči konkrétnemu productu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Virtual environment — Python
 
@@ -9149,6 +9405,10 @@ Aktuálny backing index data streamu, do ktorého smerujú nové documents. Pozr
 ## `X-Forwarded-For`
 
 De facto HTTP header prenášajúci client IP cez proxy chain. Je dôveryhodný iba pri kontrolovanom chain-e a správnom prepisovaní. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
+## xBOM
+
+Zastrešujúci pojem pre rôzne Bill of Materials domains, napríklad software, hardware, AI, services alebo cryptographic assets. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## XML Signature Wrapping
 
