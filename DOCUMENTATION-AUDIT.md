@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10457**
-- Total words: **402,490**
-- Findings: **17477** (critical 4534, high 5351, medium 5600, low 1992)
+- Audited conceptual sections: **10462**
+- Total words: **404,994**
+- Findings: **17494** (critical 4524, high 5343, medium 5590, low 2037)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -132,7 +132,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 464 | 19 | 17 | 27 | 3 | 1526 | `docs/09-kubernetes/scheduling.md` |
 | D | 463 | 18 | 22 | 22 | 0 | 1228 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 461 | 19 | 19 | 23 | 4 | 1287 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
-| D | 453 | 16 | 22 | 22 | 7 | 1606 | `docs/13-security-and-identity/kerberos.md` |
 | D | 453 | 9 | 21 | 32 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 447 | 19 | 18 | 23 | 0 | 1145 | `docs/06-gitlab/variables-and-secrets.md` |
 | D | 447 | 19 | 18 | 19 | 8 | 1849 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
@@ -221,6 +220,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 296 | 9 | 19 | 10 | 4 | 1898 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 293 | 12 | 13 | 12 | 3 | 1035 | `docs/00-foundations/systems-thinking.md` |
 | D | 290 | 11 | 15 | 11 | 2 | 1011 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
+| D | 290 | 6 | 14 | 12 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 288 | 9 | 14 | 19 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 287 | 11 | 13 | 14 | 2 | 1216 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | D | 285 | 12 | 12 | 13 | 2 | 1231 | `docs/02-networking-and-web/nat.md` |
@@ -10622,44 +10622,26 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 ### `docs/13-security-and-identity/kerberos.md`
 
-- **CRITICAL** line 22, `outline-instead-of-explanation` — **2. Realm**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 70, `outline-instead-of-explanation` — **5. Ticket-Granting Ticket**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **10. Credential cache**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 154, `outline-instead-of-explanation` — **11. Keytab**: 10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 215, `outline-instead-of-explanation` — **15. DNS a service discovery**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 234, `outline-instead-of-explanation` — **16. Ticket lifetime, renewal a flags**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 248, `outline-instead-of-explanation` — **17. Delegation**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 264, `outline-instead-of-explanation` — **18. Cross-realm trust**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 279, `outline-instead-of-explanation` — **19. Kerberos v Active Directory**: 13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 308, `outline-instead-of-explanation` — **21. Kerberos a LDAP**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 331, `outline-instead-of-explanation` — **23. Kerberos a containers/cloud**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 346, `outline-instead-of-explanation` — **24. Observability a audit**: 12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 365, `outline-instead-of-explanation` — **25. Troubleshooting s kinit a klist**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 403, `empty-section` — **27. Common errors**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 429, `outline-instead-of-explanation` — **28. Attacks a controls**: 17 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 454, `outline-instead-of-explanation` — **29. Recovery a key rotation**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 106, `list-first-introduction` — **8. TGS exchange**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 118, `list-first-introduction` — **9. AP exchange**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 365, `list-first-introduction` — **25. Troubleshooting s kinit a klist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 385, `list-first-introduction` — **26. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 22, `thin-concept-section` — **2. Realm**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 70, `thin-concept-section` — **5. Ticket-Granting Ticket**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **10. Credential cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 154, `thin-concept-section` — **11. Keytab**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 174, `thin-concept-section` — **12. Key version number**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 215, `thin-concept-section` — **15. DNS a service discovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 264, `thin-concept-section` — **18. Cross-realm trust**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 279, `term-before-explanation` — **19. Kerberos v Active Directory**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KDC`, `DNS`, `PAC`, `SPN`, `NTLM`
-- **HIGH** line 279, `thin-concept-section` — **19. Kerberos v Active Directory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 308, `thin-concept-section` — **21. Kerberos a LDAP**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 331, `thin-concept-section` — **23. Kerberos a containers/cloud**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 346, `term-before-explanation` — **24. Observability a audit**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGS`, `SPN`, `KDC`, `NTLM`, `AD`, `delegation`, `availability`
-- **HIGH** line 346, `thin-concept-section` — **24. Observability a audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 365, `thin-concept-section` — **25. Troubleshooting s kinit a klist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 429, `term-before-explanation` — **28. Attacks a controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `AD`, `KDC`, `delegation`
-- **HIGH** line 429, `thin-concept-section` — **28. Attacks a controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 454, `thin-concept-section` — **29. Recovery a key rotation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 312, `outline-instead-of-explanation` — **24. Ticket flags**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 448, `outline-instead-of-explanation` — **37. Observability**: 13 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 482, `outline-instead-of-explanation` — **39. Service-side troubleshooting**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 548, `outline-instead-of-explanation` — **43. Controls**: 13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 583, `outline-instead-of-explanation` — **45. KDC alebo domain compromise**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 618, `outline-instead-of-explanation` — **47. Kompletný príklad HTTP Kerberos loginu**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **HIGH** line 85, `list-heavy-section` — **7. Ticket anatomy**: 7 odrážok a iba 51 slov súvislého vysvetlenia.
+- **HIGH** line 219, `list-heavy-section` — **17. Keytab**: 8 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 286, `list-heavy-section` — **22. DNS a service discovery**: 7 odrážok a iba 69 slov súvislého vysvetlenia.
+- **HIGH** line 334, `list-heavy-section` — **26. Delegation**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 497, `list-first-introduction` — **40. Failure-domain troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 548, `list-first-introduction` — **43. Controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 312, `thin-concept-section` — **24. Ticket flags**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 448, `term-before-explanation` — **37. Observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGS`, `KVNO`, `NTLM`, `delegation`, `availability`
+- **HIGH** line 482, `term-before-explanation` — **39. Service-side troubleshooting**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KVNO`, `OS`, `GSS`, `identity`
+- **HIGH** line 482, `thin-concept-section` — **39. Service-side troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 548, `term-before-explanation` — **43. Controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AES`, `SPN`, `AD`, `NTLM`, `delegation`, `resource`
+- **HIGH** line 548, `thin-concept-section` — **43. Controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 618, `term-before-explanation` — **47. Kompletný príklad HTTP Kerberos loginu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `HTTP`, `SPN`, `TGS-`, `SPNEGO`, `GSS`, `HTTPS`, `NTLM`
+- **HIGH** line 618, `thin-concept-section` — **47. Kompletný príklad HTTP Kerberos loginu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/ldap.md`
 
@@ -10944,17 +10926,17 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 3970 | 0 | 0 | 0 | 3970 |
-| `thin-concept-section` | 0 | 3697 | 0 | 0 | 3697 |
-| `term-before-explanation` | 0 | 340 | 2272 | 0 | 2612 |
-| `single-sentence-explanation` | 0 | 0 | 2457 | 0 | 2457 |
-| `list-first-introduction` | 0 | 1122 | 0 | 0 | 1122 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1063 | 1063 |
-| `short-concept-section` | 0 | 0 | 871 | 0 | 871 |
-| `example-not-explicit` | 0 | 0 | 0 | 656 | 656 |
-| `empty-section` | 564 | 0 | 0 | 0 | 564 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 273 | 273 |
-| `list-heavy-section` | 0 | 192 | 0 | 0 | 192 |
+| `outline-instead-of-explanation` | 3961 | 0 | 0 | 0 | 3961 |
+| `thin-concept-section` | 0 | 3687 | 0 | 0 | 3687 |
+| `term-before-explanation` | 0 | 341 | 2269 | 0 | 2610 |
+| `single-sentence-explanation` | 0 | 0 | 2451 | 0 | 2451 |
+| `list-first-introduction` | 0 | 1119 | 0 | 0 | 1119 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1070 | 1070 |
+| `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
+| `example-not-explicit` | 0 | 0 | 0 | 682 | 682 |
+| `empty-section` | 563 | 0 | 0 | 0 | 563 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 285 | 285 |
+| `list-heavy-section` | 0 | 196 | 0 | 0 | 196 |
 
 ## Required remediation pattern
 
