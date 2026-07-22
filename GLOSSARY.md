@@ -86,6 +86,10 @@ Sampling model, ktorý priebežne upravuje head-sampling probabilities podľa po
 
 Overený vzťah medzi Kubernetes verziou a verziami CNI, CSI, CoreDNS, ingress/Gateway, admission, metrics a ďalších cluster-critical components. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## Additional Authenticated Data — AAD
+
+Dáta, ktoré AEAD algoritmus nešifruje, ale cryptographically viaže k ciphertextu a overuje ich integritu, napríklad tenant ID, protocol version alebo record type. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Additive authorization — Kubernetes RBAC
 
 Authorization model, v ktorom sa výsledné oprávnenia skladajú ako union všetkých matching RoleBindings a ClusterRoleBindings; prísnejšia rola neodoberie permission udelenú iným bindingom. Pozri [RBAC](docs/09-kubernetes/rbac.md).
@@ -117,6 +121,10 @@ Quality gate, ktorý reportuje výsledok, ale neblokuje ďalší delivery krok. 
 ## Advisory policy — Terraform
 
 Policy as Code pravidlo, ktorého výsledok je viditeľný a auditovaný, ale samo neblokuje plan alebo apply. Používa sa pri kalibrácii alebo nízkom riziku. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## AEAD
+
+Authenticated Encryption with Associated Data; encryption model poskytujúci confidentiality plaintextu a zároveň integrity a authenticity ciphertextu a voliteľných nešifrovaných metadata. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Agent Collector
 
@@ -486,9 +494,21 @@ Python framework pre cooperative asynchronous I/O založený na event loop-e, co
 
 Zápis cez dočasný súbor, validáciu a atomický rename/replace tak, aby consumer nevidel čiastočný obsah. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md) a [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Attack path
+
+Konkrétna postupnosť krokov, trust-boundary crossings a control failures, ktorými môže threat actor dosiahnuť security impact. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Attack surface
 
 Súbor rozhraní, vstupov, identities a trust boundaries, cez ktoré môže aktér ovplyvniť systém. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
+
+## Attack tree
+
+Hierarchický model attacker goalu rozdeleného na alternatívne alebo kombinované podmienky a kroky potrebné na jeho dosiahnutie. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
+## Attacker model
+
+Explicitný opis schopností, prístupov, motivácie a obmedzení uvažovaného threat actora. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## Attempt rate
 
@@ -505,6 +525,10 @@ Identifier zamýšľaného konzumenta tokenu alebo assertion; musí byť validov
 ## Audit record
 
 Časovo označený záznam o tom, kto vykonal akú operáciu, voči ktorému resource-u, odkiaľ a s akým výsledkom. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Authenticated scanning
+
+Vulnerability scanning vykonaný s oprávneným host alebo application accessom, ktorý umožňuje presnejšie zistiť installed packages, configuration a patch state než čisto network-based scan. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Authentication
 
@@ -1126,6 +1150,10 @@ Auto Scaling capability, ktorá môže proaktívne spustiť náhradu Spot Instan
 
 Performance test hľadajúci maximálny udržateľný workload pri definovaných SLO a bezpečnostnej rezerve. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## CAPEC
+
+MITRE Common Attack Pattern Enumeration and Classification; katalóg opakovateľných attack patterns použiteľný ako threat-modeling knowledge source, nie ako náhrada konkrétneho system modelu. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Capturing group — regex
 
 Časť regular expression uzavretá v zátvorkách, ktorá zachytáva matched substring pre ďalšie spracovanie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -1273,6 +1301,10 @@ Základný model bezpečnostných cieľov Confidentiality, Integrity a Availabil
 ## CIDR — Classless Inter-Domain Routing
 
 Zápis IP prefixu pomocou adresy a počtu network bitov, napríklad `192.0.2.0/24`. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Ciphertext
+
+Výstup encryption operácie, ktorý bez príslušného cryptographic keyu nemá prakticky odhaliť pôvodný plaintext. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Circuit breaker
 
@@ -1453,6 +1485,10 @@ Kubernetes RBAC objekt, ktorý priraďuje ClusterRole principals na úrovni cel�
 ## Cmdlet
 
 PowerShell command implementovaný podľa jednotného Verb-Noun, parameter binding, object pipeline a error-stream modelu. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## CNA
+
+CVE Numbering Authority; organizácia oprávnená prideľovať CVE IDs a publikovať záznamy pre definovaný scope produktov alebo vulnerabilities. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## CNI
 
@@ -2010,6 +2046,18 @@ Súlad času a verzie obnoveného etcd API state-u, persistent application dát,
 
 Úzke, versionované rozhranie medzi automation systémami, napríklad Terraform outputs publikované ako inventory metadata pre Ansible, s explicitným ownershipom a compatibility policy. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Crypto-shredding
+
+Zneprístupnenie encrypted dát bezpečným zničením všetkých key copies potrebných na ich decryption; účinnosť závisí od úplného key inventory a backup lifecycle-u. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Cryptographic agility
+
+Schopnosť inventarizovať a kontrolovane meniť cryptographic algorithms, protocols, parameters, certificates a key mechanisms bez neplánovaného prepisu celého systému. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Cryptoperiod
+
+Schválené časové alebo usage obdobie, počas ktorého môže byť cryptographic key použitý na definované operations. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## CSI
 
 Container Storage Interface contract oddeľujúci Kubernetes storage orchestration od vendor-specific provision, attach, mount, resize a snapshot implementation. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -2045,6 +2093,14 @@ Cluster-scoped Kubernetes object, ktorý pridáva nový custom resource type, gr
 ## Cutover window
 
 Časový interval, v ktorom sa traffic alebo ownership práce presúva zo starej deployment farby na novú a intenzívne sa sledujú promotion a abort signály. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## CVE
+
+Common Vulnerabilities and Exposures identifier pre verejne známy vulnerability record; poskytuje spoločný identifikátor, nie kompletný risk score ani dôkaz, že konkrétny asset je exploitable. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
+## CVSS v4.0
+
+Common Vulnerability Scoring System version 4.0; štandardizovaný model severity characteristics, ktorý treba kombinovať s exploitation evidence, exposure, asset criticality a business contextom. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## DAC — Discretionary Access Control
 
@@ -2101,6 +2157,14 @@ Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri
 ## Data at rest
 
 Dáta uložené v database, filesysteme, object storage, backupe, snapshot-e alebo inom persistentnom médiu. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Data Encryption Key — DEK
+
+Cryptographic key používaný priamo na encryption application dát alebo storage objektu; v envelope-encryption modeli je sám chránený Key Encryption Keyom. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Data Flow Diagram — DFD
+
+Model external entities, processes, data stores, data flows a trust boundaries používaný na systematickú identifikáciu threats. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## Data frame — Grafana
 
@@ -2381,6 +2445,10 @@ Stav, v ktorom `HEAD` ukazuje priamo na commit namiesto symbolického odkazu na 
 ## Detective control
 
 Control určený na odhalenie incidentu, policy violation alebo nežiaducej zmeny. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Deterministic encryption
+
+Encryption model, v ktorom rovnaký plaintext pri rovnakom keyu a kontexte produkuje rovnaký ciphertext, čo môže umožniť equality queries, ale zároveň odhaľuje opakovanie a frequency patterns. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Deterministic serialization
 
@@ -2918,6 +2986,10 @@ Súbor, ktorého celý obsah je zašifrovaný Ansible Vaultom a musí byť deši
 
 Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľnom súbore. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Encryption at rest
+
+Cryptographic ochrana dát uložených v persistentných médiách, databázach, object stores, snapshots alebo backups podľa definovanej storage threat boundary. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Encryption barrier — Vault
 
 Vault cryptographic boundary chrániaca storage data; sealed Vault nemá v memory kľúče potrebné na ich decryption. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
@@ -2925,6 +2997,10 @@ Vault cryptographic boundary chrániaca storage data; sealed Vault nemá v memor
 ## Encryption context — KMS
 
 Non-secret key-value context kryptograficky viazaný na podporovanú KMS encrypt/decrypt operation a použiteľný v policy conditions a audite. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Encryption in transit
+
+Cryptographic ochrana dát počas prenosu medzi endpoints, typicky spolu s peer alebo server identity validation a channel integrity. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Encryption type — Kerberos
 
@@ -3025,6 +3101,10 @@ Deklarovaná požiadavka Podu alebo containeru na Node-local ephemeral storage p
 ## Ephemeral volume — Kubernetes
 
 Volume s lifecycle viazaným na Pod alebo konkrétnu projection, napríklad `emptyDir`, ConfigMap/Secret projection alebo generic ephemeral volume. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## EPSS
+
+Exploit Prediction Scoring System; pravdepodobnostný signal odhadujúci šancu, že publikovaná CVE bude v blízkom časovom horizonte pozorovaná ako exploatovaná, nie všeobecný business-impact score. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Equal labels — Alertmanager
 
@@ -3170,6 +3250,10 @@ Komponent telemetry pipeline, ktorý odosiela spracované signals do backendu al
 
 Telemetry udalosť dokazujúca, že subjekt reálne dostal konkrétny experiment alebo feature variant; assignment bez exposure nemusí znamenať ovplyvnenie. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Exposure — vulnerability management
+
+Miera, do akej je vulnerable asset alebo attack surface dostupný relevantnému threat actorovi cez network, identity, user interaction alebo supply-chain path. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## Extended resource — Kubernetes
 
 Node resource s vendor alebo domain prefixom, napríklad GPU, publikovaný device pluginom alebo platform componentom a používaný schedulerom ako integer capacity. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
@@ -3266,9 +3350,17 @@ Zjednodušená, ale funkčná implementácia dependency používaná v teste, na
 
 Výsledok, pri ktorom test prejde, hoci systém obsahuje chybu relevantnú pre testovaný risk. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
 
+## False negative — vulnerability finding
+
+Stav, keď detection mechanism neidentifikuje vulnerability alebo affected asset, ktorý v skutočnosti existuje. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## False positive — testing
 
 Výsledok, pri ktorom test hlási chybu, hoci testované správanie je správne. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
+
+## False positive — vulnerability finding
+
+Finding označujúci asset ako vulnerable, hoci affected code, configuration alebo exploitable condition v danom runtime neexistuje. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Fan-in — pipeline
 
@@ -3436,7 +3528,7 @@ Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy 
 
 ## Forward secrecy
 
-Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého private key automaticky neodhalí staré TLS sessions. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
+Vlastnosť key-establishment modelu, pri ktorej neskorší compromise dlhodobého private keyu neumožní dešifrovať predtým zachytené sessions. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## FQCN — Ansible
 
@@ -3725,6 +3817,10 @@ Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu
 ## Hard validation — CKA
 
 Explicitný command alebo observable criterion dokazujúci, že úloha spĺňa požadovaný stav a constraints, nie iba že resource existuje. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
+
+## Hardware Security Module — HSM
+
+Tamper-resistant hardware alebo managed security boundary určená na generovanie, ochranu a vykonávanie cryptographic operations s obmedzeným exportom private alebo symmetric key materialu. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## `hasKey` — Helm
 
@@ -4486,6 +4582,14 @@ Ticket-based network authentication protocol používajúci KDC, TGT a service t
 
 Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, devices, filesystems a networking. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## Key Encryption Key — KEK
+
+Cryptographic key používaný na wrap alebo encryption iných keys, najmä Data Encryption Keys v envelope-encryption architektúre. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Key Management Service — KMS
+
+Centralizovaná služba poskytujúca kontrolovaný key lifecycle, authorization, audit a cryptographic operations; nechráni automaticky application plaintext ani nesprávne decrypt permissions. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Key policy — KMS
 
 Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčasťou autorizácie management a cryptographic operations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -4513,6 +4617,10 @@ Programaticky vytvorený permission objekt umožňujúci grantee principalovi ko
 ## KMS key
 
 Logical AWS KMS resource reprezentujúci cryptographic key, jeho metadata, policy, state, aliases a key-material lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Known Exploited Vulnerabilities — KEV
+
+CISA katalóg vulnerabilities s evidence o exploitation in the wild, používaný ako silný prioritization signal pre remediation. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## kube-apiserver
 
@@ -4713,6 +4821,10 @@ Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ak
 ## LimitRange
 
 Namespaced Kubernetes policy nastavujúca alebo validujúca per-container, per-Pod alebo per-PVC resource defaults, minimá, maximá a ratios. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+
+## LINDDUN
+
+Privacy threat-modeling framework pokrývajúci Linkability, Identifiability, Non-repudiation, Detectability, Disclosure of information, Unawareness a Non-compliance. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## Line coverage
 
@@ -5238,6 +5350,10 @@ Opakujúce sa časové pravidlo, ktoré mutuje notifications na matched route po
 
 Kerberos flow, pri ktorom client aj service cryptographically overia druhú stranu pomocou zdieľaného session contextu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## Mutual TLS — mTLS
+
+TLS režim, v ktorom server aj client predkladajú a validujú certificates; poskytuje channel-level mutual authentication, nie automatickú application authorization. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Named context — Docker build
 
 Dodatočný explicitne pomenovaný build context dostupný Dockerfile-u podobne ako stage, používaný na užšie oddelenie source alebo external image inputs. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -5430,6 +5546,10 @@ Schopnosť poskytnúť dôkaz o pôvode alebo vykonaní operácie tak, aby ju zo
 
 PowerShell error record, pri ktorom command môže pokračovať; na zachytenie cez `catch` sa často používa `-ErrorAction Stop`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Nonce — cryptography
+
+Hodnota, ktorá musí byť v danom cryptographic scheme použitá podľa presných uniqueness alebo randomness požiadaviek; jej reuse môže pri niektorých AEAD modes katastroficky narušiť confidentiality a integrity. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Nonce — OIDC
 
 Jednorazová hodnota viažuca ID Token na konkrétny authentication request a pomáhajúca proti replay a injection. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
@@ -5465,6 +5585,10 @@ Textovo-binárny stream používajúci NUL byte ako oddeľovač, vhodný naprík
 ## Number misscheduled — DaemonSet
 
 Počet DaemonSet Podov bežiacich na Nodes, ktoré podľa aktuálneho DaemonSet placement modelu už nie sú eligible. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## NVD
+
+National Vulnerability Database; enrichment source pre CVE records, scoring a product mappings, ktorý nie je authoritative inventory konkrétneho environmentu ani jediný prioritization source. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## OAuth 2.0
 
@@ -5786,6 +5910,14 @@ NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozli�
 
 Systems Manager capability pre patch scan, installation, baselines, policies a compliance reporting na managed nodes. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
+## Patch ring
+
+Postupná deployment cohort pre update, napríklad laboratory, canary, non-production a production waves, ktorá obmedzuje blast radius a poskytuje evidence pred širším rolloutom. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
+## Patch SLA
+
+Risk-based časový záväzok pre remediation definovaný podľa exploitation, exposure, asset criticality a ďalších context signals, nie iba podľa scanner severity. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## PATCH version
 
 Tretia časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible oprave deklarovaného behavioru. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
@@ -5925,6 +6057,10 @@ Stav, keď kombinácia hard affinity, anti-affinity, taints, topology, storage a
 ## placement group — EC2
 
 EC2 placement constraint optimalizujúci cluster latency/throughput, spread failure isolation alebo partitioned distributed-system topology. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## Plaintext
+
+Nešifrované dáta dostupné application alebo používateľovi pred encryption alebo po decryption. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Plan artifact — Terraform
 
@@ -6386,6 +6522,10 @@ Riadený alebo automatický presun writer/primary database role na standby alebo
 
 Managed database proxy a connection-pooling vrstva pre podporované RDS/Aurora engines, ktorá znižuje connection churn a pomáha pri burst a failover scenarios. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
+## Re-encryption
+
+Proces decryption dát a ich opätovnej encryption novým DEKom, algoritmom alebo cryptographic contextom; mení samotný ciphertext a je náročnejší než rewrap. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Reachability Analyzer — AWS
 
 VPC configuration-analysis tool modelujúci network path medzi source a destination a identifikujúci blocking component. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
@@ -6758,6 +6898,10 @@ Anti-pattern opakovania zlyhaného testu dovtedy, kým náhodne neprejde, bez ri
 
 Per-function limit, ktorý rezervuje časť regional concurrency poolu a zároveň určuje maximálny počet concurrent invocations danej funkcie. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Residual risk
+
+Risk zostávajúci po aplikovaní mitigations a controls, ktorý musí mať explicitného ownera, acceptance decision a review trigger. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Resilience engineering
 
 Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -6925,6 +7069,10 @@ Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad
 ## Review app — GitLab
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Rewrap
+
+Opätovné zabalenie existujúceho DEKu novým KEKom bez decryption a re-encryption celého application payloadu. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Rightsizing
 
@@ -7410,6 +7558,10 @@ Security Group rule používajúca inú SG ako source alebo destination workload
 
 Zákaznícka responsibility vrstva zahŕňajúca identity, configuration, data, workload OS/application, logging, backup a recovery podľa použitej AWS služby. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
+## Security objective
+
+Konkrétny požadovaný security outcome pre asset alebo system boundary, napríklad tenant isolation, transaction integrity alebo bounded recovery time. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Security of the cloud — AWS
 
 AWS responsibility vrstva zahŕňajúca physical facilities, hardware, host platform, virtualization a provider-managed service infrastructure. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
@@ -7421,6 +7573,10 @@ Well-Architected pillar zameraný na identity, traceability, infrastructure prot
 ## Security report artifact — GitLab
 
 Machine-readable analyzer report, ktorý GitLab spracúva na zobrazenie security findings v pipeline, merge requeste alebo vulnerability-management vrstvách. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Security requirement
+
+Testovateľná implementačná alebo prevádzková povinnosť odvodená z threatu, ktorá určuje actor, condition, expected control behavior a failure semantics. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## Security risk
 
@@ -7750,6 +7906,10 @@ Dlhodobý performance test hľadajúci memory leaks, resource leaks, queue growt
 
 Kernel endpoint komunikácie sprístupnený procesu cez file descriptor. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
 
+## Software Composition Analysis — SCA
+
+Analýza application dependencies a package metadata na identifikáciu známych vulnerabilities, license information a component inventory; potrebuje reachability a runtime context pre presnejšiu prioritizáciu. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## Source/destination check — AWS
 
 EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo destination trafficu; network appliance alebo NAT instance ju môže potrebovať vypnúť. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -7977,6 +8137,10 @@ Label matcher expression, ktorá vyberie Loki log streamy pred line filteringom 
 ## Stress test
 
 Performance test nad plánovanou kapacitou zameraný na failure mode, ochranné mechanizmy a recovery. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## STRIDE
+
+Threat categorization mnemonic pre Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service a Elevation of Privilege. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## Structured helper output — Helm
 
@@ -8346,6 +8510,14 @@ Potenciálna príčina neželaného bezpečnostného incidentu, napríklad attac
 
 Štruktúrovaný opis assets, trust boundaries, aktérov, attack surfaces, abuse cases a mitigations. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## Threat modeling
+
+Systematický proces modelovania assets, actors, architecture, trust boundaries, threats, mitigations, verification a residual risk pred incidentom. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
+## Threat statement
+
+Štruktúrovaný opis toho, ako konkrétny actor cez attack condition alebo trust boundary spôsobí security impact na assete. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Throughput
 
 Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -8388,7 +8560,7 @@ Kubernetes Secret typu `kubernetes.io/tls`, typicky obsahujúci `tls.crt` a `tls
 
 ## TLS termination
 
-Ukončenie TLS spojenia na proxy alebo load balanceri, ktorý následne vytvorí samostatné upstream spojenie. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+Bod, v ktorom proxy, load balancer alebo gateway ukončí TLS a sprístupní plaintext; vytvára novú trust boundary pre ďalší hop, identity propagation a certificate lifecycle. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## TLS — Transport Layer Security
 
@@ -8529,6 +8701,10 @@ Udalosť alebo explicitný pokyn, ktorý vytvorí pipeline run a určí jeho com
 ## Trunk-based development
 
 Branching model založený na častej integrácii malých zmien do jednej hlavnej branch, podporený krátkodobými branches, CI a feature flags. Pozri [Branching strategies](docs/03-git-and-automation/branching-strategies.md).
+
+## Trust boundary
+
+Miesto, kde sa mení úroveň dôvery, identity authority, administrative control, tenant, privilege alebo data-protection assumption. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## TSDB index store — Loki
 
@@ -8770,6 +8946,10 @@ Izolovaný machine environment s virtualizovaným hardware, vlastným guest kern
 
 Abstrakcia, pri ktorej má proces vlastný virtuálny adresný priestor mapovaný kernelom na RAM, files alebo swap. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
+## Virtual patching
+
+Dočasná compensating control vrstva, napríklad WAF alebo IPS rule, ktorá blokuje známy exploit path bez odstránenia underlying vulnerability. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## Visualization — Grafana
 
 Prezentačný model panelu, napríklad time series, stat, table, heatmap alebo state timeline, zvolený podľa data shape-u a operational otázky. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -8829,6 +9009,10 @@ Veľkosť virtuálneho adresného priestoru procesu. Pozri [Memory a CPU fundame
 ## Vulnerability
 
 Slabina v systéme, konfigurácii, procese alebo control-e, ktorú môže threat využiť. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Vulnerability debt
+
+Akumulovaný backlog neodstránených vulnerabilities a zastaraných components, ktorý zvyšuje attack surface, operational complexity a budúce remediation náklady. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Vulnerability reachability
 
