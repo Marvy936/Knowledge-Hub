@@ -1,1333 +1,494 @@
 # Zero Trust
 
-Zero Trust je súbor security princípov a architecture patterns, ktoré odstraňujú implicitnú dôveru založenú iba na network location, asset ownership alebo predchádzajúcom prístupe. Každý access request k enterprise resource-u sa má vyhodnotiť podľa identity, resource-u, device alebo workload posture, kontextu, policy a dostupnej telemetry.
+Zero Trust je súbor security princípov a architecture patterns pre riadenie prístupu k enterprise resources. Odstraňuje predstavu, že používateľ, zariadenie alebo workload je dôveryhodný iba preto, že sa nachádza vo firemnej sieti, vo VPN, vo VPC alebo v Kubernetes clusteri. Každý prístup sa posudzuje voči konkrétnemu resource-u a action na základe identity, aktuálneho stavu zariadenia alebo workloadu, citlivosti resource-u, kontextu a policy.
 
-Zero Trust nie je jeden produkt, VPN replacement ani synonymum pre MFA alebo microsegmentation.
+Zero Trust nie je jeden produkt ani samostatný protokol. Je to spôsob, ako poskladať identity, authorization, network controls, telemetry a recovery tak, aby kompromitovanie jedného účtu, endpointu alebo interného service-u automaticky neotvorilo široký trust path do zvyšku prostredia.
 
 ```text
 subject alebo workload
-→ požiada o konkrétny resource a action
-→ policy engine vyhodnotí identity, posture, context a risk
-→ policy administrator pripraví enforcement decision
-→ policy enforcement point povolí, obmedzí alebo odmietne session
-→ telemetry priebežne ovplyvňuje ďalšie decisions
+→ žiada konkrétnu action na konkrétnom resource-e
+→ policy engine získa identity, posture a contextual signals
+→ vyhodnotí policy a risk
+→ enforcement point povolí, obmedzí alebo odmietne prístup
+→ session zostáva časovo ohraničená a môže byť znovu vyhodnotená
 ```
 
-## 1. Mentálny model
+## 1. Prečo Zero Trust vznikol
 
-```text
-žiadna implicitná dôvera podľa siete
-+ explicitná identity
-+ resource-specific least privilege
-+ device/workload posture
-+ per-request alebo bounded-session authorization
-+ continuous telemetry
-+ predpoklad možného compromise
-→ zmenšený blast radius a presnejšie decisions
-```
+Klasický perimeter model predpokladal, že hlavná security boundary je hranica podnikovej siete. Používateľ sa pripojil do LAN alebo VPN a následne mal často širokú konektivitu k mnohým interným systems. Tento model bol praktický v prostredí s centralizovanými datacentrami, managed workstations a malým počtom remote users, ale slabne pri SaaS, multi-cloud, hybrid work, partner access a microservices.
 
-Zero Trust nezaručuje nulové riziko. Znižuje neistotu a implicitné transitive trust paths.
+Problém nie je v tom, že network segmentation prestala byť užitočná. Problém je, že network location sama nedokazuje, kto request vytvoril, v akom stave je jeho zariadenie, v mene koho service koná ani či má žiadateľ právo vykonať konkrétnu business action. Compromised laptop pripojený cez VPN je stále compromised laptop. Malicious process v internom Pod-e je stále malicious process.
+
+Zero Trust preto presúva primárnu otázku z „je requester v správnej sieti?“ na „má tento overený principal právo vykonať túto action na tomto resource-e za aktuálnych podmienok?“ NIST SP 800-207 tento posun opisuje ako ochranu resources namiesto samotných network segments.
 
 ## 2. Čo Zero Trust nie je
 
-Zero Trust nie je:
+Zero Trust neznamená, že systém „nikomu neverí“ v ľudskom zmysle. Bez určitej dôvery nemožno overovať certificates, identity providers, device-management platformy ani policy data. Cieľom je implicitnú a neobmedzenú dôveru nahradiť explicitnou, overiteľnou a ohraničenou dôverou.
 
-- automatické nedôverovanie všetkým ľuďom,
-- zákaz interných sietí,
-- odstránenie firewallov,
-- povinný service mesh,
-- jedna identity platforma,
-- iba remote-access proxy,
-- iba microsegmentation,
-- iba „never trust, always verify“ slogan.
+Zero Trust preto nie je:
 
-Architecture musí riešiť identity, resources, policy, enforcement, telemetry, lifecycle a recovery.
+- samotné MFA — MFA zvyšuje istotu o human identity, ale neurčuje všetky resource permissions;
+- samotná VPN alebo ZTNA proxy — remote access je iba jeden access path;
+- samotný service mesh — mesh môže poskytnúť workload identity a mTLS, ale nevyrieši všetku application authorization;
+- samotná microsegmentation — obmedzuje network paths, ale nemusí rozumieť user delegation alebo data scope;
+- odstránenie firewallov — network controls zostávajú vrstvou defense in depth;
+- jeden „trust score“ — niektoré podmienky musia zostať hard requirements, nie priemerované číslo;
+- jednorazový migration project — identity, resources, policies a attack paths sa priebežne menia.
 
-## 3. Resource-centric protection
+Produkt môže implementovať jednu alebo viac Zero Trust capabilities, ale architektúra vzniká až prepojením identity lifecycle-u, resource inventory, policy decisionov, enforcementu, telemetry a recovery.
 
-Tradičný perimeter model často chráni segment alebo network zone.
+## 3. Resource-centric mentálny model
 
-Zero Trust sa sústreďuje na resource:
+Resource je konkrétna vec, ktorú organizácia chráni: application, API operation, database, data object, administrative interface, queue, secret, workflow alebo device capability. Resource-centric security znamená, že policy sa viaže na tento chránený objekt a nie iba na sieťový segment, v ktorom sa nachádza.
 
-- application,
-- API,
-- data object,
-- database,
-- workload,
-- administrative interface,
-- workflow,
-- device capability.
+Predstavme si internú fakturačnú aplikáciu. Perimeter model môže po pripojení do VPN sprístupniť celý subnet. Resource-centric model povoľuje účtovníkovi čítať invoices, senior účtovníkovi schváliť refund do definovaného limitu a platform engineerovi spravovať deployment bez prístupu k finančným údajom. Všetci môžu používať tú istú network path, ale policy odlišuje action, resource a data scope.
 
-Network segmentation zostáva control, ale network membership nie je dostatočný authorization dôkaz.
+Network segmentation zostáva dôležitá, pretože znižuje počet možných paths a blast radius. Nie je však dostatočným authorization dôkazom. Source IP môže byť contextual signal, ale nie stabilná human alebo workload identity.
 
-## 4. Žiadna implicitná network trust
+## 4. Access request ako explicitný decision
 
-Prítomnosť v LAN, VPC, VPN, clusteri alebo corporate Wi-Fi nesmie sama udeliť access.
-
-Network location môže byť contextual signal, nie root identity.
+Užitočný authorization model je:
 
 ```text
-source IP alebo subnet
-≠ overený user
-≠ overený workload
-≠ povolenie ku konkrétnemu resource-u
+principal + action + resource + context → decision
 ```
 
-## 5. Assume breach
+**Principal** je overený actor, napríklad user, service account alebo workload identity. **Action** je požadovaná operácia, napríklad `read`, `approve`, `deploy` alebo `decrypt`. **Resource** je presný cieľ operácie. **Context** obsahuje podmienky, ktoré ovplyvňujú decision: environment, čas, authentication strength, device posture, tenant, delegation chain alebo active incident state.
 
-Assume breach znamená navrhovať s predpokladom, že:
+Decision nemá byť iba boolean `allow/deny`. Systém môže povoliť prístup s obmedzeniami, napríklad iba read-only, bez downloadu, s kratšou session alebo po step-up authentication. Takýto structured decision musí enforcement point vedieť reálne presadiť; policy obligation bez implementovaného enforcementu je iba deklarácia.
 
-- credentials môžu uniknúť,
-- endpoint môže byť compromised,
-- interný workload môže byť malicious,
-- network path môže byť pozorovaný alebo manipulovaný,
-- trusted service môže byť zneužitá ako deputy,
-- attacker môže mať persistence.
+## 5. Least privilege per resource
 
-Výsledkom majú byť kratšie trust paths, obmedzené sessions, detection a recovery, nie fatalizmus.
+Least privilege v Zero Trust znamená obmedziť prístup vo viacerých dimenziách súčasne. Nestačí priradiť používateľa do broad group a považovať problém za vyriešený.
 
-## 6. Least privilege per resource
+- **Subject identity** určuje, kto alebo čo request vytvára. Stabilná identity je základ auditu a revocation.
+- **Action** určuje konkrétnu operáciu. Čítanie, zmena, schválenie a administrácia majú rozdielny impact.
+- **Exact resource** zabraňuje tomu, aby permission pre jednu aplikáciu automaticky platila na celý subnet alebo account.
+- **Data scope** obmedzuje tenant, rows, columns, projekty alebo klasifikáciu údajov.
+- **Environment** oddeľuje development, staging a production, pretože rovnaká action má iný risk.
+- **Time** umožňuje expiring access, maintenance window alebo just-in-time privilege.
+- **Device alebo workload state** viaže access na aktuálny bezpečnostný stav execution environmentu.
+- **Delegation context** rozlišuje, či service koná vo vlastnom mene alebo v mene konkrétneho usera.
 
-Access má byť obmedzený podľa:
+Praktický príklad: deployment service môže mať permission nasadiť konkrétny signed artifact do stagingu automaticky. Production deployment môže vyžadovať approved release identity, krátkodobý workload token, protected environment a explicitný change window. Obe operácie sú „deploy“, ale ich resource, environment a assurance requirements sú odlišné.
 
-- subject identity,
-- action,
-- exact resource,
-- data scope,
-- environment,
-- time,
-- device/workload state,
-- delegation context.
+Broad network access po successful login je opakom tohto modelu, pretože jeden authentication event sa nepriamo mení na množstvo nešpecifikovaných permissions.
 
-Broad network access po successful login je opakom resource-level Zero Trust.
+## 6. Dynamic policy a význam jednotlivých signálov
 
-## 7. Dynamic policy
+Static group membership zostáva užitočným inputom, ale sama nedokáže zachytiť aktuálny risk. Dynamic policy kombinuje dlhodobejšie identity attributes s časovo premenlivými signals o requeste, zariadení, workload-e a resource-e.
 
-Decision sa nemá opierať iba o statickú group membership.
+**Authentication strength** opisuje, akým spôsobom bol principal overený. Password-only session má nižšiu assurance než phishing-resistant WebAuthn authentication. **Device compliance** opisuje, či managed endpoint spĺňa pravidlá ako patch level, disk encryption alebo EDR health. **Resource sensitivity** označuje dopad kompromitovania resource-u a určuje, aká assurance je potrebná.
 
-Môže zahŕňať:
+**Workload attestation** je proces, pri ktorom platforma pred vydaním workload credentialu overí, že request pochádza od očakávaného procesu alebo Pod-u v schválenom execution context-e. Nejde iba o kontrolu mena service-u. Verifier porovnáva dôkazy ako Kubernetes namespace a ServiceAccount, process UID, container metadata, node identity alebo cloud instance document s registration policy. Workload attestation je podrobne rozobratá v samostatnej sekcii nižšie.
 
-- authentication strength,
-- device compliance,
-- workload attestation,
-- resource sensitivity,
-- user risk,
-- behavior anomalies,
-- location a network,
-- time,
-- vulnerability state,
-- active incident status.
+**User risk** a **behavior anomalies** sú signals o možnom compromise účtu, napríklad impossible travel, nezvyčajný authenticator reset alebo náhle privileged actions. **Vulnerability state** informuje, či endpoint alebo workload obsahuje relevantnú známu vulnerability. **Active incident status** môže dočasne sprísniť policy pre zasiahnutý tenant, identity domain alebo service.
 
-Každý attribute potrebuje trusted source, freshness a failure semantics.
+Každý signal potrebuje tri vlastnosti:
 
-## 8. Discrete authentication a authorization
+1. **Trusted source** — policy engine musí vedieť, kto hodnotu vydal a či ju requester nemôže svojvoľne spoofnúť.
+2. **Freshness** — staré posture alebo risk data nesmú byť bez obmedzenia považované za aktuálne.
+3. **Failure semantics** — pri nedostupnom zdroji musí byť explicitné, či sa access odmietne, obmedzí alebo použije krátkodobý cached decision.
 
-Authentication a authorization sú samostatné.
+Napríklad nedostupný EDR backend nemá automaticky znamenať „device compliant“. Pre production administration môže policy fail-closed, zatiaľ čo low-risk read-only dashboard môže použiť krátky cached posture result.
+
+## 7. Authentication a authorization sú samostatné
+
+Authentication odpovedá na otázku „kto alebo čo žiada?“. Authorization odpovedá na otázku „smie tento principal vykonať požadovanú action na konkrétnom resource-e v aktuálnom context-e?“ Úspešná authentication je vstup do authorization decisionu, nie všeobecné povolenie.
 
 ```text
-authentication → kto alebo čo žiada
+authentication
+→ overí identity a authentication context
 
-authorization  → či smie vykonať action na resource-e v danom context-e
+authorization
+→ vyhodnotí principal, action, resource a context
 ```
 
-Successful MFA neznamená automaticky access ku všetkým applications alebo data.
+Používateľ môže úspešne vykonať MFA a napriek tomu dostať `403 Forbidden`, pretože nemá permission na daný resource. Naopak, zle navrhnutá application môže overiť platný token, ale nevalidovať audience, tenant alebo object ownership, čím vznikne authorization bypass.
 
-## 9. Session nie je permanentná dôvera
+Zero Trust preto vyžaduje, aby authentication evidence bolo prenesené do správneho resource-level decisionu a aby application alebo proxy neodvodzovala broad access iba z existencie session.
 
-Po vytvorení session sa môžu zmeniť:
+## 8. Session nie je permanentná dôvera
 
-- device posture,
-- risk signal,
-- account status,
-- resource classification,
-- network path,
-- credential revocation,
-- incident state.
+Session je časovo ohraničený výsledok predchádzajúceho decisionu. Po jej vytvorení sa však môže zmeniť account status, device posture, resource classification, credential validity alebo incident state. Dlhá session bez re-evaluation vytvára interval, počas ktorého systém pokračuje v dôvere k už neplatným podmienkam.
 
-Session potrebuje bounded lifetime, re-evaluation triggers a revocation path.
+**Continuous verification** neznamená plnú re-authentication pri každom network packet-e. Znamená kombináciu primeraných session lifetimes, opätovného vyhodnotenia pri významných events, telemetry počas session a funkčného revocation pathu.
 
-## 10. Continuous verification
+Príklad: používateľ otvorí privileged administration session na compliant device. EDR neskôr označí endpoint ako compromised. Identity alebo posture event má spôsobiť revocation existujúcej session alebo aspoň zablokovať ďalšie privileged operations. Ak systém kontroluje posture iba pri rannom login-e a session platí celý deň, „dynamic policy“ existuje iba na papieri.
 
-Continuous verification neznamená vykonať full authentication pri každom packet-e.
+Cadence re-evaluation musí zodpovedať risku a performance. High-value administration potrebuje kratší interval a event-driven revocation než verejný read-only content.
 
-Znamená:
+## 9. NIST logical components: PE, PA a PEP
 
-- krátke alebo primerané session lifetimes,
-- re-evaluation pri významnej zmene,
-- telemetry počas session,
-- token/session revocation,
-- step-up authentication,
-- policy refresh.
+NIST SP 800-207 rozdeľuje access control flow na tri logické roly. Logická rola neznamená nutne samostatný produkt; jeden produkt môže implementovať viac rolí a jedna rola môže byť distribuovaná medzi viac systems.
 
-Cadence musí zodpovedať risku a system performance.
+**Policy Engine (PE)** vyhodnocuje policy a rozhoduje, či má byť access povolený, odmietnutý alebo obmedzený. Potrebuje identity data, resource attributes, posture, threat alebo risk signals a policy revision.
 
-## 11. Trust nie je jediné číslo
+**Policy Administrator (PA)** vykoná control-plane kroky potrebné na realizáciu decisionu. Môže vydať session credential, nakonfigurovať proxy, vytvoriť communication path alebo ukončiť existujúcu session. NIST Policy Administrator nie je to isté ako Policy Administration Point z kapitoly [Policy as Code](policy-as-code.md); podobný názov označuje inú architektonickú rolu.
 
-Niektoré implementácie používajú risk alebo trust score.
-
-Jedno číslo môže zakryť:
-
-- rozdielne resource risks,
-- chýbajúce hard requirements,
-- neporovnateľné signals,
-- nejasnú calibration,
-- attacker manipulation.
-
-Preferuj explicitné policy conditions a vysvetliteľné risk signals; score môže byť doplnok.
-
-## 12. NIST logical components
-
-NIST SP 800-207 definuje core logical components:
-
-- Policy Engine — PE,
-- Policy Administrator — PA,
-- Policy Enforcement Point — PEP.
+**Policy Enforcement Point (PEP)** stojí na prístupovej ceste medzi principalom a resource-om a reálne presadí výsledok. Môže ním byť identity-aware proxy, API gateway, application middleware, database proxy, host agent alebo service-mesh proxy.
 
 ```text
-Policy Engine vyhodnotí policy
-→ Policy Administrator vytvorí alebo ukončí communication path
-→ Policy Enforcement Point presadí access
+Policy Engine vyhodnotí request
+→ Policy Administrator pripraví alebo ukončí access path
+→ Policy Enforcement Point presadí decision na trafficu alebo operácii
 ```
 
-Tieto roly môžu byť implementované viacerými produktmi alebo services.
+Ak je PEP umiestnený iba pred jedným hostname, ale backend zostáva dostupný priamo cez internú IP, vzniká bypass path. Zero Trust preto potrebuje nielen správnu policy, ale aj topology, v ktorej všetky relevantné paths prechádzajú enforcementom.
 
-## 13. Policy Engine
+## 10. Control plane a data plane
 
-Policy Engine rozhoduje o access-e podľa:
+Control plane spravuje identity, policy, posture data, decisions a konfiguráciu sessions alebo enforcement points. Data plane prenáša actual application traffic po tom, čo bol access povolený.
 
-- enterprise policy,
-- subject identity,
-- asset/device state,
-- resource attributes,
-- threat intelligence,
-- activity logs,
-- contextual data.
+Compromise control plane-u má často väčší blast radius než compromise jedného data-plane workloadu. Attacker s právom meniť policy, issuer trust alebo PEP configuration môže otvoriť prístup k mnohým resources naraz. Preto policy repositories, identity providers, certificate authorities, device-management systems a deployment pipelines patria medzi kritické security dependencies.
 
-PE musí byť chránený pred spoofed attributes a stale data.
+Data-plane encryption alebo segmentation neochráni pred malicious policy revision. Naopak, silný control plane nepomôže, ak resource možno osloviť mimo PEP. Návrh musí chrániť obe vrstvy a priebežne overovať, že enforcement configuration zodpovedá intended policy revision.
 
-## 14. Policy Administrator
+## 11. Human identity lifecycle
 
-Policy Administrator vykonáva decision control-plane action:
+Zero Trust stojí na dôveryhodnej identity, ale identity nie je iba username. Potrebuje authoritative source, enrollment, authenticator issuance, role alebo attribute governance, session management, recovery a revocation.
 
-- vydá alebo nakonfiguruje session credential,
-- nastaví PEP,
-- povolí communication path,
-- ukončí session,
-- koordinuje authentication alebo token issuance.
+Slabý joiner-mover-leaver proces vytvára stale accounts a privilege creep. Zero Trust policy potom iba automatizuje chybný identity dataset. Podobne silná runtime MFA nevyrieši compromised recovery flow, pri ktorom helpdesk bez dostatočného identity proofingu resetuje authenticator útočníkovi.
 
-PA nie je to isté ako Policy as Code PAP; názvy sa prekrývajú, ale architecture role je odlišná.
+Human identity návrh má preto odpovedať:
 
-## 15. Policy Enforcement Point
+- kto smie vytvoriť alebo meniť account;
+- ako sa overí väzba accountu na reálnu osobu;
+- ako sa vydáva phishing-resistant authenticator;
+- ako sa mení role pri zmene pracovnej pozície;
+- ako rýchlo sa ukončia sessions po offboardingu alebo incidente;
+- ako sa auditujú delegated a break-glass operations.
 
-PEP je boundary medzi subjectom a resource-om.
+Podrobnejšie lifecycle a authorization modely sú v kapitolách [Authentication, authorization a auditing](authentication-authorization-auditing.md), [Least privilege](least-privilege.md) a [IAM a RBAC](iam-rbac.md).
 
-Príklady:
+## 12. Authentication strength a step-up authentication
 
-- identity-aware proxy,
-- API gateway,
-- host agent,
-- service-mesh proxy,
-- database proxy,
-- application middleware,
-- cloud access broker,
-- Kubernetes admission alebo network enforcement component.
+Authentication strength vyjadruje assurance, ktorú poskytuje konkrétna authentication metóda a context. Phishing-resistant FIDO2/WebAuthn authenticator je viazaný na legitímny origin a používa cryptographic proof. Password, SMS alebo jednoduchý push approval má odlišné attack paths.
 
-PEP musí byť umiestnený tak, aby resource nebol dostupný bypass pathom.
+**Step-up authentication** znamená, že používateľ s existujúcou session vykoná silnejšie alebo čerstvejšie overenie pred citlivejšou action. Bežná session môže stačiť na čítanie interného dashboardu, ale production change alebo export regulated data môže vyžadovať čerstvé phishing-resistant MFA.
 
-## 16. Control plane a data plane
+Step-up nie je náhrada authorization. Po silnejšom overení musí policy stále skontrolovať resource permission, tenant, device posture a action. Systém má tiež zabrániť tomu, aby step-up token určený pre jednu application alebo action bol opätovne použitý inde.
+
+## 13. Device identity a device posture
+
+**Device identity** dokazuje, o ktoré zariadenie ide. Môže byť založená na managed certificate, hardware-backed key, TPM evidence, MDM enrollment alebo cloud instance identity. Stabilná device identity umožňuje viazať audit a policy na konkrétny endpoint.
+
+**Device posture** opisuje aktuálny security state zariadenia. Typické signals sú OS a patch level, disk encryption, secure boot, EDR health, local firewall, root alebo jailbreak state a certificate status.
+
+Tieto pojmy sa nesmú zamieňať. Stolen managed laptop môže stále prezentovať platný device certificate, ale jeho posture alebo user context môže byť kompromitovaný. Naopak, zariadenie môže vyzerať patchované, ale bez dôveryhodnej device identity nie je jasné, ku ktorému assetu posture report patrí.
+
+Posture collector musí chrániť signal pred spoofingom a uvádzať čas merania. Policy má explicitne riešiť nedostupný agent, oneskorené data a conflict medzi viacerými sources.
+
+## 14. Managed a unmanaged devices
+
+Unmanaged device nemusí byť vždy úplne zablokovaný. Rozhodnutie závisí od citlivosti resource-u a dostupných compensating controls.
+
+Napríklad osobné zariadenie môže dostať browser-isolated read-only access k low-sensitivity application bez možnosti downloadu. Production console alebo regulated dataset môže vyžadovať managed endpoint, hardware-backed device identity a healthy EDR.
+
+Tento model je bezpečnejší než univerzálny allow alebo deny, pretože explicitne spája resource classification s povolenými actions. Dôležité je, aby „restricted mode“ presadzovala application, proxy alebo isolated workspace; samotný policy result bez technického enforcementu nezabráni copy alebo downloadu.
+
+## 15. Workload identity
+
+Workload je running software vykonávajúci určitú funkciu, napríklad API service, queue worker alebo database process. Workload identity je overiteľná identity tohto software execution contextu. Nemala by byť odvodená iba z IP adresy, pretože IP je recyklovateľná, môže sa meniť pri reschedulingu a často identifikuje network interface namiesto konkrétneho processu.
+
+Workload identity môže mať formu short-lived mTLS certificate, signed JWT assertion, cloud workload identity alebo audience-bound Kubernetes ServiceAccount tokenu. Dôležitá je väzba medzi credentialom a skutočným workloadom, krátky lifecycle a možnosť revocation alebo replacementu.
+
+Shared static service password je slabý model, pretože viaceré instances používajú rovnaký credential, attribution je nepresná a rotation zasiahne všetkých consumers naraz. Short-lived per-workload credentials zmenšujú blast radius, ale vyžadujú spoľahlivú issuance a renewal dependency.
+
+## 16. Workload attestation podrobne
+
+Workload attestation odpovedá na otázku: „Je proces žiadajúci identity skutočne workload, ktorému má byť táto identity vydaná?“ Je to issuance-time verification, nie iba neskoršia kontrola certificate-u.
+
+Typický flow vyzerá takto:
 
 ```text
-control plane
-→ identity, policy, posture, decision, session setup
-
-data plane
-→ actual application alebo data traffic
+workload process požiada local identity agent o credential
+→ agent identifikuje volajúci process
+→ získa selectors z OS, orchestratora alebo platformy
+→ porovná selectors s registration policy
+→ vydá alebo vráti credential patriaci zodpovedajúcej workload identity
 ```
 
-Control-plane compromise môže udeliť široký access. Data-plane isolation sama neochráni compromised PE/PA alebo identity provider.
+**Selectors** sú overiteľné vlastnosti workloadu alebo jeho execution contextu. V Kubernetes to môže byť namespace, ServiceAccount, Pod UID alebo node identity. Na Linux hoste môže ísť o process UID, executable path alebo cgroup. Cloud platforma môže poskytnúť signed instance identity document.
 
-## 17. Enterprise identity
+Node attestation a workload attestation riešia rozdielne hranice. **Node attestation** overuje host alebo agent, na ktorom workload beží. **Workload attestation** identifikuje konkrétny process alebo Pod na tomto node. Ak je node plne compromised, lokálny agent alebo kernel evidence môže byť nedôveryhodné; návrh preto musí definovať, akú úroveň node compromise dokáže attestation model tolerovať a kedy je potrebný hardware-backed alebo measured-boot dôkaz.
 
-Human identity model potrebuje:
+Príklad: SPIRE Agent na Kubernetes node zistí, že caller beží v namespace `payments` pod ServiceAccountom `settlement-api`. Registration entry mapuje túto kombináciu na SPIFFE ID `spiffe://prod.example/payments/settlement-api`. Agent vydá zodpovedajúci short-lived SVID. Pod v inom namespace alebo s iným ServiceAccountom túto identity nedostane, aj keď pozná jej názov.
 
-- authoritative source,
-- lifecycle,
-- phishing-resistant authentication,
-- risk-based step-up,
-- role/attribute governance,
-- session management,
-- recovery,
-- revocation.
+## 17. SPIFFE, SVID a SPIRE
 
-Zero Trust nad stale accounts a broad groups iba automatizuje existujúcu privilege chybu.
+SPIFFE definuje platform-neutral model workload identity. **SPIFFE ID** je štruktúrovaný identifikátor workloadu, napríklad `spiffe://prod.example/payments/settlement-api`. Prvá časť identifikuje trust domain a path identifikuje workload v rámci tejto boundary.
 
-## 18. Phishing-resistant MFA
+**SVID — SPIFFE Verifiable Identity Document** je cryptographically verifiable dokument, ktorým workload preukazuje SPIFFE ID. Môže mať formu X.509-SVID pre mTLS alebo JWT-SVID pre token-based flow. SVID obsahuje alebo je viazaný na cryptographic key a má obmedzenú validity.
 
-Pre high-value resources preferuj authenticators viazané na origin a cryptographic proof, napríklad FIDO2/WebAuthn.
+**Workload API** je lokálne rozhranie, cez ktoré workload získava svoje SVIDs a trust bundles bez toho, aby mal v image statický bootstrap secret. Application alebo proxy môže API používať priamo; sidecar alebo node agent môže credentials prekladať do mTLS.
 
-SMS alebo push-only MFA môže byť lepšie než password-only, ale zostáva náchylné na phishing, fatigue alebo SIM risk podľa metódy.
+SPIRE je production implementation SPIFFE APIs. SPIRE Server spravuje registration entries a signing authority. SPIRE Agent beží na nodes, vykonáva workload attestation a poskytuje Workload API lokálnym processes. SPIRE teda nie je synonymum SPIFFE: SPIFFE je specification a identity model, SPIRE je jedna implementácia.
 
-Authentication strength má byť explicitný policy input.
+## 18. Trust domains a federation
 
-## 19. Identity proofing a enrollment
+Trust domain je administrative a cryptographic boundary, v ktorej sú SPIFFE identities vydávané a overované podľa spoločných trust roots a governance. Nie je to iba DNS-like string.
 
-Silná runtime authentication nevyrieši slabý enrollment.
+Production a development často patria do odlišných trust domains, pretože majú rozdielne administrators, issuance controls a compromise impact. Ak by development issuer mohol vydávať production identities, compromise dev prostredia by sa preniesol do production authorization.
 
-Modeluj:
+Federation umožňuje workloads z rôznych trust domains navzájom overovať SVIDs. Vyžaduje výmenu trust bundles, explicitné identity mapping rules a authorization policy. Federated authentication neznamená automaticky federated authorization: service z partnerského trust domainu môže byť cryptographically overený, ale stále potrebuje konkrétne permissions.
 
-- kto môže vytvoriť identity,
-- ako sa overuje osoba alebo workload,
-- kto vydáva authenticator,
-- recovery process,
-- duplicate identities,
-- delegated onboarding,
-- device binding.
+Key rotation, bundle distribution, revocation latency a tenant isolation sú súčasťou federation lifecycle-u. Stale trust bundle môže spôsobiť outage po rotation alebo predĺžiť dôveru k compromised issueru.
 
-Compromised recovery path obchádza primárne MFA controls.
+## 19. mTLS autentizuje endpoints, nie business intent
 
-## 20. Device identity
+Mutual TLS poskytuje encrypted channel a vzájomnú certificate-based authentication endpoints. Client aj server prezentujú certificates a overia ich voči trust roots.
 
-Device identity môže byť založená na:
+mTLS však samo neurčuje, ktorú business action smie service vykonať, pre ktorého tenant-a koná ani či request nesie platnú user delegation. Certificate `settlement-api` dokazuje service identity, nie automatické právo refundovať ľubovoľnú platbu.
 
-- managed certificate,
-- hardware-backed key,
-- MDM enrollment,
-- TPM attestation,
-- cloud instance identity,
-- registered device record.
+Application alebo proxy policy musí mapovať workload identity na resource-level permissions. Pri sensitive operations môže navyše kontrolovať user subject, transaction amount, tenant a request integrity. Service mesh, ktorý zapne mTLS pre celý cluster, preto ešte nevytvára kompletnú Zero Trust architecture.
 
-Device identity neznamená device health. Stolen alebo compromised managed device môže stále preukázať svoju identity.
+## 20. User-to-service delegation
 
-## 21. Device posture
+Pri downstream call-e treba rozlíšiť tri situácie:
 
-Posture signals môžu zahŕňať:
+1. service koná vo vlastnom mene, napríklad maintenance worker číta vlastnú queue;
+2. service koná v mene usera, napríklad API číta invoice, ktorú user otvoril;
+3. service dostane obmedzenú delegated authority na konkrétnu downstream action.
 
-- OS a patch level,
-- disk encryption,
-- secure boot,
-- EDR health,
-- local firewall,
-- screen lock,
-- jailbreak/root state,
-- certificate status,
-- vulnerability a configuration state.
+Propagovanie rovnakého broad bearer tokenu cez celý service chain zväčšuje blast radius. Každý compromised downstream service môže token ukradnúť a použiť na iné audiences alebo resources, ak nie je správne obmedzený.
 
-Posture data potrebujú freshness, anti-spoofing a explicitný behavior pri nedostupnom agentovi.
+Bezpečnejší model používa audience restriction, token exchange alebo explicitný delegation context. Downstream service overí workload identity volajúceho aj delegated user identity a aplikuje vlastnú authorization policy. Audit má zachytiť oboch actors: initiating usera aj service, ktorá operation vykonala.
 
-## 22. Managed oproti unmanaged devices
+## 21. Resource inventory a data classification
 
-Unmanaged device nemusí byť vždy úplne zakázaný.
+Zero Trust nemôže chrániť resource, o ktorom organizácia nevie. Inventory má obsahovať applications, APIs, data stores, administrative interfaces, workloads, SaaS services, owners, dependencies, sensitivity a všetky access paths.
 
-Policy môže povoliť:
+Data classification určuje požadovanú assurance. Verejné dáta môžu tolerovať anonymous access. Interné dáta môžu vyžadovať enterprise identity. Regulated alebo highly restricted data môžu vyžadovať managed device, stronger authentication, no-download policy, approval a detailný audit.
 
-- browser-isolated access,
-- read-only data,
-- low-sensitivity resource,
-- no-download session,
-- virtual desktop,
-- stronger step-up,
-- kratšiu session.
+Classification musí ovplyvniť technické controls. Label `confidential` bez väzby na authorization, encryption, retention alebo export policy je iba metadata. Rovnako inventory bez topology a ownera nepomôže zistiť, či backend zostáva dostupný mimo PEP.
 
-Resource classification určuje, či je takýto constrained access prijateľný.
+## 22. Data-centric controls
 
-## 23. Workload identity
+Connection allow/deny je iba začiatok. Application môže potrebovať row-level alebo column-level authorization, tenant isolation, field masking, tokenization alebo approval pre export.
 
-Service-to-service Zero Trust potrebuje identity workloadu nezávislú od IP adresy.
+Napríklad support engineer môže mať access k customer accountu, ale citlivé payment fields zostanú masked. Incident responder môže dostať dočasný read-only access k širšiemu datasetu s auditovaným case ID. Takéto controls patria bližšie k data a application semantics než network firewall.
 
-Možnosti:
+Data-centric policy tiež musí riešiť derived data, exports a caches. Ak application správne chráni database query, ale exportovaný CSV súbor sa uloží do broad shared bucketu, resource-level boundary bola obídená v ďalšom lifecycle kroku.
 
-- cloud workload identity,
-- Kubernetes ServiceAccount token s audience,
-- mTLS certificate,
-- SPIFFE ID a SVID,
-- signed JWT assertion,
-- platform-attested identity.
+## 23. Segmentation a microsegmentation
 
-Shared static service credential neguje granularitu a attribution.
+Segmentation rozdeľuje network alebo workload environment na menšie communication zones. **Microsegmentation** používa jemnejšie policies medzi workloads, applications alebo tiers, aby obmedzila lateral movement.
 
-## 24. Workload attestation
+Zero Trust microsegmentation nemá byť iba veľké množstvo statických IP rules. Stabilnejší model viaže policy na workload identity, namespace, service alebo application role a kombinuje network-tier a identity-tier controls.
 
-Workload attestation overuje, že identity sa vydáva správnemu workloadu na správnom node/platform context-e.
+Príklad: frontend môže volať iba public API operation backendu; backend môže pristupovať iba k svojej database; build runner nemá network path k production database. Ak attacker kompromituje frontend, segmentation obmedzí reachable targets, zatiaľ čo application authorization obmedzí povolené operations.
 
-Signals môžu zahŕňať:
+Microsegmentation môže zlyhať pri neúplnom traffic inventory, broad fallback rules alebo policy drift-e. Pred enforcementom je užitočný observe alebo audit mode, ale migration musí mať deadline; permanentný non-enforcing mode nevytvára protection.
 
-- scheduler metadata,
-- process attributes,
-- container identity,
-- node attestation,
-- cloud instance document,
-- binary measurement.
+## 24. ZTNA, VPN, SSE a SASE
 
-Attestation policy musí brániť tomu, aby compromised node vydával identity ľubovoľným workloads.
+**Zero Trust Network Access — ZTNA** je access pattern, pri ktorom broker alebo proxy poskytne authenticated a policy-controlled access ku konkrétnym applications namiesto broad network connectivity. Resource môže zostať skrytý pred priamym routovaním a session sa vytvorí až po decisione.
 
-## 25. SPIFFE a SPIRE
+VPN vytvára encrypted network tunnel, ale jej authorization granularity závisí od konkrétnej implementácie. VPN a ZTNA môžu počas migrácie coexistovať. Dôležité je, aby VPN nezostala paralelným broad bypass pathom k resources, ktoré majú byť chránené resource-level policy.
 
-SPIFFE definuje platform-agnostic workload identity model.
+**Security Service Edge — SSE** spája cloud-delivered security capabilities ako ZTNA, secure web gateway a cloud access security broker. **Secure Access Service Edge — SASE** rozširuje tento model o networking capabilities, napríklad SD-WAN. Ide o architecture alebo service-delivery categories, nie automatický dôkaz Zero Trust maturity.
 
-- SPIFFE ID identifikuje workload,
-- X.509-SVID alebo JWT-SVID nesie verifiable identity,
-- trust domain vymedzuje administrative/security boundary,
-- Workload API poskytuje credentials workloads.
+## 25. API gateways a service mesh
 
-SPIRE je implementation, ktorá používa node a workload attestation na vydávanie SVIDs.
+API gateway môže fungovať ako PEP pre north-south API traffic. Overuje tokens, aplikuje rate limits, request policy a routing. Musí však zabrániť direct backend accessu a správne propagovať identity alebo delegation context.
 
-## 26. Trust domains a federation
+Service mesh môže poskytovať workload identity, mTLS, traffic policy a telemetry pre east-west communication. Sidecar alebo ambient proxy vidí network calls, ale nemusí poznať všetky business semantics. Application-level authorization zostáva potrebná pre tenant, object ownership alebo transaction rules.
 
-Trust domain nie je iba DNS-like string. Je to trust a administrative boundary.
+NIST SP 800-207A zdôrazňuje identity-tier a network-tier policies v cloud-native multi-cloud applications. Praktický návrh preto kombinuje gateway, workload identity infrastructure, proxies a application authorization namiesto predpokladu, že jedna vrstva vyrieši všetky threats.
 
-Federation potrebuje:
+## 26. Cloud a Kubernetes kontext
 
-- explicitnú výmenu trust bundles,
-- mapping identities,
-- authorization policy,
-- key rotation,
-- revocation/failure model,
-- tenant a environment isolation.
+Cloud resources majú vlastné control planes, IAM policies, network policies a workload identity mechanisms. Zero Trust návrh musí rozlišovať human administration, workload-to-workload access a access k managed data services.
 
-Federated identity neznamená automaticky federated authorization.
+V Kubernetes môže ServiceAccount token identifikovať workload, RBAC chráni Kubernetes API, NetworkPolicy obmedzuje L3/L4 traffic a admission policy kontroluje resource creation. Tieto controls riešia rôzne boundaries. Kubernetes RBAC napríklad neurčuje automaticky, ktoré rows smie application user čítať v database.
 
-## 27. Service identity a mTLS
+Pod identity musí byť viazaná na správny namespace, ServiceAccount a audience. Broad node role alebo shared secret mountovaný do mnohých Pods znižuje granularitu. Direct access k cloud metadata alebo node credentials môže obísť workload identity model, preto je potrebné chrániť node a metadata paths.
 
-mTLS poskytuje mutual endpoint authentication a encrypted channel.
+## 27. Privileged administration
 
-Neurčuje automaticky:
+Administratívny access má vyšší impact než bežný application access a potrebuje oddelené identity, just-in-time privilege, short-lived sessions a detailný audit.
 
-- ktorú business action smie service vykonať,
-- tenant scope,
-- user delegation,
-- data authorization,
-- request integrity nad application semantics.
+Privileged Access Workstation alebo managed admin environment znižuje riziko, že production credentials budú použité na bežnom browsing endpoint-e. Step-up authentication, approval a session recording môžu byť primerané pre kritické systems.
 
-Application alebo proxy policy musí mapovať service identity na resource-level permissions.
+Break-glass path musí existovať pre outage identity alebo policy plane-u, ale nesmie byť skrytým permanentným bypassom. Credential alebo account má byť oddelene chránený, použitie alertované, časovo obmedzené a po incidente reviewed a rotated.
 
-## 28. User-to-service delegation
+## 28. Legacy systems, SaaS, IoT a OT
 
-Pri downstream calls rozlišuj:
+Nie všetky resources podporujú moderné protocols alebo agents. Legacy application môže používať header-based identity, static service account alebo broad network trust. Migrácia preto často používa compensating PEP, napríklad reverse proxy, privileged access gateway alebo isolated virtual desktop.
 
-- service koná vo vlastnom mene,
-- service koná v mene usera,
-- service má obmedzenú delegated authority.
+SaaS policy závisí od identity federation, session controls, application roles, API tokens a provider audit capabilities. Organizácia musí poznať provider-side limitations a offboarding semantics.
 
-Propagácia broad bearer tokenu cez všetky services zväčšuje blast radius. Použi audience restriction, token exchange alebo explicitný delegation context.
+IoT a OT devices môžu mať obmedzený compute, dlhý lifecycle alebo safety constraints. Agresívne re-authentication alebo blocking policy môže narušiť physical process. Zero Trust princípy sa stále dajú aplikovať cez device identity, allowlisted communication paths, gateways, monitoring a segmentation, ale failure policy musí rešpektovať safety a availability requirements.
 
-## 29. Resource inventory
+## 29. Telemetry, risk a vysvetliteľné decisions
 
-Zero Trust potrebuje vedieť, čo chráni.
+Policy engine potrebuje telemetry, ale viac signals automaticky neznamená lepší decision. Každý signal má provenance, freshness, confidence a cost.
 
-Inventory musí zahŕňať:
+Jedno agregované trust score môže zakryť hard requirements. High score nemá kompenzovať chýbajúcu phishing-resistant authentication pre critical action. Vhodnejší model kombinuje explicitné mandatory conditions s vysvetliteľnými risk signals.
 
-- applications a APIs,
-- data stores,
-- administrative interfaces,
-- workloads,
-- SaaS,
-- devices,
-- service owners,
-- sensitivity,
-- dependencies,
-- access paths.
+Decision log má zachytiť principal, action, resource, result, policy revision, relevantný context a correlation ID. Sensitive raw signals nemusia byť uložené celé, ale audit musí umožniť vysvetliť, prečo bol access povolený alebo odmietnutý.
 
-Neinventarizovaný resource zostáva mimo policy enforcementu.
+Telemetry platforma sama je security dependency. Ak attacker môže meniť posture alebo risk data, môže ovplyvniť authorization decisions. Preto potrebuje integrity, least privilege a monitoring rovnako ako identity provider.
 
-## 30. Data classification
+## 30. Degraded modes a outage dependencies
 
-Resource-level policy závisí od data classification:
+Zero Trust pridáva dependencies na identity provider, posture service, policy engine, certificate issuance a enforcement platform. Ich outage nesmie byť riešený implicitným „allow all“.
 
-- public,
-- internal,
-- confidential,
-- regulated,
-- highly restricted.
+**Fail-closed** odmietne access, keď decision nemožno bezpečne urobiť. Je vhodný pre privileged alebo high-impact operations, ale môže znížiť availability. **Fail-open** pokračuje bez určitého controlu a zvyšuje security risk. Medzi nimi existuje **degraded access mode**, napríklad povolenie existujúcich low-risk sessions, read-only operations alebo krátkeho cached decisionu.
 
-Classification má ovplyvniť:
-
-- authentication strength,
-- device requirements,
-- allowed actions,
-- export/download,
-- logging,
-- session lifetime,
-- encryption,
-- approval.
-
-## 31. Data-centric controls
-
-Zero Trust sa nemá zastaviť pri connection allow/deny.
-
-Data controls môžu zahŕňať:
-
-- row/column-level authorization,
-- tokenization,
-- dynamic masking,
-- download restrictions,
-- DLP,
-- usage monitoring,
-- purpose-based access,
-- retention.
-
-Identity-aware proxy pred aplikáciou nevyrieši broken object-level authorization v aplikácii.
-
-## 32. Network segmentation
-
-Segmentation zostáva dôležitá pre:
-
-- attack-surface reduction,
-- lateral-movement containment,
-- routing control,
-- egress restriction,
-- legacy isolation.
-
-Zero Trust mení segmentation z primary trust source na defense-in-depth enforcement boundary.
-
-## 33. Microsegmentation
-
-Microsegmentation vytvára jemnejšie policy boundaries medzi workloads alebo resource groups.
-
-Dobrý design používa:
-
-- stable identities alebo labels,
-- explicitné allowed flows,
-- default deny podľa scope-u,
-- observability,
-- staged rollout,
-- dependency discovery.
-
-Príliš jemná segmentation bez ownershipu môže vytvoriť policy explosion a operational outage.
-
-## 34. Egress policy
-
-Zero Trust musí riešiť aj outbound access.
-
-Kontroluj:
-
-- ktoré workloads môžu volať external destinations,
-- DNS identity a destination category,
-- proxy bypass,
-- data exfiltration,
-- package/update endpoints,
-- callback channels,
-- SaaS APIs.
-
-Inbound-only microsegmentation necháva exfiltration path otvorený.
-
-## 35. Identity-aware proxy
-
-Identity-aware proxy overuje subject a policy pred prístupom ku konkrétnej application.
-
-Musí riešiť:
-
-- direct backend bypass,
-- trusted identity headers,
-- header stripping,
-- session binding,
-- WebSocket/streaming,
-- non-HTTP protocols,
-- application authorization.
-
-Backend má dôverovať identity contextu iba z authenticated proxy pathu.
-
-## 36. ZTNA
-
-Zero Trust Network Access poskytuje application-specific remote access namiesto broad network tunnelu.
-
-Silný ZTNA model:
-
-- neodhaľuje celý internal network,
-- overuje user/device,
-- viaže session na application,
-- presadzuje least privilege,
-- zaznamenáva decisions.
-
-Produkt označený ZTNA môže byť stále iba proxy s broad group rules; architecture treba overiť.
-
-## 37. VPN coexistence
-
-VPN nemusí byť okamžite odstránená.
-
-Migration môže:
-
-- obmedziť VPN routes,
-- presunúť moderné apps na ZTNA,
-- chrániť legacy apps gatewayom,
-- zaviesť per-application policies,
-- monitorovať direct paths,
-- postupne zrušiť network-wide trust.
-
-VPN connection nesmie automaticky znamenať trusted session.
-
-## 38. SSE a SASE
-
-Security Service Edge — SSE typicky kombinuje cloud-delivered access a security capabilities, napríklad ZTNA, secure web gateway a CASB.
-
-Secure Access Service Edge — SASE kombinuje networking a security service model.
-
-Tieto architecture categories môžu implementovať časti Zero Trust, ale názov produktu nie je dôkaz resource-level policy, identity assurance alebo data governance.
-
-## 39. API gateway
-
-API gateway môže byť PEP pre:
-
-- token validation,
-- audience/scope,
-- rate limiting,
-- schema validation,
-- external policy decisions,
-- request logging.
-
-Gateway nesmie byť jediný authorization layer, ak backend možno volať priamo alebo potrebuje object-level business policy.
-
-## 40. Service mesh
-
-Service mesh môže poskytovať:
-
-- workload mTLS,
-- service identity,
-- traffic policy,
-- telemetry,
-- ingress/egress gateways.
-
-Nerieši automaticky:
-
-- end-user identity semantics,
-- database authorization,
-- business permissions,
-- compromised application process,
-- supply-chain trust.
-
-## 41. NIST SP 800-207A cloud-native model
-
-NIST SP 800-207A rozširuje Zero Trust access control pre cloud-native multi-cloud applications.
-
-Zdôrazňuje kombináciu:
-
-- application/service identities,
-- API gateways,
-- sidecar proxies,
-- ingress/egress controls,
-- identity-tier a network-tier policies,
-- platform-independent workload identity.
-
-Policy musí zostať konzistentná naprieč cloud a on-prem boundaries.
-
-## 42. Kubernetes
-
-Kubernetes Zero Trust model zahŕňa:
-
-- API authentication a authorization,
-- workload identity,
-- admission policy,
-- NetworkPolicy alebo service-mesh policy,
-- secret access,
-- image/provenance verification,
-- namespace/tenant boundaries,
-- node trust,
-- audit.
-
-Pod v rovnakom clusteri nie je automaticky trusted peer.
-
-## 43. Node a control-plane trust
-
-Compromised node môže:
-
-- pozorovať workloads,
-- zneužiť credentials,
-- manipulovať network,
-- spoofovať local services,
-- ovplyvniť attestation podľa modelu.
-
-Control plane a node bootstrap potrebujú strong identity, certificate lifecycle, admission, patching a isolation.
-
-## 44. Cloud identity boundaries
-
-V cloud-e oddeľ:
-
-- human federation,
-- workload roles,
-- account/subscription/project boundaries,
-- organization policy,
-- resource policies,
-- network paths,
-- KMS/secrets permissions.
-
-Jedna organization-wide administrator identity je anti-pattern aj pri strong MFA.
-
-## 45. SaaS access
-
-SaaS Zero Trust controls môžu zahŕňať:
-
-- federated SSO,
-- phishing-resistant MFA,
-- SCIM lifecycle,
-- conditional access,
-- device posture,
-- session controls,
-- OAuth application governance,
-- data sharing restrictions,
-- audit export.
-
-SaaS provider session a local application session lifecycle musia byť zosúladené.
-
-## 46. Privileged access
-
-Privileged access vyžaduje:
-
-- separate admin identity,
-- JIT/JEA,
-- approval,
-- strong device posture,
-- phishing-resistant MFA,
-- session recording podľa risku,
-- command/resource scope,
-- automatic expiry,
-- emergency break-glass.
-
-Permanentný domain/cloud admin access odporuje Zero Trust least privilege.
-
-## 47. Machine administration
-
-SSH, RDP, database consoles a management APIs sú high-value resources.
-
-Preferuj:
-
-- identity-aware bastion alebo broker,
-- short-lived certificates/tokens,
-- no shared passwords,
-- session attribution,
-- command/audit evidence,
-- network isolation,
-- no public exposure.
-
-Bastion s broad static credentials iba centralizuje risk.
-
-## 48. Legacy applications
-
-Legacy app nemusí podporovať modernú identity.
-
-Patterns:
-
-- identity-aware proxy,
-- protocol gateway,
-- virtual desktop,
-- network enclave s PEP,
-- application modernization,
-- constrained service account,
-- compensating monitoring.
-
-Gateway nesmie prenášať spoofable identity header po bypass-accessible network path-e.
-
-## 49. IoT a OT
-
-IoT/OT môže mať obmedzenú identity, patching a agent support.
-
-Modeluj:
-
-- device inventory,
-- manufacturer identity,
-- network behavior allowlist,
-- gateway PEP,
-- protocol-aware monitoring,
-- lifecycle/EOL,
-- safety constraints,
-- fail-safe behavior.
-
-Aggressive re-authentication alebo blocking môže mať physical availability impact.
-
-## 50. Policy inputs
-
-Zero Trust decision môže používať:
+Príklad outage policy:
 
 ```text
-subject identity
-+ device/workload identity
-+ authentication context
-+ resource sensitivity
-+ requested action
-+ session history
-+ threat intelligence
-+ behavior telemetry
-+ environmental context
+IdP nedostupný
+→ nové privileged sessions odmietnuté
+→ existujúce krátkodobé sessions platia do expiration
+→ low-risk read-only access môže použiť cached policy
+→ break-glass je dostupný iba cez oddelený auditovaný proces
 ```
 
-Každý signal musí mať ownera, source a freshness.
+Degraded mode musí byť navrhnutý, testovaný a časovo ohraničený. Emergency fallback, ktorý sa nikdy netestuje, pravdepodobne zlyhá práve počas incidentu.
 
-## 51. Context poisoning
+## 31. Incident response a recovery dôvery
 
-Attacker môže manipulovať policy inputs:
+Pri compromise identity, device, workload alebo policy plane-u nestačí zablokovať jednu IP adresu. Response musí identifikovať všetky odvodené sessions, tokens, credentials a trust relationships.
 
-- spoofed device posture,
-- attacker-controlled headers,
-- stale group cache,
-- forged geolocation,
-- compromised EDR,
-- poisoned threat feed,
-- misclassified resource.
-
-Policy confidence nemôže byť vyššia než confidence jeho inputs.
-
-## 52. Risk-adaptive access
-
-Risk-adaptive policy môže:
-
-- povoliť,
-- odmietnuť,
-- vyžiadať step-up,
-- obmedziť actions,
-- skrátiť session,
-- prepnúť na read-only,
-- vyžiadať approval.
-
-Risk engine musí byť vysvetliteľný, monitorovaný a chránený pred feedback loops alebo discriminatory proxy attributes.
-
-## 53. Step-up authentication
-
-Step-up sa spúšťa pri:
-
-- sensitive action,
-- vyššom transaction risku,
-- novom device,
-- posture degradation,
-- unusual behavior,
-- privileged escalation.
-
-Policy musí viazať step-up event na konkrétnu session, action a maximálny vek authentication.
-
-## 54. Token a session binding
-
-Bearer token môže použiť každý držiteľ.
-
-Silnejšie patterns:
-
-- sender-constrained tokens,
-- mTLS binding,
-- DPoP,
-- device-bound session,
-- short lifetime,
-- audience restriction.
-
-Binding nezabráni zneužitiu compromised endpointu, ktorý má token aj key.
-
-## 55. Continuous diagnostics
-
-Telemetry sources:
-
-- identity provider,
-- endpoint management,
-- EDR,
-- network sensors,
-- cloud control plane,
-- application logs,
-- policy decisions,
-- data access,
-- vulnerability management.
-
-Telemetry musí byť normalized a correlation-ready bez vytvorenia neobmedzeného privacy surveillance systému.
-
-## 56. Decision a telemetry loop
+Typický postup:
 
 ```text
-access request
-→ decision
-→ session activity
-→ telemetry
-→ risk/context update
-→ continue, constrain alebo terminate
+identifikovať compromised identity alebo control plane
+→ zablokovať nové issuance a decisions
+→ revoke alebo skrátiť existujúce sessions
+→ rotovať keys, certificates alebo trust bundles podľa boundary
+→ izolovať zasiahnuté workloads alebo devices
+→ overiť policy a enforcement configuration
+→ obnoviť z dôveryhodného source
+→ potvrdiť, že staré credentials a bypass paths už nefungujú
 ```
 
-Loop potrebuje bounded latency, false-positive management a recovery pri telemetry outage.
+Po compromise identity providera môže byť potrebné obnoviť signing keys, revalidate sessions a preskúmať malicious account changes. Po compromise SPIRE Servera alebo certificate authority sa incident dotýka workload identities v celom trust domain-e. Po compromise PEP treba overiť, či traffic neprechádzal bez auditu alebo policy.
 
-## 57. Session termination
+Recovery nie je dokončená, kým systém neobnoví dôveryhodný chain od authoritative identity sources po enforcement a nepreukáže invaliditu starých trust artifacts.
 
-Session má byť ukončená pri:
+## 32. Migračný model
 
-- credential revocation,
-- account disable,
-- device compromise,
-- workload identity invalidation,
-- policy change,
-- anomalous activity,
-- resource emergency lockdown.
+Zero Trust migration nemá začínať nákupom produktu. Začína inventory, data classification, identity hygiene a mapovaním access paths.
 
-Logout UI bez backend token/session revocation nie je dostatočný.
+Praktické poradie:
 
-## 58. Policy revocation latency
+1. identifikovať kritické resources, owners a users;
+2. zmapovať všetky priame aj nepriame access paths;
+3. odstrániť stale identities a broad standing privilege;
+4. zaviesť silnú human a workload identity;
+5. umiestniť PEP tak, aby neexistoval direct bypass;
+6. začať audit alebo observe mode a porovnať intended a actual access;
+7. zavádzať enforcement po resource cohorts;
+8. merať denied legitimate traffic, bypass paths a revocation latency;
+9. odstrániť staré VPN, network alebo shared-secret paths až po overení nového modelu.
 
-Meraj čas od:
+Najväčším rizikom migrácie je paralelný slabý path. Ak nová identity-aware proxy chráni application hostname, ale starý backend port zostáva dostupný z VPN, útočník použije jednoduchšiu cestu.
 
-```text
-risk alebo revocation event
-→ source update
-→ policy/PDP propagation
-→ PEP enforcement
-→ active session termination
-```
-
-Short token lifetime nepomôže, ak privileged session zostáva nezávisle aktívna.
-
-## 59. Visibility a analytics
-
-CISA maturity model uvádza visibility and analytics ako cross-cutting capability.
-
-Potrebná je schopnosť:
-
-- spájať identity, device, workload a resource events,
-- detegovať bypass paths,
-- merať policy outcomes,
-- identifikovať lateral movement,
-- spätne vysvetliť decision.
-
-Centralizácia telemetry nesmie vytvoriť nechránenejší high-value data lake.
-
-## 60. Automation a orchestration
-
-Automation môže:
-
-- revoke-nuť sessions,
-- quarantine device,
-- meniť PEP policy,
-- znížiť privilege,
-- izolovať workload,
-- spustiť incident workflow.
-
-High-impact automated response potrebuje confidence thresholds, approval boundaries, idempotency, rollback a audit.
-
-## 61. Governance
-
-Zero Trust governance zahŕňa:
-
-- resource ownership,
-- identity authority,
-- policy standards,
-- architecture patterns,
-- exception process,
-- data classification,
-- telemetry use,
-- privacy,
-- vendor interoperability,
-- metrics,
-- funding a roadmap.
-
-Bez governance vzniknú izolované „zero trust“ produkty bez end-to-end trust reduction.
-
-## 62. CISA maturity model
+## 33. CISA Zero Trust Maturity Model
 
 CISA Zero Trust Maturity Model Version 2.0 používa päť pillars:
 
-- Identity,
-- Devices,
-- Networks,
-- Applications and Workloads,
+- Identity;
+- Devices;
+- Networks;
+- Applications and Workloads;
 - Data.
 
-Cross-cutting capabilities:
+Tieto pillars opisujú hlavné control areas, nie izolované projekty. Identity decision závisí od device posture; application access závisí od data classification; network enforcement potrebuje workload inventory.
 
-- Visibility and Analytics,
-- Automation and Orchestration,
-- Governance.
+Model zároveň používa tri cross-cutting capabilities: **Visibility and Analytics**, **Automation and Orchestration** a **Governance**. Visibility poskytuje evidence, automation prepája events s response actions a governance určuje ownership, policy a risk acceptance.
 
-Maturity model je planning aid, nie product certification ani univerzálny compliance score.
+Maturity model je planning tool, nie certification. Organizácia môže byť silná v jednom pillar-e a slabá v inom. Cieľom je identifikovať gaps a dependencies, nie dosiahnuť jedno marketingové číslo.
 
-## 63. Maturity stages
+## 34. Ako merať reálny pokrok
 
-CISA model používa maturity progression od tradičného stavu cez initial a advanced k optimal capabilities.
+Počet nasadených agents alebo kúpených products nie je spoľahlivá maturity metrika. Užitočnejšie metrics merajú coverage a failure behavior.
 
-Organizácia môže mať rozdielnu maturity podľa pillar-u.
+- **Resource enforcement coverage** — podiel kritických resources, ktorých všetky známe paths prechádzajú PEP.
+- **Identity coverage** — podiel human a workload accessu používajúceho spravované, krátkodobé a attributable identities.
+- **Standing privilege** — množstvo permanentných broad permissions oproti just-in-time accessu.
+- **Revocation latency** — čas od disable alebo incident signal-u po neplatnosť sessions a credentials.
+- **Policy freshness** — čas medzi approved policy revision a jej enforcementom vo všetkých PEPs.
+- **Bypass findings** — počet priamych paths obchádzajúcich intended enforcement.
+- **Decision explainability** — podiel decisions, pri ktorých možno spätne identifikovať policy revision a relevantné inputs.
 
-Priorizácia má vychádzať z risku a dependency orderu, nie z potreby dosiahnuť rovnaké skóre všade.
+Metric musí mať denominator a scope. „90 % applications používa SSO“ nehovorí, či production administration, service accounts alebo direct database access zostali mimo kontroly.
 
-## 64. Migration strategy
+## 35. Kompletný príklad access decisionu
 
-```text
-inventory a critical flows
-→ identity a device foundations
-→ vybrať high-value use case
-→ zaviesť PEP a explicitnú policy
-→ audit a staged enforcement
-→ merať bypass a user impact
-→ rozširovať po resource groups
-→ odstrániť legacy implicit trust
-```
+Predstavme si developera, ktorý chce vykonať production deployment.
 
-Big-bang replacement perimeteru je vysoko rizikový.
+1. Developer sa autentizuje cez enterprise OIDC provider pomocou WebAuthn. ID Token alebo session nesie informáciu o authentication method a čase overenia.
+2. Identity-aware access proxy overí user identity a device certificate. Posture service potvrdí aktuálny patch level, disk encryption a healthy EDR.
+3. Deployment portal skontroluje, že user má oprávnenie požiadať o deployment, ale nevydá mu permanentné cloud credentials.
+4. Approved workflow spustí CI workload. Workload identity platform vykoná attestation runnera a vydá short-lived credential viazaný na repository, workflow a production environment.
+5. Policy engine overí signed artifact digest, approval, change window, environment a error-budget policy.
+6. Deployment PEP povolí iba nasadenie konkrétneho digestu do konkrétneho clusteru. Credential nemožno použiť na čítanie production database.
+7. Audit prepojí user request, approval, workload identity, artifact digest, policy revision a deployment result.
+8. Ak EDR počas human session nahlási compromise, nové privileged operations sa zablokujú. Ak je CI issuer compromised, workflow identity trust sa revoke-ne a deployments sa zastavia.
 
-## 65. Use-case prioritization
+Tento príklad ukazuje, že Zero Trust nevzniká jedným loginom. Je to chain explicitných identities, obmedzených permissions, workload attestation, artifact trust, policy decisionu a enforcementu.
 
-Dobré prvé use cases:
+## 36. Troubleshooting Zero Trust accessu
 
-- internet-exposed admin interface,
-- contractor access,
-- privileged cloud console,
-- high-value SaaS,
-- production Kubernetes access,
-- service-to-service identity pre critical API.
-
-Vyber use case s jasným resource ownerom, merateľným riskom a kontrolovateľným access pathom.
-
-## 66. Dependency order
-
-Niektoré capabilities závisia od iných:
+Pri zamietnutom alebo neočakávane povolenom access-e postupuj po decision chain-e, nie náhodným menením rules.
 
 ```text
-identity lifecycle
-→ strong authentication
-→ resource inventory
-→ policy a PEP
-→ device/workload posture
-→ telemetry
-→ adaptive automation
+presný principal a credential
+→ requested action a resource
+→ authentication context
+→ device alebo workload evidence
+→ policy inputs a revision
+→ PE decision
+→ PA session setup
+→ PEP enforcement
+→ direct bypass paths
 ```
 
-Adaptive policy nad nepresným inventory a identity mappingom vytvára iba dynamickú nepresnosť.
+Pri `401` alebo authentication failure over issuer, signature, audience, expiration a session binding. Pri `403` over effective authorization, resource attributes, tenant a delegation context. Pri timeout-e rozlíš policy dependency outage od data-plane connectivity problému.
 
-## 67. Parallel access paths
+Ak log ukazuje `allow`, ale request zlyhá, problém môže byť v PA alebo PEP configuration. Ak application request uspeje bez decision logu, pravdepodobne existuje bypass path alebo lokálna fallback policy. Ak workload dostáva nesprávnu identity, preskúmaj attestation selectors, registration entries a node trust.
 
-Počas migrácie môže existovať:
+## 37. Časté anti-patterny
 
-- nový identity-aware path,
-- starý VPN/direct path,
-- emergency path,
-- service account path.
+**Network location ako identity.** Interná IP alebo VPN membership sa používa ako hlavný authorization dôkaz. Compromised internal endpoint potom získava broad reachability.
 
-Attacker použije najslabší path. Každý bypass musí byť inventarizovaný, monitorovaný a odstránený alebo explicitne risk-accepted.
+**MFA equals authorization.** Po silnom login-e application neoveruje object alebo tenant permissions. Authentication strength nezaručuje resource entitlement.
 
-## 68. Policy enforcement coverage
+**Service mesh equals Zero Trust.** Mesh zapne mTLS, ale všetky services môžu volať všetky endpoints a application ignoruje user delegation.
 
-Coverage otázky:
+**Dynamic policy zo stale data.** Device posture sa načíta raz denne a používa sa bez freshness limitu. Decision vyzerá contextual, ale nereaguje na aktuálny compromise.
 
-- ktoré resources majú PEP,
-- ktoré protocols obchádzajú proxy,
-- ktoré users/devices nie sú federované,
-- ktoré workloads používajú shared credentials,
-- ktoré sessions nemožno revoke-nuť,
-- ktoré data actions nie sú auditované.
+**PEP s bypass pathom.** Proxy chráni verejný hostname, ale backend je priamo dostupný z interného subnetu.
 
-Počet deployed agents nie je coverage resource accessu.
+**Permanentný fail-open.** Emergency fallback sa stane bežným access pathom a nie je auditovaný ani časovo obmedzený.
 
-## 69. Availability
+**Trust score bez hard requirements.** Vysoké priemerné score prekryje chýbajúce phishing-resistant MFA alebo neoverený workload.
 
-Zero Trust components sú availability dependencies:
+**Identity bez lifecycle-u.** Short-lived tokens existujú, ale stale accounts, broad groups a compromised recovery zostávajú nezmenené.
 
-- IdP,
-- device posture service,
-- PE/PA,
-- PEP,
-- certificate authority,
-- workload identity system,
-- telemetry pipeline.
+## 38. Kontrolné otázky
 
-Definuj degraded behavior per resource. Globálny fail-closed môže zastaviť enterprise; globálny fail-open môže odstrániť kontrolu.
-
-## 70. Degraded modes
-
-Možnosti:
-
-- existing bounded sessions pokračujú,
-- nové sessions sú odmietnuté,
-- iba low-risk read-only access,
-- cached policy s maximum age,
-- local break-glass,
-- manual approval.
-
-Degraded mode musí mať expiration a alert, inak sa stane permanentným bypassom.
-
-## 71. Identity provider outage
-
-Pri IdP outage rozhodni:
-
-- môžu existujúce sessions pokračovať,
-- ako dlho,
-- ktoré privileged actions sa zastavia,
-- či offline/local emergency identity existuje,
-- ako sa zabráni stale-account accessu,
-- ako sa obnoví trust po recovery.
-
-Cached authentication bez bounded lifetime neguje revocation.
-
-## 72. Device-posture outage
-
-Behavior môže závisieť od resource sensitivity:
-
-- deny high-risk admin access,
-- allow existing low-risk session krátko,
-- require managed network a step-up,
-- read-only fallback,
-- explicit operator override.
-
-„Posture unknown“ nie je to isté ako „device healthy“.
-
-## 73. Workload identity outage
-
-Short-lived SVID/certificate model potrebuje renewal resilience.
-
-Definuj:
-
-- pre-expiry refresh,
-- cache,
-- clock dependency,
-- CA/server HA,
-- trust-bundle distribution,
-- behavior po expiry,
-- emergency rotation.
-
-Neobmedzené predĺženie expired identity znižuje compromise containment.
-
-## 74. Privacy
-
-Zero Trust môže zbierať rozsiahlu identity, device a behavior telemetry.
-
-Governance musí riešiť:
-
-- purpose limitation,
-- data minimization,
-- transparency,
-- retention,
-- employee monitoring boundaries,
-- access k telemetry,
-- automated decision review,
-- jurisdiction.
-
-Viac signals nie je automaticky lepšia security.
-
-## 75. Incident response
-
-Zero Trust capabilities môžu podporiť:
-
-- rapid session revocation,
-- device/workload quarantine,
-- resource-specific lockdown,
-- blast-radius analysis,
-- identity path investigation,
-- policy replay.
-
-Incident response musí vedieť fungovať aj pri compromised IdP, PEP alebo policy plane.
-
-## 76. Compromised identity provider
-
-```text
-izolovať issuer/admin path
-→ revoke sessions a signing keys podľa scope-u
-→ prepnúť critical resources na emergency trust path
-→ identifikovať issued tokens/certificates počas windowu
-→ obnoviť clean identity control plane
-→ re-enroll authenticators podľa risku
-→ overiť downstream caches a local sessions
-```
-
-Reset passwordov nestačí pri compromised token-signing keys alebo federation configuration.
-
-## 77. Compromised PEP
-
-Compromised PEP môže:
-
-- bypass-nuť decisions,
-- meniť identity headers,
-- pozorovať plaintext po TLS termination,
-- falšovať logs,
-- umožniť direct path.
-
-Použi hardened runtime, mutual authentication, configuration signing, attestation, monitoring a defense-in-depth authorization v resource-e.
-
-## 78. Policy-plane compromise
-
-Malicious PE/PA policy môže udeliť system-wide access.
-
-Chráň:
-
-- policy repository,
-- review,
-- signing/distribution,
-- admin identities,
-- change alerts,
-- last-known-good rollback,
-- independent audit.
-
-Zero Trust control plane je high-value asset, nie inherentne trusted magic layer.
-
-## 79. Recovery
-
-Recovery potrebuje:
-
-- offline trust roots,
-- break-glass identities,
-- clean-room admin devices,
-- configuration backups,
-- policy/version evidence,
-- credential rotation,
-- PEP re-enrollment,
-- session invalidation,
-- testované dependency order.
-
-Backup policy database bez identity keys a trust configuration nemusí byť použiteľný.
-
-## 80. NIST SP 1800-35
-
-NIST SP 1800-35, finalizovaný v júni 2025, poskytuje practice guide s viacerými interoperabilnými Zero Trust example implementations a use cases.
-
-Je to implementation reference a evidence source, nie jediná povinná product architecture.
-
-Organizácia má mapovať patterns na vlastné assets, risks a existing systems.
-
-## 81. Testing
-
-Testuj:
-
-- validný access,
-- invalid identity,
-- stale/revoked session,
-- non-compliant device,
-- direct backend bypass,
-- cross-tenant access,
-- workload identity spoofing,
-- posture outage,
-- IdP outage,
-- policy propagation,
-- session termination,
-- break-glass.
-
-Zero Trust bez negative a failure tests zostáva architecture claim.
-
-## 82. Adversarial validation
-
-Red-team alebo purple-team scenarios:
-
-- stolen token z managed device,
-- compromised internal workload,
-- VPN user skúša direct subnet path,
-- malicious insider mení posture data,
-- PEP header spoofing,
-- IdP admin takeover,
-- service-mesh sidecar bypass,
-- stale policy cache.
-
-Výsledky sa majú vrátiť do threat modelu a migration roadmapy.
-
-## 83. Observability
-
-Sleduj:
-
-- access decisions podľa resource a reason,
-- authentication strength,
-- posture unknown/fail rate,
-- session revocation latency,
-- direct-path attempts,
-- identity/workload certificate issuance,
-- PEP health,
-- policy revision,
-- fail-open/degraded events,
-- cross-segment denied flows,
-- break-glass usage.
-
-Raw decision telemetry potrebuje privacy a cardinality controls.
-
-## 84. Metrics
-
-Užitočné metrics:
-
-- percento critical resources za PEP,
-- percento accessu viazaného na strong identity,
-- device/workload posture coverage,
-- standing privilege reduction,
-- mean revocation latency,
-- session lifetime distribution,
-- direct bypass path count,
-- legacy shared credential count,
-- policy exception age,
-- incident blast radius,
-- degraded-mode duration.
-
-Počet Zero Trust licenses alebo agents nie je outcome metric.
-
-## 85. Troubleshooting access
-
-```text
-resource a action správne identifikované?
-→ subject authentication platná?
-→ device/workload identity platná?
-→ posture data fresh?
-→ PE dostal všetky attributes?
-→ policy revision správna?
-→ PA vytvoril session/path?
-→ PEP configuration a health?
-→ direct/backend route?
-→ application-level authorization?
-→ session cache/revocation?
-```
-
-## 86. Typické chyby
-
-### User prešiel MFA, ale application vracia 403
-
-Authentication je úspešná, ale resource authorization, tenant mapping alebo device policy odmieta action.
-
-### Proxy povoľuje access, backend odmieta identity
-
-Trusted header alebo token mapping je nekompatibilný, audience nesedí alebo backend správne vyžaduje ďalšiu authorization.
-
-### Service mesh mTLS funguje, ale cross-tenant data unikajú
-
-Channel a service identity sú validné, ale application object-level authorization chýba.
-
-### Posture service outage zablokoval všetkých
-
-Unknown posture bolo globálne mapované na deny bez resource-tier degraded modelu.
-
-### Session zostáva aktívna po account disable
-
-IdP disable sa nepropaguje do application session alebo token revocation pathu.
-
-## 87. Governance model
-
-Definuj:
-
-- executive risk ownera,
-- architecture authority,
-- identity ownera,
-- device/workload owners,
-- resource owners,
-- policy owners,
-- telemetry/privacy governance,
-- exception approval,
-- migration portfolio,
-- incident authority.
-
-Zero Trust je enterprise operating model, nie iba network projekt.
-
-## 88. Anti-patterny
-
-- „internal = trusted“,
-- VPN po MFA poskytujúca celý subnet,
-- jeden global trust score,
-- strong authentication bez resource authorization,
-- device certificate považovaný za health,
-- service mesh považovaný za kompletný Zero Trust,
-- broad shared workload credentials,
-- proxy s priamo dostupným backendom,
-- posture unknown mapované na healthy,
-- permanentný break-glass,
-- telemetry bez privacy governance,
-- big-bang migration,
-- product label použitý ako maturity evidence.
-
-## 89. Kontrolné otázky
-
-1. Čo Zero Trust znamená a čo neznamená?
-2. Prečo network location nie je dostatočný trust signal?
-3. Aké roly majú Policy Engine, Policy Administrator a PEP?
-4. Ako sa líši user, device a workload identity?
-5. Prečo device identity nie je device posture?
-6. Ako fungujú workload attestation, SPIFFE ID a SVID?
-7. Čo mTLS rieši a čo nerieši?
-8. Ako sa Zero Trust vzťahuje na microsegmentation a ZTNA?
-9. Ako chrániť direct backend bypass?
-10. Čo znamená continuous verification v praxi?
-11. Ako navrhnúť degraded mode pri IdP alebo posture outage?
-12. Aké pillars a cross-cutting capabilities používa CISA model?
-13. Ako migrovať bez paralelného slabého access pathu?
-14. Ako merať resource a enforcement coverage?
-15. Ako obnoviť dôveru po compromise identity alebo policy plane-u?
+1. Prečo network location nemôže byť root identity ani dostatočný authorization dôkaz?
+2. Ako sa líšia Policy Engine, Policy Administrator a Policy Enforcement Point?
+3. Čo presne overuje workload attestation a ako sa líši od validácie už vydaného certificate-u?
+4. Prečo mTLS nevyrieši tenant alebo business-action authorization?
+5. Ako rozlíšiš device identity od device posture?
+6. Aké failure semantics zvolíš pri výpadku posture service-u pre read-only dashboard a pre production administration?
+7. Ako zistíš, že resource má direct bypass path mimo PEP?
+8. Aký je rozdiel medzi service konajúcou vo vlastnom mene a delegated user contextom?
+9. Ako by si navrhol revocation po compromise workload identity issueru?
+10. Ktoré metrics dokazujú resource-level enforcement coverage a ktoré sú iba activity metrics?
+11. Ako migrovať z broad VPN accessu bez vytvorenia paralelného slabého pathu?
+12. Navrhni Zero Trust decision pre production database query vrátane identity, device/workload state, data scope a audit evidence.
 
 ## Glossary impact
 
-Relevantné pojmy: Zero Trust, Zero Trust Architecture, implicit trust, resource-centric security, assume breach, continuous verification, Policy Engine, Policy Administrator, Zero Trust Policy Enforcement Point, control plane, data plane, device identity, device posture, workload identity, workload attestation, SPIFFE ID, SVID, SPIRE, trust domain, workload federation, identity-aware proxy, Zero Trust Network Access, Security Service Edge, Secure Access Service Edge, microsegmentation, egress policy, risk-adaptive access, step-up authentication, session binding, continuous diagnostics, revocation latency, CISA Zero Trust Maturity Model, Zero Trust pillar, visibility and analytics, automation and orchestration, Zero Trust governance, degraded access mode, direct access bypass, resource enforcement coverage a Zero Trust migration.
+Relevantné pojmy: Zero Trust, Zero Trust Architecture, implicit trust, resource-centric security, assume breach, continuous verification, Policy Engine, Policy Administrator, Zero Trust Policy Enforcement Point, control plane, data plane, device identity, device posture, workload identity, workload attestation, node attestation, selector, SPIFFE ID, SVID, SPIRE, Workload API, trust domain, workload federation, identity-aware proxy, Zero Trust Network Access, Security Service Edge, Secure Access Service Edge, microsegmentation, egress policy, risk-adaptive access, step-up authentication, session binding, continuous diagnostics, revocation latency, CISA Zero Trust Maturity Model, Zero Trust pillar, visibility and analytics, automation and orchestration, Zero Trust governance, degraded access mode, direct access bypass, resource enforcement coverage a Zero Trust migration.
 
 ## Primárne zdroje
 
@@ -1335,12 +496,11 @@ Relevantné pojmy: Zero Trust, Zero Trust Architecture, implicit trust, resource
 - [NIST SP 800-207A — Zero Trust for Cloud-Native Multi-Cloud Applications](https://csrc.nist.gov/pubs/sp/800/207/a/final)
 - [NIST CSWP 20 — Planning for a Zero Trust Architecture](https://csrc.nist.gov/pubs/cswp/20/planning-for-a-zero-trust-architecture/final)
 - [NIST SP 1800-35 — Implementing a Zero Trust Architecture](https://csrc.nist.gov/pubs/sp/1800/35/final)
-- [CISA Zero Trust Maturity Model Version 2.0](https://www.cisa.gov/topics/cybersecurity-best-practices/executive-order-improving-nations-cybersecurity)
-- [CISA Modern Approaches to Network Access Security](https://www.cisa.gov/news-events/alerts/2024/06/18/cisa-and-partners-release-guidance-modern-approaches-network-access-security)
-- [CISA Microsegmentation in Zero Trust — Introduction and Planning](https://www.cisa.gov/news-events/alerts/2025/07/29/cisa-releases-part-one-zero-trust-microsegmentation-guidance)
+- [CISA Zero Trust Maturity Model Version 2.0](https://www.cisa.gov/sites/default/files/2023-04/zero_trust_maturity_model_v2_508.pdf)
+- [CISA Microsegmentation in Zero Trust — Introduction and Planning](https://www.cisa.gov/sites/default/files/2025-07/ZT-Microsegmentation-Guidance-Part-One_508c.pdf)
 - [SPIFFE Concepts](https://spiffe.io/docs/latest/spiffe/concepts/)
+- [SPIFFE ID and SVID specification](https://spiffe.io/docs/latest/spiffe-specs/spiffe-id/)
 - [SPIRE Concepts](https://spiffe.io/docs/latest/spire-about/spire-concepts/)
-- [SPIFFE Workload API](https://spiffe.io/docs/latest/spiffe-specs/spiffe_workload_api/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
