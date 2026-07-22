@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10476**
-- Total words: **400,342**
-- Findings: **17490** (critical 4564, high 5365, medium 5619, low 1942)
+- Audited conceptual sections: **10457**
+- Total words: **402,490**
+- Findings: **17477** (critical 4534, high 5351, medium 5600, low 1992)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -35,7 +35,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 962 | 32 | 53 | 46 | 2 | 1449 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 940 | 33 | 50 | 42 | 7 | 2180 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | D | 930 | 36 | 39 | 46 | 22 | 2295 | `docs/11-cloud-and-aws/rds.md` |
-| D | 928 | 39 | 35 | 51 | 6 | 2535 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 882 | 34 | 38 | 43 | 18 | 2384 | `docs/12-observability/fluent-bit.md` |
 | D | 875 | 30 | 42 | 44 | 21 | 2459 | `docs/12-observability/alertmanager.md` |
 | D | 866 | 35 | 35 | 44 | 12 | 2285 | `docs/11-cloud-and-aws/cost-management-finops.md` |
@@ -134,6 +133,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 463 | 18 | 22 | 22 | 0 | 1228 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 461 | 19 | 19 | 23 | 4 | 1287 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 453 | 16 | 22 | 22 | 7 | 1606 | `docs/13-security-and-identity/kerberos.md` |
+| D | 453 | 9 | 21 | 32 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 447 | 19 | 18 | 23 | 0 | 1145 | `docs/06-gitlab/variables-and-secrets.md` |
 | D | 447 | 19 | 18 | 19 | 8 | 1849 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | D | 443 | 17 | 19 | 24 | 4 | 1438 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
@@ -10760,80 +10760,36 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 ### `docs/13-security-and-identity/oauth-2.md`
 
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Mentálny model**: 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 23, `empty-section` — **2. Role**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 50, `empty-section` — **3. Authorization endpoint a token endpoint**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 52, `outline-instead-of-explanation` — **Authorization endpoint**: 4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 63, `outline-instead-of-explanation` — **Token endpoint**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 75, `outline-instead-of-explanation` — **4. Authorization grant**: 10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 97, `outline-instead-of-explanation` — **5. Authorization Code flow**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 120, `outline-instead-of-explanation` — **6. PKCE**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **7. Redirect URI**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 180, `outline-instead-of-explanation` — **9. Access token**: 11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 203, `outline-instead-of-explanation` — **10. Bearer token**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 220, `outline-instead-of-explanation` — **11. Sender-constrained token**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 241, `outline-instead-of-explanation` — **12. Scope**: 11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 270, `outline-instead-of-explanation` — **13. Audience a resource indicators**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 290, `outline-instead-of-explanation` — **14. Refresh token**: 11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 313, `outline-instead-of-explanation` — **15. Refresh-token rotation**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 331, `outline-instead-of-explanation` — **16. Client authentication**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 350, `outline-instead-of-explanation` — **17. Client Credentials grant**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 373, `outline-instead-of-explanation` — **18. Device Authorization flow**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 396, `empty-section` — **19. Deprecated alebo neodporúčané patterns**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 402, `outline-instead-of-explanation` — **Resource Owner Password Credentials**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 421, `empty-section` — **20. Token format: opaque oproti JWT**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 423, `outline-instead-of-explanation` — **Opaque token**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 439, `outline-instead-of-explanation` — **JWT access token**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 459, `outline-instead-of-explanation` — **21. Token introspection**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 474, `outline-instead-of-explanation` — **22. Token revocation**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 490, `outline-instead-of-explanation` — **23. Authorization Server Metadata**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 509, `outline-instead-of-explanation` — **24. Key management**: 9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 527, `outline-instead-of-explanation` — **25. Consent**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 542, `outline-instead-of-explanation` — **26. Multi-tenant model**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 557, `outline-instead-of-explanation` — **27. Browser applications a BFF**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 573, `outline-instead-of-explanation` — **28. Native applications**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 586, `outline-instead-of-explanation` — **29. API gateway a token propagation**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 605, `outline-instead-of-explanation` — **30. Token exchange a delegation**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 621, `outline-instead-of-explanation` — **31. Audit**: 18 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 647, `empty-section` — **32. Threats a mitigations**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 705, `outline-instead-of-explanation` — **invalid grant**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 732, `outline-instead-of-explanation` — **35. Operational monitoring**: 11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 750, `outline-instead-of-explanation` — **36. Incident response**: 9 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 681, `list-first-introduction` — **33. Troubleshooting authorization flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 5, `thin-concept-section` — **1. Mentálny model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 31, `thin-concept-section` — **Client**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 52, `thin-concept-section` — **Authorization endpoint**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 63, `term-before-explanation` — **Token endpoint**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URI`, `PKCE`, `scope`, `policy`
-- **HIGH** line 63, `thin-concept-section` — **Token endpoint**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 75, `thin-concept-section` — **4. Authorization grant**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 97, `thin-concept-section` — **5. Authorization Code flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 120, `thin-concept-section` — **6. PKCE**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `thin-concept-section` — **7. Redirect URI**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 180, `thin-concept-section` — **9. Access token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 203, `thin-concept-section` — **10. Bearer token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 220, `thin-concept-section` — **11. Sender-constrained token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 241, `thin-concept-section` — **12. Scope**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 350, `thin-concept-section` — **17. Client Credentials grant**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 373, `thin-concept-section` — **18. Device Authorization flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 402, `thin-concept-section` — **Resource Owner Password Credentials**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 423, `thin-concept-section` — **Opaque token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 439, `thin-concept-section` — **JWT access token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 459, `thin-concept-section` — **21. Token introspection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 509, `thin-concept-section` — **24. Key management**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 527, `thin-concept-section` — **25. Consent**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 542, `thin-concept-section` — **26. Multi-tenant model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 557, `thin-concept-section` — **27. Browser applications a BFF**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 573, `term-before-explanation` — **28. Native applications**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `HTTPS`, `URI`, `OS`
-- **HIGH** line 573, `thin-concept-section` — **28. Native applications**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 586, `thin-concept-section` — **29. API gateway a token propagation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 605, `thin-concept-section` — **30. Token exchange a delegation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 621, `term-before-explanation` — **31. Audit**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `PKCE`, `resource`, `identity`
-- **HIGH** line 621, `thin-concept-section` — **31. Audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 705, `thin-concept-section` — **invalid grant**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 732, `term-before-explanation` — **35. Operational monitoring**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `availability`, `scope`
-- **HIGH** line 732, `thin-concept-section` — **35. Operational monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 750, `thin-concept-section` — **36. Incident response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 88, `outline-instead-of-explanation` — **6. Authorization request**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **11. Authorization code properties**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 273, `outline-instead-of-explanation` — **21. Opaque access token**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 391, `outline-instead-of-explanation` — **30. Client registration**: 9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 415, `outline-instead-of-explanation` — **32. Authorization Server key lifecycle**: 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 606, `outline-instead-of-explanation` — **47. Audit**: 13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 646, `outline-instead-of-explanation` — **49. Operational monitoring**: 14 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 694, `outline-instead-of-explanation` — **51. Incident response**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 735, `outline-instead-of-explanation` — **53. Kompletný production príklad**: 11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **HIGH** line 161, `list-heavy-section` — **12. Token endpoint**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 187, `list-heavy-section` — **14. Client authentication**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 202, `list-heavy-section` — **15. Access token**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 303, `list-heavy-section` — **23. Token introspection**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 319, `list-heavy-section` — **24. Access-token lifetime**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 365, `list-heavy-section` — **28. Token revocation**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 487, `list-heavy-section` — **37. Browser clients a BFF**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 572, `list-heavy-section` — **45. Token Exchange**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 587, `list-heavy-section` — **46. Multi-tenant authorization**: 8 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 146, `term-before-explanation` — **11. Authorization code properties**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URI`, `PKCE`, `Resource`
+- **HIGH** line 146, `thin-concept-section` — **11. Authorization code properties**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 187, `term-before-explanation` — **14. Client authentication**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `POST`, `JWT`, `TLS`, `workload`
+- **HIGH** line 303, `term-before-explanation` — **23. Token introspection**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `TTL`, `scope`, `availability`
+- **HIGH** line 415, `term-before-explanation` — **32. Authorization Server key lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`, `HSM`, `KMS`, `Resource`
+- **HIGH** line 606, `term-before-explanation` — **47. Audit**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `ID`, `URI`, `RS`, `resource`, `policy`
+- **HIGH** line 606, `thin-concept-section` — **47. Audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 646, `term-before-explanation` — **49. Operational monitoring**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `API`, `scope`
+- **HIGH** line 646, `thin-concept-section` — **49. Operational monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 694, `thin-concept-section` — **51. Incident response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 735, `term-before-explanation` — **53. Kompletný production príklad**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `URI`, `PKCE`, `S256`, `API`, `AS`, `JWT`, `RS`
+- **HIGH** line 735, `thin-concept-section` — **53. Kompletný production príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/openid-connect.md`
 
@@ -10988,17 +10944,17 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 3995 | 0 | 0 | 0 | 3995 |
-| `thin-concept-section` | 0 | 3721 | 0 | 0 | 3721 |
-| `term-before-explanation` | 0 | 337 | 2284 | 0 | 2621 |
-| `single-sentence-explanation` | 0 | 0 | 2471 | 0 | 2471 |
-| `list-first-introduction` | 0 | 1124 | 0 | 0 | 1124 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1061 | 1061 |
-| `short-concept-section` | 0 | 0 | 864 | 0 | 864 |
-| `example-not-explicit` | 0 | 0 | 0 | 623 | 623 |
-| `empty-section` | 569 | 0 | 0 | 0 | 569 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 258 | 258 |
-| `list-heavy-section` | 0 | 183 | 0 | 0 | 183 |
+| `outline-instead-of-explanation` | 3970 | 0 | 0 | 0 | 3970 |
+| `thin-concept-section` | 0 | 3697 | 0 | 0 | 3697 |
+| `term-before-explanation` | 0 | 340 | 2272 | 0 | 2612 |
+| `single-sentence-explanation` | 0 | 0 | 2457 | 0 | 2457 |
+| `list-first-introduction` | 0 | 1122 | 0 | 0 | 1122 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1063 | 1063 |
+| `short-concept-section` | 0 | 0 | 871 | 0 | 871 |
+| `example-not-explicit` | 0 | 0 | 0 | 656 | 656 |
+| `empty-section` | 564 | 0 | 0 | 0 | 564 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 273 | 273 |
+| `list-heavy-section` | 0 | 192 | 0 | 0 | 192 |
 
 ## Required remediation pattern
 
