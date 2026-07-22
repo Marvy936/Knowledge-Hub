@@ -26,6 +26,10 @@ PV/PVC contract opisujúci podporovaný spôsob mount accessu, napríklad ReadWr
 
 Pravidelné alebo event-driven overenie, či principal stále potrebuje pridelené permissions, či ich scope a duration zostávajú primerané a či access možno odstrániť. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
+## Access token
+
+Credential vydaný authorization serverom a určený pre resource server na vykonanie obmedzených API operácií. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Account
 
 Administratívny záznam identity v konkrétnom systéme, ktorý môže mať vlastný lifecycle, credentials, attributes a permissions. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -454,6 +458,10 @@ Presun už vytvoreného a overeného immutable artifactu medzi environmentmi ale
 
 Logical identifier artifactu používaný na komunikáciu release identity alebo compatibility významu. Má byť mapovateľný na konkrétny immutable content digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Assertion Consumer Service — ACS
+
+Service Provider endpoint prijímajúci a validujúci SAML Response pri browser SSO. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Asset — security
 
 Dáta, systém, identita, služba, konfigurácia, artifact alebo business process, ktorého strata alebo kompromitovanie má hodnotiteľný dopad. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
@@ -489,6 +497,10 @@ Počet technických pokusov o vykonanie operácie za čas vrátane retries; mô�
 ## Attribute-Based Access Control — ABAC
 
 Authorization model používajúci attributes principalu, resource-u, action a environmentu na vytvorenie access decisionu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Audience — OAuth/OIDC/SAML
+
+Identifier zamýšľaného konzumenta tokenu alebo assertion; musí byť validovaný, aby sa artifact nedal použiť voči inému clientovi alebo resource serveru. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md), [OpenID Connect](docs/13-security-and-identity/openid-connect.md) a [SAML](docs/13-security-and-identity/saml.md).
 
 ## Audit record
 
@@ -526,9 +538,25 @@ Jediný systém alebo workflow oprávnený meniť konkrétny mutable object aleb
 
 Rozhodnutie, či principal smie vykonať konkrétnu action voči konkrétnemu resource-u v danom context-e. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Authorization code
+
+Krátkodobý jednorazový OAuth grant, ktorý client vymieňa na token endpoint-e za access token. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Authorization server
+
+OAuth server, ktorý vyhodnocuje grant, autentizuje relevantných principals a vydáva access a refresh tokens. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Authorization Server Metadata
+
+Štandardizovaný dokument publikujúci issuer, endpoints a supported OAuth capabilities pre bezpečnejšiu client konfiguráciu. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Auto Scaling Group — ASG
 
 EC2 fleet controller udržiavajúci minimum, desired a maximum capacity cez launch template, health evaluation, replacement a scaling policies. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## Auto unseal — Vault
+
+Vault model, v ktorom Cloud KMS, HSM alebo iný trusted seal mechanism dešifruje root-key material pri štarte bez manuálneho zadávania Shamir shares. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## automated backup — RDS
 
@@ -694,6 +722,10 @@ Stabilný identifikátor fyzickej Availability Zone, napríklad `euc1-az2`, konz
 
 Account-visible názov Availability Zone, napríklad `eu-central-1a`, ktorého historické písmeno nemusí mapovať na rovnakú fyzickú zónu v rôznych účtoch. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## Back-channel logout
+
+OIDC logout model, pri ktorom OpenID Provider posiela signed logout token priamo backendu Relying Party. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## Backend migration — Terraform
 
 Riadený presun state lineage a snapshots z jedného backendu do druhého so zastavením writers, backupom, overením destination identity a následným planom. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -765,6 +797,10 @@ Množstvo zmien spracovaných alebo nasadených naraz. Menšie batches znižujú
 ## BDD — Behavior-Driven Development
 
 Collaboration a discovery prístup používajúci príklady správania a spoločný jazyk na spresnenie požiadaviek; Gherkin je iba jedna možná reprezentácia. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
+## Bearer token
+
+Token použiteľný každým držiteľom bez ďalšieho proof-of-possession; jeho leakage predstavuje credential compromise počas platnosti. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## `before-hook-creation` — Helm
 
@@ -1266,6 +1302,18 @@ Obnova do izolovaného a kontrolovaného prostredia pred production promotion, a
 
 Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez versionovaného, reviewovaného a reprodukovateľného change pathu. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
 
+## Client authentication
+
+Mechanizmus, ktorým confidential OAuth client preukazuje svoju identitu token endpointu, napríklad secretom, private-key JWT alebo mTLS. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Client Credentials grant
+
+OAuth machine-to-machine grant, pri ktorom client získava token vo vlastnom identity kontexte bez používateľskej delegation. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Client — OAuth
+
+Aplikácia požadujúca token a používajúca ho voči resource serveru. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## `CLOSE-WAIT`
 
 TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavrela socket. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -1426,6 +1474,10 @@ Template function vracajúca prvú non-empty hodnotu zo zoznamu kandidátov pod�
 
 Explicitné použitie telemetry API alebo SDK v application code na zachytenie business semantics, custom metrics, spans, logs alebo events. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
+## Code challenge
+
+PKCE hodnota odvodená z code verifiera a odoslaná v authorization requeste. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Code coverage
 
 Metrika určujúca, ktorá časť kódu bola vykonaná počas testov. Nedokazuje správnosť assertions ani business behavior. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
@@ -1437,6 +1489,10 @@ Metrika určujúca, ktorá časť kódu bola vykonaná počas testov. Nedokazuje
 ## Code Owner — GitLab
 
 Používateľ alebo skupina priradená k paths v `CODEOWNERS`; pri správnej protected-branch konfigurácii môže byť jej approval required pred merge. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
+
+## Code verifier
+
+Náhodná PKCE hodnota uchovaná clientom a predložená pri authorization-code exchange. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Cohort assignment
 
@@ -1600,7 +1656,7 @@ Nahradenie container instance po zmene runtime environment alebo inej immutable 
 
 ## Confused deputy
 
-Security problém, pri ktorom privilegovaná služba zneužije alebo nesprávne použije svoju authority v prospech menej privilegovaného caller-a bez správneho context bindingu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+Situácia, v ktorej privileged komponent vykoná operáciu v prospech nesprávneho alebo neautorizovaného actora pre chýbajúci audience, subject alebo delegation binding. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Congestion control
 
@@ -1625,6 +1681,10 @@ State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Po
 ## Conntrack — container networking
 
 Kernel connection-tracking state používaný firewallom a NAT-om; jeho vyčerpanie alebo nevhodné timeouts môžu spôsobovať dropped nové spojenia medzi containers a externými sieťami. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+
+## Consent — OAuth
+
+User-facing authorization interaction zobrazujúca clienta a požadovaný access; nenahrádza server-side policy. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Consistent hashing
 
@@ -2330,6 +2390,10 @@ Serializácia, pri ktorej rovnaký logický vstup vytvára stabilný byte alebo 
 
 Multi-stage build target obsahujúci development-only tools, debugger, hot reload alebo source-mount contract, ktorý nesmie byť neúmyselne publikovaný ako production runtime image. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
+## Device Authorization flow
+
+OAuth flow pre zariadenia s obmedzeným inputom, pri ktorom používateľ autorizuje device code na inom zariadení. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## DevOps
 
 Kultúrne princípy, organizačné praktiky a technické mechanizmy na rýchle a bezpečné dodávanie zmien. Pozri [DevOps](docs/00-foundations/devops.md).
@@ -2682,6 +2746,10 @@ Automatické vytváranie field mappings podľa prichádzajúcich documents; bez 
 
 Automatické vytvorenie backing storage a PV external provisionerom na základe PVC a StorageClass. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Dynamic secret
+
+Credential generovaný on demand pre konkrétnu identity alebo role s krátkym lease a revocation lifecycle-om. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Dynamic separation of duties
 
 Constraint, ktorý zakazuje použiť conflictujúce roles alebo capabilities v tej istej session alebo transaction, aj keď ich principal môže mať pridelené. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -2850,6 +2918,10 @@ Súbor, ktorého celý obsah je zašifrovaný Ansible Vaultom a musí byť deši
 
 Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľnom súbore. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Encryption barrier — Vault
+
+Vault cryptographic boundary chrániaca storage data; sealed Vault nemá v memory kľúče potrebné na ich decryption. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Encryption context — KMS
 
 Non-secret key-value context kryptograficky viazaný na podporovanú KMS encrypt/decrypt operation a použiteľný v policy conditions a audite. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -2861,6 +2933,10 @@ Cryptographic algorithm a associated key semantics používané pre Kerberos lon
 ## End-to-end test
 
 Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo procesných hraníc od vstupu po observable výsledok. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
+## End-User — OIDC
+
+Používateľ, ktorého authentication event OpenID Provider potvrdzuje Relying Party. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## Endpoint readiness — Kubernetes
 
@@ -2881,6 +2957,10 @@ Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú.
 ## Entitlement
 
 Konkrétne oprávnenie, role, group membership alebo capability, ktorú možno prideliť principalu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Entity ID — SAML
+
+Stabilný identifier SAML Identity Providera alebo Service Providera používaný v metadata a issuer/audience trust contracte. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## Envelope encryption
 
@@ -3361,6 +3441,10 @@ Vlastnosť ephemeral key agreementu, pri ktorej neskorší únik dlhodobého pri
 ## FQCN — Ansible
 
 Fully Qualified Collection Name explicitne identifikujúci module, plugin alebo iný content cez namespace, collection a object name, napríklad `ansible.builtin.template`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Front-channel logout
+
+OIDC logout model využívajúci browser na komunikáciu s logout endpoints jednotlivých clients. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## `fsGroup`
 
@@ -3970,6 +4054,10 @@ Policy odovzdaná pri vytváraní temporary session, ktorá môže zúžiť, ale
 
 Security analýza využívajúca runtime informácie z instrumentovanej aplikácie počas testov. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## ID Token
+
+Signed OIDC JWT určený Relying Party, ktorý obsahuje issuer, subject, audience a authentication context claims. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## ID token — GitLab CI/CD
 
 Krátkodobý signed OIDC token vydaný jobu s definovaným audience a claims, používaný na federované overenie voči cloud alebo secret provideru. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
@@ -4005,6 +4093,10 @@ IAM policy pripojená k userovi, group alebo role, ktorá povoľuje alebo denyuj
 ## Identity proofing
 
 Proces zhromažďovania a overovania evidence, ktorým sa digitálna identita spoľahlivo priraďuje reálnej osobe alebo entite. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Identity Provider — SAML
+
+SAML entita autentizujúca principal-a a vydávajúca signed assertions. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## `ignore_changes` — Terraform
 
@@ -4177,6 +4269,10 @@ Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesy
 ## Inode exhaustion
 
 Stav, keď filesystem nemôže vytvárať ďalšie files napriek voľnej byte capacity, čo môže narušiť image pull, logs, snapshots alebo container writes. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## InResponseTo — SAML
+
+Identifier viažuci SAML Response alebo SubjectConfirmationData na konkrétny AuthnRequest. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## instance profile — EC2
 
@@ -4369,6 +4465,10 @@ Privilege model poskytujúci iba konkrétne administratívne capabilities potreb
 ## Just-in-time access
 
 Dočasná aktivácia privilege na obmedzený čas po splnení podmienok ako MFA, approval alebo justification. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## JWKS
+
+JSON Web Key Set publikujúci public cryptographic keys používané napríklad na validáciu OIDC ID Token signatures. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## Kafka-buffered tracing
 
@@ -4581,6 +4681,10 @@ Signal, ktorý upozorňuje na blížiaci sa failure pred viditeľným user impac
 ## Lease — Kubernetes
 
 Lightweight object v `coordination.k8s.io` používaný napríklad na Node heartbeats alebo leader election components. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
+## Lease — secrets management
+
+Časovo obmedzený contract pre vydaný secret s TTL, renewal a revocation semantics. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Least privilege
 
@@ -5146,6 +5250,10 @@ Globálne pomenovaný reusable template fragment deklarovaný cez `define` a pou
 
 Docker volume s explicitným user-defined menom a samostatným lifecycle, vhodné na auditovateľnejší persistence a cleanup workflow. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
+## NameID — SAML
+
+SAML subject identifier s definovaným formatom, napríklad persistent alebo transient. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Namespace — Linux namespace
 
 Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu systémového stavu. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
@@ -5322,6 +5430,10 @@ Schopnosť poskytnúť dôkaz o pôvode alebo vykonaní operácie tak, aby ju zo
 
 PowerShell error record, pri ktorom command môže pokračovať; na zachytenie cez `catch` sa často používa `-ErrorAction Stop`. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Nonce — OIDC
+
+Jednorazová hodnota viažuca ID Token na konkrétny authentication request a pomáhajúca proti replay a injection. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## Nondeterministic template — Helm
 
 Template používajúci live lookup, čas, random generation alebo iný mutable input, takže rovnaký chart a values nemusia vytvoriť rovnaký manifest. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
@@ -5353,6 +5465,10 @@ Textovo-binárny stream používajúci NUL byte ako oddeľovač, vhodný naprík
 ## Number misscheduled — DaemonSet
 
 Počet DaemonSet Podov bežiacich na Nodes, ktoré podľa aktuálneho DaemonSet placement modelu už nie sú eligible. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## OAuth 2.0
+
+Authorization framework na delegovaný alebo workload access k protected APIs pomocou obmedzených tokens. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Object class — LDAP
 
@@ -5426,6 +5542,10 @@ Low-level runtime implementujúci OCI Runtime Specification a vytvárajúci cont
 
 Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## OIDC discovery
+
+Štandardizované získanie OpenID Provider metadata vrátane issuer, endpoints a JWKS URI. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## One-shot service — Compose
 
 Service určená na jednorazové úspešné dokončenie úlohy, napríklad migration, ktorú môže dependency vyžadovať cez `service_completed_successfully`. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
@@ -5442,9 +5562,21 @@ Kernel mechanizmus poslednej možnosti ukončujúci proces pri memory exhaustion
 
 Container state signal indikujúci, že process bol ukončený v súvislosti s out-of-memory mechanizmom; root cause treba potvrdiť cgroup a kernel evidence. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
+## Opaque token
+
+Access token bez self-contained claims, ktorého stav a metadata resource server zisťuje typicky cez introspection. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Open workload model
 
 Model, v ktorom requests prichádzajú podľa arrival rate nezávisle od aktuálnej response time systému. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## OpenID Connect
+
+Federated authentication a identity layer nad OAuth 2.0 používajúca ID Tokens a štandardné claims. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
+## OpenID Provider
+
+OIDC authorization server, ktorý autentizuje End-Usera a vydáva ID Tokens. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## OpenSearch
 
@@ -5597,6 +5729,10 @@ RAM používaná kernelom na cache file-backed dát. Pozri [Memory a CPU fundame
 ## Page fault
 
 Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupné. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Pairwise subject
+
+OIDC subject identifier odlišný medzi sectors alebo clients na zníženie cross-application correlation. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## PAM — Pluggable Authentication Modules
 
@@ -5773,6 +5909,10 @@ Komponent medzi receiverom a exporterom, ktorý môže vykonávať batching, fil
 ## Pipeline — shell
 
 Reťaz procesov, v ktorej stdout jedného procesu smeruje do stdin ďalšieho. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## PKCE
+
+Proof Key for Code Exchange, ktorý viaže authorization-code exchange na client instance cez code challenge a verifier. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## PKI — Public Key Infrastructure
 
@@ -6150,6 +6290,10 @@ Provider-operated multi-tenant cloud platforma poskytujúca on-demand services c
 
 Zonálny managed NAT service vytvorený v public subnet-e s Elastic IP, používaný typicky pre outbound IPv4 connectivity private subnetov. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
+## Public subject
+
+OIDC subject identifier spoločný pre clients v príslušnom issuer scope-e. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## Public subnet — AWS
 
 Subnet s route pathom na Internet Gateway; konkrétny resource potrebuje ešte public addressing a security/application konfiguráciu, aby bol internet reachable. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -6330,6 +6474,10 @@ Pravidelne vyhodnocovaná PromQL expression, ktorej výsledok sa uloží ako nov
 
 Control umožňujúci obnoviť službu, dáta alebo dôveryhodný stav po incidente. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Recovery keys — Vault
+
+Quorum material používaný pri vybraných privileged Vault operations v auto-unseal modeli; nenahrádza stratený auto-unseal key. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Recovery package
 
 Predpripravený súbor identity, kompatibility informácií, workflows a rozhodovacích podkladov potrebných na rollback, roll-forward alebo restore konkrétneho release. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
@@ -6378,6 +6526,10 @@ Deployment stratégia, ktorá odstráni starú Pod population pred vytvorením n
 
 Service-oriented monitoring metodika sledujúca Rate, Errors a Duration pre každú relevantnú operation. Pozri [RED method](docs/12-observability/red-method.md).
 
+## Redirect URI
+
+Pre-registered client endpoint, na ktorý authorization server vracia browser authorization response. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## ReDoS — Regular Expression Denial of Service
 
 Denial-of-service riziko spôsobené regexom s patologickou runtime complexity nad útočníkom kontrolovaným vstupom. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -6397,6 +6549,14 @@ Plan režim, ktorý ukáže zmeny state-u potrebné na zosúladenie s remote obs
 ## Refresh — search
 
 Operácia sprístupňujúca nové Lucene segments pre search; nie je totožná s durable flushom alebo backupom. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Refresh token
+
+Dlhšie žijúci OAuth credential používaný na získanie nových access tokens bez opakovanej user interaction. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Refresh-token rotation
+
+Model, v ktorom každé použitie refresh tokenu vydá nový token a umožňuje detegovať reuse staršej hodnoty. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Refspec
 
@@ -6433,6 +6593,10 @@ Zmena passwordu alebo vault identity použitej na šifrovanie existujúceho Vaul
 ## Relative Distinguished Name — RDN
 
 Časť Distinguished Name identifikujúca LDAP entry relatívne voči jeho parent entry. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## RelayState — SAML
+
+Application state prenášaný spolu so SAML protocol message, ktorý potrebuje integrity a open-redirect ochranu. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## Release
 
@@ -6485,6 +6649,10 @@ Presne definovaná množina artifactov, configov, migrations alebo koordinovaný
 ## Reliability pillar
 
 Well-Architected pillar zameraný na správne a konzistentné fungovanie workloadu, capacity, change a failure management. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Relying Party
+
+OIDC client, ktorý dôveruje validovanému ID Token-u od OpenID Providera a vytvára vlastnú application session. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## Remediation hierarchy — Kubernetes
 
@@ -6670,9 +6838,17 @@ Súbor attributes identifikujúcich entitu produkujúcu telemetry, napríklad se
 
 Stav, keď aggregate runtime potential alebo limits presahujú fyzickú kapacitu, zatiaľ čo scheduler placement vychádza z nižších requests; zvyšuje utilization aj pressure risk. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Resource owner
+
+OAuth entita schopná autorizovať access ku protected resource. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Resource request — Kubernetes
 
 Deklarované množstvo resource-u používané schedulerom na placement a platformou ako reservation alebo relative-share signal. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
+
+## Resource server
+
+API alebo služba validujúca access token a presadzujúca resource-level authorization. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## `resourceNames` — Kubernetes RBAC
 
@@ -6994,6 +7170,30 @@ Software as a Service: model poskytujúci hotovú application službu, pričom z
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## SAML
+
+XML-based federation framework na prenos authentication a attribute assertions medzi Identity Providerom a Service Providerom. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
+## SAML assertion
+
+Signed alebo encrypted XML security artifact obsahujúci statements o subjecte, authentication a attributes. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
+## SAML binding
+
+Definícia transportu SAML messages, napríklad HTTP Redirect, HTTP POST alebo Artifact binding. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
+## SAML metadata
+
+XML trust a configuration dokument obsahujúci entity IDs, endpoints, bindings a signing/encryption certificates. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
+## SAML profile
+
+Kombinácia assertions, protocols a bindings pre konkrétny use case, napríklad Web Browser SSO. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
+## SAML protocol
+
+Request/response messages definované SAML, napríklad AuthnRequest, Response alebo LogoutRequest. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Sample — Prometheus
 
 Timestampovaná hodnota patriaca ku konkrétnej Prometheus time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -7134,6 +7334,14 @@ Runtime syscall filter vybraný cez Pod alebo container security context, naprí
 
 Druhý automation run nad už nakonfigurovaným targetom používaný na overenie, že desired state je stabilný a nevznikajú recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Secret
+
+Citlivý credential alebo cryptographic material, ktorého získanie umožňuje access, impersonation, decryption, signing alebo privileged operation. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Secret classification
+
+Dokumentovaný contract secretu zahŕňajúci ownera, účel, consumers, lifetime, rotation, revocation, delivery a compromise impact. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Secret encryption at rest
 
 API server configuration šifrujúca persisted Secret payloady pred uložením do etcd; nerieši disclosure cez API, Node, Pod memory, logs alebo kompromitovanú workload identity. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
@@ -7141,6 +7349,10 @@ API server configuration šifrujúca persisted Secret payloady pred uložením d
 ## Secret — Kubernetes
 
 Namespaced API objekt pre citlivé bytes alebo strings, ktorého base64 reprezentácia nie je encryption a vyžaduje RBAC, encryption-at-rest, audit a bezpečný consumer lifecycle. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Secret lifecycle
+
+Proces creation, storage, authorization, distribution, use, rotation, revocation a destruction secretu. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Secret push protection — GitLab
 
@@ -7154,6 +7366,10 @@ Service capability vytvárajúca regionálne replicas secretu s vlastným per-Re
 
 Resource-based policy na Secrets Manager secret-e určujúca principals a conditions pre access, najmä pri cross-account modeli. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
+## Secret revocation
+
+Technické zneplatnenie credentialu v authoritative cieľovom systéme. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Secret rotation
 
 Riadený lifecycle vytvorenia nového credentialu, distribúcie a rollout-u consumerov, overlap/verification, revocation starého credentialu a cleanup starých copies. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
@@ -7165,6 +7381,14 @@ Pomenovaný movable label, napríklad `AWSCURRENT`, `AWSPREVIOUS` alebo `AWSPEND
 ## Secret version — Secrets Manager
 
 Immutable secret value revision identifikovaná version ID a voliteľnými staging labels. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Secret zero
+
+Prvotný trust anchor alebo credential potrebný na získanie ďalších secrets. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Secrets engine — Vault
+
+Vault component mountnutý na path, ktorý ukladá, generuje alebo cryptographically spracúva citlivé dáta. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Security categorization
 
@@ -7250,6 +7474,10 @@ Zachovanie rovnakého alebo explicitne transformovaného business významu hodn�
 
 Versioning kontrakt vo formáte `MAJOR.MINOR.PATCH`, ktorý komunikuje význam zmien voči deklarovanému public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Sender-constrained token
+
+Access token viazaný na client key alebo proof mechanizmus, napríklad mTLS alebo DPoP. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Sending queue — OpenTelemetry
 
 Exporter queue absorbujúca krátkodobý downstream výpadok alebo throttling pred retry alebo drop behaviorom. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
@@ -7313,6 +7541,10 @@ Port publikovaný Kubernetes Service contractom pre klientov, odlišný od backe
 ## Service principal name — SPN
 
 Kerberos identity služby viazaná na service class a hostname, ktorú client používa pri žiadosti o service ticket. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Service Provider — SAML
+
+Aplikácia alebo služba dôverujúca validovaným assertions od SAML Identity Providera. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## Service responsibility matrix
 
@@ -7381,6 +7613,10 @@ Kópia reálneho produkčného trafficu posielaná novému systému bez použiti
 ## Shallow clone
 
 Clone s obmedzenou ancestry históriou, typicky vytvorený cez `--depth`. Znižuje prenos, ale obmedzuje operácie závislé od plného commit graphu. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Shamir shares — Vault
+
+Threshold shares používané na rekonštrukciu Vault unseal materialu v manuálnom Shamir seal modeli. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Shard allocation
 
@@ -7461,6 +7697,10 @@ Failure, ktorý neprodukuje bežný explicitný error status, napríklad `200` s
 ## Simple Bind — LDAP
 
 LDAP Bind mechanism používajúci identity a password; musí byť chránený TLS, pretože sám neposkytuje transport encryption. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## Single Logout — SAML
+
+SAML protocol na koordináciu logoutu medzi IdP a SP sessions, ktorý môže zlyhať čiastočne a nepredstavuje automatickú globálnu revocation. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## Single-release dependency graph — Helm
 
@@ -7678,6 +7918,10 @@ Pod spravovaný priamo kubeletom na konkrétnom Node-e z local manifestu, bez be
 
 Model, v ktorom administrator vytvorí PV pre vopred existujúci storage asset a PVC sa naň následne bindne. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Static secret
+
+Dlhšie žijúca a opakovane používaná secret hodnota, ktorá potrebuje explicitnú rotation a revocation. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Static separation of duties
 
 Constraint zakazujúci prideliť jednému principalu konfliktujúce roles alebo entitlements súčasne. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -7758,9 +8002,17 @@ Group vnorená v parent group, používaná na delegovanie ownershipu, členstva
 
 Entita, ktorá iniciuje operation alebo pristupuje k resource-u a je reprezentovaná principalom v security context-e. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Subject identifier — OIDC
+
+Hodnota `sub`, ktorá spolu s issuerom stabilne identifikuje End-Usera v OIDC trust doméne. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## SubjectAccessReview
 
 Kubernetes authorization API request zisťujúci, či konkrétna identita smie vykonať zadanú akciu nad resource-om alebo URL. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## SubjectConfirmation — SAML
+
+SAML element určujúci spôsob, recipienta, request binding a časové podmienky, za ktorých možno assertion použiť. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## Subnet
 
@@ -8154,6 +8406,22 @@ Memory-backed runtime filesystem mount s ephemeral lifecycle, vhodný pre dočas
 
 Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková práca. Pozri [Toil and Technical Debt](docs/00-foundations/toil-and-technical-debt.md).
 
+## Token endpoint
+
+OAuth endpoint, ktorý vymieňa authorization grant alebo refresh token za access token. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Token exchange
+
+OAuth extension na výmenu subject alebo actor tokenu za nový token s vhodným audience, scope a delegation contextom. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Token introspection
+
+OAuth endpoint umožňujúci resource serveru zistiť active stav a metadata opaque alebo centrally validated tokenu. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Token revocation
+
+OAuth mechanizmus na zneplatnenie tokenu alebo grant lifecycle-u. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## TokenRequest
 
 Kubernetes API subresource/mechanizmus na vydanie krátkodobého ServiceAccount tokenu s audience a expiration namiesto statického long-lived token Secretu. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
@@ -8233,6 +8501,10 @@ Operácia aplikovaná na query results po ich získaní z data source-u na úpra
 ## Transit Gateway — AWS
 
 Regionálny network transit hub prepájajúci viac VPCs a hybrid networks cez attachments, associations, propagations a vlastné route tables. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Transit secrets engine — Vault
+
+Vault engine poskytujúci encryption, decryption, signing alebo HMAC operations bez vydania underlying key materialu clientovi. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Transitive chart dependency — Helm
 
@@ -8318,6 +8590,10 @@ Typovo známa, ale konkrétne neurčená hodnota počas planu, ktorú Terraform 
 
 Remote objekt bez bindingu v danom Terraform state-e, ktorý bežný plan nemusí objaviť, pokiaľ ho explicitne nenačíta provider data source, import alebo externý asset inventory. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
+## Unseal — Vault
+
+Proces sprístupnenia root-key materialu potrebného na odomknutie Vault encryption barrieru. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Unsupported cluster version
 
 Kubernetes minor verzia mimo upstream alebo provider support window, pre ktorú nemusia byť dostupné security fixes, compatibility garancie ani support. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
@@ -8374,6 +8650,10 @@ Namespace izolujúci UID/GID mapping a capability scope. Pozri [Namespaces](docs
 
 Menej privilegované prostredie, v ktorom bežia aplikácie a systémové procesy. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
 
+## UserInfo endpoint
+
+OIDC protected endpoint vracajúci štandardizované claims o subjecte po predložení access tokenu. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## Utilization
 
 Miera použitia dostupnej kapacity resource. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -8414,6 +8694,14 @@ Sada reprezentatívnych values kombinácií vrátane defaults, production varian
 
 Pravidlá rozhodujúce, ktorá z viacerých definitions rovnakého variable name sa použije podľa source a explicitnosti. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## Vault audit device
+
+Vault component zaznamenávajúci API requests a responses do file, syslog alebo socket destination a ovplyvňujúci request availability pri úplnom write failure. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Vault auth method
+
+Mechanizmus, ktorý autentizuje human alebo workload identity vo Vault a vydá client token s príslušnými policies. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Vault ID — Ansible
 
 Label priradený k encrypted Vault contentu a password source-u na oddelenie environmentov alebo security domains; sám nie je secret ani access-control mechanizmus. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -8421,6 +8709,14 @@ Label priradený k encrypted Vault contentu a password source-u na oddelenie env
 ## Vault password — Ansible
 
 Secret použitý na šifrovanie a dešifrovanie Ansible Vault contentu, ktorý musí byť uložený oddelene od encrypted repository dát. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Vault policy
+
+Path-based authorization pravidlá definujúce capabilities dostupné Vault tokenu alebo identity. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Vault token
+
+Bearer credential vydaný Vaultom s policies, TTL, renewal a revocation lifecycle-om. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Vector matching — PromQL
 
@@ -8669,6 +8965,10 @@ Aktuálny backing index data streamu, do ktorého smerujú nové documents. Pozr
 ## `X-Forwarded-For`
 
 De facto HTTP header prenášajúci client IP cez proxy chain. Je dôveryhodný iba pri kontrolovanom chain-e a správnom prepisovaní. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
+## XML Signature Wrapping
+
+Útok využívajúci rozdiel medzi XML elementom overeným signature knižnicou a elementom spracovaným application logic. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## YAML mapping
 
