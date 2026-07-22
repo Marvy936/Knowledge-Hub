@@ -1,0 +1,47 @@
+name: Documentation learning-depth audit
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**/*.md"
+      - "scripts/audit_learning_depth.py"
+      - "AUTHORING-GUIDE.md"
+      - ".github/workflows/documentation-depth-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: documentation-depth-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate documentation audit
+        run: python scripts/audit_learning_depth.py --all-docs
+
+      - name: Commit generated audit
+        shell: bash
+        run: |
+          if git diff --quiet -- DOCUMENTATION-AUDIT.md documentation-audit.json; then
+            echo "Documentation audit is unchanged."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add DOCUMENTATION-AUDIT.md documentation-audit.json
+          git commit -m "docs: update learning-depth audit"
+          git push
