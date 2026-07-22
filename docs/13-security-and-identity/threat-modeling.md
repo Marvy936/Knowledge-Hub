@@ -1,280 +1,249 @@
 # Threat modeling
 
-Threat modeling je systematický proces, ktorým tím modeluje assets, actors, architecture, trust boundaries, threats, mitigations, verification a residual risk ešte pred incidentom. Nie je to jednorazový diagram ani brainstorming zoznamu útokov. Je to mechanizmus, ktorý premieňa security reasoning na konkrétne design decisions a testovateľné requirements.
+Threat modeling je systematický engineering proces, ktorým tím analyzuje security a privacy vlastnosti návrhu ešte pred incidentom. Vytvára model assets, actors, data flows, trust boundaries a assumptions, z neho odvodzuje konkrétne attack paths a premieňa ich na mitigations, testovateľné security requirements a residual-risk decisions.
 
-## 1. Mentálny model
+Threat model nie je iba diagram, scanner report ani zoznam OWASP kategórií. Hodnota vzniká v reasoning chain-e:
 
 ```text
 security objectives a scope
-→ assets a actors
-→ architecture a data flows
+→ system model
+→ assets, actors a attacker capabilities
 → trust boundaries a assumptions
-→ threat enumeration
-→ attack paths a risk
-→ mitigations
+→ threat statements a attack paths
+→ risk treatment
 → security requirements
-→ verification a negative tests
-→ residual risk a ownership
-→ update pri zmene alebo incidente
+→ negative tests a operational evidence
+→ residual risk a owner
+→ aktualizácia pri zmene alebo incidente
 ```
 
-Dobrý threat model odpovedá:
+## 1. Problém, ktorý threat modeling rieši
 
-- čo chránime,
-- pred kým,
-- cez aké boundaries,
-- akým mechanizmom môže dôjsť k impactu,
-- ktoré controls tomu zabránia alebo to odhalia,
-- ako overíme, že controls fungujú,
-- aký risk zostáva a kto ho vlastní.
+Testing a vulnerability scanning pozorujú konkrétnu implementáciu. Mnohé závažné problémy však vzniknú skôr ako design decision: backend dôveruje gateway headeru, všetci tenants zdieľajú broad database credential, recovery flow obchádza MFA alebo build workflow dáva production signing identity untrusted pull requestu.
 
-## 2. Čo threat modeling nie je
+Takéto flaws nemusia mať CVE ani scanner signature. Threat modeling núti tím pomenovať, komu a čomu dôveruje, čo sa stane pri compromise a ako sa security objective technicky presadí.
 
-Threat modeling nie je:
+Dobrý model tiež znižuje neproduktívny „security brainstorming“. Namiesto nekonečného zoznamu možných útokov sa tím sústreďuje na konkrétny system, actors, boundaries a impacts.
 
-- iba penetration test,
-- iba compliance checklist,
-- automatický scanner,
-- všeobecný zoznam OWASP Top 10,
-- diagram bez threats,
-- threats bez mitigations,
-- mitigations bez verification,
-- dokument vytvorený raz pred prvým release-om.
+## 2. Threat model ako živý engineering artifact
 
-Scanner hľadá známu weakness v implementácii. Threat model analyzuje aj design flaws, trust assumptions, business abuse a failure behavior, ktoré nemusia mať CVE ani scanner signature.
+Threat model je výsledok reasoning procesu, nie jednorazový compliance dokument. Má sa meniť pri novej architecture boundary, identity flow, data class, deployment path, supplier dependency alebo incident finding-u.
+
+Aktualizácia neznamená vždy prekresliť celý system. Tím môže udržiavať stabilný context model a samostatné detailed models pre high-risk flows, napríklad payment approval, artifact signing alebo account recovery.
+
+Model má ownera, review date, source revision alebo architecture version a explicitné open risks. Bez lifecycle-u sa diagram rýchlo odpojí od reality.
 
 ## 3. Security objectives
 
-Pred enumeráciou threats definuj požadované outcomes.
+Pred enumeráciou threats definuj, čo má system chrániť. Objective musí byť konkrétny a overiteľný.
 
-Príklady:
+Slabý objective:
 
-- iba správny tenant môže čítať svoje records,
-- platobná suma a recipient sa nesmú po approval zmeniť,
-- privileged deployment musí byť attributable a reviewovaný,
-- compromise jedného workloadu nesmie odhaliť credentials všetkých services,
-- výpadok identity providera nesmie spôsobiť unsafe authorization fallback,
-- recovery musí obnoviť audit continuity v definovanom RTO.
+```text
+Systém musí byť bezpečný.
+```
 
-Objective typu „systém musí byť bezpečný“ nie je testovateľný.
+Silnejšie objectives:
 
-## 4. Scope
+- tenant A nesmie čítať ani meniť objects tenant-a B;
+- payment amount a recipient sa po approval nesmú zmeniť bez nového approval-u;
+- production deployment musí byť viazaný na approved source revision a immutable artifact digest;
+- compromise jedného workloadu nesmie odhaliť credentials ostatných services;
+- výpadok identity providera nesmie spôsobiť broad fail-open access;
+- audit trail privileged operation musí identifikovať human initiator-a aj executing workload.
 
-Scope definuje:
+Objective sa neskôr mení na security requirement a negative test. Ak sa nedá overiť, je príliš vágny.
 
-- system alebo feature,
-- environments,
-- users a workloads,
-- data classes,
-- external dependencies,
-- administrative planes,
-- lifecycle fázy,
-- explicitné out-of-scope boundaries.
+## 4. Scope a jeho hranice
 
-Príliš široký scope vytvorí povrchný model. Príliš úzky scope skryje critical dependency alebo cross-system attack path.
+Scope určuje, čo modelujeme teraz: system, feature, flow, environment, data classes, external dependencies a lifecycle stages. Explicitné out-of-scope položky zabraňujú nedorozumeniu, ale nesmú skrývať critical dependency.
 
-Praktické scopes:
+Príliš široký scope vytvorí povrchný model typu „internet → cloud → database“. Príliš úzky scope môže ignorovať account recovery, CI/CD alebo backup, cez ktoré sa rovnaký asset dá kompromitovať.
 
-- nový authentication flow,
-- payment service,
-- Kubernetes admission path,
-- CI/CD pipeline,
-- multi-tenant data export,
-- secrets platform,
-- disaster-recovery procedure.
+Praktický scope môže byť:
 
-## 5. Assets
+- nový OIDC login a session lifecycle;
+- multi-tenant export endpoint;
+- Kubernetes image admission;
+- secrets delivery do workloads;
+- payment approval workflow;
+- disaster-recovery restore path.
 
-Asset je čokoľvek, čo má hodnotiteľný security impact pri strate, zmene alebo nedostupnosti.
+Scope má uviesť production a non-production rozdiely. Development identity alebo test dataset môže mať iné threats a controls.
 
-- identities a credentials,
-- customer data,
-- cryptographic keys,
-- source code a artifacts,
-- authorization policies,
-- audit evidence,
-- business transactions,
-- service availability,
-- model weights alebo proprietary prompts,
-- trust a reputation.
+## 5. Assets a security impact
 
-Asset nemusí byť iba database table. CI signing identity alebo DNS zone môže mať väčší systemic impact než samotný application server.
+Asset je čokoľvek, čo má hodnotiteľný impact pri strate confidentiality, integrity, availability, authenticity alebo accountability.
 
-## 6. Actors
+Assets nie sú iba stored data. Zahŕňajú identities, cryptographic keys, policy, source history, artifacts, audit evidence, business transactions, service availability, model weights, DNS zones a reputation.
 
-Actors môžu byť:
+Pri každom assete urč:
 
-- end users,
-- administrators,
-- developers,
-- support operators,
-- workloads,
-- service accounts,
-- external providers,
-- malicious insiders,
-- anonymous internet attackers,
-- compromised users alebo devices,
-- supply-chain attackers.
+- ownera;
+- required security properties;
+- classification a business impact;
+- kde vzniká, tečie, ukladá sa a zaniká;
+- ktoré copies alebo derivatives existujú;
+- recovery requirements.
 
-Actor musí mať definované capabilities a access, nie iba label „attacker“.
+CI signing identity môže mať väčší systemic impact než jeden application server, pretože umožňuje vytvoriť trusted artifacts pre množstvo environments.
+
+## 6. Actors a principals
+
+Actor je človek, workload, organization alebo external system, ktorý interaguje so scope-om. Principal je identity, pod ktorou system actor-a rozpoznáva pri konkrétnej operation.
+
+Actors môžu byť end users, administrators, support staff, developers, CI robots, services, cloud providers, partners, malicious insiders alebo anonymous attackers.
+
+Label „attacker“ nestačí. Model musí uviesť capability a starting position. Authenticated tenant user má iné paths než cloud administrator alebo compromised Kubernetes Pod.
+
+Treba rozlišovať legitimate actor zneužívajúci allowed feature od external actor-a obchádzajúceho control. Business abuse často vykonáva platne authenticated user.
 
 ## 7. Attacker model
 
-Attacker model opisuje:
+Attacker model opisuje, čo adversary vie a môže robiť. Typické dimensions sú:
 
-- motiváciu,
-- knowledge,
-- budget a čas,
-- initial access,
-- network position,
-- credentials alebo privileges,
-- možnosť user interaction,
-- control nad dependency,
-- schopnosť opakovať útok,
-- constraints.
+- initial access a network position;
+- credentials, roles alebo stolen tokens;
+- knowledge source code-u a architecture;
+- control nad clientom, device-om alebo dependency;
+- budget, čas a schopnosť opakovať útok;
+- insider privileges;
+- ability ovplyvniť usera alebo support process;
+- persistence po prvom prístupe.
+
+Threat „attacker získa root na všetkých nodes“ má inú usefulness než „authenticated tenant zmení object ID“. Modeluj realistic capabilities a označ extrémne assumptions ako separate scenario.
+
+## 8. Assumptions
+
+Assumption je tvrdenie, na ktorom design stojí, ale system ho nemusí priamo presadzovať.
 
 Príklady:
 
-- anonymous remote attacker bez credentialu,
-- authenticated user jedného tenant-a,
-- compromised Kubernetes Pod,
-- malicious repository contributor,
-- cloud account administrator,
-- attacker s captured access tokenom,
-- operator s legitimate decrypt permission.
+- gateway je jediný ingress k backendu;
+- identity provider správne overuje phishing-resistant MFA;
+- build runner je ephemeral a izolovaný;
+- KMS private key nie je exportovateľný;
+- backup account má oddelenú administration boundary;
+- queue zachová message authenticity;
+- support operator nemôže sám resetnúť privileged account.
 
-Threat, ktorý predpokladá root access, má inú likelihood a mitigation než pre-auth remote attack.
+Každá critical assumption potrebuje ownera, evidence a failure consequence. „Gateway je jediný ingress“ sa overuje network topology a direct-backend negative testom. Neoverená assumption je latentný threat.
 
-## 8. Assumptions a dependencies
+## 9. Dependencies
 
-Assumption je tvrdenie, na ktorom design stojí:
+Dependency je external component alebo service, ktorého behavior system potrebuje. Môže to byť IdP, KMS, DNS, package registry, cloud control plane, payment provider alebo human approval process.
 
-- identity provider validuje MFA,
-- gateway je jediný backend ingress,
-- KMS key nie je exportovateľný,
-- build runner je ephemeral,
-- DNS odpoveď smeruje na trusted endpoint,
-- backup account je administratívne oddelený.
+Pre dependency modeluj:
 
-Dependency je external component alebo service, ktorého behavior systém potrebuje.
+- identity a trust bootstrap;
+- data a privileges, ktoré jej odovzdávaš;
+- availability a latency dependency;
+- compromise impact;
+- update a version lifecycle;
+- degraded mode a recovery;
+- evidence dostupnú pri incidente.
 
-Každá critical assumption potrebuje ownera a verification. Neoverená assumption je latentný threat.
+„Managed service“ neznamená out-of-scope risk. Mení responsibility boundary, nie potrebu threat modelu.
 
-## 9. Entry a exit points
+## 10. Entry points a exit points
 
-Entry points:
+Entry point je miesto, kde data, command alebo identity vstupujú do scope-u. Exit point je miesto, kde data alebo side effect scope opúšťajú.
 
-- public API,
-- browser form,
-- webhook,
-- message queue,
-- file upload,
-- admin endpoint,
-- CI trigger,
-- Kubernetes API,
-- database import,
-- support workflow.
+Entry points zahŕňajú HTTP API, webhooks, queues, file uploads, admin console, CI trigger, Kubernetes API, database import a support request. Exit points zahŕňajú responses, exports, logs, callbacks, emails, artifact publish, backups a downstream commands.
 
-Exit points:
+Modeluj synchronous aj asynchronous paths. Validácia na public API nepomôže, ak rovnakú operation možno spustiť cez queue message alebo internal admin endpoint bez ekvivalentnej authorization.
 
-- API response,
-- data export,
-- logs a telemetry,
-- callback,
-- artifact publish,
-- email/SMS,
-- backup,
-- downstream command.
+## 11. Trust boundary
 
-Modeluj aj asynchronous paths a background workers; threats sa neobmedzujú na HTTP request.
-
-## 10. Trust boundary
-
-Trust boundary je miesto, kde sa mení:
-
-- identity authority,
-- privilege level,
-- tenant,
-- administrative owner,
-- network trust,
-- cryptographic protection,
-- data classification,
-- validation assumption,
-- execution isolation.
+Trust boundary je miesto, kde sa mení identity authority, privilege, tenant, administrative owner, execution isolation, data classification alebo cryptographic protection.
 
 Boundary nemusí byť firewall. Príklady:
 
-- browser ↔ backend,
-- gateway ↔ internal service,
-- Pod ↔ node kernel,
-- tenant A ↔ shared database,
-- CI job ↔ signing service,
-- application ↔ KMS,
-- production account ↔ backup account,
-- human approval ↔ automated agent action.
+- browser ↔ web gateway;
+- gateway ↔ backend;
+- Pod ↔ node kernel;
+- tenant A ↔ shared database;
+- CI job ↔ signing service;
+- application ↔ KMS;
+- production account ↔ backup account;
+- human approval ↔ autonomous agent action.
 
-Väčšina závažných threats vzniká pri nesprávnej validácii alebo autorite na boundary.
+Na boundary sa pýtaj: kto vydal identity, čo system validuje, ktoré fields sú attacker-controlled, aké privilege sa mení a čo sa stane pri bypass-e.
 
-## 11. Data Flow Diagram — DFD
+## 12. Administrative a identity boundaries
 
-DFD používa:
+Network diagram často skryje najdôležitejšie control-plane paths. Threat model má explicitne zobraziť administration a identity systems.
 
-- external entities,
-- processes,
-- data stores,
-- data flows,
-- trust boundaries.
+Cloud console, CI platform, source-control organization, certificate authority a MDM môžu meniť trust pre množstvo data-plane resources. Ich compromise má iný blast radius než compromise jedného service-u.
+
+Identity federation vytvára boundary medzi issuerom a relying service. Valid signature nestačí; consumer overuje issuer, audience, subject, tenant a authentication context podľa use case-u.
+
+## 13. Data Flow Diagram
+
+Data Flow Diagram — DFD — reprezentuje external entities, processes, data stores, data flows a trust boundaries. Je to security reasoning model, nie detailný infrastructure inventory.
 
 ```text
 [Browser]
-   │ OIDC code / session
+   │ OIDC code / application requests
    ▼
-[Web gateway] ── access token ──> [Order service]
-                                      │ SQL
+[Gateway] ── delegated token ──> [Order service]
+                                      │ tenant-scoped SQL
                                       ▼
                                   [(Database)]
-                                      │
-                                      └──> [Payment provider]
+                                      │ payment request
+                                      ▼
+                              [Payment provider]
 ```
 
-DFD nie je deployment diagram so všetkými technickými detailmi. Má zobraziť security-relevant flows a boundaries dostatočne presne na threat reasoning.
+Každý flow má uvádzať data type, protocol, identity context a protection. Arrow „API call“ bez informácie o credentiale alebo tenant context-e skrýva relevantné threats.
 
-## 12. Úroveň detailu
+## 14. Úroveň detailu modelu
 
-Model má byť dosť hlboký na odhalenie security decisions, ale nie tak detailný, že sa nedá udržiavať.
+Použi hierarchiu modelov:
 
-Vytvor viac vrstiev:
+1. system context — users, major external systems a high-level boundaries;
+2. service model — major processes, stores a identity flows;
+3. critical-flow model — detailed steps pre high-impact operation;
+4. implementation model — fields, tokens, queues alebo state transitions, keď sú security-relevant.
 
-1. system context,
-2. major services a stores,
-3. critical flow detail,
-4. implementation-specific model pre high-risk boundary.
+Payment approval potrebuje detailnejší model než static content endpoint. Detail má byť dostatočný na nájdenie rozhodnutí, ale stále udržateľný.
 
-Payment authorization alebo artifact signing potrebuje hlbší model než statický public content endpoint.
-
-## 13. Data inventory v threat modeli
+## 15. Data inventory v modeli
 
 Pre každý významný flow urč:
 
-- data type a classification,
-- source a destination,
-- identity context,
-- integrity requirements,
-- encryption boundary,
-- retention,
-- logging a derived copies,
-- tenant ownership,
+- data class a tenant ownership;
+- source, destination a derived copies;
+- identity/delegation context;
+- integrity a ordering requirements;
+- encryption boundary;
+- retention a deletion;
+- logging a redaction;
 - failure behavior.
 
-Model, ktorý ukazuje iba services bez dát, nevie správne vyhodnotiť confidentiality, integrity ani privacy threats.
+Model bez dát nevie analyzovať confidentiality, integrity ani privacy. „Service A volá Service B“ nestačí, ak nevieme, či prenáša public metadata alebo decrypt key.
 
-## 14. Threat statement
+## 16. State a lifecycle
 
-Dobrý threat statement má štruktúru:
+Mnohé threats vznikajú pri state transition, nie pri statickom component-e. Modeluj creation, activation, renewal, revocation, deletion a recovery.
+
+Príklady:
+
+- authorization code sa mení na tokens a local session;
+- draft payment sa mení na approved a executed;
+- secret sa vydá, renew-ne, revoke-ne a rotate-ne;
+- artifact postúpi z build-u do production;
+- account recovery vydá nový authenticator.
+
+Pri každom transition urč actor-a, preconditions, idempotency, replay protection a audit.
+
+## 17. Threat statement
+
+Konkrétny threat statement spája actor-a, condition, action, asset a impact.
 
 ```text
 actor
-→ zneužije condition alebo boundary
+→ zneužije boundary alebo chýbajúcu condition
 → vykoná action
 → zasiahne asset
 → spôsobí security impact
@@ -282,854 +251,406 @@ actor
 
 Príklad:
 
-> Authenticated user tenant-a A zmení object ID v API requeste; service overí iba platnú session, nie ownership resource-u, a vráti objednávku tenant-a B, čo poruší tenant confidentiality.
+> Authenticated user tenant-a A zmení object ID v API requeste. Service overí platnú session, ale nie ownership objectu, a vráti order tenant-a B, čím poruší tenant confidentiality.
 
-Slabý statement „broken access control“ neurčuje actor-a, path, missing control ani impact.
+Statement „broken access control“ je iba category. Neurčuje attack path, missing control ani test.
 
-## 15. Abuse cases a misuse cases
+## 18. Abuse a misuse cases
 
-Use case opisuje zamýšľané behavior. Abuse alebo misuse case opisuje, ako actor použije feature proti security objective.
-
-Príklady:
-
-- user exportuje vlastné dáta → zmení tenant parameter a exportuje cudzie,
-- support resetne credential → zneužije social engineering na reset admina,
-- CI publikuje artifact → contributor modifikuje workflow a získa signing identity,
-- webhook aktualizuje stav → attacker replay-ne starý signed callback.
-
-Business abuse často nie je zachytený generic vulnerability scannerom.
-
-## 16. STRIDE
-
-STRIDE je categorization mnemonic:
-
-- Spoofing,
-- Tampering,
-- Repudiation,
-- Information Disclosure,
-- Denial of Service,
-- Elevation of Privilege.
-
-Pomáha systematicky prejsť elements a flows. Nie je risk score ani kompletný threat catalog.
-
-## 17. Spoofing
-
-Spoofing znamená vydávanie sa za inú identity.
+Use case opisuje zamýšľané behavior. Abuse case opisuje, ako actor použije legitímnu feature proti security objective. Misuse môže byť úmyselné alebo neúmyselné nesprávne použitie.
 
 Príklady:
 
-- stolen session token,
-- forged service identity header,
-- DNS redirection na rogue endpoint,
-- workload s ukradnutým certificate,
-- account takeover,
-- unsigned webhook sender.
+- user exportuje vlastné data → zmení tenant parameter a exportuje cudzie;
+- support resetne credential → attacker použije social engineering na reset admin accountu;
+- CI publikuje artifact → contributor zmení workflow a získa signing identity;
+- webhook aktualizuje state → attacker replay-ne starý signed callback.
 
-Mitigations:
+Business abuse sa často nenájde generickým scannerom, pretože request je syntakticky validný.
 
-- phishing-resistant authentication,
-- issuer/audience/nonce validation,
-- mTLS alebo signed requests,
-- trusted proxy boundary,
-- credential lifecycle a revocation.
+## 19. STRIDE ako elicitation mnemonic
 
-## 18. Tampering
+STRIDE pomáha systematicky klásť otázky nad DFD elements a flows:
 
-Tampering je neautorizovaná zmena dát, code-u, configuration alebo messages.
+- **Spoofing** — môže sa actor vydávať za inú identity?
+- **Tampering** — môže neautorizovane meniť data, code alebo state?
+- **Repudiation** — môže action poprieť alebo chýba attribution?
+- **Information Disclosure** — môžu data uniknúť nesprávnemu actorovi?
+- **Denial of Service** — môže attacker vyčerpať alebo zablokovať capability?
+- **Elevation of Privilege** — môže získať permissions mimo intended role?
 
-Príklady:
+STRIDE nie je risk score ani kompletný catalog. Pomáha nájsť threats; tím ich stále musí formulovať konkrétne.
 
-- zmena payment amount,
-- modifikovaný container image,
-- altered Terraform plan,
-- replay alebo reorder message,
-- policy edit bez review,
-- ciphertext manipulation bez authentication tagu.
+## 20. Spoofing podrobne
 
-Mitigations:
+Spoofing je nepravdivé preukázanie identity alebo originu. Môže ísť o stolen session, forged proxy header, rogue DNS endpoint, ukradnutý workload certificate alebo unsigned webhook.
 
-- AEAD, MAC alebo signatures,
-- immutable digests,
-- protected branches,
-- authorization a separation of duties,
-- versioning a concurrency control,
-- replay protection.
+Mitigation závisí od boundary:
 
-## 19. Repudiation
+- phishing-resistant MFA a session binding pre human identity;
+- issuer, audience, nonce a signature validation pre tokens;
+- mTLS alebo signed requests pre services;
+- trusted-proxy configuration pre identity headers;
+- credential expiration, rotation a revocation;
+- request authentication pre webhooks.
 
-Repudiation znamená, že actor môže vierohodne poprieť action alebo systém nevie preukázať jej context.
+Threat test nemá iba overiť invalid password. Má skúsiť replay tokenu pre nesprávnu audience, direct backend header injection alebo expired workload identity.
 
-Príklady:
+## 21. Tampering podrobne
 
-- shared admin account,
-- chýbajúci delegated actor,
-- mutable audit logs,
-- clock inconsistency,
-- absent request correlation,
-- action vykonaná cez automation bez initiator identity.
+Tampering je neautorizovaná zmena data, code, configuration alebo message sequence. Príkladom je zmena payment amountu, container image substitution, altered Terraform plan alebo policy edit bez review.
 
-Mitigations:
+Controls môžu byť AEAD/MAC/signature, immutable digest, protected branch, authorization, versioning, concurrency control a replay protection.
 
-- unique identities,
-- tamper-resistant audit,
-- actor + delegated identity,
-- trusted time,
-- correlation IDs,
-- approval a evidence chain.
+Integrity musí pokryť celý semantic object. Signature webhook body nepomôže, ak recipient alebo timestamp ostáva unsigned. Digest artifactu nepomôže, ak deployment používa mutable tag.
 
-## 20. Information Disclosure
+## 22. Repudiation a accountability
 
-Information Disclosure je neautorizované odhalenie dát alebo metadata.
+Repudiation threat vzniká, keď actor môže vierohodne poprieť action alebo system nevie spojiť operation s identity a contextom.
 
-Príklady:
+Audit record má zachytiť initiator-a, delegated actor-a, action, target, result, timestamp, policy revision a correlation ID. Shared admin account alebo shared service credential ničí attribution.
 
-- cross-tenant read,
-- secret v CI logu,
-- verbose error,
-- public snapshot,
-- broad telemetry payload,
-- token v URL,
-- plaintext internal hop.
+Log integrity, time synchronization a retention sú súčasť controlu. Application log pod kontrolou compromised administratora nemusí byť dostatočný evidence source.
 
-Mitigations:
+## 23. Information disclosure
 
-- object-level authorization,
-- encryption a key separation,
-- data minimization,
-- log redaction,
-- network a storage isolation,
-- least privilege.
+Disclosure môže nastať cez response, logs, error messages, backups, caches, metrics labels, side channels alebo overbroad data export.
 
-## 21. Denial of Service
+Modeluj nielen primary data store, ale aj derived copies. Secret odstránený z database môže zostať v debug logu, trace attribute alebo Terraform state.
 
-DoS znižuje availability alebo vyčerpáva bounded resource.
+Controls zahŕňajú authorization, data minimization, encryption, redaction, tenant isolation, output encoding a retention. Encryption at rest nevyrieši overprivileged application query.
 
-Príklady:
+## 24. Denial of Service
 
-- request amplification,
-- unbounded query alebo upload,
-- connection/table exhaustion,
-- KMS dependency saturation,
-- lock contention,
-- poison message crash loop,
-- certificate expiry,
-- audit sink failure blokujúci requests.
+DoS nie je iba vysoký request rate. Môže zneužiť expensive query, regex backtracking, queue growth, lock contention, dependency timeout, unbounded cardinality alebo control-plane quota.
 
-Mitigations:
+Modeluj resource boundary a asymmetry: malý attacker input môže vyvolať veľký server cost.
 
-- quotas a rate limits,
-- bounded work,
-- backpressure,
-- timeouts a circuit breakers,
-- isolation a capacity,
-- degraded modes,
-- tested recovery.
+Controls zahŕňajú rate limits, quotas, bounded work, timeouts, circuit breakers, backpressure, isolation a capacity reserve. Rate limit na gateway nepomôže proti authenticated tenantovi spúšťajúcemu expensive internal job.
 
-## 22. Elevation of Privilege
+## 25. Elevation of Privilege
 
-Elevation of Privilege umožní actorovi získať vyššiu authority.
+Elevation znamená získanie authority mimo intended role. Môže ísť o RBAC wildcard, confused deputy, container escape, policy bypass, role chaining alebo ability meniť code executed privileged pipeline-ou.
 
-Príklady:
+Threat model má sledovať indirect privilege. User nemusí mať cloud admin permission, ak môže zmeniť Terraform module, ktorý privileged pipeline automaticky aplikuje.
 
-- container escape,
-- overly broad service account,
-- CI job získa production credential,
-- user-controlled role mapping,
-- writable policy file,
-- confused-deputy token propagation,
-- support role môže meniť vlastné permissions.
+Controls sú least privilege, separation of duties, permission boundaries, sandboxing, approval a explicitný delegation contract.
 
-Mitigations:
+## 26. Attack trees
 
-- least privilege,
-- separation of duties,
-- deny-by-default policy,
-- privileged boundary isolation,
-- signed/approved configuration,
-- negative authorization tests.
-
-## 23. STRIDE per element
-
-Praktická heuristika:
-
-- external entity: Spoofing, Repudiation,
-- process: Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation,
-- data flow: Tampering, Information Disclosure, DoS,
-- data store: Tampering, Repudiation, Information Disclosure, DoS.
-
-Heuristika pomáha coverage, ale nesmie nahradiť system-specific reasoning.
-
-## 24. Attack trees
-
-Attack tree začína attacker goalom a rozkladá ho na alternatívne alebo kombinované kroky.
+Attack tree začína impact goalom a rozkladá ho na alternative alebo combined attack paths.
 
 ```text
-Goal: publikovať malicious production artifact
-OR
-├─ compromise maintainer credential
-├─ modify protected workflow
-└─ compromise signing service
-   AND
-   ├─ získať runner execution
-   └─ získať sign permission
+Goal: nasadiť malicious production image
+├─ ukradnúť release signing identity
+├─ kompromitovať trusted builder
+├─ presunúť mutable production tag
+└─ obísť admission policy
+   ├─ direct node runtime access
+   └─ privileged exception bez expiry
 ```
 
-Attack tree je vhodný pre multi-step paths a porovnanie controls na rôznych bodoch.
+OR branches predstavujú alternatívne paths; AND branches vyžadujú kombináciu steps. Tree pomáha hľadať weakest path a spoločné mitigations.
 
-## 25. Attack paths
+Attack tree nie je probability model automaticky. Likelihood potrebuje evidence o capabilities a controls.
 
-Attack path prepája initial access, trust-boundary crossings, privilege transitions a impact.
+## 27. CAPEC, ATT&CK a ďalšie knowledge bases
 
-Príklad:
+CAPEC je catalog common attack patterns: opisuje, ako adversaries využívajú weaknesses. Pomáha rozšíriť threat enumeration a nájsť známe mechanisms.
+
+MITRE ATT&CK opisuje observed adversary tactics a techniques najmä pre operational intrusion behavior. Je užitočný pri detection a post-compromise paths.
+
+Knowledge base nie je náhrada system modelu. Vyberaj relevantné patterns podľa assets a boundaries. Copy celého ATT&CK matrixu vytvorí veľký, ale neakčný threat list.
+
+## 28. Privacy threat modeling a LINDDUN
+
+Security a privacy používajú rovnaký system model, ale objectives sa líšia. System môže byť secure proti unauthorized accessu a stále porušovať privacy nadmerným collection, linkingom alebo nejasným purpose-om.
+
+LINDDUN používa privacy threat categories ako Linking, Identifying, Non-repudiation, Detecting, Data Disclosure, Unawareness a Non-compliance. Metódy GO, PRO a MAESTRO majú rozdielnu hĺbku.
+
+Privacy model analyzuje data minimization, purpose limitation, transparency, consent, retention a inference. Je vhodné robiť security a privacy analysis paralelne nad rovnakým DFD.
+
+## 29. Likelihood a impact
+
+Risk prioritization kombinuje likelihood a impact, ale obidve veličiny musia mať transparentné assumptions.
+
+Likelihood závisí od attacker capability, exposure, exploit complexity, preconditions a strength controls. Impact závisí od asset value, scope, blast radius, detectability, recovery a legal/business consequences.
+
+Jedno číslo môže skryť uncertainty. Použi qualitative bands s rationale alebo scenario-specific quantitative model, keď sú data dostupné.
+
+Critical low-likelihood control-plane threat môže stále vyžadovať mitigation pre extrémny systemic impact.
+
+## 30. Risk treatment
+
+Pre každý threat zvoľ treatment:
+
+- **mitigate** — znížiť likelihood alebo impact controlom;
+- **avoid** — odstrániť unsafe feature alebo path;
+- **transfer/share** — preniesť časť financial alebo operational impact, nie responsibility za design;
+- **accept** — vedomé rozhodnutie risk ownera;
+- **monitor** — získať evidence, keď immediate mitigation nie je primeraná.
+
+Treatment má ownera, deadline a verification. „Accepted“ bez ownera a expiry je iba unresolved threat.
+
+## 31. Mitigation ako mechanism
+
+Mitigation musí uviesť, kde sa presadzuje, aký input používa a ktorý threat step blokuje.
+
+Slabé:
 
 ```text
-pull-request code execution
-→ shared self-hosted runner
-→ cached cloud credential
-→ artifact registry write
-→ production deployment
+Použiť encryption.
 ```
 
-Lokálne slabý control môže byť kritický, ak otvára path k high-impact authority.
+Silnejšie:
 
-## 26. CAPEC, ATT&CK a threat libraries
+> API gateway používa TLS server authentication a backend overuje gateway mTLS identity. Application však naďalej vykonáva tenant authorization, pretože TLS nechráni pred overprivileged authenticated gateway requestom.
 
-CAPEC poskytuje reusable attack patterns. MITRE ATT&CK opisuje tactics a techniques pozorované v adversary behavior.
+Defense in depth je užitočná, keď controls zlyhávajú nezávisle. Dve rules v rovnakom compromised policy engine-u nemusia byť nezávislé vrstvy.
 
-Použitie:
+## 32. Security requirement
 
-- doplnenie brainstormingu,
-- overenie coverage,
-- mapping detection opportunities,
-- incident feedback.
-
-Nemajú nahradiť vlastný architecture model. Generic library nevie, kde má tvoj systém trust boundary ani aký business impact má konkrétny flow.
-
-## 27. Likelihood
-
-Likelihood ovplyvňuje:
-
-- attacker access a capability,
-- exploit complexity,
-- exposure,
-- authentication/interaction requirements,
-- known exploitation,
-- detectability pre attacker-a,
-- repeatability,
-- existing controls.
-
-Nepoužívaj pseudo-presné čísla bez evidence. Cieľom je konzistentné decision-making, nie matematický dojem istoty.
-
-## 28. Impact
-
-Impact hodnotí:
-
-- confidentiality,
-- integrity,
-- availability,
-- tenant blast radius,
-- privileges a trust position,
-- financial/business consequences,
-- legal a regulatory exposure,
-- recovery complexity,
-- downstream systems.
-
-Threat voči identity provideru alebo signing keyu má systemic impact, aj keď samotný component neobsahuje customer records.
-
-## 29. Risk treatment
-
-Možnosti:
-
-- avoid — odstrániť feature alebo path,
-- mitigate — zaviesť controls,
-- transfer/share — napríklad contractual alebo insurance model,
-- accept — explicitne prijať residual risk,
-- monitor — dočasne sledovať pri neúplnej evidence.
-
-Acceptance musí mať ownera, rationale, expiry alebo review trigger a známy impact.
-
-## 30. Mitigations a control placement
-
-Mitigation musí byť umiestnená tam, kde vie ovplyvniť attack path.
-
-Typy:
-
-- preventive,
-- detective,
-- corrective,
-- recovery,
-- compensating.
-
-WAF môže znížiť jeden exploit path, ale neopraví broken object authorization. Encryption at rest nechráni pred application principalom s legitímnym decrypt accessom. Control label bez boundary reasoning je slabý.
-
-## 31. Security requirements
-
-Threat sa musí premeniť na testovateľný requirement.
+Threat sa má preložiť do testovateľného requirementu.
 
 Threat:
 
-> User tenant-a A zmení order ID a získa record tenant-a B.
+> Tenant A získa object tenant-a B zmenou ID.
 
 Requirement:
 
-> Order service musí pre každý read overiť, že `order.tenant_id` zodpovedá authenticated tenant contextu; mismatch musí skončiť bez odhalenia existence resource-u a musí vytvoriť audit event.
+> Každá read a write operation musí filtrovať resource podľa authenticated tenant ID v server-side authorization layer. Client-supplied tenant ID nesmie byť authoritative.
 
-Requirement určuje actor/context, operation, expected behavior a failure semantics.
+Negative test:
 
-## 32. Verification
+> Token tenant-a A požiada o known object ID tenant-a B a dostane deny bez disclosure existence alebo fields.
 
-Každá mitigation potrebuje evidence:
+Requirement má identifikovať scope, enforcement point a expected behavior.
 
-- unit alebo policy test,
-- integration test,
-- negative authorization test,
-- architecture/config review,
-- runtime observation,
-- penetration test,
-- failure injection,
-- recovery exercise,
-- audit query.
+## 33. Negative tests a abuse-case verification
 
-„Používame mTLS“ nie je evidence, že backend nie je dostupný plaintext bypass cestou.
+Positive test dokazuje, že intended user journey funguje. Negative test overuje, že prohibited path zlyhá správne.
 
-## 33. Negative testing
+Testuj:
 
-Positive test overí povolený flow. Negative test overí, že zakázaný flow skutočne zlyhá.
+- cross-tenant object access;
+- expired alebo wrong-audience token;
+- direct backend bypass gateway;
+- replay signed callbacku;
+- unauthorized workflow signing;
+- missing posture data;
+- restore bez required encryption key;
+- quota exhaustion a partial failure.
 
-Príklady:
-
-- token pre API A nesmie fungovať na API B,
-- tenant A nesmie čítať tenant B,
-- unsigned callback musí byť odmietnutý,
-- old certificate po revocation nesmie autentizovať workload,
-- direct backend request s forged headerom musí zlyhať,
-- deployment bez approval nesmie získať production authority.
-
-Security control bez negative testu často overuje iba happy path.
+Expected result zahŕňa deny, audit evidence a absence partial side effects. `403` bez kontroly, či data neunikli v response timing alebo logs, môže byť neúplný test.
 
 ## 34. Residual risk
 
-Residual risk zostáva po controls. Dokumentuj:
+Residual risk je risk zostávajúci po controls. Každá mitigation má limitations, dependencies a possible bypass.
 
-- remaining attack conditions,
-- expected impact,
-- detection a response,
-- ownera,
-- acceptance decision,
-- review trigger,
-- dependencies.
+Napríklad mTLS znižuje spoofing service identity, ale nerieši malicious authenticated service. Rate limit znižuje request flood, ale nemusí chrániť expensive authenticated query.
 
-Threat model nie je dokončený označením všetkých rows ako „mitigated“, ak controls nemajú evidence alebo zostávajú významné bypass paths.
+Residual risk má business ownera, review trigger a monitoring. Neuvádzaj iba „low“; vysvetli, čo môže stále zlyhať a prečo je to prijateľné.
 
-## 35. Authentication threats
+## 35. Operational evidence a detection
 
-Modeluj:
+Threat model má určovať, akú evidence potrebujeme počas incidentu. Preventive control bez visibility môže zlyhávať potichu.
 
-- credential theft,
-- phishing,
-- MFA bypass a recovery,
-- session fixation/replay,
-- token audience/issuer confusion,
-- account linking,
-- service identity spoofing,
-- logout/revocation latency,
-- fail-open pri IdP outage.
+Pre critical threats definuj:
 
-Authentication success nie je resource authorization.
+- decision logs a audit identity;
+- security-relevant metrics;
+- detection rule alebo alert;
+- correlation IDs;
+- evidence retention a integrity;
+- runbook a escalation;
+- recovery validation.
 
-## 36. Authorization threats
+Threat „signing identity zneužitá“ potrebuje monitoring unexpected signatures, nie iba protected key.
 
-Modeluj:
+## 36. Fail-open, fail-closed a degraded mode
 
-- horizontal access medzi users alebo tenants,
-- vertical privilege escalation,
-- missing object-level check,
-- stale group/role membership,
-- user-controlled attributes,
-- confused deputy,
-- broad wildcard permissions,
-- indirect access cez export, search alebo background job,
-- admin self-escalation.
+Dependency outage môže zmeniť security behavior. Threat model musí explicitne analyzovať failure semantics.
 
-Authorization sa musí vyhodnocovať pri každom relevantnom resource/action boundary, nie iba pri login-e alebo gateway-i.
+Production authorization PDP môže fail-closed, ale outage zablokuje users. Low-risk read-only feature môže použiť short cached decision. Emergency administration môže používať separate break-glass path.
+
+Implicitný fallback „ak security service neodpovedá, allow“ je threat. Degraded mode má obmedzený scope, duration, audit a recovery trigger.
 
 ## 37. Multi-tenant systems
 
-Critical invariants:
-
-- tenant context pochádza z trusted identity alebo server-side mappingu,
-- resource ownership sa overuje server-side,
-- cache a indexes sú tenant-scoped,
-- queue messages nesú integrity-protected tenant context,
-- KMS/decrypt operation je tenant-bound,
-- administrators a support access sú auditované,
-- data export a analytics zachovávajú isolation.
-
-Tenant ID z request body nie je sám o sebe authorization evidence.
+Multi-tenancy vytvára logical trust boundary v shared processes, databases, queues a caches. Threat model musí sledovať tenant context na každom flowe.
 
-## 38. Cloud threat modeling
+Časté threats:
 
-Modeluj:
+- object-level authorization bypass;
+- cache key bez tenant dimension;
+- shared queue message bez tenant bindingu;
+- background job s broad database credentialom;
+- logs alebo metrics labels odhaľujúce cross-tenant data;
+- administrator alebo support tool bez scoped impersonation.
 
-- account a organization boundaries,
-- IAM roles a trust policies,
-- control plane vs data plane,
-- public endpoints,
-- cross-account grants,
-- metadata/credential services,
-- KMS a secrets dependencies,
-- snapshots a backups,
-- provider-managed components,
-- region a service outages.
+Isolation môže byť logical alebo physical podľa risku. Dôležité je overiť negative paths a blast radius.
 
-Security Group nie je jediná boundary; IAM a resource policies môžu vytvoriť alternate access path.
+## 38. Cloud, Kubernetes a CI/CD models
 
-## 39. Kubernetes threat modeling
+Cloud threat model musí obsahovať organization/account boundaries, IAM trust, control-plane APIs, network paths, KMS a managed-service responsibilities.
 
-Zahrň:
+Kubernetes model musí rozlišovať API authorization, admission, scheduler, kubelet, node kernel, CNI, CSI a application authorization. Namespace nie je automaticky strong tenant boundary.
 
-- API server a admission,
-- RBAC a service accounts,
-- etcd a Secrets,
-- node/kubelet boundary,
-- container runtime a kernel,
-- CNI/NetworkPolicy,
-- image registry a admission policy,
-- controllers/operators,
-- volumes a CSI,
-- ingress/egress,
-- privileged Pods a host mounts.
+CI/CD model sleduje source revisions, workflow code, runner isolation, caches, signing identities, registry a deployment policy. Privileged pipeline je indirect admin interface.
 
-Namespace nie je hard multi-tenant security boundary bez ďalších controls.
+Tieto domains majú vlastné technical models, ale rovnaký reasoning process.
 
-## 40. CI/CD threat modeling
+## 39. AI-assisted systems
 
-Assets:
+AI/LLM system pridáva model, prompts, retrieval data, tools, agent permissions a third-party providers. Threats zahŕňajú prompt injection, data poisoning, sensitive context disclosure, tool abuse a unsafe autonomous actions.
 
-- source integrity,
-- build environment,
-- signing identity,
-- artifacts,
-- deployment credentials,
-- approvals a provenance.
+Model output je untrusted input, aj keď model prevádzkuje organization. Tool call potrebuje schema validation, authorization a bounded permissions.
 
-Threats:
+Human approval musí byť meaningful: approver potrebuje vidieť action, target a impact, nie iba generický „confirm“ button.
 
-- malicious contributor code,
-- poisoned dependency,
-- mutable action/tag,
-- shared runner persistence,
-- secret exfiltration,
-- artifact substitution,
-- approval bypass,
-- environment confusion,
-- compromised maintainer.
+## 40. Workshop execution
 
-Pipeline má byť modelovaná ako privileged production system, nie iba automation script.
+Effective workshop potrebuje product ownera, architecta, engineers, operations a security facilitatora. Privacy alebo compliance expert sa pridáva podľa data scope-u.
 
-## 41. Secrets a cryptographic boundaries
+Praktický postup:
 
-Modeluj:
+1. potvrdiť objectives a scope;
+2. walkthrough architecture a critical journeys;
+3. označiť assets a boundaries;
+4. formulovať threats cez abuse cases a STRIDE;
+5. rozložiť high-impact goals na attack paths;
+6. priradiť mitigations a requirements;
+7. definovať tests, owners a residual risks;
+8. zaznamenať unknowns a follow-up evidence.
 
-- secret zero,
-- workload authentication,
-- secret delivery,
-- cache a memory,
-- rotation/revocation,
-- KMS/HSM policies,
-- key/ciphertext separation,
-- backup recovery,
-- audit availability,
-- fail behavior pri outage-u.
+Facilitator nemá byť jediný autor threats. Engineers poznajú hidden state a failure paths.
 
-Short-lived secret znižuje exposure window, ale nevyrieši broad authority ani plaintext leakage v aplikácii.
+## 41. Model-as-code a automation
 
-## 42. Availability a dependency failure
+Threat model možno reprezentovať ako versionované diagrams, YAML/JSON entities, relationships, threats a controls. Automation môže kontrolovať missing owners, stale reviews alebo coverage requirements.
 
-Threat model musí obsahovať neúmyselné aj adversarial failure modes:
+Tools môžu generovať STRIDE questions, ale nedokážu spoľahlivo pochopiť business abuse alebo nezdokumentovaný bypass bez ľudského contextu.
 
-- IdP unavailable,
-- KMS throttling,
-- DNS failure,
-- audit sink outage,
-- queue poison message,
-- database partition,
-- certificate expiry,
-- rate-limit exhaustion,
-- dependency returning stale or malformed data.
+Model-as-code má zmysel, keď znižuje drift a integruje sa s architecture changes. Ak schema núti tím vyplniť stovky fields bez decision value, stáva sa toilom.
 
-Dôležitá otázka nie je iba „zlyhá systém?“, ale „zlyhá bezpečne?“
+## 42. Trigger na aktualizáciu
 
-## 43. Fail-open a fail-closed
+Threat model aktualizuj pri:
 
-Fail-closed odmietne operation pri nedostupnom security dependency. Chráni policy, ale môže spôsobiť outage.
+- novej trust boundary alebo external dependency;
+- zmene identity, authorization alebo recovery flow;
+- novom data type alebo tenant model-e;
+- deployment architecture change;
+- supplier alebo build-platform change;
+- incident, penetration-test alebo red-team finding-u;
+- významnej zmene attacker capabilities;
+- control retirement alebo exception.
 
-Fail-open pokračuje bez úplného overenia. Zachová availability, ale môže vytvoriť authorization alebo confidentiality breach.
+Pull-request template môže pýtať „mení táto zmena trust boundary, sensitive data alebo privileged operation?“ Positive answer spustí targeted review.
 
-Možné bezpečnejšie degraded modes:
+## 43. Threat-model debt
 
-- read-only,
-- cached decision s bounded TTL,
-- iba low-risk operations,
-- explicit break-glass,
-- queue-and-retry,
-- stop new sessions, zachovať krátko platné existujúce.
+Threat-model debt vzniká, keď architecture sa mení rýchlejšie než security reasoning. Symptoms sú outdated diagrams, unowned risks, controls bez tests a repeated incident surprises.
 
-Behavior musí byť navrhnutý a testovaný, nie náhodný výsledok exception handlingu.
+Debt prioritizuj podľa critical flows a change frequency. Nečakaj na perfektný enterprise model; oprav high-impact paths a vytvor udržateľný update process.
 
-## 44. Privacy threat modeling a LINDDUN
+Metric „počet threat models“ je slabá. Lepšie metrics sú coverage critical systems, age models, open high risks, requirements with negative tests a findings caused outdated assumptions.
 
-Security a privacy sa prekrývajú, ale nie sú totožné. LINDDUN kategórie zahŕňajú:
-
-- Linkability,
-- Identifiability,
-- Non-repudiation,
-- Detectability,
-- Disclosure of information,
-- Unawareness,
-- Non-compliance.
+## 44. Kompletný príklad
 
-Encrypted data môžu stále odhaľovať linkability cez identifiers, timing alebo metadata. Threat model má riešiť data minimization, purpose, consent, retention a user awareness tam, kde sú relevantné.
-
-## 45. Observability ako security boundary
-
-Modeluj:
-
-- ktoré events musia vzniknúť,
-- kto môže logy meniť alebo čítať,
-- citlivé payloads,
-- correlation identity,
-- retention,
-- alert path,
-- audit sink failure,
-- log injection,
-- telemetry blind spots.
-
-Logging môže byť detective control aj nový disclosure surface.
-
-## 46. Recovery a incident response
-
-Threat model má pokryť:
-
-- backup isolation,
-- recovery credentials,
-- restore integrity,
-- key a certificate dependencies,
-- clean-room environment,
-- audit continuity,
-- revocation počas recovery,
-- RPO/RTO,
-- attacker persistence.
-
-Backup, ktorý možno obnoviť iba pomocou compromised identity providera alebo strateného KMS keyu, nie je kompletný recovery model.
-
-## 47. Human a AI-assisted workflows
-
-Pri automation alebo AI agentoch modeluj:
-
-- kto zadáva intent,
-- aké tools a authority agent má,
-- prompt alebo input injection,
-- untrusted retrieved content,
-- approval boundaries,
-- action preview,
-- audit actor vs delegated agent,
-- bounded scope a rate,
-- rollback,
-- secret exposure,
-- unsafe autonomous retry.
-
-Model output nie je authorization decision ani trusted instruction bez policy enforcementu.
-
-## 48. Threat-modeling workshop
-
-Efektívny workshop potrebuje:
-
-- facilitator-a,
-- system ownera,
-- developer/architect,
-- operations/platform pohľad,
-- security expertise,
-- pripravený diagram a scope,
-- decision log a ownerov.
-
-Priebeh:
-
-1. potvrdiť objectives a scope,
-2. prejsť architecture a assumptions,
-3. identifikovať assets a boundaries,
-4. enumerovať threats,
-5. zoskupiť attack paths,
-6. prioritizovať,
-7. definovať requirements a verification,
-8. priradiť ownerov a residual risk.
-
-Workshop nemá skončiť iba fotografiou whiteboardu.
-
-## 49. Otázky počas review
-
-- Odkiaľ pochádza identity a kto jej dôveruje?
-- Kde sa mení privilege alebo tenant?
-- Ktorý input je attacker-controlled?
-- Čo sa stane pri replay?
-- Čo sa stane pri stale cache?
-- Dá sa obísť gateway, mesh alebo admission?
-- Kto môže meniť policy alebo artifact?
-- Kde sa objaví plaintext?
-- Ako sa revoke-ne credential?
-- Ako systém zlyhá pri dependency outage-u?
-- Ako zistíme, že control bol obídený?
-- Ako obnovíme dôveryhodný stav?
-
-## 50. Model vo version control
-
-Threat model má byť versionovaný spolu s architecture alebo codebase:
-
-- diagrams ako text alebo export s source formátom,
-- threat IDs,
-- requirements a owners,
-- links na tests a issues,
-- assumptions a review date,
-- residual-risk decisions.
-
-Review diffu ukazuje, či architecture change pridala boundary, data flow alebo privilege.
-
-## 51. Model-as-code
-
-Model-as-code môže umožniť:
-
-- versioning,
-- linting,
-- generated diagrams,
-- traceability na controls,
-- automated stale checks,
-- reuse threat libraries.
-
-Automation nesmie predstierať úplnosť. Tool nevie sám správne určiť business assets, attacker intent alebo hidden operational assumptions.
-
-## 52. Kedy model aktualizovať
-
-Triggers:
-
-- nový public endpoint,
-- authentication alebo authorization zmena,
-- nový tenant model,
-- nový data class,
-- cloud account/region boundary,
-- nový external provider,
-- CI/CD alebo signing zmena,
-- privilege expansion,
-- incident alebo near miss,
-- major dependency/architecture migration,
-- nový failure/degraded mode.
-
-Kalendárny review je doplnok, nie náhrada event-driven update-u.
-
-## 53. Threat-model debt
-
-Debt vzniká, keď:
-
-- diagram nezodpovedá runtime,
-- assumptions nie sú overené,
-- threats nemajú owners,
-- mitigations nemajú tests,
-- exceptions expirovali,
-- architecture sa zmenila bez review,
-- incidents sa nevrátili do modelu.
-
-Sleduj high-risk stale models a requirements bez verification evidence.
-
-## 54. Design review, pen test a red team
-
-Threat modeling riadi, čo treba overiť. Pen test a red team poskytujú empirical evidence a nové attack paths.
-
-```text
-threat model
-→ hypotézy a test targets
-→ pen test/red team
-→ findings a observed behavior
-→ update threats, controls a assumptions
-```
-
-Pen test nenahrádza model; je časovo obmedzený a pozoruje konkrétnu implementáciu.
-
-## 55. Incident feedback
-
-Po incidente aktualizuj:
-
-- attacker model,
-- initial access,
-- attack path,
-- failed assumptions,
-- missing controls,
-- detection gaps,
-- recovery behavior,
-- residual risk,
-- verification tests.
-
-Incident, ktorý skončí iba patchom bez zmeny modelu, môže opakovať rovnaký design failure inde.
-
-## 56. Metrics
-
-Užitočné metrics:
-
-- percento high-risk systems s aktuálnym modelom,
-- threats s ownerom,
-- mitigations s verification evidence,
-- open high-risk requirements po SLA,
-- stale assumptions,
-- architecture changes bez review,
-- incidents mapované na known vs unknown threats,
-- residual-risk decisions po expiry,
-- čas od design change po model update.
-
-Počet threats nie je kvalita. Model s 200 generic rows môže byť slabší než 20 konkrétnych attack paths s tests.
-
-## 57. Governance
-
-Organizácia potrebuje:
-
-- scope criteria,
-- risk classification,
-- required participants,
-- approved methods bez dogmatizmu,
-- threat/requirement templates,
-- ownership a escalation,
-- residual-risk approval,
-- storage/versioning standard,
-- review triggers,
-- integration s SDLC, incident response a testing,
-- quality review.
-
-## 58. Troubleshooting slabého modelu
-
-### Threats sú príliš všeobecné
-
-Doplň actor-a, boundary, condition, asset a impact.
-
-### Diagram nezobrazuje trust boundaries
-
-Rozdeľ network, identity, tenant, administrative a cryptographic boundaries.
-
-### Všetko má rovnakú prioritu
-
-Použi attack-path feasibility, exposure, privilege a asset impact.
-
-### Controls sú iba názvy produktov
-
-Popíš enforcement point, decision inputs, failure behavior a verification.
-
-### Tím nevie model udržiavať
-
-Zmenši scope, versionuj source, priraď ownera a napoj update na architecture-change workflow.
-
-### Model neodhalil incident
-
-To nie je dôvod model zahodiť. Aktualizuj attacker assumptions, libraries, boundaries a review process.
-
-## 59. Anti-patterny
-
-- modelovanie až po hotovej implementácii bez možnosti design change,
-- STRIDE checklist bez architecture contextu,
-- „internal network je trusted“,
-- authentication považovaná za authorization,
-- threat bez asset impactu,
-- mitigation bez ownera,
-- control bez negative testu,
-- všetky residual risks označené ako accepted bez decision authority,
-- diagram bez versioningu,
-- model ignorujúci failure a recovery,
-- tool-generated threats prezentované ako úplné,
-- pen test použitý ako jediný threat model.
-
-## 60. Mini príklad
-
-Architecture:
+System:
 
 ```text
 Browser
+→ OIDC provider
 → API gateway
 → Order service
 → PostgreSQL
 → Payment provider
-→ OIDC provider
 ```
 
-Assets:
+Objective: tenant isolation a integrity payment amountu.
 
-- customer identity,
-- orders,
-- payment intent,
-- tenant isolation,
-- API availability.
+Threat 1: tenant A zmení order ID a číta order B. Mitigation: server-side tenant-scoped query. Test: cross-tenant ID returns deny and no data.
 
-Critical boundaries:
+Threat 2: attacker replay-ne payment callback. Mitigation: signature covers body, timestamp a event ID; replay cache enforces uniqueness. Test: duplicate valid callback creates no second side effect.
 
-- browser ↔ gateway,
-- gateway ↔ service,
-- service ↔ database,
-- service ↔ payment provider,
-- OIDC provider ↔ application session.
+Threat 3: direct access obíde gateway identity header. Mitigation: backend mTLS trusts only gateway workload identity a ignores public client-supplied headers. Test: request z internal network bez gateway certificate is rejected.
 
-Threats:
+Threat 4: IdP outage aktivuje broad fallback. Mitigation: new privileged sessions fail-closed; existing short sessions expire; read-only degraded mode is scoped. Test: inject IdP failure and verify allowed/denied actions.
 
-1. Stolen access token je použitý na API s nesprávnym audience.
-2. User zmení order ID a číta cudziu objednávku.
-3. Gateway posiela trusted identity header, ale backend je dostupný priamo.
-4. Payment callback je replay-nutý.
-5. Compromised Pod použije broad database credential na všetkých tenants.
-6. KMS alebo IdP outage zastaví requests bez safe degraded mode.
+Residual risk: compromised gateway môže posielať authenticated malicious requests; application-level tenant authorization zostáva independent control.
 
-Mitigations:
+## 45. Troubleshooting threat modelu
 
-- validate issuer, audience a expiry,
-- object-level authorization,
-- backend isolation a mTLS,
-- signed callback + replay cache,
-- tenant-scoped database policy/credential,
-- explicit timeout, cache a failure behavior.
+Keď model neprináša actionable findings, skontroluj:
 
-Verification:
+- objectives nie sú príliš všeobecné;
+- diagram obsahuje identities a data, nie iba boxes;
+- attacker má capabilities, nie iba label;
+- boundaries zodpovedajú real topology;
+- threats sú statements, nie categories;
+- mitigations uvádzajú mechanism a enforcement;
+- requirements majú negative tests;
+- accepted risks majú ownera;
+- model sa viaže na current architecture revision.
 
-- negative audience test,
-- cross-tenant integration test,
-- direct-backend access test,
-- callback replay test,
-- compromised-workload tabletop,
-- IdP/KMS failure injection.
+Ak pen test opakovane nachádza „neočakávané“ design flaws, model pravdepodobne neobsahuje relevantný flow alebo assumption.
 
-## 61. Kontrolné otázky
+## 46. Časté anti-patterny
 
-1. Čo je cieľom threat modeling-u a čo ním nie je?
-2. Ako definovať security objectives?
-3. Čo je trust boundary a prečo nemusí byť firewall?
-4. Aké elements obsahuje DFD?
-5. Ako napísať testovateľný threat statement?
-6. Čo znamenajú STRIDE categories?
-7. Ako sa líši attack tree, CAPEC a ATT&CK?
-8. Ako premeniť threat na requirement a test?
-9. Čo je residual risk a kto ho vlastní?
-10. Ako modelovať multi-tenant authorization?
-11. Ktoré boundaries sú kritické v CI/CD?
-12. Ako modelovať fail-open a fail-closed?
-13. Prečo modelovať observability a recovery?
-14. Kedy threat model aktualizovať?
-15. Ako incident vracia knowledge späť do modelu?
+**Diagram bez threats.** Architecture documentation nie je threat model.
+
+**STRIDE checklist bez contextu.** Categories sa odškrtajú, ale nevzniknú concrete attack paths.
+
+**Threat bez impactu.** Tím nevie prioritizovať ani vybrať treatment.
+
+**Mitigation ako slogan.** „Use encryption“ neurčuje boundary ani threat step.
+
+**Scanner ako threat model.** Implementation findings nenahrádzajú design reasoning.
+
+**Security-only authoring.** Model neobsahuje hidden operational a business flows.
+
+**Accepted risk bez ownera.** Unresolved threat sa premenoval na acceptance.
+
+**One-time review.** Model sa po architecture change stáva false assurance.
+
+## 47. Kontrolné otázky
+
+1. Ako sa security objective líši od všeobecného security goalu?
+2. Ako zvoliť scope bez skrytia critical dependencies?
+3. Prečo asset nie je iba stored data?
+4. Čo musí obsahovať attacker model?
+5. Ako sa assumption líši od dependency a ako ju overiť?
+6. Čo je trust boundary mimo network firewallu?
+7. Aké data musí niesť DFD flow pre security reasoning?
+8. Ako napísať konkrétny threat statement?
+9. Ako STRIDE pomáha a aké má limity?
+10. Kedy použiť attack tree, CAPEC alebo ATT&CK?
+11. Ako sa privacy modeling cez LINDDUN dopĺňa so security modelingom?
+12. Ako z threatu vytvoriť testovateľný requirement a negative test?
+13. Čo je residual risk a kto ho vlastní?
+14. Ako analyzovať fail-open a degraded behavior?
+15. Aké cross-tenant threats vznikajú v shared cache a queue?
+16. Prečo privileged CI pipeline patrí do threat modelu?
+17. Ako modelovať AI tool use a prompt injection?
+18. Kedy treba model aktualizovať?
+19. Ako merať threat-model quality bez metric gamingu?
+20. Vytvor threat model pre OIDC login, payment callback alebo artifact-signing flow.
 
 ## Glossary impact
 
-Relevantné pojmy: threat modeling, security objective, scope, asset, actor, attacker model, assumption, dependency, entry point, exit point, trust boundary, Data Flow Diagram, external entity, process, data store, data flow, threat statement, misuse case, abuse case, STRIDE, Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege, attack tree, attack path, CAPEC, MITRE ATT&CK, threat library, likelihood, impact, risk treatment, mitigation, security requirement, negative testing, residual risk, LINDDUN, model-as-code a threat-model debt.
+Relevantné pojmy: threat modeling, security objective, threat-model scope, asset, actor, principal, attacker model, assumption, dependency, entry point, exit point, trust boundary, administrative boundary, identity boundary, Data Flow Diagram, data inventory, state transition, threat statement, abuse case, misuse case, STRIDE, spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege, attack tree, attack path, CAPEC, MITRE ATT&CK, LINDDUN, likelihood, impact, risk treatment, mitigation, security requirement, negative security test, residual risk, degraded mode, multi-tenant threat, model-as-code a threat-model debt.
 
 ## Primárne zdroje
 
-- [NIST SP 800-154 — Guide to Data-Centric System Threat Modeling](https://csrc.nist.gov/pubs/sp/800/154/ipd)
-- [NIST SP 800-218 — Secure Software Development Framework](https://csrc.nist.gov/pubs/sp/800/218/final)
-- [Microsoft Security Development Lifecycle](https://learn.microsoft.com/en-us/compliance/assurance/assurance-microsoft-security-development-lifecycle)
-- [Microsoft Threat Modeling Security Fundamentals](https://learn.microsoft.com/en-us/training/paths/tm-threat-modeling-fundamentals/)
-- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling)
-- [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/)
+- [OWASP Threat Modeling Project](https://owasp.org/www-project-threat-modeling/)
+- [OWASP Threat Modeling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html)
+- [Microsoft Introduction to Threat Modeling](https://learn.microsoft.com/en-us/training/modules/tm-introduction-to-threat-modeling/)
+- [Microsoft Threat Modeling Tool](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool)
 - [MITRE CAPEC](https://capec.mitre.org/)
 - [MITRE ATT&CK](https://attack.mitre.org/)
+- [LINDDUN Privacy Engineering](https://linddun.org/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
