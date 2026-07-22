@@ -22,6 +22,14 @@ Route alebo Gateway status condition indikujúca, že zodpovedný controller pri
 
 PV/PVC contract opisujúci podporovaný spôsob mount accessu, napríklad ReadWriteOnce, ReadOnlyMany, ReadWriteMany alebo ReadWriteOncePod; nepredstavuje application-level locking ani databázový clustering. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Access review
+
+Pravidelné alebo event-driven overenie, či principal stále potrebuje pridelené permissions, či ich scope a duration zostávajú primerané a či access možno odstrániť. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Account
+
+Administratívny záznam identity v konkrétnom systéme, ktorý môže mať vlastný lifecycle, credentials, attributes a permissions. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Account vending — AWS
 
 Automatizovaný proces vytvorenia a baseline konfigurácie nového AWS accountu vrátane OU placementu, identity, loggingu, networku, budgets, guardrails a ownership metadata. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -45,6 +53,10 @@ Architektúra, v ktorej viac lokalít alebo replicas súčasne spracúva product
 ## Active deadline — Job
 
 Maximálny celkový čas, počas ktorého môže Kubernetes Job zostať aktívny; po jeho prekročení controller ukončí aktívne Pody a Job označí ako failed. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Active Directory Domain Services — AD DS
+
+Distribuovaná Microsoft directory a identity platforma poskytujúca domains, forests, domain controllers, LDAP, Kerberos/NTLM, DNS-integrated discovery, Group Policy a multimaster replication. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Active-passive architecture
 
@@ -474,13 +486,33 @@ Súbor rozhraní, vstupov, identities a trust boundaries, cez ktoré môže akt�
 
 Počet technických pokusov o vykonanie operácie za čas vrátane retries; môže byť vyšší než počet logical operations. Pozri [RED method](docs/12-observability/red-method.md).
 
+## Attribute-Based Access Control — ABAC
+
+Authorization model používajúci attributes principalu, resource-u, action a environmentu na vytvorenie access decisionu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Audit record
 
 Časovo označený záznam o tom, kto vykonal akú operáciu, voči ktorému resource-u, odkiaľ a s akým výsledkom. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Authentication
+
+Proces overenia identity alebo kontroly nad authenticatorom pred vytvorením session, tokenu alebo iného authenticated contextu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Authentication Service — Kerberos AS
+
+Časť KDC, ktorá po počiatočnej authentication vydáva clientovi Ticket-Granting Ticket. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Authenticator
+
+Prostriedok kontrolovaný claimantom a používaný na preukázanie identity, napríklad password, passkey, smart card, certificate alebo cryptographic device. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Authenticity
 
 Vlastnosť umožňujúca dôverovať, že entity, dáta alebo artifacts pochádzajú z deklarovaného a overeného source-u. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Authoritative identity source
+
+Systém považovaný za zdroj pravdy pre existenciu, status, ownera alebo attributes identity, napríklad HR systém alebo service catalog. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Authoritative source — IaC
 
@@ -489,6 +521,10 @@ Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu po
 ## Authoritative writer
 
 Jediný systém alebo workflow oprávnený meniť konkrétny mutable object alebo attribute; viac writerov vytvára ownership conflict a perpetual drift. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Authorization
+
+Rozhodnutie, či principal smie vykonať konkrétnu action voči konkrétnemu resource-u v danom context-e. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Auto Scaling Group — ASG
 
@@ -742,6 +778,10 @@ Miera, do akej nižší environment zachováva produkčne relevantné protokoly,
 
 Kubernetes QoS class pre Pod bez CPU a memory requests alebo limits podľa platných QoS calculation pravidiel; scheduler nemá deklarovanú potrebu a Pod je pri resource pressure typicky najzraniteľnejší. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Bind — LDAP
+
+LDAP operation, ktorá nastavuje authentication state connectionu pomocou anonymous, simple alebo SASL mechanismu. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## Bind mount — container
 
 Sprístupnenie existujúceho host filesystem pathu do container mount namespace-u, ktoré vytvára silnú väzbu na host path, permissions, labels a lifecycle. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
@@ -825,6 +865,10 @@ Serverová policy obmedzujúca aktualizáciu dôležitej branch pomocou controls
 ## Branch rule — GitLab
 
 Policy objekt aplikovaný na konkrétny branch alebo pattern, ktorý môže riadiť push, merge, force-push a Code Owner požiadavky. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Break-glass access
+
+Oddelený a kontrolovaný emergency access model určený pre stav, keď bežná identity alebo privilege activation cesta nie je dostupná. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Break-glass access — AWS
 
@@ -1014,6 +1058,10 @@ Malá skupina Nodes s novou Kubernetes, OS, runtime alebo add-on verziou použit
 
 Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľov s porovnávaním technických a business signálov pred širšou promotion. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Capability-based security
+
+Model, v ktorom držanie konkrétnej obmedzenej capability alebo reference oprávňuje principal vykonať presne definovanú operáciu bez broad ambient authority. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
 ## Capability drop — container
 
 Runtime policy odstraňujúca Linux capabilities z process credential sets, ideálne s defaultom drop-all a explicitným pridaním iba nevyhnutných oprávnení. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
@@ -1202,6 +1250,10 @@ Certified Kubernetes Administrator, performance-based Linux Foundation/CNCF cert
 
 Časovo ohraničený fault-injection scenár merajúci root-cause accuracy, minimálnu opravu a hard validation Kubernetes failure-u. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
 
+## Claimant
+
+Entita, ktorá sa pokúša preukázať kontrolu nad authenticatorom a byť rozpoznaná ako konkrétny subscriber alebo principal. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Clean-room build
 
 Build vykonaný bez dôvery v existujúcu local alebo external cache, používaný na overenie reproducibility, úplnosti dependencies a absencie skrytých cache assumptions. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -1338,9 +1390,17 @@ A alebo AAAA record bežného Kubernetes Service-u, ktorý resolve-ne na Service
 
 Cluster-scoped Kubernetes RBAC ruleset pre cluster resources, non-resource URLs alebo reusable namespaced permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
+## ClusterRole — Kubernetes
+
+Kubernetes RBAC objekt obsahujúci cluster-scoped alebo reusable rules, ktoré možno bindnúť cluster-wide alebo v konkrétnom namespace. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## ClusterRoleBinding
 
 Cluster-scoped RBAC binding udeľujúci ClusterRole permissions subjects naprieč celým cluster scope-om. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## ClusterRoleBinding — Kubernetes
+
+Kubernetes RBAC objekt, ktorý priraďuje ClusterRole principals na úrovni celého clusteru. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Cmdlet
 
@@ -1537,6 +1597,10 @@ Riadenie požadovaného runtime stavu operačných systémov, aplikácií, zaria
 ## Configuration recreate — container
 
 Nahradenie container instance po zmene runtime environment alebo inej immutable container configuration, pretože už spustený process bežne neprevezme nové hodnoty automaticky. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Confused deputy
+
+Security problém, pri ktorom privilegovaná služba zneužije alebo nesprávne použije svoju authority v prospech menej privilegovaného caller-a bez správneho context bindingu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Congestion control
 
@@ -1842,6 +1906,14 @@ Storage snapshot zodpovedajúci stavu po náhlom výpadku napájania bez garanci
 
 Lifecycle rule, ktorá pri replacement operácii žiada vytvorenie nového objektu pred zničením starého, ak platforma, názvy, capacity a dependencies umožnia ich súbežnú existenciu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Credential
+
+Dôkaz alebo secret naviazaný na principal, napríklad password, private key, token seed alebo certificate key material. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Credential cache — Kerberos
+
+Client-side store obsahujúci TGT a service tickets pre aktuálnu Kerberos session. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## CRI log
 
 Node-local container stdout/stderr záznam v Container Runtime Interface logging formáte s timestampom, streamom a full/partial markerom. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
@@ -2046,6 +2118,10 @@ Customer-retained point-in-time storage snapshot RDS database používaný na re
 
 Kolekcia VPC subnets vo viacerých Availability Zones, z ktorej RDS vyberá database placement. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
+## DC locator
+
+AD DS proces, ktorým client pomocou DNS, site informácií a ďalších pravidiel nájde vhodný domain controller. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Debug container — Kubernetes
 
 Ephemeral container pridaný do existujúceho Podu na diagnostiku pomocou schváleného debug image-u, RBAC a auditu. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -2093,6 +2169,10 @@ Go template action deklarujúca named template pod globálnym menom bez okamžit
 ## Delegated administrator — AWS Organizations
 
 Member account zaregistrovaný na centralizovanú správu podporovanej AWS služby naprieč organization, aby sa znížil počet operácií vykonávaných v management account-e. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Delegation — identity
+
+Kontrolované odovzdanie obmedzenej authority z jedného principalu na iný principal alebo service. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## delete marker — S3
 
@@ -2306,6 +2386,14 @@ Pod vytvorený bez vyššieho workload controlleru; po strate alebo Node failure
 
 Jaeger deployment model, v ktorom collectors zapisujú traces priamo do external storage bez durable Kafka bufferu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Directory Information Tree — DIT
+
+Hierarchická štruktúra LDAP directory entries organizovaná podľa Distinguished Names. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## Directory partition — AD DS
+
+Replikovaný naming context AD DS, napríklad schema, configuration, domain alebo application partition, s vlastným replication scope-om. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Disaster recovery — DR
 
 People, process a technology capability obnoviť business službu a jej dáta po udalosti presahujúcej bežný high-availability design podľa definovaných RPO a RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -2321,6 +2409,10 @@ Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime p
 ## Disk watermark — search cluster
 
 Threshold disk usage ovplyvňujúci shard allocation, relocation alebo write blocks v Elasticsearch/OpenSearch clusteri. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Distinguished Name — DN
+
+Jednoznačný hierarchický názov LDAP entry, napríklad `uid=alice,ou=People,dc=example,dc=com`. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Distributed cache — GitLab Runner
 
@@ -2502,6 +2594,18 @@ JSON objekt uložený v Elasticsearch/OpenSearch indexe a spracovaný podľa map
 
 YAML stream obsahujúci jeden alebo viac documents oddelených markerom `---`. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Domain — AD DS
+
+Logical AD DS partition s vlastným DNS name, domain-wide objects, replication scope a domain operations roles. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Domain controller
+
+Server hostujúci AD DS directory partitions a poskytujúci LDAP, Kerberos KDC, authentication, replication a SYSVOL/Group Policy služby. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Domain Local group
+
+AD DS group scope typicky používaný na priradenie permissions k resources v konkrétnej doméne. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Domain-weighted lab — CKA
 
 Timed lab, ktorého bodové rozdelenie zodpovedá aktuálnym oficiálnym CKA curriculum doménam namiesto rovnomerného alebo náhodného mixu tém. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -2578,6 +2682,10 @@ Automatické vytváranie field mappings podľa prichádzajúcich documents; bez 
 
 Automatické vytvorenie backing storage a PV external provisionerom na základe PVC a StorageClass. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Dynamic separation of duties
+
+Constraint, ktorý zakazuje použiť conflictujúce roles alebo capabilities v tej istej session alebo transaction, aj keď ich principal môže mať pridelené. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Early feedback
 
 Informácia o kvalite alebo riziku získaná v najskoršom bode, v ktorom má kontrola dostatočnú fidelity a diagnostickú hodnotu. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
@@ -2637,6 +2745,10 @@ IAM role poskytujúca AWS permissions application containers bežiacim v ECS tas
 ## Edge cloud
 
 Compute a storage platforma umiestnená bližšie k používateľom, zariadeniam alebo výrobnému procesu pre nízku latency, lokálne spracovanie alebo prerušovanú konektivitu. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Effective access
+
+Výsledná množina permissions po vyhodnotení direct a inherited assignments, groups, roles, conditions, boundaries, resource policies a explicit denies. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Effective capability set
 
@@ -2742,6 +2854,10 @@ Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľ
 
 Non-secret key-value context kryptograficky viazaný na podporovanú KMS encrypt/decrypt operation a použiteľný v policy conditions a audite. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
+## Encryption type — Kerberos
+
+Cryptographic algorithm a associated key semantics používané pre Kerberos long-term keys, tickets alebo session keys. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## End-to-end test
 
 Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo procesných hraníc od vstupu po observable výsledok. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -2761,6 +2877,10 @@ Vrstva, na ktorej sa reálne presadzuje resource limit alebo quota, napríklad c
 ## Enforcing mode
 
 Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## Entitlement
+
+Konkrétne oprávnenie, role, group membership alebo capability, ktorú možno prideliť principalu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Envelope encryption
 
@@ -3114,6 +3234,10 @@ Dočasná branch určená na izolovaný vývoj jednej zmeny. Pri trunk-based mod
 
 Runtime control oddeľujúci deployment kódu od sprístupnenia capability pomocou versionovaného evaluation pravidla. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
 
+## Federation
+
+Trust model, v ktorom relying party prijíma authentication assertion alebo token od samostatne spravovaného identity provider-a. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Federation — Prometheus
 
 Hierarchický model, v ktorom jeden Prometheus scrape-ne vybrané series z federation endpointu iného Prometheus servera. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -3186,6 +3310,10 @@ Runtime rozhodnutie o variante alebo hodnote feature flagu na základe flag verz
 
 Test, ktorý pri rovnakom kóde a deklarovaných vstupoch nedeterministicky prechádza alebo zlyháva. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Flexible Single Master Operations — FSMO
+
+AD DS roles určené pre operácie, ktoré nemajú byť vykonávané súčasne viacerými domain controllers. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Flow control
 
 TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -3209,6 +3337,14 @@ Riziková operácia odstránenia backend locku podľa lock ID bez ukončenia pô
 ## Force-with-lease
 
 Bezpečnejšia forma force pushu, ktorá aktualizuje remote ref iba vtedy, keď stále zodpovedá očakávanej hodnote. Stále ide o history rewrite. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Forest — AD DS
+
+Najvyššia AD DS logical a významná security boundary združujúca domains so spoločnou schema, configuration a Global Catalog modelom. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Forest recovery
+
+Koordinovaný recovery proces na obnovu dôveryhodného AD DS forest-u po rozsiahlej corruption alebo compromise udalosti. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Forward-fix migration
 
@@ -3342,6 +3478,14 @@ Agent, ktorý prijíma eligible CI/CD jobs z GitLabu a vykonáva ich pomocou nak
 
 Static Application Security Testing integrované do GitLab CI/CD na detekciu potenciálnych vulnerabilities v source code pomocou language-specific analyzers a rules. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
+## Global Catalog
+
+AD DS capability obsahujúca partial attribute set z objects naprieč forestom pre forest-wide search a vybrané authentication/group-resolution scenáre. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Global group — AD DS
+
+AD DS group scope typicky obsahujúci accounts z rovnakej domény a používaný na reprezentovanie business alebo job membership. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Global ordinals
 
 Lucene/Elasticsearch/OpenSearch dátová štruktúra urýchľujúca aggregations nad keyword values, ktorej memory a build cost rastie pri high-cardinality fields. Pozri [Cardinality](docs/12-observability/cardinality.md).
@@ -3441,6 +3585,10 @@ Regex quantifier, ktorý najprv spotrebuje najväčší možný rozsah a podľa 
 ## Group interval
 
 Minimálny interval pred ďalšou notification aktualizáciou existujúcej Alertmanager group po zmene jej alert setu. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Group Managed Service Account — gMSA
+
+AD DS managed service identity s automatizovanou password lifecycle správou pre podporované Windows services a hosts. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Group sharing — GitLab
 
@@ -3782,6 +3930,10 @@ Infrastructure as a Service: cloud model poskytujúci virtualizované compute, s
 
 Statická alebo plan-level kontrola Infrastructure as Code proti syntax, schema, security a policy pravidlám. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## IAM
+
+Disciplína a platformové capabilities na správu identities, credentials, authentication, authorization, federation, provisioning, privileged access, review a audit. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## IAM Access Analyzer
 
 AWS IAM capability na analýzu external accessu, policy validation a vybrané unused-access alebo policy-generation workflows. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
@@ -3842,9 +3994,17 @@ Batch návrh, pri ktorom opakované alebo duplicitné vykonanie toho istého log
 
 Controller behavior, pri ktorom opakované spracovanie rovnakého desired a actual state-u nevytvára neplánované duplicity alebo ďalšie side effects. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Identity
+
+Reprezentácia osoby, workloadu, zariadenia alebo organizácie používaná naprieč identity a access lifecycle-om. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Identity-based policy — AWS
 
 IAM policy pripojená k userovi, group alebo role, ktorá povoľuje alebo denyuje actions nad resources podľa request contextu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Identity proofing
+
+Proces zhromažďovania a overovania evidence, ktorým sa digitálna identita spoľahlivo priraďuje reálnej osobe alebo entite. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## `ignore_changes` — Terraform
 
@@ -3909,6 +4069,10 @@ Prístup opisujúci konkrétnu sekvenciu krokov. Pozri [Declarative vs. Imperati
 ## Imperative skeleton — CKA
 
 Rýchlo vygenerovaný Kubernetes manifest cez imperative kubectl command s `--dry-run=client -o yaml`, ktorý sa následne deklaratívne upraví a aplikuje. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
+
+## Impersonation
+
+Mechanizmus, pri ktorom systém alebo administrator vykonáva action ako iný principal, pričom audit má zachovať pôvodného aj impersonovaného actora. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Implicit deny — IAM
 
@@ -4186,6 +4350,10 @@ Počet úspešných alebo failed Job objektov, ktoré CronJob zachováva ako kr�
 
 Zhora nadol vyhodnocované podmienky, ktoré pri vytvorení pipeline rozhodujú, či job vznikne a aké `when`, variables, `needs` alebo failure správanie dostane. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
+## Joiner-mover-leaver lifecycle
+
+Identity governance proces pre vytvorenie identity, zmenu pracovnej funkcie a úplné odstránenie accessu pri odchode. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## journald
 
 Systémová logging služba systemd sprístupnená cez `journalctl`. Pozri [journald a logging](docs/01-linux-and-systems/journald-and-logging.md).
@@ -4194,9 +4362,25 @@ Systémová logging služba systemd sprístupnená cez `journalctl`. Pozri [jour
 
 Deklaratívny schema jazyk na validáciu štruktúry, typov a vybraných constraints JSON dát. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Just-enough administration
+
+Privilege model poskytujúci iba konkrétne administratívne capabilities potrebné na úlohu namiesto full admin shellu alebo broad role. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Just-in-time access
+
+Dočasná aktivácia privilege na obmedzený čas po splnení podmienok ako MFA, approval alebo justification. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
 ## Kafka-buffered tracing
 
 Tracing architecture, v ktorej durable Kafka-compatible queue oddeľuje trace ingestion od storage consumers. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## KDC
+
+Kerberos Key Distribution Center obsahujúce Authentication Service, Ticket-Granting Service a principal/key database. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Kerberos
+
+Ticket-based network authentication protocol používajúci KDC, TGT a service tickets na vzájomnú authentication clientov a services. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## Kernel space
 
@@ -4205,6 +4389,14 @@ Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, device
 ## Key policy — KMS
 
 Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčasťou autorizácie management a cryptographic operations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Key version number — KVNO
+
+Číslo verzie Kerberos long-term key-u používané na zosúladenie ticketu s aktuálnym alebo starším keytab entry. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Keytab
+
+Súbor obsahujúci Kerberos service-principal long-term keys, encryption types a key versions; ide o citlivý service credential. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## `keyword` field
 
@@ -4350,6 +4542,34 @@ Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitL
 
 Versionovaný EC2 launch contract definujúci AMI, instance type, network, storage, IAM, metadata, user data a ďalšie launch settings. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## LDAP
+
+Aplikačný protocol na prístup k hierarchickým directory službám cez operations ako Bind, Search, Add, Modify a Delete. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAP control
+
+Rozšírenie LDAP operation behavior, napríklad paged results alebo server-side sorting, označené ako critical alebo non-critical. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAP filter
+
+Výraz určujúci, ktoré directory entries zodpovedajú Search requestu; user input musí byť správne escaped. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAP injection
+
+Injection attack vznikajúci vložením neescaped alebo nevalidovaného inputu do LDAP filteru alebo Distinguished Name. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAP referral
+
+LDAP response odkazujúci clienta na iný directory server alebo naming context. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAPS
+
+LDAP connection chránená TLS od začiatku transportného spojenia, typicky na samostatnom porte. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDIF
+
+Textový LDAP Data Interchange Format používaný na reprezentovanie entries a directory changes. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## Leader-elected controller
 
 Controller nasadený vo viacerých instances, ktoré cez Lease koordinujú aktívneho leadera; stále musí tolerovať retries a nie je exactly-once systémom. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -4361,6 +4581,10 @@ Signal, ktorý upozorňuje na blížiaci sa failure pred viditeľným user impac
 ## Lease — Kubernetes
 
 Lightweight object v `coordination.k8s.io` používaný napríklad na Node heartbeats alebo leader election components. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
+## Least privilege
+
+Princíp prideľovania iba permissions potrebných na konkrétnu úlohu, v najmenšom scope-e a na najkratší potrebný čas. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Lens — Well-Architected
 
@@ -4866,6 +5090,10 @@ Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa z
 
 Parser rekonštruujúci viac fyzických log lines do jedného logical recordu, napríklad stack trace-u. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Multimaster replication — AD DS
+
+Replication model, v ktorom môžu directory changes vzniknúť na viacerých writable domain controllers a následne convergovať cez replication metadata a topology. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## multipart upload — S3
 
 S3 upload protocol rozdeľujúci veľký object na samostatne prenášané parts a dokončený explicitným complete requestom. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -4901,6 +5129,10 @@ Opakovateľné časové pravidlo, počas ktorého sa pre matching route neposiel
 ## Mute time interval — Alertmanager
 
 Opakujúce sa časové pravidlo, ktoré mutuje notifications na matched route počas definovaných intervalov. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Mutual authentication — Kerberos
+
+Kerberos flow, pri ktorom client aj service cryptographically overia druhú stranu pomocou zdieľaného session contextu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## Named context — Docker build
 
@@ -4957,6 +5189,14 @@ IPv6 mechanizmus pre neighbor resolution, router discovery a prefix discovery. P
 ## Near-real-time search
 
 Search model, v ktorom acknowledged document nemusí byť okamžite viditeľný, kým neprebehne refresh. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Need-to-do
+
+Obmedzenie privilege na actions nevyhnutné pre pracovnú alebo system task. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Need-to-know
+
+Obmedzenie prístupu k informáciám iba na principals, ktorí ich potrebujú na oprávnenú úlohu. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## `needs` DAG — GitLab
 
@@ -5114,6 +5354,10 @@ Textovo-binárny stream používajúci NUL byte ako oddeľovač, vhodný naprík
 
 Počet DaemonSet Podov bežiacich na Nodes, ktoré podľa aktuálneho DaemonSet placement modelu už nie sú eligible. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
+## Object class — LDAP
+
+Schema definícia typu LDAP entry určujúca required a allowed attributes a inheritance. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## Object-count quota — Kubernetes
 
 ResourceQuota limit počtu API objektov konkrétneho typu, napríklad Pods, Jobs, Secrets, PVCs alebo LoadBalancer Services. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
@@ -5246,9 +5490,9 @@ Najvyšší kontajner AWS Organizations hierarchy, pod ktorým sa nachádzajú O
 
 Trail vytvorený pre AWS Organization, ktorý centralizuje event coverage member accounts do chráneného audit destination modelu. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
-## Organizational unit — OU
+## Organizational Unit — OU
 
-Logická skupina AWS accounts v Organizations hierarchy určená na spoločné policy a lifecycle riadenie; nie je network ani Region boundary. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+AD DS container používaný na organizáciu objects, administrative delegation a aplikáciu Group Policy; nie je plnou security isolation boundary. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Origin Access Control — OAC
 
@@ -5334,6 +5578,10 @@ Explicitné rozdelenie zodpovednosti medzi provider, platform team a application
 
 Platform as a Service: cloud model poskytujúci managed runtime alebo data/application platformu, kde provider spravuje viac infraštruktúrnych a operačných vrstiev než pri IaaS. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## PAC — Kerberos
+
+Microsoft Privilege Attribute Certificate prenášajúci authorization-related identity a group information v Kerberos ticketoch pre Windows authorization scenarios. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Package manager
 
 Nástroj na inštaláciu, upgrade a odstránenie balíkov vrátane dependencies a lokálnej evidencie. Pozri [Package management](docs/01-linux-and-systems/package-management.md).
@@ -5386,6 +5634,10 @@ Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa po
 
 Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad vytvorí external resource, ale nestihne uložiť jeho identity do statusu, a musí sa bezpečne zotaviť pri retry. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Pass-the-ticket
+
+Attack, pri ktorom útočník použije ukradnutý Kerberos TGT alebo service ticket bez znalosti pôvodného passwordu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Password-client script — Ansible Vault
 
 Executable helper poskytujúci vault password z chráneného zdroja, typicky po autentifikácii job identity voči secret manageru. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -5409,6 +5661,10 @@ Zraniteľnosť, pri ktorej vstup s prvkami ako `..` alebo absolútnou cestou uni
 ## PathType — Ingress
 
 Ingress field určujúci semantics HTTP path matching-u ako `Exact`, `Prefix` alebo `ImplementationSpecific`. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## PDC Emulator
+
+Per-domain FSMO role významná pre time hierarchy, password-change preference, lockout a compatibility scenáre. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Pending alert
 
@@ -5437,6 +5693,10 @@ Well-Architected pillar zameraný na efektívny výber a používanie compute re
 ## Performance test
 
 Test časových a kapacitných vlastností systému pri explicitnom workload modeli, prostredí a success criteria. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## Permissions boundary
+
+Guardrail určujúci maximálny permissions envelope identity bez samostatného udelenia accessu. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Permissions boundary — IAM
 
@@ -5594,17 +5854,33 @@ Obnova podporovaného resource-u do konkrétneho času z continuous backup recov
 
 Obnova novej RDS database do vybraného času v automated-backup recovery windowe pomocou snapshots a retained transaction logs. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
+## Policy Administration Point — PAP
+
+Komponent alebo proces, ktorý vytvára, mení a publikuje authorization policies. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Policy as Code
 
 Strojovo vyhodnotiteľná bezpečnostná alebo prevádzková policy spravovaná ako verzovaný kód s testami a exception lifecycle. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
+
+## Policy Decision Point — PDP
+
+Komponent vyhodnocujúci authorization request voči policies a contextu a vracajúci allow alebo deny decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Policy enforcement point — network
 
 Miesto v packet path-e, kde CNI alebo iný dataplane vyhodnocuje a aplikuje network policy; jeho poloha voči NAT, Service translation a host trafficu ovplyvňuje pozorované addresses a semantics. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
 
+## Policy Enforcement Point — PEP
+
+Komponent pri resource boundary, ktorý presadzuje authorization decision a povolí alebo zablokuje operation. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Policy exception — Terraform
 
 Časovo obmedzený a auditovaný override konkrétnej policy s ownerom, dôvodom, compensating controls, approvalom, expiration a remediation plánom. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Policy Information Point — PIP
+
+Zdroj trusted attributes a contextu potrebných na authorization decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Policy peer — NetworkPolicy
 
@@ -5638,6 +5914,10 @@ Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či
 
 Abstraction layer sprístupňujúca datasources ako filesystem, registry, certificates alebo environment cez jednotné cmdlets a drives. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Pre-authentication — Kerberos
+
+Mechanizmus, ktorým client pred vydaním TGT preukazuje kontrolu nad long-term credentialom alebo iným initial authentication factorom. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Pre-release identifier
 
 SemVer časť za pomlčkou, napríklad `rc.1`, označujúca verziu s nižšou precedence než zodpovedajúci final release. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
@@ -5670,6 +5950,10 @@ Control znižujúci pravdepodobnosť vzniku bezpečnostného incidentu. Pozri [C
 
 Autoritatívna shard kópia subsetu documents, z ktorej sa koordinuje replication. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Principal
+
+Security identity používaná pri authentication alebo authorization, napríklad user, workload, service alebo device. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## PriorityClass
 
 Cluster-scoped Kubernetes resource definujúci numerickú Pod priority a preemption policy semantics. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -5685,6 +5969,10 @@ NAT Gateway bez Elastic IP určený na private network address translation cez p
 ## Private subnet — AWS
 
 Subnet bez priameho inbound internet pathu, ktorý môže používať NAT, VPC endpoints, proxy alebo hybrid connectivity pre outbound alebo private access. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Privilege creep
+
+Postupné hromadenie nepotrebných alebo zastaraných permissions počas zmien role, projektov a manuálnych grants. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Privileged container
 
@@ -6142,6 +6430,10 @@ Test chrániaci existujúce funkčné alebo nefunkčné správanie pred nechceno
 
 Zmena passwordu alebo vault identity použitej na šifrovanie existujúceho Vault contentu; nemení automaticky samotný cieľový application credential. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Relative Distinguished Name — RDN
+
+Časť Distinguished Name identifikujúca LDAP entry relatívne voči jeho parent entry. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## Release
 
 Produktové alebo procesné rozhodnutie sprístupniť funkcionalitu používateľom. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
@@ -6470,6 +6762,10 @@ Progressive rollout cez stabilné deployment rings s rastúcou reprezentatívnos
 
 Rollout policy, ktorá mení exposure, observation window, approval alebo recovery mechanizmus podľa business criticality, blast radiusu a compatibility rizika konkrétnej zmeny. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
+## Role-Based Access Control — RBAC
+
+Authorization model, ktorý združuje permissions do roles a tieto roles priraďuje principals v konkrétnom scope-e. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Role contract — Ansible
 
 Verejné a prevádzkové rozhranie role tvorené inputs, defaults, outputs/facts, handlers, side effects, supported platforms, privileges, idempotency a upgrade behaviorom. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
@@ -6482,6 +6778,18 @@ Verejné a prevádzkové rozhranie role tvorené inputs, defaults, outputs/facts
 
 Metadata vzťah spôsobujúci vykonanie inej role pred závislou role; pri nadmernom používaní môže skryť orchestration graph. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Role engineering
+
+Disciplína navrhovania roles z pracovných tasks, required permissions, resource scopes, constraints, ownershipu a usage evidence. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Role explosion
+
+Nekontrolovaný rast počtu roles pri modelovaní každej kombinácie tímu, prostredia, aplikácie, resource scope-u a privilege levelu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Role — Kubernetes
+
+Namespaced Kubernetes RBAC objekt obsahujúci additive allow rules pre resources v konkrétnom namespace. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Role — Kubernetes RBAC
 
 Namespaced RBAC ruleset definujúci povolené verbs nad resources a subresources v konkrétnom namespace scope-e. Pozri [RBAC](docs/09-kubernetes/rbac.md).
@@ -6493,6 +6801,10 @@ Role variables s vyššou precedence uložené typicky vo `vars/main.yml`, vhodn
 ## RoleBinding
 
 Namespaced RBAC binding udeľujúci Role alebo ClusterRole rules subjects v namespace bindingu. Pozri [RBAC](docs/09-kubernetes/rbac.md).
+
+## RoleBinding — Kubernetes
+
+Kubernetes RBAC objekt, ktorý priraďuje Role alebo ClusterRole principals v konkrétnom namespace. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Roll-forward
 
@@ -6702,6 +7014,10 @@ Runtime model pridávajúci medzi container workload a host kernel ďalšiu isol
 
 Krátka cielená kontrola konkrétnej zmeny alebo opravy. Význam sa medzi tímami líši, preto musí mať explicitný scope. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
 
+## SASL — LDAP
+
+Simple Authentication and Security Layer framework používaný LDAP na podporu rôznych authentication mechanisms nad rámec simple bindu. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## SAST — Static Application Security Testing
 
 Statická bezpečnostná analýza source, bytecode alebo intermediate representation bez spustenia celej aplikácie. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
@@ -6797,6 +7113,14 @@ Minimalistický Dockerfile stage `FROM scratch` bez base filesystemu, vhodný ib
 ## SDLC — Software Development Life Cycle
 
 Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
+
+## Search base — LDAP
+
+Distinguished Name určujúci východiskový entry pre LDAP Search operation. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## Search scope — LDAP
+
+Rozsah LDAP Search operation: base object, one level alebo subtree. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Seccomp profile — container
 
@@ -6986,6 +7310,10 @@ IAM role previazaná s konkrétnou AWS službou, ktorej trust a permissions life
 
 Port publikovaný Kubernetes Service contractom pre klientov, odlišný od backend `targetPort`. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## Service principal name — SPN
+
+Kerberos identity služby viazaná na service class a hostname, ktorú client používa pri žiadosti o service ticket. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Service responsibility matrix
 
 Tabuľka mapujúca pre konkrétnu cloud službu provider, customer a shared responsibilities v oblastiach compute, identity, network, data, encryption, logging, patching a recovery. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
@@ -6993,6 +7321,10 @@ Tabuľka mapujúca pre konkrétnu cloud službu provider, customer a shared resp
 ## Service selector
 
 Label selector, podľa ktorého EndpointSlice controller odvodzuje backend Pods pre selector-based Service. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Service ticket — Kerberos
+
+Časovo obmedzený ticket vydaný KDC pre konkrétny service principal a šifrovaný long-term key-om služby. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## Service troubleshooting chain
 
@@ -7013,6 +7345,10 @@ Identifikátor intended recipienta tokenu, ktorý zabraňuje použitiu tokenu vy
 ## ServiceAccount username
 
 Canonical authenticated identity `system:serviceaccount:<namespace>:<name>` používaná v authorization a audit logoch. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
+## Session
+
+Dočasný authenticated context vytvorený po úspešnej authentication a používaný na ďalšie authorization decisions. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Session affinity
 
@@ -7121,6 +7457,10 @@ Dočasné potlačenie notifications pre alerts matchujúce definovaný label set
 ## Silent error
 
 Failure, ktorý neprodukuje bežný explicitný error status, napríklad `200` s chybným obsahom, nespracovaná async message alebo neobnoviteľný backup. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Simple Bind — LDAP
+
+LDAP Bind mechanism používajúci identity a password; musí byť chránený TLS, pretože sám neposkytuje transport encryption. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Single-release dependency graph — Helm
 
@@ -7250,9 +7590,17 @@ Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho com
 
 Semantics, ktorou Prometheus prestane považovať starú sample za aktuálnu po zmiznutí targetu alebo series. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Standing privilege
+
+Permission alebo role, ktorá je principalu aktívne pridelená nepretržite bez samostatnej time-bound activation. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
 ## Starting deadline — CronJob
 
 Maximálne oneskorenie po plánovanom čase, počas ktorého môže CronJob controller ešte vytvoriť príslušný Job. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## StartTLS — LDAP
+
+LDAP extended operation, ktorá upgraduje existujúcu plaintext LDAP connection na TLS-protected connection. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Startup health
 
@@ -7330,6 +7678,10 @@ Pod spravovaný priamo kubeletom na konkrétnom Node-e z local manifestu, bez be
 
 Model, v ktorom administrator vytvorí PV pre vopred existujúci storage asset a PVC sa naň následne bindne. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Static separation of duties
+
+Constraint zakazujúci prideliť jednému principalu konfliktujúce roles alebo entitlements súčasne. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Steady state — chaos engineering
 
 Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -7401,6 +7753,10 @@ Kontrolovaná náhrada dependency vracajúca vopred pripravené odpovede pre ria
 ## Subgroup — GitLab
 
 Group vnorená v parent group, používaná na delegovanie ownershipu, členstva a policy pre podmnožinu projects. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Subject
+
+Entita, ktorá iniciuje operation alebo pristupuje k resource-u a je reprezentovaná principalom v security context-e. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## SubjectAccessReview
 
@@ -7485,6 +7841,10 @@ Deklaratívny objekt spravovaný systemd, napríklad `.service`, `.socket` alebo
 ## Systems Manager rate controls
 
 Concurrency a error-threshold nastavenia obmedzujúce paralelný rollout command alebo automation operácie a zastavujúce ďalšie targets po failure prahu. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## SYSVOL
+
+AD DS replicated share obsahujúci Group Policy template data a domain logon scripts. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## T-shaped engineer
 
@@ -7742,6 +8102,14 @@ Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshoo
 
 EFS configuration určujúca, ako filesystem získava a účtuje dostupný aggregate throughput, napríklad Bursting, Provisioned alebo Elastic. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
+## Ticket-Granting Service — Kerberos TGS
+
+Časť KDC, ktorá na základe validného TGT vydáva service tickets pre požadované service principals. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Ticket-Granting Ticket — TGT
+
+Kerberos ticket používaný clientom na získavanie service tickets bez opakovaného zadávania passwordu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Time-series cardinality
 
 Počet unikátnych kombinácií metric label values; nekontrolované dynamické labels výrazne zvyšujú memory, storage a query náklady. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
@@ -7937,6 +8305,10 @@ Cloud cost prepočítaný na business jednotku, napríklad request, transakciu, 
 ## Unit test
 
 Rýchly test malej izolovanej jednotky správania s úzkym diagnostickým scope-om. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
+
+## Universal group — AD DS
+
+AD DS group scope, ktorý môže obsahovať principals z viacerých domains vo forest-e a je replikovaný cez Global Catalog podľa platform semantics. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Unknown value — Terraform
 
