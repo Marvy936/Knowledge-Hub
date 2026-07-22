@@ -1,952 +1,577 @@
 # Supply-chain security
 
-Software supply-chain security chráni dôveryhodnosť software-u od source revision cez dependencies, build, signing, registry a deployment až po runtime. Nejde iba o kontrolu open-source packages. Každý systém, ktorý môže zmeniť alebo nahradiť výsledný artifact, metadata alebo deployment decision, je súčasťou supply chain.
+Software supply-chain security chráni dôveryhodnosť software-u od vzniku source revision cez dependency resolution, build, signing, distribution a deployment až po runtime. Nejde iba o scanning open-source packages. Súčasťou supply chain je každý človek, credential, service alebo artifact, ktorý môže ovplyvniť výsledné bytes, ich identity, metadata alebo rozhodnutie, čo sa nasadí.
 
-## 1. Mentálny model
+Základný problém je zachovať dôveru medzi analýzou source a artifactom, ktorý consumer skutočne spustí. Source môže prejsť review a testami, ale compromised builder, mutable dependency, package-publish credential alebo registry tag môže neskôr nahradiť výsledok.
 
 ```text
-source identity a revision
+source revision a change history
 → dependency resolution
-→ build instructions a build platform
-→ artifact a provenance
-→ signing a release approval
-→ registry alebo package repository
-→ promotion a deployment policy
-→ runtime verification a incident response
+→ build definition a build platform
+→ immutable artifact
+→ provenance, SBOM a signatures
+→ registry a promotion
+→ deployment policy
+→ runtime inventory a incident response
 ```
 
-Supply-chain control musí odpovedať na tri otázky:
+## 1. Tri otázky supply-chain dôvery
+
+Každý consumer by mal vedieť odpovedať:
+
+1. **Čo presne spúšťame?** Odpoveď vyžaduje immutable artifact identity, napríklad package hash alebo OCI digest.
+2. **Odkiaľ artifact vznikol?** Odpoveď poskytuje provenance viazaná na source revision, build definition, dependencies a builder identity.
+3. **Prečo mu dôverujeme?** Odpoveď vzniká policy decisionom nad source controls, build guarantees, signer identities, attestations a environment requirements.
+
+Hash odpovedá iba na content identity. Signature odpovedá, kto podpísal subject. SBOM opisuje components. Provenance opisuje build. Žiadny z týchto artifacts samostatne nevytvára kompletný trust decision.
+
+## 2. Software supply chain je graph, nie lineárna pipeline
+
+Reálny artifact má množstvo vstupov. Application repository používa language dependencies, base image, compiler, reusable CI workflow, third-party actions a build service. Každý dependency artifact má vlastnú supply chain.
 
 ```text
-Čo presne spúšťame?
-→ Odkiaľ to vzniklo?
-→ Prečo tomu dôverujeme?
+application repository ─┐
+base image ──────────────┤
+package dependencies ───┼→ build platform → image digest
+compiler a toolchain ────┤                      │
+CI actions/workflows ────┘                      ├→ provenance
+                                                ├→ SBOM
+                                                └→ signature
 ```
 
-Hash, signature, SBOM ani provenance samostatne neodpovedajú na všetky tri.
+Graph model odhaľuje transitive trust. Pinovaný application source nepomôže, ak build stiahne mutable installer script. Hardened builder nepomôže, ak deployment používa neoverený tag namiesto digestu.
 
-## 2. Čo je software supply chain
-
-Software supply chain zahŕňa:
-
-- source-control systems,
-- maintainers, reviewers a administrators,
-- package managers a dependency resolvers,
-- upstream packages, modules, images, charts a actions,
-- build scripts, compilers a toolchains,
-- CI/CD workflows, runners, caches a artifact stores,
-- registries a release repositories,
-- signing identities, keys a transparency services,
-- deployment controllers a admission policies,
-- update clients a runtime environments.
-
-Boundary nie je daná organizačným vlastníctvom. Externý package registry alebo hosted CI je stále súčasťou trust modelu.
+Pre každý node a edge treba poznať ownera, immutable identifier, update path, write authority, verification mechanism, compromise impact a recovery procedure.
 
 ## 3. Producer, distributor a consumer
 
-### Producer
+**Producer** spravuje source, build process a release evidence. Môže byť interný tím alebo upstream open-source project.
 
-Vytvára source, build process, artifact a evidence.
+**Distributor** ukladá a doručuje packages, images, signatures, SBOMs a provenance. Registry alebo package repository nemusí byť pôvodným producerom.
 
-### Distributor
+**Consumer** rozhoduje, či artifact použije. Consumer musí overiť identity, integrity, provenance a compatibility so svojou policy; nemá automaticky preberať trust decision producer-a.
 
-Ukladá a doručuje artifact, signatures, SBOM a provenance.
+Jedna organizácia môže vykonávať všetky tri role, ale trust boundaries zostávajú. Internal registry account compromise je stále distribution threat. Internal CI administrator je stále privileged actor voči build platforme.
 
-### Consumer
+## 4. Chránené assets a authority
 
-Overuje identity, digest, policy a suitability pred použitím.
+Supply-chain security chráni viac než source files. Kritické assets zahŕňajú:
 
-Jedna organizácia môže vykonávať všetky tri role, ale trust decisions majú zostať explicitné.
+- repository history, protected branches a release revisions;
+- branch protection, CODEOWNERS a approval rules;
+- dependency manifests, lockfiles a registry configuration;
+- build definitions, reusable workflows a actions;
+- runner images, compilers, toolchains a build caches;
+- package-publish, registry a signing credentials;
+- artifact digests, provenance, SBOMs a signatures;
+- registry namespaces, release channels a promotion records;
+- deployment policies, trust roots a audit evidence.
 
-## 4. Chránené assets
+Authority je schopnosť meniť alebo schváliť tieto assets. Attacker nemusí editovať application source, ak vie zmeniť workflow, presunúť release tag, publikovať package do prehľadávaného namespace-u alebo prepísať deployment manifest.
 
-Kritické assets zahŕňajú:
+## 5. Threat classes podľa supply-chain stage
 
-- source history a protected branches,
-- release tags a source revisions,
-- build definitions,
-- dependency lockfiles,
-- build runner identity a isolation,
-- package-publish credentials,
-- signing keys alebo workload identities,
-- artifact digests,
-- provenance a attestations,
-- registry namespaces,
-- deployment policies,
-- audit evidence.
+Threaty sa ľahšie analyzujú podľa boundary, ktorú napádajú.
 
-Útočník nepotrebuje meniť application source, ak vie zmeniť build script, cache, dependency, package namespace alebo published artifact.
+**Source threats** zahŕňajú malicious contribution, account takeover, history rewrite a bypass review controls.
 
-## 5. Supply-chain graph
+**Dependency threats** zahŕňajú dependency confusion, typosquatting, namespace takeover, compromised maintainer release a mutable version resolution.
 
-Lineárny pipeline diagram nestačí. Reálny model je graph:
+**Build threats** zahŕňajú workflow injection, compromised runner, cross-tenant contamination, cache poisoning, secret theft a malicious compiler alebo toolchain.
 
-```text
-repository A ─┐
-package B ────┼→ builder → image digest D → registry → deployment
-base image C ─┤              ↑
-action E ─────┘              provenance + SBOM + signature
-```
+**Distribution threats** zahŕňajú package overwrite, tag substitution, registry compromise, mirror inconsistency, rollback a deletion signatures alebo attestations.
 
-Pre každý node a edge eviduj:
+**Deployment threats** zahŕňajú policy bypass, direct deployment path, neoverený digest, stale trust roots a unauthorized promotion.
 
-- ownera,
-- identifier a version,
-- trust root,
-- write authority,
-- verification mechanism,
-- update path,
-- compromise impact,
-- recovery procedure.
+Threat model má určiť, ktoré controls bránia jednotlivým attacks a ktoré iba poskytujú evidence po incidente.
 
-## 6. Threat classes
+## 6. Source revision oproti named reference
 
-Typické threat classes:
-
-- malicious source contribution,
-- maintainer alebo administrator account takeover,
-- dependency confusion alebo typosquatting,
-- compromised upstream release,
-- mutable tag alebo branch substitution,
-- CI workflow injection,
-- runner alebo build-platform compromise,
-- cache a artifact poisoning,
-- package-publish credential theft,
-- signature alebo provenance forgery,
-- registry overwrite alebo deletion,
-- policy bypass pri deploymente,
-- rollback na starý vulnerable artifact,
-- evidence omission alebo metadata mismatch.
-
-Vulnerable dependency a malicious dependency sú odlišné incidenty. Prvý môže obsahovať neúmyselnú chybu; druhý môže vykonávať attacker intent aj bez známeho CVE.
-
-## 7. Source identity
-
-Source musí byť identifikovaný stabilným repository locatorom a immutable revision identifierom.
+Git commit SHA identifikuje konkrétnu source revision. Branch a mnohé tags sú named references, ktoré možno presunúť.
 
 ```text
-repository identity + revision digest
+main
+→ pohyblivý reference
+
+commit 4f2a...
+→ konkrétna revision
 ```
 
-Branch alebo tag je human-friendly reference, nie dostatočná immutable identity. Release evidence má ukazovať na konkrétnu revision.
+Build z `main` bez zaznamenania resolved commit SHA nie je reproducible ani auditovateľný. Release tag môže byť intended immutable, ale Git technicky umožňuje jeho force-update; platform policy musí immutability presadiť.
 
-## 8. Source-control governance
+Consumer provenance má overovať revision identifier a expected repository identity, nie iba branch name.
 
-Minimálny model pre protected source:
+## 7. Protected branches a change-management controls
 
-- centralizovaná identity a MFA,
-- least-privilege repository roles,
-- protected default a release branches,
-- pull request alebo merge request workflow,
-- required status checks,
-- zákaz force push a deletion,
-- review po poslednej zmene,
-- audit administratívnych zmien,
-- break-glass proces,
-- pravidelný access review.
+Protected branch chráni process vzniku source revision. Typické controls sú mandatory review, required checks, signed changes podľa risku, restricted push, linear history alebo merge queue a zákaz force-push.
 
-Repository setting je security control iba vtedy, keď je jeho kontinuita monitorovaná a zmenu nemožno skryto obísť.
+Control je účinný iba vtedy, ak ho administrator alebo automation nemôže potichu obísť. Bypass permissions musia byť minimálne, auditované a používané iba cez break-glass process.
 
-## 9. Code review
+Required check musí byť viazaný na správny commit. Ak approval alebo test result zostane platný po zmene diff-u, attacker môže vložiť code po review.
 
-Review znižuje riziko chyby a unilateral malicious change.
+Branch protection nezaručuje correctness source-u. Reviewer môže schváliť malicious zmenu alebo compromised trusted account môže konať v rámci svojich permissions. Znižuje však unilateral change authority a zlepšuje evidence.
 
-Silný review contract určuje:
+## 8. CODEOWNERS a two-party review
 
-- kto je trusted reviewer,
-- ktoré paths vyžadujú CODEOWNERS,
-- koľko approvals je potrebných,
-- či nový push invaliduje approval,
-- či reviewer vidí generated artifacts a workflow diff,
-- ako sa rieši emergency change,
-- kto môže bypass-nuť pravidlo.
+CODEOWNERS mapuje paths na teams alebo reviewers, ktorí rozumejú príslušnej security boundary. Workflow, authentication code a deployment policy môžu vyžadovať odlišných owners než application UI.
 
-Dve approvals od dvoch účtov nie sú automaticky two-party control, ak ich ovláda tá istá osoba alebo automatizácia.
+Two-party review znamená, že author nemôže sám vytvoriť aj schváliť protected revision. SLSA Source L4 používa review ako ochranu pred insider threats a compromised individual accountom.
 
-## 10. SLSA Source track
+Review nesmie byť iba kliknutie. Reviewer potrebuje diff, generated artifacts, test evidence a informáciu o transitive changes, napríklad updated lockfile alebo reusable workflow SHA.
 
-SLSA 1.2 Source track popisuje rastúce guarantees pre source revisions:
+Emergency self-merge môže existovať ako break-glass, ale musí byť explicitne logovaný, časovo obmedzený a následne reviewed.
+
+## 9. Source-control administrator threat
+
+Repository administrator môže meniť branch rules, users, webhooks alebo history. Preto je source-control system súčasťou trusted computing base.
+
+Controls zahŕňajú phishing-resistant MFA, just-in-time administration, separate admin identities, audit export, change alerts a recovery ownership mimo jedného accountu.
+
+Ak attacker získa admin account, môže vytvoriť technically valid revision bez obvyklého review. Source provenance alebo audit musí umožniť zistiť, ktoré controls boli pri vytvorení revision skutočne presadené.
+
+## 10. Dependency resolution je executable policy
+
+Manifest vyjadruje desired dependency constraints. Resolver spolu s registries, lockfile-om a platform-specific rules rozhoduje, ktoré exact artifacts build použije.
 
 ```text
-Source L1 → version-controlled source
-Source L2 → zachovaná history a source provenance
-Source L3 → kontinuálne technical controls
-Source L4 → two-party review
+manifest constraints
++ registry priority
++ available versions
++ platform qualifiers
++ lockfile state
+→ resolved dependency graph
 ```
 
-Level je claim o konkrétnej source revision a enforcemente, nie všeobecné označenie organizácie.
+Nejasná version range alebo chýbajúci lockfile umožňuje, aby rovnaký source neskôr resolve-nul iné bytes. To môže byť legitímny update, ale znižuje reproducibility a mení trust without source diff.
 
-## 11. Maintainer identity compromise
+Lockfile má byť reviewovaný a viazaný na integrity hashes, ak ecosystem podporuje. Update automation musí vytvárať oddelené, testovateľné changes namiesto neviditeľného resolution pri release build-e.
 
-Controls:
+## 11. Dependency confusion
 
-- phishing-resistant MFA,
-- hardware-backed credentials,
-- short-lived administrative elevation,
-- separate daily a privileged accounts,
-- protected recovery methods,
-- alerting na nové tokens, keys a sessions,
-- organization-wide session revocation,
-- signed administrative audit trail,
-- emergency repository lockdown.
+Dependency confusion vzniká, keď resolver vyberie attacker-controlled public package namiesto intended private package s rovnakým názvom. Príčinou je kombinácia namespace ambiguity, registry priority a version selection.
 
-Po takeover-e nestačí zmeniť password. Treba overiť source history, branch rules, workflows, secrets, release artifacts, deploy keys, webhooks a package registries.
-
-## 12. Commit a tag signatures
-
-Signed commit alebo tag môže dokazovať, že určitý key alebo identity podpísala konkrétny Git object.
-
-Nedokazuje automaticky:
-
-- že signer mal právo zmenu schváliť,
-- že review prebehlo,
-- že build použil daný commit,
-- že artifact zodpovedá source,
-- že key nebol kompromitovaný,
-- že deployment prijal správny artifact.
-
-Signature musí byť vyhodnotená policy engine-om s identity a authorization contextom.
-
-## 13. Dependency trust
-
-Pre každú dependency vyhodnoť:
-
-- package ecosystem a namespace,
-- supplier alebo maintainer,
-- source repository,
-- release process,
-- version a digest,
-- license,
-- maintenance status,
-- vulnerability a malicious-package signals,
-- update cadence,
-- transitive graph,
-- replacement a removal cost.
-
-Popularita nie je security assurance.
-
-## 14. Direct a transitive dependencies
-
-Direct dependency je explicitne deklarovaná application.
-
-Transitive dependency je privedená inou dependency.
-
-Risk sa môže nachádzať hlboko v graph-e:
+Príklad:
 
 ```text
-application
-→ framework
-→ serializer
-→ parser
-→ compromised utility
+internal manifest: company-utils >= 1.0
+public registry: attacker publikuje company-utils 99.0
+resolver preferuje najvyššiu verziu
+→ malicious package vstúpi do buildu
 ```
 
-Lockfile a SBOM musia zachytiť resolved graph, nie iba top-level manifest.
+Controls sú private namespace reservation, explicitná registry mapping, scoped package names, lockfiles, allowlisted sources a monitoring neočakávaných public names.
 
-## 15. Dependency confusion
+Iba block public internetu nemusí stačiť, ak build používa proxy registry, ktorá namespaces mieša.
 
-Dependency confusion vzniká, keď resolver vyberie attacker-controlled package z public registry namiesto zamýšľaného private package-u.
+## 12. Typosquatting a namespace takeover
 
-Controls:
+Typosquatting používa podobný názov package-u, napríklad zamenené písmeno alebo separator. Developer package pridá vedome, ale vyberie attacker-controlled project.
 
-- oddelené a rezervované namespaces,
-- explicitné registry routing,
-- private registry authentication,
-- zákaz nečakaného public fallbacku,
-- internal package-name monitoring,
-- lockfile a integrity hashes,
-- egress restrictions pre builders,
-- test na resolver precedence.
+Namespace takeover nastáva, keď abandoned alebo expired namespace získa nový owner. Existing dependency name zostáva rovnaký, ale authority sa zmení.
 
-## 16. Typosquatting a namespace takeover
+Controls zahŕňajú dependency review, registry owner monitoring, popularity-independent allowlists, package signatures a automated detection podobných names. High-impact dependencies majú mať explicitného ownera a replacement plan.
 
-Typosquatting využíva podobný názov package-u.
+## 13. Version pinning a digest pinning
 
-Namespace takeover využíva opustený, expirovaný alebo nepridelený namespace.
+Version pinning obmedzuje resolver na konkrétnu release version. Digest pinning viaže dependency na exact content.
 
-Kontroluj:
+Version môže byť mutable v ecosystemoch, ktoré povoľujú overwrite alebo republish. Digest poskytuje silnejšiu content identity, ale stále nedokazuje, že content je bezpečný alebo authorized.
 
-- exact package identity,
-- publisher history,
-- repository link,
-- release age,
-- owner changes,
-- unexpected install scripts,
-- dependency graph delta,
-- package digest.
+Pinning znižuje neplánované changes, ale zvyšuje povinnosť pravidelne aktualizovať. Permanentne pinovaná vulnerable dependency nie je bezpečná iba preto, že je reproducible.
 
-## 17. Version constraints, lockfiles a digests
+Správny model kombinuje immutable resolution, update automation, testy, vulnerability monitoring a controlled promotion.
 
-Version range vyjadruje compatibility intent.
+## 14. Dependency update automation
 
-Lockfile zaznamenáva konkrétny resolved graph.
+Bots môžu pravidelne vytvárať pull requests pre dependency updates. Automatizácia skracuje exposure window, ale môže zahltiť reviewers alebo zlúčiť malicious upstream release príliš rýchlo.
 
-Digest viaže consumera na konkrétny obsah.
+Update workflow má:
+
+- oddeliť dependencies podľa risku;
+- zachovať changelog, diff a provenance evidence;
+- spustiť tests a policy checks;
+- používať cooldown pre neočakávané upstream releases podľa risku;
+- neauto-mergeovať major alebo high-impact changes bez review;
+- overiť registry, maintainer a artifact identity.
+
+Automation je consumer, nie trust oracle. Musí aplikovať organization policy.
+
+## 15. Third-party CI actions a reusable workflows
+
+CI action alebo reusable workflow je executable dependency s prístupom k checkoutu, environmentu, tokens a často secrets. Compromised action môže meniť artifact alebo exfiltrovať credentials.
+
+GitHub odporúča pin third-party actions na full-length commit SHA, pretože tag môže byť presunutý. SHA pinning zaručí exact Git object, ale nie bezpečnosť jeho code-u.
+
+Consumer má reviewovať source, minimalizovať permissions a používať allowlist actions. Dependabot alebo iný update mechanism môže pripravovať controlled SHA upgrades.
+
+Reusable workflow reference musí byť hodnotená rovnako ako application dependency. Workflow, ktorý vydáva production artifact, je súčasť trusted build definitionu.
+
+## 16. Workflow injection
+
+Workflow injection vzniká, keď untrusted data vstúpia do generated shell scriptu alebo command line bez bezpečného data channelu.
+
+Napríklad pull-request title vložený priamo do `run:` bloku môže uzavrieť string a spustiť attacker command. Environment variable alebo action input oddeľuje data od script source-u, ale called program stále musí bezpečne spracovať argument.
+
+Untrusted pull requests nesmú dostať production secrets, signing identities ani write tokens. Eventy ako `pull_request_target` vyžadujú zvláštnu opatrnosť, pretože workflow môže bežať v trusted base context-e nad attacker-controlled code.
+
+## 17. CI token permissions
+
+CI job dostáva identity a permissions podľa platformy. Default broad write token zväčšuje blast radius každého compromised step-u.
+
+Permissions majú byť explicitné per workflow alebo job. Build job typicky potrebuje read source a write do isolated artifact store, nie administration repository. Release job môže potrebovať registry write a OIDC token, ale nemá spúšťať untrusted code.
+
+Short-lived workload identity je lepšia než static cloud key. Trust policy však musí obmedziť repository, workflow, branch, environment a audience.
+
+## 18. Hosted a self-hosted runners
+
+Runner vykonáva untrusted build code a má access k workspace, networku a credentials jobu. Je to silná trust boundary.
+
+Ephemeral hosted runner sa po jobe zahodí, čo znižuje persistence medzi builds. Self-hosted runner môže mať internú connectivity a persistent disk; malicious job môže zanechať process, modify toolchain alebo ukradnúť credentials budúceho jobu.
+
+Self-hosted runner pre public alebo untrusted pull requests potrebuje silnú izoláciu a ephemeral lifecycle. Shared long-lived shell runner nemá byť použitý na miešanie untrusted a production signing jobs.
+
+Runner labels nie sú security boundary samy osebe. Policy musí kontrolovať, kto môže spustiť job na danom runner group-e.
+
+## 19. Build isolation
+
+Build isolation zabraňuje, aby jeden build ovplyvnil iný build alebo platform control plane. Zahŕňa filesystem, process, network, secret a cache boundaries.
+
+SLSA Build L3 vyžaduje hardened build platform, ktorá bráni runs ovplyvňovať sa navzájom a chráni provenance signing material pred user-defined steps.
+
+Container isolation môže byť nedostatočná pri privileged builds, mounted Docker sockete alebo shared host directories. Vyšší-risk builds môžu potrebovať VM, microVM alebo dedicated ephemeral node.
+
+Isolation treba overovať adversarial tests, nie iba architecture diagramom.
+
+## 20. Build definition a trusted control plane
+
+Build definition určuje steps, inputs, tools, environment a outputs. Ak je definition súčasť source repository, source controls chránia aj build process.
+
+Build platform control plane interpretuje definition, prideľuje runner, injectuje credentials a generuje provenance. Jeho compromise môže meniť outputs bez source change.
+
+Trusted control plane nemá byť ovplyvniteľný user-defined build steps. Signing provenance key alebo OIDC issuance patrí mimo tenant processu.
+
+Version platform components, runner images a reusable workflows má byť zaznamenaná v provenance alebo operations inventory podľa capability.
+
+## 21. Hermetic build
+
+Hermetic build používa deklarované a kontrolované inputs a nečíta neočakávaný network, host filesystem alebo ambient environment state.
+
+Hermeticity zlepšuje reproducibility a audit. Ak build môže stiahnuť `latest` package z internetu, provenance top-level source revision nestačí na rekonštrukciu outputu.
+
+Úplná hermeticity môže byť nákladná. Praktický model používa pre-populated dependency mirror, declared network allowlist a build sandbox a potom postupne znižuje ambient dependencies.
+
+Hermetic build nezaručuje, že declared dependency je bezpečná. Zaručuje najmä, že dependency set je kontrolovaný a pozorovateľný.
+
+## 22. Reproducible build
+
+Reproducible build znamená, že nezávislé buildy z rovnakých declared inputs vytvoria bit-identical alebo definovane equivalent outputs.
+
+Rozdiely môžu spôsobovať timestamps, random IDs, filesystem ordering, compiler paths alebo non-deterministic concurrency.
+
+Reproducibility je silná tamper-detection evidence: independent rebuilder môže porovnať digest s published artifactom. Nie je to automatický proof correctness source-u ani builder-u; dva builds môžu reprodukovať rovnaký malicious source.
+
+Organization má definovať, čo znamená equivalence pre artifacts, ktoré obsahujú unavoidable metadata.
+
+## 23. Build cache poisoning
+
+Cache zrýchľuje build, ale môže prenášať attacker-controlled output medzi trust contexts. Cache key collision, broad restore prefix alebo shared writable cache umožní nahradiť dependency alebo compiled object.
+
+Cache nemá byť authoritative artifact. Release output má byť možné vytvoriť clean buildom bez cache a porovnať výsledok.
+
+Cache namespaces majú oddeľovať untrusted pull requests, protected branches a release builds. Write permissions majú byť užšie než read a integrity checks majú byť viazané na declared inputs.
+
+## 24. Build secrets
+
+Build môže potrebovať registry token, license server credential alebo signing identity. Secret nesmie skončiť v source, image layer, build log, cache ani provenance parameters.
+
+BuildKit secret mounts alebo platform-specific ephemeral secret injection sprístupnia secret iba počas konkrétneho step-u bez persistencie do layeru. Build script však môže secret úmyselne skopírovať alebo exfiltrovať.
+
+Preto production secrets nedávaj untrusted code-u. Oddel build bez secrets od release alebo promotion jobu s úzkymi permissions.
+
+## 25. Artifact identity a build-once-promote-many
+
+Artifact po build-e dostane immutable digest. Test, scan, signing a deployment decisions majú byť viazané na tento digest.
+
+Build-once-promote-many znamená, že staging a production používajú rovnaký content. Promotion mení environment metadata alebo registry location, nie application bytes.
+
+Rebuild pre production ruší väzbu medzi testovaným a nasadeným artifactom. Aj identický source môže vytvoriť iný output pre zmenenú dependency, runner image alebo timestamp.
+
+Promotion musí zachovať signatures, SBOM a provenance a overiť destination digest.
+
+## 26. Provenance
+
+Provenance je verifiable information o tom, kde, kedy a ako artifact vznikol. Typicky obsahuje subject digest, builder identity, build type, external parameters a resolved dependencies.
+
+Provenance umožňuje consumerovi porovnať actual build s expectation:
 
 ```text
-constraint → čo je povolené resolveru
-lockfile   → čo resolver vybral
-digest     → aké presné bytes sa očakávajú
+subject digest sa zhoduje
++ builder je approved
++ source repository a revision sú expected
++ build definition je trusted
++ parameters neobsahujú unsafe override
+→ artifact môže pokračovať
 ```
 
-Lockfile bez integrity fields môže zostať zraniteľný voči registry substitution. Digest pinning bez update automation vytvára stale dependencies.
+Provenance môže byť pravdivá, ale opisovať unsafe process. Policy musí vyhodnotiť claims, nie iba existenciu attestation.
 
-## 18. Dependency update automation
+## 27. SLSA Build Track
 
-Update bot má:
+SLSA 1.2 Build Track definuje rastúce guarantees o provenance a build platforme.
 
-- minimálne permissions,
-- oddelenú identity,
-- bounded package scope,
-- vytvárať reviewable pull requests,
-- aktualizovať lockfile a SBOM,
-- spúšťať testy a policy,
-- neobchádzať review pri sensitive dependencies,
-- nepublishovať releases priamo.
+**Build L0** nemá SLSA guarantees.
 
-Automatizácia znižuje age, ale zároveň vytvára privileged contribution path.
+**Build L1** vyžaduje provenance opisujúcu, ako artifact vznikol. Je užitočná pre inventory a mistakes, ale môže byť ľahko forge-nutá.
 
-## 19. Build definition
+**Build L2** používa hosted build platform, ktorá sama generuje a podpisuje provenance. Consumer overuje authenticity a chráni sa pred tamperingom po build-e.
 
-Build definition zahŕňa:
+**Build L3** vyžaduje hardened platform s isolation medzi runs a ochranou provenance signing materialu pred tenant build steps. Znižuje tampering počas buildu.
 
-- workflow,
-- Dockerfile alebo build script,
-- compiler a toolchain,
-- environment,
-- flags,
-- dependencies,
-- source revision,
-- target platform.
+Vyšší level nie je všeobecný security rating software-u. SLSA nerieši všetky source, dependency, vulnerability alebo deployment threats.
 
-Build definition musí byť versionovaná a reviewovaná. UI-only pipeline changes sú hidden source.
+## 28. SLSA Source Track
 
-## 20. Build platform ako trust boundary
+SLSA 1.2 Source Track opisuje, ako dôveryhodne vznikla source revision.
 
-Build platform má schopnosť:
+- **Source L1** — source je version-controlled a má discrete revisions.
+- **Source L2** — change history je zachovaná a source control system vydáva source provenance.
+- **Source L3** — organization priebežne technicky presadzuje deklarované source controls.
+- **Source L4** — changes vyžadujú two-party review.
 
-- čítať source,
-- získavať dependencies,
-- vykonávať arbitrary code,
-- čítať build secrets,
-- vytvárať artifacts,
-- generovať provenance,
-- často publishovať.
+Source level je claim o process-e od určitého onboarding revisionu, nie retroaktívne o celej histórii. Consumer má overovať Source VSA alebo provenance voči organization expectation.
 
-Preto je builder security boundary porovnateľná s production deployment platformou.
+Source Track a Build Track sa dopĺňajú. Trusted source process bez hardened build-u stále umožňuje build tampering. Hardened build z malicious source vytvorí dôveryhodne malicious artifact.
 
-## 21. Hosted a self-hosted runners
+## 29. in-toto model
 
-### Hosted runner
-
-Výhodou je ephemeral lifecycle a provider-managed isolation. Rizikom je external trust a platform compromise.
-
-### Self-hosted runner
-
-Výhodou je kontrola prostredia. Riziká:
-
-- persistent workspace,
-- stale credentials,
-- cross-job contamination,
-- network access,
-- privileged Docker socket,
-- untrusted code na trusted hoste,
-- nedostatočný patching.
-
-Self-hosted neznamená automaticky dôveryhodnejší.
-
-## 22. Ephemeral build isolation
-
-Preferuj:
-
-- fresh worker per job,
-- immutable base image,
-- no cross-job filesystem,
-- no reusable credentials,
-- scoped network access,
-- unprivileged execution,
-- isolated cache namespace,
-- cleanup verification,
-- workload-bound identity.
-
-Ephemeral worker stále môže byť kompromitovaný počas jedného build runu. Potrebuje bounded authority.
-
-## 23. CI workload identity
-
-Preferuj short-lived federated identity viazanú na:
-
-- repository,
-- workflow,
-- branch alebo environment,
-- commit,
-- job,
-- audience,
-- organization.
-
-Cloud alebo registry trust policy musí validovať konkrétne claims. Samotný dôveryhodný OIDC issuer nestačí.
-
-## 24. CI token permissions
-
-Default má byť read-only.
-
-Write permissions povoľ job-specifically:
-
-- `contents`,
-- packages,
-- deployments,
-- attestations,
-- identity token,
-- security reports.
-
-Build job, ktorý spracúva untrusted source, nemá mať release alebo production authority.
-
-## 25. Untrusted pull-request workflows
-
-Nebezpečný pattern:
+in-toto chráni integrity supply-chain steps pomocou signed layoutu a link metadata. Project owner definuje expected steps a authorized functionaries. Každý step zaznamená materials, products a command evidence.
 
 ```text
-privileged event
-+ attacker-controlled checkout
-+ write token alebo secrets
-→ repository compromise
+signed layout
+→ expected steps a authorized actors
+
+signed links
+→ čo jednotliví actors vykonali a aké inputs/outputs použili
+
+verification
+→ porovná actual chain s layoutom
 ```
 
-Oddel:
+in-toto Attestation Framework poskytuje general statement model používaný aj SLSA predicates. Attestation je authenticated claim; consumer musí dôverovať issuerovi a rozumieť predicate schema.
 
-- untrusted test workflow bez secrets,
-- trusted post-merge build,
-- protected release workflow,
-- manual alebo policy-gated promotion.
+## 30. Signature, attestation, provenance a SBOM
 
-Untrusted metadata nevkladaj priamo do shell scriptu.
+Tieto artifacts majú odlišné semantics:
 
-## 26. Third-party actions a plugins
+- signature — cryptographic binding identity/keyu na subject alebo payload;
+- attestation — signed claim o subjecte;
+- provenance — claim o build/source process-e;
+- SBOM — inventory components a relationships;
+- VEX — vulnerability status productu.
 
-CI action, plugin alebo orb je executable dependency.
+Policy môže požadovať kombináciu. Validná release signature bez provenance nevysvetlí build. Provenance bez SBOM nevysvetlí composition. SBOM bez signature nemusí byť dôveryhodne viazaný na artifact.
 
-Controls:
+## 31. Registry a package repository security
 
-- allowlist,
-- pinning na immutable commit digest,
-- source a maintainer review,
-- minimal inputs a permissions,
-- network restrictions,
-- update automation,
-- removal of unused actions,
-- provenance/signature verification, ak ecosystem podporuje.
+Registry chráni namespaces, manifests, blobs, tags a related artifacts. Write permission k repository je release authority.
 
-Major-version tag je mutable convenience reference.
+Controls zahŕňajú immutable tags pre releases, digest addressing, scoped tokens, deletion protection, audit, retention, replication a garbage collection aware signatures/referrers.
 
-## 27. Build secrets
+Package-publish credential theft môže obísť source a build controls, ak consumer akceptuje každý artifact v namespace. Provenance verification znižuje tento risk: malicious upload bez expected builder attestation je odmietnutý.
 
-Build secret nesmie byť:
+## 32. TUF update security
 
-- dostupný pull-request code-u,
-- baked do layeru,
-- uložený v cache,
-- vypísaný do logu,
-- shared medzi repositories,
-- dlhodobo platný bez revocation.
+The Update Framework pridáva signed metadata a role separation do software update systems. Chráni nielen artifact authenticity, ale aj rollback, freeze, mix-and-match a key-compromise scenarios.
 
-Použi ephemeral credential viazaný na konkrétny build purpose.
+Štyri top-level roles sú:
 
-## 28. Cache poisoning
+- **Root** — definuje trusted keys a thresholds ostatných roles;
+- **Targets** — viaže downloadable files na hashes a metadata;
+- **Snapshot** — poskytuje consistent view versions targets metadata;
+- **Timestamp** — krátkodobé online metadata signalizujú freshness snapshotu.
 
-Cache key musí byť viazaný na relevantný trust context:
+Delegated targets roles rozdeľujú authority podľa paths alebo products. Expirations a version numbers umožňujú clientovi odmietnuť stale alebo rollback metadata.
 
-- repository,
-- branch/trust level,
-- dependency lock digest,
-- toolchain version,
-- target platform.
+TUF nerieši bezpečnosť samotného source alebo buildu; chráni update distribution a trust-root rotation.
 
-Untrusted branch nesmie zapisovať cache, ktorú bez validácie používa protected release build.
+## 33. Artifact promotion a environment policy
 
-## 29. Artifact poisoning
+Promotion je decision, že konkrétny artifact digest smie postúpiť do environmentu. Nemá byť rebuildom ani copy bez verification.
 
-Intermediate artifact potrebuje:
+Promotion evidence môže obsahovať tests, vulnerability status, provenance verification, approvals a error-budget policy. Environment-specific rule môže byť prísnejšia pre production než staging.
 
-- immutable identifier,
-- producer identity,
-- source/build binding,
-- integrity verification,
-- retention,
-- promotion policy.
+Destination registry musí potvrdiť digest a related attestations. Promotion record má zachytiť source, destination, actor, time, policy revision a subject digest.
 
-Filename ako `app.zip` nie je artifact identity.
+## 34. Deployment verification
 
-## 30. Hermetic build
+Deployment manifest alebo controller musí používať immutable digest a overovať signatures/provenance na final boundary.
 
-Hermetic build získava všetky inputs cez deklarovaný a kontrolovaný mechanism bez nezdokumentovaného network alebo host dependency accessu.
+CI gate je skorý feedback, ale môže byť obídený manual deploymentom. Admission policy alebo deployment controller chráni actual runtime path.
 
-Výhody:
+Mutation ordering je dôležitý: ak component zmení image po verification, final object musí prejsť validation znova. Custom workload controllers a direct node paths musia byť zahrnuté do threat modelu.
 
-- presnejšia provenance,
-- menší dependency-confusion surface,
-- reprodukovateľnosť,
-- jednoduchší audit.
+## 35. Runtime inventory a continuous re-evaluation
 
-Hermetic neznamená, že deklarované inputs sú bezpečné.
+Runtime inventory mapuje artifact digests na workloads, environments a owners. Umožňuje zistiť, kde beží artifact, ktorého key, builder alebo dependency bol neskôr compromised.
 
-## 31. Reproducible build
+Provenance a SBOM sa re-evaluujú proti novým policies a vulnerability intelligence. Immutable artifact sa nemení, ale jeho trust status sa môže zmeniť.
 
-Reproducible build umožňuje nezávisle vytvoriť rovnaký output z rovnakých inputs.
+Quarantine policy môže zablokovať nové deployments a postupne nahradiť running instances. Runtime enforcement musí dostať revocation updates s meranou latency.
 
-Pomáha overovať buildera, ale vyžaduje kontrolu:
+## 36. Open-source supplier assessment
 
-- timestamps,
-- ordering,
-- locale,
-- paths,
-- toolchain,
-- network data,
-- randomness,
-- generated metadata.
+OpenSSF Scorecard automatizuje checks source, build, dependency, testing a maintenance practices. Výstup je signal, nie complete risk assessment.
 
-Dva identické malicious buildy môžu byť reprodukovateľné. Reproducibility nie je intent validation.
+High score nezaručuje, že package je bezpečný. Low score nemusí znamenať malicious project. Consumer má zohľadniť maintainer model, release process, responsiveness, project criticality a transitive reach.
 
-## 32. Provenance
+Supplier assessment má byť risk-tiered. Critical cryptographic library potrebuje hlbší review než low-impact development tool.
 
-Build provenance spája artifact s build procesom a inputs:
+## 37. Vendor a supplier due diligence
+
+Commercial supplier assessment zahŕňa secure development process, vulnerability disclosure, SBOM/VEX delivery, build provenance, signing, incident notification, recovery a support lifecycle.
+
+Contract má definovať, ktoré artifacts a versions sú covered, ako sa evidence doručuje a čo sa stane pri key alebo build compromise.
+
+Certifikácia alebo questionnaire je point-in-time evidence. Organization potrebuje continuous monitoring a product-specific trust policy.
+
+## 38. Infrastructure a configuration supply chain
+
+Terraform modules, Helm charts, Ansible collections, Kubernetes manifests a policy bundles sú executable supply-chain artifacts. Môžu meniť cloud resources, RBAC alebo admission.
+
+Version pinning, source review, artifact signing a provenance platia rovnako ako pri application binaries. Mutable Git branch module source alebo Helm chart tag môže zmeniť production bez local source diffu.
+
+Rendered configuration a plan majú byť viazané na input revisions a approved workflow identity.
+
+## 39. AI a model supply chain
+
+AI system môže závisieť od model weights, datasets, tokenizerov, frameworks, plugins a external APIs. Model artifact je executable alebo behavior-determining input.
+
+Threaty zahŕňajú poisoned dataset, substituted weights, malicious serialized model, compromised model registry a untrusted plugin.
+
+Digest, provenance, model/dataset inventory a sandboxed loading sú potrebné, ale nevysvetľujú model behavior alebo safety. Evaluation evidence tvorí ďalšiu vrstvu.
+
+## 40. Incident response pri supply-chain compromise
+
+Response začína identifikáciou compromised authority a všetkých odvodených artifacts.
 
 ```text
-artifact digest
-← builder identity
-← build type
-← source revision
-← declared dependencies
-← invocation a environment metadata
+zastaviť source/build/publish/signing authority
+→ zachovať audit, provenance, registry a transparency evidence
+→ určiť compromise interval
+→ enumerovať revisions a digests
+→ zablokovať promotion a nové deployments
+→ mapovať affected runtime
+→ rotovať credentials a trust roots
+→ opraviť source/platform
+→ rebuildnúť z trusted inputs
+→ overiť nové evidence a invaliditu starého pathu
 ```
 
-Provenance má byť generovaná build platformou, nie user-controlled build scriptom, ak má poskytovať tamper resistance.
+Ak bol compromised package-publish token, artifacts s expected trusted provenance môžu zostať validné; neočakávané uploads sa quarantine-nú. Ak bol compromised builder, aj validne signed provenance z affected interval-u môže byť nedôveryhodná.
 
-## 33. Attestation
+## 41. Recovery a last-known-good chain
 
-Attestation je signed statement o subjecte.
+Recovery potrebuje last-known-good source revision, build definition, builder platform, dependencies, signing identity a deployment policy. Samotný artifact backup nestačí, ak organization nevie preukázať jeho origin.
+
+Rebuild po incidente musí používať rotated credentials a fixed infrastructure. Re-signing starého potentially compromised digestu nevytvára dôveryhodný artifact.
+
+Recovery test má preukázať, že staré credentials, mutable tags a bypass paths už nefungujú.
+
+## 42. Kompletný production flow
+
+1. Source revision vznikne na protected branch s two-party review a passing checks.
+2. Dependencies sa resolve-nú z approved registries do integrity-checked lockfile-u.
+3. Hosted isolated builder checkoutne exact revision a declared inputs.
+4. Build platform vytvorí immutable OCI digest a signed SLSA provenance.
+5. Generator vytvorí digest-bound SBOM.
+6. Protected release workflow overí tests, provenance, SBOM a policy.
+7. Keyless signing identity podpíše release digest.
+8. Registry uloží image, signature a attestations cez subject/referrers model.
+9. Promotion kopíruje rovnaký digest do production registry.
+10. Admission policy overí signer, builder, source revision a required evidence.
+11. Runtime inventory zaznamená resolved digest, ownera a environment.
+12. Continuous monitoring re-evaluuje SBOM a provenance pri nových vulnerabilities alebo revoked authorities.
+
+Každý step má explicitnú identity, artifact a failure behavior. To je podstata supply-chain security: nie „máme scanner“, ale overiteľný trust chain.
+
+## 43. Troubleshooting supply-chain evidence
+
+Pri verification failure postupuj od subjectu späť k source:
 
 ```text
-subject digest
-+ predicate type
-+ predicate
-+ signer alebo issuer identity
+deployed digest
+→ registry manifest a referrers
+→ signature a signer identity
+→ provenance subject a builder
+→ source repository a revision
+→ build definition
+→ resolved dependencies
+→ policy expectation
 ```
 
-Príklady predicates:
+Ak provenance chýba, over promotion a registry copy. Ak subject digest nesedí, artifact bol rebuildnutý alebo transformed. Ak signer je validný, ale policy deny, porovnaj exact OIDC claims a environment.
 
-- build provenance,
-- SBOM,
-- test result,
-- vulnerability scan,
-- policy decision,
-- source verification summary.
+Pri reproducibility failure porovnaj declared dependencies, timestamps, toolchain versions a ambient network. Pri unexpected dependency zisti resolver source a lockfile diff.
 
-Attestation je evidence. Consumer stále potrebuje policy.
+## 44. Časté anti-patterny
 
-## 34. in-toto
+**Scan source, trust binary.** Review a SAST prebehli, ale neexistuje binding na deployed digest.
 
-in-toto modeluje supply-chain steps, materials, products a authorized functionaries.
+**Pin tags, nie revisions.** Branch, image alebo action tag sa môže presunúť.
 
-Pomáha vyjadriť:
+**Untrusted code so signing permission.** Pull request job získa production OIDC identity.
 
-- kto smie vykonať step,
-- aké inputs očakáva,
-- aké outputs vytvára,
-- aké inspections musia prebehnúť.
+**Shared persistent runner.** Malicious job ovplyvní budúci release build.
 
-Metadata bez enforcementu alebo správneho root of trust zostávajú iba dokumentáciou.
+**Cache ako source truth.** Poisoned cache vstúpi do artifactu bez clean-build verification.
 
-## 35. SLSA 1.2
+**Provenance existence gate.** Policy nekontroluje builder, source ani parameters.
 
-SLSA 1.2 má samostatný Source a Build track.
+**Build twice.** Production artifact nie je ten, ktorý prešiel testami.
 
-Build track:
+**Registry copy bez attestations.** Production verification stratí signatures, SBOM alebo provenance.
 
-```text
-Build L0 → bez guarantees
-Build L1 → provenance existuje
-Build L2 → signed provenance z hosted build platformy
-Build L3 → hardened build platform s izoláciou
-```
+**SLSA level ako universal score.** Build guarantees sa zamieňajú za source, dependency a runtime security.
 
-Source track pokrýva source history, provenance, technical controls a two-party review.
+## 45. Kontrolné otázky
 
-SLSA level musí byť overený pre konkrétny artifact a platformu. Logo alebo marketingové tvrdenie nie je verification.
-
-## 36. SLSA Build L3 boundary
-
-Build L3 vyžaduje silné controls, aby:
-
-- build runs nemohli navzájom ovplyvňovať svoj stav,
-- user-defined build steps nemali prístup k provenance signing materialu,
-- provenance bola dôveryhodne viazaná na output.
-
-L3 nerieši všetky dependency, source-intent, vulnerability ani deployment-policy threats.
-
-## 37. Package a registry publishing
-
-Publishing authority oddeľ od build execution.
-
-Controls:
-
-- protected environment,
-- short-lived publish credential,
-- namespace restriction,
-- immutable version policy,
-- digest verification,
-- provenance/signature attachment,
-- two-party release approval podľa risku,
-- audit a anomaly alerting.
-
-## 38. Immutable promotion
-
-Build once, promote by digest:
-
-```text
-verified digest
-→ development
-→ staging
-→ production
-```
-
-Rebuild per environment vytvára nové artifacts a nové supply-chain decisions.
-
-Environment-specific configuration má byť oddelená od artifact identity.
-
-## 39. Registry controls
-
-Registry potrebuje:
-
-- private/public namespace governance,
-- immutable release tags alebo version policy,
-- delete protection,
-- replication integrity,
-- vulnerability scanning,
-- signature a attestation retention,
-- least-privilege robot accounts,
-- audit logs,
-- retention a garbage-collection policy,
-- break-glass recovery.
-
-Registry admin môže byť schopný meniť alebo mazať evidence; preto je critical principal.
-
-## 40. TUF
-
-The Update Framework chráni software update systems proti rollback, freeze, mix-and-match a key-compromise scenárom.
-
-Top-level roles:
-
-```text
-root
-targets
-snapshot
-timestamp
-```
-
-TUF používa role separation, metadata expiration, delegated trust a threshold signatures. Artifact signature sama osebe nerieši secure update lifecycle tak komplexne ako TUF.
-
-## 41. Supplier due diligence
-
-Due diligence zahŕňa:
-
-- supplier identity a ownership,
-- secure-development process,
-- source a build controls,
-- vulnerability disclosure,
-- SBOM a provenance support,
-- incident notification,
-- maintenance a EOL policy,
-- key management,
-- subcontractors a transitive suppliers,
-- recovery a continuity.
-
-Questionnaire bez evidence neposkytuje silné assurance.
-
-## 42. OpenSSF Scorecard
-
-Scorecard automatizovane hodnotí heuristics ako:
-
-- branch protection,
-- code review,
-- dangerous workflows,
-- token permissions,
-- pinned dependencies,
-- signed releases,
-- security policy,
-- dependency updates.
-
-Score je triage signal, nie certifikácia. Tool nemusí vidieť private controls, business context ani hidden build infrastructure.
-
-## 43. Kubernetes supply chain
-
-Modeluj:
-
-```text
-source
-→ image build
-→ registry digest
-→ signature/provenance/SBOM
-→ admission policy
-→ Pod spec
-→ runtime image
-```
-
-Controls:
-
-- digest pinning,
-- allowed registries,
-- image signature a provenance verification,
-- namespace-specific policy,
-- service-account separation,
-- no mutable `latest`,
-- runtime inventory,
-- emergency quarantine.
-
-## 44. Infrastructure a policy artifacts
-
-Rovnaké princípy aplikuj na:
-
-- Terraform modules a providers,
-- Helm charts,
-- Kubernetes manifests,
-- Ansible collections,
-- policy bundles,
-- CI templates,
-- base VM images,
-- firmware.
-
-Textový configuration artifact môže poskytnúť rovnakú privileged authority ako application binary.
-
-## 45. AI a data supply chain
-
-AI systém môže závisieť od:
-
-- model weights,
-- training a evaluation data,
-- tokenizerov,
-- adapters,
-- code packages,
-- prompts a policies,
-- model registry,
-- conversion a quantization tools.
-
-Eviduj provenance, licenses, integrity, access, transformation steps a unsafe deserialization risks.
-
-## 46. Consumer verification
-
-Consumer workflow:
-
-```text
-resolve immutable artifact
-→ over digest
-→ over signature identity
-→ over provenance a builder
-→ vyhodnoť source revision a policy
-→ ingestuj SBOM/VEX
-→ rozhodni o promotion/deployment
-→ zachovaj evidence
-```
-
-„Signature valid“ je iba jeden krok.
-
-## 47. Policy enforcement points
-
-Enforcement môže byť:
-
-- dependency admission,
-- merge gate,
-- build gate,
-- registry admission,
-- release approval,
-- deployment admission,
-- runtime detection.
-
-Control umiestni čo najbližšie k authority, ktorú chráni. Scanner po production deploymente nie je náhrada pre pre-deployment policy.
-
-## 48. Supply-chain incident response
-
-Pri podozrení na compromised component alebo pipeline:
-
-```text
-identifikovať affected source/artifact digests
-→ zastaviť publish a promotion
-→ revoke-nuť credentials a signing authority
-→ zachovať source, logs, provenance a registry evidence
-→ určiť exposure window a downstream consumers
-→ quarantine artifacts
-→ rebuildnúť v trusted environment
-→ vydať fixed artifact a advisory
-→ overiť deployments
-→ opraviť trust boundary
-```
-
-Nemaž compromised artifacts skôr, než zachováš forensic evidence a downstream identity mapping.
-
-## 49. Recovery
-
-Recovery plán musí pokryť:
-
-- source host compromise,
-- package registry takeover,
-- builder compromise,
-- signing identity compromise,
-- artifact-store corruption,
-- transparency alebo KMS outage,
-- dependency disappearance,
-- forced history rewrite,
-- malicious release rollback.
-
-Rebuild z rovnakého compromised buildera nie je trusted recovery.
-
-## 50. Audit a telemetry
-
-Sleduj:
-
-- protected-branch rule changes,
-- privileged identity a token creation,
-- workflow changes,
-- runner image a configuration,
-- unexpected network access,
-- cache read/write lineage,
-- build and publish identities,
-- artifact digest transitions,
-- provenance/signature generation,
-- registry deletes/overwrites,
-- policy allow/deny,
-- deployment digest.
-
-Logs nesmú obsahovať signing keys, tokens ani private package credentials.
-
-## 51. Metrics
-
-Užitočné metrics:
-
-- percento releases via protected pipeline,
-- percento artifacts s provenance, SBOM a signature,
-- digest-pinned deployment coverage,
-- unpinned CI dependencies,
-- build runner isolation coverage,
-- short-lived publish credential coverage,
-- policy bypass count,
-- mean time to quarantine compromised digest,
-- supplier evidence freshness,
-- transitive dependency inventory coverage,
-- orphan artifacts bez ownera.
-
-Aggregate score bez asset criticality môže skrývať critical gap.
-
-## 52. Governance
-
-Organizácia potrebuje:
-
-- approved source a registry platforms,
-- repository baseline,
-- CI/CD security standard,
-- dependency policy,
-- trusted builder inventory,
-- signing a attestation policy,
-- promotion model,
-- supplier due diligence,
-- exception process,
-- incident playbook,
-- evidence retention,
-- ownership a escalation.
-
-## 53. Troubleshooting
-
-### Provenance ukazuje nesprávny commit
-
-Over checkout behavior, merge commit, submodules, generated source, shallow clone a builder predicate.
-
-### Digest sa po promotion zmenil
-
-Artifact bol rebuildnutý, transformovaný alebo registry copy zmenila manifest. Porovnaj exact manifest a platform variant.
-
-### Release workflow nemá OIDC token
-
-Over event type, environment protection, token permission, audience a provider trust policy.
-
-### Cache obsahuje cudzie files
-
-Over cache namespace, key inputs, restore prefixes, branch trust a write authority.
-
-### Package zmizol
-
-Over registry retention, yanked/deleted version, mirror, internal cache a vendor strategy. Neobchádzaj integrity kontrolu náhodným alternate source.
-
-## 54. Anti-patterny
-
-- dôvera v mutable tag,
-- shared publish token vo všetkých workflows,
-- self-hosted runner pre untrusted PR aj production release,
-- signature bez identity policy,
-- provenance generovaná application build scriptom a vydávaná za independent evidence,
-- lockfile bez controlled registry,
-- build-time network access bez inventory,
-- cache shared medzi trusted a untrusted jobs,
-- rebuild per environment,
-- Scorecard score ako automatické supplier approval,
-- emergency bypass bez expiry a audit,
-- odstránenie compromised release bez downstream advisory.
-
-## 55. Mini príklad
-
-```text
-Git repository
-→ protected main + two reviews
-→ ephemeral hosted builder
-→ dependencies podľa lockfile a digestov
-→ image digest
-→ platform-generated SLSA provenance
-→ SBOM
-→ keyless signature z protected release workflow
-→ registry
-→ admission policy overí issuer, workflow identity a digest
-→ production
-```
-
-Negative tests:
-
-- untrusted PR nedostane publish identity,
-- mutable tag nie je prijatý ako production identity,
-- provenance z neapproved buildera je odmietnutá,
-- signature z iného repository workflowu je odmietnutá,
-- artifact bez SBOM neprejde policy,
-- registry copy zachová digest a evidence.
-
-## 56. Kontrolné otázky
-
-1. Ktoré systems môžu zmeniť výsledný artifact bez zmeny application source?
-2. Ako sa líši source identity, branch, tag a revision?
-3. Prečo signed commit nestačí na dôveru v release?
-4. Ako dependency confusion využíva resolver precedence?
-5. Aký je rozdiel medzi lockfile a digest pinning?
-6. Prečo je build platform critical trust boundary?
-7. Ako oddeliť untrusted PR test od release authority?
-8. Čo poskytuje hermetic a reproducible build?
-9. Čo je provenance a kto ju má generovať?
-10. Ako fungujú SLSA Source a Build tracks?
-11. Čo Build L3 rieši a čo nerieši?
-12. Prečo TUF používa viac rolí a expirácie?
-13. Ako overovať supplier evidence?
-14. Ako vyzerá consumer verification workflow?
-15. Ako reagovať na compromised upstream package?
+1. Prečo je software supply chain graph a nie lineárny zoznam steps?
+2. Aký je rozdiel medzi source revision a named reference?
+3. Ktoré threats branch protection rieši a ktoré nerieši?
+4. Ako dependency confusion využíva resolver a registry priority?
+5. Prečo digest pinning nezaručuje bezpečnosť dependency?
+6. Ako third-party CI action získava supply-chain authority?
+7. Aké boundaries musí chrániť self-hosted runner?
+8. Ako sa líši hermetic a reproducible build?
+9. Čo znamená SLSA Build L1, L2 a L3?
+10. Ako sa Source Track dopĺňa s Build Trackom?
+11. Čo je in-toto layout a link evidence?
+12. Aký je rozdiel medzi provenance, SBOM, signature a attestation?
+13. Ako TUF chráni pred rollback a freeze attacks?
+14. Prečo build-once-promote-many zlepšuje trust?
+15. Ako by si reagoval na compromise package-publish credentialu oproti compromise builderu?
+16. Ako preukážeš, že runtime artifact je ten, ktorý prešiel review a tests?
+17. Navrhni trust policy pre production OCI image.
+18. Ktoré controls musia byť fail-closed a kde potrebuješ degraded mode?
+19. Ako obnovíš last-known-good supply chain po compromise CI platformy?
+20. Vytvor threat model pre repository → GitHub Actions → registry → Kubernetes flow.
 
 ## Glossary impact
 
-Relevantné pojmy: software supply chain, producer, distributor, consumer, source revision, protected branch, source provenance, SLSA Source track, SLSA Build track, dependency confusion, typosquatting, namespace takeover, lockfile, digest pinning, build definition, build platform, hosted runner, self-hosted runner, ephemeral runner, CI workload identity, hermetic build, reproducible build, build provenance, attestation, in-toto, SLSA Build L1, SLSA Build L2, SLSA Build L3, immutable promotion, TUF, OpenSSF Scorecard, supplier due diligence, artifact quarantine a supply-chain incident response.
+Relevantné pojmy: software supply chain, supply-chain graph, producer, distributor, consumer, source revision, named reference, protected branch, CODEOWNERS, two-party review, dependency confusion, typosquatting, namespace takeover, dependency pinning, digest pinning, CI action dependency, workflow injection, build isolation, hermetic build, reproducible build, cache poisoning, build secret, build-once-promote-many, provenance, SLSA Build Track, SLSA Source Track, Source VSA, in-toto layout, in-toto link, attestation, release authority, artifact promotion, registry namespace, TUF Root, TUF Targets, TUF Snapshot, TUF Timestamp, runtime inventory, artifact quarantine a supply-chain recovery.
 
 ## Primárne zdroje
 
-- [NIST SP 800-161 Rev. 1 — Cybersecurity Supply Chain Risk Management Practices](https://csrc.nist.gov/pubs/sp/800/161/r1/final)
-- [NIST SP 800-218 — Secure Software Development Framework 1.1](https://csrc.nist.gov/pubs/sp/800/218/final)
-- [NIST SP 800-218 Rev. 1 Initial Public Draft — SSDF 1.2](https://csrc.nist.gov/pubs/sp/800/218/r1/ipd)
 - [SLSA Specification 1.2](https://slsa.dev/spec/v1.2/)
 - [SLSA Build Track Basics](https://slsa.dev/spec/v1.2/build-track-basics)
 - [SLSA Source Track Requirements](https://slsa.dev/spec/v1.2/source-requirements)
-- [in-toto Specification](https://in-toto.io/in-toto-spec/)
-- [The Update Framework Specification](https://theupdateframework.github.io/specification/latest/)
-- [OpenSSF Scorecard](https://github.com/ossf/scorecard)
-- [OpenSSF Scorecard Checks](https://github.com/ossf/scorecard/blob/main/docs/checks.md)
+- [SLSA Provenance](https://slsa.dev/spec/v1.2/provenance)
+- [in-toto Specifications](https://in-toto.io/docs/specs/)
+- [in-toto Getting Started](https://in-toto.io/docs/getting-started/)
+- [The Update Framework Overview](https://theupdateframework.io/docs/overview/)
+- [TUF Roles and Metadata](https://theupdateframework.io/docs/metadata/)
+- [OpenSSF Scorecard](https://securityscorecards.dev/)
+- [GitHub Actions Secure Use Reference](https://docs.github.com/en/actions/reference/security/secure-use)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
