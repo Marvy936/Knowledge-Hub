@@ -106,6 +106,10 @@ Zmena resource alebo module addressy pri zachovaní identity toho istého remote
 
 Request-time vrstva Kubernetes API, ktorá po authentication a authorization mutuje alebo validuje relevantné create, update a delete requests pred persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
 
+## Admission policy
+
+Machine-readable pravidlo vyhodnocované v API admission path-e pred persistence alebo mutation resource-u. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Admission verification
 
 Pre-deployment policy decision, ktorý validuje image digest, signature identity, attestations a environment rules pred prijatím workloadu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
@@ -494,6 +498,10 @@ Service Provider endpoint prijímajúci a validujúci SAML Response pri browser 
 
 Dáta, systém, identita, služba, konfigurácia, artifact alebo business process, ktorého strata alebo kompromitovanie má hodnotiteľný dopad. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Assume breach
+
+Zero Trust design assumption, že identity, endpoint, workload alebo interná network path môžu byť kompromitované, a preto treba obmedziť trust paths, sessions a blast radius. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## AssumeRole — AWS STS
 
 AWS STS operation, ktorou oprávnený principal prevezme IAM role a získa dočasnú role session s expiration, session identity a effective permissions. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
@@ -633,6 +641,10 @@ Release behavior, pri ktorom Helm po failed upgrade-e vytvorí rollback na predc
 ## Automation
 
 Prevod opakovateľného postupu na deterministický, auditovateľný a opakovane vykonateľný mechanizmus. Pozri [Automation Mindset](docs/00-foundations/automation-mindset.md).
+
+## Automation and orchestration — Zero Trust
+
+Cross-cutting capability prepájajúca identity, device, network, workload a data signals s riadenými response actions, napríklad revocation alebo quarantine. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Automation runbook — Systems Manager
 
@@ -958,6 +970,10 @@ Oddelený a kontrolovaný emergency access model určený pre stav, keď bežná
 
 Núdzový, oddelene chránený a auditovaný prístup do kritického AWS accountu používaný pri výpadku bežnej identity cesty alebo incidente. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Break-glass policy
+
+Oddelený, časovo obmedzený a auditovaný policy path pre emergency access pri zlyhaní alebo nevhodnosti bežného enforcementu. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Break-glass secret
 
 Silno chránený emergency credential dostupný cez auditovaný a obmedzený recovery postup, po ktorého použití nasleduje kontrola a typicky rotation. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -1218,6 +1234,10 @@ Počet unikátnych kombinácií labels alebo attributes; vysoká alebo neobmedze
 
 Patologické správanie backtracking regex engine-u, pri ktorom ambiguous nested pattern spôsobí extrémny čas spracovania non-matching vstupu. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## CEL policy
+
+Policy vyjadrená pomocou Common Expression Language, napríklad v Kubernetes ValidatingAdmissionPolicy alebo MutatingAdmissionPolicy. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Certificate
 
 X.509 objekt viažuci public key na identity claims, validity interval, usage a issuer signature. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
@@ -1349,6 +1369,10 @@ Výstup encryption operácie, ktorý bez príslušného cryptographic keyu nemá
 ## Circuit breaker
 
 Resilience pattern, ktorý po prekročení failure prahu dočasne zastaví calls na zlyhávajúcu dependency a neskôr vykoná kontrolované test requests. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
+## CISA Zero Trust Maturity Model
+
+Planning model Version 2.0 používajúci päť pillars a tri cross-cutting capabilities na hodnotenie a rozvoj Zero Trust capabilities. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## CKA
 
@@ -1734,6 +1758,10 @@ Riadenie požadovaného runtime stavu operačných systémov, aplikácií, zaria
 
 Nahradenie container instance po zmene runtime environment alebo inej immutable container configuration, pretože už spustený process bežne neprevezme nové hodnoty automaticky. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
+## Conftest
+
+Nástroj používajúci OPA/Rego na testovanie structured configuration, napríklad YAML, JSON alebo Terraform planov, pred runtime enforcementom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Confused deputy
 
 Situácia, v ktorej privileged komponent vykoná operáciu v prospech nesprávneho alebo neautorizovaného actora pre chýbajúci audience, subject alebo delegation binding. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
@@ -1773,6 +1801,14 @@ Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo od
 ## Consolidated billing — AWS
 
 AWS Organizations capability združujúca billing member accounts do centrálneho payer/management scope-u pri zachovaní resource ownershipu v jednotlivých účtoch. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Constraint — Gatekeeper
+
+Kubernetes custom resource, ktorý instanciuje Gatekeeper ConstraintTemplate s konkrétnymi parameters, match scope a enforcement behavior. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## ConstraintTemplate — Gatekeeper
+
+Gatekeeper resource definujúci reusable validation logic a parameter schema pre odvodené Constraints. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Constructed inventory — Ansible
 
@@ -1886,6 +1922,10 @@ Schopnosť udržiavať systém a jeho artifacty v stave pripravenom na bezpečn�
 
 Delivery model, v ktorom každá zmena spĺňajúca automatizované quality a policy podmienky pokračuje bez manuálneho release approvalu do produkcie. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
+## Continuous diagnostics — Zero Trust
+
+Priebežné získavanie identity, endpoint, workload, network, cloud a application telemetry pre aktualizáciu access contextu a risk decisions. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Continuous Integration
 
 Pracovný a technický model častej integrácie malých zmien do spoločnej hlavnej línie s automatizovaným buildom, kontrolami a rýchlym feedbackom. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
@@ -1897,6 +1937,10 @@ Opakované vyhodnocovanie už známych SBOM components, dependencies alebo image
 ## Continuous validation — Terraform
 
 Opakované overovanie infraštruktúrnych invariánt po apply pomocou checks, drift plans, asset policy, security rescanningu alebo runtime verification. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Continuous verification — Zero Trust
+
+Opakované alebo event-driven prehodnocovanie identity, posture, session a contextu počas bounded access lifecycle-u namiesto permanentnej dôvery po prvom prihlásení. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Continuous Well-Architected
 
@@ -1937,6 +1981,10 @@ Súbor podmienok ako API readiness, etcd quorum, Node/add-on health, certificate
 ## Control plane — Kubernetes
 
 Sada komponentov poskytujúca API, persistence, scheduling a reconciliation cluster-wide desired state-u. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
+
+## Control plane — Zero Trust
+
+Vrstva zodpovedná za identity, policy evaluation, posture, access decisions a vytvorenie alebo ukončenie communication pathu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Control variant
 
@@ -2250,6 +2298,10 @@ Odkaz naviazaný na konkrétnu field hodnotu, napríklad trace ID, Pod, error co
 
 Zlyhanie reálneho workload trafficu, request processingu, storage I/O alebo DNS/network cesty napriek potenciálne funkčnému AWS management API. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
 
+## Data plane — Zero Trust
+
+Vrstva prenášajúca actual application alebo data traffic po tom, čo control plane pripravil a PEP presadil access decision. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Data portability
 
 Schopnosť exportovať dáta, metadata a configuration zo služby do použiteľného formátu a obnoviť ich v inom prostredí bez neprimeranej straty alebo downtime-u. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -2306,9 +2358,17 @@ AD DS proces, ktorým client pomocou DNS, site informácií a ďalších pravidi
 
 Ephemeral container pridaný do existujúceho Podu na diagnostiku pomocou schváleného debug image-u, RBAC a auditu. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Decision log — policy
+
+Audit event zachytávajúci policy query, result, policy revision, decision ID, relevantný context a PDP instance. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Declarative configuration
 
 Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Pozri [Declarative vs. Imperative Approach](docs/00-foundations/declarative-vs-imperative.md).
+
+## Declarative policy
+
+Policy opisujúca požadovaný decision alebo invariant bez imperatívneho control flow-u, typicky nad structured inputom a data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Dedicated Node pool
 
@@ -2325,6 +2385,10 @@ Security policy, pri ktorej sa povoľuje iba explicitne definovaný traffic aleb
 ## Default deny — NetworkPolicy
 
 Policy pattern vyberajúci všetky Pody v namespace a nepovoľujúci žiadny traffic pre deklarovaný ingress alebo egress smer, kým ho nepovolí iná additive policy. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## Default deny — policy
+
+Combining alebo fallback semantics, pri ktorých neznámy, undefined alebo explicitne nepovolený prípad končí odmietnutím. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## `default` — Helm
 
@@ -2345,6 +2409,10 @@ StorageClass označená clusterom ako default pre PVCs bez explicitného `storag
 ## `define` — Helm
 
 Go template action deklarujúca named template pod globálnym menom bez okamžitého render outputu. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Degraded access mode — Zero Trust
+
+Explicitný obmedzený access model počas outage-u identity, posture, policy alebo enforcement dependency, napríklad bounded existing sessions alebo low-risk read-only operations. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Delegated administrator — AWS Organizations
 
@@ -2530,6 +2598,14 @@ Multi-stage build target obsahujúci development-only tools, debugger, hot reloa
 
 OAuth flow pre zariadenia s obmedzeným inputom, pri ktorom používateľ autorizuje device code na inom zariadení. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Device identity
+
+Cryptographically alebo administratívne overená identita endpointu, ktorá sama osebe nedokazuje jeho aktuálny security posture. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Device posture
+
+Aktuálne security attributes zariadenia, napríklad patch level, encryption, EDR health alebo secure boot, používané ako contextual policy inputs. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## DevOps
 
 Kultúrne princípy, organizačné praktiky a technické mechanizmy na rýchle a bezpečné dodávanie zmien. Pozri [DevOps](docs/00-foundations/devops.md).
@@ -2574,9 +2650,17 @@ Digest uncompressed filesystem layer changesetu uložený v OCI image configurat
 
 Režim zobrazujúci content rozdiel pri podporovaných modules; output môže obsahovať citlivé údaje a potrebuje access a retention policy. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Differential policy testing
+
+Vyhodnotenie rovnakého corpus-u inputs cez starú a novú policy revision s kontrolou semantic decision rozdielov. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Digest pinning
 
 Viazanie dependency, action, image alebo artifact reference na immutable cryptographic content digest namiesto mutable tagu alebo version range. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Direct access bypass — Zero Trust
+
+Alternatívna network alebo application cesta, ktorá umožňuje dostať sa ku resource-u bez zamýšľaného identity-aware PEP a policy evaluation. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Direct membership — GitLab
 
@@ -2994,6 +3078,10 @@ Pod vybraný aspoň jednou NetworkPolicy pre egress, ktorého outbound traffic j
 
 VPC component poskytujúci outbound-initiated IPv6 internet connectivity bez všeobecného unsolicited inbound pathu. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
+## Egress policy — Zero Trust
+
+Resource alebo workload-specific pravidlá určujúce povolené outbound destinations, protocols a data flows s cieľom obmedziť exfiltration a command-and-control paths. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## EKS access entry
 
 EKS resource mapujúci AWS IAM principal na cluster access configuration a Kubernetes identity/groups podľa podporovaného access modelu. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
@@ -3270,6 +3358,10 @@ Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `ra
 
 Kubernetes probe spúšťajúca command v container environment-e a vyhodnocujúca jeho exit status. Pozri [Probes](docs/09-kubernetes/probes.md).
 
+## Executable policy
+
+Machine-readable formalizácia policy intentu s presným input schema, scope, decision a failure semantics. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Executable specification
 
 Príklad alebo pravidlo zapísané vo forme, ktorú možno automaticky spustiť ako dôkaz behavior. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -3421,6 +3513,10 @@ Postupné vylučovanie API, controller, scheduler, Node, runtime, CNI, CSI, Serv
 ## Failure-domain narrowing — CKA
 
 Postupné zužovanie incidentu z clusteru, Node-u, workloadu, Podu alebo containeru na konkrétny owner component a failure layer. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
+
+## Failure policy — admission
+
+Pravidlo určujúce, či evaluation error alebo nedostupná admission dependency request zablokuje alebo prepustí. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Fake — test double
 
@@ -3637,6 +3733,14 @@ Control-plane proces odstraňujúci dependent objects podľa owner references a 
 ## Garbage collection — registry
 
 Proces odstraňovania manifestov alebo blobs, ktoré už nie sú reachable z retained references, vykonávaný s koordináciou voči pushes, deletes, referrers a retention policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+
+## Gatekeeper
+
+Kubernetes-native policy controller využívajúci OPA Constraint Framework na validation, mutation, audit a viac enforcement points. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Gatekeeper audit
+
+Periodické vyhodnotenie existujúcich Kubernetes resources proti Gatekeeper constraints na detekciu pre-existing alebo drifted violations. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Gateway API
 
@@ -4270,6 +4374,10 @@ Controller behavior, pri ktorom opakované spracovanie rovnakého desired a actu
 
 Reprezentácia osoby, workloadu, zariadenia alebo organizácie používaná naprieč identity a access lifecycle-om. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Identity-aware proxy
+
+Proxy acting as PEP, ktorá autentizuje subject, vyhodnotí policy a sprostredkuje access ku konkrétnej application bez implicitnej network trust. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Identity-based policy — AWS
 
 IAM policy pripojená k userovi, group alebo role, ktorá povoľuje alebo denyuje actions nad resources podľa request contextu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
@@ -4358,6 +4466,10 @@ Mechanizmus, pri ktorom systém alebo administrator vykonáva action ako iný pr
 
 Predvolený authorization výsledok, keď request nemá applicable explicit allow alebo neprejde potrebnými policy boundaries. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
+## Implicit trust
+
+Access alebo authority udelená bez explicitného resource-specific decisionu iba na základe location, ownership, previous login alebo membership v broad zone. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Implicit typing — YAML
 
 Automatická interpretácia plain scalaru ako boolean, number, date alebo null podľa YAML schema a parser implementácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -4421,6 +4533,10 @@ Client-side mechanism kombinujúci list/watch, local cache a event handlers na e
 ## Infrastructure as Code — IaC
 
 Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného plan/apply alebo reconciliation procesu, review, policy a auditovateľného recovery lifecycle. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Infrastructure policy
+
+Policy vyhodnocujúca infrastructure source, plan, configuration alebo runtime state podľa security, compliance, cost a operational guardrails. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Ingest pipeline — search
 
@@ -4805,6 +4921,10 @@ Maximálny podporovaný rozdiel verzií medzi API servers, kubelets, controller-
 ## Kubernetes volume
 
 Pod-level mount alebo device source deklarovaný v `spec.volumes`, ktorého backing môže byť ephemeral, projected alebo persistent. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## Kyverno
+
+Kubernetes-native policy engine poskytujúci policy types pre validation, mutation, generation, cleanup a image verification. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## L4 load balancing
 
@@ -5270,6 +5390,10 @@ Cluster add-on implementujúci Resource Metrics API pre aktuálne CPU/memory úd
 
 Alpha, beta alebo stable lifecycle contract system metrics ovplyvňujúci ich deprecation a removal pri Kubernetes upgrades. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Microsegmentation
+
+Jemnozrnná isolation a traffic policy medzi workloadmi alebo resource groups, ktorá obmedzuje lateral movement bez považovania segmentu za automaticky trusted. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## MicroVM
 
 Minimalizovaná virtual machine navrhnutá na rýchlejší startup a menší overhead pri zachovaní samostatnej virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
@@ -5445,6 +5569,10 @@ Registry alebo repository tag, ktorého mapping možno prepísať na iný artifa
 ## Mutating admission
 
 Admission fáza schopná zmeniť alebo doplniť incoming Kubernetes object pred jeho finálnou validáciou a persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## MutatingAdmissionPolicy
+
+Kubernetes in-process declarative policy resource používajúci CEL na riadené mutation API objects počas admission. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Mutation score
 
@@ -5814,6 +5942,10 @@ Container state signal indikujúci, že process bol ukončený v súvislosti s o
 
 Access token bez self-contained claims, ktorého stav a metadata resource server zisťuje typicky cez introspection. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Open Policy Agent — OPA
+
+General-purpose policy engine vyhodnocujúci Rego policies nad structured inputom a supporting data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Open workload model
 
 Model, v ktorom requests prichádzajú podľa arrival rate nezávisle od aktuálnej response time systému. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
@@ -6017,6 +6149,10 @@ Event-source-mapping contract umožňujúci označiť iba konkrétne records v b
 ## Partial clone
 
 Clone režim, ktorý odloží prenos vybraných objects a načíta ich podľa potreby, napríklad s `--filter=blob:none`. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Partial evaluation — policy
+
+Predvýpočet policy nad známymi data s vytvorením residual query pre runtime input, používaný na optimalizáciu alebo embedded enforcement. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Partial failure — controller
 
@@ -6262,13 +6398,61 @@ Obnova novej RDS database do vybraného času v automated-backup recovery window
 
 Komponent alebo proces, ktorý vytvára, mení a publikuje authorization policies. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Policy Administration Point — Policy as Code
+
+Governance a delivery funkcia spravujúca policy authoring, approval, publication, rollout, rollback, exceptions a retirement. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy Administrator — Zero Trust
+
+NIST Zero Trust logical component, ktorý na základe Policy Engine decisionu vytvára, konfiguruje alebo ukončuje communication path cez PEP. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Policy artifact
+
+Immutable distribuovateľný package policy modules, data, manifestu, revision a integrity metadata. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Policy as Code
 
-Strojovo vyhodnotiteľná bezpečnostná alebo prevádzková policy spravovaná ako verzovaný kód s testami a exception lifecycle. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
+Prístup vyjadrujúci automatizovateľné policy decisions ako versionované, testovateľné a auditovateľné machine-readable rules. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy bundle
+
+Versionovaný package policy a supporting data určený na atomickú distribúciu a activation v policy engine. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy bypass
+
+Access alebo operation vykonaná mimo zamýšľaného enforcement pointu, cez exception, fail-open stav alebo alternatívny path. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy canary
+
+Staged rollout novej policy revision na obmedzenú množinu namespaces, tenants, workloads alebo requests pred širším enforcementom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy composition
+
+Mechanizmus kombinovania výsledkov viacerých policies podľa explicitných semantics, napríklad deny-overrides alebo all-must-pass. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy conflict
+
+Stav, keď dve alebo viac policies vytvárajú nezlučiteľné decisions, invariants alebo mutations pre rovnaký scope. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy coverage
+
+Miera, do akej sú relevantné resources, actions, environments a enforcement points skutočne chránené konkrétnymi policies; odlišná od test code coverage. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy data
+
+Supporting reference state používaný policy decisionom, napríklad approved registries, identity groups alebo resource classifications. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Policy Decision Point — PDP
 
 Komponent vyhodnocujúci authorization request voči policies a contextu a vracajúci allow alebo deny decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Policy Decision Point — Policy as Code
+
+Komponent vyhodnocujúci policy nad inputom a supporting data a vracajúci structured decision. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy distribution skew
+
+Dočasný stav, keď distributed PDP alebo PEP instances používajú rozdielne policy revisions pre asynchronous rollout alebo activation failure. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Policy enforcement point — network
 
@@ -6278,6 +6462,18 @@ Miesto v packet path-e, kde CNI alebo iný dataplane vyhodnocuje a aplikuje netw
 
 Komponent pri resource boundary, ktorý presadzuje authorization decision a povolí alebo zablokuje operation. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Policy Enforcement Point — Policy as Code
+
+Komponent zachytávajúci chránenú operation a presadzujúci policy decision voči callerovi alebo resource-u. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy Engine — Zero Trust
+
+NIST Zero Trust logical component vyhodnocujúci enterprise policy a contextual data pre access ku konkrétnemu resource-u. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Policy exception
+
+Explicitný, scoped, approved a expirovateľný object povoľujúci dokumentovanú odchýlku od konkrétnej policy s compensating controls. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Policy exception — Terraform
 
 Časovo obmedzený a auditovaný override konkrétnej policy s ownerom, dôvodom, compensating controls, approvalom, expiration a remediation plánom. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
@@ -6286,17 +6482,53 @@ Komponent pri resource boundary, ktorý presadzuje authorization decision a povo
 
 Zdroj trusted attributes a contextu potrebných na authorization decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Policy Information Point — Policy as Code
+
+Zdroj identity, device, asset, vulnerability alebo ďalších contextual attributes poskytovaných policy decisionu. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy input
+
+Request-specific structured document obsahujúci operation, resource a context vyhodnocovaný policy engine-om. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy intent
+
+Ľudsky formulovaný security, compliance alebo operational cieľ, ktorý sa pri Policy as Code formalizuje do executable decision contractu. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy lifecycle
+
+Proces definície intentu, formalizácie, review, testovania, staged rollout-u, monitoring-u, exception managementu a retirementu policy. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy obligation
+
+Dodatočná povinnosť v decision result-e, ktorú PEP musí vykonať spolu s accessom, napríklad masking, step-up alebo audit event. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Policy peer — NetworkPolicy
 
 Source alebo destination množina vyjadrená cez Pod selector, namespace selector, ich kombináciu alebo `ipBlock`. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## Policy Report — Kyverno
+
+Kubernetes custom resource obsahujúci current evaluation results matching resources pre Kyverno policies; nejde o kompletný historical admission log. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy revision
+
+Immutable alebo jednoznačne versionovaná identita konkrétneho policy setu použitá pri decisione, rolloute a audite. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Policy routing
 
 Routing model, ktorý môže vyberať table podľa source address, marku, ingress interface alebo ďalších selectors. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Policy unit test
+
+Automatizovaný positive, negative alebo boundary scenario overujúci expected policy decision pre konkrétny input a data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Policy version pinning — Pod Security
 
 Explicitné naviazanie Pod Security Admission režimu na konkrétnu Kubernetes minor policy verziu, aby cluster upgrade nezmenil enforcement bez testovaného rollout-u. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
+## Policy WebAssembly
+
+Skompilovaná policy vykonávaná ako WebAssembly module v embedded PEP alebo application runtime. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Port
 
@@ -6854,6 +7086,10 @@ Host-scoped variable vytvorená cez `register`, ktorá uchováva štruktúrovan�
 
 Alternatívny registry endpoint replikujúci alebo cacheujúci content pre dostupnosť, latency, rate-limit alebo air-gap účely. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
+## Rego
+
+Deklaratívny OPA policy jazyk inšpirovaný Datalogom a určený na reasoning nad nested structured data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Regression test
 
 Test chrániaci existujúce funkčné alebo nefunkčné správanie pred nechcenou zmenou. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
@@ -7086,9 +7322,17 @@ Policy uložená pri resource-e, ktorá môže priamo určovať allowed alebo de
 
 State mapovanie medzi Terraform resource instance addressou, provider contextom a konkrétnou remote object identity. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## Resource-centric security
+
+Zero Trust prístup chrániaci konkrétne applications, APIs, data a workflows namiesto udeľovania broad trust celému network segmentu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Resource Detector
 
 Komponent automaticky získavajúci OpenTelemetry resource attributes z environmentu, cloudu, Kubernetes alebo runtime metadata. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
+## Resource enforcement coverage — Zero Trust
+
+Podiel a kvalita access paths ku critical resources, ktoré skutočne prechádzajú identity-aware policy evaluation a neobíditeľným PEP. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Resource group — GitLab CI/CD
 
@@ -7206,6 +7450,10 @@ Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
+## Revocation latency — Zero Trust
+
+Čas od identity, posture alebo policy revocation eventu po propagáciu a ukončenie relevantných active sessions vo všetkých enforcement points. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Rewrap
 
 Opätovné zabalenie existujúceho DEKu novým KEKom bez decryption a re-encryption celého application payloadu. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -7217,6 +7465,10 @@ Opätovné zabalenie existujúceho DEKu novým KEKom bez decryption a re-encrypt
 ## Ring deployment
 
 Progressive rollout cez stabilné deployment rings s rastúcou reprezentatívnosťou alebo kritickosťou a samostatnými entry, observation a promotion podmienkami. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
+
+## Risk-adaptive access
+
+Access model meniaci allow, deny, step-up, session lifetime alebo povolené actions podľa trusted contextual risk signals. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Risk-based deployment
 
@@ -7710,6 +7962,10 @@ Prvotný trust anchor alebo credential potrebný na získanie ďalších secrets
 
 Vault component mountnutý na path, ktorý ukladá, generuje alebo cryptographically spracúva citlivé dáta. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Secure Access Service Edge — SASE
+
+Architecture category kombinujúca networking a cloud-delivered security services; môže podporovať Zero Trust, ale sama nie je dôkazom resource-level policy. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Security categorization
 
 Určenie impact levelu straty confidentiality, integrity a availability pre konkrétny system alebo information type. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
@@ -7753,6 +8009,10 @@ Testovateľná implementačná alebo prevádzková povinnosť odvodená z threat
 ## Security risk
 
 Riziko vznikajúce z možnej straty confidentiality, integrity alebo availability s ohľadom na pravdepodobnosť a dopad. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Security Service Edge — SSE
+
+Cloud-delivered security service model typicky zahŕňajúci ZTNA, secure web gateway a CASB capabilities. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Security tooling account — AWS
 
@@ -7918,6 +8178,10 @@ Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend
 
 Service behavior preferujúci rovnaký backend pre klienta podľa ClientIP a timeoutu; nie je náhradou durable session storage. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## Session binding — Zero Trust
+
+Cryptographic alebo policy väzba session/token contextu na konkrétny device, key, client alebo communication channel s cieľom obmedziť replay ukradnutého credentialu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Session Manager
 
 Systems Manager capability poskytujúca IAM-authorized interactive shell alebo port-forwarding sessions bez potreby inbound SSH/RDP portu. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
@@ -7978,6 +8242,10 @@ Fáza, v ktorej shell spracuje parameter, command a arithmetic expansion, word s
 
 Presun vhodných rozhodnutí, kontrol a feedbacku do skorších fáz delivery, kde možno riziko zachytiť lacnejšie bez neprimeranej straty fidelity. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
 
+## Shift-left policy
+
+Policy evaluation vykonaná pred runtime, napríklad v IDE, pull requeste alebo CI, s cieľom poskytnúť skorú spätnú väzbu. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Shift-right
 
 Rozšírenie validácie, observability a experimentovania do deploymentu a produkcie s kontrolovaným blast radiusom a jasnými rozhodovacími kritériami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -8013,6 +8281,10 @@ CloudFront private-content authorization token v cookies, ktorý môže oprávni
 ## Signed image subject
 
 OCI image index alebo platform manifest digest, ku ktorému sa signature alebo attestation explicitne viaže. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Signed policy bundle
+
+Policy bundle s cryptographic integrity a publisher-authenticity evidence overovanou pred activation v policy engine. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## signed URL — CloudFront
 
@@ -8154,9 +8426,17 @@ Vzťah medzi spanmi používaný pri async, batch alebo fan-out causalite, ktor�
 
 Verzia System Package Data Exchange specification s profile-oriented modelom pre software, licensing, security, build a ďalšie system information. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
+## SPIFFE ID
+
+URI-form identity workloadu v SPIFFE trust domain-e, prenášaná v cryptographically verifiable SVID. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Spike test
 
 Performance test prudkej zmeny trafficu, ktorý overuje autoscaling, queues, caches, connection pools a recovery. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## SPIRE
+
+Production-ready implementation SPIFFE APIs používajúca node a workload attestation na vydávanie a rotation SVIDs. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Splatting — PowerShell
 
@@ -8318,6 +8598,10 @@ Constraint zakazujúci prideliť jednému principalu konfliktujúce roles alebo 
 
 Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Step-up authentication
+
+Vyžiadanie silnejšieho alebo čerstvejšieho authentication eventu pri sensitive action, vyššom risku alebo zmene contextu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## stickiness — ELB
 
 Load-balancer behavior smerujúci opakované requests alebo flows klienta na rovnaký target počas definovaného obdobia. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
@@ -8381,6 +8665,10 @@ Log record so stabilnými typed fields a schema namiesto závislosti na parsovan
 ## Structured metadata — Loki
 
 Per-entry key/value metadata uložené bez vytvorenia novej stream identity, vhodné pre high-cardinality correlation fields. Pozri [Loki](docs/12-observability/loki.md).
+
+## Structured policy decision
+
+Policy result obsahujúci okrem allow/deny aj reason, policy IDs, revision, violations alebo obligations v machine-readable forme. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Stub — test double
 
@@ -8449,6 +8737,10 @@ Job s pozastaveným execution lifecycle, ktorý nevytvára novú prácu a po res
 ## Sustainability pillar
 
 Well-Architected pillar zameraný na minimalizovanie environmentálneho dopadu workloadu cez demand, utilization, software, data a hardware efficiency. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## SVID
+
+SPIFFE Verifiable Identity Document nesúci SPIFFE ID ako X.509 certificate alebo JWT token. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Swap
 
@@ -8942,6 +9234,10 @@ Branching model založený na častej integrácii malých zmien do jednej hlavne
 
 Miesto, kde sa mení úroveň dôvery, identity authority, administrative control, tenant, privilege alebo data-protection assumption. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
+## Trust domain — SPIFFE
+
+SPIFFE administrative a security boundary určujúca namespace workload identities a trust bundle pre ich verification. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## TSDB index store — Loki
 
 Odporúčaný Loki index format ukladajúci TSDB index blocks v object storage popri chunks. Pozri [Loki](docs/12-observability/loki.md).
@@ -8989,6 +9285,10 @@ Cost view zobrazujúci konkrétnu rate účtovanú za jednotlivé usage line ite
 ## Unbounded dimension
 
 Telemetry dimension s nekontrolovaným alebo prakticky neobmedzeným počtom hodnôt, napríklad request ID, trace ID alebo user ID. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Undefined policy decision
+
+Stav, keď policy query nevytvorí result; consumer musí explicitne určiť, či znamená deny, error alebo not applicable. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Unit cost
 
@@ -9085,6 +9385,14 @@ Miera používania resource-u vyjadrená ako busy time, obsadená kapacita, thro
 ## Validating admission
 
 Admission fáza, ktorá po relevantnej mutácii a validácii rozhodne, či Kubernetes API request povolí alebo odmietne. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
+
+## ValidatingAdmissionPolicy
+
+Stable Kubernetes in-process declarative validation resource používajúci CEL expressions nad admission requestom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## ValidatingAdmissionPolicyBinding
+
+Kubernetes resource prepájajúci ValidatingAdmissionPolicy s match scope-om, parameters a validation actions. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Validation — testing
 
@@ -9205,6 +9513,10 @@ Abstrakcia, pri ktorej má proces vlastný virtuálny adresný priestor mapovan�
 ## Virtual patching
 
 Dočasná compensating control vrstva, napríklad WAF alebo IPS rule, ktorá blokuje známy exploit path bez odstránenia underlying vulnerability. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
+## Visibility and analytics — Zero Trust
+
+Cross-cutting capability korelujúca identity, device, network, workload, resource a decision telemetry na detekciu risku a bypass paths. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Visualization — Grafana
 
@@ -9370,6 +9682,10 @@ Versionovaný reusable opis viacerých jobs, dependencies a policy hooks poskytu
 
 Filesystem materialization aktuálne checkoutnutého Git snapshotu, ktorú používateľ a nástroje priamo menia. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
 
+## Workload attestation
+
+Proces overujúci platform, node, process alebo orchestration attributes workloadu pred vydaním jeho cryptographic identity. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Workload boundary — Well-Architected
 
 Explicitný scope komponentov, ľudí, procesov, dát a dependencies, ktoré spoločne poskytujú hodnotený business outcome. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -9377,6 +9693,10 @@ Explicitný scope komponentov, ľudí, procesov, dát a dependencies, ktoré spo
 ## Workload density
 
 Počet alebo množstvo workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločnej infraštruktúre pri danom resource a isolation modeli. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Workload federation — Zero Trust
+
+Explicitné prepájanie workload trust domains alebo identity authorities s riadenou výmenou trust bundles a samostatnou authorization policy. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Workload identity federation
 
@@ -9389,6 +9709,10 @@ Model, v ktorom job vymení krátkodobý signed identity token za scoped cloud a
 ## Workload identity — Kubernetes
 
 Non-human identity workloadu, typicky reprezentovaná ServiceAccountom a krátkodobým tokenom alebo federovaným external credentialom. Pozri [ServiceAccount](docs/09-kubernetes/serviceaccount.md).
+
+## Workload identity — Zero Trust
+
+Krátkodobá, workload-specific cryptographic identity používaná pre service authentication namiesto IP-based trust alebo shared static credentials. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Writable layer — container
 
@@ -9425,6 +9749,34 @@ Usporiadaná YAML kolekcia hodnôt, analogická array alebo listu. Pozri [YAML, 
 ## Zero-code instrumentation
 
 Automatic telemetry generation bez zmeny application source, typicky cez agent, runtime hooks alebo platform integration. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Zero Trust
+
+Súbor security princípov odstraňujúcich implicitnú dôveru podľa location alebo ownership a vyžadujúcich explicitné resource-specific access decisions. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust Architecture — ZTA
+
+Enterprise architecture implementujúca Zero Trust princípy cez identity, policy, enforcement, resource protection, telemetry a lifecycle controls. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust governance
+
+Cross-cutting ownership a decision model pre identity, resources, policies, data classification, exceptions, telemetry, privacy a migration roadmap. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust migration
+
+Risk-based staged presun od implicitných network trust paths k resource-specific identity-aware enforcementu s meraním bypassov a odstránením legacy paths. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust Network Access — ZTNA
+
+Application-specific remote access model používajúci identity, device context a policy namiesto broad network tunnel trustu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust pillar
+
+Capability domain v CISA maturity model-e: Identity, Devices, Networks, Applications and Workloads alebo Data. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust Policy Enforcement Point
+
+NIST logical component presadzujúci access decision a sprostredkujúci alebo ukončujúci communication path medzi subjectom a resource-om. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Zombie process
 
