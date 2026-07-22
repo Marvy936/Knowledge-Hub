@@ -460,3 +460,11 @@ Relevantné pojmy: IAM, RBAC, ABAC, authoritative identity source, joiner-mover-
 - [Kubernetes RBAC good practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
 - [Microsoft Entra RBAC](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/)
 - [Azure ABAC overview](https://learn.microsoft.com/en-us/azure/role-based-access-control/conditions-overview)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Least privilege](least-privilege.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Active Directory →](active-directory.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -490,3 +490,11 @@ Relevantné pojmy: Active Directory Domain Services, forest, domain, domain cont
 - [FSMO roles](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-fsmo-roles)
 - [Troubleshooting AD replication](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/troubleshoot/troubleshooting-active-directory-replication-problems)
 - [Microsoft Entra Domain Services overview](https://learn.microsoft.com/en-us/entra/identity/domain-services/overview)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: IAM a RBAC](iam-rbac.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: LDAP →](ldap.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

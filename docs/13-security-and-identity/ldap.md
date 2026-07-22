@@ -505,3 +505,11 @@ Relevantné pojmy: LDAP, Directory Information Tree, entry, Distinguished Name, 
 - [OpenLDAP LDAP result codes](https://www.openldap.org/doc/admin26/appendix-ldap-result-codes.html)
 - [RFC 4511 — LDAP protocol](https://www.rfc-editor.org/rfc/rfc4511)
 - [RFC 4515 — LDAP search filters](https://www.rfc-editor.org/rfc/rfc4515)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Active Directory](active-directory.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kerberos →](kerberos.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

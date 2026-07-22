@@ -710,5 +710,5 @@ Relevantné pojmy: CIA triad, confidentiality, integrity, availability, asset, t
 
 **Navigácia**
 
-[← Predchádzajúca: Cardinality](../12-observability/cardinality.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Cardinality](../12-observability/cardinality.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Authentication, authorization a auditing →](authentication-authorization-auditing.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

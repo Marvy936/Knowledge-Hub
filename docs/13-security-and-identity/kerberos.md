@@ -517,3 +517,11 @@ Relevantné pojmy: Kerberos, realm, principal, KDC, Authentication Service, Tick
 - [MIT Kerberos encryption types](https://web.mit.edu/kerberos/krb5-latest/doc/admin/enctypes.html)
 - [Kerberos V5 specification — RFC 4120](https://www.rfc-editor.org/rfc/rfc4120)
 - [Kerberos authentication overview in Windows Server](https://learn.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: LDAP](ldap.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

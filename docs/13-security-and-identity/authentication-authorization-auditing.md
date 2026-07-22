@@ -501,3 +501,11 @@ Relevantné pojmy: identity proofing, identity, account, subject, principal, cre
 - [NIST SP 800-63C Federation and Assertions](https://pages.nist.gov/800-63-4/sp800-63c.html)
 - [NIST Authentication, Authorization and Accounting glossary](https://csrc.nist.gov/glossary/term/Authentication_Authorization_and_Accounting)
 - [NIST Audit and Accountability glossary](https://csrc.nist.gov/glossary/term/audit_and_accountability)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CIA triáda](cia-triad.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Least privilege →](least-privilege.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

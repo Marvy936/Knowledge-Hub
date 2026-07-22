@@ -426,3 +426,11 @@ Relevantné pojmy: least privilege, need-to-know, need-to-do, standing privilege
 - [NIST SP 800-53 Rev. 5 — Access Control](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
 - [Kubernetes RBAC good practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
 - [Microsoft Entra role best practices](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/best-practices)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Authentication, authorization a auditing](authentication-authorization-auditing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IAM a RBAC →](iam-rbac.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

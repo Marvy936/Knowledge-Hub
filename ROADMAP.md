@@ -292,12 +292,12 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 ### Security and Identity
 
 - [x] [CIA triáda](docs/13-security-and-identity/cia-triad.md)
-- [ ] Authentication, authorization a auditing
-- [ ] Least privilege
-- [ ] IAM a RBAC
-- [ ] Active Directory
-- [ ] LDAP
-- [ ] Kerberos
+- [x] [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md)
+- [x] [Least privilege](docs/13-security-and-identity/least-privilege.md)
+- [x] [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md)
+- [x] [Active Directory](docs/13-security-and-identity/active-directory.md)
+- [x] [LDAP](docs/13-security-and-identity/ldap.md)
+- [x] [Kerberos](docs/13-security-and-identity/kerberos.md)
 - [ ] OAuth 2.0
 - [ ] OpenID Connect
 - [ ] SAML
