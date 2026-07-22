@@ -26,8 +26,12 @@ Odporúča sa najprv dokončiť:
 5. [Active Directory](active-directory.md)
 6. [LDAP](ldap.md)
 7. [Kerberos](kerberos.md)
+8. [OAuth 2.0](oauth-2.md)
+9. [OpenID Connect](openid-connect.md)
+10. [SAML](saml.md)
+11. [Secrets management](secrets-management.md)
 
-Nasledujúci blok rozšíri identity vrstvu o OAuth 2.0, OpenID Connect, SAML a Secrets management. Neskôr sekcia pokračuje cryptography, vulnerability management, supply-chain security, Policy as Code a Zero Trust.
+Nasledujúci blok rozšíri security základ o Encryption at rest a in transit, Vulnerability a patch management a Threat modeling. Neskôr sekcia pokračuje supply-chain security, SBOM, image signing, Policy as Code a Zero Trust.
 
 ## Cieľ zvládnutia
 
@@ -107,6 +111,63 @@ Po dokončení aktuálneho bloku má byť možné:
 - chrániť keytabs a reagovať na service-key alebo KDC compromise,
 - diagnostikovať AS, TGS, service-side, SPN, clock-skew, enctype a KVNO failures.
 
+### OAuth 2.0
+
+- rozlíšiť resource ownera, clienta, authorization server a resource server,
+- vysvetliť Authorization Code + PKCE vrátane `state`, redirect URI a transaction bindingu,
+- rozlíšiť access token, authorization code, refresh token a client credential,
+- navrhnúť scope a audience podľa least privilege a confused-deputy threatu,
+- odlíšiť opaque a JWT access tokens a ich introspection/revocation trade-offy,
+- používať refresh-token rotation a reuse detection,
+- rozlíšiť public a confidential clients a správne client authentication metódy,
+- vysvetliť Client Credentials, Device Authorization a token-exchange use cases,
+- odlíšiť bearer a sender-constrained tokens cez mTLS alebo DPoP,
+- rozpoznať deprecated implicit a resource-owner-password patterns,
+- diagnostikovať authorization, token exchange, `401` a `403` failures.
+
+### OpenID Connect
+
+- vysvetliť OpenID Connect ako authentication vrstvu nad OAuth 2.0,
+- rozlíšiť ID Token, access token, UserInfo a application session,
+- validovať `iss`, `sub`, `aud`, `azp`, `exp`, `iat` a `nonce`,
+- používať identity key `issuer + subject` namiesto emailu,
+- vysvetliť public a pairwise subject identifiers,
+- používať discovery a JWKS s dôveryhodným issuer bootstrapom,
+- navrhovať claims mapping, ACR, AMR, `auth_time` a step-up authentication,
+- rozlíšiť local, front-channel a back-channel logout,
+- bezpečne riešiť account linking a multi-tenant federation,
+- vysvetliť workload identity federation cez krátkodobé OIDC assertions,
+- diagnostikovať issuer, signature, audience, nonce, claims a session failures.
+
+### SAML
+
+- rozlíšiť assertion, protocol, binding a profile,
+- vysvetliť IdP, SP, AuthnRequest, Response a Assertion Consumer Service,
+- rozlíšiť SP-initiated a IdP-initiated browser SSO,
+- používať metadata, entity ID a certificate rollover ako trust contract,
+- validovať XML signature, issuer, audience, destination, recipient, čas a `InResponseTo`,
+- chrániť RelayState a používať replay cache,
+- vysvetliť NameID, SubjectConfirmation, Conditions, authentication context a attributes,
+- rozpoznať XML Signature Wrapping, XXE a XML parsing riziká,
+- odlíšiť signing a XML encryption key lifecycle,
+- navrhnúť local session a realistické Single Logout semantics,
+- diagnostikovať signature, ACS, audience, clock-skew a attribute-mapping failures.
+
+### Secrets management
+
+- klasifikovať static, dynamic, authentication, cryptographic a recovery secrets,
+- vysvetliť secret zero a preferovať workload identity pred shared bootstrap credentials,
+- navrhovať celý secret lifecycle od issuance po secure destruction,
+- rozlíšiť rotation, revocation, versioning, lease a renewal,
+- vyhodnotiť environment, file, sidecar, CSI a direct-API delivery patterns,
+- navrhnúť cache a fail-open/fail-closed model podľa secret type-u,
+- vysvetliť Kubernetes Secret hranice, etcd encryption a indirect Pod access,
+- používať dynamic database credentials, short-lived certificates a transit cryptography,
+- vysvetliť Vault auth methods, policies, tokens, secrets engines a audit devices,
+- vysvetliť seal, Shamir shares, recovery keys, auto unseal a KMS/HSM dependency,
+- navrhnúť Vault HA, snapshot, DR a application behavior počas outage-u,
+- reagovať na secret leakage v Git-e, CI logs, images alebo Terraform state.
+
 ## Stav
 
 | Téma | Status | Úroveň |
@@ -118,3 +179,7 @@ Po dokončení aktuálneho bloku má byť možné:
 | Active Directory | Learning | L2 |
 | LDAP | Learning | L2 |
 | Kerberos | Learning | L2 |
+| OAuth 2.0 | Learning | L2 |
+| OpenID Connect | Learning | L2 |
+| SAML | Learning | L2 |
+| Secrets management | Learning | L2 |
