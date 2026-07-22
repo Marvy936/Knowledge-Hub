@@ -3475,15 +3475,15 @@
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
       "title": "OpenID Connect",
-      "words": 2328,
-      "headings": 76,
-      "sections": 76,
-      "findings": 146,
-      "critical": 37,
-      "high": 48,
-      "medium": 52,
-      "low": 9,
-      "score": 1015,
+      "words": 4180,
+      "headings": 51,
+      "sections": 51,
+      "findings": 79,
+      "critical": 5,
+      "high": 12,
+      "medium": 15,
+      "low": 47,
+      "score": 261,
       "grade": "D"
     },
     {
@@ -154847,89 +154847,17 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Problém, ktorý OIDC rieši",
+      "line": 19,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "2. Role",
-      "line": 24,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "3. OAuth oproti OpenID Connect",
-      "line": 44,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "OAuth 2.0",
-      "line": 46,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "OAuth 2.0",
-      "line": 46,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "OAuth 2.0",
-      "line": 46,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "OpenID Connect",
-      "line": 56,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "OpenID Connect",
-      "line": 56,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "OpenID Connect",
-      "line": 56,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "4. Scope openid",
-      "line": 76,
+      "section": "1. Problém, ktorý OIDC rieši",
+      "line": 19,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -154937,215 +154865,8 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "5. ID Token",
-      "line": 96,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "5. ID Token",
-      "line": 96,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "6. Subject identifier",
-      "line": 121,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "6. Subject identifier",
-      "line": 121,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "6. Subject identifier",
-      "line": 121,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "7. Public a pairwise subject",
-      "line": 145,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Pairwise subject",
-      "line": 151,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Pairwise subject",
-      "line": 151,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "8. Authorization Code flow",
-      "line": 163,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "8. Authorization Code flow",
-      "line": 163,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "8. Authorization Code flow",
-      "line": 163,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "8. Authorization Code flow",
-      "line": 163,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `PKCE`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "9. Authorization request",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "9. Authorization request",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "9. Authorization request",
-      "line": 183,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "9. Authorization request",
-      "line": 183,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "10. Nonce",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "10. Nonce",
-      "line": 198,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "11. State, nonce a PKCE",
-      "line": 221,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
+      "section": "1. Problém, ktorý OIDC rieši",
+      "line": 19,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -155153,8 +154874,8 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
+      "section": "1. Problém, ktorý OIDC rieši",
+      "line": 19,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -155162,629 +154883,17 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "12. ID Token validation",
-      "line": 236,
+      "section": "1. Problém, ktorý OIDC rieši",
+      "line": 19,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWT`, `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "13. Issuer validation",
-      "line": 254,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "13. Issuer validation",
-      "line": 254,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "13. Issuer validation",
-      "line": 254,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "14. Audience a authorized party",
-      "line": 268,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "15. Signature, JWKS a key rotation",
-      "line": 282,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "15. Signature, JWKS a key rotation",
-      "line": 282,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "15. Signature, JWKS a key rotation",
-      "line": 282,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "15. Signature, JWKS a key rotation",
-      "line": 282,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "15. Signature, JWKS a key rotation",
-      "line": 282,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "16. Discovery",
-      "line": 304,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "16. Discovery",
-      "line": 304,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "16. Discovery",
-      "line": 304,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "16. Discovery",
-      "line": 304,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`, `URI`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "17. UserInfo endpoint",
-      "line": 325,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "17. UserInfo endpoint",
-      "line": 325,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "17. UserInfo endpoint",
-      "line": 325,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "17. UserInfo endpoint",
-      "line": 325,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "18. Standard claims",
-      "line": 339,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "18. Standard claims",
-      "line": 339,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "18. Standard claims",
-      "line": 339,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "18. Standard claims",
-      "line": 339,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "19. Claims mapping",
-      "line": 361,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "19. Claims mapping",
-      "line": 361,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "19. Claims mapping",
-      "line": 361,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "20. Authentication Context Class Reference",
-      "line": 386,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "20. Authentication Context Class Reference",
-      "line": 386,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "20. Authentication Context Class Reference",
-      "line": 386,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `step-up`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "21. Authentication Methods References",
-      "line": 399,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "21. Authentication Methods References",
-      "line": 399,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "21. Authentication Methods References",
-      "line": 399,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "22. Authentication time a max age",
-      "line": 413,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "22. Authentication time a max age",
-      "line": 413,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "22. Authentication time a max age",
-      "line": 413,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `step-up`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "23. Prompt",
-      "line": 428,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "23. Prompt",
-      "line": 428,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "24. Session model",
-      "line": 441,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "24. Session model",
-      "line": 441,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "24. Session model",
-      "line": 441,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `step-up`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "25. Logout",
-      "line": 457,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "25. Logout",
-      "line": 457,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "25. Logout",
-      "line": 457,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "26. Front-channel a back-channel logout",
-      "line": 471,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Front-channel",
-      "line": 473,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Front-channel",
-      "line": 473,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Front-channel",
-      "line": 473,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Front-channel",
-      "line": 473,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Back-channel",
-      "line": 484,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "27. Refresh token a offline access",
-      "line": 495,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "27. Refresh token a offline access",
-      "line": 495,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "27. Refresh token a offline access",
-      "line": 495,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "28. Pairwise federation a account linking",
-      "line": 509,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "28. Pairwise federation a account linking",
-      "line": 509,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "29. Multi-tenant OIDC",
-      "line": 528,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "29. Multi-tenant OIDC",
-      "line": 528,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "29. Multi-tenant OIDC",
-      "line": 528,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "29. Multi-tenant OIDC",
-      "line": 528,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "30. Native a browser clients",
-      "line": 543,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Native application",
-      "line": 545,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Native application",
-      "line": 545,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Native application",
-      "line": 545,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Native application",
-      "line": 545,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Native application",
-      "line": 545,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `URI`, `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Browser SPA",
-      "line": 553,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Browser SPA",
-      "line": 553,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Browser SPA",
-      "line": 553,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Browser SPA",
-      "line": 553,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Browser SPA",
-      "line": 553,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `XSS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "31. Workload a service identity",
-      "line": 563,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "31. Workload a service identity",
-      "line": 563,
+      "section": "2. Role",
+      "line": 36,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -155792,17 +154901,116 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "33. ID Token encryption",
-      "line": 593,
+      "section": "2. Role",
+      "line": 36,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "3. OAuth oproti OIDC",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "4. Scope openid",
+      "line": 67,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "4. Scope openid",
+      "line": 67,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "6. Authorization request",
+      "line": 103,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "6. Authorization request",
+      "line": 103,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "6. Authorization request",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "6. Authorization request",
+      "line": 103,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "6. Authorization request",
+      "line": 103,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `PKCE`, `identity`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "12. Token endpoint exchange",
+      "line": 181,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "13. ID Token",
+      "line": 189,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "14. Complete ID Token validation pipeline",
+      "line": 205,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "33. ID Token encryption",
-      "line": 593,
+      "section": "14. Complete ID Token validation pipeline",
+      "line": 205,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -155810,8 +155018,8 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "33. ID Token encryption",
-      "line": 593,
+      "section": "14. Complete ID Token validation pipeline",
+      "line": 205,
       "severity": "medium",
       "rule": "single-sentence-explanation",
       "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
@@ -155819,323 +155027,431 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "33. ID Token encryption",
-      "line": 593,
+      "section": "14. Complete ID Token validation pipeline",
+      "line": 205,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "14. Complete ID Token validation pipeline",
+      "line": 205,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "14. Complete ID Token validation pipeline",
+      "line": 205,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWT`, `JOSE`, `JWKS`, `ID`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "15. Issuer ako trust boundary",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "17. Public a pairwise subjects",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "18. Audience a authorized party",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "19. JWT signature a algorithm policy",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "20. JWKS a key rotation",
+      "line": 269,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "23. Standard claims a ich authority",
+      "line": 310,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "23. Standard claims a ich authority",
+      "line": 310,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "23. Standard claims a ich authority",
+      "line": 310,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "23. Standard claims a ich authority",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "27. auth time a max age",
+      "line": 364,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "28. prompt",
+      "line": 372,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "28. prompt",
+      "line": 372,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "28. prompt",
+      "line": 372,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OP`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "34. Privacy",
-      "line": 613,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "34. Privacy",
-      "line": 613,
+      "section": "29. Local application session",
+      "line": 385,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "35. Threats a mitigations",
-      "line": 631,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Token replay",
-      "line": 633,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Token replay",
-      "line": 633,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Token replay",
-      "line": 633,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Token replay",
-      "line": 633,
+      "section": "29. Local application session",
+      "line": 385,
       "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Mix-up attack",
-      "line": 640,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "29. Local application session",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Mix-up attack",
-      "line": 640,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "29. Local application session",
+      "line": 385,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Mix-up attack",
-      "line": 640,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Login CSRF",
-      "line": 646,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Login CSRF",
-      "line": 646,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Login CSRF",
-      "line": 646,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Login CSRF",
-      "line": 646,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Login CSRF",
-      "line": 646,
+      "section": "29. Local application session",
+      "line": 385,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `step-up`, `identity`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "ID Token injection",
-      "line": 653,
+      "section": "30. ID Token oproti access tokenu",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "31. Refresh token a offline access",
+      "line": 412,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "31. Refresh token a offline access",
+      "line": 412,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "32. Account linking",
+      "line": 420,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "32. Account linking",
+      "line": 420,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "33. Multi-tenant OIDC",
+      "line": 440,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 46 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "ID Token injection",
-      "line": 653,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "33. Multi-tenant OIDC",
+      "line": 440,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "ID Token injection",
-      "line": 653,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
+      "section": "33. Multi-tenant OIDC",
+      "line": 440,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Key confusion",
-      "line": 657,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Key confusion",
-      "line": 657,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Key confusion",
-      "line": 657,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Key confusion",
-      "line": 657,
+      "section": "33. Multi-tenant OIDC",
+      "line": 440,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`, `URI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Account linking takeover",
-      "line": 663,
+      "section": "35. Browser SPA a Backend for Frontend",
+      "line": 465,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "36. Workload identity federation",
+      "line": 473,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Account linking takeover",
-      "line": 663,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "36. Workload identity federation",
+      "line": 473,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Account linking takeover",
-      "line": 663,
+      "section": "36. Workload identity federation",
+      "line": 473,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "37. ID Token encryption",
+      "line": 489,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "38. Logout meanings",
+      "line": 497,
       "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Claim escalation",
-      "line": 668,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "38. Logout meanings",
+      "line": 497,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Claim escalation",
-      "line": 668,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "39. RP-Initiated Logout",
+      "line": 511,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "Claim escalation",
-      "line": 668,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
+      "section": "40. Front-channel logout",
+      "line": 519,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "36. Troubleshooting login flow",
-      "line": 673,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "41. Back-channel logout",
+      "line": 527,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "38. Observability a audit",
-      "line": 720,
+      "section": "42. Privacy",
+      "line": 535,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "38. Observability a audit",
-      "line": 720,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "38. Observability a audit",
-      "line": 720,
+      "section": "42. Privacy",
+      "line": 535,
       "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "38. Observability a audit",
-      "line": 720,
+      "section": "42. Privacy",
+      "line": 535,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "42. Privacy",
+      "line": 535,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `step-up`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `policy`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "39. Incident response",
-      "line": 737,
+      "section": "43. Threats a controls",
+      "line": 553,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "43. Threats a controls",
+      "line": 553,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "44. Observability",
+      "line": 571,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "39. Incident response",
-      "line": 737,
+      "section": "44. Observability",
+      "line": 571,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -156143,8 +155459,62 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "39. Incident response",
-      "line": 737,
+      "section": "44. Observability",
+      "line": 571,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "44. Observability",
+      "line": 571,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `ACR`, `AMR`, `JIT`, `freshness`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "47. Časté anti-patterny",
+      "line": 628,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "47. Časté anti-patterny",
+      "line": 628,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
       "severity": "medium",
       "rule": "single-sentence-explanation",
       "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
@@ -156152,12 +155522,39 @@
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
-      "section": "39. Incident response",
-      "line": 737,
-      "severity": "medium",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/openid-connect.md",
+      "section": "48. Kompletný production príklad",
+      "line": 648,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RP`, `PKCE`, `OP`, `JWKS`, `ID`, `ACR`, `resource`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",

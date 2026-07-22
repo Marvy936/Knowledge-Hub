@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10501**
-- Total words: **398,490**
-- Findings: **17557** (critical 4596, high 5401, medium 5656, low 1904)
+- Audited conceptual sections: **10476**
+- Total words: **400,342**
+- Findings: **17490** (critical 4564, high 5365, medium 5619, low 1942)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -31,7 +31,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 1076 | 38 | 50 | 54 | 22 | 2896 | `docs/12-observability/grafana.md` |
 | D | 1057 | 42 | 51 | 44 | 0 | 960 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | D | 1037 | 34 | 53 | 53 | 19 | 2522 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
-| D | 1015 | 37 | 48 | 52 | 9 | 2328 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 964 | 38 | 37 | 54 | 18 | 2595 | `docs/12-observability/jaeger-tempo.md` |
 | D | 962 | 32 | 53 | 46 | 2 | 1449 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 940 | 33 | 50 | 42 | 7 | 2180 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
@@ -237,6 +236,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 264 | 11 | 10 | 13 | 4 | 953 | `docs/00-foundations/ownership-mindset.md` |
 | D | 264 | 9 | 13 | 13 | 5 | 1152 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 264 | 9 | 16 | 8 | 2 | 1563 | `docs/03-git-and-automation/powershell-fundamentals.md` |
+| D | 261 | 5 | 12 | 15 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 256 | 9 | 14 | 8 | 6 | 878 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 252 | 10 | 11 | 12 | 2 | 1159 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 252 | 10 | 11 | 12 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
@@ -10837,91 +10837,23 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 ### `docs/13-security-and-identity/openid-connect.md`
 
-- **CRITICAL** line 24, `empty-section` — **2. Role**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 44, `empty-section` — **3. OAuth oproti OpenID Connect**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 96, `outline-instead-of-explanation` — **5. ID Token**: 13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 121, `outline-instead-of-explanation` — **6. Subject identifier**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 145, `empty-section` — **7. Public a pairwise subject**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 163, `outline-instead-of-explanation` — **8. Authorization Code flow**: 4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 183, `outline-instead-of-explanation` — **9. Authorization request**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 198, `outline-instead-of-explanation` — **10. Nonce**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **12. ID Token validation**: 11 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 254, `outline-instead-of-explanation` — **13. Issuer validation**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 282, `outline-instead-of-explanation` — **15. Signature, JWKS a key rotation**: 12 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 304, `outline-instead-of-explanation` — **16. Discovery**: 10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 325, `outline-instead-of-explanation` — **17. UserInfo endpoint**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 339, `outline-instead-of-explanation` — **18. Standard claims**: 12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 361, `outline-instead-of-explanation` — **19. Claims mapping**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 386, `outline-instead-of-explanation` — **20. Authentication Context Class Reference**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 399, `outline-instead-of-explanation` — **21. Authentication Methods References**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 413, `outline-instead-of-explanation` — **22. Authentication time a max age**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 428, `outline-instead-of-explanation` — **23. Prompt**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 441, `outline-instead-of-explanation` — **24. Session model**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 457, `outline-instead-of-explanation` — **25. Logout**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 471, `empty-section` — **26. Front-channel a back-channel logout**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 473, `outline-instead-of-explanation` — **Front-channel**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 495, `outline-instead-of-explanation` — **27. Refresh token a offline access**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 509, `outline-instead-of-explanation` — **28. Pairwise federation a account linking**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 528, `outline-instead-of-explanation` — **29. Multi-tenant OIDC**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 543, `empty-section` — **30. Native a browser clients**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 545, `outline-instead-of-explanation` — **Native application**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 553, `outline-instead-of-explanation` — **Browser SPA**: 5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 593, `outline-instead-of-explanation` — **33. ID Token encryption**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 613, `outline-instead-of-explanation` — **34. Privacy**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 631, `empty-section` — **35. Threats a mitigations**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 633, `outline-instead-of-explanation` — **Token replay**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 646, `outline-instead-of-explanation` — **Login CSRF**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 673, `empty-section` — **36. Troubleshooting login flow**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 720, `outline-instead-of-explanation` — **38. Observability a audit**: 10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 737, `outline-instead-of-explanation` — **39. Incident response**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 221, `list-first-introduction` — **11. State, nonce a PKCE**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 545, `list-first-introduction` — **Native application**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 553, `list-first-introduction` — **Browser SPA**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 563, `list-heavy-section` — **31. Workload a service identity**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
-- **HIGH** line 633, `list-first-introduction` — **Token replay**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 640, `list-first-introduction` — **Mix-up attack**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 646, `list-first-introduction` — **Login CSRF**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 653, `list-first-introduction` — **ID Token injection**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 657, `list-first-introduction` — **Key confusion**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 663, `list-first-introduction` — **Account linking takeover**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 668, `list-first-introduction` — **Claim escalation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 46, `thin-concept-section` — **OAuth 2.0**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 56, `thin-concept-section` — **OpenID Connect**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 96, `thin-concept-section` — **5. ID Token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 121, `thin-concept-section` — **6. Subject identifier**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 151, `thin-concept-section` — **Pairwise subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 163, `thin-concept-section` — **8. Authorization Code flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 183, `thin-concept-section` — **9. Authorization request**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 236, `thin-concept-section` — **12. ID Token validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 254, `thin-concept-section` — **13. Issuer validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 282, `thin-concept-section` — **15. Signature, JWKS a key rotation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 325, `thin-concept-section` — **17. UserInfo endpoint**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 339, `thin-concept-section` — **18. Standard claims**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 361, `thin-concept-section` — **19. Claims mapping**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 386, `thin-concept-section` — **20. Authentication Context Class Reference**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 399, `thin-concept-section` — **21. Authentication Methods References**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 413, `thin-concept-section` — **22. Authentication time a max age**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 428, `thin-concept-section` — **23. Prompt**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 441, `thin-concept-section` — **24. Session model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 457, `thin-concept-section` — **25. Logout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 473, `thin-concept-section` — **Front-channel**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 484, `thin-concept-section` — **Back-channel**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 509, `thin-concept-section` — **28. Pairwise federation a account linking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 528, `thin-concept-section` — **29. Multi-tenant OIDC**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 545, `thin-concept-section` — **Native application**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 553, `thin-concept-section` — **Browser SPA**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 593, `thin-concept-section` — **33. ID Token encryption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 613, `thin-concept-section` — **34. Privacy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 633, `thin-concept-section` — **Token replay**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 640, `thin-concept-section` — **Mix-up attack**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 646, `thin-concept-section` — **Login CSRF**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 653, `thin-concept-section` — **ID Token injection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 657, `thin-concept-section` — **Key confusion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 663, `thin-concept-section` — **Account linking takeover**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 668, `thin-concept-section` — **Claim escalation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 720, `thin-concept-section` — **38. Observability a audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 737, `thin-concept-section` — **39. Incident response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 205, `outline-instead-of-explanation` — **14. Complete ID Token validation pipeline**: 13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 310, `outline-instead-of-explanation` — **23. Standard claims a ich authority**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 535, `outline-instead-of-explanation` — **42. Privacy**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 571, `outline-instead-of-explanation` — **44. Observability**: 11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 648, `outline-instead-of-explanation` — **48. Kompletný production príklad**: 11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **HIGH** line 19, `list-heavy-section` — **1. Problém, ktorý OIDC rieši**: 8 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 103, `list-heavy-section` — **6. Authorization request**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 385, `list-heavy-section` — **29. Local application session**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 440, `list-heavy-section` — **33. Multi-tenant OIDC**: 8 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 473, `list-heavy-section` — **36. Workload identity federation**: 7 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 103, `term-before-explanation` — **6. Authorization request**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `PKCE`, `identity`, `scope`
+- **HIGH** line 205, `term-before-explanation` — **14. Complete ID Token validation pipeline**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWT`, `JOSE`, `JWKS`, `ID`, `identity`
+- **HIGH** line 205, `thin-concept-section` — **14. Complete ID Token validation pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 571, `term-before-explanation` — **44. Observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `ACR`, `AMR`, `JIT`, `freshness`
+- **HIGH** line 571, `thin-concept-section` — **44. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 648, `term-before-explanation` — **48. Kompletný production príklad**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RP`, `PKCE`, `OP`, `JWKS`, `ID`, `ACR`, `resource`, `policy`
+- **HIGH** line 648, `thin-concept-section` — **48. Kompletný production príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/saml.md`
 
@@ -11056,17 +10988,17 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 4020 | 0 | 0 | 0 | 4020 |
-| `thin-concept-section` | 0 | 3754 | 0 | 0 | 3754 |
-| `term-before-explanation` | 0 | 333 | 2302 | 0 | 2635 |
-| `single-sentence-explanation` | 0 | 0 | 2493 | 0 | 2493 |
-| `list-first-introduction` | 0 | 1135 | 0 | 0 | 1135 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1062 | 1062 |
-| `short-concept-section` | 0 | 0 | 861 | 0 | 861 |
-| `example-not-explicit` | 0 | 0 | 0 | 596 | 596 |
-| `empty-section` | 576 | 0 | 0 | 0 | 576 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 246 | 246 |
-| `list-heavy-section` | 0 | 179 | 0 | 0 | 179 |
+| `outline-instead-of-explanation` | 3995 | 0 | 0 | 0 | 3995 |
+| `thin-concept-section` | 0 | 3721 | 0 | 0 | 3721 |
+| `term-before-explanation` | 0 | 337 | 2284 | 0 | 2621 |
+| `single-sentence-explanation` | 0 | 0 | 2471 | 0 | 2471 |
+| `list-first-introduction` | 0 | 1124 | 0 | 0 | 1124 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1061 | 1061 |
+| `short-concept-section` | 0 | 0 | 864 | 0 | 864 |
+| `example-not-explicit` | 0 | 0 | 0 | 623 | 623 |
+| `empty-section` | 569 | 0 | 0 | 0 | 569 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 258 | 258 |
+| `list-heavy-section` | 0 | 183 | 0 | 0 | 183 |
 
 ## Required remediation pattern
 
