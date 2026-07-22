@@ -1136,5 +1136,5 @@ Relevantné pojmy: threat modeling, security objective, scope, asset, actor, att
 
 **Navigácia**
 
-[← Predchádzajúca: Vulnerability a patch management](vulnerability-and-patch-management.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Vulnerability a patch management](vulnerability-and-patch-management.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Supply-chain security →](supply-chain-security.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
