@@ -150,6 +150,22 @@ Before marking a chapter complete, ask:
 - Are product names presented as implementations of a concept rather than the concept itself?
 - Would the chapter support troubleshooting and design decisions at L4/L5?
 
+## Audit remediation workflow
+
+The generated audit is a prioritization system, not a bulk rewrite instruction. Remediation proceeds in controlled passes so that expanding prose does not introduce inaccurate terminology or duplicate explanations across chapters.
+
+1. **Inventory pass** — confirm that every authoritative article listed in a section `README.md` is present in the audit corpus.
+2. **Critical pass** — fix empty sections and sections classified as `outline-instead-of-explanation`.
+3. **Terminology pass** — explain terms reported as `term-before-explanation` where they first matter.
+4. **Mechanism pass** — add actors, state, data flow, decision flow, lifecycle, and trust boundaries.
+5. **Example and failure pass** — add concrete cause-and-effect examples, limits, and failure semantics.
+6. **Cross-section pass** — remove accidental duplication and link to the earlier authoritative chapter while preserving a short local reminder.
+7. **Verification pass** — rerun the audit, read the rendered chapter, validate technical claims against primary sources, and update glossary impact.
+
+Files are remediated in priority order by audit score, but chapters in the same conceptual chain should be reviewed together. For example, OAuth 2.0, OpenID Connect and SAML share federation terminology; editing only one can create inconsistent definitions.
+
+A finding is closed only after human review. Adding filler sentences merely to exceed a word-count threshold is explicitly not acceptable.
+
 ## Automated audit
 
 Run:
