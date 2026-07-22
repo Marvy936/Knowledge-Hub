@@ -1116,5 +1116,5 @@ Relevantné pojmy: secret, secrets management, secret lifecycle, static secret, 
 
 **Navigácia**
 
-[← Predchádzajúca: SAML](saml.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: SAML](saml.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Encryption at rest a in transit →](encryption-at-rest-and-in-transit.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

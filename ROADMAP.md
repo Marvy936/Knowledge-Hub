@@ -302,9 +302,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [OpenID Connect](docs/13-security-and-identity/openid-connect.md)
 - [x] [SAML](docs/13-security-and-identity/saml.md)
 - [x] [Secrets management](docs/13-security-and-identity/secrets-management.md)
-- [ ] Encryption at rest a in transit
-- [ ] Vulnerability a patch management
-- [ ] Threat modeling
+- [x] [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md)
+- [x] [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md)
+- [x] [Threat modeling](docs/13-security-and-identity/threat-modeling.md)
 - [ ] Supply-chain security
 - [ ] SBOM
 - [ ] Image signing

@@ -1130,3 +1130,11 @@ Relevantné pojmy: threat modeling, security objective, scope, asset, actor, att
 - [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/)
 - [MITRE CAPEC](https://capec.mitre.org/)
 - [MITRE ATT&CK](https://attack.mitre.org/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Vulnerability a patch management](vulnerability-and-patch-management.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

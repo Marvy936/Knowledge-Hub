@@ -661,3 +661,11 @@ Relevantné pojmy: plaintext, ciphertext, encryption at rest, encryption in tran
 - [NIST FIPS 203 — ML-KEM](https://csrc.nist.gov/pubs/fips/203/final)
 - [NIST FIPS 204 — ML-DSA](https://csrc.nist.gov/pubs/fips/204/final)
 - [NIST FIPS 205 — SLH-DSA](https://csrc.nist.gov/pubs/fips/205/final)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Secrets management](secrets-management.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Vulnerability a patch management →](vulnerability-and-patch-management.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
