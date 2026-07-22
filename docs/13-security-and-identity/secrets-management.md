@@ -1,1115 +1,936 @@
 # Secrets management
 
-Secrets management je disciplína bezpečného vytvárania, distribúcie, používania, rotácie, revocation, auditovania a odstránenia citlivých credentials a cryptographic materialu. Secret nie je iba password. Patrí sem každý údaj alebo capability, ktorého získanie umožňuje neautorizovaný access, impersonation, decryption, signing alebo privileged operation.
+Secrets management je disciplína bezpečného vytvárania, vydávania, distribúcie, používania, obnovovania, rotácie, revocation, auditovania a odstránenia citlivých credentials a cryptographic materialu. Secret nie je iba password. Je to každý údaj alebo capability, ktorého získanie umožňuje impersonation, neautorizovaný access, decryption, signing alebo privileged operation.
 
-## 1. Mentálny model
+Cieľom nie je iba uložiť secret v šifrovanej database. Dobrý systém znižuje počet držiteľov, lifetime, počet copies a blast radius compromise-u. Ideálny workload nepozná permanentný shared credential; preukáže runtime identity a dostane krátkodobý, presne scoped credential s auditovateľným lifecycle-om.
 
 ```text
-identity a workload trust
+workload alebo human identity
 → authentication voči secrets platforme
-→ authorization policy
-→ secret issuance alebo retrieval
-→ secure delivery do workloadu
-→ bounded use
-→ lease/rotation/revocation
-→ audit
-→ recovery a destruction
+→ authorization podľa role, resource-u a contextu
+→ retrieval alebo dynamic issuance
+→ secure delivery
+→ bounded use a cache
+→ renewal, rotation alebo revocation
+→ audit a incident evidence
+→ recovery, retention a destruction
 ```
 
-Cieľom nie je iba uložiť secret šifrovane. Cieľom je znížiť jeho životnosť, distribúciu, počet držiteľov a blast radius compromise-u.
+## 1. Čo je secret a prečo je to capability
 
-## 2. Čo je secret
+Secret má hodnotu preto, že cieľový systém mu dôveruje. Database password umožňuje vytvoriť authenticated session. API token môže autorizovať operation. Private key môže podpisovať alebo decryptovať. Recovery code môže obísť primárny authenticator.
 
-Príklady:
+Príklady secrets:
 
-- database password,
-- API key,
-- OAuth client secret,
-- private key,
-- TLS certificate private key,
-- SSH key,
-- cloud access key,
-- signing key,
-- encryption key,
-- webhook secret,
-- package registry token,
-- Kubernetes service-account token,
-- recovery code,
-- bootstrap credential.
+- database password alebo connection credential;
+- API key, webhook secret alebo package-registry token;
+- OAuth client secret alebo refresh token;
+- cloud access key alebo temporary session credential;
+- SSH private key alebo machine certificate private key;
+- TLS, signing alebo encryption private key;
+- Kubernetes ServiceAccount token;
+- bootstrap token, unseal share alebo recovery code.
 
-Nie každý citlivý údaj je rovnaký typ secretu. Rozlišuj:
+Nie každý citlivý údaj má rovnaké semantics. Bearer token môže použiť každý držiteľ bez ďalšieho proof-of-possession. Encryption key poskytuje cryptographic capability. Recovery material môže obísť bežný login. Classification preto musí zachytiť typ a cieľový authorization model, nie iba label `secret`.
 
-- authentication credential,
-- encryption/signing key,
-- bearer token,
-- recovery material,
-- configuration s citlivým obsahom,
-- identity assertion s krátkou lifetime.
+## 2. Secret oproti identity
+
+Identity odpovedá, kto alebo čo actor je. Secret je jeden z možných authenticatorov alebo capabilities, ktorými identity preukazuje alebo vykonáva operation.
+
+Shared password často splýva s identity: všetky instances sa prihlasujú rovnakým menom a audit nevie rozlíšiť callerov. Workload identity oddelí stable identity od krátkodobého credentialu. Platforma overí Pod, VM alebo CI job a následne mu vydá scoped token alebo database usera.
+
+Tento rozdiel umožňuje revoke-nuť jednu instance, obmedziť audience a zachovať attribution bez distribúcie permanentného secretu.
 
 ## 3. Secret lifecycle
 
+Secret lifecycle nezačína uložením hodnoty. Začína rozhodnutím, prečo credential existuje, kto ho vlastní a aký cieľový systém mu dôveruje.
+
 ```text
-creation alebo import
-→ classification
-→ storage
-→ authorization
-→ distribution
-→ use
-→ renewal/rotation
+purpose a classification
+→ generation alebo import
+→ registration v authoritative systéme
+→ storage a access policy
+→ issuance alebo distribution
+→ use a caching
+→ renewal alebo rotation
 → revocation
-→ archival podľa policy
+→ retention alebo archival podľa potreby
 → secure destruction
 ```
 
-Každá fáza potrebuje:
+Každá fáza potrebuje ownera, audit evidence, failure model a recovery. Ak organization vie secret vytvoriť, ale nevie ho revoke-nuť alebo nájsť všetkých consumers, lifecycle je neúplný.
 
-- ownera,
-- policy,
-- audit evidence,
-- failure model,
-- recovery postup.
-
-## 4. Static a dynamic secrets
-
-### Static secret
-
-Existuje dlhšie obdobie a používa sa opakovane.
-
-Príklady:
-
-- fixed API key,
-- long-lived database password,
-- manually issued certificate.
-
-Riziká:
-
-- kopírovanie,
-- reuse,
-- nejasný ownership,
-- zabudnutá rotation,
-- dlhý compromise window.
-
-### Dynamic secret
-
-Generuje sa on demand pre konkrétnu identity, role alebo workload.
-
-Príklady:
-
-- krátkodobý database user,
-- temporary cloud credentials,
-- short-lived certificate,
-- leased SSH credential.
-
-Výhody:
-
-- kratšia lifetime,
-- lepší audit,
-- per-client attribution,
-- jednoduchšia revocation,
-- menší blast radius.
-
-Dynamic secret je preferovaný tam, kde ho cieľový systém podporuje.
-
-## 5. Secret zero
-
-Secret zero je prvotný credential alebo trust anchor potrebný na získanie ďalších secrets.
-
-Príklady:
-
-- workload identity token,
-- cloud instance identity,
-- Kubernetes service account token,
-- machine certificate,
-- Vault unseal alebo recovery material,
-- bootstrap token.
-
-Secret-zero problém nemožno vyriešiť uložením ďalšieho statického secretu vedľa aplikácie.
-
-Preferuj bootstrap cez:
-
-- platform workload identity,
-- hardware-backed identity,
-- mutual TLS,
-- short-lived signed identity token,
-- attestation,
-- operator-mediated one-time enrollment.
-
-## 6. Workload identity
-
-Workload má autentizovať svoju runtime identitu, nie držať shared permanent credential.
-
-Trust môže vychádzať z:
-
-- cloud instance/task identity,
-- Kubernetes ServiceAccount a projected token,
-- SPIFFE identity,
-- CI OIDC token,
-- machine certificate,
-- managed identity.
-
-Authorization policy potom mapuje workload identity na konkrétne secrets alebo dynamic roles.
-
-Controls:
-
-- audience restriction,
-- short token lifetime,
-- namespace/repository/environment conditions,
-- no wildcard subject mapping,
-- explicit tenant boundary,
-- audit actor identity.
-
-## 7. Secret storage
-
-Dobrý secrets store poskytuje:
-
-- encryption at rest,
-- authenticated a authorized API,
-- versioning alebo lifecycle metadata,
-- rotation/revocation integration,
-- audit,
-- high availability,
-- backup/recovery,
-- access separation,
-- secure key hierarchy.
-
-Encryption storage backendu sama nestačí, ak aplikácia alebo operátor má broad read access ku všetkým secrets.
-
-## 8. Envelope encryption
-
-Typický model:
-
-```text
-data secret
-→ zašifrovaný data encryption keyom
-→ data encryption key chránený root/master keyom
-→ master key chránený KMS/HSM alebo seal mechanizmom
-```
-
-Výhody:
-
-- key hierarchy,
-- rotation master keyu bez re-encryption každého payloadu podľa implementácie,
-- centralizovaný audit cryptographic operations.
-
-Riziká:
-
-- strata alebo zmazanie root/seal keyu,
-- broad decrypt permissions,
-- unavailable KMS/HSM,
-- neoverený backup recovery.
-
-## 9. Secret delivery patterns
-
-### Environment variable
-
-Výhody:
-
-- jednoduché,
-- široká compatibility.
-
-Riziká:
-
-- viditeľnosť v process environment,
-- accidental dumps/logs,
-- neaktualizuje sa bez reštartu,
-- dedenie child processes,
-- platform inspection access.
-
-### File alebo mounted volume
-
-Výhody:
-
-- filesystem permissions,
-- možnosť atomic update,
-- application môže reloadnúť obsah.
-
-Riziká:
-
-- node/container filesystem exposure,
-- backup/core dump,
-- stale file,
-- permission alebo symlink chyba.
-
-### Sidecar alebo agent
-
-Agent autentizuje workload a zapisuje/obnovuje secrets.
-
-Výhody:
-
-- oddelenie client logic,
-- renewal,
-- templates.
-
-Riziká:
-
-- shared filesystem trust,
-- agent availability,
-- race pri rotation,
-- resource overhead.
-
-### Direct API retrieval
-
-Application volá secrets platformu.
-
-Výhody:
-
-- najaktuálnejší secret,
-- explicitný lifecycle,
-- no persistent local copy podľa designu.
-
-Riziká:
-
-- application complexity,
-- runtime dependency,
-- retry storm,
-- cache a outage model.
-
-## 10. Caching
-
-Aplikácia typicky potrebuje krátkodobý cache.
-
-Definuj:
-
-- cache TTL,
-- refresh-before-expiry,
-- stale-on-error policy,
-- memory protection,
-- process restart behavior,
-- revocation latency,
-- zeroization limitations.
-
-Fail-open s expired secretom môže porušiť authorization. Fail-closed môže spôsobiť outage. Rozhodnutie musí vychádzať z konkrétneho secret type-u a business risku.
-
-## 11. Rotation
-
-Rotation nahrádza credential alebo key novou hodnotou.
-
-Bezpečný rotation flow:
-
-```text
-vytvor novú hodnotu/version
-→ distribuuj ju consumerom
-→ over successful use
-→ prechodné overlap okno
-→ revoke-ni starú hodnotu
-→ monitoruj failures
-→ odstráň starú hodnotu
-```
-
-Nie každý systém podporuje overlap. Vtedy potrebuješ coordinated cutover alebo dual credentials.
-
-## 12. Rotation frequency
-
-Frequency závisí od:
-
-- secret lifetime,
-- exposure surface,
-- schopnosti revoke-nuť,
-- automation maturity,
-- compliance,
-- credential type-u,
-- incident response času.
-
-Častá manuálna rotation môže zvyšovať outage risk. Automatizovaná krátka lifetime býva účinnejšia než kalendárna výmena dlhodobých secrets.
-
-## 13. Revocation
-
-Revocation musí byť technicky vynútiteľná.
-
-Príklady:
-
-- zmazanie database usera,
-- disable API keyu,
-- certificate revocation alebo short expiry,
-- token denylist/session revoke,
-- cloud role session policy,
-- lease revoke v secrets platforme.
-
-Zmena hodnoty v secrets store nestačí, ak starý credential zostáva platný v cieľovom systéme.
-
-## 14. Lease
-
-Lease je časovo obmedzený contract medzi secrets platformou a vydaným secretom.
-
-Obsahuje typicky:
-
-- lease ID,
-- TTL,
-- renewable flag,
-- revocation behavior,
-- owner/role context.
-
-Application musí vedieť:
-
-- kedy obnoviť,
-- čo robiť pri renewal failure,
-- ako graceful-ly prepnúť credential,
-- ako ukončiť lease pri shutdown-e.
-
-## 15. Versioning
-
-Static secrets môžu mať versions.
-
-Versioning umožňuje:
-
-- controlled rollout,
-- rollback po chybnej zmene,
-- audit,
-- recovery z accidental overwrite.
-
-Riziko:
-
-- staré versions zostávajú citlivé,
-- broad read history access,
-- rollback na compromised secret,
-- retention bez deletion policy.
-
-## 16. Secret classification
+## 4. Secret classification
 
 Pre každý secret dokumentuj:
 
-- owner,
-- purpose,
-- environment/tenant,
-- consumers,
-- source system,
-- credential type,
-- lifetime,
-- rotation/revocation method,
-- compromise impact,
-- storage/delivery pattern,
-- recovery dependency.
+- purpose a cieľový systém;
+- authoritative ownera;
+- human alebo workload consumers;
+- environment, tenant a data scope;
+- credential semantics — bearer, password, private key, recovery material;
+- lifetime a renewal model;
+- rotation a revocation mechanism;
+- storage a delivery pattern;
+- compromise impact a blast radius;
+- recovery dependencies;
+- logging a audit requirements.
 
 Príklad:
 
 ```text
-Secret: payments DB dynamic credential
+Secret: payments database dynamic credential
 Owner: Payments platform
-Consumer: payments-api production
-Lifetime: 30 min
-Rotation: lease renewal/new credential
-Revocation: revoke lease/database user
-Blast radius: one workload role
-Audit: workload identity + lease ID
+Consumer: payments-api production workload identity
+Lifetime: 30 minút
+Renewal: nový credential pred expiry
+Revocation: Vault lease revoke + database user deletion
+Blast radius: jedna workload role a krátke časové okno
+Audit: workload identity, Vault token accessor, lease ID, DB username
 ```
 
-## 17. Access control
+Classification nie je administratívna tabuľka. Určuje, či je prijateľná environment variable, aká cache TTL je bezpečná a čo má incident tím revoke-nuť.
 
-Secrets authorization má byť jemnejšia než „môže čítať celý namespace“.
+## 5. Static secret
 
-Policy dimensions:
+Static secret existuje dlhšie a používa sa opakovane. Typickým príkladom je fixed API key, shared database password alebo manually issued long-lived certificate.
 
-- identity/workload,
-- path alebo secret role,
-- operation,
-- environment,
-- tenant,
-- time,
-- source/network context,
-- approval.
+Static credential je jednoduchý pre legacy systems, ale má vysoký operational cost:
 
-Oddel:
+- kopíruje sa medzi consumers a environments;
+- ownership sa časom stráca;
+- rotation vyžaduje coordinated update;
+- old copies ostávajú v files, backups alebo memory dumps;
+- audit často ukazuje iba shared account;
+- compromise window môže trvať mesiace.
 
-- secret read,
-- secret metadata/list,
-- create/update,
-- rotate,
-- revoke,
-- policy administration,
-- audit access,
-- root/recovery operations.
+Ak cieľový systém nevie vytvoriť dynamic credentials, zníž risk krátkou rotation, úzkym scope-om, oddelenými values per consumer a automatizovanou distribution.
 
-## 18. Listing risk
+## 6. Dynamic secret
 
-Aj zoznam názvov secrets môže odhaliť:
-
-- services,
-- environments,
-- database names,
-- customer identifiers,
-- privileged integration.
-
-Preto `list` a `read` môžu mať samostatné permissions a audit requirements.
-
-## 19. Human access
-
-Humans nemajú bežne čítať production application secrets.
-
-Preferuj:
-
-- break-glass alebo approved temporary access,
-- generated credential namiesto zobrazenia shared secretu,
-- session recording/audit,
-- separation of duties,
-- no clipboard/chat/ticket transfer,
-- automatic expiry.
-
-Operational debugging má byť možný bez disclosure secret value, napríklad cez metadata, version a health status.
-
-## 20. CI/CD secrets
-
-Riziká:
-
-- forked pull requests,
-- untrusted build scripts,
-- third-party actions,
-- self-hosted runner persistence,
-- log output,
-- artifact/cache leakage,
-- environment promotion.
-
-Controls:
-
-- OIDC workload federation namiesto static cloud keys,
-- environment approvals,
-- protected branches/tags,
-- short-lived tokens,
-- masked logs, ale nie spoliehanie iba na masking,
-- isolated runners,
-- minimal scopes,
-- no secrets pre untrusted PR context.
-
-## 21. Kubernetes Secrets
-
-Kubernetes Secret je API object pre citlivé dáta, ale nie plnohodnotná externá secrets-management platforma.
-
-Dôležité:
-
-- base64 encoding nie je encryption,
-- Secret data môžu byť v etcd bez encryption-at-rest konfigurácie,
-- RBAC `get`, `list` a `watch` predstavujú významný access,
-- Pod, ktorý môže mountnuť Secret, môže hodnotu prečítať,
-- environment variables sa neaktualizujú automaticky,
-- mounted projected data majú vlastný update interval a application reload model.
-
-## 22. Kubernetes security controls
-
-- encryption at rest pre etcd,
-- least-privilege RBAC,
-- obmedziť `list/watch` Secrets,
-- namespace/tenant isolation,
-- audit accessu,
-- admission policy,
-- no Secret manifest v Git-e,
-- restrict debug/exec/ephemeral-container access,
-- secure node/kubelet boundary,
-- external secrets integration podľa threat modelu.
-
-Access vytvárať Pods v namespace môže byť nepriamy access k Secrets, ktoré možno mountnuť do workloadu.
-
-## 23. External secrets synchronization
-
-Controller môže synchronizovať hodnoty z externého secrets store do Kubernetes Secrets.
-
-Výhody:
-
-- central source,
-- Git obsahuje reference, nie hodnotu,
-- rotation workflow.
-
-Riziká:
-
-- secret sa stále materializuje v Kubernetes,
-- controller má broad permissions,
-- sync latency,
-- stale value,
-- deletion semantics,
-- source outage,
-- tenant crossing.
-
-Alternatíva je runtime mount alebo direct retrieval bez persistent Kubernetes Secretu.
-
-## 24. CSI a volume-based retrieval
-
-Secret Store CSI pattern môže mountovať external secret do Pod filesystemu.
-
-Vyhodnoť:
-
-- či sa vytvára aj Kubernetes Secret,
-- node plugin trust,
-- rotation update,
-- application reload,
-- filesystem permissions,
-- node compromise,
-- provider availability.
-
-Volume mount nevyrieši secret exposure v application memory.
-
-## 25. HashiCorp Vault model
-
-Vault je identity-based secrets a encryption management system.
-
-Základný flow:
+Dynamic secret sa generuje on demand pre konkrétnu identity, role alebo workload. Secrets platforma vytvorí temporary database usera, cloud credential alebo certificate a pripojí mu TTL a revocation lifecycle.
 
 ```text
-client/workload
+workload sa autentizuje
+→ policy povolí konkrétnu dynamic role
+→ platforma vytvorí unique credential v target systéme
+→ credential dostane lease
+→ workload ho používa počas TTL
+→ platforma ho renew-ne alebo revoke-ne
+```
+
+Výhody sú per-client attribution, kratší compromise interval a menší shared blast radius. Dynamic secret však vytvára runtime dependency na issuer-a a target system. Ak revocation plugin zlyhá, orphan credential môže zostať platný.
+
+## 7. Secret zero
+
+Secret zero je prvotný trust anchor, ktorým workload získa ďalšie secrets. Ak aplikácia potrebuje Vault token, musí najprv preukázať identity Vault auth methodu. Ak tento bootstrap rieši permanentným tokenom v image, problém sa iba presunul.
+
+Vhodné bootstrap sources sú:
+
+- cloud instance alebo task identity;
+- Kubernetes projected ServiceAccount token;
+- CI OIDC token;
+- hardware-backed machine identity;
+- short-lived mTLS certificate;
+- SPIFFE workload identity;
+- one-time operator enrollment.
+
+Secret zero sa nedá úplne odstrániť; dá sa presunúť do dôveryhodnejšej platform boundary, skrátiť jeho lifetime a viazať ho na runtime context.
+
+## 8. Workload identity ako bootstrap
+
+Workload identity je overiteľná identity running software-u nezávislá od shared passwordu. Platforma môže viazať credential na VM instance, Kubernetes ServiceAccount, CI repository/workflow alebo SPIFFE selector.
+
+Secrets platforma následne mapuje identity na secret paths alebo dynamic roles:
+
+```text
+identity: payments-api v production namespace
+→ môže požiadať iba database role payments-readwrite
+→ nemôže listovať celý KV namespace
+→ token a DB credential majú krátku TTL
+```
+
+Trust policy musí validovať issuer, audience, subject a environment. Wildcard mapping `system:serviceaccount:*:*` by zmenil workload identity na cluster-wide shared trust.
+
+## 9. Human access
+
+Humans by bežne nemali čítať production application secrets. Debugging sa má opierať o metadata, health, version, lease a authorization evidence, nie o copy-paste hodnoty.
+
+Keď human access musí existovať, preferuj:
+
+- just-in-time approval;
+- vygenerovaný temporary credential namiesto zobrazenia shared value;
+- session recording alebo detailed audit;
+- oddelené break-glass identities;
+- automatic expiry;
+- zákaz prenosu cez chat, ticket alebo clipboard workflow;
+- post-use rotation pri disclosure static secretu.
+
+„Admin môže vidieť všetko“ je veľká compromise boundary a ničí attribution medzi application a operator accessom.
+
+## 10. Secret storage
+
+Secrets store má poskytovať authenticated API, encryption at rest, version alebo lease metadata, least-privilege authorization, audit, high availability, backup a recovery.
+
+Storage encryption chráni proti disk alebo database-only compromise. Nechráni pred callerom s broad `read` permission ani pred compromised application, ktorá smie secret oprávnene získať.
+
+Dôležitá je separation:
+
+```text
+secret ciphertext v storage
+→ encryption barrier alebo DEK
+→ root/seal key v oddelenej KMS/HSM boundary
+→ access cez identity a policy
+```
+
+Storage backend, encryption keys, API policies a audit logs nemajú byť pod kontrolou jednej neobmedzenej identity.
+
+## 11. Envelope encryption v secrets platforme
+
+Secrets platforma typicky šifruje stored payloads pomocou data keys a tieto keys chráni root alebo seal keyom. Root key môže byť ďalej chránený KMS/HSM alebo Shamir shares podľa produktu.
+
+Envelope model umožňuje rotate vyššiu key layer bez decrypt/re-encrypt každého payloadu. Vytvára však strict recovery dependency: backup ciphertext bez dostupného root/seal mechanismu je nepoužiteľný.
+
+Broad decrypt permission alebo compromise unsealed core-u môže sprístupniť mnoho secrets naraz. Encryption hierarchy preto musí byť kombinovaná s API authorization a runtime isolation.
+
+## 12. Delivery pattern: environment variable
+
+Environment variable je široko podporovaný spôsob delivery. Orchestrator alebo process manager vloží value pri štarte procesu.
+
+Výhodou je jednoduchosť. Nevýhody:
+
+- secret môže byť viditeľný cez process inspection, crash dump alebo debug output;
+- child process ho zdedí;
+- value sa typicky neaktualizuje bez restartu;
+- accidental environment dump unikne celý set;
+- application nerozlišuje version ani lease metadata.
+
+Environment je vhodnejší pre krátko žijúci process a low-complexity rotation, nie pre credential s častou renewal požiadavkou.
+
+## 13. Delivery pattern: file alebo mounted volume
+
+Secret uložený ako file môže používať filesystem permissions a atomic replacement. Application môže sledovať zmenu a reloadnúť credential bez restartu.
+
+Risk boundary sa presunie na node/container filesystem. Pod alebo process s read accessom file získa plaintext. Backup, core dump, debug shell alebo symlink/permission chyba môže value odhaliť.
+
+Atomic update často používa nový file a rename alebo symlink switch. Application, ktorá drží otvorený file descriptor, nemusí novú hodnotu načítať. Rotation preto potrebuje explicitný reload contract.
+
+## 14. Delivery pattern: sidecar alebo node agent
+
+Agent autentizuje workload, získava secrets, obnovuje leases a zapisuje templates alebo files. Application nemusí implementovať celý client protocol.
+
+Agent prináša renewal a centralizovanú logiku, ale vytvára shared trust boundary:
+
+- application a agent často zdieľajú filesystem;
+- agent outage môže zablokovať refresh;
+- race pri file replacement môže spôsobiť partial read;
+- misconfigured template môže zalogovať secret;
+- node-level agent má veľký blast radius pri compromise.
+
+Policy musí overiť identity konkrétneho workloadu, nie iba fakt, že request prichádza z trusted node.
+
+## 15. Delivery pattern: direct API retrieval
+
+Application sa autentizuje voči secrets platforme a volá jej API. Dostane secret value, lease ID, TTL a metadata a môže riadiť refresh presne podľa lifecycle-u.
+
+Tento pattern minimalizuje persistent local copy, ale pridáva application complexity a runtime dependency. Client potrebuje timeouts, retry s backoffom, cache, renewal, revocation response a observability.
+
+Naivný startup, pri ktorom stovky replicas naraz volajú Vault, môže počas rollout-u vytvoriť retry storm. Jitter, agent cache alebo staged rollout znižujú thundering herd.
+
+## 16. Cache a plaintext lifetime
+
+Application zvyčajne cache-uje secret v memory, pretože volať secrets platformu pri každom requeste je drahé a zvyšuje availability coupling.
+
+Cache policy definuje:
+
+- TTL a refresh-before-expiry;
+- jitter;
+- behavior pri refresh failure;
+- maximum stale interval;
+- revocation latency;
+- process restart semantics;
+- memory exposure a dump policy;
+- version-aware replacement.
+
+Fail-open s neobmedzene starým credentialom neguje expiry a revocation. Fail-closed môže spôsobiť outage. Napríklad read-only service môže pokračovať s ešte platným cached DB credentialom, ale signing service môže pri issuer outage odmietnuť nové operations.
+
+## 17. Rotation oproti revocation
+
+Rotation nahradí credential novou hodnotou. Revocation technicky zneplatní starú hodnotu v authoritative target systéme.
+
+```text
+rotation
+→ create new credential
+→ update consumers
+→ verify new use
+
+revocation
+→ old credential už target system neprijme
+```
+
+Zmena value v secret store nie je revocation, ak starý database password, API key alebo token zostáva platný. Bezpečný lifecycle potrebuje oba kroky.
+
+## 18. Bezpečný rotation flow
+
+Rotation bez outage-u typicky používa overlap:
+
+```text
+vytvoriť novú value/version
+→ distribuovať ju consumers
+→ overiť successful authentication
+→ nechať krátke overlap okno
+→ revoke-nuť old credential
+→ monitorovať failures
+→ odstrániť old value a history podľa retention
+```
+
+Niektoré target systems podporujú dva active keys; iné vyžadujú coordinated cutover. Application connection pools musia otvoriť nové sessions s novým credentialom, pretože existing database connections môžu zostať validné aj po password change.
+
+## 19. Rotation frequency
+
+Frequency závisí od lifetime, exposure, revocation capability, automation maturity a impactu compromise-u. Častá manuálna výmena môže vytvárať outages a viesť k obchádzaniu processu.
+
+Automatizovaný 30-minútový dynamic credential je často bezpečnejší než 90-dňový calendar rotation shared passwordu. Krátka lifetime však vyžaduje spoľahlivý issuer a renewal.
+
+Rotation interval nie je jediná kontrola. Credential s broad permissions a 15-minútovou TTL môže počas compromise-u stále spôsobiť veľký impact.
+
+## 20. Lease
+
+Lease je časovo obmedzený contract medzi secrets platformou a vydaným dynamic secretom. Obsahuje lease ID, TTL, renewability a revocation behavior.
+
+Application musí credential renew-nuť alebo nahradiť pred expiry. Po expiry Vault môže revoke-nuť target credential; consumer už nemôže predpokladať, že je validný.
+
+```text
+issued credential + lease_id + TTL
+→ refresh/renew pred expiry
+→ success: predĺžiť alebo vymeniť
+→ failure: prejsť na nový credential alebo degraded/fail state
+```
+
+Vault KV static secret nemá rovnaký dynamic lease lifecycle ako database credential. TTL metadata v response nemusí znamenať automatickú revocation stored value.
+
+## 21. Versioning static secrets
+
+Versioning umožňuje controlled rollout, recovery z accidental overwrite a audit. KV v2 vo Vault-e napríklad uchováva versions a metadata.
+
+Old versions zostávajú citlivé. Broad history read zväčšuje compromise scope a rollback môže znovu aktivovať compromised value.
+
+Version retention a deletion policy musí byť prepojená s target credential lifecycle-om. Odstránenie version zo store neznamená zneplatnenie credentialu v external systeme.
+
+## 22. Least-privilege authorization
+
+Secrets authorization má rozlišovať identity, operation, resource/path, environment, tenant a context. Permission „read celý namespace“ je často príliš broad.
+
+Oddel capabilities:
+
+- read current value;
+- list names alebo metadata;
+- read historical versions;
+- create/update;
+- rotate target credential;
+- revoke lease alebo credential;
+- meniť policy;
+- čítať audit;
+- vykonávať root/recovery operations.
+
+Workload, ktorý potrebuje jeden dynamic database role, nemá vedieť listovať všetky secrets ani meniť engine configuration.
+
+## 23. Listing risk
+
+Secret names a paths môžu prezradiť services, customers, environments, databases a privileged integrations. Metadata sú preto citlivé aj bez values.
+
+`list` a `watch` môžu mať iné semantics než `read`, ale v niektorých APIs odhalia values alebo veľký inventory. Policy a audit majú vychádzať zo skutočného API behavioru.
+
+Naming convention nemá obsahovať unnecessary customer identifiers alebo secret values.
+
+## 24. CI/CD secrets
+
+CI job vykonáva repository-controlled code a často používa third-party actions. Je preto high-risk secret consumer.
+
+Untrusted pull-request context nesmie dostať production cloud key, registry push token ani signing identity. Preferred model je OIDC federation:
+
+```text
+protected workflow
+→ short-lived OIDC assertion
+→ cloud/Vault trust policy overí repository, workflow, branch a environment
+→ vydá scoped temporary credential
+```
+
+Self-hosted runner persistence, caches, logs a artifacts sú exposure paths. Masking je defense in depth, nie guarantee; encoded alebo transformed value môže filter obísť.
+
+## 25. Build secrets
+
+Build potrebuje niekedy private package token alebo license credential. Secret nesmie byť uložený v Dockerfile `ARG`, `ENV`, image layer alebo build cache.
+
+BuildKit secret mount sprístupní value iba počas konkrétneho `RUN` step-u bez automatického uloženia do layeru. Build command ho však stále môže skopírovať do outputu alebo logu.
+
+Release job s high-impact credentials má používať trusted source a isolated runner. Untrusted build code nemá dostať signing alebo production publish capability.
+
+## 26. Git a encrypted-secret patterns
+
+Plaintext secret nepatrí do Git-u ani v private repository. History, forks, clones, caches a backups vytvárajú durable copies.
+
+Encrypted-secret manifest môže byť prijateľný, ak:
+
+- recipients a encryption keys sú oddelené od repository;
+- decrypt access je least-privilege a auditovaný;
+- CI nepublikuje plaintext;
+- key rotation a re-encryption fungujú;
+- old encrypted history má posúdený compromise impact;
+- metadata neprezrádzajú citlivý context.
+
+Compromise decryption keyu môže spätne odhaliť všetky historical encrypted values v Git history. Rotation target credentialu a rotation encryption recipient keyu sú samostatné operácie.
+
+## 27. Terraform state
+
+Terraform state môže obsahovať secrets aj keď input alebo output je označený `sensitive`. `sensitive` primárne obmedzuje CLI/UI display, nie storage.
+
+State potrebuje encrypted remote backend, strict IAM, locking, versioning, audit a secure backup. Preferuj resources, ktoré ukladajú reference alebo konfigurujú dynamic retrieval namiesto kopírovania secret value do state.
+
+Provider schema určuje, ktoré attributes sa persistujú. Plan JSON a CI artifacts môžu obsahovať rovnaké values ako state a potrebujú rovnakú ochranu.
+
+## 28. Container images
+
+Secret pridaný do image layeru zostáva v content-addressed history aj po neskoršom `rm`. Každý s accessom k layeru ho môže extrahovať.
+
+Neukladaj secrets do:
+
+- Dockerfile `ARG` alebo `ENV` určeného pre secret;
+- copied configuration vo build context-e;
+- package-manager credentials vo final image;
+- build cache alebo exported layer;
+- image labels alebo provenance parameters.
+
+Po leakage treba credential revoke-nuť a rebuildnúť image; samotné odstránenie file-u z latest layeru nestačí.
+
+## 29. Secret scanning
+
+Secret scanner hľadá high-entropy values, known token formats, private-key headers alebo verified credentials v Git history, working tree, images, logs, packages a tickets.
+
+Detection nie je remediation. Pri náleze:
+
+```text
+classify secret a authoritative target
+→ revoke alebo disable
+→ identify consumers/sessions
+→ preserve evidence a exposure window
+→ rotate dependent systems
+→ remove active source leakage
+→ rewrite history iba keď má operational význam
+→ add prevention a tests
+```
+
+Priority je zneplatnenie capability. Delete commit-u bez revocation necháva credential použiteľný.
+
+## 30. Kubernetes Secret object
+
+Kubernetes Secret je namespaced API object určený na citlivé configuration data. Poskytuje API semantics, RBAC, projection do Pods a object lifecycle, ale nie je automaticky plnohodnotný external secrets manager.
+
+Values v `.data` sú base64 encoded, nie encrypted. Bez EncryptionConfiguration sú Secret objects v etcd uložené bez additional encryption at rest. Kubernetes dokumentácia preto odporúča encryption at rest a obmedzenie `get`, `list` a `watch` permissions.
+
+Secret môže byť typu Opaque, TLS, Docker config alebo ServiceAccount token podľa schema/use case-u. Type neposkytuje automatickú rotation ani target-system revocation.
+
+## 31. Kubernetes indirect access paths
+
+Permission vytvoriť Pod v namespace môže byť nepriamy access k Secrets, ktoré workload smie mountnúť. `pods/exec`, ephemeral containers, privileged node access alebo kubelet APIs môžu odhaliť environment, files alebo memory.
+
+Preto Secret security nemožno posúdiť iba cez direct `get secrets` RBAC. Threat model zahŕňa:
+
+- Pod creation a ServiceAccount use;
+- exec/debug permissions;
+- node a kubelet compromise;
+- CSI/provider permissions;
+- admission controls;
+- namespace boundaries;
+- backup a etcd access.
+
+Namespace nie je strong tenant boundary, ak administrators alebo node workloads sú shared a broad.
+
+## 32. Kubernetes delivery semantics
+
+Environment variable sa načíta pri container startup-e a neskorší Secret update sa do existing processu nepremietne.
+
+Secret volume je projected do Pod filesystemu. Kubelet aktualizuje mounted content podľa cache/watch/update semantics, ale application musí file znovu načítať. `subPath` mount nemá rovnaké automatic update behavior ako celý projected volume.
+
+Rotation je preto end-to-end contract:
+
+```text
+source secret update
+→ Kubernetes object alebo CSI mount update
+→ file/symlink change
+→ application reload alebo restart
+→ new outbound connection/session
+→ old credential revocation
+```
+
+## 33. Kubernetes controls
+
+Defense in depth zahŕňa:
+
+- etcd encryption at rest, ideálne s KMS boundary podľa threat modelu;
+- least-privilege RBAC a obmedzenie `list/watch`;
+- admission policy pre unsafe Pod mounts a privileged debug;
+- secure ServiceAccounts a projected short-lived tokens;
+- audit API accessu;
+- node hardening a kubelet protection;
+- namespace/tenant isolation;
+- external secret store alebo workload identity pre high-impact credentials;
+- no plaintext manifests v Git-e.
+
+Encryption at rest nechráni authorized API read ani mounted plaintext v Pod-e.
+
+## 34. External Secrets Operator pattern
+
+External Secrets Operator — ESO — reconciliuje declarative `ExternalSecret` resource s external providerom a vytvorí alebo aktualizuje Kubernetes Secret.
+
+```text
+ExternalSecret reference
+→ operator autentizuje provider identity
+→ načíta remote keys
+→ transformuje/template-ne data
+→ vytvorí alebo aktualizuje target Secret
+→ opakuje refresh podľa policy/interval-u
+```
+
+Výhodou je central external source a Git bez values. Secret sa však stále materializuje v Kubernetes API, etcd a Pod projections.
+
+Operator má broad provider aj cluster permissions a stáva sa high-impact controllerom. Potrebuje tenant isolation, scoped SecretStore/ClusterSecretStore policy, refresh/deletion semantics, metrics a provider outage model.
+
+## 35. ESO refresh, ownership a deletion
+
+Refresh policy určuje, kedy controller znovu načíta remote value. Refresh interval vytvára maximum expected staleness, ale actual update závisí aj od reconciliation health a provider availability.
+
+Creation/ownership policy určuje, kto vlastní target Secret a či sa smie meniť alebo mazať. Deletion policy určuje behavior, keď remote key zmizne.
+
+Unsafe default môže zmazať production Secret po accidental provider deletion alebo naopak ponechať stale credential navždy. Policy musí zodpovedať target-system revocation a application reload modelu.
+
+## 36. Secrets Store CSI Driver
+
+Secrets Store CSI Driver integruje external secret stores cez CSI volume. Pri Pod mount-e kubelet zavolá driver, provider plugin autentizuje workload a zapíše values do mounted filesystemu.
+
+```text
+Pod references SecretProviderClass
+→ kubelet/CSI NodePublishVolume
+→ provider získa external secret
+→ driver mountne files do Podu
+→ application ich číta z filesystemu
+```
+
+Secret nemusí byť persistentne uložený ako Kubernetes Secret, pokiaľ nie je zapnutá sync feature. Node plugin a provider však majú prístup k plaintextu a sú critical node-level boundary.
+
+## 37. CSI rotation
+
+Auto rotation periodicky re-fetchne values a aktualizuje Pod mount; voliteľne môže aktualizovať aj synced Kubernetes Secret. Application musí mounted file sledovať alebo reloadovať.
+
+Rotation poll interval určuje staleness a provider load. Krátky interval zvyšuje API calls, dlhý predlžuje revocation window.
+
+Missing provider secret môže spôsobiť mount alebo refresh failure. Startup a running-Pod behavior majú byť testované, nie odhadnuté.
+
+## 38. ESO oproti CSI oproti direct API
+
+**ESO** materializuje Secret ako Kubernetes API object a je kompatibilný s applications očakávajúcimi native Secret.
+
+**CSI** mountuje file pri Pod lifecycle-e a môže sa vyhnúť persistent Kubernetes Secretu, ale viaže availability na node driver/provider a filesystem reload.
+
+**Direct API** dáva application plný lease/metadata lifecycle, ale zvyšuje client complexity.
+
+Výber závisí od application interface-u, desired staleness, etcd threat, node trust, issuer availability a target rotation semantics. Neexistuje univerzálne „najbezpečnejší“ pattern bez threat modelu.
+
+## 39. HashiCorp Vault mentálny model
+
+Vault je identity-based secrets a encryption management system. Client sa autentizuje cez auth method, Vault mapuje external identity na policies a vydá Vault token. Token autorizuje API paths, kde secrets engines ukladajú static data, generujú dynamic credentials, vydávajú certificates alebo poskytujú cryptographic operations.
+
+```text
+external identity
 → auth method
-→ Vault identity a policies
-→ client token
-→ secrets engine
-→ static secret, dynamic credential, certificate alebo crypto operation
-→ lease/revocation
+→ Vault entity/group a policies
+→ Vault token
+→ secrets-engine API path
+→ secret/credential/crypto result
+→ lease a expiration manager
 → audit devices
 ```
 
-Vault centralizuje access control a audit, ale jeho dostupnosť a recovery sa stávajú kritickou platform dependency.
+Vault centralizuje trust a audit, ale stáva sa kritickou availability a security dependency. Root/seal, storage, identity mappings a policies patria do disaster-recovery modelu.
 
-## 26. Vault auth methods
+## 40. Vault auth methods
 
-Auth method overuje external identity a vydáva Vault token s policies.
+Auth method overuje external credential alebo identity a vytvorí Vault token s policies. Príklady sú Kubernetes, cloud IAM, JWT/OIDC, TLS certificate, AppRole, LDAP a userpass.
 
-Príklady:
+Auth role typicky obmedzuje accepted issuers, service accounts, namespaces, cloud roles alebo token claims. Po úspechu Vault identity system môže mapovať alias na entity a groups.
 
-- Kubernetes,
-- cloud IAM,
-- OIDC/JWT,
-- AppRole,
-- TLS certificates,
-- LDAP/userpass pre vybrané use cases.
+Preferuj platform-generated short-lived identity. AppRole `role_id + secret_id` môže byť vhodný pre legacy machines, ale `secret_id` je bootstrap credential s distribution, response wrapping a rotation lifecycle-om.
 
-Preferuj identity, ktorú platforma vytvára a rotuje automaticky.
+## 41. Vault policies
 
-AppRole `role_id + secret_id` stále vytvára bootstrap/distribution problém; nie je automaticky lepší než iný static credential.
+Vault policy je path-based authorization. Capabilities ako `read`, `create`, `update`, `delete`, `list` a privileged `sudo` sa vzťahujú na API paths.
 
-## 27. Vault policies
+Path semantics závisia od engine-u. KV v2 read path obsahuje `/data/`, metadata/list path `/metadata/`; policy skopírovaná z KV v1 môže nefungovať alebo byť príliš broad.
 
-Vault policy povoľuje capabilities nad paths.
+Policies sa pripájajú k tokens priamo alebo cez identity entities/groups. Auth role constraints a policy capabilities riešia rozdielne kroky: prvé určujú, kto sa môže prihlásiť, druhé čo token smie robiť.
 
-Príklady capabilities:
+## 42. Vault token
 
-- `read`,
-- `create`,
-- `update`,
-- `delete`,
-- `list`,
-- `sudo` pre chránené operations.
+Vault token je bearer credential a core authorization carrier. Obsahuje policies, TTL, renewability, parent/child lifecycle, optional use limits a accessor.
 
-Policy má byť viazaná na role/use case, nie na každú individual instance bez potreby.
+Accessor možno použiť na lookup alebo revocation bez uloženia raw tokenu v audit/workflowe. Raw token value je secret.
 
-Rozlišuj:
+Service tokens môžu mať parent hierarchy; revocation parent tokenu môže revoke-nuť child tokens a leases. Batch tokens majú odlišné storage a feature semantics a treba ich voliť podľa use case-u.
 
-- identity group mapping,
-- auth role constraints,
-- token policy,
-- secrets-engine path semantics.
+Root token obchádza bežné policy restrictions. Po initialization sa má revoke-nuť a generovať iba controlled quorum processom pri výnimočnej potrebe.
 
-## 28. Vault token
+## 43. Vault secrets engines
 
-Vault token je bearer credential s:
-
-- policies,
-- TTL,
-- renewability,
-- parent-child lifecycle,
-- optional use limits,
-- accessorom pre audit/revocation.
-
-Root token obchádza bežné policy restrictions a nemá sa používať na application operations.
-
-Root token po inicializácii bezpečne zruš a regeneruj iba cez kontrolovaný quorum proces pri výnimočnej potrebe.
-
-## 29. Vault secrets engines
-
-Secrets engine môže:
-
-- ukladať static data,
-- generovať dynamic credentials,
-- vydávať certificates,
-- vykonávať encryption/signing,
-- integrovať external systems.
-
-Engine je mountnutý na path a má vlastnú configuration/lifecycle.
+Secrets engine je mountnutý na API path a implementuje vlastný data a lifecycle model. Engine nemá relative access do iných mountov; core izoluje paths.
 
 Príklady:
 
-- KV,
-- database,
-- cloud secrets,
-- PKI,
-- Transit,
-- SSH.
+- KV — static key/value data;
+- database/cloud — dynamic alebo rotated credentials;
+- PKI — certificate issuance;
+- Transit — encryption, signing a HMAC operations;
+- SSH — SSH credentials alebo signing;
+- key management — lifecycle external KMS keys podľa supported providers.
 
-## 30. KV secrets engine
+Disable engine-u môže revoke-nuť leases viazané na jeho path. Mount path je preto lifecycle identity, nie iba URL organization.
 
-KV je vhodný pre static secrets, ktoré nemožno dynamicky generovať.
+## 44. Vault KV v2
 
-KV v2 pridáva versioning a check-and-set semantics podľa configuration.
+KV v2 ukladá versioned static secrets a oddelené metadata. Podporuje soft deletion, undelete, destroy a check-and-set semantics.
 
-Controls:
+KV vyrieši storage a access, nie target credential rotation. Ak uložíš database password do KV a vytvoríš novú version, Vault automaticky nezmení password v database.
 
-- obmedziť history access,
-- retention/deletion,
-- metadata privacy,
-- rotation mimo samotného storage,
-- no broad prefix read,
-- no secret values v Terraform state alebo CI logs.
+Policies majú oddeliť current data, version history a metadata/list. Retention a destroy majú zodpovedať incident a recovery requirements.
 
-KV uloženie samo nezmení credential v cieľovom systéme.
+## 45. Vault dynamic database credentials
 
-## 31. Dynamic database credentials
-
-Database secrets engine môže vytvoriť per-client database usera s TTL.
+Database secrets engine používa configured privileged database connection a role templates na vytváranie unique users.
 
 ```text
-workload sa autentizuje vo Vault
-→ požiada database role
-→ Vault vytvorí unique DB credential
-→ workload používa credential počas lease
-→ Vault ho po expiry/revocation odstráni
+payments-api authenticates to Vault
+→ reads database/creds/payments-role
+→ Vault plugin creates unique DB username/password
+→ response includes lease ID and TTL
+→ DB audit attributes sessions to that username
+→ expiry/revoke triggers user deletion or revocation statements
 ```
 
-Výhody:
+Výhody sú attribution a krátka lifetime. Risks sú protection root DB credentialu, plugin correctness, target availability, orphan users a connection-pool behavior.
 
-- attribution,
-- krátka lifetime,
-- no shared password,
-- automatic revocation.
+Vault revocation je best-effort voči target systemu. Revocation failure musí byť monitored a reconciled.
 
-Riziká:
+## 46. Vault static database roles
 
-- database admin credential vo Vault configuration,
-- creation/revocation failure,
-- connection pool a rotation,
-- database outage,
-- orphan users.
+Static role spravuje fixed database username a Vault periodicky rotuje jeho password. Je vhodná, keď application alebo database vyžaduje stable username.
 
-## 32. Static database roles
+Authoritative model musí byť jasný: Vault vlastní current password a consumers ho získavajú z Vault-u. Manual change mimo Vaultu vytvorí drift.
 
-Niektoré systémy vyžadujú fixed username, ktorému Vault rotuje password.
+Rotation vyžaduje application reload a connection-pool reconnect. Shared username stále znižuje per-instance attribution a zväčšuje blast radius oproti dynamic roles.
 
-Potrebný je coordinated model:
+## 47. Vault PKI engine
 
-- Vault pozná authoritative credential,
-- consumers používajú aktuálnu hodnotu,
-- connection pools sa obnovia,
-- old password sa zneplatní,
-- rotation failure sa monitoruje.
+PKI engine spravuje issuer/role policy a vydáva short-lived X.509 certificates. Role obmedzuje allowed domains, SANs, key types, usages a maximum TTL.
 
-Static role má väčší shared blast radius než dynamic per-client credential.
+Short-lived certificate znižuje dependency na revocation pre bežný lifecycle, ale vyžaduje reliable automated renewal. Expiry storm môže spôsobiť widespread outage.
 
-## 33. PKI secrets engine
+CA private keys, issuer hierarchy, CRL/OCSP distribution a cross-sign/rotation sú samostatný PKI lifecycle. Application role nemá dostať permission signovať arbitrary names.
 
-PKI engine vydáva krátkodobé certificates podľa role policy.
+## 48. Vault Transit engine
 
-Controls:
+Transit poskytuje cryptography as a service. Client odošle plaintext alebo ciphertext a Vault vykoná encrypt/decrypt, signing, verification, HMAC, data-key generation alebo rewrap podľa policy.
 
-- allowed domains/SANs,
-- max TTL,
-- key type/size,
-- issuer hierarchy,
-- CRL/OCSP podľa ecosystemu,
-- certificate renewal,
-- private-key delivery,
-- CA key protection.
+Underlying key neopustí Vault. Application však stále vidí plaintext pred encryption alebo po decryption a musí vykonať vlastnú data authorization.
 
-Short-lived certificates môžu znížiť závislosť na revocation, ale vyžadujú spoľahlivé automated renewal.
+Transit nie je storage engine pre application payloads. Client ukladá ciphertext a metadata sám. Availability a latency Vaultu sú súčasť read/write pathu, pokiaľ application nepoužíva envelope data keys a cache.
 
-## 34. Transit secrets engine
+## 49. Vault seal a encryption barrier
 
-Transit poskytuje cryptographic operations bez vrátenia underlying encryption keyu clientovi.
+Vault storage obsahuje ciphertext. Encryption keyring je chránený root keyom a root key je chránený seal mechanismom.
 
-Use cases:
+Pri sealed stave Vault môže pristupovať k physical storage, ale nemôže decryptovať data ani poskytovať bežné API operations. Unseal sprístupní root key potrebný na otvorenie encryption barrier a keyring-u.
 
-- encrypt/decrypt application data,
-- signing/verification,
-- HMAC,
-- key rotation.
+Sealing odstráni root key z memory a zastaví secrets operations. Je to emergency containment tool, ale môže vytvoriť application outage.
 
-Application stále musí:
+## 50. Shamir unseal
 
-- chrániť plaintext v memory,
-- autorizovať cryptographic operation,
-- viazať ciphertext na context podľa designu,
-- riešiť Vault availability a latency.
+Default Shamir seal rozdelí unseal key na viac shares s thresholdom. Operátori zadávajú shares, kým Vault nezrekonštruuje unseal key a neotvorí barrier.
 
-Transit nie je generic storage engine pre application data.
+Každý Vault node sa pri Shamir modeli unseal-uje samostatne. Shares majú byť u rôznych custodians, v oddelenom secure storage, nie v jednom chat-e alebo password manager recorde.
 
-## 35. Seal a unseal
+Rekey mení shares alebo threshold pri zmene custodians. Recovery drill má overiť dostupnosť threshold-u bez zhromažďovania shares mimo ceremony.
 
-Vault storage data sú chránené encryption barrierom.
+## 51. Auto unseal a recovery keys
 
-Pri sealed stave Vault nemôže dešifrovať storage a neposkytuje bežné secrets operations.
+Auto unseal deleguje ochranu unseal keyu na external KMS/HSM alebo supported seal service. Pri startup-e Vault požiada seal mechanismus o decrypt root key materialu.
 
-Unseal modely:
+To znižuje manual operations, ale vytvára strict lifecycle dependency. Ak KMS key alebo seal mechanismus zostane trvalo nedostupný alebo je zmazaný pred migráciou, cluster nemožno obnoviť ani zo storage backupu.
 
-- Shamir shares,
-- auto unseal cez cloud KMS/HSM alebo transit seal podľa edition/configuration.
+Recovery keys pri auto unseal autorizujú quorum operations, napríklad generate-root alebo rekey. Nedokážu nahradiť stratený auto-unseal key a samy root key nedecryptujú.
 
-Auto unseal znižuje manuálnu prevádzku, ale vytvára strict dependency na seal mechanism a jeho key lifecycle.
+## 52. Vault audit devices
 
-Trvalá strata seal keyu môže znemožniť recovery aj z backupu.
+Vault audit device zaznamenáva API request a response metadata; sensitive fields sú podľa typu a configuration typicky hashované alebo redacted. Audit musí byť explicitne zapnutý.
 
-## 36. Shamir shares a recovery keys
+Vault posiela entries do všetkých enabled devices a vyžaduje úspešný zápis aspoň do jedného. Ak nevie auditovať request ani response do žiadneho dostupného device-u, corresponding API request zlyhá. Audit je preto security control aj availability dependency.
 
-Shamir model rozdeľuje unseal material medzi viac shares s thresholdom.
+HashiCorp odporúča minimálne dve independent audit destinations. Monitoruj write latency/failures, disk space, socket backpressure a log rotation. Audit logs potrebujú integrity, restricted read a external retention.
 
-Controls:
+## 53. Vault Integrated Storage a HA
 
-- rôzni custodians,
-- oddelené secure storage,
-- no sharing v chat/email,
-- pravidelné recovery procedure testy,
-- rekey pri zmene custodianov.
+Integrated Storage používa Raft replication. Jeden active node spracúva writes a standby nodes udržiavajú replicated state; cluster potrebuje quorum pre consensus.
 
-Pri auto unseal sa recovery keys používajú pre vybrané quorum operations, ale nedokážu nahradiť trvalo stratený auto-unseal key.
+HA chráni pred failure jedného node-u, ale nerieši logical deletion, malicious policy, seal-key loss ani region-wide disaster.
 
-## 37. Vault audit devices
+Load balancer health check musí rozlišovať active/standby/sealed state podľa desired routing. Node process running neznamená, že cluster vie vydávať secrets.
 
-Audit devices zaznamenávajú Vault API requests a responses s ochranou citlivých values podľa configuration.
+## 54. Vault snapshots a recovery
 
-Dôležité operational behavior:
+Raft snapshot zachytáva encrypted storage state. Musí byť uložený external, chránený access controlom a pravidelne restore-testovaný.
 
-- audit musí byť explicitne zapnutý,
-- používať aspoň dve independent audit destinations,
-- monitorovať write failures,
-- audit logs chrániť proti zmene a broad read accessu.
+Snapshot recovery potrebuje rovnaký compatible seal mechanism, relevantnú Vault version/configuration, TLS a auth dependencies. Backup bez seal key/KMS je encrypted, ale unrecoverable.
 
-Ak sú audit devices nakonfigurované a Vault nedokáže zapísať request aspoň do jedného dostupného device-u, môže request odmietnuť. Audit je preto zároveň availability dependency.
+Restore test nemá skončiť pri štarte processu. Musí overiť unseal, cluster health, authentication, policy, retrieval dynamic/static test secretu, lease/revocation a audit continuity.
 
-## 38. Vault HA
+## 55. Disaster recovery model
 
-Production Vault potrebuje:
+Definuj RPO a RTO pre storage aj identity/seal dependencies. Recovery plán zahŕňa:
 
-- redundant nodes,
-- supported HA storage/Integrated Storage,
-- load balancer alebo service discovery,
-- active/standby model,
-- TLS,
-- health-check semantics,
-- unseal model,
-- backup a restore,
-- upgrade procedure.
+- Raft snapshot alebo Enterprise replication podľa edition;
+- seal/KMS availability a permissions;
+- DNS/load-balancer cutover;
+- auth-method dependencies, napríklad Kubernetes API alebo cloud IAM;
+- external database/cloud systems pre dynamic engines;
+- audit destinations;
+- application cache a outage behavior;
+- post-recovery token/lease validation.
 
-HA nerieši:
+DR cluster, ktorý nevie komunikovať s IdP alebo KMS, nemusí byť operational napriek healthy Raft state-u.
 
-- logical deletion,
-- compromised policies,
-- seal key loss,
-- region-wide failure,
-- invalid backup.
+## 56. Secrets-platform outage
 
-## 39. Integrated Storage a snapshots
+Pri outage môže workload:
 
-Pri Raft Integrated Storage potrebuj:
+- používať ešte platný cached credential do expiry;
+- odmietnuť nové sessions, ale dokončiť existing work;
+- prejsť do read-only alebo degraded mode;
+- zastaviť startup;
+- použiť oddelený break-glass path pre recovery.
 
-- pravidelné snapshots,
-- external protected storage,
-- encryption a access control,
-- restore testing,
-- cluster identity/rejoin procedure,
-- seal dependency recovery.
+Behavior závisí od secret type-u. Neobmedzený fallback na old credential neguje revocation. Okamžitý global fail-closed môže vytvoriť cascading outage.
 
-Backup bez dostupného seal mechanismu nemusí byť použiteľný.
+Outage plan má byť testovaný chaos alebo game-day scenárom vrátane restartu applications, pretože running cache a cold start majú odlišné behavior.
 
-## 40. Disaster recovery
+## 57. Application rotation support
 
-Definuj:
+Secrets platforma nemôže napraviť application, ktorá načíta credential iba pri prvom štarte a nikdy ho neread-ne.
 
-- RPO/RTO,
-- seal/KMS availability,
-- storage backup alebo replication,
-- DNS/load-balancer cutover,
-- auth-method dependencies,
-- external database/cloud systems,
-- audit continuity,
-- application behavior počas Vault outage.
+Application patterns:
 
-Recovery test musí zahŕňať reálne vydanie alebo retrieval test secretu, nie iba štart processu.
+- refresh pred lease expiry;
+- atomic file reload;
+- connection-pool reconnect;
+- dual credential overlap;
+- version-aware in-memory cache;
+- graceful restart pri non-reloadable library;
+- retry s bounded backoff a jitter;
+- explicit error rozlišujúci auth failure od issuer outage-u.
 
-## 41. Availability a fail behavior
+Rotation test má potvrdiť aj revocation old credentialu, nie iba successful new connection.
 
-Pri secrets-platform outage môže application:
+## 58. Logging a telemetry
 
-- použiť ešte platný cached credential,
-- pokračovať do jeho expiry,
-- odmietnuť nové requests,
-- prejsť do read-only/degraded mode,
-- zastaviť startup.
-
-Rozhodnutie musí byť explicitné.
-
-Neobmedzený fallback na starý secret neguje rotation/revocation. Okamžitý fail-closed môže vytvoriť veľký outage.
-
-## 42. Secret rotation v aplikácii
-
-Aplikácia musí podporovať rotation bez permanentného outage-u.
-
-Patterns:
-
-- refresh pred expiry,
-- dual credential overlap,
-- atomic file replacement,
-- connection-pool reconnect,
-- hot reload,
-- graceful restart,
-- version-aware cache.
-
-Secret platforma nemôže napraviť application, ktorá načíta credential iba pri prvom štarte a nikdy ho neobnoví.
-
-## 43. Logging a telemetry
-
-Nikdy neloguj:
-
-- secret value,
-- bearer token,
-- private key,
-- password,
-- unseal/recovery share,
-- database connection string s credentials.
+Nikdy neloguj raw password, bearer token, private key, connection string s credentials ani recovery/unseal share.
 
 Sleduj metadata:
 
-- authentication success/failure,
-- policy deny,
-- secret path/role v bezpečnej forme,
-- issuance/renewal/revocation,
-- lease expiry,
-- rotation failure,
-- audit-device health,
-- seal status,
-- request latency/errors,
-- cache refresh.
+- auth success/failure a role mapping;
+- policy deny;
+- issuance, renewal a revocation;
+- lease near expiry;
+- rotation result;
+- cache age a refresh failure;
+- provider/controller/CSI sync age;
+- Vault sealed/active/standby state;
+- audit-device failures;
+- request latency a errors;
+- orphan credential cleanup.
 
-## 44. Secret scanning
+Secret path môže byť citlivý; labels a logs majú používať bounded safe identifiers. Secret value nikdy nepatrí do metric labelu.
 
-Scanning hľadá secrets v:
+## 59. Secret compromise response
 
-- Git history,
-- working tree,
-- container images,
-- build logs,
-- artifacts,
-- packages,
-- tickets a documentation.
-
-Detection nie je remediation.
-
-Pri náleze:
-
-1. revoke-ni credential,
-2. rotate-ni závislosti,
-3. analyzuj použitie,
-4. odstráň hodnotu z aktívnych sources,
-5. uprav history iba podľa potreby,
-6. oprav distribution process,
-7. pridaj prevention guardrail.
-
-## 45. Git a encrypted-secret patterns
-
-Plaintext secret nepatrí do Git-u ani v private repository.
-
-Encrypted-secret manifest môže byť bezpečný iba ak:
-
-- encryption keys sú oddelené,
-- recipient policy je správna,
-- decrypt access je auditovaný,
-- rotation a re-encryption fungujú,
-- CI neodhaľuje plaintext,
-- metadata neprezrádzajú citlivé informácie.
-
-Git history zachová všetky encrypted versions; compromise decryption keyu môže spätne odhaliť históriu.
-
-## 46. Terraform a state
-
-Terraform state môže obsahovať secret values aj keď sú inputs označené ako sensitive.
-
-Controls:
-
-- encrypted remote backend,
-- strict access,
-- state locking,
-- audit,
-- no output secretov,
-- provider/resource semantics review,
-- preferovať references alebo dynamic retrieval.
-
-`sensitive = true` primárne obmedzuje zobrazenie, nie storage v state.
-
-## 47. Container images
-
-Secret nesmie byť:
-
-- `ARG`/`ENV` baked do image,
-- kopírovaný do layeru a neskôr zmazaný,
-- uložený v build cache,
-- súčasťou package manager configu vo final image.
-
-Použi BuildKit secret mounts alebo platform-specific ephemeral build credential a over image history/layers.
-
-Build secret môže stále uniknúť, ak ho build command zapíše do artifactu alebo logu.
-
-## 48. Secret compromise response
+Response začína authoritative revocation, nie editovaním source file-u.
 
 ```text
-identifikovať secret a typ
-→ zastaviť ďalšie použitie
-→ revoke/rotate v authoritative systeme
-→ identifikovať consumers a sessions
-→ zachovať audit evidence
-→ analyzovať access počas exposure window
-→ obnoviť workloads s novým credentialom
-→ overiť starý credential ako neplatný
+identifikovať secret type, issuer a target
+→ zastaviť alebo scope-nuť ďalšie use
+→ revoke/disable v authoritative systéme
+→ určiť consumers, sessions a copies
+→ zachovať audit evidence a exposure interval
+→ rotate dependent credentials/keys
+→ redeploy alebo reload workloads
+→ overiť old credential ako neplatný
 → odstrániť source leakage
-→ pridať guardrails
+→ pridať guardrails a regression test
 ```
 
-Priority je revocation, nie iba odstránenie zo súboru.
+Pri private signing/encryption keyu treba analyzovať artifacts alebo ciphertexts z exposure intervalu. Pri bearer token-e hľadaj use v API logs a revoke-ni sessions.
 
-## 49. Troubleshooting retrieval
+## 60. Troubleshooting retrieval
+
+Postupuj po identity-to-delivery chain-e:
 
 ```text
-workload identity existuje?
-→ auth token/certificate platný a správne audience?
-→ secrets endpoint DNS/TLS/network?
-→ auth method role mapping?
-→ policy/path/capability?
-→ secret/version/role existuje?
-→ lease/quota/rate limit?
-→ agent/CSI/controller sync?
-→ file/env delivery a permissions?
-→ application reload/cache?
+workload identity alebo human credential
+→ issuer, audience, expiry a trust
+→ network/DNS/TLS k secrets platforme
+→ auth method a role constraints
+→ Vault/secret-store policy a path
+→ secret version, dynamic role alebo provider key
+→ lease/quota/rate limit
+→ ESO/CSI/agent reconciliation
+→ file/env/API delivery
+→ application cache/reload
+→ target-system authentication
 ```
 
-## 50. Typické chyby
+`permission denied` a `secret not found` môžu byť zámerne nerozlíšiteľné, aby API neodhaľovalo existence. Diagnostika potrebuje internal audit a policy evaluation, nie random path guessing.
 
-### Permission denied
+## 61. Typické failure modes
 
-Over identity, auth role constraints, policies, namespace/tenant, path a operation.
+**Rotation prebehla, application zlyhala.** Process drží old pool, file descriptor alebo environment value.
 
-### Secret not found
+**Dynamic credential expired.** Renewal zlyhal pre lost workload identity, issuer outage alebo blocked network; application nemala refresh margin.
 
-Over mount/path/version, environment, soft deletion, sync a typo. Nezamieňaj authorization deny s missing resource podľa API behavior.
+**Kubernetes Secret sa zmenil, process nie.** Environment sa neaktualizuje alebo application nereadla mounted file.
 
-### Rotation prebehla, aplikácia zlyhala
+**ESO ukazuje stale Secret.** Provider call, auth, refresh policy alebo controller reconciliation zlyhali.
 
-Application drží starý connection pool, cache alebo file descriptor.
+**CSI Pod sa nespustí.** NodePublishVolume alebo provider retrieval nevie získať referenced secret.
 
-### Dynamic credential expired
+**Vault je sealed.** Seal mechanism/KMS nie je dostupný, permission chýba alebo node bol manuálne sealed.
 
-Renewal neprebehol, workload stratil identity alebo agent/backend bol nedostupný.
+**Vault API requests zlyhávajú počas audit outage-u.** Všetky enabled audit destinations sú blocked alebo unwritable.
 
-### Kubernetes Secret sa nezmenil v procese
+**Database users zostávajú po lease expiry.** Target revocation failed a orphan cleanup/reconciliation chýba.
 
-Environment variable sa neaktualizuje; mounted volume potrebuje update a application reload.
+## 62. Metrics a SLO
 
-### Vault sealed
+Secrets platforma potrebuje availability aj security objectives:
 
-Over seal mechanism, KMS/HSM availability, key permissions, recovery process a node state.
+- authentication a token issuance success rate;
+- retrieval latency/error rate;
+- lease renewal failure rate;
+- rotation success a time-to-activation;
+- revocation latency;
+- secrets blízko expiry;
+- stale ESO/CSI sync age;
+- Vault sealed node count a Raft health;
+- audit-device error rate;
+- dynamic credential creation/revocation failures;
+- cache age a fallback usage;
+- orphan target credentials;
+- restore-test freshness.
 
-### Vault requesty zlyhávajú pri audit outage
+SLO nemá motivovať fail-open. Availability metric musí byť doplnená security correctness a audit completeness.
 
-Over všetky audit devices, filesystem, syslog/socket destination, permissions a backpressure.
+## 63. Governance
 
-## 51. Metrics a SLO
+Organization potrebuje approved stores, ownership, naming/path conventions, dynamic-secret preference, maximum lifetimes, rotation SLAs, exception process, scanning a incident playbook.
 
-Sleduj:
+Najdôležitejšia je autorita: pre každý credential type má existovať jeden source of truth a jasný target-system lifecycle. Paralelné stores a manual copies vytvárajú drift.
 
-- authentication/token issuance success,
-- secret retrieval latency/error rate,
-- lease renewal failures,
-- secrets blízko expiry,
-- rotation success/failure,
-- revocation latency,
-- audit-device health,
-- sealed nodes,
-- active/standby health,
-- storage latency,
-- dynamic credential creation/revocation,
-- stale sync age,
-- cache age.
+Governance má definovať onboarding nového secret type-u, periodic access review, decommission consumers, deletion old versions a recovery testing.
 
-Secret platforma potrebuje vlastný availability a security SLO, ale secrets values nesmú byť metric labels.
+## 64. Časté anti-patterny
 
-## 52. Governance
+**Secret v Git-e s plánom „neskôr rotate-neme“.** History a clones už vytvorili exposure.
 
-Organizácia potrebuje:
+**Base64 ako encryption.** Encoding neposkytuje confidentiality.
 
-- approved secret stores,
-- ownership model,
-- naming/path conventions,
-- dynamic-secret preference,
-- maximum lifetimes,
-- rotation SLAs,
-- break-glass process,
-- secret scanning,
-- exception process,
-- incident playbook,
-- decommission lifecycle.
+**Jeden shared production password.** Chýba attribution a blast radius je celý fleet.
 
-Bez governance vznikne viac paralelných stores a nejasná autorita.
+**Rotation bez revocation.** Old credential zostáva validný.
 
-## 53. Anti-patterny
+**Secret manager bez outage modelu.** Cold-start všetkých workloads závisí od jedného API.
 
-### Secret v Git-e s plánom „neskôr ho zmeníme“
+**Unlimited stale cache.** Expiry a incident revoke strácajú význam.
 
-History a clones už vytvorili exposure.
+**Root/admin token v application.** Compromise poskytne platform-wide authority.
 
-### Base64 ako encryption
+**Human copy-paste delivery.** Chýba repeatability, audit a reliable rotation.
 
-Encoding neposkytuje confidentiality.
+**Backup bez seal/key recovery.** Encrypted storage nemožno obnoviť.
 
-### Jeden shared production password
+**Kubernetes Secret považovaný za complete vault.** Chýba external rotation, target revocation a broader lifecycle.
 
-Chýba attribution a blast radius je veľký.
+## 65. Kompletný production príklad
 
-### Rotation bez revocation
+Payments API beží v Kubernetes a pristupuje k PostgreSQL.
 
-Stará hodnota zostáva použiteľná.
+1. Pod používa dedicated ServiceAccount a projected audience-bound token.
+2. Vault Kubernetes auth overí token review, namespace a ServiceAccount mapping.
+3. Vault vydá short-lived token s policy iba pre `database/creds/payments-api`.
+4. Database engine vytvorí unique PostgreSQL usera s 30-minútovou lease.
+5. Agent alebo application dostane credential a otvorí connection pool.
+6. Refresh začne s marginom a jitterom; nový credential vytvorí nový pool.
+7. Po successful health checku sa old pool drain-ne a lease revoke-ne.
+8. Vault audit prepája ServiceAccount identity, token accessor, lease ID a DB username.
+9. Pri Vault outage-u existing valid DB sessions pokračujú krátko; nové cold-start Pods failnú controlled spôsobom a alertujú.
+10. Pri incident revoke prefixu zneplatní tokeny a child leases; DB plugin odstráni users a runtime verification potvrdí closure.
+11. Raft snapshots, KMS auto-unseal dependency a auth-method connectivity sa pravidelne testujú v DR drill-e.
 
-### Secret manager ako single point of failure bez cache/fail modelu
+Tento flow ukazuje, že secrets management nie je file injection. Je to identity, issuance, target credential, application reload, revocation, audit a recovery v jednom contracte.
 
-Výpadok platformy zastaví všetky workloads.
+## 66. Kontrolné otázky
 
-### Neobmedzený cache starého credentialu
-
-Revocation a expiry strácajú význam.
-
-### Root/admin token pre aplikáciu
-
-Compromise poskytne platform-wide access.
-
-### Secret value v Terraform outpute alebo CI logu
-
-Masking nemusí zachytiť všetky reprezentácie.
-
-### Backup bez seal/key recovery
-
-Encrypted storage je prakticky neobnoviteľné.
-
-### Human copy-paste do aplikácie
-
-Chýba auditovaný a repeatable delivery lifecycle.
-
-## 54. Kontrolné otázky
-
-1. Čo všetko môže byť secret?
-2. Ako sa líši static a dynamic secret?
-3. Čo je secret zero a ako ho rieši workload identity?
-4. Aké sú výhody a riziká environment variable, file, agent a API delivery?
-5. Aký je rozdiel medzi rotation a revocation?
-6. Čo je lease a ako ho application obnovuje?
-7. Prečo Kubernetes Secret nie je automaticky šifrovaný bezpečný vault?
-8. Ako funguje Vault auth method, policy, token a secrets engine?
-9. Čo znamená seal/unseal a akú dependency vytvára auto unseal?
-10. Prečo Vault audit môže ovplyvniť availability?
-11. Ako reagovať na secret nájdený v Git history?
-12. Ako testovať secrets-platform disaster recovery?
+1. Prečo je secret capability a nie iba citlivý string?
+2. Ako sa identity líši od credentialu?
+3. Ako sa static a dynamic secret líšia v lifecycle a attribution?
+4. Čo je secret zero a prečo ho nemožno vyriešiť ďalším secretom vedľa aplikácie?
+5. Ako workload identity mapuje na secret role?
+6. Aké risks majú environment, file, agent a direct API delivery?
+7. Ako navrhnúť cache bez negovania revocation?
+8. Aký je rozdiel medzi rotation a revocation?
+9. Čo je lease a ako sa líši od KV version metadata?
+10. Prečo `list` alebo indirect Pod access môže odhaliť Kubernetes Secrets?
+11. Ako sa ESO, CSI a direct API patterny líšia?
+12. Čo musí application urobiť po file alebo credential rotation?
+13. Ako Vault auth method, policy, token a secrets engine tvoria jeden flow?
+14. Ako fungujú dynamic database credentials a čo sa stane pri revocation failure?
+15. Čo Vault Transit chráni a kde stále existuje plaintext?
+16. Ako funguje Vault seal/unseal hierarchy?
+17. Prečo recovery keys nenahradia stratený auto-unseal KMS key?
+18. Prečo audit device outage môže zastaviť Vault API?
+19. Čo musí overiť Raft snapshot restore test?
+20. Navrhni compromise response pre secret nájdený v Git history.
 
 ## Glossary impact
 
-Relevantné pojmy: secret, secrets management, secret lifecycle, static secret, dynamic secret, secret zero, workload identity, secret delivery, secret cache, secret rotation, secret revocation, lease, secret versioning, secret classification, external secrets synchronization, Secret Store CSI, Vault auth method, Vault policy, Vault token, secrets engine, KV v2, dynamic database credential, PKI secrets engine, Transit secrets engine, seal, unseal, Shamir shares, recovery keys, auto unseal, encryption barrier, audit device, Integrated Storage, secret scanning a break-glass secret access.
+Relevantné pojmy: secret, secrets management, secret capability, secret lifecycle, static secret, dynamic secret, secret zero, workload identity, secret classification, secret delivery, secret cache, secret rotation, secret revocation, lease, secret versioning, External Secrets Operator, ExternalSecret, refresh policy, Secret Store CSI Driver, SecretProviderClass, Vault auth method, Vault policy, Vault token, token accessor, secrets engine, KV v2, dynamic database credential, static database role, PKI secrets engine, Transit secrets engine, seal, unseal, encryption barrier, Shamir shares, recovery keys, auto unseal, audit device, Integrated Storage, Raft snapshot, secret scanning a break-glass secret access.
 
 ## Primárne zdroje
 
 - [NIST SP 800-57 Part 1 Rev. 5 — Key Management](https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final)
 - [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [Good practices for Kubernetes Secrets](https://kubernetes.io/docs/concepts/security/secrets-good-practices/)
+- [Kubernetes RBAC good practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
+- [External Secrets Operator — ExternalSecret](https://external-secrets.io/main/api/externalsecret/)
+- [External Secrets Operator — lifecycle, ownership a deletion](https://external-secrets.io/latest/guides/ownership-deletion-policy/)
+- [Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/introduction/)
+- [Secrets Store CSI Driver — auto rotation](https://secrets-store-csi-driver.sigs.k8s.io/topics/secret-auto-rotation)
 - [HashiCorp Vault documentation](https://developer.hashicorp.com/vault/docs)
 - [How Vault works](https://developer.hashicorp.com/vault/docs/about-vault/how-vault-works)
-- [Vault secrets engines](https://developer.hashicorp.com/vault/docs/secrets)
+- [Vault authentication](https://developer.hashicorp.com/vault/docs/concepts/auth)
+- [Vault policies](https://developer.hashicorp.com/vault/docs/concepts/policies)
+- [Vault tokens](https://developer.hashicorp.com/vault/docs/concepts/tokens)
+- [Vault leases](https://developer.hashicorp.com/vault/docs/concepts/lease)
 - [Vault database secrets engine](https://developer.hashicorp.com/vault/docs/secrets/databases)
+- [Vault PKI secrets engine](https://developer.hashicorp.com/vault/docs/secrets/pki)
+- [Vault Transit secrets engine](https://developer.hashicorp.com/vault/docs/secrets/transit)
 - [Vault seal and unseal](https://developer.hashicorp.com/vault/docs/concepts/seal)
 - [Vault audit devices](https://developer.hashicorp.com/vault/docs/audit)
+- [Vault Integrated Storage](https://developer.hashicorp.com/vault/docs/concepts/integrated-storage)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
