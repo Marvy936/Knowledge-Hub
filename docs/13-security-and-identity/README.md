@@ -33,8 +33,11 @@ Odporúča sa najprv dokončiť:
 12. [Encryption at rest a in transit](encryption-at-rest-and-in-transit.md)
 13. [Vulnerability a patch management](vulnerability-and-patch-management.md)
 14. [Threat modeling](threat-modeling.md)
+15. [Supply-chain security](supply-chain-security.md)
+16. [SBOM](sbom.md)
+17. [Image signing](image-signing.md)
 
-Aktuálny blok uzatvára Threat modeling. Nasledujúci blok rozšíri sekciu o Supply-chain security, SBOM a Image signing; neskôr pokračuje Policy as Code a Zero Trust.
+Aktuálny blok uzatvára Image signing. Nasledujúci blok dokončí sekciu témami Policy as Code a Zero Trust.
 
 ## Cieľ zvládnutia
 
@@ -216,6 +219,51 @@ Po dokončení aktuálneho bloku má byť možné:
 - prepojiť threat modeling s design review, pen testingom, red teamingom a incident learnings,
 - diagnostikovať nejasný scope, chýbajúce boundaries, generic threats a controls bez verification evidence.
 
+### Supply-chain security
+
+- modelovať source, dependencies, builder, registry, signing, promotion a runtime ako jeden trust graph,
+- rozlíšiť source revision, branch, tag, artifact digest, signature, provenance a attestation,
+- navrhnúť protected source workflow vrátane two-party review a control continuity,
+- vysvetliť SLSA 1.2 Source a Build tracks a guarantees jednotlivých levels,
+- chrániť dependency resolution pred confusion, typosquattingom, namespace takeoverom a mutable references,
+- navrhnúť hosted alebo self-hosted runner isolation, ephemeral workers a CI workload identity,
+- oddeliť untrusted pull-request execution od build, publish a signing authority,
+- vysvetliť hermetic a reproducible builds a ich limity,
+- používať platform-generated build provenance a consumer verification,
+- vysvetliť TUF role separation a secure-update protections,
+- aplikovať supplier due diligence a OpenSSF Scorecard ako evidence, nie certifikáciu,
+- reagovať na compromised source, dependency, builder, registry alebo publish identity.
+
+### SBOM
+
+- vysvetliť SBOM ako component a relationship inventory viazaný na konkrétny immutable subject,
+- rozlíšiť source, build, analyzed, deployed a runtime inventories,
+- vysvetliť SPDX 3.0.1 a CycloneDX 1.7 models a versioned interoperability,
+- používať Package URL, CPE, hashes, supplier data a dependency relationships,
+- zachytiť direct, transitive, vendored, static-linked, OS a language components,
+- správne modelovať container layers, base images a multi-architecture manifests,
+- rozlíšiť completeness, accuracy, freshness a deterministic generation,
+- odlíšiť SBOM, provenance, vulnerability scan, signature a VEX,
+- navrhnúť signed/attested SBOM distribution cez OCI Referrers alebo trusted external channel,
+- vybudovať ingestion, normalization, matching, diff a raw-evidence retention,
+- mapovať component inventory na artifacts, deployments, owners a remediation,
+- definovať quality metrics, procurement contract a correction workflow.
+
+### Image signing
+
+- vysvetliť image signing ako binding immutable OCI digestu na key alebo signing identity,
+- rozlíšiť tag, image index, platform manifest, config a layer digests,
+- navrhnúť key-based signing lifecycle cez KMS/HSM alebo keyless Sigstore model,
+- vysvetliť OIDC identity, Fulcio certificate, Rekor transparency a verification bundle,
+- vytvoriť presnú signer policy podľa issuer, repository, workflow, event a environment contextu,
+- oddeliť build execution, release verification a signing authority,
+- rozlíšiť signature, in-toto Statement, DSSE a predicate-specific attestation,
+- viazať provenance a SBOM attestations na exact subject digest,
+- používať OCI artifacts, `subject`, `artifactType` a Referrers discovery,
+- navrhnúť registry copy, retention, garbage collection a multi-architecture verification,
+- presadzovať digest pinning a signature/provenance policy pri promotion alebo admission,
+- riešiť trust-root rotation, revocation, quarantine, offline verification a compromise response.
+
 ## Stav
 
 | Téma | Status | Úroveň |
@@ -234,3 +282,6 @@ Po dokončení aktuálneho bloku má byť možné:
 | Encryption at rest a in transit | Learning | L2 |
 | Vulnerability a patch management | Learning | L2 |
 | Threat modeling | Learning | L2 |
+| Supply-chain security | Learning | L2 |
+| SBOM | Learning | L2 |
+| Image signing | Learning | L2 |
