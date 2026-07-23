@@ -269,15 +269,15 @@
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
       "title": "You Build It, You Run It",
-      "words": 1020,
-      "headings": 31,
-      "sections": 31,
-      "findings": 73,
-      "critical": 25,
-      "high": 34,
-      "medium": 7,
-      "low": 7,
-      "score": 603,
+      "words": 2915,
+      "headings": 35,
+      "sections": 35,
+      "findings": 82,
+      "critical": 13,
+      "high": 13,
+      "medium": 19,
+      "low": 37,
+      "score": 374,
       "grade": "D"
     },
     {
@@ -12910,15 +12910,6 @@
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -12930,7 +12921,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -12946,10 +12937,28 @@
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
@@ -12963,340 +12972,7 @@
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
       "section": "1. Definícia",
-      "line": 11,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "2. Problém tradičného handoff modelu",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "2. Problém tradičného handoff modelu",
-      "line": 17,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "2. Problém tradičného handoff modelu",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "2. Problém tradičného handoff modelu",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prevádzkovateľnosť sa rieši až po dokončení vývoja,`, `vývoj nevidí cenu svojich architektonických rozhodnutí,`, `Operations sa stane úzkym miestom,`, `incidenty sa presúvajú cez viacero tímov.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "2. Problém tradičného handoff modelu",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "3. Mentálny model",
-      "line": 37,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "4. Čo „run it“ zahŕňa",
-      "line": 47,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "4. Čo „run it“ zahŕňa",
-      "line": 47,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definovanie SLI a SLO,`, `návrh logov, metrík a traces,`, `alerting,`, `on-call alebo podporu on-call,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "4. Čo „run it“ zahŕňa",
-      "line": 47,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "4. Čo „run it“ zahŕňa",
-      "line": 47,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "4. Čo „run it“ zahŕňa",
-      "line": 47,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "5. Nie je to „každý robí všetko“",
-      "line": 65,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "5. Nie je to „každý robí všetko“",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platform engineering,`, `cloud infrastructure,`, `security,`, `database engineering,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "5. Nie je to „každý robí všetko“",
-      "line": 65,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "5. Nie je to „každý robí všetko“",
-      "line": 65,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRE`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "6. Predpoklady úspešného modelu",
-      "line": 87,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Observability",
-      "line": 89,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Bezpečný deployment",
-      "line": 93,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Runbooky",
-      "line": 97,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Prístup a oprávnenia",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Platform support",
-      "line": 109,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "7. On-call",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "7. On-call",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `akčné alerty,`, `primeranú rotáciu,`, `dokumentovanú eskaláciu,`, `prístup k systémom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "7. On-call",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "8. Alert ownership",
-      "line": 129,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "8. Alert ownership",
-      "line": 129,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozumie signálu,`, `má právomoc reagovať,`, `má runbook alebo diagnostický kontext,`, `dokáže vykonať mitigation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "8. Alert ownership",
-      "line": 129,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "9. Praktický príklad",
-      "line": 141,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Oddelený model",
-      "line": 145,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "You build it, you run it model",
-      "line": 154,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "10. Shared responsibility model",
-      "line": 167,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "11. Operational readiness",
-      "line": 183,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "11. Operational readiness",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "11. Operational readiness",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definovaný owner,`, `health a readiness mechanizmy,`, `dashboard,`, `alerty viazané na používateľský dopad,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "11. Operational readiness",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "11. Operational readiness",
-      "line": 183,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "11. Operational readiness",
-      "line": 183,
+      "line": 13,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -13304,134 +12980,17 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "12. Vzťah k SRE",
-      "line": 200,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "12. Vzťah k SRE",
-      "line": 200,
+      "section": "2. Problém tradičného handoff modelu",
+      "line": 19,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "12. Vzťah k SRE",
-      "line": 200,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SRE zdieľa on-call po splnení readiness kritérií,`, `platforma automatizuje spoločné reliability schopnosti.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "12. Vzťah k SRE",
-      "line": 200,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "12. Vzťah k SRE",
-      "line": 200,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "12. Vzťah k SRE",
-      "line": 200,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "13. Riziká nesprávnej implementácie",
-      "line": 211,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Pager bez podpory",
-      "line": 213,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Prevádzka ako druhá práca",
-      "line": 217,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Zrušenie špecialistov",
-      "line": 221,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Alerting podľa infra metrík",
-      "line": 225,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "Nejasný escalation path",
-      "line": 229,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "14. Kedy model upraviť",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "14. Kedy model upraviť",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritickosť služby,`, `veľkosť tímu,`, `regulačné požiadavky,`, `globálna prevádzka,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "14. Kedy model upraviť",
-      "line": 233,
+      "section": "2. Problém tradičného handoff modelu",
+      "line": 19,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -13439,8 +12998,8 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "14. Kedy model upraviť",
-      "line": 233,
+      "section": "2. Problém tradičného handoff modelu",
+      "line": 19,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -13448,44 +13007,35 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "15. Signály zdravého modelu",
-      "line": 249,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "2. Problém tradičného handoff modelu",
+      "line": 19,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "15. Signály zdravého modelu",
-      "line": 249,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "2. Problém tradičného handoff modelu",
+      "line": 19,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "15. Signály zdravého modelu",
-      "line": 249,
+      "section": "4. Čo znamená „build it“",
+      "line": 54,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "15. Signály zdravého modelu",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tím pozná produkčné SLI,`, `alerty sú akčné a majú vlastníka,`, `rollback je rýchly a nacvičený,`, `incidenty menia testy a architektúru,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "15. Signály zdravého modelu",
-      "line": 249,
+      "section": "4. Čo znamená „build it“",
+      "line": 54,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -13493,17 +13043,179 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "15. Signály zdravého modelu",
-      "line": 249,
+      "section": "4. Čo znamená „build it“",
+      "line": 54,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "4. Čo znamená „build it“",
+      "line": 54,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "4. Čo znamená „build it“",
+      "line": 54,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `reliability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `reliability`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
+      "section": "5. Čo znamená „run it“",
+      "line": 66,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "5. Čo znamená „run it“",
+      "line": 66,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "5. Čo znamená „run it“",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "5. Čo znamená „run it“",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "5. Čo znamená „run it“",
+      "line": 66,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `RPO`, `RTO`, `reliability`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "6. Operating contract a explicitný scope",
+      "line": 80,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "6. Operating contract a explicitný scope",
+      "line": 80,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "6. Operating contract a explicitný scope",
+      "line": 80,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "6. Operating contract a explicitný scope",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "6. Operating contract a explicitný scope",
+      "line": 80,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "7. Nie je to „každý robí všetko“",
+      "line": 93,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "7. Nie je to „každý robí všetko“",
+      "line": 93,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "7. Nie je to „každý robí všetko“",
+      "line": 93,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "7. Nie je to „každý robí všetko“",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "7. Nie je to „každý robí všetko“",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "7. Nie je to „každý robí všetko“",
+      "line": 93,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SLO`, `SRE`, `workload`, `reliability`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "8. Shared responsibility medzi service a platform tímom",
+      "line": 105,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -13511,35 +13223,26 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "8. Shared responsibility medzi service a platform tímom",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
+      "section": "9. Observability prerequisite",
+      "line": 119,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Tím má cítiť produkčné dôsledky svojich rozhodnutí.`, `Špecializované platformové a SRE tímy zostávajú dôležité.`, `Zodpovednosť musí byť podporená autonómiou, kapacitou a nástrojmi.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
+      "section": "9. Observability prerequisite",
+      "line": 119,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -13547,8 +13250,53 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
+      "section": "9. Observability prerequisite",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "9. Observability prerequisite",
+      "line": 119,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "9. Observability prerequisite",
+      "line": 119,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `CPU`, `ID`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "10. Safe delivery prerequisite",
+      "line": 132,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "10. Safe delivery prerequisite",
+      "line": 132,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "10. Safe delivery prerequisite",
+      "line": 132,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -13556,12 +13304,345 @@
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
-      "section": "17. Zhrnutie",
-      "line": 268,
+      "section": "10. Safe delivery prerequisite",
+      "line": 132,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRE`, `reliability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "11. Runbooks a known failure paths",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "11. Runbooks a known failure paths",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "12. Access a break-glass",
+      "line": 150,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "13. Capacity a roadmap prerequisite",
+      "line": 158,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "14. On-call",
+      "line": 164,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "14. On-call",
+      "line": 164,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "14. On-call",
+      "line": 164,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "14. On-call",
+      "line": 164,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "16. Operational readiness",
+      "line": 192,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "16. Operational readiness",
+      "line": 192,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "16. Operational readiness",
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "16. Operational readiness",
+      "line": 192,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `RPO`, `RTO`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "17. SRE interaction models",
+      "line": 208,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "17. SRE interaction models",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "17. SRE interaction models",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "17. SRE interaction models",
+      "line": 208,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "17. SRE interaction models",
+      "line": 208,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "18. Central NOC alebo Operations model",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "19. Criticality-based adaptation",
+      "line": 227,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "19. Criticality-based adaptation",
+      "line": 227,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "19. Criticality-based adaptation",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "19. Criticality-based adaptation",
+      "line": 227,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "19. Criticality-based adaptation",
+      "line": 227,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "20. End-to-end migration incident príklad",
+      "line": 240,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "21. Healthy-model evidence",
+      "line": 257,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `Reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "23. Troubleshooting operating modelu",
+      "line": 299,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "23. Troubleshooting operating modelu",
+      "line": 299,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "23. Troubleshooting operating modelu",
+      "line": 299,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "23. Troubleshooting operating modelu",
+      "line": 299,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `Reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "25. Zhrnutie",
+      "line": 324,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/you-build-it-you-run-it.md",
+      "section": "25. Zhrnutie",
+      "line": 324,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
