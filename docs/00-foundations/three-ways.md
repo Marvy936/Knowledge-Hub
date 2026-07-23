@@ -8,455 +8,480 @@
 - Predpoklady: [DevOps](devops.md), [DevOps Lifecycle](devops-lifecycle.md), [CALMS](calms.md)
 - Súvisiace témy: systems thinking, feedback loops, continuous learning, CI/CD, observability, incident management
 
+Metadata zaraďuje Three Ways za základný DevOps a CALMS model. Princípy neopisujú tri projektové fázy ani tri tímy; ide o súčasne fungujúce vlastnosti jedného delivery a operations systému.
+
 ## 1. Definícia
 
-Three Ways of DevOps sú tri systémové princípy, ktoré opisujú, ako má organizácia navrhovať tok práce, spätnú väzbu a učenie:
+Three Ways of DevOps sú tri systémové princípy opisujúce tok práce, návrat spätnej väzby a dlhodobé učenie. Pomáhajú vysvetliť, prečo moderný toolchain sám osebe nezaručuje rýchle ani bezpečné delivery.
 
-1. **The First Way — Flow**
-2. **The Second Way — Feedback**
-3. **The Third Way — Continual Learning and Experimentation**
+Tri princípy sa navzájom podmieňujú:
 
-Nejde o tri chronologické fázy projektu. Sú to tri súčasne fungujúce vlastnosti delivery systému.
+- **The First Way — Flow**: optimalizuje pohyb práce a hodnoty od potreby cez engineering systém k používateľovi.
+- **The Second Way — Feedback**: vracia dôkazy o kvalite a runtime výsledku k ľuďom a mechanizmom schopným zmenu opraviť.
+- **The Third Way — Continual Learning and Experimentation**: premieňa experimenty, incidents a near misses na trvalú zmenu tests, architecture, platformy alebo pracovných pravidiel.
 
-## 2. Problém, ktorý riešia
+Flow bez feedbacku iba zrýchľuje presun chýb. Feedback bez learningu opravuje jednotlivé prejavy, ale ponecháva podmienky na ich opakovanie.
 
-Organizácia môže mať kvalitných odborníkov aj moderné nástroje a napriek tomu dodávať pomaly a rizikovo, ak:
+## 2. Problém, ktorý Three Ways riešia
 
-- práca čaká medzi tímami,
-- spätná väzba prichádza neskoro,
-- chyby sa opakujú,
-- ľudia optimalizujú iba svoju časť systému,
-- experimentovanie je príliš nebezpečné,
-- incidenty nevytvárajú trvalé zlepšenie.
+Organizácia môže mať silných špecialistov, cloud platformu a automatizované pipelines a napriek tomu dodávať pomaly. Práca môže čakať medzi tímami, feedback prichádza po strate contextu a incidenty sa uzatvárajú obnovením služby bez odstránenia systémovej slabiny.
 
-Three Ways presúvajú pozornosť z izolovaných úloh na správanie celého systému.
+Three Ways presúvajú pozornosť z utilization jednotlivých ľudí na správanie celého systému. Pýtajú sa, ako rýchlo sa dokončená hodnota pohybuje, ako skoro sa odhalí odchýlka a či zistenie zmení budúcu schopnosť systému.
 
-## 3. Základný mentálny model
+Typické symptómy ukazujú na odlišnú Way:
+
+- **Dlhé fronty a veľké release-y — slabý Flow**: práca je rozpracovaná, ale neprechádza plynulo cez bottleneck k používateľovi.
+- **Chyby objavené neskoro — slabý Feedback**: kontrola je ďaleko od vzniku chyby alebo výsledok nedostane človek schopný konať.
+- **Opakované incidenty — slabé Learning**: tím obnovuje aktuálny stav, ale nepridáva guardrail, test, ownership ani architecture zmenu.
+
+## 3. Spoločný mentálny model
+
+Three Ways možno zobraziť ako tri smery pohybu v jednom value streame. Work a artifacty idú smerom k produkcii, evidence sa vracia opačne a learning mení samotné cesty, pravidlá a capabilities systému.
 
 ```text
-First Way
-Tok práce zľava doprava
-Business → Development → Delivery → Operations → Customer
+FIRST WAY — FLOW
+Potreba → Development → Build/Test → Delivery → Operations → Používateľ
 
-Second Way
-Spätná väzba sprava doľava
-Customer / Production → Operations → Development → Planning
+SECOND WAY — FEEDBACK
+Používateľ/Production → Telemetry/Incident → Delivery → Development → Planning
 
-Third Way
-Opakované učenie naprieč celým systémom
-Experiment → Pozorovanie → Poučenie → Zmena systému
+THIRD WAY — LEARNING
+Experiment alebo failure → Evidence → Analýza → Systémová zmena → Nový štandard
 ```
 
-Bez First Way sa práca nepohybuje plynulo. Bez Second Way sa systém nevie rýchlo korigovať. Bez Third Way sa rovnaké chyby a obmedzenia opakujú.
+Nejde o jednorazový kruh. V každom okamihu môže pipeline poskytovať feedback, production incident zastaviť flow a learning experiment upraviť budúci deployment model.
 
 # The First Way — Flow
 
 ## 4. Definícia Flow
 
-First Way sa sústreďuje na rýchly, predvídateľný a bezpečný tok práce od požiadavky k používateľskej hodnote.
+First Way optimalizuje plynulý pohyb práce od business potreby po overenú používateľskú hodnotu. Cieľom nie je maximalizovať počet otvorených úloh alebo stopercentnú vyťaženosť každého oddelenia, ale skracovať end-to-end lead time bez zhoršenia quality a reliability.
 
-Cieľom nie je maximalizovať lokálnu vyťaženosť každého človeka alebo tímu. Cieľom je maximalizovať plynulosť celého value streamu.
+Flow skúma active work aj waiting. Rýchly build neposkytuje veľkú hodnotu, ak release čaká tri dni na environment alebo mesačné change window.
 
-## 5. Hlavné mechanizmy Flow
+## 5. Čo systémom skutočne tečie
 
-### Vizualizácia práce
+Flow nie je iba presun ticketu cez stĺpce. Systémom tečú rozhodnutia, source changes, artifacts, configuration, approvals a evidence, pričom každá zmena formy môže vytvoriť frontu alebo stratu identity.
 
-Práca musí byť viditeľná. Neviditeľné fronty, neformálne požiadavky a skryté závislosti nemožno efektívne riadiť.
+Dôležité flow units sú:
 
-### Limitovanie work in progress
+- **Change request — dôvod a požadovaný outcome**: bez jasného intentu môže downstream tím správne vykonať technicky nesprávnu zmenu.
+- **Source revision — verzovaná implementácia rozhodnutia**: musí zachovať väzbu na review, tests a požiadavku.
+- **Artifact — nemenný build output**: promotion rovnakého digestu zachováva platnosť evidence medzi prostrediami.
+- **Configuration a infrastructure state — runtime kontext**: zmena artifactu bez správnej configuration nemusí vytvoriť očakávaný outcome.
+- **Operational evidence — dôkaz pripravenosti a výsledku**: test, scan, health alebo SLO signal rozhoduje, či flow pokračuje.
 
-Príliš veľa rozpracovanej práce vytvára:
+## 6. Vizualizácia práce
 
-- multitasking,
-- dlhšie čakacie doby,
-- viac konfliktov priorít,
-- pomalšie dokončovanie,
-- zastarané rozpracované zmeny.
+Práca musí byť viditeľná vrátane waitingu, dependencies a blocked state-u. Ticket označený ako „in progress“ môže v skutočnosti tri dni čakať na review, pričom tento čas sa v lokálnej metrike vývojára stratí.
 
-### Small batch sizes
+Vizualizácia má zachytiť aj neplánovanú prácu a incidents. Ak urgentné zásahy prebiehajú mimo boardu, plánovaný throughput vyzerá stabilne, ale reálna kapacita a WIP zostávajú skryté.
 
-Menšie zmeny skracujú čas do spätnej väzby a znižujú blast radius.
+## 7. Work in progress a queueing
 
-### Odstraňovanie úzkych miest
+Work in progress (WIP) je množstvo začatej, ale nedokončenej práce. Vysoký WIP zvyšuje počet context switches, vek otvorených zmien a waiting pred každým obmedzeným reviewerom, environmentom alebo deployment windowom.
 
-Throughput systému je obmedzený jeho najužším miestom. Zrýchlenie neobmedzujúcej časti systému môže iba zväčšiť front pred bottleneckom.
+WIP limit neznamená, že ľudia majú zostať nečinní. Núti tím pomôcť dokončiť bottleneck, zlepšiť test alebo odstrániť blocked dependency namiesto zakladania ďalšej práce, ktorá iba zväčší frontu.
 
-### Znižovanie handoffov
+## 8. Small batch sizes
 
-Každé odovzdanie zvyšuje riziko straty kontextu a čakacej doby.
+Malý batch skracuje čas medzi rozhodnutím a feedbackom a znižuje počet súčasne menených premenných. Pri software change sa jednoduchšie reviewuje a pri rollout-e vytvára menší blast radius.
 
-### Built-in quality
+Výhody vznikajú konkrétnym mechanizmom:
 
-Kvalita sa nevkladá až na konci samostatnou kontrolou. Kontroly sú súčasťou toku od začiatku.
+- **Menší review scope — lepšie pochopenie change intentu**: reviewer dokáže posúdiť assumptions a failure paths bez kombinácie viacerých nezávislých zmien.
+- **Užšie testovanie — rýchlejšia lokalizácia regresie**: affected surface je jasnejší, hoci kritická zmena môže stále vyžadovať široké integration tests.
+- **Bezpečnejší progressive rollout — čitateľnejší signal**: pri canary failure je menej pravdepodobných príčin a rollback odstráni menší rozsah hodnoty.
+- **Skorší product feedback — menší sunk cost**: používateľská reakcia môže zmeniť smer pred implementáciou veľkého balíka.
 
-### Automatizácia opakovateľných krokov
+## 9. Bottleneck a constraint
 
-Automatizácia znižuje variabilitu a skracuje processing time, ak je proces najprv pochopený a zjednodušený.
+Throughput celého value streamu obmedzuje jeho aktuálny najužší krok. Zrýchlenie práce pred bottleneckom zväčší queue a multitasking, zatiaľ čo zrýchlenie kroku za bottleneckom zostane nevyužité.
 
-## 6. Príklad First Way
+Bottleneck môže byť technický alebo organizačný: flaky integration suite, jeden database reviewer, ručné security approval alebo zriedkavé release window. Po jeho odstránení sa obmedzenie presunie, preto sa flow zlepšuje iteratívne.
 
-Pôvodný proces:
+## 10. Handoffs a strata contextu
+
+Handoff prenáša prácu a zodpovednosť medzi ľuďmi alebo tímami. Každý handoff pridáva waiting a potrebu znovu vytvoriť context, najmä ak interface tvorí neurčitý ticket namiesto presného contractu a self-service capability.
+
+Znižovanie handoffov neznamená odstránenie špecialistov. Expertíza môže vstúpiť cez reusable policy, paved road, consultation alebo embedded collaboration bez toho, aby každá zmena čakala v centralizovanej fronte.
+
+## 11. Built-in quality
+
+Built-in quality znamená, že správnosť, security a operability sa kontrolujú počas vzniku zmeny, nie iba na konci samostatnou kontrolnou skupinou. Skorší feedback znižuje množstvo ďalšej práce postavenej na chybnom predpoklade.
+
+Mechanizmy majú odlišnú boundary:
+
+- **Static analysis — chyby viditeľné zo source-u**: odhaľuje syntax, types alebo známe patterns bez spustenia celého systému.
+- **Automated tests — overenie behavior contractu**: kontrolujú izolovanú logiku a integrations podľa reprezentatívnosti test environmentu.
+- **Policy as code — opakovateľné guardrails**: blokuje známu nepovolenú configuration pri source, plan alebo admission boundary.
+- **Progressive delivery — runtime quality control**: vystaví zmenu malému scope-u a porovná reálny outcome s baseline.
+
+Quality gate bez vysvetliteľného feedbacku iba vytvára frontu. Kontrola musí ukázať porušené pravidlo, affected object a spôsob nápravy.
+
+## 12. Automation a flow
+
+Automation skracuje processing time a variabilitu iba pri stabilnom, zjednodušenom procese. Automatizovaný ticketový handoff alebo desať redundantných approvals zostávajú waste, aj keď sa formulár presúva okamžite.
+
+Flow automation potrebuje versioned inputs, idempotentné kroky, explicitný timeout, failure handling a audit. Inak zlyhanie pipeline vytvorí ďalšiu manuálnu frontu závislú od jej pôvodného autora.
+
+## 13. First Way príklad
+
+Pôvodný proces má krátku implementáciu, ale dlhé waiting periods:
 
 ```text
-Developer dokončí zmenu
-  ↓
-2 dni čaká na review
-  ↓
-1 deň čaká na testovacie prostredie
-  ↓
-QA testuje veľký balík zmien
-  ↓
-Release čaká na mesačné okno
+zmena dokončená
+→ 2 dni review queue
+→ 1 deň environment ticket
+→ veľký spoločný QA batch
+→ mesačné release window
+→ production feedback po strate contextu
 ```
 
-Zlepšený proces:
+Zlepšený proces zmenšuje batch a odstraňuje waiting:
 
 ```text
-Malá zmena
-  ↓
-Automatické lokálne a CI kontroly
-  ↓
-Krátko žijúca vetva a rýchle review
-  ↓
-On-demand test environment
-  ↓
-Automatizované smoke testy
-  ↓
-Priebežná promotion do produkcie
+malá zmena
+→ lokálne a CI evidence
+→ rýchle review s WIP limitom
+→ self-service test environment
+→ automated integration a smoke tests
+→ canary promotion rovnakého artifactu
+→ okamžitý production feedback
 ```
 
-Hlavné zlepšenie nemusí pochádzať z rýchlejšieho kompilátora. Vzniká odstránením čakania, frontov a veľkých batchov.
+Najväčšie zlepšenie nevzniklo rýchlejším compilerom. Vzniklo zmenou queue, handoff a release modelu.
 
-## 7. Anti-patterny First Way
+## 14. First Way failure modes
 
-### Maximálna lokálna vyťaženosť
+### Maximálna lokálna utilization
 
-Každý tím má vlastný backlog a je permanentne vyťažený na 100 %. Nová práca potom čaká, pretože systém nemá rezervnú kapacitu na variabilitu, incidenty ani urgentné požiadavky.
+Každý tím je permanentne vyťažený a nemá rezervu na review, incident alebo variabilitu. Nová práca potom čaká a end-to-end lead time rastie napriek vysokej lokálnej produktivite.
 
 ### Veľké release batchy
 
-Zmeny sa akumulujú, pretože deployment je drahý a rizikový. Veľké batchy následne robia deployment ešte drahším a rizikovejším.
+Zmeny sa akumulujú, pretože deployment je drahý a rizikový. Veľký batch následne zvyšuje coordination a failure risk, čím posilňuje pôvodný dôvod nasadzovať zriedka.
 
 ### Throw over the wall
 
-Vývoj odovzdá zmenu ďalšiemu tímu bez spoločného kontextu a ownershipu.
+Development označí svoju úlohu za hotovú po odovzdaní ďalšiemu tímu. Production context a následky zmeny sa nevracajú k ľuďom, ktorí ovplyvňujú design.
 
 ### Automatizovaný bottleneck
 
-Neefektívny proces sa automatizuje bez odstránenia zbytočných schválení a handoffov.
+Organizácia automatizuje execution, ale zachová centralizovaný approval alebo nejasné decision rights. Processing sa zrýchli, no queue pred rozhodnutím zostane.
 
 # The Second Way — Feedback
 
-## 8. Definícia Feedback
+## 15. Definícia Feedback
 
-Second Way vytvára rýchle a kvalitné spätné väzby z neskorších častí systému smerom k skorším častiam.
+Second Way vytvára rýchle, presné a akčné spätné väzby z neskorších častí systému smerom k skorším. Cieľom je zistiť odchýlku čo najbližšie k jej vzniku a dostať evidence k actorovi schopnému zmeniť source, policy alebo rollout.
 
-Cieľom je zistiť odchýlku čo najbližšie k jej vzniku a umožniť rýchlu korekciu.
+Feedback nie je množstvo dát. Signal, ktorému nikto neverí alebo ktorý nemá ownera a remediation path, zvyšuje noise a môže spomaliť rozhodovanie.
 
-## 9. Hlavné mechanizmy Feedback
+## 16. Feedback latency a cost of correction
 
-### Rýchla technická spätná väzba
+Čím neskôr sa chyba odhalí, tým viac ďalšej práce už môže závisieť od chybného state-u. Syntax error v editore stojí sekundy, nekompatibilné API odhalené po týždni vyžaduje koordináciu viacerých tímov a production data corruption môže potrebovať recovery a business reconciliation.
 
-- compiler errors,
-- linting,
-- unit tests,
-- integration tests,
-- policy checks,
-- security scans,
-- deployment verification.
+Rýchlosť však nesmie znižovať dôveryhodnosť. Flaky test poskytuje feedback skoro, ale jeho false positives naučia ľudí výsledok ignorovať.
 
-### Produkčná spätná väzba
+## 17. Technický feedback
 
-- metrics,
-- logs,
-- traces,
-- user feedback,
-- support tickets,
-- SLO violations,
-- business outcomes.
+Technické feedback loops pokrývajú odlišné vrstvy a majú odlišnú presnosť:
 
-### Observability
+- **Compiler alebo type checker — okamžitá language correctness**: odhaľuje neplatné constructs, ale nevie posúdiť business behavior.
+- **Linting a static analysis — source patterns a policy**: upozorňuje na style, bugs alebo known security patterns bez runtime contextu.
+- **Unit tests — izolovaná behavioral evidence**: poskytujú rýchlu lokalizáciu, no mocks môžu skryť reálnu integration semantics.
+- **Integration a contract tests — boundary compatibility**: odhaľujú protocol, schema a authentication mismatch medzi komponentmi.
+- **Security a policy checks — známe risk boundaries**: blokujú vulnerability alebo nepovolenú configuration, ale potrebujú triage a exception lifecycle.
+- **Deployment verification — runtime activation**: readiness, smoke a synthetic checks odlišujú vytvorený resource od funkčnej služby.
 
-Tím musí vedieť položiť nové otázky o správaní systému bez potreby vopred pripraviť samostatnú metriku pre každú možnú poruchu.
+## 18. Produkčný feedback
 
-### Stop-the-line mentality
+Production poskytuje evidence o reálnom trafficu, scale, dependencies a používateľskom správaní. Nemá nahradiť skoré tests, ale overuje assumptions, ktoré pre-production prostredie nedokáže úplne reprodukovať.
 
-Keď kontrola odhalí závažný problém, tok sa zastaví a problém sa rieši namiesto pokračovania s vedomou chybou.
+- **Metrics — agregovaný rozsah a trend**: ukazujú rate, errors, latency a saturation, ale strácajú detail jednotlivého requestu.
+- **Logs — detail udalosti a decisionu**: vysvetľujú error code alebo state transition, no môžu byť sampled, neúplné alebo obsahovať citlivé data.
+- **Traces — causal request path**: ukazujú dependency a latency breakdown, ale iba pre vytvorené a sampled spans.
+- **SLO a error budget — user-oriented reliability feedback**: spájajú technical signal s prijateľným service outcome-om a release policy.
+- **Support a user feedback — kvalitatívny product evidence**: odhaľuje nečakaný workflow alebo usability problém, ktorý infra metrics neukážu.
+- **Business outcomes — potvrdenie hodnoty**: conversion, completed tasks alebo processed orders ukazujú, či zdravá technológia rieši správny problém.
 
-### Shared operational feedback
+## 19. Observability a context
 
-Vývojári musia vidieť, ako sa ich zmeny správajú v produkcii. Prevádzkové poznatky sa nesmú uzavrieť v oddelenom Ops tíme.
+Observability umožňuje skúmať správanie systému pomocou korelovaných signals a contextu. Tím nemusí vopred poznať každú failure otázku, ale musí mať stabilnú service identity, version metadata, trace context a structured events.
 
-## 10. Príklad Second Way
+Observability nie je magická vlastnosť backendu. Ak application nezaznamená business outcome alebo propagation preruší trace, storage systém nedokáže chýbajúci context spätne vytvoriť.
+
+## 20. Stop-the-line mentality
+
+Stop-the-line znamená, že závažný known defect zastaví ďalšie zvyšovanie exposure alebo produkciu ďalšej chybnej práce. Pochádza z myšlienky, že krátke zastavenie je lacnejšie než pokračovanie a hromadenie reworku.
+
+V software systéme môže CI blokovať merge, canary controller zastaviť rollout alebo incident commander pozastaviť deployments. Mechanizmus potrebuje jasné severity a recovery criteria; ak každá drobná warning zastaví flow, ľudia kontrolu obídu.
+
+## 21. Feedback musí dosiahnuť správne miesto
+
+Production alert uzavretý iba v operations tíme neovplyvní source ani design. Feedback loop sa uzatvorí až vtedy, keď poznatok dostane tím schopný upraviť code, tests, platformu alebo product requirement.
+
+Ownership metadata, service catalog a traceability release-u skracujú routing feedbacku. Bez nich responder najprv hľadá autora alebo repository a correction cost rastie.
+
+## 22. Kvalita feedbacku
+
+Dôveryhodný feedback má viac vlastností, ktoré sa musia posudzovať spolu:
+
+- **Rýchly — prichádza pred stratou contextu a veľkým downstream dopadom**.
+- **Relevantný — koreluje s change intentom alebo user outcome-om namiesto náhodnej aktivity**.
+- **Dôveryhodný — má nízky false-positive a false-negative rate a známy completeness contract**.
+- **Konkrétny — ukazuje affected component, pravidlo, hodnotu alebo request path**.
+- **Akčný — dostáva ho owner s authority a bezpečnou remediation cestou**.
+- **Overiteľný — po náprave možno rovnakým signalom potvrdiť recovery**.
+
+Veľa nekvalitných signálov môže byť horších než menší počet presných signálov. Alert fatigue a ignorované flaky tests prerušujú Second Way aj v technicky bohato instrumentovanom systéme.
+
+## 23. Second Way príklad
+
+Rýchly feedback zachováva context autora:
 
 ```text
-Commit
-  ↓
-CI odhalí nekompatibilnú API zmenu do 5 minút
-  ↓
-Autor dostane presný test failure
-  ↓
-Zmena sa opraví pred merge
+commit s breaking API zmenou
+→ contract test zlyhá do 5 minút
+→ report ukáže konkrétneho consumera a field
+→ autor upraví backward-compatible contract
+→ nový revision prejde testom pred merge
 ```
 
-Alternatívny slabý proces:
+Neskorý model odhalí rovnakú chybu až po integračnom release-i. Medzitým sa zmení viac components, pôvodný autor pracuje na inej téme a oprava potrebuje coordinated rollback alebo rework viacerých tímov.
 
-```text
-API zmena sa zlúči
-  ↓
-O týždeň sa nasadí do integračného prostredia
-  ↓
-Iný tím nájde chybu
-  ↓
-Pôvodný autor už pracuje na inej téme
-```
-
-Technická chyba je rovnaká, ale cena opravy je výrazne vyššia pre stratu kontextu, koordináciu a rework.
-
-## 11. Kvalita spätnej väzby
-
-Spätná väzba musí byť:
-
-- rýchla,
-- relevantná,
-- dôveryhodná,
-- konkrétna,
-- dostupná osobe schopnej konať.
-
-Flaky test, ktorý náhodne zlyháva, vytvára šum. Alert bez ownershipu a kontextu vytvára alert fatigue. Veľa nekvalitných signálov môže byť horších než menší počet presných signálov.
-
-## 12. Anti-patterny Second Way
+## 24. Second Way failure modes
 
 ### Late feedback
 
-Chyba sa objaví až počas veľkého integračného testu alebo produkčného deploymentu.
+Kontrola prebieha až pri veľkom integračnom teste alebo production deployment-e. Correction cost rastie, pretože source context je starý a na zmenu už nadviazali ďalšie práce.
 
-### Feedback bez kontextu
+### Feedback bez contextu
 
-Pipeline oznámi iba „job failed“ bez logu, príčiny alebo odkazu na nápravu.
+Pipeline oznámi iba `job failed` alebo alert iba `high CPU`. Človek musí rekonštruovať scope, zmenu a dependency, takže technicky rýchly signal vedie k pomalej akcii.
 
 ### Monitoring iba pre Operations
 
-Vývojári nevidia produkčné metriky a nepoznajú následky svojich zmien.
+Developers nevidia runtime behavior svojej služby a architecture decisions sa neopierajú o production evidence. Operations tím sa stáva manuálnym prekladateľom všetkého feedbacku.
 
 ### Alerting na každý symptóm
 
-Veľké množstvo neakčných alertov znižuje dôveru v celý alerting systém.
+Veľké množstvo neakčných notifications znižuje dôveru a responder nevie rozlíšiť user-impact incident od bežnej variability.
 
 ### Potlačenie zlých správ
 
-Ľudia sa boja eskalovať riziko alebo incident, pretože reakciou je obviňovanie.
+Ak je reakciou na risk obviňovanie, ľudia eskalujú neskoro alebo evidence upravia. Culture tým priamo poškodzuje technický feedback loop.
 
 # The Third Way — Continual Learning and Experimentation
 
-## 13. Definícia continual learning
+## 25. Definícia continual learning
 
-Third Way vytvára kultúru a technické podmienky na priebežné experimentovanie, učenie zo zlyhaní a zabudovanie poznatkov späť do systému.
+Third Way vytvára podmienky na bezpečné experimentovanie, pravdivú analýzu zlyhaní a zabudovanie poznatkov späť do systému. Cieľom nie je tolerovať nedbanlivosť ani eliminovať všetky failures, ale znižovať neistotu a opakovanie rovnakých systémových chýb.
 
-Cieľom nie je eliminovať všetky chyby. Cieľom je robiť bezpečné experimenty, rýchlo sa učiť a zabrániť opakovaniu rovnakých systémových zlyhaní.
+Learning sa preukazuje zmenou capability. Manuálne obnovenie služby rieši aktuálny state; nový test, automated renewal alebo isolation boundary mení pravdepodobnosť a dopad budúceho incidentu.
 
-## 14. Hlavné mechanizmy Third Way
+## 26. Experiment contract
 
-### Blameless postmortems
+Experiment je riadená zmena vykonaná s cieľom overiť hypotézu. Bez hypotézy a merateľného outcome-u je iba neštandardnou production zmenou označenou bezpečnejším slovom.
 
-Postmortem analyzuje systémové podmienky, rozhodnutia a chýbajúce ochrany. Neznamená absenciu zodpovednosti; znamená odmietnutie zjednodušujúceho záveru „chybu spôsobil človek“.
+Bezpečný experiment definuje:
 
-### Controlled experimentation
+- **Hypotézu — očakávaný cause-and-effect vzťah**: napríklad „zlyhanie jednej worker zóny nezvýši oldest-message age nad SLO“.
+- **Baseline — dôkaz normálneho stavu**: bez steady-state merania nemožno posúdiť, čo experiment zmenil.
+- **Blast radius — scope vystavený riziku**: tenant, traffic percentage, Region alebo non-production environment obmedzí možnú škodu.
+- **Observation signals — metrics a events pre rozhodnutie**: určujú, či hypotéza platí a či vzniká nečakaný dopad.
+- **Abort condition — hranica okamžitého zastavenia**: chráni používateľa a zabraňuje pokračovaniu experimentu pri neprimeranom riziku.
+- **Rollback alebo recovery plan — návrat do bezpečného state-u**: musí byť pripravený a otestovaný skôr než sa fault alebo zmena aktivuje.
 
-Experiment má:
+## 27. Blameless post-incident learning
 
-- hypotézu,
-- obmedzený blast radius,
-- merateľný výsledok,
-- stop podmienku,
-- rollback plán.
+Blameless review skúma, prečo bolo rozhodnutie alebo akcia v danom context-e možné a často racionálne. Nezastaví sa pri vete „operator zadal zlý príkaz“, ale skúma permissions, UI, review, defaults, time pressure a recovery capabilities.
 
-### Chaos engineering
+Blameless neznamená absenciu standards alebo accountability. Owner stále musí vykonať remediation, ale organizácia získava pravdivejšie evidence a opravuje systém namiesto iba výmeny človeka.
 
-Systém sa kontrolovane vystavuje zlyhaniam, aby sa overili predpoklady o jeho odolnosti.
+## 28. Chaos engineering, game days a drills
 
-### Practice and simulation
+Chaos engineering kontrolovane vkladá fault, aby overil resilience hypotézu. Nie je to náhodné vypínanie production komponentov; potrebuje steady state, experiment scope, abort a recovery.
 
-Game days, incident drills a restore testy vytvárajú skúsenosť pred skutočnou krízou.
+Game days a incident drills precvičujú technické aj ľudské paths. Restore test overí backup a keys, failover exercise authority a routing a tabletop odhalí nejasnú communication alebo dependency ešte pred skutočnou krízou.
 
-### Knowledge institutionalization
+## 29. Psychological safety
 
-Poučenie sa musí premietnuť do:
+Learning vyžaduje, aby ľudia mohli hovoriť o uncertainty, near misses, technical debt a nebezpečných workaroundoch. Ak nositeľ zlej správy riskuje trest alebo zosmiešnenie, problémy sa stanú neviditeľné až do rozsiahleho incidentu.
 
-- testu,
-- automatizácie,
-- guardrailu,
-- runbooku,
-- architektonickej zmeny,
-- školenia,
-- monitoringu.
+Psychological safety nie je zníženie technických štandardov. Umožňuje skôr zistiť porušenie štandardu, presne opísať context a prijať evidence-based nápravu.
 
-Inak zostane iba poznámkou, ktorú systém časom zabudne.
+Význam jednotlivých tém je praktický:
 
-## 15. Príklad Third Way
+- **Uncertainty — priznanie neúplného modelu**: umožní navrhnúť experiment alebo konzervatívny rollout pred predstieraním istoty.
+- **Near miss — failure, ktorý ešte nespôsobil dopad**: poskytuje lacný learning signal pred skutočnou škodou.
+- **Technical debt — vedomé budúce riziko a cost**: musí mať ownera a rozhodnutie, nie iba neurčitú sťažnosť.
+- **Unsafe workaround — obídenie guardrailu pre okamžitý cieľ**: jeho zviditeľnenie umožní opraviť platform interface alebo proces, ktorý ľudí k obchádzke viedol.
 
-Incident vznikne po expirácii certifikátu.
+## 30. Institutionalization of knowledge
 
-Slabá reakcia:
+Poznatok musí byť uložený v mechanizme, ktorý ovplyvní budúce správanie. Postmortem dokument bez ownera a termínu sa časom stratí a rovnaký incident sa zopakuje.
+
+Learning sa môže premietnuť do viacerých vrstiev:
+
+- **Test — automatický dôkaz pred rovnakou regresiou**: reprodukuje failure condition pri ďalšej relevantnej zmene.
+- **Automation — odstránenie opakovanej manuálnej chyby**: napríklad certificate renewal zníži závislosť od kalendára jedného človeka.
+- **Guardrail — obmedzenie nebezpečnej akcie pri správnej boundary**: policy alebo safer default blokuje known failure bez centralizovaného ručného approvalu.
+- **Runbook — zlepšenie diagnosis a recovery**: zachová evidence path, bezpečné kroky a validation pre known incident.
+- **Architecture change — odstránenie spoločného failure domainu**: rieši root systemic weakness namiesto iba symptómu.
+- **Training a simulation — prenos tacit response knowledge**: pripraví viac ľudí na rozhodnutie, ktoré nemožno úplne automatizovať.
+- **Monitoring alebo SLO — skoršie zviditeľnenie odchýlky**: vytvorí signal pred tým, než rovnaký failure dosiahne pôvodný dopad.
+
+## 31. Third Way príklad
+
+Certifikát expiruje a služba stratí TLS connectivity. Slabá reakcia obnoví certifikát manuálne a incident uzavrie; aktuálny state je opravený, ale systémová schopnosť zostáva rovnaká.
+
+Systémové učenie zmení celý lifecycle:
 
 ```text
-Certifikát sa manuálne obnoví
-  ↓
-Incident sa uzavrie
+obnova služby
+→ timeline a post-incident analýza
+→ explicitný owner certificate lifecycle-u
+→ automated renewal a bezpečné distribution
+→ expiry a renewal-failure alerts
+→ runbook a break-glass postup
+→ pravidelný test renewal a failover paths
 ```
 
-Systémové učenie:
+Každý krok odstraňuje inú podmienku incidentu: ownership gap, manuálnu závislosť, neskorý feedback alebo neotestovaný recovery proces.
 
-```text
-Obnova služby
-  ↓
-Postmortem
-  ↓
-Automatizovaný renewal
-  ↓
-Alert pred expiráciou
-  ↓
-Runbook a ownership certifikátu
-  ↓
-Test renewal procesu
-```
-
-Rozdiel je v tom, že druhý prístup mení schopnosť systému, nie iba aktuálny stav.
-
-## 16. Psychologické bezpečie
-
-Učenie vyžaduje, aby ľudia mohli otvorene hovoriť o:
-
-- neistote,
-- chybných predpokladoch,
-- near misses,
-- technickom dlhu,
-- nebezpečných workaroundoch.
-
-Ak organizácia trestá nositeľa zlej správy, problémy sa skryjú a feedback loop sa preruší.
-
-Psychologické bezpečie neznamená, že neexistujú štandardy alebo zodpovednosť. Znamená, že organizácia hľadá pravdivé informácie potrebné na zlepšenie systému.
-
-## 17. Anti-patterny Third Way
+## 32. Third Way failure modes
 
 ### Postmortem ako formalita
 
-Dokument vznikne, ale nápravné akcie nemajú ownera, termín ani prioritu.
+Dokument vznikne, ale actions nemajú ownera, deadline ani overenie effectiveness. Organizácia archivuje opis incidentu bez zmeny systému.
 
 ### Hero culture
 
-Organizácia oceňuje jednotlivcov, ktorí opakovane zachraňujú systém manuálnymi zásahmi, namiesto odstránenia príčiny potreby zásahov.
+Jednotlivec opakovane zachraňuje službu cez nezdokumentované manuálne zásahy. Odmena hero behavioru odstraňuje motiváciu vytvoriť automation, runbook a shared capability.
 
 ### Experiment bez guardrails
 
-Zmena sa označí za experiment, ale nemá hypotézu, meranie ani kontrolovaný blast radius.
+Zmena nemá hypotézu, baseline ani abort condition. Neúspech potom neposkytuje jasný learning a dopad nie je kontrolovaný.
 
 ### Zero-failure culture
 
-Každé zlyhanie je považované za neprijateľné. Výsledkom je skrývanie problémov, pomalé zmeny a slabá schopnosť učenia.
+Každé zlyhanie sa interpretuje ako individuálne zlyhanie. Tímy spomaľujú zmeny, skrývajú near misses a prestávajú vykonávať experimenty potrebné na overenie resilience.
 
 ### Opakovaný incident bez systémovej zmeny
 
-Tím obnoví službu, ale nezmení testy, automatizáciu ani architektúru.
+Služba sa zakaždým obnoví rovnakým postupom, ale test, platforma ani architecture sa nemenia. Toil a risk zostávajú súčasťou normálneho operating modelu.
 
-## 18. Vzťah medzi Three Ways
+## 33. Vzájomná závislosť Three Ways
 
-Three Ways sa navzájom podmieňujú:
+Všetky tri Ways musia fungovať súčasne. Slabá kombinácia vytvára predvídateľný anti-pattern.
 
 ```text
 Flow bez Feedback
-  → chyby sa pohybujú rýchlo smerom k produkcii
+→ chyby a nesprávne predpoklady sa rýchlo dostanú do produkcie
 
 Feedback bez Flow
-  → problém sa zistí, ale oprava čaká v pomalom systéme
+→ problém je známy, ale oprava čaká v pomalom delivery systéme
 
 Flow a Feedback bez Learning
-  → systém sa koriguje, ale dlhodobo sa nezlepšuje
+→ systém reaguje na každú udalosť, ale rovnaké slabiny sa opakujú
+
+Learning bez Flow a Feedback
+→ experimenty nemajú rýchly evidence path ani schopnosť dostať zlepšenie do praxe
 ```
 
-Vyspelý delivery systém potrebuje všetky tri.
+Vyspelý systém preto neoptimalizuje iba deployment speed alebo počet postmortems. Meria tok, feedback latency a mieru dokončenia systémových improvement actions.
 
-## 19. Praktický audit systému
+## 34. End-to-end audit podľa Three Ways
 
-### First Way
+Audit má spájať otázku s dôkazom a možným systémovým obmedzením.
 
-- Aký je lead time od commitu po produkciu?
-- Kde práca najdlhšie čaká?
-- Aká je veľkosť typickej zmeny?
-- Ktorý tím alebo proces je bottleneck?
-- Koľko handoffov zmena prejde?
+### First Way — Flow
 
-### Second Way
+- **Aký je end-to-end lead time?** — ukáže, či sa lokálne rýchle kroky strácajú v dlhom waitingu.
+- **Kde práca čaká najdlhšie?** — identifikuje queue, approval alebo environment bottleneck.
+- **Aká je veľkosť typickej zmeny?** — odhaľuje feedback interval a blast radius release-u.
+- **Koľko handoffov change prejde?** — ukazuje stratu contextu a organizačné fronty.
+- **Ktorý constraint obmedzuje throughput?** — zabraňuje optimalizácii neobmedzujúceho kroku.
 
-- Ako rýchlo autor zistí chybu?
-- Sú testy dôveryhodné?
-- Vidí tím produkčné správanie svojej služby?
-- Sú alerty akčné a majú ownera?
-- Vracia sa používateľská spätná väzba do backlogu?
+### Second Way — Feedback
 
-### Third Way
+- **Ako rýchlo autor zistí chybu?** — meria feedback latency od vzniku po action ownera.
+- **Sú tests a alerts dôveryhodné?** — odhaľuje flaky alebo noisy signals, ktoré ľudia ignorujú.
+- **Vidí tím production behavior svojej služby?** — preveruje shared operational feedback a version correlation.
+- **Má signal context a remediation path?** — odlišuje akčný feedback od neurčitého noise.
+- **Vracia sa user feedback do planningu?** — uzatvára product, nie iba technical loop.
 
-- Menia incidenty systém alebo iba aktuálny stav?
-- Testujú sa backupy a restore procesy?
-- Existujú game days alebo incident drills?
-- Môžu ľudia bezpečne hlásiť near miss?
-- Majú postmortem akcie ownera a termín?
+### Third Way — Learning
 
-## 20. Príklad mapovania na nástroje
+- **Menia incidents systém alebo iba aktuálny state?** — rozlišuje recovery od institutional learningu.
+- **Testujú sa recovery a failure assumptions?** — overuje, či architecture diagram zodpovedá reálnemu správaniu.
+- **Existujú game days a bezpečné experiments?** — ukazuje schopnosť učiť sa pred kritickým incidentom.
+- **Môžu ľudia hlásiť near misses?** — preveruje psychological safety a kvalitu evidence.
+- **Majú improvement actions ownera a validation?** — odhaľuje postmortems bez vykonanej zmeny.
 
-Nástroje nie sú samotné Three Ways, ale môžu ich podporovať:
+## 35. Nástroje ako implementácia princípu
 
-| Princíp | Mechanizmus | Príklad nástroja |
-|---|---|---|
-| Flow | version control a pipeline | Git, GitLab CI |
-| Flow | reproducible infrastructure | Terraform, Ansible |
-| Feedback | automated tests | test framework, CI runner |
-| Feedback | production telemetry | Prometheus, Grafana, OpenTelemetry |
-| Learning | postmortem workflow | issue tracker, documentation |
-| Learning | controlled rollout | Kubernetes, Argo Rollouts, feature flags |
+Nástroj nie je samotná Way. Rovnaký produkt môže flow podporiť alebo poškodiť podľa konfigurácie, ownershipu a feedback contractu.
 
-Moderný nástroj nezaručuje správny princíp. Pipeline môže mať dlhé manuálne fronty a monitoring môže byť bez akčnej spätnej väzby.
+| Princíp | Mechanizmus | Čo nástroj podporuje | Limit |
+|---|---|---|---|
+| Flow | Version control a CI | malé integrácie, reproducible build a automated evidence | dlhé approvals a veľké branches môžu flow stále blokovať |
+| Flow | Infrastructure as Code | self-service, review a opakovateľné environmenty | pomalý central apply tím môže zostať bottleneckom |
+| Feedback | Automated tests | skoré odhalenie behavior alebo compatibility chyby | flaky alebo nereprezentatívny test vytvára falošnú dôveru |
+| Feedback | Prometheus, Grafana, OpenTelemetry | runtime signals, correlation a canary evidence | chýbajúcu instrumentation a ownership backend nedoplní |
+| Learning | Issue tracker a documentation | ownership postmortem actions a zachovanie rozhodnutí | dokument bez deadline-u a verification nemení systém |
+| Learning | Feature flags a rollout controllers | controlled experiment a obmedzený exposure | flag bez lifecycle-u vytvára permanentnú complexity |
 
-## 21. Časté omyly
+## 36. Časté omyly
 
-### „First Way znamená iba zrýchliť deployment“
+### First Way znamená iba zrýchliť deployment
 
-Nie. Ide o celý value stream od požiadavky k hodnote, vrátane čakacích dôb a handoffov.
+Flow pokrýva celý value stream od potreby po používateľský outcome. Rýchly deployment nevyrieši dvojdňový review queue ani nejasnú požiadavku.
 
-### „Second Way znamená viac dashboardov“
+### Second Way znamená viac dashboardov
 
-Nie. Spätná väzba musí viesť k rýchlej a správnej akcii.
+Feedback musí byť relevantný, dôveryhodný a akčný. Dashboard bez decision ownera alebo contextu môže zvyšovať množstvo dát bez skrátenia correction time-u.
 
-### „Third Way ospravedlňuje chyby“
+### Third Way ospravedlňuje chyby
 
-Nie. Umožňuje ich pravdivo analyzovať a systematicky znižovať ich opakovanie.
+Continual learning neodstraňuje standards ani accountability. Vytvára presnejšiu analýzu a zodpovednosť za systémovú remediation namiesto zjednodušeného obvinenia jednotlivca.
 
-### „Three Ways sa implementujú postupne a potom sú hotové“
+### Three Ways sa implementujú raz a potom sú hotové
 
-Nie. Sú to trvalé vlastnosti systému a predmet priebežného zlepšovania.
+Flow bottleneck, feedback needs a risk sa menia spolu s produktom a organizáciou. Three Ways sú trvalé vlastnosti a predmet continuous improvement.
 
-## 22. Kontrolné otázky
+## 37. Kontrolné otázky
 
-1. Čo optimalizuje First Way?
-2. Prečo 100 % vyťaženosť všetkých tímov môže spomaliť celý systém?
-3. Aké vlastnosti má kvalitná spätná väzba?
-4. Prečo flaky test poškodzuje Second Way?
-5. Ako sa líši obnova služby od systémového učenia?
-6. Čo musí obsahovať bezpečný experiment?
-7. Prečo blameless postmortem neznamená absenciu zodpovednosti?
-8. Uveď príklad Flow bez Feedback a jeho následok.
-9. Ako môže observability podporiť Second Way?
-10. Ako postmortem podporuje Third Way iba vtedy, keď sa zistenia implementujú?
+1. Čo konkrétne tečie value streamom okrem ticketu?
+2. Prečo stopercentná utilization všetkých tímov môže zvýšiť lead time?
+3. Ako small batch size znižuje correction cost a blast radius?
+4. Ako odlíšiš bottleneck od iba pomalého, ale neobmedzujúceho kroku?
+5. Aké vlastnosti musí mať kvalitný feedback?
+6. Prečo flaky test poškodzuje Second Way aj pri rýchlom vykonaní?
+7. Aký rozdiel je medzi production telemetry a uzavretým feedback loopom?
+8. Čo musí obsahovať bezpečný experiment?
+9. Prečo blameless postmortem neznamená absenciu zodpovednosti?
+10. Ako sa incident knowledge premieňa na trvalú capability?
+11. Čo sa stane pri Flow bez Feedbacku a pri Feedbacku bez Flowu?
+12. Ako by si auditoval všetky Three Ways na jednej konkrétnej službe?
 
-## 23. Zhrnutie
+## 38. Zhrnutie
 
-- First Way optimalizuje plynulý tok práce zľava doprava.
-- Second Way vytvára rýchlu a kvalitnú spätnú väzbu sprava doľava.
-- Third Way premieňa experimenty a zlyhania na trvalé systémové učenie.
-- Lokálna vyťaženosť nie je to isté ako throughput celého systému.
-- Feedback má hodnotu iba vtedy, keď je rýchly, dôveryhodný a akčný.
-- Incident je príležitosť zmeniť schopnosť systému, nie iba obnoviť aktuálnu službu.
-- Všetky tri princípy musia fungovať súčasne.
+First Way optimalizuje plynulý end-to-end tok práce a znižuje WIP, waiting, handoffs a batch size. Second Way vracia dôveryhodný a akčný feedback k miestu vzniku zmeny a prepája skoré tests s production evidence.
+
+Third Way premieňa experiments, incidents a near misses na testy, automation, guardrails, runbooks a architecture zmeny. Vyspelý DevOps systém potrebuje všetky tri princípy naraz: schopnosť zlepšenie rýchlo doručiť, overiť jeho výsledok a zachovať získané learning v systéme.
+
+## Glossary impact
+
+Relevantné pojmy: Three Ways, First Way, Flow, Second Way, Feedback, Third Way, continual learning, WIP, batch size, bottleneck, built-in quality, stop-the-line, feedback latency, experiment hypothesis, blast radius, blameless postmortem, chaos engineering, game day, psychological safety, near miss a institutional learning.
+
+## Primárne zdroje
+
+- [IT Revolution — The DevOps Handbook](https://itrevolution.com/product/the-devops-handbook-second-edition/)
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
+- [Google SRE — Postmortem Culture](https://sre.google/sre-book/postmortem-culture/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
