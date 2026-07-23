@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10430**
-- Total words: **427,093**
-- Findings: **23421** (critical 8456, high 9560, medium 3084, low 2321)
+- Audited conceptual sections: **10418**
+- Total words: **427,846**
+- Findings: **23391** (critical 8435, high 9537, medium 3085, low 2334)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -181,7 +181,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 628 | 28 | 33 | 8 | 6 | 1167 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 622 | 28 | 35 | 5 | 0 | 984 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | D | 621 | 25 | 34 | 12 | 5 | 1464 | `docs/09-kubernetes/service-endpointslice.md` |
-| D | 614 | 28 | 32 | 6 | 8 | 1527 | `docs/00-foundations/t-shaped-engineer.md` |
 | D | 611 | 30 | 25 | 14 | 4 | 1175 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 610 | 24 | 34 | 11 | 10 | 1719 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
@@ -268,6 +267,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 232 | 11 | 10 | 4 | 4 | 707 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
 | D | 209 | 7 | 6 | 12 | 27 | 3036 | `docs/00-foundations/feedback-loops.md` |
+| D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
 | D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
@@ -789,66 +789,22 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/00-foundations/t-shaped-engineer.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 27, `bare-bullet-items` — **2. Problém, ktorý rieši**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `TLS,`, `Linux cgroups,`, `cloud networkingu,`.
-- **CRITICAL** line 78, `bare-bullet-items` — **4. Šírka neznamená povrchnosť**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo táto oblasť rieši,`, `aké má hlavné komponenty,`, `aké sú jej vstupy a výstupy,`, `ako sa prejavuje zlyhanie,`.
-- **CRITICAL** line 101, `bare-bullet-items` — **5. Hĺbka neznamená izoláciu**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interné mechanizmy,`, `failure modes,`, `tradeoffs,`, `performance charakteristiky,`.
-- **CRITICAL** line 101, `outline-instead-of-explanation` — **5. Hĺbka neznamená izoláciu**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `empty-section` — **6. Porovnanie profilov**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 128, `bare-bullet-items` — **I-shaped engineer**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká technická hĺbka,`, `schopnosť riešiť špecializované problémy,`, `silná doménová expertíza.`, `slabšia spolupráca cez systémové hranice,`.
-- **CRITICAL** line 128, `outline-instead-of-explanation` — **I-shaped engineer**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 153, `bare-bullet-items` — **T-shaped engineer**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `systémové porozumenie,`, `jedna hlboká expertíza,`, `lepšia spolupráca,`, `schopnosť lokalizovať problémy.`.
-- **CRITICAL** line 153, `outline-instead-of-explanation` — **T-shaped engineer**: 5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 203, `bare-bullet-items` — **7. T-shaped tím, nie iba jednotlivec**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `knowledge silos,`, `bottleneck jedného experta,`, `počet slepých handoffov,`, `bus factor.`.
-- **CRITICAL** line 203, `outline-instead-of-explanation` — **7. T-shaped tím, nie iba jednotlivec**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 226, `bare-bullet-items` — **8. Vzťah k DevOps**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chápať dopad svojej zmeny na ďalšie vrstvy,`, `formulovať problém v jazyku iného tímu,`, `rozlíšiť symptóm od root cause,`, `zapojiť správneho špecialistu,`.
-- **CRITICAL** line 226, `outline-instead-of-explanation` — **8. Vzťah k DevOps**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 238, `bare-bullet-items` — **9. Ako budovať horizontálnu šírku**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDLC a DevOps princípy`, `Linux`, `Networking a DNS`, `Git`.
-- **CRITICAL** line 238, `outline-instead-of-explanation` — **9. Ako budovať horizontálnu šírku**: 15 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 349, `bare-bullet-items` — **14. T-shaped profil a pohovor**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `začať presným mentálnym modelom,`, `vysvetliť mechanizmus,`, `pomenovať závislosti,`, `identifikovať failure modes,`.
-- **CRITICAL** line 349, `outline-instead-of-explanation` — **14. T-shaped profil a pohovor**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 362, `empty-section` — **15. Anti-patterny osobného rozvoja**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 388, `bare-bullet-items` — **16. Produkčný kontext**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pairing,`, `rotáciu on-call,`, `code a infrastructure review,`, `spoločné incidenty a postmortems,`.
-- **CRITICAL** line 388, `outline-instead-of-explanation` — **16. Produkčný kontext**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 404, `empty-section` — **17. Praktický plán osobného rozvoja**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 410, `bare-bullet-items` — **Krok 2 — Vyber vertikálu**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pracovným potrebám,`, `dlhodobému záujmu,`, `dostupnosti praktických projektov,`, `hodnote pre tím.`.
-- **CRITICAL** line 410, `outline-instead-of-explanation` — **Krok 2 — Vyber vertikálu**: 4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 437, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 472, `outline-instead-of-explanation` — **20. Zhrnutie**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps, Systems Thinking`.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 46, `outline-instead-of-explanation` — **4. Použiteľná horizontálna šírka**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 70, `outline-instead-of-explanation` — **6. Dôkaz vertikálnej hĺbky**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 126, `outline-instead-of-explanation` — **11. Kolektívny T-shaped tím**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 154, `outline-instead-of-explanation` — **13. Vzťah k DevOps a ownershipu**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 166, `outline-instead-of-explanation` — **14. Budovanie horizontálnej šírky**: 11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 27, `list-heavy-section` — **2. Problém, ktorý rieši**: 7 odrážok a iba 53 slov súvislého vysvetlenia.
-- **HIGH** line 43, `single-sentence-concept` — **3. T-shaped profil DevOps engineera**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 78, `list-heavy-section` — **4. Šírka neznamená povrchnosť**: 13 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 128, `single-sentence-concept` — **I-shaped engineer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 153, `list-first-introduction` — **T-shaped engineer**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 153, `single-sentence-concept` — **T-shaped engineer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 173, `bare-bullet-items` — **π-shaped engineer**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `hĺbka v Kubernetes,`, `hĺbka v AWS networkingu.`.
-- **HIGH** line 238, `single-sentence-concept` — **9. Ako budovať horizontálnu šírku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 364, `single-sentence-concept` — **Tutorial hopping**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 368, `single-sentence-concept` — **Tool collector**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 372, `single-sentence-concept` — **Syntax-first learning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 376, `single-sentence-concept` — **Nekonečná šírka**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 384, `single-sentence-concept` — **Certifikácia bez praktického dôkazu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 406, `single-sentence-concept` — **Krok 1 — Urči horizontálny baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 410, `single-sentence-concept` — **Krok 2 — Vyber vertikálu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 419, `single-sentence-concept` — **Krok 3 — Definuj dôkaz zvládnutia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 472, `list-first-introduction` — **20. Zhrnutie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 472, `single-sentence-concept` — **20. Zhrnutie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 46, `single-sentence-concept` — **4. Použiteľná horizontálna šírka**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 57, `list-heavy-section` — **5. Príklad šírky v databázovej oblasti**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 27, `term-before-explanation` — **2. Problém, ktorý rieši**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `CI`, `CD`
-- **HIGH** line 101, `thin-concept-section` — **5. Hĺbka neznamená izoláciu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 128, `thin-concept-section` — **I-shaped engineer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 153, `thin-concept-section` — **T-shaped engineer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 173, `thin-concept-section` — **π-shaped engineer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 238, `term-before-explanation` — **9. Ako budovať horizontálnu šírku**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDLC`, `DNS`, `CI`, `CD`, `SRE`, `identity`
-- **HIGH** line 238, `thin-concept-section` — **9. Ako budovať horizontálnu šírku**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 349, `thin-concept-section` — **14. T-shaped profil a pohovor**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 388, `thin-concept-section` — **16. Produkčný kontext**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 410, `thin-concept-section` — **Krok 2 — Vyber vertikálu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 472, `term-before-explanation` — **20. Zhrnutie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `T-`, `I-`, `L4`, `L5`
-- **HIGH** line 472, `thin-concept-section` — **20. Zhrnutie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 46, `term-before-explanation` — **4. Použiteľná horizontálna šírka**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IAM`, `policy`, `resource`
+- **HIGH** line 46, `thin-concept-section` — **4. Použiteľná horizontálna šírka**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 126, `thin-concept-section` — **11. Kolektívny T-shaped tím**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 166, `term-before-explanation` — **14. Budovanie horizontálnej šírky**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDLC`, `DNS`, `CI`, `CD`, `SRE`, `SLO`, `policy`, `identity`
+- **HIGH** line 166, `thin-concept-section` — **14. Budovanie horizontálnej šírky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/three-ways.md`
 
@@ -19066,19 +19022,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4258 | 0 | 0 | 4258 |
-| `bare-bullet-items` | 3889 | 353 | 0 | 0 | 4242 |
-| `outline-instead-of-explanation` | 3744 | 0 | 0 | 0 | 3744 |
-| `thin-concept-section` | 0 | 3433 | 0 | 0 | 3433 |
-| `term-before-explanation` | 0 | 337 | 2209 | 0 | 2546 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1129 | 1129 |
-| `list-first-introduction` | 0 | 974 | 0 | 0 | 974 |
+| `single-sentence-concept` | 0 | 4246 | 0 | 0 | 4246 |
+| `bare-bullet-items` | 3878 | 352 | 0 | 0 | 4230 |
+| `outline-instead-of-explanation` | 3739 | 0 | 0 | 0 | 3739 |
+| `thin-concept-section` | 0 | 3427 | 0 | 0 | 3427 |
+| `term-before-explanation` | 0 | 336 | 2210 | 0 | 2546 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1134 | 1134 |
+| `list-first-introduction` | 0 | 972 | 0 | 0 | 972 |
 | `short-concept-section` | 0 | 0 | 875 | 0 | 875 |
-| `example-not-explicit` | 0 | 0 | 0 | 849 | 849 |
-| `empty-section` | 522 | 0 | 0 | 0 | 522 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 343 | 343 |
-| `no-prose-concept` | 301 | 0 | 0 | 0 | 301 |
-| `list-heavy-section` | 0 | 205 | 0 | 0 | 205 |
+| `example-not-explicit` | 0 | 0 | 0 | 855 | 855 |
+| `empty-section` | 518 | 0 | 0 | 0 | 518 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 345 | 345 |
+| `no-prose-concept` | 300 | 0 | 0 | 0 | 300 |
+| `list-heavy-section` | 0 | 204 | 0 | 0 | 204 |
 
 ## Required remediation pattern
 

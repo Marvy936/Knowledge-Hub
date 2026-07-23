@@ -212,16 +212,16 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "title": "T-shaped Engineer",
-      "words": 1527,
-      "headings": 41,
-      "sections": 41,
-      "findings": 74,
-      "critical": 28,
-      "high": 32,
-      "medium": 6,
-      "low": 8,
-      "score": 614,
+      "title": "T-shaped, I-shaped a π-shaped Engineer",
+      "words": 2280,
+      "headings": 29,
+      "sections": 29,
+      "findings": 44,
+      "critical": 7,
+      "high": 9,
+      "medium": 7,
+      "low": 21,
+      "score": 207,
       "grade": "D"
     },
     {
@@ -10633,15 +10633,6 @@
       "path": "docs/00-foundations/t-shaped-engineer.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -10653,7 +10644,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -10662,7 +10653,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps, Systems Thinking`.",
       "score": 12
     },
     {
@@ -10673,6 +10664,15 @@
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
@@ -10685,26 +10685,8 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 27,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 27,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `TLS,`, `Linux cgroups,`, `cloud networkingu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 27,
+      "section": "1. Definícia",
+      "line": 13,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -10712,8 +10694,8 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 27,
+      "section": "1. Definícia",
+      "line": 13,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -10721,17 +10703,17 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 27,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `CI`, `CD`",
-      "score": 7
+      "section": "2. Problém, ktorý skill-shape model rieši",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "3. T-shaped profil DevOps engineera",
-      "line": 43,
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -10739,62 +10721,17 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "4. Šírka neznamená povrchnosť",
-      "line": 78,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "4. Šírka neznamená povrchnosť",
-      "line": 78,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo táto oblasť rieši,`, `aké má hlavné komponenty,`, `aké sú jej vstupy a výstupy,`, `ako sa prejavuje zlyhanie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "4. Šírka neznamená povrchnosť",
-      "line": 78,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "4. Šírka neznamená povrchnosť",
-      "line": 78,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "5. Hĺbka neznamená izoláciu",
-      "line": 101,
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "5. Hĺbka neznamená izoláciu",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interné mechanizmy,`, `failure modes,`, `tradeoffs,`, `performance charakteristiky,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "5. Hĺbka neznamená izoláciu",
-      "line": 101,
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -10802,44 +10739,152 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "6. Porovnanie profilov",
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "4. Použiteľná horizontálna šírka",
+      "line": 46,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IAM`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "5. Príklad šírky v databázovej oblasti",
+      "line": 57,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "5. Príklad šírky v databázovej oblasti",
+      "line": 57,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "5. Príklad šírky v databázovej oblasti",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "5. Príklad šírky v databázovej oblasti",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "5. Príklad šírky v databázovej oblasti",
+      "line": 57,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `resource`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "6. Dôkaz vertikálnej hĺbky",
+      "line": 70,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "6. Dôkaz vertikálnej hĺbky",
+      "line": 70,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "6. Dôkaz vertikálnej hĺbky",
+      "line": 70,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "6. Dôkaz vertikálnej hĺbky",
+      "line": 70,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "8. I-shaped engineer",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "9. T-shaped engineer",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "11. Kolektívny T-shaped tím",
       "line": 126,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "I-shaped engineer",
-      "line": 128,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "I-shaped engineer",
-      "line": 128,
-      "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "I-shaped engineer",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká technická hĺbka,`, `schopnosť riešiť špecializované problémy,`, `silná doménová expertíza.`, `slabšia spolupráca cez systémové hranice,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "I-shaped engineer",
-      "line": 128,
+      "section": "11. Kolektívny T-shaped tím",
+      "line": 126,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -10847,179 +10892,8 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "T-shaped engineer",
-      "line": 153,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "T-shaped engineer",
-      "line": 153,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "T-shaped engineer",
-      "line": 153,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "T-shaped engineer",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `systémové porozumenie,`, `jedna hlboká expertíza,`, `lepšia spolupráca,`, `schopnosť lokalizovať problémy.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "T-shaped engineer",
-      "line": 153,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "T-shaped engineer",
-      "line": 153,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "π-shaped engineer",
-      "line": 173,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `hĺbka v Kubernetes,`, `hĺbka v AWS networkingu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "π-shaped engineer",
-      "line": 173,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "π-shaped engineer",
-      "line": 173,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "7. T-shaped tím, nie iba jednotlivec",
-      "line": 203,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "7. T-shaped tím, nie iba jednotlivec",
-      "line": 203,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `knowledge silos,`, `bottleneck jedného experta,`, `počet slepých handoffov,`, `bus factor.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "7. T-shaped tím, nie iba jednotlivec",
-      "line": 203,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "8. Vzťah k DevOps",
-      "line": 226,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "8. Vzťah k DevOps",
-      "line": 226,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chápať dopad svojej zmeny na ďalšie vrstvy,`, `formulovať problém v jazyku iného tímu,`, `rozlíšiť symptóm od root cause,`, `zapojiť správneho špecialistu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "8. Vzťah k DevOps",
-      "line": 226,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDLC a DevOps princípy`, `Linux`, `Networking a DNS`, `Git`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
+      "section": "11. Kolektívny T-shaped tím",
+      "line": 126,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -11027,260 +10901,8 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "9. Ako budovať horizontálnu šírku",
-      "line": 238,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDLC`, `DNS`, `CI`, `CD`, `SRE`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "14. T-shaped profil a pohovor",
-      "line": 349,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "14. T-shaped profil a pohovor",
-      "line": 349,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `začať presným mentálnym modelom,`, `vysvetliť mechanizmus,`, `pomenovať závislosti,`, `identifikovať failure modes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "14. T-shaped profil a pohovor",
-      "line": 349,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "15. Anti-patterny osobného rozvoja",
-      "line": 362,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Tutorial hopping",
-      "line": 364,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Tool collector",
-      "line": 368,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Syntax-first learning",
-      "line": 372,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Nekonečná šírka",
-      "line": 376,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Certifikácia bez praktického dôkazu",
-      "line": 384,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "16. Produkčný kontext",
-      "line": 388,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "16. Produkčný kontext",
-      "line": 388,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pairing,`, `rotáciu on-call,`, `code a infrastructure review,`, `spoločné incidenty a postmortems,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "16. Produkčný kontext",
-      "line": 388,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "17. Praktický plán osobného rozvoja",
-      "line": 404,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Krok 1 — Urči horizontálny baseline",
-      "line": 406,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Krok 2 — Vyber vertikálu",
-      "line": 410,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Krok 2 — Vyber vertikálu",
-      "line": 410,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Krok 2 — Vyber vertikálu",
-      "line": 410,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pracovným potrebám,`, `dlhodobému záujmu,`, `dostupnosti praktických projektov,`, `hodnote pre tím.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Krok 2 — Vyber vertikálu",
-      "line": 410,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "Krok 3 — Definuj dôkaz zvládnutia",
-      "line": 419,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "18. Časté omyly",
-      "line": 437,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
+      "section": "11. Kolektívny T-shaped tím",
+      "line": 126,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -11288,12 +10910,120 @@
     },
     {
       "path": "docs/00-foundations/t-shaped-engineer.md",
-      "section": "20. Zhrnutie",
-      "line": 472,
+      "section": "13. Vzťah k DevOps a ownershipu",
+      "line": 154,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "13. Vzťah k DevOps a ownershipu",
+      "line": 154,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "13. Vzťah k DevOps a ownershipu",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "13. Vzťah k DevOps a ownershipu",
+      "line": 154,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "13. Vzťah k DevOps a ownershipu",
+      "line": 154,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "14. Budovanie horizontálnej šírky",
+      "line": 166,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "14. Budovanie horizontálnej šírky",
+      "line": 166,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "14. Budovanie horizontálnej šírky",
+      "line": 166,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "14. Budovanie horizontálnej šírky",
+      "line": 166,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "14. Budovanie horizontálnej šírky",
+      "line": 166,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `T-`, `I-`, `L4`, `L5`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDLC`, `DNS`, `CI`, `CD`, `SRE`, `SLO`, `policy`, `identity`",
       "score": 7
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "16. Skill matrix",
+      "line": 200,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "17. Learning plan a priority",
+      "line": 214,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/t-shaped-engineer.md",
+      "section": "17. Learning plan a priority",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/three-ways.md",
