@@ -1,491 +1,392 @@
 # Scalability, elasticity a fault tolerance
 
-Scalability, elasticity a fault tolerance opisujú odlišné vlastnosti systému. Často sa zamieňajú, pretože všetky súvisia s kapacitou a odolnosťou, ale riešia iné otázky:
+Scalability, elasticity a fault tolerance opisujú tri odlišné vlastnosti systému. Všetky súvisia s kapacitou a odolnosťou, ale každá rieši inú otázku a vyžaduje iné mechanizmy, testy a prevádzkové dôkazy.
 
 ```text
-Scalability    → dokáže systém zvládnuť väčší workload?
-Elasticity     → dokáže kapacitu automaticky prispôsobiť zmene workloadu?
-Fault tolerance → dokáže pokračovať bez významného prerušenia pri zlyhaní komponentu?
+Scalability      → dokáže systém obslúžiť väčší workload bez neprimeraného zhoršenia?
+Elasticity       → dokáže systém meniť kapacitu podľa aktuálneho alebo očakávaného demandu?
+Fault tolerance  → dokáže systém pokračovať pri zlyhaní komponentu alebo failure domainu?
 ```
 
-## 1. Scalability
+Systém môže byť škálovateľný, ale neelastický, ak zvládne vyššiu záťaž iba po manuálnom rozšírení. Rovnako môže byť elastický, ale nie fault-tolerant, ak automaticky pridáva instances v jednej Availability Zone a výpadok tejto zóny vyradí celý workload.
 
-Scalability je schopnosť systému zvýšiť alebo znížiť spracovateľskú kapacitu bez neprimeraného zhoršenia výkonu, spoľahlivosti alebo nákladov.
+## 1. Mentálny model
 
-Rozlišuj:
-
-- compute scale,
-- storage scale,
-- network scale,
-- database scale,
-- control-plane scale,
-- organizational a operational scale.
-
-Systém môže škálovať compute vrstvu a stále zlyhať na databáze, locku, queue partition alebo quota.
-
-## 2. Vertical scaling
-
-Vertical scaling mení kapacitu jedného resource-u:
+Najpresnejší model začína pracovnou jednotkou, obmedzenými resources a failure domains. Workload vytvára demand, jednotlivé vrstvy ho spracúvajú a každá vrstva má kapacitnú hranicu, provisioning latency a vlastný spôsob zlyhania.
 
 ```text
-väčšia VM
-viac CPU/memory
-väčší database instance class
-vyšší storage performance tier
+workload a arrival rate
+→ load balancing alebo partitioning
+→ compute workers
+→ connection a thread pools
+→ cache, queue alebo databáza
+→ storage a network
+→ výsledok pre používateľa
 ```
 
-Výhody:
+Scalability skúma, ako sa mení maximálny bezpečný throughput tohto toku. Elasticity riadi, kedy a ako sa kapacita pridá alebo odoberie, zatiaľ čo fault tolerance určuje, čo sa stane, keď časť toku prestane fungovať.
 
-- jednoduchší application model,
-- menej distributed-system complexity,
-- vhodné pre legacy alebo single-node workload.
+## 2. Scalability
 
-Limity:
+Scalability je schopnosť systému zväčšiť alebo zmenšiť spracovateľskú kapacitu bez neprimeraného zhoršenia latency, reliability, operability alebo jednotkových nákladov. Nejde iba o počet serverov; škálovať musí celý kritický path vrátane databázy, storage, network, control plane-u a ľudského operating modelu.
 
-- maximálna dostupná veľkosť,
-- restart alebo migration,
-- väčší blast radius,
-- skokové ceny,
-- single-resource failure domain.
+Systém môže zvládnuť desaťnásobný počet webových requestov a stále zlyhať na jednom serializovanom locku alebo malej database connection pool. Pri hodnotení scalability preto hľadaj prvú vrstvu, ktorej kapacita nerastie spolu s demand-om.
 
-Vertical scaling môže byť správny, ale nie nekonečný.
+## 3. Kapacitný model a bottleneck
 
-## 3. Horizontal scaling
+Kapacita systému je obmedzená jeho najslabším relevantným článkom. Ak všetky application instances zapisujú do jednej databázy s maximom 5 000 transakcií za sekundu, pridávanie ďalších webových instances po dosiahnutí tohto limitu iba zvýši počet čakajúcich requestov.
 
-Horizontal scaling pridáva alebo odoberá instances, workers, partitions alebo replicas.
+Praktický kapacitný model má spájať demand unit s konkrétnymi resources. Pre checkout službu môže jedna objednávka znamenať dva database writes, jedno payment API volanie, niekoľko cache operations a určitý počet prenesených bytes; až z tohto vzťahu možno odhadovať, ktorá vrstva sa stane bottleneckom.
 
-Vyžaduje:
+## 4. Vertical scaling
 
-- distribúciu trafficu alebo práce,
-- stateless alebo externalized state,
-- idempotenciu,
-- partitioning alebo sharding podľa potreby,
-- coordination a consistency model,
-- health checking,
-- graceful scale-in.
+Vertical scaling zväčšuje alebo zmenšuje kapacitu jedného resource-u, napríklad pridaním CPU a memory k virtuálnemu stroju alebo prechodom databázy na väčšiu instance class. Mechanizmus nemení počet aktívnych uzlov, ale poskytne jednému uzlu viac výkonu, cache, I/O alebo concurrency.
 
-Horizontal compute scale nepomôže, ak všetky replicas čakajú na jednu serializovanú dependency.
+Výhodou je jednoduchší application a consistency model, pretože stav nemusí byť rozdelený medzi ďalšie uzly. Limity tvoria maximálna dostupná veľkosť, skokové ceny, možný restart pri zmene a rastúci blast radius jedného veľkého resource-u.
 
-## 4. Diagonal scaling
+Typické použitia:
 
-Diagonal scaling kombinuje vertical a horizontal prístup:
+- legacy aplikácia, ktorú nemožno ľahko rozdeliť;
+- relačná databáza pred dosiahnutím praktického scale-up limitu;
+- dočasné odstránenie bottlenecku počas migrácie;
+- workload, kde distributed coordination stojí viac než väčší uzol.
 
-- instances sa zväčšia do efektívneho bodu,
-- následne sa pridávajú ďalšie instances,
-- pri poklese sa zmenšuje count alebo size.
+Vertical scaling je legitímny návrh, nie zlyhanie cloud-native architektúry. Nesmie sa však zamieňať s neobmedzenou škálovateľnosťou alebo vysokou dostupnosťou.
 
-Môže optimalizovať cost, ale komplikuje capacity model a autoscaling.
+## 5. Horizontal scaling
 
-## 5. Elasticity
+Horizontal scaling pridáva alebo odoberá samostatné instances, workers, shards alebo partitions. Traffic alebo pracovné jednotky sa musia medzi tieto jednotky distribuovať pomocou load balancera, queue, partition keyu alebo iného routing mechanizmu.
 
-Elasticity je schopnosť dynamicky pridávať a odoberať kapacitu podľa demandu.
+Aby horizontal scaling priniesol reálnu kapacitu, jednotlivé replicas nesmú byť blokované spoločným serializovaným stavom. Aplikácia preto často externalizuje sessions, používa idempotentné operations a navrhne databázový alebo queue model, ktorý podporuje paralelné spracovanie.
 
-Potrebuje:
+Horizontal scaling typicky vyžaduje:
 
-- merateľný signal,
-- scaling policy,
-- provisioning čas,
-- warm-up/readiness,
-- scale-in protection,
-- capacity a quota,
-- cost guardrails,
-- cooldown alebo stabilization.
+- stabilný spôsob rozdelenia trafficu alebo práce;
+- health checks a odstránenie nezdravých replicas;
+- stateless processing alebo explicitný state ownership;
+- koordináciu, partitioning a consistency model;
+- graceful scale-in a odovzdanie rozpracovanej práce;
+- observability per replica aj za celý service.
 
-Elasticita nie je okamžitá. Každý resource má provisioning latency a capacity limit.
+Viac replicas automaticky neznamená lineárne viac throughputu. Shared lock, jedna queue partition, database write leader alebo externá API quota môžu rast zastaviť dávno pred vyčerpaním compute vrstvy.
 
-## 6. Reactive a predictive scaling
+## 6. Diagonal scaling
 
-### Reactive
+Diagonal scaling kombinuje vertical a horizontal scaling. Systém najprv používa efektívnu veľkosť jedného uzla a po dosiahnutí praktického bodu pridáva ďalšie uzly rovnakej alebo podobnej veľkosti.
 
-Reaguje na aktuálny signal:
+Tento model býva ekonomicky vhodný, pretože príliš malé instances vytvárajú vysoký orchestration overhead a príliš veľké instances zvyšujú blast radius a cenu nevyužitej kapacity. Nevýhodou je zložitejší autoscaling, keď sa súčasne mení počet aj veľkosť resources a každý prechod môže mať inú provisioning latency.
 
-- CPU,
-- request count,
-- queue depth,
-- latency,
-- custom business metric.
+## 7. Scalability nie je performance
 
-Riziko: scaling nastane až po začiatku špičky.
+Performance opisuje, ako rýchlo alebo efektívne systém funguje pri konkrétnom workload-e. Scalability opisuje, ako sa toto správanie mení pri raste workloadu alebo kapacity.
 
-### Predictive
+Aplikácia môže mať výbornú latency pri 100 requestoch za sekundu, ale po zdvojnásobení trafficu skolabovať pre lock contention. Naopak škálovateľná aplikácia môže mať vyššiu základnú latency, ale udržať podobné správanie pri desaťnásobnom raste pridaním kapacity.
 
-Používa historické patterns alebo forecast na prípravu kapacity pred špičkou.
+## 8. Elasticity
 
-Riziko: zmena správania alebo jednorazová udalosť môže model zmiasť.
-
-Kritické workloady často kombinujú baseline, scheduled/predictive a reactive scaling.
-
-## 7. Scale-out signal
-
-Dobrý signal musí korelovať s potrebnou kapacitou.
-
-CPU nie je univerzálny:
-
-- I/O-bound service môže mať nízke CPU a vysokú latency,
-- queue worker sa lepšie škáluje podľa backlog age alebo depth,
-- web tier podľa request rate alebo concurrency,
-- stream consumer podľa lag,
-- database podľa connections, IOPS, locks alebo replicas.
-
-Scale policy musí odrážať bottleneck.
-
-## 8. Scale-in
-
-Scale-in je rizikovejší než scale-out, pretože odoberá aktívnu kapacitu.
-
-Potrebné je:
-
-- connection draining,
-- graceful shutdown,
-- work handoff,
-- idempotent retry,
-- scale-in protection pre kritický job,
-- minimum healthy capacity,
-- stabilization window,
-- state cleanup.
-
-Nesprávny scale-in môže spôsobiť dropped requests, duplicate processing alebo data loss.
-
-## 9. Stateless a stateful scaling
-
-### Stateless tier
-
-Každá replika spracuje ľubovoľný request bez lokálneho authoritative state-u.
-
-### Stateful tier
-
-Potrebuje:
-
-- data partitioning,
-- replication,
-- leader/follower model,
-- consistency,
-- rebalancing,
-- storage throughput,
-- failover.
-
-Stateful scaling je často dominantná komplexita celého systému.
-
-## 10. Queue-based load leveling
-
-Queue oddelí producer a consumer rate:
+Elasticity je schopnosť meniť pridelenú kapacitu podľa demandu a následne ju bezpečne znížiť, keď už nie je potrebná. Oproti scalability pridáva automatizovaný control loop: systém meria signal, porovná ho s policy a vykoná scaling action.
 
 ```text
-producer → queue → workers
+demand signal
+→ aggregation a evaluation window
+→ scaling policy
+→ provisioning alebo termination
+→ readiness a traffic shift
+→ nový observed state
 ```
 
-Výhody:
+Elasticita nie je okamžitá. Provisioning VM, spustenie Podu, inicializácia runtime-u, warming cache a registrácia do load balancera môžu trvať sekundy až minúty, počas ktorých musí existujúca kapacita absorbovať špičku.
 
-- absorbuje burst,
-- umožňuje retry,
-- worker count sa škáluje podľa backlogu,
-- chráni downstream.
+## 9. Scaling signal
 
-Potrebuje:
+Scaling signal musí korelovať s resource-om, ktorý je potrebné rozšíriť. CPU je vhodný pre CPU-bound workload, ale môže byť zavádzajúci pre service čakajúcu na I/O, connection pool alebo externé API.
 
-- visibility timeout,
-- dead-letter handling,
-- idempotent consumer,
-- poison-message strategy,
-- backlog age SLO.
+Príklady vhodnejších väzieb:
 
-Queue nezvyšuje nekonečne kapacitu; iba odkladá prácu.
+- HTTP service — request concurrency, requests per target alebo queueing latency;
+- queue consumer — oldest-message age, backlog depth a processing rate;
+- stream consumer — consumer lag a partition ownership;
+- database proxy — active connections, waiters a acquire latency;
+- batch workers — remaining work voči deadline-u;
+- inference service — queued requests, accelerator utilization a batch latency.
 
-## 11. Backpressure
+Signal musí mať známy measurement point, bounded dimensions a definované no-data správanie. Ak telemetry pipeline zlyhá, autoscaler nesmie nekontrolovane zmenšiť kritickú službu iba preto, že metric zmizla.
 
-Keď downstream nestíha, upstream musí:
+## 10. Target tracking, step a scheduled scaling
 
-- spomaliť,
-- odmietnuť request,
-- bufferovať s limitom,
-- degradovať funkcionalitu,
-- prioritizovať traffic.
+Target tracking sa snaží udržiavať metric približne okolo cieľovej hodnoty, napríklad priemerne 60 % CPU alebo 100 requestov na target. Control loop priebežne odhaduje potrebnú kapacitu a je vhodný pre plynule sa meniaci demand.
 
-Bez backpressure sa overload presunie do memory, queues, connection pools alebo databases a spôsobí kaskádové zlyhanie.
+Step scaling používa explicitné pásma, napríklad pridať dve instances pri queue depth nad 1 000 a ďalších päť nad 5 000. Scheduled scaling nastaví kapacitu pred známou udalosťou, napríklad pred pracovným dňom alebo pravidelným mesačným spracovaním.
 
-## 12. Load balancing
+Tieto modely sa môžu kombinovať. Scheduled baseline pripraví kapacitu pred predvídateľnou špičkou a target tracking následne reaguje na odchýlky, ktoré forecast nezachytil.
 
-Load balancer distribuuje traffic medzi healthy targets.
+## 11. Reactive a predictive scaling
 
-Over:
+Reactive scaling reaguje na už pozorovaný stav. Je jednoduchšie overiteľný, ale prirodzene zaostáva za náhlym demand-om, pretože signal sa musí nazbierať, vyhodnotiť a nová kapacita musí dosiahnuť readiness.
 
-- algorithm,
-- health check,
-- zonal distribution,
-- connection reuse,
-- sticky sessions,
-- TLS termination,
-- capacity a quotas,
-- fail-open/fail-closed behavior.
+Predictive scaling používa historické patterns alebo forecast na prípravu kapacity vopred. Znižuje riziko cold startu pri opakovaných špičkách, ale môže sa pomýliť pri promo kampani, incidente alebo zmene používateľského správania.
 
-Load balancing nevyrieši shared bottleneck za targets.
+Kritické služby preto často kombinujú minimálnu rezervu, scheduled alebo predictive prípravu a reactive korekciu. Forecast nie je náhrada hard limits, quota monitoring-u a load testov.
 
-## 13. Fault tolerance
+## 12. Scale-out lifecycle
 
-Fault-tolerant systém pokračuje vo funkcii pri zlyhaní komponentu s minimálnym alebo žiadnym prerušením.
-
-Mechanizmy:
-
-- redundancy,
-- replication,
-- quorum,
-- automatic failover,
-- retry s idempotenciou,
-- timeout a circuit breaker,
-- isolation,
-- graceful degradation,
-- self-healing.
-
-Fault tolerance má cenu v kapacite, complexity, consistency a testingu.
-
-## 14. Redundancy
-
-Redundantný komponent pomáha iba vtedy, keď nemá rovnaký failure mode.
-
-Slabé príklady:
-
-- dve instances na jednom hoste/AZ,
-- dva links cez rovnaký router,
-- replicas s rovnakou chybnou konfiguráciou,
-- primary a backup v jednom account-e s rovnakým admin accessom,
-- viac copies poškodených rovnakou logical corruption.
-
-Hľadaj nezávislosť failure domains.
-
-## 15. Active-active a active-passive
-
-### Active-active
-
-Viac components súčasne spracúva traffic.
-
-Výhody:
-
-- využitá redundantná kapacita,
-- rýchlejší failover,
-- lepšie scale.
-
-Riziká:
-
-- consistency,
-- conflict resolution,
-- shared dependencies,
-- split brain.
-
-### Active-passive
-
-Standby čaká na failover.
-
-Výhody:
-
-- jednoduchší write ownership,
-- menšia conflict complexity.
-
-Riziká:
-
-- standby drift,
-- failover latency,
-- neoverená capacity,
-- nevyužitý cost.
-
-## 16. Retry
-
-Retry je vhodný iba pre transient failure.
-
-Použi:
-
-- timeout,
-- exponential backoff,
-- jitter,
-- maximum attempts,
-- idempotency token,
-- retry budget.
-
-Neobmedzené retry zosilňuje incident a môže vytvoriť retry storm.
-
-## 17. Circuit breaker
-
-Circuit breaker dočasne zastaví calls na zlyhávajúcu dependency.
-
-Stavy:
-
-- closed — requests prechádzajú,
-- open — requests sa rýchlo odmietajú,
-- half-open — limitované test requests.
-
-Chráni threads, connections a downstream, ale potrebuje fallback alebo explicitný error model.
-
-## 18. Bulkhead isolation
-
-Bulkhead oddeľuje resource pools:
-
-- thread pools,
-- queues,
-- tenants,
-- cells,
-- accounts,
-- Regions,
-- rate limits.
-
-Failure jednej skupiny potom nevyčerpá všetky resources.
-
-## 19. Graceful degradation
-
-Pri failure môže systém zachovať kritickú funkciu a vypnúť menej dôležitú:
-
-- read-only mode,
-- cached data,
-- delayed processing,
-- bez recommendations,
-- nižšia kvalita media,
-- obmedzené admin operácie.
-
-Degradation musí byť zámerná, pozorovateľná a bezpečná.
-
-## 20. Capacity headroom
-
-Fault tolerance potrebuje rezervu.
-
-Príklad dvoch AZ:
+Scale-out nie je dokončený vytvorením novej instance. Nový resource musí prejsť bootstrapom, načítať konfiguráciu a secrets, inicializovať dependencies, prejsť readiness checkom a až potom prijať traffic.
 
 ```text
-normal: každá AZ 50 % loadu
-failure jednej AZ: druhá musí zvládnuť 100 %
+policy trigger
+→ resource provisioning
+→ bootstrap a configuration
+→ application start
+→ cache alebo connection warm-up
+→ readiness
+→ load-balancer registration
+→ stabilný traffic share
 ```
 
-Ak obe AZ bežia na 80–90 %, zonal failure spôsobí overload. Autoscaling nemusí reagovať dostatočne rýchlo alebo nemusí mať capacity.
+Ak autoscaler počíta novú kapacitu ako dostupnú príliš skoro, môže zastaviť ďalší scale-out, hoci nové instances ešte neobsluhujú requesty. Sleduj preto rozdiel medzi desired, provisioned, ready a serving capacity.
 
-## 21. Quotas
+## 13. Scale-in lifecycle
 
-Cloud resource quotas môžu blokovať scale-out:
+Scale-in je rizikovejší než scale-out, pretože odoberá aktívnu kapacitu a môže prerušiť rozpracovanú prácu. Systém musí prestať prideľovať nové operations, dokončiť alebo bezpečne odovzdať existujúce operations a až potom resource ukončiť.
 
-- instance count,
-- vCPU,
-- IP addresses,
-- load balancer targets,
-- API rate,
-- database connections,
-- storage throughput.
+Bezpečný lifecycle typicky zahŕňa connection draining, shutdown grace period, work handoff, checkpoint alebo idempotent retry. Pre batch a queue workers môže byť potrebná scale-in protection, aby autoscaler neukončil dlhý kritický job tesne pred dokončením.
 
-Quota monitoring je súčasť capacity managementu. Zvýšenie quota nezaručuje physical capacity.
+## 14. Cooldown a stabilization
 
-## 22. Cost a elasticity
+Cooldown alebo stabilization window bráni tomu, aby control loop reagoval na každý krátky výkyv. Po scaling action potrebuje systém čas, aby sa zmena prejavila v metrics a bolo možné posúdiť nový stav.
 
-Elasticity môže znižovať idle cost, ale môže aj zvýšiť spend:
+Príliš krátke okno vedie k oscilácii: systém pridá kapacitu, metric klesne, kapacitu odoberie a o chvíľu ju opäť pridáva. Príliš dlhé okno zase oneskorí potrebnú reakciu na skutočný rast demandu.
 
-- nesprávna metric,
-- runaway queue,
-- attack traffic,
-- scaling loop,
-- expensive instance selection,
-- cross-AZ/data transfer,
-- minimum capacity príliš vysoká.
+## 15. Stateless a stateful scaling
 
-Použi budgets, anomaly detection, max capacity a business-aware guardrails.
+Stateless replica neuchováva lokálny authoritative state potrebný na ďalší request. Ľubovoľný zdravý worker preto môže spracovať ďalšiu operáciu a horizontal scaling je relatívne priamočiary.
 
-## 23. Scalability testing
+Stateful tier musí rozhodnúť, kde je authoritative state, ako sa replikuje a kto smie zapisovať. Scaling môže vyžadovať rebalancing partitions, presun leaderov, obnovu replicas a riadenie consistency počas prechodu.
 
-Testuj:
+Stateful scaling typicky rieši:
 
-- steady-state load,
-- sudden burst,
-- gradual ramp,
-- sustained peak,
-- downstream slowdown,
-- scale-out latency,
-- scale-in behavior,
-- single-AZ failure pri peak-u,
-- quota/capacity exhaustion.
+- partition alebo shard ownership;
+- leader/follower alebo multi-writer model;
+- replication lag;
+- conflict resolution;
+- storage throughput a locality;
+- failover a recovery;
+- rebalancing cost.
 
-Meraj:
+Práve stateful vrstva býva dominantnou hranicou scalability aj fault tolerance celého systému.
 
-- latency percentiles,
-- throughput,
-- errors,
-- saturation,
-- queue age,
-- scaling events,
-- cost per transaction.
+## 16. Queue-based load leveling
 
-## 24. Fault injection
+Queue oddeľuje okamžitý producer rate od consumer capacity. Producer môže uložiť prácu rýchlejšie, než ju workers spracujú, a workers následne backlog postupne vyrovnávajú.
 
-Bezpečný resilience test:
+```text
+producer → durable queue → consumers → downstream system
+```
 
-1. definuj steady state,
-2. vyber jednu fault hypothesis,
-3. obmedz blast radius,
-4. nastav abort conditions,
-5. zachovaj observability,
-6. vykonaj fault,
-7. over recovery,
-8. odstráň root weakness.
+Queue absorbuje burst, ale nevytvára novú kapacitu. Ak priemerný arrival rate dlhodobo prevyšuje processing rate, backlog a message age budú rásť až po prekročenie storage alebo business deadline-u.
 
-Chaos bez hypotézy je iba nekontrolovaný incident.
+Použiteľný model potrebuje visibility timeout alebo acknowledgement semantics, retry policy, dead-letter handling, idempotent consumer a SLO pre najstaršiu správu. Queue depth bez age a processing rate môže skryť, že malý backlog obsahuje veľmi starú kritickú prácu.
 
-## 25. Anti-patterny
+## 17. Backpressure
 
-### Auto Scaling = fault tolerance
+Backpressure je mechanizmus, ktorým preťažený downstream signalizuje upstreamu, že nemôže prijímať ďalšiu prácu plnou rýchlosťou. Cieľom je udržať preťaženie v kontrolovanej boundary namiesto nekonečného rastu memory, queues a connection pools.
 
-Ak všetky instances závisia od jednej databázy alebo AZ, nejde o fault tolerance.
+Systém môže spomaliť producenta, odmietnuť low-priority requesty, použiť bounded buffer alebo degradovať menej dôležitú funkcionalitu. Bez explicitného backpressure modelu sa overload presúva medzi vrstvami a často končí kaskádovým zlyhaním.
 
-### Viac replicas = lineárny scale
+## 18. Load balancing
 
-Shared locks, partitions a downstream limity môžu throughput zastaviť.
+Load balancer distribuuje traffic medzi targets, ktoré považuje za zdravé. Rozhodnutie môže používať round-robin, least-connections, hash, locality alebo ďalší algoritmus podľa typu load balancera a protokolu.
 
-### Retry bez limitu
+Health check je iba aproximácia schopnosti targetu obslúžiť reálny user journey. Target môže odpovedať na jednoduchý `/health`, ale súčasne zlyhávať na databáze alebo mať vyčerpaný thread pool.
 
-Zosilňuje failure.
+Návrh musí riešiť connection reuse, sticky sessions, cross-zone distribution, draining, TLS termination a fail-open alebo fail-closed správanie. Load balancer neodstráni bottleneck v spoločnej databáze ani neopravenú hot partition.
 
-### Scale-to-zero pre latency-critical službu bez cold-start budgetu
+## 19. Fault tolerance
 
-Prvý request môže porušiť SLO.
+Fault tolerance je schopnosť systému pokračovať v poskytovaní definovanej funkcie pri zlyhaní komponentu alebo failure domainu. Neznamená, že používateľ nikdy neuvidí žiadnu chybu; znamená, že architektúra zlyhanie očakáva, obmedzí jeho blast radius a obnoví službu v rámci contractu.
 
-### Maximálna utilization ako cost optimalizácia
+Mechanizmy zahŕňajú redundanciu, replication, quorum, automatic failover, retries, isolation a graceful degradation. Každý mechanizmus má vlastné consistency, latency, cost a operational trade-offy a musí sa testovať počas reálneho failure scenára.
 
-Odstraňuje headroom pre failure a burst.
+## 20. Redundancy a nezávislé failure domains
 
-## 26. Troubleshooting
+Redundancy pomáha iba vtedy, keď redundantné kópie nezdieľajú rovnaký kritický failure mode. Dve instances v jednej Availability Zone alebo dve network links cez ten istý router nemusia poskytovať očakávanú odolnosť.
 
-### Auto Scaling nepridáva capacity
+Nezávislosť treba posudzovať cez power, network, software version, configuration, identity, account, Region a administratívny access. Viac kópií s rovnakou chybnou konfiguráciou môže iba rýchlejšie rozšíriť logical corruption.
 
-Over metric, policy, cooldown, max capacity, quota, launch failure, subnet IP a instance capacity.
+Slabé návrhy:
 
-### Capacity rastie, latency nie
+- primary a replica na rovnakom hoste alebo v jednej zóne;
+- backup v rovnakom account-e s rovnakým delete oprávnením;
+- dve DNS cesty závislé od jednej authoritative zóny;
+- všetky replicas deployované rovnakou chybnou pipeline naraz;
+- multi-Region aplikácia s jedným globálnym identity alebo data bottleneckom.
 
-Hľadaj downstream bottleneck, lock, connection pool, serialization alebo load-balancer imbalance.
+## 21. Active-active a active-passive
 
-### Scale-in spôsobuje errors
+Active-active model používa viac aktívnych komponentov, ktoré súčasne spracúvajú traffic. Redundantná kapacita je využitá aj počas normálnej prevádzky, ale systém musí riešiť concurrent writes, routing, consistency a prípadný split brain.
 
-Over draining, shutdown grace, in-flight work a session affinity.
+Active-passive model drží jeden primárny component a standby, ktorý preberie funkciu po failover-e. Zjednodušuje write ownership, ale vytvára failover latency, riziko driftu standby prostredia a potrebu pravidelne dokazovať, že pasívna kapacita je stále použiteľná.
 
-### Jedna AZ zlyhá a druhá sa preťaží
+Výber závisí od recovery objective-u, data modelu a tolerancie ku konfliktom. Active-active nie je automaticky lepšie, ak business proces vyžaduje jeden autoritatívny writer.
 
-Over baseline headroom, failover speed, cross-zone routing a quota.
+## 22. Retry
 
-### Retry storm
+Retry opakuje operáciu po failure, ktorý môže byť dočasný. Je vhodný napríklad pri krátkom network interruption alebo dočasnom throttlingu, ale nie pri invalid requeste alebo trvalo zamietnutej authorization.
 
-Over client retry policies, timeout hierarchy, jitter a dependency recovery.
+Bez timeoutu, backoffu a jitteru môžu tisíce clients retryovať naraz a zabrániť dependency v zotavení. Idempotency key alebo iný deduplication mechanizmus je potrebný tam, kde opakovaná operácia môže vytvoriť duplicitnú platbu, objednávku alebo message.
 
-## 27. Kontrolné otázky
+Bezpečný retry contract definuje:
 
-1. Aký je rozdiel medzi scalability a elasticity?
-2. Kedy je vhodné vertical a horizontal scaling?
-3. Prečo CPU nemusí byť správny scaling signal?
-4. Prečo je scale-in rizikovejší než scale-out?
-5. Čo odlišuje redundancy od fault tolerance?
-6. Aký je rozdiel medzi active-active a active-passive?
-7. Prečo retry potrebuje idempotenciu, backoff a jitter?
-8. Ako bulkhead znižuje blast radius?
-9. Prečo Multi-AZ potrebuje capacity headroom?
-10. Ako quota obmedzuje elasticitu?
+- ktoré error classes sú retryable;
+- maximálny čas alebo počet attempts;
+- exponential backoff a jitter;
+- timeout hierarchy;
+- idempotency alebo deduplication;
+- retry budget voči pôvodnému trafficu.
+
+## 23. Circuit breaker
+
+Circuit breaker dočasne zastaví calls na dependency, ktorá opakovane zlyháva alebo prekračuje latency boundary. Namiesto čakania na rovnaký timeout pre každý request systém rýchlo vráti kontrolovaný error alebo fallback a chráni svoje threads a connections.
+
+Typický lifecycle má stavy `closed`, `open` a `half-open`. V stave `half-open` prejde obmedzený počet skúšobných requestov; ak uspejú, circuit sa zavrie, inak zostane dependency izolovaná.
+
+Circuit breaker potrebuje správny scope. Jeden globálny circuit pre všetky tenants alebo operations môže odstaviť zdravé paths kvôli lokalizovanému problému.
+
+## 24. Bulkhead isolation
+
+Bulkhead rozdeľuje kapacitu na samostatné pools, aby jedna skupina requestov nemohla vyčerpať všetky spoločné resources. Názov vychádza z priečok na lodi, ktoré obmedzia zaplavenie na jednu časť trupu.
+
+Praktickou implementáciou môžu byť oddelené thread pools, queues, connection pools, tenant quotas, cells, accounts alebo Regions. Isolation znižuje blast radius, ale príliš malé pools môžu vytvoriť nevyužitú kapacitu a lokálnu saturation aj vtedy, keď je inde kapacita voľná.
+
+## 25. Graceful degradation
+
+Graceful degradation zachová kritickú časť služby a dočasne obmedzí menej dôležité capabilities. Systém môže prejsť do read-only režimu, použiť známu cache, odložiť background processing alebo vypnúť recommendations.
+
+Degradácia musí byť vopred navrhnutá, bezpečná a pozorovateľná. Cached response nie je vhodný fallback, ak môže viesť k nesprávnej finančnej alebo bezpečnostnej operácii, a read-only režim musí jasne informovať používateľa o obmedzení.
+
+## 26. Capacity headroom
+
+Fault tolerance potrebuje rezervu, pretože po zlyhaní musí zostávajúca kapacita prevziať prácu z nefunkčného failure domainu. Ak dve AZ bežne obsluhujú po 50 % trafficu, každá musí byť schopná počas výpadku dočasne obslúžiť približne celý workload alebo musí existovať rýchly a overený scale-out.
+
+```text
+normálny stav:     AZ-a 50 % + AZ-b 50 %
+výpadok AZ-a:      AZ-b musí zvládnuť približne 100 %
+```
+
+Ak obe zóny bežia na 85 %, zonal failure vytvorí okamžitú saturation. Autoscaling nemusí stihnúť reagovať a cloud provider nemusí mať požadovanú instance capacity práve počas rozsiahleho incidentu.
+
+## 27. Quotas a reálna capacity
+
+Cloud quotas obmedzujú počet vCPU, IP adries, targets, concurrent executions, API calls alebo ďalších resources. Autoscaling policy môže byť správna, ale provisioning zlyhá, keď narazí na account quota alebo nedostatok subnet IP adries.
+
+Zvýšenie quota znamená povolenie používať viac resources, nie rezerváciu fyzickej kapacity. Kritický recovery model preto potrebuje quota headroom, vhodné instance diversification, capacity reservations podľa potreby a pravidelný canary test v recovery zóne alebo Regione.
+
+## 28. Elasticity a cost
+
+Elasticity môže znížiť idle cost tým, že odstráni nepotrebnú kapacitu. Rovnaký mechanizmus však môže náklady dramaticky zvýšiť pri attack trafficu, retry storme, zlej metric alebo runaway queue.
+
+Cost guardrails majú byť súčasťou scaling policy, nie iba mesačného reportu. Použi maximálnu kapacitu, budgets, anomaly detection, per-tenant limits a unit-cost metrics, ale limit nastav tak, aby počas legitímneho incidentu neblokoval požadovaný failover.
+
+## 29. Testovanie scalability
+
+Scalability sa nedá preukázať statickým diagramom. Potrebný je workload test, ktorý meria throughput, latency distributions, errors a saturation pri postupnom aj náhlom raste demandu.
+
+Testovacie scenáre majú zahŕňať steady state, burst, dlhý peak, downstream slowdown, scale-out latency, scale-in a quota exhaustion. Dôležité je sledovať aj cost per transaction a recovery po skončení testu, pretože systém môže zvládnuť peak iba za neprimeranú cenu alebo zostať po teste v nestabilnom stave.
+
+## 30. Resilience a fault-injection testing
+
+Fault-injection test overuje konkrétnu hypotézu o správaní pri zlyhaní. Pred experimentom sa definuje steady state, očakávaná reakcia, blast radius a abort conditions.
+
+```text
+steady-state evidence
+→ fault hypothesis
+→ obmedzený experiment
+→ observability počas failure
+→ recovery validation
+→ odstránenie zistenej slabiny
+```
+
+Náhodné vypínanie komponentov bez hypotézy nie je kvalitný chaos engineering. Experiment je úspešný aj vtedy, keď odhalí chybný predpoklad, pokiaľ bol blast radius kontrolovaný a výsledok sa premietne do návrhu.
+
+## 31. End-to-end príklad
+
+Predstav si queue-based image-processing službu. Producer zapisuje jobs do durable queue, workers sa škálujú podľa oldest-message age a processing rate a výsledky ukladajú do object storage.
+
+Scalability vzniká pridaním workers a prípadným partitioningom queue. Elasticity vzniká control loopom, ktorý pridáva kapacitu pri raste age a odoberá ju až po dokončení rozpracovaných jobs; fault tolerance zabezpečuje redundantná queue, idempotentný consumer, multi-AZ workers a retry s dead-letter pathom.
+
+Ak sa workers škálujú iba podľa CPU, systém môže reagovať nesprávne, pretože časť práce čaká na storage I/O. Ak queue nemá business-age SLO, backlog môže rásť celé hodiny bez zjavného resource alarmu.
+
+## 32. Troubleshooting scalability a elasticity
+
+Diagnostika má začať otázkou, či problém vzniká pre nedostatočnú kapacitu, nesprávny scaling signal alebo bottleneck mimo škálovanej vrstvy. Samotný počet instances nepreukazuje, že nová kapacita prijíma traffic alebo že dependency dokáže spracovať vyšší throughput.
+
+```text
+user impact a workload rate
+→ scaling signal a evaluation window
+→ desired/provisioned/ready/serving capacity
+→ load distribution
+→ saturation per layer
+→ downstream limits a quotas
+→ scale-in alebo retry behavior
+```
+
+Typické prípady:
+
+- **Autoscaler nepridáva capacity** — over metric, policy, cooldown, maximum, quota, launch errors a subnet IP space.
+- **Capacity rastie, latency zostáva vysoká** — hľadaj shared lock, database, connection pool, hot partition alebo load-balancer imbalance.
+- **Scale-in vytvára errors** — over draining, termination grace, in-flight work, leases a session affinity.
+- **Zonal failure preťaží zvyšok** — over headroom, failover routing, instance availability a recovery quota.
+- **Retry storm** — over timeout hierarchy, retry count, jitter, error classification a dependency recovery rate.
+
+## 33. Anti-patterny
+
+### Auto Scaling sa považuje za fault tolerance
+
+Autoscaling rieši množstvo kapacity, nie nezávislosť failure domains. Ak sú všetky instances v jednej AZ alebo závisia od jednej databázy, automatické pridávanie replicas neodstráni kritický single point of failure.
+
+### Viac replicas sa považuje za lineárny scale
+
+Throughput rastie iba dovtedy, kým ho neobmedzí shared resource alebo coordination overhead. Pri každom scale teste treba identifikovať, ktorá vrstva sa stala novým bottleneckom.
+
+### Retry bez budgetu
+
+Neobmedzený retry mení pôvodný incident na load amplification. Retry traffic má mať explicitný pomer voči originálnemu trafficu a permanentné failures sa musia rýchlo zastaviť.
+
+### Maximálna utilization ako optimalizácia
+
+Systém bez headroomu nemá priestor pre burst, failover ani pomalší recovery. Krátkodobá úspora sa môže zmeniť na rozsiahly outage pri prvom zlyhaní zóny alebo dependency.
+
+### Scale-to-zero bez latency contractu
+
+Scale-to-zero môže byť ekonomický pre sporadický workload, ale prvý request musí čakať na provisioning a warm-up. Pre latency-critical service treba cold-start čas zahrnúť do SLO alebo udržiavať minimálnu pripravenú kapacitu.
+
+## 34. Kontrolné otázky
+
+1. Aký je rozdiel medzi scalability, elasticity a fault tolerance?
+2. Prečo viac application replicas nemusí zvýšiť end-to-end throughput?
+3. Kedy je vertical scaling primeranejší než horizontal scaling?
+4. Ako sa odlišuje desired, provisioned, ready a serving capacity?
+5. Prečo CPU nemusí byť správny scaling signal pre queue consumer?
+6. Prečo je scale-in rizikovejší než scale-out?
+7. Aký je rozdiel medzi queue load leveling a skutočnou processing capacity?
+8. Ako backpressure zabraňuje kaskádovému zlyhaniu?
+9. Prečo redundancy vyžaduje nezávislé failure domains?
+10. Kedy je active-passive vhodnejší než active-active?
+11. Prečo retry potrebuje timeout, backoff, jitter a idempotenciu?
+12. Ako circuit breaker a bulkhead chránia odlišnými mechanizmami?
+13. Prečo Multi-AZ architektúra potrebuje capacity headroom?
+14. Aký je rozdiel medzi quota a reálne dostupnou cloud capacity?
+15. Ako navrhneš fault-injection test bez neprimeraného blast radiusu?
 
 ## Glossary impact
 
-Relevantné pojmy: scalability, vertical scaling, horizontal scaling, diagonal scaling, elasticity, reactive scaling, predictive scaling, scale-in, backpressure, load leveling, fault tolerance, redundancy, active-active, active-passive, retry budget, circuit breaker, bulkhead, graceful degradation a capacity headroom.
+Relevantné pojmy: scalability, capacity model, bottleneck, vertical scaling, horizontal scaling, diagonal scaling, elasticity, target tracking, step scaling, scheduled scaling, reactive scaling, predictive scaling, scale-out, scale-in, stabilization window, backpressure, load leveling, fault tolerance, redundancy, failure domain, active-active, active-passive, retry budget, circuit breaker, bulkhead, graceful degradation a capacity headroom.
 
 ## Oficiálna dokumentácia
 
-- [Reliability Pillar](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html)
+- [AWS Well-Architected Reliability Pillar](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html)
 - [AWS fault isolation boundaries](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/welcome.html)
+- [Amazon EC2 Auto Scaling documentation](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
