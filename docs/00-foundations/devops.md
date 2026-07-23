@@ -8,266 +8,297 @@
 - Predpoklady: [Software Development Life Cycle](sdlc.md)
 - Súvisiace témy: CALMS, Three Ways, CI/CD, testing, SRE, platform engineering
 
+Metadata zaraďuje kapitolu do učebnej cesty. Samotný pojem DevOps treba chápať cez tok hodnoty, spoločný ownership a feedback, nie cez zoznam technológií uvedený pri pracovnej pozícii.
+
 ## 1. Definícia
 
-DevOps je súbor kultúrnych princípov, organizačných praktík a technických mechanizmov, ktoré spájajú vývoj a prevádzku s cieľom dodávať zmeny rýchlo, bezpečne, opakovateľne a s krátkou spätnou väzbou.
+DevOps je spôsob navrhovania a prevádzkovania software delivery systému, ktorý spája kultúru, organizačné rozhrania, pracovné praktiky a technické mechanizmy. Cieľom je dodávať užitočné zmeny v malých dávkach, rýchlo získavať dôkazy o ich výsledku a udržiavať službu bezpečnú, spoľahlivú a obnoviteľnú.
 
-DevOps nie je jeden nástroj, produkt ani pracovná pozícia. Organizácia môže používať Docker, Kubernetes a CI pipeline a napriek tomu fungovať spôsobom, ktorý je v rozpore s DevOps princípmi.
+DevOps nie je jeden produkt, framework ani pracovná pozícia. Organizácia môže používať Git, Kubernetes, Terraform a rozsiahlu CI pipeline, ale stále vytvárať mesačné handoffy, nejasný ownership a zmeny bez produkčnej spätnej väzby.
 
-## 2. Problém, ktorý rieši
+## 2. Problém, ktorý DevOps rieši
 
-Tradičné oddelenie vývoja a prevádzky vytvára rozdielne lokálne ciele:
+Tradične oddelené tímy môžu sledovať lokálne správne, ale navzájom konfliktné ciele. Development je odmeňovaný za množstvo dodaných funkcií, zatiaľ čo operations sa snaží minimalizovať počet zmien, pretože nesie následky incidentov.
 
-- vývoj chce dodávať nové zmeny,
-- prevádzka chce minimalizovať zmeny a chrániť stabilitu.
+Ak sa zmena pohybuje cez tickety a formálne odovzdávky, kontext sa stráca a väčšina lead time-u vzniká čakaním. DevOps presúva pozornosť z utilization jednotlivých oddelení na end-to-end výsledok: ako dlho trvá dostať bezpečnú zmenu k používateľovi, aké riziko nesie a ako rýchlo sa systém učí z jej správania.
 
-Ak tímy komunikujú najmä cez odovzdávky a tickety, vznikajú dlhé čakacie doby, nejasná zodpovednosť, manuálne kroky a konflikty. DevOps sa snaží optimalizovať celý tok hodnoty namiesto jednotlivých oddelení.
+Konflikt možno zjednodušiť takto:
+
+- **Development optimalizuje change throughput** — chce rýchlo overovať produktové hypotézy a dodávať nové capabilities.
+- **Operations optimalizuje stabilitu služby** — chráni availability, capacity, security a recovery pred nepredvídateľnými zmenami.
+- **Security a compliance optimalizujú kontrolu rizika** — požadujú dôkazy, obmedzenia a auditovateľnosť, ktoré môžu pri neskorom zapojení predĺžiť release.
+- **Business optimalizuje výsledok a čas na trhu** — potrebuje hodnotu, nie iba technicky dokončené backlog položky alebo zelené pipeline jobs.
+
+DevOps nevyrieši konflikt tým, že jeden cieľ odstráni. Vytvára mechanizmy, pri ktorých malé zmeny, automatizované evidence a rýchly recovery umožňujú zlepšovať rýchlosť aj stabilitu súčasne.
 
 ## 3. Mentálny model
 
-DevOps možno chápať ako uzavretú regulačnú slučku:
+DevOps možno chápať ako regulačnú slučku nad celým delivery systémom. Zmena prechádza od problému cez implementation a production a telemetry vracia informácie späť k ľuďom, ktorí môžu upraviť ďalšie rozhodnutie.
 
 ```text
-Plánovanie
-  ↓
-Vývoj
-  ↓
-Build a test
-  ↓
-Release a deployment
-  ↓
-Prevádzka
-  ↓
-Monitoring a spätná väzba
-  └──────────────────→ späť do plánovania
+business alebo používateľská potreba
+→ plán a malé zmeny
+→ code, configuration a infrastructure
+→ build a overenie
+→ release, deployment a rollout
+→ production operation
+→ telemetry, incidenty a používateľský feedback
+→ nové rozhodnutie a zlepšenie systému
 ```
 
-Rýchlosť nie je výsledkom preskočenia kontrol. Vzniká tým, že kontroly sú automatizované, konzistentné a poskytujú spätnú väzbu skôr.
+Rýchlosť nevzniká preskočením kontrol. Vzniká zmenšením batchov, odstránením čakania, automatizáciou opakovateľných kontrol a skrátením času medzi rozhodnutím a dôveryhodným feedbackom.
 
-## 4. DevOps ako kultúra, praktiky a technológie
+## 4. DevOps ako socio-technický systém
 
-### Kultúra
+DevOps je socio-technický systém, pretože výsledok vzniká interakciou ľudí, organizačných pravidiel a technickej platformy. Nástroj môže zrýchliť vykonanie kroku, ale nevie sám rozhodnúť, kto vlastní službu, aké riziko je prijateľné alebo ako sa má tím správať po zlyhaní.
 
-Kultúrna vrstva zahŕňa zdieľanú zodpovednosť, spoluprácu, transparentnosť, učenie zo zlyhaní a optimalizáciu celého systému.
+Pri audite preto oddeľuj tri navzájom závislé vrstvy:
 
-### Praktiky
+- **Kultúra — spôsob spolupráce a rozhodovania**: určuje, či tímy zdieľajú ownership, hovoria otvorene o riziku a používajú incidenty na učenie namiesto hľadania vinníka.
+- **Praktiky — opakovateľné pracovné mechanizmy**: malé batch sizes, review, continuous integration, progressive delivery a postmortems premieňajú princípy na každodenné správanie.
+- **Technológie — vykonávacia a dôkazová vrstva**: source control, pipelines, cloud, containers a observability umožňujú praktiky vykonávať konzistentne a vo väčšom rozsahu.
 
-Medzi typické praktiky patria:
+Slabá transformácia často zmení iba technickú vrstvu. Výsledkom je nový toolchain nad rovnakými handoffmi, approval frontami a nejasnou zodpovednosťou.
 
-- malé a časté zmeny,
-- trunk-based development alebo krátko žijúce vetvy,
-- automatizované testovanie,
-- Continuous Integration a Continuous Delivery,
-- Infrastructure as Code,
-- observability,
-- postmortems,
-- priebežné zlepšovanie.
+## 5. Shared ownership
 
-### Technológie
+Shared ownership znamená, že value stream alebo service team nesie zodpovednosť za výsledok zmeny počas celého lifecycle-u. Vývojári nemusia spravovať každý server a operations nemusí písať každú funkciu, ale hranica špecializácie nesmie byť hranicou záujmu o production outcome.
 
-Git, GitLab, Terraform, Ansible, Docker, Kubernetes, Prometheus a AWS sú nástroje, ktoré môžu DevOps praktiky podporovať. Samy osebe však organizačné bariéry ani zlý ownership nevyriešia.
+Prakticky to znamená spoločné rozhodovanie o operability, deployment risku, SLO, rollbacku a incident follow-upoch. Platform, security alebo database špecialisti poskytujú expertízu a guardrails, nie odpadový kôš pre problémy, ktoré ostatné tímy „odovzdali“.
 
-## 5. Hlavné princípy
+## 6. Systems thinking
 
-### Shared ownership
+Systems thinking skúma celý tok a interakcie medzi jeho časťami. Lokálne zrýchlenie môže byť bez hodnoty alebo dokonca škodlivé, ak iba rýchlejšie presunie prácu do ďalšej fronty.
 
-Tím nezodpovedá iba za odovzdanie kódu, ale za správanie služby počas celého životného cyklu. Zodpovednosť nemusí znamenať, že každý vykonáva všetky úlohy. Znamená, že hranice rolí neoddeľujú tím od výsledku.
+Napríklad skrátenie buildu z desiatich na päť minút má malý vplyv, ak pull request čaká dva dni na review a deployment ďalší týždeň na change window. Optimalizácia musí vychádzať z end-to-end lead time-u, failure rate a user outcome-u, nie z najľahšie merateľného jobu.
 
-### Systems thinking
+## 7. Flow a malé batch sizes
 
-Lokálna optimalizácia môže zhoršiť celý systém. Napríklad zrýchlenie build jobu nemá veľkú hodnotu, ak zmena čaká dva dni na manuálne schválenie alebo týždeň na pridelenie prostredia.
+Flow opisuje, ako plynulo sa zmena pohybuje od nápadu po production feedback. Dlhé vetvy, veľké release-y a početné handoffy zväčšujú rozpracovanú prácu a odkladajú odhalenie chybných predpokladov.
 
-### Short feedback loops
+Malý batch obsahuje menej navzájom prepojených zmien. Jednoduchšie sa reviewuje, testuje, nasadzuje a rollbackuje a pri incidente je menší počet možných príčin.
 
-Čím skôr tím zistí problém, tým lacnejšie ho vie opraviť. Preto sa kontroly presúvajú bližšie k vzniku zmeny a produkčná spätná väzba sa vracia späť k vývoju.
+Praktiky podporujúce flow majú konkrétny mechanizmus:
 
-### Automation
+- **Krátko žijúce vetvy alebo trunk-based development** — znižujú čas, počas ktorého sa vetva odlišuje od spoločného source-u, a tým aj veľkosť merge konfliktov.
+- **Work-in-progress limits** — obmedzujú množstvo rozpracovanej práce, aby tím dokončoval existujúce položky namiesto otvárania ďalších frontov.
+- **Menšie pull requesty** — skracujú review a umožňujú reviewerovi pochopiť celý change intent bez kombinácie viacerých nezávislých tém.
+- **Progressive delivery** — vystaví novú verziu malému scope-u a rozšíri rollout až po overení telemetry a business výsledku.
 
-Automatizácia odstraňuje opakovateľnú manuálnu prácu, znižuje variabilitu a vytvára auditovateľný proces. Nemá automatizovať nepochopený alebo chybný proces bez jeho predchádzajúceho zjednodušenia.
+Malá zmena nie je automaticky bezpečná. Database migration alebo IAM policy môže mať veľký blast radius aj pri niekoľkých riadkoch, preto batch size treba posudzovať podľa systémového dopadu.
 
-### Small batch sizes
+## 8. Feedback loops
 
-Menšie zmeny sa jednoduchšie kontrolujú, testujú, nasadzujú a vracajú späť. Znižujú počet premenných pri diagnostike a skracujú čas medzi vznikom a overením zmeny.
+Feedback loop prenáša informáciu o výsledku akcie späť k miestu, kde možno upraviť ďalšie rozhodnutie. Rýchly feedback bez presnosti vytvára hluk, zatiaľ čo presný feedback po mesiaci prichádza príliš neskoro na lacnú opravu.
 
-### Continuous improvement
+DevOps kombinuje viac vrstiev feedbacku:
 
-Proces sa nepovažuje za definitívne dokončený. Tím sleduje úzke miesta, incidenty, čakacie doby a manuálny toil a priebežne upravuje systém práce.
+- **Editor a lokálne testy — okamžitý technický feedback**: odhaľujú syntax a izolované chyby ešte pred zdieľaním zmeny, ale nepoznajú kompletné integrations.
+- **Code review a CI — tímový a automatizovaný feedback**: overujú change intent, build, tests a policies nad konkrétnym revisionom.
+- **Staging a pre-production — integračný feedback**: ukazuje správanie komponentov a deployment mechanizmu v kontrolovanom prostredí, ktoré však nemusí kopírovať production scale.
+- **Canary a production telemetry — reálny runtime feedback**: merajú user impact, dependency behavior a regresie na skutočnom trafficu.
+- **Incidenty a používateľské poznatky — systémový feedback**: odhaľujú slabiny v architecture, procese, dokumentácii alebo pôvodnom produktovom predpoklade.
 
-## 6. DevOps lifecycle
+Feedback má hodnotu iba vtedy, keď mení backlog, testy, platformu alebo rozhodovacie pravidlá. Dashboard bez ownera a následnej akcie je iba pasívne zobrazenie dát.
 
-Často sa používa nekonečný cyklus:
+## 9. Automation
+
+Automatizácia vykonáva stabilný a pochopený proces konzistentne, opakovateľne a auditovateľne. Znižuje manuálnu variabilitu a umožňuje spúšťať kontroly pri každej zmene namiesto občasnej veľkej revízie.
+
+Pred automatizáciou treba proces zjednodušiť a definovať jeho úspešný aj neúspešný výsledok. Automatizovaný chybný proces vytvára chyby rýchlejšie a vo väčšom rozsahu, často s väčším blast radiusom než manuálna operácia.
+
+Dobrá automation má:
+
+- **verzované vstupy** — kód a configuration umožňujú review, rollback a reprodukciu;
+- **idempotentné alebo bezpečne opakovateľné kroky** — retry po partial failure nevytvorí nekontrolovanú duplicitu;
+- **explicitné failure semantics** — permanentná chyba sa nezamieňa za transientný stav a neostane v nekonečnom retry;
+- **pozorovateľný výsledok** — logs, metrics a status ukazujú, čo sa zmenilo a prečo krok zlyhal;
+- **human override s auditom** — incident responder môže bezpečne zastaviť alebo obísť automation bez straty evidence.
+
+## 10. Continuous Integration a Continuous Delivery
+
+Continuous Integration znamená časté spájanie malých zmien do spoločného branchu s automatizovaným buildom a overením. Skracuje čas medzi vznikom konfliktu a jeho odhalením a udržiava source v stave, z ktorého možno vytvoriť dôveryhodný artifact.
+
+Continuous Delivery znamená schopnosť dostať overenú zmenu opakovateľne do stavu pripraveného na production release. Continuous Deployment automatizuje aj posledné nasadenie do produkcie; rozdiel je v decision gate-e, nie v kvalite predchádzajúceho lifecycle-u.
+
+CI/CD je dôležitý DevOps mechanizmus, ale nevyrieši ownership, architecture, incident learning ani používateľskú hodnotu. Pipeline môže dokonale automatizovať delivery systému, ktorý produkuje nesprávne výsledky.
+
+## 11. Infrastructure as Code a platform capabilities
+
+Infrastructure as Code zapisuje požadovanú infraštruktúru a policy do verzovaného, reviewovateľného source-u. Umožňuje vytvárať prostredia konzistentne, porovnávať zmeny a obnoviť configuration po chybe alebo strate prostredia.
+
+Platform engineering môže nad primitives vytvoriť self-service „paved roads“ pre build, deployment, secrets, observability a runtime. Platforma znižuje cognitive load product tímov iba vtedy, keď má jasný produktový contract; povinný interný framework bez použiteľnosti vytvorí ďalší ticketový tím.
+
+## 12. Observability a operability
+
+Observability poskytuje evidence o vnútornom správaní systému cez metrics, logs, traces, events a ďalšie signály. Operability je širšia vlastnosť: zahŕňa schopnosť službu nasadiť, diagnostikovať, škálovať, obnoviť a bezpečne zmeniť.
+
+Telemetry sa navrhuje spolu s funkciou. Ak sa pridá až po incidente, často chýba business context, correlation identity alebo signal potrebný na odlíšenie zlej verzie od dependency failure-u.
+
+## 13. Incidenty a učenie
+
+Incident response najprv obnovuje službu a obmedzuje škodu. Následné blameless post-incident review skúma technické a organizačné podmienky, ktoré umožnili incidentu vzniknúť alebo predĺžili recovery.
+
+„Blameless“ neznamená absenciu zodpovednosti. Znamená, že analýza sa nezastaví pri poslednom človeku, ktorý vykonal akciu, ale hľadá chýbajúce guardrails, nejasný interface, zlé defaults a rozhodnutia, ktoré boli v danom kontexte racionálne.
+
+## 14. Continuous improvement
+
+DevOps transformácia nemá definitívny koniec. Bottleneck sa po odstránení presunie, traffic a organization sa menia a automation sama potrebuje údržbu.
+
+Tím preto pravidelne analyzuje lead time, rework, incidenty, toil a platform feedback a vyberá malé zlepšenia s merateľným outcome-om. Veľký transformačný program bez krátkych feedback loops môže opakovať rovnaký anti-pattern ako veľký software release.
+
+## 15. DevOps engineer a špecializované roly
+
+DevOps engineer je technická rola, ktorá implementuje alebo prevádzkuje časť delivery a operations capabilities. Môže pracovať s CI/CD, cloudom, infrastructure as code, containers, observability, security a reliability.
+
+Rola nie je definíciou DevOps. Ak product tímy odovzdajú všetky buildy, deployments a production problémy samostatnému „DevOps tímu“, pôvodné silo sa iba premenovalo a delivery flow zostal rozdelený.
 
 ```text
-Plan → Code → Build → Test → Release → Deploy → Operate → Monitor
-  ↑                                                        ↓
-  └────────────────────── feedback ────────────────────────┘
+DevOps          = operating model celého value streamu
+DevOps engineer = špecializovaná rola podporujúca tento model
 ```
 
-Tento model je užitočný ako orientácia, ale nemá sa chápať ako pevná organizačná štruktúra. V modernom delivery procese mnoho krokov prebieha paralelne a opakovane.
+Špecializácia je potrebná pri komplexných platformách a bezpečnostných alebo databázových témach. Rozhodujúce je, aby interface špecialistu umožňoval self-service a spoločný outcome namiesto dlhého handoffu bez kontextu.
 
-## 7. DevOps engineer
+## 16. T-shaped profil
 
-DevOps engineer je pracovná rola, ktorá implementuje alebo prevádzkuje časť DevOps schopností. Typicky pracuje s automatizáciou, CI/CD, cloudom, kontajnermi, observability, bezpečnosťou a reliability.
+T-shaped engineer kombinuje široké porozumenie systému s hlbokou expertízou v jednej alebo niekoľkých oblastiach. Šírka umožňuje rozpoznať cross-domain dependencies a hĺbka umožňuje riešiť problémy, pri ktorých všeobecný prehľad nestačí.
 
-Dôležité rozlíšenie:
+DevOps prostredie často vyžaduje šírku v SDLC, Linuxe, networkingu, security, cloude, CI/CD, containers, observability a databázach. Hĺbkou môže byť napríklad Kubernetes platforma, cloud networking alebo release automation; nejde o požiadavku, aby jeden človek bol expertom na všetko.
+
+## 17. DevOps, Agile, SRE a platform engineering
+
+Agile sa sústreďuje najmä na iteratívny vývoj a produktový feedback. DevOps rozširuje flow cez build, deployment a production ownership a zabezpečuje, že krátka vývojová iterácia nekončí dlhou release frontou.
+
+Site Reliability Engineering používa presnejšie reliability mechanizmy, napríklad SLI, SLO, error budgets a riadenie toil-u. Platform engineering vytvára interné produkty a self-service capabilities, ktoré tímom umožňujú DevOps praktiky vykonávať konzistentne bez potreby rozumieť každému infraštruktúrnemu detailu.
+
+Tieto prístupy sa prekrývajú, ale nie sú synonymá. Organizácia môže používať SRE alebo platform team ako implementáciu konkrétnych DevOps princípov, pričom stále potrebuje product ownership a delivery feedback.
+
+## 18. Meranie DevOps výsledkov
+
+DevOps úspech sa nemeria počtom pipeline jobs, clusterov ani automatizovaných scriptov. Metrika má ukázať flow a stability outcomes, ktoré sú dôležité pre používateľa a organizáciu.
+
+Štyri klasické DORA ukazovatele merajú navzájom súvisiace dimenzie:
+
+- **Deployment frequency — frekvencia úspešného production delivery**: ukazuje, ako často value stream dokáže bezpečne dostať zmenu k používateľom; sama nehovorí o veľkosti ani hodnote zmien.
+- **Lead time for changes — čas od committed zmeny po production**: odhaľuje waiting, review, testing a deployment bottlenecks a schopnosť rýchlo získať feedback.
+- **Change failure rate — podiel zmien vyžadujúcich remediation**: zachytáva kvalitu delivery, ale potrebuje presnú definíciu incidentu, rollbacku a hotfixu.
+- **Time to restore service alebo failed-deployment recovery time — čas obnovy po zlyhaní**: ukazuje diagnosability, rollback, incident response a resilience, nie iba rýchlosť opravy kódu.
+
+Metriky sa interpretujú spoločne a v kontexte. Vysoká frekvencia s rastúcou failure rate nie je zdravý flow a nulové incidenty dosiahnuté zastavením všetkých deploymentov nie sú úspešná reliability stratégia.
+
+## 19. End-to-end príklad
+
+Vývojár mení API objednávkovej služby. Change obsahuje application kód, database-compatible schema úpravu, telemetry a deployment configuration, takže nejde iba o commit do jedného repository.
 
 ```text
-DevOps
-  = spôsob fungovania organizácie a delivery systému
-
-DevOps engineer
-  = konkrétna technická rola v tomto systéme
+malá verzovaná zmena
+→ lokálne testy a review
+→ CI build a vytvorenie immutable image
+→ unit, integration, contract a security evidence
+→ promotion rovnakého image do stagingu
+→ canary rollout na malý traffic scope
+→ porovnanie error rate, latency a business outcome-u
+→ pokračovanie, zastavenie alebo rollback
+→ poznatky späť do tests a backlogu
 ```
 
-Ak všetka prevádzková zodpovednosť zostane izolovaná v „DevOps tíme“, môže sa iba premenovať pôvodné silo Ops bez skutočnej zmeny modelu.
+DevOps hodnota nie je v existencii pipeline. Hodnota je v tom, že rovnaký artifact, jasné gates, progressive exposure a korelovaná telemetry skracujú čas od zmeny k dôveryhodnému rozhodnutiu.
 
-## 8. T-shaped profil
+## 20. Produkčný operating model
 
-T-shaped engineer má široký prehľad naprieč systémom a hlbokú expertízu v jednej alebo niekoľkých oblastiach.
+Funkčný DevOps model potrebuje capabilities, ktoré spolu tvoria bezpečný delivery a operations systém. Každá capability musí mať ownera, interface a failure behavior, inak sa z nej stane iba ďalšia povinná technológia.
 
-```text
-Šírka:
-SDLC, Git, Linux, networking, security, cloud, CI/CD,
-containers, Kubernetes, monitoring, databases
+- **Service ownership — jednoznačná zodpovednosť za outcome**: určuje tím, ktorý rozhoduje o lifecycle, SLO, incidente a prioritách technického dlhu služby.
+- **Auditovateľný delivery proces — trasovanie od source-u po runtime**: umožňuje zistiť, ktorý revision, artifact, approval a configuration vytvorili konkrétnu produkčnú verziu.
+- **Bezpečné defaults — ochrana bez individuálnej expertízy pri každom kroku**: platforma predvolene používa least privilege, encryption, health checks a retention, pričom výnimka je explicitná a dočasná.
+- **Self-service platform capabilities — rýchla štandardizovaná cesta**: product tím dokáže vytvoriť environment, pipeline alebo telemetry bez ticketového handoffu, ale v rámci guardrails.
+- **Observability navrhnutá so službou — dôkaz o user a system behavior**: release možno korelovať s metrics, logs a traces a rozhodnúť o pokračovaní rollout-u.
+- **Incident management a learning — obnova aj systémové zlepšenie**: on-call, runbooks a post-incident review znižujú dopad a menia zistenia na konkrétne engineering opatrenia.
+- **Flow a reliability metrics — spoločné výsledkové meranie**: tímy optimalizujú lead time, failure a recovery namiesto protichodných lokálnych ukazovateľov.
+- **Kapacita na toil a technical debt reduction — ochrana dlhodobej schopnosti meniť systém**: bez vyhradeného času manuálna práca a krehkosť postupne spotrebujú všetku delivery kapacitu.
 
-Hĺbka:
-napríklad Kubernetes platforma a cloud automation
-```
-
-Šírka umožňuje chápať závislosti a komunikovať s ostatnými disciplínami. Hĺbka umožňuje riešiť komplexné problémy a robiť kvalifikované technické rozhodnutia.
-
-## 9. Príklad DevOps toku
-
-Vývojár zmení API aplikácie:
-
-```text
-Commit do Gitu
-  ↓
-Pre-commit a statická kontrola
-  ↓
-CI: build, unit a integration tests
-  ↓
-Vytvorenie verziovaného image
-  ↓
-Security a dependency scan
-  ↓
-Deployment do testovacieho prostredia
-  ↓
-Smoke a end-to-end testy
-  ↓
-Canary rollout do produkcie
-  ↓
-Sledovanie error rate, latency a business metrík
-  ↓
-Automatické alebo manuálne rozhodnutie pokračovať / rollback
-```
-
-DevOps hodnota nie je v tom, že pipeline existuje. Hodnota je v tom, že vytvára konzistentný, rýchly a merateľný tok spätnej väzby.
-
-## 10. DevOps a CI/CD
-
-CI/CD je významná technická implementácia DevOps princípov, ale nie je ich celým obsahom.
-
-CI/CD rieši najmä integráciu, overenie, packaging a delivery zmien. DevOps navyše rieši organizáciu tímov, ownership, observability, incidenty, bezpečnosť, reliability a priebežné zlepšovanie.
-
-## 11. DevOps a Agile
-
-Agile sa primárne sústreďuje na spôsob vývoja a iteratívne dodávanie hodnoty. DevOps rozširuje tento tok cez build, deployment a prevádzku.
-
-Agile bez DevOps môže produkovať funkcie rýchlo, ale nasadzovať ich pomaly. DevOps bez produktového a používateľského feedbacku môže efektívne dodávať zmeny s nízkou hodnotou.
-
-## 12. DevOps a SRE
-
-SRE je konkrétnejší engineering prístup k prevádzke spoľahlivých systémov. Používa napríklad SLI, SLO, error budgets, riadenie toil-u a automatizáciu.
-
-DevOps poskytuje širšie princípy spolupráce a toku. SRE poskytuje presnejšie mechanizmy na riadenie reliability. Tieto prístupy sa dopĺňajú.
-
-## 13. Meranie výsledkov
-
-DevOps úspech sa nemeria počtom nástrojov ani pipeline jobov. Dôležité sú výsledky systému.
-
-Medzi kľúčové DORA metriky patria:
-
-- deployment frequency,
-- lead time for changes,
-- change failure rate,
-- time to restore service.
-
-Metriky treba vyhodnocovať spoločne. Vysoká deployment frequency bez kontroly zlyhaní nie je úspech; extrémna stabilita dosiahnutá nulovým nasadzovaním tiež nie.
-
-## 14. Anti-patterns
+## 21. Anti-patterny
 
 ### DevOps ako premenovaný Ops tím
 
-Vývoj odovzdá aplikáciu samostatnému DevOps tímu, ktorý vykoná build, deployment a prevádzku. Zodpovednosť a úzke miesta zostávajú oddelené.
+Development odovzdáva kód samostatnému tímu, ktorý vlastní pipeline, deployment aj všetky incidenty. Handoff a rozdielne ciele zostávajú, takže zmena názvu nevytvorila shared ownership ani kratší feedback.
 
 ### Tool-first transformation
 
-Organizácia kúpi nástroje bez zmeny procesu, ownershipu a spätnej väzby. Výsledkom je automatizovaný neefektívny proces.
+Organizácia kúpi nový toolchain bez zmeny procesu a decision rights. Nástroje potom automatizujú existujúce fronty a nejasné approvals namiesto odstránenia ich príčiny.
 
 ### Automatizácia všetkého bez priority
 
-Automatizovať sa má opakovateľná, stabilná a hodnotná činnosť. Jednorazová alebo nepochopená práca môže mať vyššiu cenu automatizácie než manuálneho vykonania.
+Nie každá manuálna činnosť má dostatočnú frekvenciu, stabilitu alebo risk na automation. Najprv treba zmerať toil a zjednodušiť proces; inak môže maintenance automatizácie stáť viac než problém, ktorý rieši.
 
-### „You build it, you run it“ bez podpory
+### You build it, you run it bez podpory
 
-Preniesť on-call na vývojárov bez observability, školenia, runbookov a kapacity iba presunie stres. Ownership musí byť podporený platformou a procesmi.
+Preniesť on-call na vývojárov bez telemetry, trainingu, runbookov, SLO a pracovnej kapacity iba presunie stres. Ownership potrebuje platformové capabilities a management podporu, nie iba novú povinnosť.
 
 ### Pipeline ako cieľ
 
-Pipeline je mechanizmus. Cieľom je spoľahlivé dodanie hodnoty. Komplexná pipeline môže sama vytvárať dlhý lead time a vysoké náklady na údržbu.
+Pipeline je vykonávací mechanizmus, nie business outcome. Komplexná pipeline s desiatkami redundantných gates môže zvýšiť lead time, cognitive load a počet miest, ktoré zlyhávajú.
 
-## 15. Časté omyly
+## 22. Troubleshooting DevOps systému
 
-### „DevOps znamená developer, ktorý robí aj administráciu“
+Pri probléme nehľadaj automaticky „zlý tím“ alebo chýbajúci nástroj. Zmapuj value stream a oddeľ active work, waiting, rework, failure a feedback latency.
 
-Nie. Ide o systém spolupráce a delivery, nie iba o rozšírenie zoznamu povinností jednej osoby.
+Typické symptómy ukazujú na rôzne systémové slabiny:
 
-### „DevOps odstráni všetky špecializované roly“
+- **Deploymenty sú zriedkavé a veľké — flow je blokovaný alebo riskantný**: over dlhé branches, manuálne approvals, environment fronty, database compatibility a strach z rollbacku.
+- **Pipeline je rýchla, ale lead time dlhý — bottleneck je mimo automation**: meraj čas review, rozhodnutí, plánovania a čakania na koordinovaný release.
+- **Tímy obchádzajú platformu — paved road nemá použiteľný contract**: over developer experience, podporované use cases, latency self-service operácií a proces výnimiek.
+- **Incidenty sa opakujú — feedback sa nepremieňa na zmenu systému**: skontroluj ownership postmortem actions, deadlines, regression tests a odstránenie toil-u.
+- **Viac nástrojov nezlepšilo výsledky — transformácia zostala na technickej vrstve**: vráť sa k cieľom, handoffom, decision rights a spoločným metrikám.
 
-Nie. Špecializácia zostáva potrebná. Mení sa spôsob spolupráce, rozhrania a zodpovednosť za výsledok.
+## 23. Časté omyly
 
-### „Viac automatizácie vždy znamená lepší DevOps“
+### DevOps znamená developer, ktorý robí aj administráciu
 
-Nie. Automatizácia zlého procesu môže zrýchliť produkciu chýb alebo vytvoriť neprehľadnú platformu.
+DevOps nie je rozšírený zoznam povinností jednej osoby. Ide o zmenu delivery systému, v ktorom platforma, automation a shared ownership znižujú potrebu manuálnej administrácie.
 
-### „Rýchlosť a stabilita sú protiklady“
+### DevOps odstráni všetky špecializované roly
 
-Pri veľkých, manuálnych a zriedkavých zmenách často áno. Pri malých zmenách, automatizovaných kontrolách a rýchlom recovery sa môžu zlepšovať súčasne.
+Complex systems stále potrebujú security, network, database a reliability expertov. Mení sa spôsob ich spolupráce: expertíza sa poskytuje cez standards, consultation a platform capabilities namiesto neskorého approval gate-u.
 
-## 16. Produkčný kontext
+### Viac automatizácie vždy znamená lepší DevOps
 
-Funkčný DevOps model potrebuje viac než nástroje:
+Automation zlého alebo nepochopeného procesu môže zrýchliť produkciu chýb. Hodnota vzniká iba vtedy, keď znižuje end-to-end čas, variabilitu alebo risk bez neprimeraného cognitive a maintenance costu.
 
-- jasný ownership služieb,
-- štandardizovaný a auditovateľný delivery proces,
-- bezpečné defaulty,
-- self-service platformové schopnosti,
-- observability navrhnutú spolu so službou,
-- riadenie incidentov a učenie z nich,
-- meranie toku a reliability,
-- čas vyhradený na odstránenie toil-u a technického dlhu.
+### Rýchlosť a stabilita sú protiklady
 
-## 17. Kontrolné otázky
+Pri veľkých, manuálnych a zriedkavých zmenách rastie risk spolu s rýchlosťou. Pri malých batchoch, automatizovaných kontrolách, progressive delivery a rýchlom recovery možno zlepšovať throughput aj reliability.
 
-1. Prečo DevOps nie je synonymum pre CI/CD alebo Kubernetes?
-2. Aký konflikt cieľov vzniká medzi tradične oddeleným Dev a Ops?
-3. Ako small batch sizes znižujú deployment a troubleshooting riziko?
-4. Prečo lokálna optimalizácia jedného tímu nemusí zlepšiť celý delivery systém?
-5. Aký je rozdiel medzi DevOps a rolou DevOps engineer?
-6. Prečo tool-first transformácia často zlyhá?
-7. Ako sa DevOps, Agile a SRE navzájom dopĺňajú?
-8. Prečo treba DORA metriky hodnotiť spoločne?
-9. Kedy automatizácia nemusí byť správnym prvým krokom?
+## 24. Kontrolné otázky
 
-## 18. Zhrnutie
+1. Prečo DevOps nie je synonymom CI/CD, Kubernetes ani pracovnej pozície?
+2. Aký konflikt lokálnych cieľov vzniká medzi development, operations a security?
+3. Ako malé batch sizes znižujú deployment a troubleshooting risk?
+4. Prečo skrátenie jedného pipeline jobu nemusí zlepšiť lead time?
+5. Aký rozdiel je medzi feedbackom a samotnou telemetry?
+6. Kedy automation zvyšuje namiesto znižovania riziko?
+7. Prečo platform engineering môže podporiť DevOps a kedy vytvorí nové silo?
+8. Ako sa DevOps, Agile a SRE navzájom dopĺňajú?
+9. Prečo treba DORA ukazovatele interpretovať spoločne?
+10. Ako zistíš, či organizácia skutočne zmenila operating model alebo iba toolchain?
 
-- DevOps spája kultúru, procesy a technické mechanizmy.
-- Cieľom je optimalizovať celý tok hodnoty a spätnú väzbu.
-- Nástroje DevOps podporujú, ale nevytvárajú ho automaticky.
-- Shared ownership neznamená zrušenie špecializácie.
-- Malé zmeny, automatizované kontroly a observability umožňujú zvyšovať rýchlosť aj stabilitu.
-- Úspech sa meria výsledkami delivery a reliability, nie počtom používaných nástrojov.
+## 25. Zhrnutie
+
+DevOps optimalizuje celý socio-technický value stream od potreby po produkčné učenie. Spája shared ownership, systems thinking, malé batch sizes, rýchle feedback loops, automation a continuous improvement.
+
+Nástroje tieto mechanizmy vykonávajú, ale nemôžu nahradiť jasné ciele a zodpovednosť. Zdravý DevOps systém dokáže dodávať zmeny často, obmedziť ich blast radius, rýchlo obnoviť službu a premieňať production evidence na zlepšenie produktu aj platformy.
+
+## Glossary impact
+
+Relevantné pojmy: DevOps, socio-technický systém, shared ownership, systems thinking, flow, batch size, feedback loop, continuous integration, continuous delivery, continuous deployment, operability, blameless post-incident review, platform engineering a DORA metrics.
+
+## Primárne zdroje
+
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
+- [DORA — Research program](https://dora.dev/)
+- [The Agile Manifesto](https://agilemanifesto.org/)
+- [Google SRE — Introduction](https://sre.google/sre-book/introduction/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
