@@ -90,6 +90,48 @@ freshness, and then permits, constrains, or denies the requested action.
 
 The list may follow as a summary, but the prose establishes meaning and mechanism.
 
+## Bullet-level explanation contract
+
+A meaningful bullet must be understandable inside the current section without forcing the reader to guess why the item was listed. A bare noun, acronym, product name, signal name, service name, flag, or short phrase is not sufficient when the item introduces knowledge.
+
+Each conceptual bullet must use at least one of these forms:
+
+- `term — explanation` — define the item and state its role in this mechanism;
+- `condition: consequence` — explain what the condition changes or causes;
+- a complete explanatory sentence — state what happens, why it matters, or where it fails;
+- a compact example whose meaning has already been explicitly established in the preceding prose.
+
+Weak:
+
+```text
+Relevant signals:
+
+- queue depth,
+- worker concurrency,
+- oldest message age,
+- retry count.
+```
+
+Better:
+
+```text
+Relevant signals describe different parts of the queue lifecycle. Queue depth
+shows the amount of pending work, while oldest message age reveals how long the
+worst waiting item has already violated freshness expectations.
+
+- queue depth — number of items waiting or currently eligible for processing;
+- worker concurrency — number of consumers that can make progress in parallel;
+- oldest message age — end-to-end waiting time of the oldest unprocessed item;
+- retry count — evidence that work is being repeated and may be amplifying load.
+
+Together these signals distinguish insufficient capacity from a poison message,
+a stalled dependency, or a retry storm.
+```
+
+Do not rely on a generic introductory sentence such as “The following items are important.” It must explain the relationship between the items. After the list, state how the items combine, which one is authoritative, how they affect a decision, or what failure becomes visible through them.
+
+Short literal inventories can remain concise only when they are genuinely reference data, such as allowed enum values, command flags, source links, status fields, or control questions. Even then, any unfamiliar item needs a local definition or an immediately adjacent table column explaining its meaning.
+
 ## Examples and failure modes
 
 Examples should expose cause and effect, not merely name a product.
@@ -146,6 +188,7 @@ Before marking a chapter complete, ask:
 
 - Does every normal conceptual section contain more than one substantive explanatory sentence?
 - Could a reader explain the mechanism without reading only the bullet lists?
+- Does every meaningful bullet explain what the item means and why it belongs in this context?
 - Are all important terms explained before or at first use?
 - Does each long list have a unifying model and a consequence?
 - Is there at least one concrete scenario for every major concept cluster?
@@ -159,16 +202,17 @@ Before marking a chapter complete, ask:
 The generated audit is a prioritization system, not a bulk rewrite instruction. Remediation proceeds in controlled passes so that expanding prose does not introduce inaccurate terminology or duplicate explanations across chapters.
 
 1. **Inventory pass** — confirm that every authoritative article listed in a section `README.md` is present in the audit corpus.
-2. **Critical pass** — fix empty sections, single-sentence conceptual sections, and sections classified as `outline-instead-of-explanation`.
+2. **Critical pass** — fix empty sections, single-sentence conceptual sections, bare bullet lists, and sections classified as `outline-instead-of-explanation`.
 3. **Terminology pass** — explain terms reported as `term-before-explanation` where they first matter.
-4. **Mechanism pass** — add actors, state, data flow, decision flow, lifecycle, and trust boundaries.
-5. **Example and failure pass** — add concrete cause-and-effect examples, limits, and failure semantics.
-6. **Cross-section pass** — remove accidental duplication and link to the earlier authoritative chapter while preserving a short local reminder.
-7. **Verification pass** — rerun the audit, read the rendered chapter, validate technical claims against primary sources, and update glossary impact.
+4. **Bullet semantics pass** — replace bare names with `term — explanation`, full sentences, or explicit prose that explains every listed item in the current context.
+5. **Mechanism pass** — add actors, state, data flow, decision flow, lifecycle, and trust boundaries.
+6. **Example and failure pass** — add concrete cause-and-effect examples, limits, and failure semantics.
+7. **Cross-section pass** — remove accidental duplication and link to the earlier authoritative chapter while preserving a short local reminder.
+8. **Verification pass** — rerun the audit, read the rendered chapter, validate technical claims against primary sources, and update glossary impact.
 
 Files are remediated in priority order by audit score, but chapters in the same conceptual chain should be reviewed together. For example, OAuth 2.0, OpenID Connect and SAML share federation terminology; editing only one can create inconsistent definitions.
 
-A finding is closed only after human review. Adding filler sentences merely to exceed a word-count threshold is explicitly not acceptable.
+A finding is closed only after human review. Adding filler sentences or mechanically appending the same generic explanation to every bullet is explicitly not acceptable.
 
 ## Automated audit
 
