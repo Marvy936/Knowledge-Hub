@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10462**
-- Total words: **404,994**
-- Findings: **17494** (critical 4524, high 5343, medium 5590, low 2037)
-- File grades: A 0, B 0, C 1, D 256
+- Audited conceptual sections: **10451**
+- Total words: **405,958**
+- Findings: **17438** (critical 4503, high 5314, medium 5568, low 2053)
+- File grades: A 0, B 0, C 2, D 255
 
 ## Interpretation
 
@@ -76,7 +76,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 626 | 24 | 29 | 31 | 3 | 1569 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | D | 600 | 27 | 20 | 30 | 9 | 1820 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 599 | 27 | 24 | 25 | 2 | 1778 | `docs/09-kubernetes/api-object-model.md` |
-| D | 597 | 22 | 32 | 24 | 3 | 1482 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | D | 595 | 23 | 25 | 29 | 14 | 1773 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | D | 593 | 22 | 27 | 32 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
 | D | 590 | 25 | 25 | 27 | 3 | 1314 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
@@ -279,6 +278,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 127 | 4 | 9 | 2 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 104 | 1 | 6 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 76 | 1 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
+| C | 65 | 1 | 3 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | C | 58 | 0 | 2 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 
 ## Critical and high findings
@@ -10384,60 +10384,10 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 ### `docs/13-security-and-identity/authentication-authorization-auditing.md`
 
-- **CRITICAL** line 20, `outline-instead-of-explanation` — **2. Identity, subject, principal a account**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 48, `outline-instead-of-explanation` — **4. Authentication**: 5 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 80, `outline-instead-of-explanation` — **Human a workload authentication**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 99, `outline-instead-of-explanation` — **5. Credential lifecycle**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `outline-instead-of-explanation` — **6. Session a token**: 15 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 153, `outline-instead-of-explanation` — **7. Authorization**: 9 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 179, `outline-instead-of-explanation` — **Enforcement point**: 4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 190, `outline-instead-of-explanation` — **8. Policy decision a enforcement**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 216, `outline-instead-of-explanation` — **9. Default deny a explicit deny**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 230, `empty-section` — **10. Authorization models**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 254, `outline-instead-of-explanation` — **11. Authentication nie je authorization**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 268, `outline-instead-of-explanation` — **12. Auditing**: 17 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 295, `empty-section` — **13. Authentication, authorization a audit eventy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 297, `outline-instead-of-explanation` — **Authentication events**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 306, `outline-instead-of-explanation` — **Authorization events**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 315, `outline-instead-of-explanation` — **Administrative events**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 323, `outline-instead-of-explanation` — **14. Audit integrity a availability**: 9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 347, `outline-instead-of-explanation` — **16. Federation**: 9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 365, `empty-section` — **17. Impersonation a delegation**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 367, `outline-instead-of-explanation` — **Impersonation**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 377, `outline-instead-of-explanation` — **Delegation**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 389, `outline-instead-of-explanation` — **18. Break-glass access**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 20, `list-first-introduction` — **2. Identity, subject, principal a account**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 64, `list-heavy-section` — **Single-factor a multi-factor**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 99, `list-first-introduction` — **5. Credential lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 297, `list-first-introduction` — **Authentication events**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 306, `list-first-introduction` — **Authorization events**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 315, `list-first-introduction` — **Administrative events**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 403, `list-first-introduction` — **19. Troubleshooting authentication**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 419, `list-first-introduction` — **20. Troubleshooting authorization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 435, `list-first-introduction` — **21. Troubleshooting auditing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 20, `thin-concept-section` — **2. Identity, subject, principal a account**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 48, `thin-concept-section` — **4. Authentication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 80, `thin-concept-section` — **Human a workload authentication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 99, `thin-concept-section` — **5. Credential lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 126, `term-before-explanation` — **6. Session a token**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `API`, `scope`, `step-up`
-- **HIGH** line 126, `thin-concept-section` — **6. Session a token**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 153, `thin-concept-section` — **7. Authorization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 179, `thin-concept-section` — **Enforcement point**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 190, `thin-concept-section` — **8. Policy decision a enforcement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 216, `thin-concept-section` — **9. Default deny a explicit deny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 254, `term-before-explanation` — **11. Authentication nie je authorization**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IDOR`, `BOLA`, `ID`, `UI`, `API`, `scope`
-- **HIGH** line 254, `thin-concept-section` — **11. Authentication nie je authorization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 268, `term-before-explanation` — **12. Auditing**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `resource`, `policy`
-- **HIGH** line 268, `thin-concept-section` — **12. Auditing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 297, `thin-concept-section` — **Authentication events**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 306, `thin-concept-section` — **Authorization events**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 315, `thin-concept-section` — **Administrative events**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 323, `thin-concept-section` — **14. Audit integrity a availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 347, `thin-concept-section` — **16. Federation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 367, `thin-concept-section` — **Impersonation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 377, `thin-concept-section` — **Delegation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 389, `thin-concept-section` — **18. Break-glass access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 291, `empty-section` — **25. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 22, `list-heavy-section` — **2. Identity, account, subject, principal a credential**: 6 odrážok a iba 59 slov súvislého vysvetlenia.
+- **HIGH** line 186, `list-heavy-section` — **17. Čo je security auditing**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 186, `term-before-explanation` — **17. Čo je security auditing**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `workload`, `policy`
 
 ### `docs/13-security-and-identity/cia-triad.md`
 
@@ -10926,17 +10876,17 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 3961 | 0 | 0 | 0 | 3961 |
-| `thin-concept-section` | 0 | 3687 | 0 | 0 | 3687 |
-| `term-before-explanation` | 0 | 341 | 2269 | 0 | 2610 |
-| `single-sentence-explanation` | 0 | 0 | 2451 | 0 | 2451 |
-| `list-first-introduction` | 0 | 1119 | 0 | 0 | 1119 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1070 | 1070 |
+| `outline-instead-of-explanation` | 3942 | 0 | 0 | 0 | 3942 |
+| `thin-concept-section` | 0 | 3668 | 0 | 0 | 3668 |
+| `term-before-explanation` | 0 | 339 | 2260 | 0 | 2599 |
+| `single-sentence-explanation` | 0 | 0 | 2438 | 0 | 2438 |
+| `list-first-introduction` | 0 | 1110 | 0 | 0 | 1110 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1073 | 1073 |
 | `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
-| `example-not-explicit` | 0 | 0 | 0 | 682 | 682 |
-| `empty-section` | 563 | 0 | 0 | 0 | 563 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 285 | 285 |
-| `list-heavy-section` | 0 | 196 | 0 | 0 | 196 |
+| `example-not-explicit` | 0 | 0 | 0 | 691 | 691 |
+| `empty-section` | 561 | 0 | 0 | 0 | 561 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 289 | 289 |
+| `list-heavy-section` | 0 | 197 | 0 | 0 | 197 |
 
 ## Required remediation pattern
 
