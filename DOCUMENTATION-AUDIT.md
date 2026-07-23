@@ -18,7 +18,7 @@ Every authoritative learning article should explain concepts as connected mechan
 
 - Authoritative learning articles: 257 at audit start.
 - Sections: 14 at audit start.
-- Current manual priority: Security and Identity, then older list-heavy chapters ranked by the automated audit.
+- Current manual priority: complete Observability, then continue backward through older sections using heuristic priority and manual review.
 
 ## Security and Identity manual audit
 
@@ -60,13 +60,18 @@ The section index and all remaining articles must still be checked for local reg
 ### Manually reviewed and accepted
 
 - `monitoring-vs-observability.md`
+- `metrics-logs-traces-events.md`
+- `instrumentation-telemetry.md`
+- `red-method.md`
+- `use-method.md`
+- `golden-signals.md`
 - `cardinality.md`
 
-`monitoring-vs-observability.md` already explains the telemetry pipeline, signal roles, correlation, context propagation, white-box and black-box perspectives and the distinction between known and unknown questions. `cardinality.md` explains combinatorial growth, bounded and unbounded dimensions, series and stream churn, backend-specific costs, budgets and remediation. Neither article is merely a heading-and-list outline.
+These articles already explain their mechanisms through connected prose rather than only defining terms. The reviewed scope includes telemetry data models, metric temporality, structured logging, trace causality and sampling, instrumentation contracts, RED numerator/denominator semantics, USE resource and hidden-queue analysis, Golden Signals measurement boundaries and cardinality cost/churn. They include practical examples and explain where apparently valid measurements become misleading.
 
 ### Remaining Observability review
 
-The remaining fourteen authoritative articles still require manual classification. A high heuristic score should trigger review, not an automatic rewrite; long chapters with explicit mechanisms may legitimately contain many lists.
+The remaining articles are product, backend and alerting oriented: Prometheus, Alertmanager, Grafana, Loki, Elasticsearch/OpenSearch, Fluent Bit, Jaeger/Tempo, OpenTelemetry and alert design. Review must verify that component lists are tied to ingestion/query lifecycles, state ownership, failure behavior and troubleshooting rather than presented as product catalogs.
 
 ## Review classifications
 
@@ -85,12 +90,10 @@ runs-on: [self-hosted, Linux, X64]
 
 It synchronizes glossary and navigation and invokes `scripts/audit_learning_depth.py --all-docs`. The generated report must remain advisory until manual review confirms the findings. An empty or failed generated report must not be interpreted as a clean corpus.
 
-The audit script itself always builds a Markdown summary, file grades and critical/high review queue. If the committed report is empty, the problem is in workflow execution or file lifecycle rather than in the report formatter.
-
 ## Next audit block
 
-1. Complete manual classification of the Observability section.
-2. Verify all Security and Identity files against the rewritten terminology and navigation.
-3. Review the highest-risk older chapters identified by the audit heuristic.
-4. Prefer full rewrites only when fragmentation is systemic; use targeted expansion when the chapter already has a valid teaching model.
-5. Record every manually reviewed article here so corpus coverage remains explicit.
+1. Audit Prometheus, Alertmanager and Grafana as one metrics/alerting/visualization block.
+2. Audit Loki, Elasticsearch/OpenSearch and Fluent Bit as one logging pipeline block.
+3. Audit Jaeger/Tempo and OpenTelemetry as one tracing and telemetry-platform block.
+4. Audit alert design and close the Observability section.
+5. Continue to the preceding section using the same selective rewrite policy.
