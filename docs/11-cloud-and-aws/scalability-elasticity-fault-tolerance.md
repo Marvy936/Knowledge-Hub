@@ -44,12 +44,12 @@ Vertical scaling zväčšuje alebo zmenšuje kapacitu jedného resource-u, napr�
 
 Výhodou je jednoduchší application a consistency model, pretože stav nemusí byť rozdelený medzi ďalšie uzly. Limity tvoria maximálna dostupná veľkosť, skokové ceny, možný restart pri zmene a rastúci blast radius jedného veľkého resource-u.
 
-Typické použitia:
+Vertical scaling sa hodí najmä tam, kde by distribúcia stavu alebo práce priniesla väčšiu zložitosť než samotné zväčšenie uzla:
 
-- legacy aplikácia, ktorú nemožno ľahko rozdeliť;
-- relačná databáza pred dosiahnutím praktického scale-up limitu;
-- dočasné odstránenie bottlenecku počas migrácie;
-- workload, kde distributed coordination stojí viac než väčší uzol.
+- **Legacy aplikácia** — monolit alebo vendor software nemusí podporovať bezpečné rozdelenie na viac aktívnych instances, preto je väčší host najjednoduchší spôsob získania kapacity.
+- **Relačná databáza pred scale-up limitom** — väčšia instance môže zvýšiť buffer cache, CPU a I/O bez zavedenia shardingu, kým workload ešte neprekročil praktickú hranicu jedného writer-a.
+- **Dočasné odstránenie bottlenecku počas migrácie** — scale-up môže vytvoriť časový priestor na redesign, ale nesmie sa prezentovať ako trvalé riešenie bez maximálnej veľkosti a rollback plánu.
+- **Workload s drahou distributed coordination** — ak consensus, rebalancing alebo cross-node communication stoja viac než väčší uzol, vertical scaling môže mať lepší pomer výkonu, ceny a operability.
 
 Vertical scaling je legitímny návrh, nie zlyhanie cloud-native architektúry. Nesmie sa však zamieňať s neobmedzenou škálovateľnosťou alebo vysokou dostupnosťou.
 
@@ -59,14 +59,14 @@ Horizontal scaling pridáva alebo odoberá samostatné instances, workers, shard
 
 Aby horizontal scaling priniesol reálnu kapacitu, jednotlivé replicas nesmú byť blokované spoločným serializovaným stavom. Aplikácia preto často externalizuje sessions, používa idempotentné operations a navrhne databázový alebo queue model, ktorý podporuje paralelné spracovanie.
 
-Horizontal scaling typicky vyžaduje:
+Horizontal scaling potrebuje viac než iba možnosť vytvoriť ďalšiu repliku:
 
-- stabilný spôsob rozdelenia trafficu alebo práce;
-- health checks a odstránenie nezdravých replicas;
-- stateless processing alebo explicitný state ownership;
-- koordináciu, partitioning a consistency model;
-- graceful scale-in a odovzdanie rozpracovanej práce;
-- observability per replica aj za celý service.
+- **Stabilné rozdelenie trafficu alebo práce** — load balancer, queue alebo partition function musí prideľovať nové operations zdravým workers bez hot spots a bez straty ordering contractu.
+- **Health checks a odstránenie nezdravých replicas** — routing vrstva musí prestať posielať traffic targetu, ktorý síce beží, ale nedokáže bezpečne obslúžiť požadovaný outcome.
+- **Stateless processing alebo explicitný state ownership** — lokálny stav nesmie rozhodovať o výsledku requestu bez mechanizmu, ktorý ho replikuje, presúva alebo smeruje request k správnemu ownerovi.
+- **Koordinácia, partitioning a consistency model** — systém musí vysvetliť, kto smie zapisovať, ako sa riešia concurrent updates a čo používateľ uvidí počas rebalancingu alebo výpadku.
+- **Graceful scale-in a odovzdanie práce** — odoberaná replika musí dokončiť, checkpointnúť alebo bezpečne vrátiť rozpracovanú operáciu, aby nevznikla strata alebo duplicita.
+- **Observability per replica aj za celý service** — lokálne hot spots musia byť viditeľné, ale zároveň treba merať end-to-end throughput, latency a errors za celý logical service.
 
 Viac replicas automaticky neznamená lineárne viac throughputu. Shared lock, jedna queue partition, database write leader alebo externá API quota môžu rast zastaviť dávno pred vyčerpaním compute vrstvy.
 
@@ -101,14 +101,14 @@ Elasticita nie je okamžitá. Provisioning VM, spustenie Podu, inicializácia ru
 
 Scaling signal musí korelovať s resource-om, ktorý je potrebné rozšíriť. CPU je vhodný pre CPU-bound workload, ale môže byť zavádzajúci pre service čakajúcu na I/O, connection pool alebo externé API.
 
-Príklady vhodnejších väzieb:
+Jednotlivé workloady preto potrebujú signál viazaný na svoju skutočnú pracovnú jednotku a bottleneck:
 
-- HTTP service — request concurrency, requests per target alebo queueing latency;
-- queue consumer — oldest-message age, backlog depth a processing rate;
-- stream consumer — consumer lag a partition ownership;
-- database proxy — active connections, waiters a acquire latency;
-- batch workers — remaining work voči deadline-u;
-- inference service — queued requests, accelerator utilization a batch latency.
+- **HTTP service — request concurrency, requests per target alebo queueing latency** ukazujú, či requests čakajú na dostupný worker a či pridaná replika môže reálne zvýšiť serving capacity.
+- **Queue consumer — oldest-message age, backlog depth a processing rate** spoločne odlišujú krátky burst od trvalého nedostatku kapacity alebo zaseknutého consumera.
+- **Stream consumer — consumer lag a partition ownership** ukazujú, koľko dát zostáva nespracovaných a či je vôbec možné pridať ďalší parallel consumer pri danom počte partitions.
+- **Database proxy — active connections, waiters a acquire latency** odhaľujú saturation connection poolu, ktorú samotné CPU databázy nemusí zachytiť.
+- **Batch workers — remaining work voči deadline-u** prepája objem zostávajúcej práce s časom, ktorý zostáva do business termínu.
+- **Inference service — queued requests, accelerator utilization a batch latency** ukazujú, či je bottleneck v GPU kapacite, batching policy alebo čakaní pred samotnou inferenciou.
 
 Signal musí mať známy measurement point, bounded dimensions a definované no-data správanie. Ak telemetry pipeline zlyhá, autoscaler nesmie nekontrolovane zmenšiť kritickú službu iba preto, že metric zmizla.
 
@@ -163,15 +163,15 @@ Stateless replica neuchováva lokálny authoritative state potrebný na ďalší
 
 Stateful tier musí rozhodnúť, kde je authoritative state, ako sa replikuje a kto smie zapisovať. Scaling môže vyžadovať rebalancing partitions, presun leaderov, obnovu replicas a riadenie consistency počas prechodu.
 
-Stateful scaling typicky rieši:
+Stateful scaling musí explicitne riešiť tieto navzájom prepojené problémy:
 
-- partition alebo shard ownership;
-- leader/follower alebo multi-writer model;
-- replication lag;
-- conflict resolution;
-- storage throughput a locality;
-- failover a recovery;
-- rebalancing cost.
+- **Partition alebo shard ownership** — určuje, ktorý uzol zodpovedá za konkrétnu časť keyspace-u a kam sa má request smerovať počas normálnej prevádzky aj presunu.
+- **Leader/follower alebo multi-writer model** — definuje, kto smie prijímať writes a ako sa zabráni divergentným hodnotám alebo split brainu.
+- **Replication lag** — vyjadruje, ako ďaleko môže replica zaostávať a aké stale reads alebo data loss vzniknú pri failover-e.
+- **Conflict resolution** — určuje, ako sa zlúčia concurrent updates, ak systém povoľuje viac writerov alebo dočasne oddelené partitions.
+- **Storage throughput a locality** — limitujú, ako rýchlo možno state čítať, zapisovať a presúvať bez preťaženia networku alebo diskov.
+- **Failover a recovery** — popisujú voľbu nového ownera, obnovu chýbajúcich replicas a validáciu consistency pred návratom plného trafficu.
+- **Rebalancing cost** — zachytáva data movement, cache misses a dočasnú duplicitu práce, ktoré môžu počas scale-outu zhoršiť latency skôr, než sa kapacita zvýši.
 
 Práve stateful vrstva býva dominantnou hranicou scalability aj fault tolerance celého systému.
 
@@ -213,13 +213,13 @@ Redundancy pomáha iba vtedy, keď redundantné kópie nezdieľajú rovnaký kri
 
 Nezávislosť treba posudzovať cez power, network, software version, configuration, identity, account, Region a administratívny access. Viac kópií s rovnakou chybnou konfiguráciou môže iba rýchlejšie rozšíriť logical corruption.
 
-Slabé návrhy:
+Nasledujúce návrhy vyzerajú redundantne iba počtom komponentov, ale zdieľajú rozhodujúcu príčinu zlyhania:
 
-- primary a replica na rovnakom hoste alebo v jednej zóne;
-- backup v rovnakom account-e s rovnakým delete oprávnením;
-- dve DNS cesty závislé od jednej authoritative zóny;
-- všetky replicas deployované rovnakou chybnou pipeline naraz;
-- multi-Region aplikácia s jedným globálnym identity alebo data bottleneckom.
+- **Primary a replica na rovnakom hoste alebo v jednej zóne** — strata hosta alebo zóny odstráni obe kópie a z redundancy nezostane použiteľná capacity.
+- **Backup v rovnakom account-e s rovnakým delete oprávnením** — compromised administrator alebo chybná automation môže zmazať production state aj recovery copy jednou identity cestou.
+- **Dve DNS cesty závislé od jednej authoritative zóny** — odlišné resolvery alebo endpoints nepomôžu, ak spoločný authoritative source publikuje chybnú alebo nedostupnú odpoveď.
+- **Všetky replicas deployované rovnakou chybnou pipeline naraz** — software alebo configuration failure sa rozšíri do všetkých kópií skôr, než health model dokáže zachovať zdravú verziu.
+- **Multi-Region aplikácia s jedným globálnym identity alebo data bottleneckom** — regionálny compute prežije lokálny výpadok, ale spoločná závislosť stále vyradí celý user journey.
 
 ## 21. Active-active a active-passive
 
@@ -235,14 +235,14 @@ Retry opakuje operáciu po failure, ktorý môže byť dočasný. Je vhodný nap
 
 Bez timeoutu, backoffu a jitteru môžu tisíce clients retryovať naraz a zabrániť dependency v zotavení. Idempotency key alebo iný deduplication mechanizmus je potrebný tam, kde opakovaná operácia môže vytvoriť duplicitnú platbu, objednávku alebo message.
 
-Bezpečný retry contract definuje:
+Bezpečný retry contract musí presne vysvetliť každú časť rozhodnutia:
 
-- ktoré error classes sú retryable;
-- maximálny čas alebo počet attempts;
-- exponential backoff a jitter;
-- timeout hierarchy;
-- idempotency alebo deduplication;
-- retry budget voči pôvodnému trafficu.
+- **Retryable error classes** — rozlišujú transient failure, pri ktorom môže ďalší pokus uspieť, od permanentnej chyby, ktorú opakovanie iba zosilní.
+- **Maximálny čas alebo počet attempts** — ohraničuje, ako dlho môže pôvodná operácia spotrebúvať threads, connections a downstream capacity.
+- **Exponential backoff a jitter** — rozkladajú ďalšie pokusy v čase, aby sa clients nevrátili k dependency v rovnakom okamihu.
+- **Timeout hierarchy** — zabezpečuje, že každý downstream pokus skončí skôr než celkový user alebo workflow deadline.
+- **Idempotency alebo deduplication** — zabraňuje tomu, aby opakovaný write vytvoril viac platieb, objednávok alebo messages.
+- **Retry budget voči pôvodnému trafficu** — limituje amplification factor, aby zotavujúca sa dependency nebola zahltená prevažne opakovanými pokusmi.
 
 ## 23. Circuit breaker
 
@@ -330,13 +330,13 @@ user impact a workload rate
 → scale-in alebo retry behavior
 ```
 
-Typické prípady:
+Typické prípady prepájajú symptóm s vrstvou, ktorú treba overiť:
 
-- **Autoscaler nepridáva capacity** — over metric, policy, cooldown, maximum, quota, launch errors a subnet IP space.
-- **Capacity rastie, latency zostáva vysoká** — hľadaj shared lock, database, connection pool, hot partition alebo load-balancer imbalance.
-- **Scale-in vytvára errors** — over draining, termination grace, in-flight work, leases a session affinity.
-- **Zonal failure preťaží zvyšok** — over headroom, failover routing, instance availability a recovery quota.
-- **Retry storm** — over timeout hierarchy, retry count, jitter, error classification a dependency recovery rate.
+- **Autoscaler nepridáva capacity** — over metric, policy, cooldown, maximum, quota, launch errors a subnet IP space, pretože zlyhať môže decision loop aj samotný provisioning.
+- **Capacity rastie, latency zostáva vysoká** — hľadaj shared lock, database, connection pool, hot partition alebo load-balancer imbalance, ktoré nepridávajú kapacitu spolu s compute vrstvou.
+- **Scale-in vytvára errors** — over draining, termination grace, in-flight work, leases a session affinity, aby si odlíšil prerušenie práce od nedostatku celkovej kapacity.
+- **Zonal failure preťaží zvyšok** — over headroom, failover routing, instance availability a recovery quota, pretože healthy druhá zóna nemusí mať dostatok serving capacity.
+- **Retry storm** — over timeout hierarchy, retry count, jitter, error classification a dependency recovery rate, aby opakované pokusy neblokovali samotné zotavenie.
 
 ## 33. Anti-patterny
 
