@@ -8,240 +8,313 @@
 - Predpoklady: žiadne
 - Súvisiace témy: DevOps, testing, CI/CD, release engineering, observability, SRE
 
+Metadata je referenčná časť. Jej účelom je zaradiť kapitolu do učebnej cesty, nie vysvetliť samotný mechanizmus SDLC.
+
 ## 1. Definícia
 
-Software Development Life Cycle (SDLC) je riadený životný cyklus softvéru od vzniku potreby cez návrh, implementáciu, testovanie, nasadenie a prevádzku až po vyradenie systému.
+Software Development Life Cycle (SDLC) je riadený životný cyklus softvéru od vzniku potreby cez návrh, implementáciu, overenie, nasadenie a prevádzku až po kontrolované vyradenie systému. Model spája technickú prácu s business hodnotou, vlastníctvom, rizikom a dôkazmi o tom, že zmena funguje.
 
-SDLC nie je konkrétny nástroj ani jediná metodika. Je to model celého toku hodnoty a zodpovednosti, ktorým prechádza softvérová zmena.
+SDLC nie je konkrétny nástroj ani jediná metodika. Waterfall, Agile, Lean alebo DevOps-oriented delivery sú rôzne spôsoby, ako organizovať rovnaký základný lifecycle a jeho feedback loops.
 
-## 2. Problém, ktorý rieši
+## 2. Problém, ktorý SDLC rieši
 
-Bez riadeného životného cyklu sa vývoj redukuje na písanie kódu. Produkčný systém však musí riešiť aj správnosť požiadaviek, architektúru, bezpečnosť, testovanie, nasadenie, pozorovateľnosť, podporu, zmeny a nakoniec bezpečné vyradenie.
+Bez riadeného životného cyklu sa vývoj redukuje na písanie kódu a odovzdanie výsledku ďalšiemu tímu. Produkčný systém však musí riešiť správnosť požiadavky, bezpečnosť, testovateľnosť, deployment, pozorovateľnosť, podporu, zmeny závislostí, obnovu a nakoniec bezpečné odstránenie.
 
-SDLC vytvára spoločný rámec, ktorý odpovedá na otázky:
+SDLC vytvára spoločný rámec, v ktorom má každá zmena definovaný dôvod, ownera, acceptance criteria a spôsob overenia. Tým znižuje riziko, že technicky správne riešenie vyrieši nesprávny problém alebo sa dostane do produkcie bez možnosti zistiť jeho reálny dopad.
 
-- Prečo túto zmenu robíme?
-- Kto za ňu zodpovedá?
-- Ako dokážeme, že funguje?
-- Ako sa bezpečne dostane do produkcie?
-- Ako zistíme, že v produkcii funguje správne?
-- Ako ju opravíme, zmeníme alebo odstránime?
+Kľúčové otázky nie sú iba procesný checklist; určujú, či má zmena zmysluplný end-to-end contract:
+
+- **Prečo zmenu robíme?** — otázka spája implementáciu s používateľským alebo prevádzkovým outcome-om a zabraňuje práci bez preukázanej hodnoty.
+- **Kto za zmenu zodpovedá?** — ownership určuje, kto rozhoduje o scope-e, risku, nasadení, rollbacku a následnej prevádzke.
+- **Ako dokážeme, že funguje?** — acceptance criteria, testy a produkčné signály premieňajú neurčitú požiadavku na overiteľný contract.
+- **Ako sa bezpečne dostane do produkcie?** — build, release, deployment a rollout model musia kontrolovať identitu artifactu, kompatibilitu a blast radius.
+- **Ako zistíme správne správanie v produkcii?** — observability a user feedback musia merať skutočný outcome, nie iba stav procesu alebo servera.
+- **Ako zmenu opravíme alebo odstránime?** — rollback, migration, maintenance a retirement musia byť súčasťou návrhu skôr, než vznikne incident.
 
 ## 3. Mentálny model
 
-SDLC si možno predstaviť ako uzavretý tok spätnej väzby:
+SDLC je uzavretý tok hodnoty a spätnej väzby. Zmena začína hypotézou o probléme, prechádza technickým spracovaním a končí meraním výsledku, ktoré môže potvrdiť pôvodný predpoklad alebo vytvoriť ďalšiu potrebu.
 
 ```text
-Potreba
+Potreba alebo problém
   ↓
-Plánovanie a analýza
+Discovery a požiadavky
+  ↓
+Planning a analýza
   ↓
 Návrh
   ↓
 Implementácia
   ↓
-Overenie kvality
+Verification a testing
   ↓
-Release a deployment
+Build, release a deployment
   ↓
 Prevádzka a pozorovanie
   ↓
-Spätná väzba a ďalšia potreba
+Spätná väzba, maintenance alebo retirement
+  └───────────────────────────────↺
 ```
 
-Dôležité je, že nejde o jednosmernú výrobnú linku. Prevádzka vytvára nové informácie, ktoré menia požiadavky, návrh aj priority.
+Nejde o jednosmernú výrobnú linku. Informácie z testov a prevádzky sa vracajú do požiadaviek, návrhu aj priorít a často odhalia, že pôvodná predstava o používateľovi alebo systéme bola neúplná.
 
-## 4. Hlavné fázy
+## 4. Aktéri, stav a zodpovednosť
 
-### 4.1 Discovery a requirements
+SDLC prepája product, engineering, security, platform, operations a business vlastníkov. Každý aktér vidí inú časť rizika, preto izolované handoffy vedú k lokálnej optimalizácii a strate kontextu.
 
-Najprv sa identifikuje problém, používateľská potreba alebo technická požiadavka. Výstupom nemá byť iba zoznam funkcií, ale pochopenie očakávanej hodnoty, obmedzení a akceptačných kritérií.
+Authoritative state lifecycle-u vzniká v rôznych systémoch: požiadavky v product backlogu, kód v source control, artifact v registry, deployment configuration v deklaratívnom source of truth a prevádzkové evidence v telemetry a incident systémoch. Dôležité je vedieť, ktorý systém je autoritatívny pre konkrétne rozhodnutie a ako sa zmena medzi týmito stavmi trasuje.
 
-Zlá požiadavka implementovaná bezchybne je stále zlyhanie.
+## 5. Discovery a requirements
 
-### 4.2 Planning a analysis
+Discovery identifikuje používateľský, business alebo technický problém, ktorý sa má riešiť. Výstupom nemá byť iba zoznam funkcií, ale opis očakávanej hodnoty, používateľov, obmedzení, rizík a spôsobu merania úspechu.
 
-Určuje sa rozsah, riziká, závislosti, náklady a spôsob dodania. V tejto fáze sa má odhaliť, či je problém vhodné riešiť softvérom a aké systémové dopady bude mať.
+Požiadavka potrebuje acceptance criteria a explicitné non-functional requirements, napríklad dostupnosť, latency, bezpečnosť, data retention alebo recovery. Zlá požiadavka implementovaná bezchybne je stále zlyhanie, pretože systém optimalizuje nesprávny outcome.
 
-### 4.3 Design
+## 6. Planning a analýza
 
-Vzniká návrh aplikácie, rozhraní, dátového modelu, bezpečnostných hraníc, infraštruktúry a prevádzkového modelu.
+Planning určuje scope, poradie práce, dependencies, kapacitné potreby a spôsob dodania. Analýza preveruje, či je problém vhodné riešiť softvérom, aké systémy zmena ovplyvní a ktoré predpoklady treba overiť skôr než vznikne drahá implementácia.
 
-Dobrý návrh nerieši iba normálny tok. Zahŕňa aj zlyhania, obnovu, observability, kapacitu a budúce zmeny.
+Táto fáza nemá vytvoriť falošnú presnosť dlhodobého plánu. Má znížiť najväčšie neznáme, rozdeliť prácu na overiteľné kroky a pomenovať riziká, ktoré môžu zmeniť návrh alebo business rozhodnutie.
 
-### 4.4 Implementation
+## 7. Design
 
-Vývojári vytvárajú kód, konfigurácie, databázové migrácie, infraštruktúrne definície a automatizáciu. Zmena má byť verzovaná, reprodukovateľná a kontrolovateľná.
+Design opisuje application boundaries, interfaces, data model, identity, security controls, infrastructure, deployment a prevádzkový model. Dobrý návrh ukazuje, ako bude systém fungovať v normálnom stave aj pri neplatnom vstupe, preťažení, strate dependency alebo neúspešnom rollout-e.
 
-### 4.5 Verification a testing
+Návrh nie je iba diagram komponentov. Musí vysvetliť state ownership, consistency, trust boundaries, failure domains, observability a migration path, pretože práve tieto vlastnosti určujú správanie v produkcii.
 
-Overuje sa, či implementácia spĺňa technické a používateľské očakávania. Patria sem statické kontroly, unit testy, integračné testy, bezpečnostné kontroly, výkonnostné testy a akceptácia.
+## 8. Implementation
 
-### 4.6 Build a release
+Implementation premieňa návrh na verzovaný kód, konfiguráciu, databázové migrácie, infrastructure definitions a automatizáciu. Zmena má byť reprodukovateľná a reviewovateľná, aby bolo možné zistiť, čo presne sa zmenilo, kto to schválil a aký artifact z toho vznikol.
 
-Zdrojové súbory sa transformujú na nemenný a identifikovateľný artifact, napríklad kontajnerový image, balík alebo binárny súbor.
+Kvalitná implementácia zahŕňa aj test hooks, telemetry, feature-control mechanizmy a bezpečné defaults. Ak sa operability dopĺňa až po incidente, systém môže byť funkčný v deme, ale neprevádzkovateľný v produkcii.
 
-Release znamená rozhodnutie, že konkrétna verzia je kandidátom na použitie. Nemusí ešte znamenať, že bola nasadená všetkým používateľom.
+## 9. Verification a testing
 
-### 4.7 Deployment
+Verification overuje, či implementácia spĺňa definovaný contract a či nevytvára neprijateľné regresie. Rôzne testy poskytujú odlišné dôkazy: unit test izoluje malú logiku, integration test overuje spoluprácu komponentov a end-to-end test skúma používateľský tok v realistickejšom prostredí.
 
-Artifact a jeho konfigurácia sa dostanú do cieľového prostredia. Deployment musí riešiť spôsob rollout-u, kompatibilitu, verifikáciu a možnosť návratu.
+Testing nemôže dokázať absenciu všetkých chýb. Jeho cieľom je znížiť neistotu primerane riziku a doplniť testy o statickú analýzu, security scanning, performance evidence a neskoršie produkčné pozorovanie.
 
-### 4.8 Operations
+## 10. Build
 
-Systém je prevádzkovaný, monitorovaný, škálovaný, zálohovaný a podporovaný. Prevádzka nie je koniec SDLC; je zdrojom najpresnejšej spätnej väzby o reálnom správaní systému.
+Build transformuje source inputs na spustiteľný alebo distribuovateľný výstup. Proces môže kompilovať kód, riešiť dependencies, spúšťať generovanie, vytvárať balík alebo container image a pridávať metadata potrebné na identifikáciu pôvodu.
 
-### 4.9 Maintenance a evolution
+Reprodukovateľný build používa verzované vstupy, pinned dependencies a kontrolované prostredie. Ak rovnaký source revision vytvára nepredvídateľne odlišný artifact, nemožno spoľahlivo auditovať ani obnoviť konkrétnu produkčnú verziu.
 
-Systém dostáva opravy, bezpečnostné aktualizácie, optimalizácie a nové funkcie. Väčšina životnosti softvéru sa odohráva práve v tejto fáze.
+## 11. Artifact
 
-### 4.10 Retirement
+Artifact je nemenný výstup buildu, napríklad binary, package, archive alebo container image. Musí mať jednoznačnú identitu, ideálne digest alebo iný content-derived identifier, aby deployment presne vedel, ktoré bytes nasadzuje.
 
-Systém alebo jeho časť sa kontrolovane vyradí. Treba vyriešiť migráciu používateľov a dát, zrušenie integrácií, archiváciu, compliance a odstránenie nákladov.
+Artifact nemá byť znovu buildovaný pre každé prostredie. Rovnaký overený artifact sa má promovať medzi prostrediami a environment-specific správanie sa pridáva cez kontrolovanú konfiguráciu, inak staging a production nepoužívajú totožný testovaný výstup.
 
-## 5. Modely SDLC
+## 12. Release
+
+Release je rozhodnutie, že konkrétna verzia je pripravená na určený spôsob použitia. Zahŕňa schválenie evidence, risku, compatibility, dokumentácie a prípadného rollout plánu; nemusí ešte znamenať, že verzia obsluhuje production traffic.
+
+Release identity má odkazovať na konkrétny artifact a source revision. Nejasný label typu `latest` s meniacim sa obsahom znemožňuje určiť, čo bolo schválené a čo sa má pri incidente rollbacknúť.
+
+## 13. Deployment
+
+Deployment je technická operácia, ktorá umiestni artifact a configuration do cieľového prostredia. Mení runtime state systému, preto musí riešiť ordering, permissions, migrations, health verification a failure behavior jednotlivých krokov.
+
+Úspešný deployment job nepreukazuje úspešný user outcome. Pipeline môže vytvoriť resources a napriek tomu nasadiť chybnú konfiguráciu alebo verziu, ktorá zlyháva až pri reálnom trafficu.
+
+## 14. Rollout
+
+Rollout určuje, ako sa nasadená verzia sprístupňuje instances, tenants alebo používateľom. Môže byť okamžitý, rolling, canary, blue-green alebo riadený feature flagom podľa rizika a architecture constraints.
+
+Cieľom rollout-u je obmedziť blast radius a vytvoriť čas na vyhodnotenie signálov. Ak systém nevie rozlíšiť starú a novú verziu v telemetry alebo nemá abort condition, postupné nasadenie neposkytuje reálnu kontrolu rizika.
+
+## 15. Operations
+
+Operations udržiava službu dostupnú, bezpečnú a obnoviteľnú počas reálneho používania. Zahŕňa monitoring, incident response, capacity, backup, patching, dependency lifecycle, cost a podporu používateľov.
+
+Prevádzka nie je koniec SDLC, ale zdroj najpresnejšej spätnej väzby. Produkčný traffic, zlyhania a používateľské správanie odhaľujú vlastnosti, ktoré staging ani test data nedokážu úplne reprodukovať.
+
+## 16. Maintenance a evolution
+
+Väčšina životnosti softvéru prebieha po prvom release. Systém dostáva opravy, security updates, dependency upgrades, performance zmeny, nové capabilities a úpravy podľa zmeneného business prostredia.
+
+Maintenance potrebuje rovnakú disciplínu ako nový vývoj. „Malá oprava“ môže meniť data schema, compatibility alebo deployment risk a musí prejsť primeraným lifecycle-om namiesto priamej ručnej zmeny v produkcii.
+
+## 17. Retirement
+
+Retirement kontrolovane ukončuje službu, component alebo verziu. Musí riešiť migráciu používateľov a dát, retention, legal hold, zrušenie credentials, DNS, integrations, monitoring, backupov a cloud resources.
+
+Nedokončený retirement ponecháva attack surface, náklady a nejasný data ownership. Systém sa nepovažuje za vyradený iba preto, že už neprijíma nový traffic; jeho dáta, identities a dependencies môžu zostať aktívne.
+
+## 18. Modely organizácie SDLC
 
 ### Waterfall
 
-Fázy prebiehajú prevažne sekvenčne. Model je ľahko plánovateľný, ale spätná väzba prichádza neskoro a zmeny sú drahé.
+Waterfall organizuje fázy prevažne sekvenčne a každá fáza má formálne výstupy. Poskytuje predvídateľný governance model, ale feedback o chybných požiadavkách alebo integrácii prichádza neskoro a zmena je drahšia.
 
-Je vhodnejší tam, kde sú požiadavky stabilné, proces regulovaný a zmeny musia byť formálne schvaľované. Ani tam však nemusí znamenať nulovú iteráciu.
+Je vhodnejší tam, kde sú požiadavky stabilné, proces regulovaný a zmeny potrebujú formálne schválenie. Ani v takom prostredí však nemusí znamenať nulovú iteráciu alebo odklad testovania až na koniec.
 
 ### Iterative a incremental development
 
-Systém sa vytvára v opakovaných cykloch a po menších prírastkoch. Každá iterácia poskytuje nové informácie a znižuje riziko veľkého jednorazového dodania.
+Iterative model opakovane spresňuje riešenie na základe feedbacku. Incremental model dodáva použiteľné časti systému po menších prírastkoch namiesto jedného veľkého release-u.
+
+Kombinácia znižuje risk tým, že technické aj produktové predpoklady sa overujú skôr. Nevýhodou môže byť fragmentovaný design, ak iterácie nemajú spoločný architecture a product direction.
 
 ### Agile
 
-Agile uprednostňuje krátke feedback loops, spoluprácu, priebežné dodávanie hodnoty a schopnosť reagovať na zmenu. Agile nie je synonymum pre Scrum ani absencia plánovania.
+Agile uprednostňuje spoluprácu, krátke feedback loops, priebežné dodávanie hodnoty a schopnosť reagovať na zmenu. Nie je synonymom Scrumu, absencie dokumentácie ani neplánovanej práce.
+
+Agile funguje iba vtedy, keď tím dokáže získať reálny feedback a upraviť smer. Ak sa práca rozdelí na krátke sprinty, ale release nastane raz za pol roka, hlavný feedback loop zostáva dlhý.
 
 ### Lean
 
-Lean sa sústreďuje na tok hodnoty, redukciu odpadu, obmedzenie rozpracovanej práce a skrátenie času spätnej väzby.
+Lean skúma celý value stream a odstraňuje čakanie, handoffy, nadprodukciu a rozpracovanú prácu, ktorá neprináša hodnotu. Optimalizuje flow celého systému, nie iba utilization jednotlivého tímu.
+
+Maximálne vyťaženie každého človeka môže flow zhoršiť, pretože nevzniká rezerva na review, incidenty alebo neplánované závislosti. Lean preto pracuje s WIP limits, malými batchmi a meraním end-to-end lead time-u.
 
 ### DevOps-oriented SDLC
 
-Vývoj, delivery a prevádzka nie sú oddelené odovzdávacie fázy. Tímy zdieľajú zodpovednosť, používajú automatizované kontroly a získavajú spätnú väzbu z produkcie.
+DevOps-oriented lifecycle spája development, delivery a operations cez zdieľaný ownership, automation a produkčný feedback. Nástroje ako CI/CD, infrastructure as code a observability podporujú model, ale samy nevytvoria spoluprácu ani zodpovednosť.
 
-## 6. Dôležité rozlíšenia
+Cieľom je zmenšiť batch size, skrátiť feedback a odstrániť handoff, pri ktorom jeden tím optimalizuje release speed a druhý nesie všetok production risk. Bez spoločných cieľov môže automatizácia iba zrýchliť chybný proces.
 
-### Build
+## 19. Delivery a continuous delivery
 
-Proces, ktorý zo zdrojových vstupov vytvorí spustiteľný alebo distribuovateľný artifact.
+Delivery je schopnosť dostať overenú zmenu do stavu pripraveného na bezpečné production nasadenie. Continuous delivery znamená, že tento stav vzniká opakovateľne a často, pričom production release môže zostať business rozhodnutím.
 
-### Artifact
+Continuous deployment ide ďalej a úspešné zmeny automaticky nasadzuje do produkcie. Obe praktiky vyžadujú vysokú dôveru v tests, artifact identity, deployment safety a production feedback; rozdiel je v poslednom decision gate-e.
 
-Nemenný výstup buildu, ktorý je jednoznačne identifikovaný verziou alebo digestom.
+## 20. End-to-end príklad zmeny
 
-### Release
-
-Konkrétna verzia softvéru schválená alebo označená na dodanie. Release je produktové a procesné rozhodnutie.
-
-### Deployment
-
-Technická operácia umiestnenia verzie do prostredia.
-
-### Delivery
-
-Schopnosť dostať overenú zmenu bezpečne až do stavu pripraveného na produkčné nasadenie.
-
-### Rollout
-
-Postupné sprístupňovanie nasadenej verzie inštanciám alebo používateľom.
-
-Tieto pojmy sa môžu v konkrétnych organizáciách používať odlišne, ale ich zámer treba rozlišovať.
-
-## 7. Príklad toku zmeny
-
-Požiadavka: aplikácia má používateľa upozorniť pri neúspešnej platbe.
+Požiadavka hovorí, že používateľ má dostať upozornenie pri neúspešnej platbe. Lifecycle musí najprv definovať, čo je neúspešná platba, aký kanál sa použije, aké sú privacy požiadavky a čo sa stane pri zlyhaní notification providera.
 
 ```text
-Product requirement
+Product requirement a success metric
   ↓
-Akceptačné kritériá a bezpečnostné požiadavky
+Acceptance criteria, privacy a reliability requirements
   ↓
-Návrh API, udalosti a spôsobu notifikácie
+Návrh payment eventu, notification workflowu a retry contractu
   ↓
-Implementácia aplikácie a infraštruktúry
+Implementácia application kódu, queue a infrastructure
   ↓
-Unit, integration a contract tests
+Unit, integration, contract a failure tests
   ↓
-Build kontajnerového image
+Build immutable container image a provenance metadata
   ↓
-Security scan a vytvorenie release kandidáta
+Release approval podľa testov a risku
   ↓
-Deployment do stagingu
+Deployment do stagingu a end-to-end verification
   ↓
-End-to-end a smoke test
+Canary rollout do produkcie
   ↓
-Canary deployment do produkcie
+Sledovanie payment failures, delivery success, latency a duplicate notifications
   ↓
-Sledovanie error rate, latency a doručených notifikácií
-  ↓
-Plný rollout alebo rollback
+Plný rollout, rollback alebo úprava požiadavky
 ```
 
-DevOps engineer sa v tomto toku nepodieľa iba na poslednom kroku. Ovplyvňuje build, testovateľnosť, prostredia, bezpečnosť, deployment, telemetry aj recovery.
+DevOps engineer sa v toku nepodieľa iba na deployment kroku. Ovplyvňuje reprodukovateľnosť buildu, test environments, artifact storage, deployment safety, telemetry, scaling, secret delivery a recovery workflow.
 
-## 8. Feedback loops
+## 21. Feedback loops
 
-Feedback loop je cesta od vykonanej zmeny k informácii o jej výsledku.
+Feedback loop je cesta od vykonanej akcie k informácii o jej výsledku. Hodnota feedbacku závisí od rýchlosti, presnosti a od toho, či sa informácia dostane k človeku alebo automation schopnej zmeniť ďalšie rozhodnutie.
 
-Príklady:
+Jednotlivé loops odhaľujú odlišné typy problémov:
 
-- IDE alebo linter: sekundy,
-- unit testy: sekundy až minúty,
-- CI pipeline: minúty,
-- integračné prostredie: minúty až hodiny,
-- produkčné metriky: okamžite až dni,
-- používateľská spätná väzba: dni až mesiace.
+- **IDE alebo linter — sekundy**: odhaľuje syntax, style a časť statických chýb ešte pred commitom, ale nepozná správanie integrovaného systému.
+- **Unit testy — sekundy až minúty**: overujú izolovanú logiku s rýchlym feedbackom, no môžu používať mocks, ktoré nezodpovedajú skutočnej dependency.
+- **CI pipeline — minúty**: kombinuje build, tests a policy checks nad konkrétnym revision, pričom dlhá alebo flaky pipeline znižuje frekvenciu používania feedbacku.
+- **Integračné prostredie — minúty až hodiny**: overuje interakciu komponentov a configuration, ale môže sa líšiť od produkčnej scale, data a network conditions.
+- **Produkčná telemetry — sekundy až dni**: ukazuje reálny traffic, latency, errors a resource behavior, no potrebuje koreláciu s konkrétnou zmenou a správne signal semantics.
+- **Používateľská spätná väzba — dni až mesiace**: overuje, či zmena priniesla hodnotu alebo vytvorila nový problém, ale býva oneskorená a ovplyvnená ďalšími faktormi.
 
-Čím neskôr sa chyba objaví, tým viac ďalšej práce už na nesprávnom predpoklade vzniklo. Cieľom však nie je presunúť úplne všetko doľava. Niektoré vlastnosti možno dôveryhodne overiť iba v reálnej prevádzke.
+Čím neskôr sa chyba objaví, tým viac ďalšej práce už môže stáť na nesprávnom predpoklade. Cieľom však nie je presunúť všetko doľava; performance pod reálnym trafficom alebo skutočný user behavior sa dôveryhodne overujú až v neskorších loops.
 
-## 9. Riziká nesprávneho SDLC
+## 22. Evidence a quality gates
 
-- Nejasné požiadavky vedú k správne implementovanému nesprávnemu riešeniu.
-- Manuálne buildy a deploymenty vytvárajú nereprodukovateľné výsledky.
-- Dlhé integračné vetvy odďaľujú odhalenie konfliktov.
-- Oddelenie vývoja a prevádzky vytvára lokálnu optimalizáciu a odovzdávanie zodpovednosti.
-- Chýbajúca observability spôsobí, že tím nevie vyhodnotiť výsledok zmeny.
-- Chýbajúci retirement proces ponecháva náklady, zraniteľnosti a nepoužívané dáta.
+Quality gate je decision point založený na evidence, nie univerzálna požiadavka na konkrétny nástroj. Gate môže overovať tests, vulnerabilities, artifact signatures, migration compatibility, change approval alebo production health podľa risku zmeny.
 
-## 10. Časté omyly
+Príliš slabý gate prepustí neoverenú zmenu, zatiaľ čo príliš pomalý alebo nerelevantný gate vytvára obchádzanie procesu. Každý gate musí mať ownera, failure semantics, exception lifecycle a pravidelné vyhodnotenie, či skutočne znižuje incident risk.
 
-### „SDLC je iba Waterfall“
+## 23. Security a compliance v SDLC
 
-Nie. Waterfall je jeden model organizácie SDLC. Samotný životný cyklus existuje pri každom softvéri bez ohľadu na metodiku.
+Security sa nemá pridávať ako finálny scan pred release-om. Threat modeling, identity, data classification, dependency governance a recovery requirements ovplyvňujú požiadavky a design ešte pred implementáciou.
 
-### „Deploymentom je práca hotová“
+Compliance potrebuje traceability medzi požiadavkou, zmenou, approvalom, artifactom, deploymentom a prevádzkovým evidence. Samotné splnenie checklistu nepreukazuje bezpečnosť; control musí byť správne implementovaný, monitorovaný a pravidelne overovaný.
 
-Nie. Až prevádzka ukáže, či systém poskytuje očakávanú hodnotu a spoľahlivosť.
+## 24. Riziká nesprávneho SDLC
 
-### „Agile znamená bez dokumentácie a plánovania“
+Nesprávny lifecycle často optimalizuje jednotlivú fázu a poškodí celý value stream:
 
-Agile znižuje množstvo práce bez hodnoty, nie potrebu premýšľania, zodpovednosti alebo dokumentácie.
+- **Nejasné požiadavky** — tím môže bezchybne vytvoriť funkciu, ktorá nerieši skutočný problém alebo nemá definovaný úspech.
+- **Manuálne buildy a deploymenty** — výsledok závisí od lokálneho prostredia a nezdokumentovaných krokov, takže rollback ani audit nemajú spoľahlivý artifact.
+- **Dlhé integračné vetvy** — konflikty a nekompatibilné zmeny sa odhalia až po veľkom množstve práce a oprava zasiahne viac tímov naraz.
+- **Oddelenie vývoja a prevádzky** — development optimalizuje feature throughput, operations stabilitu a medzi tímami vzniká handoff namiesto spoločného reliability rozhodnutia.
+- **Chýbajúca observability** — deployment môže byť technicky úspešný, ale tím nevie zistiť user impact, regresiu alebo postupné zhoršovanie.
+- **Chýbajúci retirement proces** — nepoužívaný systém naďalej spotrebúva peniaze, uchováva citlivé dáta a zväčšuje attack surface.
 
-### „DevOps začína až pri CI/CD“
+## 25. Troubleshooting delivery lifecycle-u
 
-DevOps ovplyvňuje už návrh požiadaviek, architektúru, testovateľnosť a ownership.
+Pri pomalom alebo nespoľahlivom delivery neoptimalizuj automaticky najviditeľnejší job. Najprv zmeraj celý tok od požiadavky po produkčný feedback a rozdeľ waiting time, active work, rework a failure rate podľa jednotlivých krokov.
 
-## 11. Kontrolné otázky
+```text
+požiadavka
+→ waiting na rozhodnutie
+→ implementation
+→ review a test
+→ waiting na environment alebo approval
+→ deployment
+→ production validation
+```
 
-1. Prečo SDLC nie je iba proces vývoja kódu?
-2. Aký je rozdiel medzi buildom, artifactom, releaseom a deploymentom?
-3. Prečo je produkčná prevádzka súčasťou SDLC?
-4. Ako dĺžka feedback loopu ovplyvňuje cenu chyby?
-5. Prečo môže byť technicky úspešný deployment produktovým zlyhaním?
-6. Ktoré fázy SDLC ovplyvňuje DevOps engineer a akým mechanizmom?
-7. Aké riziká vzniknú, ak nie je navrhnutý retirement systému?
+Typické symptómy majú odlišné príčiny:
 
-## 12. Zhrnutie
+- **Lead time je dlhý, hoci build je rýchly** — hľadaj waiting na review, environment, security approval alebo coordinated release window namiesto ďalšej optimalizácie kompilácie.
+- **Pipeline je zelená, production incidenty rastú** — over reprezentatívnosť testov, deployment verification a production signal coverage, pretože gate pravdepodobne nemeria hlavný risk.
+- **Rollbacks sú časté a pomalé** — skontroluj artifact identity, data migration compatibility a schopnosť obnoviť predchádzajúcu configuration, nie iba deployment tool.
+- **Zmeny sa hromadia do veľkých release-ov** — hľadaj dlhé branches, manuálne gates, nekompatibilné dependencies alebo strach z deploymentu spôsobený slabou observability.
 
-- SDLC pokrýva celý život softvéru, nielen implementáciu.
-- Fázy sú prepojené spätnou väzbou a nemajú byť chápané ako izolované oddelenia.
-- Build, release, deployment a rollout sú rozdielne koncepty.
-- Prevádzka poskytuje informácie potrebné pre ďalší vývoj.
-- DevOps zlepšuje SDLC skrátením feedback loops, automatizáciou a zdieľanou zodpovednosťou.
+## 26. Časté omyly
+
+### SDLC je iba Waterfall
+
+Waterfall je jeden spôsob organizácie fáz, nie definícia lifecycle-u. Každý software má požiadavky, implementáciu, prevádzku a retirement bez ohľadu na to, či organizácia používa Scrum, Kanban alebo formálny stage-gate proces.
+
+### Deploymentom je práca hotová
+
+Deployment iba mení runtime state. Až production validation a používateľský outcome ukážu, či zmena poskytuje očakávanú hodnotu a či nevytvorila reliability alebo security regresiu.
+
+### Agile znamená bez dokumentácie a plánovania
+
+Agile obmedzuje dokumentáciu a plánovanie, ktoré nevytvárajú hodnotu, ale neodstraňuje potrebu spoločného modelu, acceptance criteria a risk decisions. Bez nich sa tím iba rýchlejšie pohybuje bez overiteľného smeru.
+
+### DevOps začína až pri CI/CD
+
+DevOps ovplyvňuje requirements, architecture, testability, ownership aj production feedback. CI/CD je implementačná capability, ktorá môže podporiť flow, ale nevyrieši nejasnú zodpovednosť alebo konfliktné ciele tímov.
+
+## 27. Kontrolné otázky
+
+1. Prečo SDLC nie je iba proces písania a nasadenia kódu?
+2. Ako sa odlišujú build, artifact, release, deployment a rollout?
+3. Prečo má artifact zostať rovnaký medzi stagingom a produkciou?
+4. Ako production operations vracia informácie do discovery a designu?
+5. Aký rozdiel je medzi iterative a incremental developmentom?
+6. Prečo krátky sprint automaticky nevytvára krátky feedback loop?
+7. Ako quality gate znižuje risk a kedy sa stáva iba bottleneckom?
+8. Prečo môže zelená pipeline sprevádzať rast production incidentov?
+9. Aké evidence dokazujú, že retirement systému je dokončený?
+10. Ktoré časti SDLC ovplyvňuje DevOps engineer a akým mechanizmom?
+
+## 28. Zhrnutie
+
+SDLC pokrýva celý život softvéru od problému po retirement a prepája business outcome s technickým evidence. Jednotlivé fázy nie sú izolované oddelenia; tvoria spätnoväzbový systém, v ktorom každá zmena môže upraviť predchádzajúci predpoklad.
+
+Build, artifact, release, deployment a rollout sú odlišné koncepty s odlišným ownershipom a failure modes. DevOps zlepšuje lifecycle zmenšením batchov, automatizáciou opakovateľnej práce, skrátením feedback loops a zdieľanou zodpovednosťou za produkčný výsledok.
+
+## Glossary impact
+
+Relevantné pojmy: Software Development Life Cycle, discovery, acceptance criteria, build, artifact, release, deployment, rollout, delivery, continuous delivery, continuous deployment, feedback loop, quality gate, maintenance a retirement.
+
+## Primárne zdroje
+
+- [Manifesto for Agile Software Development](https://agilemanifesto.org/)
+- [NIST Secure Software Development Framework](https://csrc.nist.gov/pubs/sp/800/218/final)
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
