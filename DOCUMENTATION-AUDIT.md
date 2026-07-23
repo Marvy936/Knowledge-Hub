@@ -65,13 +65,25 @@ The section index and all remaining articles must still be checked for local reg
 - `red-method.md`
 - `use-method.md`
 - `golden-signals.md`
+- `prometheus.md`
+- `alertmanager.md`
+- `grafana.md`
 - `cardinality.md`
 
-These articles already explain their mechanisms through connected prose rather than only defining terms. The reviewed scope includes telemetry data models, metric temporality, structured logging, trace causality and sampling, instrumentation contracts, RED numerator/denominator semantics, USE resource and hidden-queue analysis, Golden Signals measurement boundaries and cardinality cost/churn. They include practical examples and explain where apparently valid measurements become misleading.
+The conceptual articles explain telemetry data models, metric temporality, structured logging, trace causality and sampling, instrumentation contracts, RED numerator/denominator semantics, USE resource and hidden-queue analysis, Golden Signals measurement boundaries and cardinality cost/churn.
+
+The Prometheus, Alertmanager and Grafana articles also meet the standard. Prometheus connects discovery, relabeling, scrape validation, series identity, WAL/TSDB state, PromQL and rule evaluation. Alertmanager separates alert state from notification state and explains fingerprinting, route evaluation, grouping, timing, inhibition, silences and eventually consistent HA notification delivery. Grafana explains the path from backend query through data frames, transformations and fields to panels, alerting and access boundaries, including why dashboard visibility is not data-source authorization.
 
 ### Remaining Observability review
 
-The remaining articles are product, backend and alerting oriented: Prometheus, Alertmanager, Grafana, Loki, Elasticsearch/OpenSearch, Fluent Bit, Jaeger/Tempo, OpenTelemetry and alert design. Review must verify that component lists are tied to ingestion/query lifecycles, state ownership, failure behavior and troubleshooting rather than presented as product catalogs.
+- `loki.md`
+- `elasticsearch-opensearch.md`
+- `fluent-bit.md`
+- `jaeger-tempo.md`
+- `opentelemetry.md`
+- `alert-design-alert-fatigue.md`
+
+The next review must verify that logging, tracing and alerting component lists are tied to ingestion/query lifecycles, state ownership, failure behavior and troubleshooting rather than presented as product catalogs.
 
 ## Review classifications
 
@@ -92,8 +104,7 @@ It synchronizes glossary and navigation and invokes `scripts/audit_learning_dept
 
 ## Next audit block
 
-1. Audit Prometheus, Alertmanager and Grafana as one metrics/alerting/visualization block.
-2. Audit Loki, Elasticsearch/OpenSearch and Fluent Bit as one logging pipeline block.
-3. Audit Jaeger/Tempo and OpenTelemetry as one tracing and telemetry-platform block.
-4. Audit alert design and close the Observability section.
-5. Continue to the preceding section using the same selective rewrite policy.
+1. Audit Loki, Elasticsearch/OpenSearch and Fluent Bit as one logging pipeline block.
+2. Audit Jaeger/Tempo and OpenTelemetry as one tracing and telemetry-platform block.
+3. Audit alert design and close the Observability section.
+4. Continue to the preceding section using the same selective rewrite policy.
