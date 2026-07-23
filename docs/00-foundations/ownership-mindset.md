@@ -8,264 +8,320 @@
 - Predpoklady: [DevOps](devops.md), [Systems Thinking](systems-thinking.md)
 - Súvisiace témy: service ownership, team topology, on-call, incident management, platform engineering
 
+Metadata zaraďuje ownership medzi organizačné mechanizmy DevOps. Ownership nie je morálna vlastnosť jednotlivca ani synonymum neobmedzeného scope-u; je to explicitný contract medzi outcome-om, decision authority, capabilities a accountability.
+
 ## 1. Definícia
 
-Ownership mindset je spôsob práce, pri ktorom jednotlivec alebo tím preberá zodpovednosť za výsledok systému, nie iba za vykonanie pridelenej úlohy.
+Ownership mindset znamená prevziať zodpovednosť za výsledok systému a jeho lifecycle, nie iba za vykonanie pridelenej úlohy. Owner sleduje, či zmena dosiahla očakávaný outcome, či je služba prevádzkovateľná a či existuje ďalší človek alebo mechanizmus schopný ju udržiavať.
 
-V DevOps to typicky znamená sledovať zmenu od návrhu cez delivery až po reálne správanie služby v prevádzke.
+Ownership neznamená vykonať všetku prácu osobne. Znamená zabezpečiť, že potrebná expertíza, platform capability, rozhodnutie a follow-up majú jasnú cestu a problém nezostane opustený medzi organizačnými boundaries.
 
-## 2. Úloha verzus výsledok
+## 2. Task ownership a outcome ownership
 
-Task-oriented prístup:
-
-```text
-Úloha: vytvoriť pipeline.
-Hotovo: YAML je commitnutý.
-```
-
-Outcome-oriented prístup:
+Task ownership končí dokončením konkrétneho deliverable-u. Outcome ownership pokračuje až po overenie, že deliverable funguje v širšom systéme a má udržateľný lifecycle.
 
 ```text
-Cieľ: bezpečne a opakovateľne dostať zmenu do produkcie.
-Hotovo: pipeline je spoľahlivá, pozorovateľná, zdokumentovaná a používaná tímom.
+Task: vytvoriť CI pipeline.
+Task done: YAML je commitnutý a syntax je validná.
+
+Outcome: bezpečne a opakovateľne dostať zmenu do produkcie.
+Outcome evidence: pipeline vytvára identifikovaný artifact, poskytuje dôveryhodný feedback,
+                  zvláda failures, je používaná tímom a má ownera.
 ```
 
-Ownership nekončí v momente odovzdania artefaktu. Končí až vtedy, keď systém produkuje očakávaný výsledok a existuje mechanizmus jeho údržby.
+Task je potrebná jednotka práce, ale nemá sa zamieňať za hodnotu. Pipeline bez adopcie, recovery a maintenance môže byť technicky dokončená a súčasne prevádzkovo neúspešná.
 
-## 3. Prečo ownership chýba
+## 3. Problém, ktorý ownership rieši
 
-Slabý ownership často vzniká v silo organizácii:
+Silo model rozdeľuje lifecycle na lokálne responsibilities a umožňuje každému tímu označiť svoju časť za hotovú. Kód, test report, security finding a deployment ticket sa pohybujú ďalej, ale nikto nevlastní end-to-end user outcome.
 
 ```text
-Development → odovzdá kód
-QA → odovzdá výsledok testov
-Security → odovzdá nález
-Ops → vykoná deployment
-Support → prijme incident
+Development → odovzdá source
+QA          → odovzdá test report
+Security    → odovzdá finding
+Operations  → vykoná deployment
+Support     → prijme user incident
 ```
 
-Každý tím splní lokálnu povinnosť, ale nikto nemá end-to-end zodpovednosť za službu.
+Dôsledky vznikajú na interfaces:
 
-Dôsledky:
+- **Ticket ping-pong — problém nemá end-to-end ownera**: tímy presúvajú symptom podľa lokálnej definície scope-u a diagnosis sa predlžuje.
+- **Late operability — runtime potreby vstúpia po implementation**: telemetry, rollback a capacity sa dopĺňajú až pri release alebo incidente.
+- **Feedback loss — tvorca rozhodnutia nevidí consequences**: rovnaký architecture alebo configuration problem sa opakuje.
+- **Orphaned controls — dashboard, alert alebo documentation bez maintainer-a**: capability existuje pri vytvorení a následne driftuje.
+- **Unfunded reliability — product roadmap ignoruje operations cost**: ownership je deklarovaný, ale tím nemá kapacitu odstrániť toil a risk.
 
-- problémy sa presúvajú cez tickety,
-- root cause sa hľadá pomaly,
-- vznikajú nejasné hranice,
-- rozhodnutia ignorujú prevádzkové dôsledky,
-- dokumentácia a monitoring nemajú vlastníka.
+## 4. Mentálny model uzavretého ownership loopu
 
-## 4. Mentálny model
-
-Ownership možno chápať ako uzavretie slučky medzi rozhodnutím a jeho dôsledkom:
+Ownership uzatvára loop medzi rozhodnutím a jeho dôsledkom. Tím, ktorý môže ovplyvniť design, dostáva aj runtime evidence a zodpovedá za to, že learning zmení ďalšie rozhodnutie.
 
 ```text
-Tím navrhne zmenu
-  ↓
-Tím ju implementuje
-  ↓
-Tím sleduje jej správanie
-  ↓
-Tím dostane spätnú väzbu
-  ↓
-Tím upraví návrh alebo proces
+navrhnúť a rozhodnúť
+→ implementovať a dodať
+→ pozorovať outcome
+→ reagovať na failure alebo feedback
+→ upraviť code, platformu alebo process
+→ overiť zlepšenie
 ```
 
-Ak dôsledky rozhodnutia vždy rieši iný tím, pôvodný tím stráca dôležitú spätnú väzbu.
+Ak dôsledok vždy rieši iný tím, pôvodný decision-maker nemá prirodzený feedback pressure. Ak tím nesie dôsledok, ale nemôže meniť source alebo priority, vzniká accountability bez authority.
 
-## 5. Čo tím vlastní
+## 5. Ownership contract
 
-Service ownership môže zahŕňať:
+Funkčný ownership contract musí odpovedať na viac otázok než „kto je owner“. Musí definovať outcome, scope, authority, dependencies, evidence a escalation.
 
-- zdrojový kód,
-- build a test proces,
-- deployment konfiguráciu,
-- runtime konfiguráciu,
-- SLI a dashboardy,
-- alerty,
-- runbooky,
-- bezpečnostné nálezy,
-- kapacitné požiadavky,
-- lifecycle závislostí,
-- incident follow-up,
-- technický dlh.
+- **Owned outcome — čo má systém poskytovať**: napríklad úspešný checkout alebo dostupný internal deployment path, nie iba zdravý process.
+- **Scope — ktoré components a lifecycle decisions patria tímu**: zabraňuje neobmedzenej zodpovednosti aj slepým medzerám.
+- **Decision rights — čo môže tím meniť alebo zastaviť**: zahŕňa release, rollback, SLO, configuration a prioritizáciu reliability práce.
+- **Capabilities — aké platformy, data a access sú k dispozícii**: owner bez telemetry, test environmentu alebo production role nevie outcome ovplyvniť.
+- **Dependencies — čo poskytujú iné tímy alebo vendors**: interface, SLO a escalation musia byť explicitné.
+- **Evidence — ako sa outcome a health overujú**: SLI, business metric, audit alebo restore test odlišuje vlastníctvo od dojmu.
+- **Escalation — kam ide problém mimo bounded expertise**: ownership zabezpečí koordináciu, nie nebezpečný zásah mimo kompetencie.
 
-To neznamená, že tím všetko implementuje bez pomoci. Znamená to, že vie, kto jednotlivé schopnosti poskytuje, a zodpovedá za to, že služba ako celok funguje.
+## 6. Service ownership
 
-## 6. Ownership a autonómia
+Service ownership pokrýva lifecycle konkrétnej business alebo platform capability. Owner nemusí spravovať každý underlying host, ale musí rozumieť critical pathu a vedieť, kto vlastní každú dependency.
 
-Zodpovednosť bez možnosti rozhodovať je nefunkčný model.
+Service ownership zahŕňa prepojené artifacts a decisions:
 
-Tím nemôže reálne vlastniť službu, ak:
+- **Source code a configuration — implementácia behavioru**: owner riadi compatibility, review a lifecycle zmien.
+- **Build a test contract — evidence pred release-om**: tím vie, ktoré failure classes sa overujú a ktoré zostávajú runtime riskom.
+- **Artifact a deployment — identita a exposure zmeny**: owner pozná nasadenú verziu, rollout a recovery path.
+- **Runtime configuration — skutočný operating state**: values, feature flags, quotas a secrets sú súčasťou behavioru služby.
+- **SLI, SLO a alerts — reliability contract a reakcia**: signály musia reprezentovať user outcome a smerovať k actorovi schopnému konať.
+- **Runbooks a dependency map — diagnosis a recovery knowledge**: opisujú known failure paths, nie iba command inventory.
+- **Capacity, backup a security — non-functional lifecycle**: owner zabezpečuje headroom, recovery a threat controls podľa risku.
+- **Incident follow-up a technical debt — dlhodobé learning**: runtime findings sa vracajú do engineering priorít.
 
-- nemá prístup k telemetry,
-- nemôže upraviť deployment,
-- všetky zmeny čakajú na externý tím,
-- nemá rozpočet ani kapacitu na reliability prácu,
-- nemôže ovplyvniť priority.
+## 7. Responsibility nie je implementation monopoly
 
-Autonómia však potrebuje guardrails. Úplná voľnosť bez štandardov vedie k nekonzistentnosti a vysokým prevádzkovým nákladom.
+Owner nemusí vytvoriť každú capability. Platform team môže prevádzkovať cluster, security team policy engine a database team managed platform, pričom service team vlastní spôsob použitia a outcome svojej služby.
 
-## 7. Ownership a platforma
+Rozdiel medzi ownershipom a implementation je dôležitý:
 
-Platform engineering podporuje ownership tým, že poskytuje self-service schopnosti:
+- **Platform poskytuje mechanismus** — napríklad deployment controller, secret delivery alebo telemetry pipeline.
+- **Service tím definuje service semantics** — probes, SLO, resource requirements, alert meaning a rollback decision.
+- **Špecialista poskytuje expert decision** — database recovery alebo network architecture pri vysokom risku.
+- **Service owner koordinuje end-to-end outcome** — zabezpečí, že expert input a platform behavior spolu obnovia používateľskú capability.
 
-- štandardné pipeline,
-- deployment mechanizmy,
-- secrets management,
-- observability,
-- bezpečnostné kontroly,
-- golden paths,
-- pripravené runbook šablóny.
+## 8. Authority a autonomy
 
-Platforma nemá prevziať výslednú zodpovednosť za všetky služby. Má odstrániť opakovaný technický toil a umožniť aplikačným tímom vlastniť výsledok bezpečne.
+Responsibility bez decision authority vytvára frustration a learned helplessness. Tím nemôže vlastniť reliability, ak nemôže zmeniť rollout, zastaviť release alebo prioritizovať removal opakovaného toil-u.
 
-## 8. Ownership počas incidentu
+Potrebná autonomy má konkrétne forms:
 
-Vlastník služby má vedieť:
+- **Access to evidence — priame runtime a delivery data**: tím nemusí čakať na screenshot od iného oddelenia.
+- **Change authority — možnosť upraviť source a bounded configuration**: owner dokáže implementovať permanent fix.
+- **Operational authority — rollback, mitigation a traffic control**: incident response nečaká na nejasný approval chain.
+- **Priority capacity — financovanie reliability a debt práce**: production responsibilities nie sú neviditeľná druhá práca.
+- **Escalation authority — zapojenie platform, security alebo vendor supportu**: owner vie aktivovať pomoc pri prekročení vlastnej boundary.
 
-1. rozpoznať používateľský dopad,
-2. nájsť relevantné dashboardy a logy,
-3. vykonať alebo koordinovať mitigáciu,
-4. komunikovať stav,
-5. rozhodnúť o rollbacku alebo failoveri,
-6. po incidente zabezpečiť nápravné opatrenia.
+## 9. Guardrails a bounded autonomy
 
-Ownership neznamená, že jedna osoba musí poznať celý systém. Znamená, že existuje jasná zodpovedná skupina a mechanizmus eskalácie.
+Autonomy bez standards môže vytvoriť nekonzistentný security, cost a support surface. Guardrails definujú bezpečnú decision boundary a umožňujú bežné zmeny bez centralizovaného manuálneho approvalu.
 
-## 9. Dokumentácia ako súčasť ownershipu
+Guardrail môže byť safer default, policy as code, quota, approved template alebo progressive rollout. Musí vysvetliť threat alebo risk, enforcement point, failure behavior a exception path; inak sa z neho stane nejasná prekážka, ktorú tímy obchádzajú.
 
-Dokumentácia nie je vedľajší produkt. Je súčasťou prevádzkovej schopnosti služby.
+## 10. Platform ownership
 
-Minimálny ownership dokumentačný balík môže zahŕňať:
+Platform team vlastní platformu ako interný produkt. Zodpovedá za jej API, reliability, security, documentation, support, upgrade a developer experience.
 
-- účel služby,
-- architektúru a závislosti,
-- deployment postup,
-- rollback,
-- SLI a alerty,
-- známe failure modes,
-- kontakty a eskaláciu,
-- backup a restore,
-- lifecycle a decommissioning.
+Platforma podporuje service ownership cez self-service capabilities:
 
-Služba bez aktuálnej dokumentácie je závislá od individuálnej pamäte.
+- **Standard pipeline — reproducible build a promotion**: product tím nemusí vytvárať celý delivery control plane, ale stále vlastní test a release semantics.
+- **Deployment mechanism — bezpečný rollout a rollback primitives**: service tím vyberá strategy a decision signals podľa vlastného risku.
+- **Secrets management — identity a delivery contract**: platforma chráni storage a rotation path, service tím určuje potrebný scope a usage.
+- **Observability platform — collection a query capability**: product tím instrumentuje business a service signals a vlastní alert actionability.
+- **Security guardrails — consistent enforcement**: platforma poskytuje known controls a service owner rieši threats špecifické pre application.
+- **Golden path — podporovaný default workflow**: znižuje cognitive load, ale musí mať documented escape hatch pre legitímny non-standard use case.
 
-## 10. Praktický príklad: nový Kubernetes deployment
+Platforma nemá prevziať ownership každého workload incidentu. Ak každý application problem končí ticketom platform teamu, self-service sa zmenila na central operations queue.
 
-Slabý ownership:
+## 11. Explicitné responsibility boundaries
+
+Boundary má rozlišovať mechanismus, configuration a outcome. Jedna tabuľka môže zabrániť neurčitému očakávaniu „všetci vlastnia všetko“.
+
+| Oblasť | Platform tím | Service tím | Shared interface |
+|---|---|---|---|
+| Kubernetes control plane | availability, upgrade a cluster policy | používa supported API | platform SLO, version a escalation |
+| Base deployment template | bezpečné defaults a schema | service values a rollout semantics | compatibility a deprecation contract |
+| Application image | scanning primitives a registry | source, dependencies a digest | admission a provenance policy |
+| Probes | mechanismus a guidance | definuje skutočný health contract | validation a failure examples |
+| Observability backend | collection, storage a access | instrumentation, SLI a alert meaning | schema, retention a ownership metadata |
+| Service incident | platform support pri dependency failure | vedie business/service recovery | incident role a evidence handoff |
+| Platform incident | vedie platform recovery | validuje service impact a workaround | status, mitigation a client behavior |
+
+## 12. Ownership počas incidentu
+
+Incident ownership znamená, že existuje jasná skupina schopná posúdiť user impact, koordinovať mitigation a zabezpečiť permanent follow-up. Nemusí poznať interné detaily každej dependency, ale musí vedieť aktivovať správne escalation paths.
+
+Service owner počas incidentu potrebuje:
+
+- **Impact assessment — čo nefunguje a komu**: SLI a business signals určia severity a scope.
+- **Diagnosis context — relevantné telemetry a recent changes**: tím vytvorí hypotheses namiesto náhodných zásahov.
+- **Mitigation authority — rollback, feature disable alebo capacity action**: bezpečná akcia obmedzí dopad pred permanent fixom.
+- **Communication — jednotný stav a expected next update**: users, leadership a dependencies nedostávajú konfliktné informácie.
+- **Escalation — expert a platform support**: owner koordinuje cross-boundary recovery bez opustenia incidentu.
+- **Follow-up — system learning a verified actions**: incident nekončí iba obnovením service state-u.
+
+## 13. Documentation ownership
+
+Documentation je súčasť operational capability. Owner zabezpečuje, že dokument vysvetľuje aktuálny mechanismus, je prepojený s lifecycle-om a prešiel praktickým overením.
+
+Minimálny service package má zmysel iba s vysvetlenou úlohou:
+
+- **Purpose a user journey — dôvod existencie služby**: responder vie, ktorý outcome je kritický a čo možno bezpečne degradovať.
+- **Architecture a dependencies — critical path a ownership**: odhaľuje shared failure domains a escalation targets.
+- **Deployment a rollback — zmena runtime-u**: popisuje preconditions, evidence, data compatibility a validation.
+- **SLI, SLO a alerts — reliability a reaction contract**: vysvetľuje signal semantics, no-data a runbook.
+- **Known failure modes — diagnosis hypotheses**: prepája symptoms s evidence a bezpečnou mitigation.
+- **Backup a restore — state recovery**: definuje scope, keys, RPO/RTO a application validation.
+- **Security a access — trust boundary**: zachytáva roles, secrets a break-glass bez zverejnenia citlivých hodnôt.
+- **Lifecycle a retirement — upgrade a decommission**: zabraňuje orphaned resources, integrations a data.
+
+## 14. Collective ownership
+
+Ownership nesmie byť person dependency. Kolektívny tímový model zachováva accountability a súčasne znižuje bus factor a hero culture.
+
+Mechanizmy distribúcie knowledge majú odlišný effect:
+
+- **Code review — viac ľudí rozumie change pathu**: ownership source-u neostáva u jediného autora.
+- **Pairing a shadowing — prenos tacit diagnosis knowledge**: nový človek pozoruje rozhodovanie, ktoré runbook nedokáže úplne zachytiť.
+- **On-call rotation — zdieľaný runtime feedback**: viac členov vidí consequences architecture a identifikuje opakovaný toil.
+- **Game days — overenie recovery a zastupiteľnosti**: tím nacvičí failure pred incidentom a odhalí access alebo knowledge gaps.
+- **Architecture records — preservation decision contextu**: budúci owner rozumie constraints a trade-offs, nie iba výslednému diagramu.
+- **Automation — odstránenie personal execution dependency**: opakované kroky sa stávajú versioned capability.
+
+## 15. Accountability bez blame
+
+Accountability znamená, že decision a remediation majú ownera a výsledok sa overuje. Blame redukuje complex failure na charakter alebo poslednú akciu jednotlivca a poškodzuje kvalitu evidence.
+
+Blame culture vedie k neskorej eskalácii, hidden workarounds a povrchným záverom `human error`. Blameless analysis skúma, prečo systém umožnil akciu, prečo controls nezachytili risk a ako znížiť probability alebo blast radius.
+
+Owner zostáva zodpovedný za follow-up. Blameless neznamená, že actions môžu zostať bez termínu alebo že vedomé porušenie policy nemá consequence.
+
+## 16. Ownership a risk acceptance
+
+Nie každý risk možno okamžite odstrániť. Owner musí vedieť zdokumentovať residual risk, business impact, compensating controls, review date a authority, ktorá risk akceptovala.
+
+Neurčitý technical debt item nie je risk decision. Bez deadline-u a triggeru môže dočasný exception zostať navždy, hoci sa threat, traffic alebo organization zmenili.
+
+## 17. Dependency ownership
+
+Service môže závisieť od platformy alebo vendor-a, ktorý nevie priamo ovplyvniť. Owner stále zodpovedá za to, že dependency má contract, observability, timeout, fallback alebo recovery strategy primeranú user outcome-u.
+
+Dependency ownership zahŕňa:
+
+- **Service level a support contract — očakávaná dostupnosť a eskalácia**: určuje, čo možno požadovať od providera a v akom čase.
+- **Client resilience — timeout, retry a circuit breaking**: chráni službu pred amplification a resource exhaustion.
+- **Change lifecycle — version a deprecation monitoring**: zabraňuje prekvapivému end-of-support alebo API removal.
+- **Exit alebo recovery path — postup pri dlhom outage alebo termination**: môže byť workaround, data export alebo alternate provider podľa criticality.
+
+## 18. Product roadmap a ownership capacity
+
+Service ownership spotrebúva engineering kapacitu na on-call, upgrades, vulnerabilities, capacity a recovery tests. Ak roadmapa počíta iba features, operations práca sa stane hidden overtime alebo sa odkladá do incidentu.
+
+Zdravý plán explicitne rezervuje reliability a lifecycle work a používa SLO, toil a risk evidence na priority. Ownership bez budgetu je formálne delegovanie následkov, nie funkčný operating model.
+
+## 19. End-to-end príklad Kubernetes služby
+
+Platform team poskytuje managed Kubernetes, deployment template, policy a observability pipeline. Service team dodáva application image, resources, probes, SLI a rollout decision.
 
 ```text
-Platform tím vytvorí Helm chart.
-Aplikačný tím ho používa bez pochopenia.
-Pri incidente aplikačný tím otvorí ticket platforme.
+platform capability
+→ service configuration a application semantics
+→ automated validation a deployment
+→ service SLI a runtime feedback
+→ service alebo platform incident classification
+→ správny owner vedie mitigation
+→ findings menia service alebo platform product
 ```
 
-Silnejší ownership:
+Pri application timeout-e service tím najprv analyzuje vlastnú latency, connection pool a dependencies. Ak evidence ukáže cluster DNS incident, platform team vedie infrastructure recovery a service owner validuje business outcome a client behavior.
 
-```text
-Platform tím poskytne štandardný chart a guardrails.
-Aplikačný tím vlastní values, SLO, probes a rollout rozhodnutia.
-Oba tímy majú jasne definované hranice podpory.
-```
+## 20. Ownership health signals
 
-Platforma vlastní produkt platformy. Aplikačný tím vlastní správanie svojej služby na tejto platforme.
+Zdravý ownership sa preukazuje behaviorom, nie iba stĺpcom v service catalogu.
 
-## 11. Hranice ownershipu
+- **Alert smeruje k actorovi schopnému reagovať**: routing, access a runbook znižujú time-to-mitigation.
+- **Tím pozná SLO a dependencies**: reliability decision sa neopiera iba o infrastructure health.
+- **Rollback a recovery sú nacvičené**: owner má overenú action path, nie iba teoretický dokument.
+- **Documentation sa mení s lifecycle-om**: source, runbook a ownership nedriftujú od runtime-u.
+- **Incident actions majú ownera a effectiveness review**: learning sa premieňa na system change.
+- **Platform boundaries sú explicitné**: service a platform incidents sa nepresúvajú náhodne medzi queues.
+- **Technical debt a risk sú v prioritách**: ownership má reálnu roadmap capacity.
+- **Bus factor je prijateľný**: critical operation alebo recovery nezávisí od jedného človeka.
 
-Ownership musí byť explicitný na rozhraniach.
+## 21. Anti-patterny
 
-Príklad:
+### Nie je to môj ticket
 
-| Oblasť | Platform tím | Aplikačný tím |
-|---|---|---|
-| Kubernetes cluster | vlastní | používa |
-| Base Helm chart | vlastní | konfiguruje |
-| Aplikačný image | poskytuje štandardy | vlastní |
-| Probes | poskytuje mechanizmus | definuje správanie |
-| SLO služby | konzultuje | vlastní |
-| Cluster incident | rieši | spolupracuje |
-| Aplikačný incident | podporuje | rieši |
+Človek rozpozná risk, ale problém nechá bez funkčného handoffu, pretože neleží v jeho implementation scope-e. Ownership nevyžaduje osobnú opravu, ale vyžaduje zachovanie contextu, nájdenie ownera a potvrdenie prevzatia.
 
-Takéto hranice znižujú presúvanie problémov a očakávaní.
+### Ownership bez authority
 
-## 12. Accountability bez blame
+Tím má on-call a SLO, ale nemôže meniť deployment, configuration ani priority. Nesie následky rozhodnutí, ktoré ovláda iná queue.
 
-Ownership zahŕňa accountability: rozhodnutia a opatrenia musia mať konkrétneho vlastníka.
+### Ownership bez capacity
 
-Blame culture však vedie k:
-
-- skrývaniu chýb,
-- pomalému eskalovaniu,
-- vyhýbaniu sa zmenám,
-- povrchnému root cause typu „human error“.
-
-Blameless prístup skúma, prečo systém umožnil chybe vzniknúť a rozšíriť sa. Zodpovednosť za nápravu zostáva zachovaná.
-
-## 13. Bus factor a kolektívny ownership
-
-Ownership nesmie znamenať závislosť od jedného „hrdinu“.
-
-Kolektívny ownership podporujú:
-
-- code review,
-- pairing,
-- rotácia on-call,
-- spoločné runbooky,
-- automatizácia,
-- pravidelné game days,
-- zdieľanie architektonických rozhodnutí.
-
-Cieľom je, aby tím vlastnil službu kolektívne a jednotlivci mali zastupiteľnosť.
-
-## 14. Anti-patterny
-
-### „Nie je to môj ticket“
-
-Človek identifikuje problém, ale ignoruje ho, pretože neleží v jeho formálnej úlohe. Ownership neznamená vyriešiť všetko osobne, ale zabezpečiť správne odovzdanie a uzavretie.
-
-### Ownership bez kapacity
-
-Tím dostane prevádzkovú zodpovednosť, ale roadmapa neobsahuje reliability, security ani technický dlh.
+Reliability, security a debt sa očakávajú popri plnej feature roadmap-e. Tím reaguje iba incidentne a improvement work sa nikdy nedokončí.
 
 ### Hero ownership
 
-Jeden expert zachraňuje každý incident. Systém sa neučí a bus factor zostáva kritický.
+Jeden expert vlastní všetky rozhodnutia a recovery. Krátkodobá rýchlosť vytvára bottleneck, burnout a critical bus factor.
 
 ### Neobmedzený scope
 
-Tím je deklarovaný ako vlastník všetkého od aplikácie po cloud organizáciu. Nejasný scope vedie k neefektívnosti.
+Tím je formálne zodpovedný za application, cloud organization, network, database aj vendor bez jasných interfaces. Accountability sa rozriedi a nikto nevie, čo je reálne očakávané.
 
 ### Platforma ako ticket queue
 
-Platform tím vykonáva manuálne úlohy za ostatných namiesto poskytovania self-service produktov.
+Platform team vykonáva každú deployment alebo access úlohu za product tímy. Shared capability sa nestala self-service produktom a platforma zostáva organization bottleneckom.
 
-## 15. Signály zdravého ownershipu
+### Owner iba v CMDB
 
-- služba má jasného vlastníka,
-- alert smeruje na tím schopný reagovať,
-- tím pozná svoje SLO a závislosti,
-- rollback je nacvičený,
-- dokumentácia je aktualizovaná spolu so zmenou,
-- incident opatrenia majú vlastníkov,
-- platformové hranice sú explicitné,
-- technický dlh je viditeľný v prioritách.
+Service catalog obsahuje email, ktorý nepozná službu, alebo tím po reorganizácii zanikol. Metadata bez pravidelného verification nepredstavujú funkčnú escalation path.
 
-## 16. Kontrolné otázky
+## 22. Troubleshooting ownership problemu
 
-1. Aký je rozdiel medzi ownershipom úlohy a ownershipom výsledku?
-2. Prečo zodpovednosť bez autonómie nefunguje?
-3. Ako platform engineering podporuje service ownership?
-4. Prečo hero culture oslabuje ownership tímu?
-5. Čo má obsahovať minimálna prevádzková dokumentácia služby?
-6. Ako sa ownership líši od blame?
+Pri opakovanom ping-pongu nezavádzaj automaticky ďalší RACI dokument. Najprv zmapuj outcome, decision, evidence a dependency interface, na ktorom sa problém opúšťa.
 
-## 17. Zhrnutie
+- **Incident sa presúva medzi tímami — nejasná failure classification alebo authority**: vytvor spoločný triage model, service catalog a explicitný lead owner.
+- **Alerts sa ignorujú — owner nemá action alebo signal nie je relevantný**: oprav routing, runbook, access a user-impact semantics.
+- **Documentation driftuje — lifecycle neobsahuje update gate alebo ownera**: prepoj docs s change review a pravidelným operational testom.
+- **Platform dostáva všetky tickety — self-service alebo boundary je slabá**: analyzuj najčastejšie requests a vytvor supported product interface.
+- **Tím nemá čas na reliability — incentives a roadmap odporujú ownershipu**: zviditeľni toil, incident cost a risk a zmeň capacity allocation.
 
-- Ownership sleduje výsledok počas celého životného cyklu.
-- Tím musí mať zodpovednosť, autonómiu aj guardrails.
-- Hranice medzi aplikačným a platformovým ownershipom musia byť explicitné.
-- Prevádzka, observability, dokumentácia a incident follow-up sú súčasťou produktu.
-- Zdravý ownership je kolektívny, nie závislý od jedného experta.
+## 23. Kontrolné otázky
+
+1. Aký je rozdiel medzi task ownershipom a outcome ownershipom?
+2. Ktoré prvky musí obsahovať funkčný ownership contract?
+3. Prečo responsibility bez authority vedie k nefunkčnému modelu?
+4. Ako sa odlišuje service ownership od implementation všetkých dependencies?
+5. Čo vlastní platform team a čo service team pri shared Kubernetes platforme?
+6. Aké capabilities potrebuje owner počas incidentu?
+7. Prečo documentation patrí do operational ownershipu?
+8. Ako collective ownership znižuje hero culture a bus factor?
+9. Prečo blameless analysis zachováva accountability?
+10. Ako owner riadi dependency, ktorú priamo neprevádzkuje?
+11. Aké behavior signals dokazujú zdravý ownership?
+12. Ako rozlíšiš ownership gap od nedostatku platform capability?
+
+## 24. Zhrnutie
+
+Ownership mindset viaže outcome na explicitný scope, decision rights, capabilities, evidence a escalation. Owner nesie lifecycle zodpovednosť, ale nemusí osobne implementovať každú underlying capability.
+
+Zdravý model kombinuje service a platform ownership, bounded autonomy, guardrails, collective knowledge a financovanú reliability kapacitu. Accountability sa používa na dokončenie remediation a overenie výsledku, nie na zakrytie systémovej príčiny blame-om.
+
+## Glossary impact
+
+Relevantné pojmy: ownership mindset, task ownership, outcome ownership, service ownership, platform ownership, ownership contract, decision right, bounded autonomy, guardrail, accountability, collective ownership, dependency ownership, bus factor a risk acceptance.
+
+## Primárne zdroje
+
+- [Team Topologies](https://teamtopologies.com/)
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
+- [Google SRE — Postmortem Culture](https://sre.google/sre-book/postmortem-culture/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
