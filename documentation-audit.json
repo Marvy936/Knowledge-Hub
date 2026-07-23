@@ -171,15 +171,15 @@
     {
       "path": "docs/00-foundations/ownership-mindset.md",
       "title": "Ownership Mindset",
-      "words": 953,
-      "headings": 23,
-      "sections": 23,
-      "findings": 51,
-      "critical": 23,
-      "high": 15,
-      "medium": 9,
-      "low": 4,
-      "score": 432,
+      "words": 2685,
+      "headings": 34,
+      "sections": 34,
+      "findings": 68,
+      "critical": 10,
+      "high": 10,
+      "medium": 17,
+      "low": 31,
+      "score": 301,
       "grade": "D"
     },
     {
@@ -9400,15 +9400,6 @@
       "path": "docs/00-foundations/ownership-mindset.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -9420,7 +9411,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -9436,10 +9427,10 @@
       "path": "docs/00-foundations/ownership-mindset.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
@@ -9452,71 +9443,17 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "3. Prečo ownership chýba",
-      "line": 35,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Definícia",
+      "line": 13,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "3. Prečo ownership chýba",
-      "line": 35,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "3. Prečo ownership chýba",
-      "line": 35,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `problémy sa presúvajú cez tickety,`, `root cause sa hľadá pomaly,`, `vznikajú nejasné hranice,`, `rozhodnutia ignorujú prevádzkové dôsledky,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "3. Prečo ownership chýba",
-      "line": 35,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "4. Mentálny model",
-      "line": 57,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "5. Čo tím vlastní",
-      "line": 75,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "5. Čo tím vlastní",
-      "line": 75,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zdrojový kód,`, `build a test proces,`, `deployment konfiguráciu,`, `runtime konfiguráciu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "5. Čo tím vlastní",
-      "line": 75,
+      "section": "3. Problém, ktorý ownership rieši",
+      "line": 34,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -9524,44 +9461,8 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "5. Čo tím vlastní",
-      "line": 75,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "6. Ownership a autonómia",
-      "line": 94,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "6. Ownership a autonómia",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nemá prístup k telemetry,`, `nemôže upraviť deployment,`, `všetky zmeny čakajú na externý tím,`, `nemá rozpočet ani kapacitu na reliability prácu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "6. Ownership a autonómia",
-      "line": 94,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "6. Ownership a autonómia",
-      "line": 94,
+      "section": "3. Problém, ktorý ownership rieši",
+      "line": 34,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -9569,98 +9470,35 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "6. Ownership a autonómia",
-      "line": 94,
+      "section": "3. Problém, ktorý ownership rieši",
+      "line": 34,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "3. Problém, ktorý ownership rieši",
+      "line": 34,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "3. Problém, ktorý ownership rieši",
+      "line": 34,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `reliability`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "7. Ownership a platforma",
-      "line": 108,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "7. Ownership a platforma",
-      "line": 108,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `štandardné pipeline,`, `deployment mechanizmy,`, `secrets management,`, `observability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "7. Ownership a platforma",
-      "line": 108,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "8. Ownership počas incidentu",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "8. Ownership počas incidentu",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozpoznať používateľský dopad,`, `nájsť relevantné dashboardy a logy,`, `vykonať alebo koordinovať mitigáciu,`, `komunikovať stav,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "8. Ownership počas incidentu",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "9. Dokumentácia ako súčasť ownershipu",
-      "line": 135,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "9. Dokumentácia ako súčasť ownershipu",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `účel služby,`, `architektúru a závislosti,`, `deployment postup,`, `rollback,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "9. Dokumentácia ako súčasť ownershipu",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "9. Dokumentácia ako súčasť ownershipu",
-      "line": 135,
+      "section": "4. Mentálny model uzavretého ownership loopu",
+      "line": 54,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -9668,44 +9506,8 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "9. Dokumentácia ako súčasť ownershipu",
-      "line": 135,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "12. Accountability bez blame",
-      "line": 191,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "12. Accountability bez blame",
-      "line": 191,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skrývaniu chýb,`, `pomalému eskalovaniu,`, `vyhýbaniu sa zmenám,`, `povrchnému root cause typu „human error“.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "12. Accountability bez blame",
-      "line": 191,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "13. Bus factor a kolektívny ownership",
-      "line": 204,
+      "section": "5. Ownership contract",
+      "line": 69,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
@@ -9713,17 +9515,8 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "13. Bus factor a kolektívny ownership",
-      "line": 204,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `code review,`, `pairing,`, `rotácia on-call,`, `spoločné runbooky,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "13. Bus factor a kolektívny ownership",
-      "line": 204,
+      "section": "5. Ownership contract",
+      "line": 69,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -9731,116 +9524,8 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "Ownership bez kapacity",
-      "line": 226,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "Platforma ako ticket queue",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "15. Signály zdravého ownershipu",
-      "line": 242,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "15. Signály zdravého ownershipu",
-      "line": 242,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "15. Signály zdravého ownershipu",
-      "line": 242,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "15. Signály zdravého ownershipu",
-      "line": 242,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `služba má jasného vlastníka,`, `alert smeruje na tím schopný reagovať,`, `tím pozná svoje SLO a závislosti,`, `rollback je nacvičený,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "15. Signály zdravého ownershipu",
-      "line": 242,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "15. Signály zdravého ownershipu",
-      "line": 242,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "17. Zhrnutie",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "17. Zhrnutie",
-      "line": 262,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "17. Zhrnutie",
-      "line": 262,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "17. Zhrnutie",
-      "line": 262,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "17. Zhrnutie",
-      "line": 262,
+      "section": "5. Ownership contract",
+      "line": 69,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -9848,8 +9533,476 @@
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",
-      "section": "17. Zhrnutie",
-      "line": 262,
+      "section": "5. Ownership contract",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "5. Ownership contract",
+      "line": 69,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "5. Ownership contract",
+      "line": 69,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `SLI`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "6. Service ownership",
+      "line": 81,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "6. Service ownership",
+      "line": 81,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "6. Service ownership",
+      "line": 81,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "6. Service ownership",
+      "line": 81,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "7. Responsibility nie je implementation monopoly",
+      "line": 96,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "7. Responsibility nie je implementation monopoly",
+      "line": 96,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "7. Responsibility nie je implementation monopoly",
+      "line": 96,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "7. Responsibility nie je implementation monopoly",
+      "line": 96,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "8. Authority a autonomy",
+      "line": 107,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "8. Authority a autonomy",
+      "line": 107,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "8. Authority a autonomy",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "8. Authority a autonomy",
+      "line": 107,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "10. Platform ownership",
+      "line": 125,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "10. Platform ownership",
+      "line": 125,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`, `identity`, `scope`, `enforcement`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "11. Explicitné responsibility boundaries",
+      "line": 140,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "12. Ownership počas incidentu",
+      "line": 154,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "12. Ownership počas incidentu",
+      "line": 154,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "12. Ownership počas incidentu",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "12. Ownership počas incidentu",
+      "line": 154,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "13. Documentation ownership",
+      "line": 167,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "13. Documentation ownership",
+      "line": 167,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "13. Documentation ownership",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "13. Documentation ownership",
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "13. Documentation ownership",
+      "line": 167,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "13. Documentation ownership",
+      "line": 167,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `RPO`, `RTO`, `reliability`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "14. Collective ownership",
+      "line": 182,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "14. Collective ownership",
+      "line": 182,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "14. Collective ownership",
+      "line": 182,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "14. Collective ownership",
+      "line": 182,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "15. Accountability bez blame",
+      "line": 195,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "16. Ownership a risk acceptance",
+      "line": 203,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "17. Dependency ownership",
+      "line": 209,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "17. Dependency ownership",
+      "line": 209,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "17. Dependency ownership",
+      "line": 209,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "17. Dependency ownership",
+      "line": 209,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "17. Dependency ownership",
+      "line": 209,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "19. End-to-end príklad Kubernetes služby",
+      "line": 226,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "20. Ownership health signals",
+      "line": 242,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "22. Troubleshooting ownership problemu",
+      "line": 285,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "22. Troubleshooting ownership problemu",
+      "line": 285,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "22. Troubleshooting ownership problemu",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "22. Troubleshooting ownership problemu",
+      "line": 285,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "22. Troubleshooting ownership problemu",
+      "line": 285,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/ownership-mindset.md",
+      "section": "24. Zhrnutie",
+      "line": 310,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

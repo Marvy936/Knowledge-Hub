@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10418**
-- Total words: **427,846**
-- Findings: **23391** (critical 8435, high 9537, medium 3085, low 2334)
+- Audited conceptual sections: **10429**
+- Total words: **429,578**
+- Findings: **23408** (critical 8422, high 9532, medium 3093, low 2361)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -225,7 +225,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | D | 435 | 21 | 21 | 6 | 1 | 1085 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
-| D | 432 | 23 | 15 | 9 | 4 | 953 | `docs/00-foundations/ownership-mindset.md` |
 | D | 432 | 17 | 27 | 4 | 2 | 1563 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 417 | 21 | 18 | 6 | 2 | 1394 | `docs/01-linux-and-systems/cgroups.md` |
@@ -256,6 +255,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 305 | 9 | 23 | 4 | 1 | 1062 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 304 | 12 | 17 | 6 | 4 | 1070 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 302 | 13 | 14 | 7 | 7 | 1331 | `docs/01-linux-and-systems/namespaces.md` |
+| D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 278 | 12 | 14 | 5 | 3 | 904 | `docs/03-git-and-automation/git-object-model.md` |
@@ -721,43 +721,25 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/ownership-mindset.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps, Systems Thinking`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 35, `bare-bullet-items` — **3. Prečo ownership chýba**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `problémy sa presúvajú cez tickety,`, `root cause sa hľadá pomaly,`, `vznikajú nejasné hranice,`, `rozhodnutia ignorujú prevádzkové dôsledky,`.
-- **CRITICAL** line 35, `outline-instead-of-explanation` — **3. Prečo ownership chýba**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 75, `bare-bullet-items` — **5. Čo tím vlastní**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zdrojový kód,`, `build a test proces,`, `deployment konfiguráciu,`, `runtime konfiguráciu,`.
-- **CRITICAL** line 75, `outline-instead-of-explanation` — **5. Čo tím vlastní**: 12 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 94, `bare-bullet-items` — **6. Ownership a autonómia**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nemá prístup k telemetry,`, `nemôže upraviť deployment,`, `všetky zmeny čakajú na externý tím,`, `nemá rozpočet ani kapacitu na reliability prácu,`.
-- **CRITICAL** line 94, `outline-instead-of-explanation` — **6. Ownership a autonómia**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 108, `bare-bullet-items` — **7. Ownership a platforma**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `štandardné pipeline,`, `deployment mechanizmy,`, `secrets management,`, `observability,`.
-- **CRITICAL** line 108, `outline-instead-of-explanation` — **7. Ownership a platforma**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 122, `bare-bullet-items` — **8. Ownership počas incidentu**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozpoznať používateľský dopad,`, `nájsť relevantné dashboardy a logy,`, `vykonať alebo koordinovať mitigáciu,`, `komunikovať stav,`.
-- **CRITICAL** line 122, `outline-instead-of-explanation` — **8. Ownership počas incidentu**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 135, `bare-bullet-items` — **9. Dokumentácia ako súčasť ownershipu**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `účel služby,`, `architektúru a závislosti,`, `deployment postup,`, `rollback,`.
-- **CRITICAL** line 135, `outline-instead-of-explanation` — **9. Dokumentácia ako súčasť ownershipu**: 9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 191, `bare-bullet-items` — **12. Accountability bez blame**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skrývaniu chýb,`, `pomalému eskalovaniu,`, `vyhýbaniu sa zmenám,`, `povrchnému root cause typu „human error“.`.
-- **CRITICAL** line 191, `outline-instead-of-explanation` — **12. Accountability bez blame**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 204, `bare-bullet-items` — **13. Bus factor a kolektívny ownership**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `code review,`, `pairing,`, `rotácia on-call,`, `spoločné runbooky,`.
-- **CRITICAL** line 204, `outline-instead-of-explanation` — **13. Bus factor a kolektívny ownership**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 242, `bare-bullet-items` — **15. Signály zdravého ownershipu**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `služba má jasného vlastníka,`, `alert smeruje na tím schopný reagovať,`, `tím pozná svoje SLO a závislosti,`, `rollback je nacvičený,`.
-- **CRITICAL** line 242, `no-prose-concept` — **15. Signály zdravého ownershipu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 242, `outline-instead-of-explanation` — **15. Signály zdravého ownershipu**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 262, `outline-instead-of-explanation` — **17. Zhrnutie**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 69, `outline-instead-of-explanation` — **5. Ownership contract**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 81, `outline-instead-of-explanation` — **6. Service ownership**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 107, `outline-instead-of-explanation` — **8. Authority a autonomy**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 167, `outline-instead-of-explanation` — **13. Documentation ownership**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 182, `outline-instead-of-explanation` — **14. Collective ownership**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 209, `outline-instead-of-explanation` — **17. Dependency ownership**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 242, `outline-instead-of-explanation` — **20. Ownership health signals**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 285, `outline-instead-of-explanation` — **22. Troubleshooting ownership problemu**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 35, `single-sentence-concept` — **3. Prečo ownership chýba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 57, `single-sentence-concept` — **4. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 226, `single-sentence-concept` — **Ownership bez kapacity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 238, `single-sentence-concept` — **Platforma ako ticket queue**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 242, `list-first-introduction` — **15. Signály zdravého ownershipu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 262, `list-first-introduction` — **17. Zhrnutie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 262, `single-sentence-concept` — **17. Zhrnutie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 35, `thin-concept-section` — **3. Prečo ownership chýba**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 122, `thin-concept-section` — **8. Ownership počas incidentu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 135, `thin-concept-section` — **9. Dokumentácia ako súčasť ownershipu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 204, `thin-concept-section` — **13. Bus factor a kolektívny ownership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 242, `thin-concept-section` — **15. Signály zdravého ownershipu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 262, `thin-concept-section` — **17. Zhrnutie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 125, `list-heavy-section` — **10. Platform ownership**: 6 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 154, `list-heavy-section` — **12. Ownership počas incidentu**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 242, `single-sentence-concept` — **20. Ownership health signals**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 69, `thin-concept-section` — **5. Ownership contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 125, `term-before-explanation` — **10. Platform ownership**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`, `identity`, `scope`, `enforcement`
+- **HIGH** line 167, `term-before-explanation` — **13. Documentation ownership**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `RPO`, `RTO`, `reliability`, `scope`
+- **HIGH** line 182, `thin-concept-section` — **14. Collective ownership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 242, `thin-concept-section` — **20. Ownership health signals**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 285, `thin-concept-section` — **22. Troubleshooting ownership problemu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/sdlc.md`
 
@@ -19022,19 +19004,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4246 | 0 | 0 | 4246 |
-| `bare-bullet-items` | 3878 | 352 | 0 | 0 | 4230 |
-| `outline-instead-of-explanation` | 3739 | 0 | 0 | 0 | 3739 |
-| `thin-concept-section` | 0 | 3427 | 0 | 0 | 3427 |
-| `term-before-explanation` | 0 | 336 | 2210 | 0 | 2546 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1134 | 1134 |
-| `list-first-introduction` | 0 | 972 | 0 | 0 | 972 |
-| `short-concept-section` | 0 | 0 | 875 | 0 | 875 |
-| `example-not-explicit` | 0 | 0 | 0 | 855 | 855 |
+| `single-sentence-concept` | 0 | 4242 | 0 | 0 | 4242 |
+| `bare-bullet-items` | 3869 | 352 | 0 | 0 | 4221 |
+| `outline-instead-of-explanation` | 3737 | 0 | 0 | 0 | 3737 |
+| `thin-concept-section` | 0 | 3424 | 0 | 0 | 3424 |
+| `term-before-explanation` | 0 | 338 | 2214 | 0 | 2552 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1139 | 1139 |
+| `list-first-introduction` | 0 | 970 | 0 | 0 | 970 |
+| `short-concept-section` | 0 | 0 | 879 | 0 | 879 |
+| `example-not-explicit` | 0 | 0 | 0 | 867 | 867 |
 | `empty-section` | 518 | 0 | 0 | 0 | 518 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 345 | 345 |
-| `no-prose-concept` | 300 | 0 | 0 | 0 | 300 |
-| `list-heavy-section` | 0 | 204 | 0 | 0 | 204 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 355 | 355 |
+| `no-prose-concept` | 298 | 0 | 0 | 0 | 298 |
+| `list-heavy-section` | 0 | 206 | 0 | 0 | 206 |
 
 ## Required remediation pattern
 
