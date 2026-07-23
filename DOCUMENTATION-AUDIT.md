@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10433**
-- Total words: **431,473**
-- Findings: **23417** (critical 8410, high 9511, medium 3105, low 2391)
+- Audited conceptual sections: **10447**
+- Total words: **434,224**
+- Findings: **23436** (critical 8401, high 9497, medium 3111, low 2427)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -195,7 +195,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 563 | 22 | 33 | 10 | 4 | 1128 | `docs/02-networking-and-web/dhcp.md` |
 | D | 553 | 26 | 24 | 13 | 6 | 1175 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 551 | 18 | 37 | 10 | 4 | 1166 | `docs/09-kubernetes/deployment.md` |
-| D | 550 | 24 | 29 | 7 | 6 | 1072 | `docs/00-foundations/automation-mindset.md` |
 | D | 546 | 21 | 35 | 5 | 2 | 1011 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | D | 544 | 31 | 15 | 13 | 5 | 1262 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | D | 534 | 27 | 23 | 9 | 1 | 852 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
@@ -232,6 +231,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 402 | 17 | 22 | 6 | 3 | 953 | `docs/00-foundations/value-stream-mapping.md` |
+| D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
 | D | 392 | 20 | 15 | 9 | 2 | 1159 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 391 | 13 | 26 | 7 | 5 | 1210 | `docs/02-networking-and-web/dns.md` |
 | D | 388 | 12 | 30 | 3 | 0 | 1027 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
@@ -287,58 +287,35 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/automation-mindset.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Continuous Improvement, Ownership Mindset`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém manuálnych procesov**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomalší,`, `variabilný,`, `ťažšie auditovateľný,`, `závislý od individuálnej pamäte,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém manuálnych procesov**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 60, `bare-bullet-items` — **4. Čo je vhodné automatizovať**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vykonáva sa často,`, `má stabilné pravidlá,`, `je náchylný na ľudskú chybu,`, `spotrebúva významný čas,`.
-- **CRITICAL** line 60, `outline-instead-of-explanation` — **4. Čo je vhodné automatizovať**: 16 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 84, `bare-bullet-items` — **5. Čo nemusí byť vhodné automatizovať**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úloha je jednorazová,`, `pravidlá sa často menia,`, `rozhodnutie vyžaduje vysoký kontext,`, `cena implementácie a údržby prevyšuje úsporu,`.
-- **CRITICAL** line 84, `outline-instead-of-explanation` — **5. Čo nemusí byť vhodné automatizovať**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 115, `empty-section` — **7. Úrovne automatizácie**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 139, `empty-section` — **8. Declarative a imperative automatizácia**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 176, `bare-bullet-items` — **10. Error handling**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neplatné vstupy,`, `timeout,`, `čiastočný úspech,`, `retry,`.
-- **CRITICAL** line 176, `outline-instead-of-explanation` — **10. Error handling**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 192, `bare-bullet-items` — **11. Retry a bezpečnosť opakovania**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátkodobá nedostupnosť API,`, `rate limit s backoff,`, `transient network error.`, `neplatná konfigurácia,`.
-- **CRITICAL** line 192, `outline-instead-of-explanation` — **11. Retry a bezpečnosť opakovania**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **12. Guardrails**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input validation,`, `dry-run alebo plan,`, `approval pre vysokorizikové operácie,`, `least privilege,`.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **12. Guardrails**: 10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 242, `bare-bullet-items` — **14. Observability automatizácie**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačný run ID,`, `štruktúrované logy,`, `status jednotlivých krokov,`, `trvanie,`.
-- **CRITICAL** line 242, `outline-instead-of-explanation` — **14. Observability automatizácie**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 257, `empty-section` — **15. Praktický príklad: provisioning prostredia**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 267, `empty-section` — **Automatizácia**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 285, `bare-bullet-items` — **16. Build vs. buy vs. platform**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúcu schopnosť nástroja,`, `cloud managed service,`, `open-source riešenie,`, `interný shared component,`.
-- **CRITICAL** line 285, `outline-instead-of-explanation` — **16. Build vs. buy vs. platform**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 332, `outline-instead-of-explanation` — **19. Zhrnutie**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 35, `outline-instead-of-explanation` — **3. Riziká manuálnej práce**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 63, `outline-instead-of-explanation` — **5. Kedy je úloha dobrý kandidát**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 76, `outline-instead-of-explanation` — **6. Typické automation domains**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 202, `outline-instead-of-explanation` — **14. Partial failure**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 214, `outline-instead-of-explanation` — **15. Error classification**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 225, `outline-instead-of-explanation` — **16. Retry contract**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 252, `outline-instead-of-explanation` — **19. Guardrails**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 285, `outline-instead-of-explanation` — **22. Observability automation**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 298, `outline-instead-of-explanation` — **23. Security automation**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 319, `outline-instead-of-explanation` — **25. Concurrency a locking**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 336, `outline-instead-of-explanation` — **27. Ownership a support**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 368, `outline-instead-of-explanation` — **29. Build, buy alebo platform decision**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 424, `outline-instead-of-explanation` — **33. Troubleshooting automation systému**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Problém manuálnych procesov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 60, `single-sentence-concept` — **4. Čo je vhodné automatizovať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 84, `single-sentence-concept` — **5. Čo nemusí byť vhodné automatizovať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 121, `single-sentence-concept` — **Skript**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 125, `single-sentence-concept` — **Pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 129, `single-sentence-concept` — **Reusable component**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 141, `single-sentence-concept` — **Imperative**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 176, `single-sentence-concept` — **10. Error handling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 242, `single-sentence-concept` — **14. Observability automatizácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 263, `single-sentence-concept` — **Prvý krok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 299, `single-sentence-concept` — **Automatizácia zlého procesu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 303, `single-sentence-concept` — **Skript bez vlastníka**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 307, `single-sentence-concept` — **Premature abstraction**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 311, `single-sentence-concept` — **Hidden manual step**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 315, `single-sentence-concept` — **Automation sprawl**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 319, `single-sentence-concept` — **Success without verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 332, `bare-bullet-items` — **19. Zhrnutie**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Automatizovať treba stabilnú, opakovanú a hodnotnú prácu.`, `Najprv sa proces chápe a štandardizuje, potom automatizuje.`, `Nie každá automatizácia má byť univerzálna platforma.`.
-- **HIGH** line 332, `list-first-introduction` — **19. Zhrnutie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 332, `single-sentence-concept` — **19. Zhrnutie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. Problém manuálnych procesov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 60, `thin-concept-section` — **4. Čo je vhodné automatizovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 84, `thin-concept-section` — **5. Čo nemusí byť vhodné automatizovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **10. Error handling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 211, `thin-concept-section` — **12. Guardrails**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 242, `thin-concept-section` — **14. Observability automatizácie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 285, `thin-concept-section` — **16. Build vs. buy vs. platform**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 332, `thin-concept-section` — **19. Zhrnutie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 35, `single-sentence-concept` — **3. Riziká manuálnej práce**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 76, `single-sentence-concept` — **6. Typické automation domains**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 89, `list-heavy-section` — **7. Kedy automatizácia nemusí byť vhodná**: 6 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 35, `thin-concept-section` — **3. Riziká manuálnej práce**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 63, `thin-concept-section` — **5. Kedy je úloha dobrý kandidát**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 76, `thin-concept-section` — **6. Typické automation domains**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 214, `thin-concept-section` — **15. Error classification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 252, `term-before-explanation` — **19. Guardrails**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`, `identity`, `Policy`
+- **HIGH** line 252, `thin-concept-section` — **19. Guardrails**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 285, `thin-concept-section` — **22. Observability automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 298, `thin-concept-section` — **23. Security automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 319, `thin-concept-section` — **25. Concurrency a locking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 336, `thin-concept-section` — **27. Ownership a support**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 424, `thin-concept-section` — **33. Troubleshooting automation systému**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/calms.md`
 
@@ -18971,19 +18948,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4228 | 0 | 0 | 4228 |
-| `bare-bullet-items` | 3861 | 350 | 0 | 0 | 4211 |
-| `outline-instead-of-explanation` | 3738 | 0 | 0 | 0 | 3738 |
-| `thin-concept-section` | 0 | 3419 | 0 | 0 | 3419 |
-| `term-before-explanation` | 0 | 342 | 2218 | 0 | 2560 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1143 | 1143 |
-| `list-first-introduction` | 0 | 965 | 0 | 0 | 965 |
-| `short-concept-section` | 0 | 0 | 887 | 0 | 887 |
-| `example-not-explicit` | 0 | 0 | 0 | 885 | 885 |
-| `empty-section` | 515 | 0 | 0 | 0 | 515 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 363 | 363 |
-| `no-prose-concept` | 296 | 0 | 0 | 0 | 296 |
-| `list-heavy-section` | 0 | 207 | 0 | 0 | 207 |
+| `single-sentence-concept` | 0 | 4213 | 0 | 0 | 4213 |
+| `bare-bullet-items` | 3853 | 349 | 0 | 0 | 4202 |
+| `outline-instead-of-explanation` | 3742 | 0 | 0 | 0 | 3742 |
+| `thin-concept-section` | 0 | 3420 | 0 | 0 | 3420 |
+| `term-before-explanation` | 0 | 343 | 2220 | 0 | 2563 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1150 | 1150 |
+| `list-first-introduction` | 0 | 964 | 0 | 0 | 964 |
+| `example-not-explicit` | 0 | 0 | 0 | 904 | 904 |
+| `short-concept-section` | 0 | 0 | 891 | 0 | 891 |
+| `empty-section` | 511 | 0 | 0 | 0 | 511 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 373 | 373 |
+| `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
+| `list-heavy-section` | 0 | 208 | 0 | 0 | 208 |
 
 ## Required remediation pattern
 
