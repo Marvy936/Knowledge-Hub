@@ -55,6 +55,19 @@ The CIA chapter already contains connected prose, control trade-offs, lifecycle 
 
 The section index and all remaining articles must still be checked for local regressions, terminology introduced before explanation, broken cross-links and consistency with the rewritten foundation articles. Completion of the section-level rewrite does not mean the full 257-article corpus audit is complete.
 
+## Observability manual audit
+
+### Manually reviewed and accepted
+
+- `monitoring-vs-observability.md`
+- `cardinality.md`
+
+`monitoring-vs-observability.md` already explains the telemetry pipeline, signal roles, correlation, context propagation, white-box and black-box perspectives and the distinction between known and unknown questions. `cardinality.md` explains combinatorial growth, bounded and unbounded dimensions, series and stream churn, backend-specific costs, budgets and remediation. Neither article is merely a heading-and-list outline.
+
+### Remaining Observability review
+
+The remaining fourteen authoritative articles still require manual classification. A high heuristic score should trigger review, not an automatic rewrite; long chapters with explicit mechanisms may legitimately contain many lists.
+
 ## Review classifications
 
 - **Rewrite required** — outline-like structure, unexplained terminology or missing mechanism/failure model across a substantial part of the article.
@@ -72,9 +85,12 @@ runs-on: [self-hosted, Linux, X64]
 
 It synchronizes glossary and navigation and invokes `scripts/audit_learning_depth.py --all-docs`. The generated report must remain advisory until manual review confirms the findings. An empty or failed generated report must not be interpreted as a clean corpus.
 
+The audit script itself always builds a Markdown summary, file grades and critical/high review queue. If the committed report is empty, the problem is in workflow execution or file lifecycle rather than in the report formatter.
+
 ## Next audit block
 
-1. Verify all Security and Identity files against the rewritten terminology and navigation.
-2. Review the highest-risk older chapters identified by the audit heuristic.
-3. Prefer full rewrites only when fragmentation is systemic; use targeted expansion when the chapter already has a valid teaching model.
-4. Record every manually reviewed article here so corpus coverage remains explicit.
+1. Complete manual classification of the Observability section.
+2. Verify all Security and Identity files against the rewritten terminology and navigation.
+3. Review the highest-risk older chapters identified by the audit heuristic.
+4. Prefer full rewrites only when fragmentation is systemic; use targeted expansion when the chapter already has a valid teaching model.
+5. Record every manually reviewed article here so corpus coverage remains explicit.
