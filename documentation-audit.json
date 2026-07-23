@@ -2873,16 +2873,16 @@
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
       "title": "High availability a disaster recovery",
-      "words": 3053,
+      "words": 3363,
       "headings": 46,
       "sections": 46,
-      "findings": 34,
-      "critical": 2,
-      "high": 1,
+      "findings": 30,
+      "critical": 0,
+      "high": 0,
       "medium": 3,
-      "low": 28,
-      "score": 80,
-      "grade": "D"
+      "low": 27,
+      "score": 47,
+      "grade": "C"
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
@@ -157873,36 +157873,9 @@
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
       "section": "11. Backup contract",
       "line": 88,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 61 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "11. Backup contract",
-      "line": 88,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative data a scope;`, `cadence, retention a recovery points;`, `encryption a key recovery;`, `off-account alebo off-environment copy;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "11. Backup contract",
-      "line": 88,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "11. Backup contract",
-      "line": 88,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
@@ -158046,7 +158019,7 @@
       "line": 223,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `scope`",
       "score": 4
     },
     {
@@ -158066,15 +158039,6 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "33. Troubleshooting recovery",
-      "line": 265,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",

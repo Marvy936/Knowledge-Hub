@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **257**
 - Audited conceptual sections: **10435**
-- Total words: **411,462**
-- Findings: **23553** (critical 8634, high 9742, medium 3054, low 2123)
-- File grades: A 0, B 0, C 3, D 254
+- Total words: **411,772**
+- Findings: **23549** (critical 8632, high 9741, medium 3054, low 2122)
+- File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
 
@@ -276,8 +276,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 125 | 2 | 9 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
-| D | 80 | 2 | 1 | 3 | 28 | 3053 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
+| C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | C | 36 | 0 | 0 | 2 | 23 | 3841 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 
@@ -14893,12 +14893,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 562, `term-before-explanation` — **29. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `ASG`, `TLS`, `WAF`, `DNS`, `ALB`, `SG`, `NLB`
 - **HIGH** line 562, `thin-concept-section` — **29. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/11-cloud-and-aws/high-availability-disaster-recovery.md`
-
-- **CRITICAL** line 88, `bare-bullet-items` — **11. Backup contract**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative data a scope;`, `cadence, retention a recovery points;`, `encryption a key recovery;`, `off-account alebo off-environment copy;`.
-- **CRITICAL** line 265, `outline-instead-of-explanation` — **33. Troubleshooting recovery**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **HIGH** line 88, `list-heavy-section` — **11. Backup contract**: 8 odrážok a iba 61 slov súvislého vysvetlenia.
-
 ### `docs/11-cloud-and-aws/iaas-paas-saas.md`
 
 - **CRITICAL** line 5, `bare-bullet-items` — **1. Celý service stack**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto provisionuje,`, `kto patchuje,`, `kto škáluje,`, `kto zálohuje,`.
@@ -19430,8 +19424,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | `single-sentence-concept` | 0 | 4361 | 0 | 0 | 4361 |
-| `bare-bullet-items` | 3969 | 363 | 0 | 0 | 4332 |
-| `outline-instead-of-explanation` | 3790 | 0 | 0 | 0 | 3790 |
+| `bare-bullet-items` | 3968 | 363 | 0 | 0 | 4331 |
+| `outline-instead-of-explanation` | 3789 | 0 | 0 | 0 | 3789 |
 | `thin-concept-section` | 0 | 3486 | 0 | 0 | 3486 |
 | `term-before-explanation` | 0 | 332 | 2185 | 0 | 2517 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1080 | 1080 |
@@ -19440,8 +19434,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `example-not-explicit` | 0 | 0 | 0 | 744 | 744 |
 | `empty-section` | 555 | 0 | 0 | 0 | 555 |
 | `no-prose-concept` | 320 | 0 | 0 | 0 | 320 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 299 | 299 |
-| `list-heavy-section` | 0 | 198 | 0 | 0 | 198 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 298 | 298 |
+| `list-heavy-section` | 0 | 197 | 0 | 0 | 197 |
 
 ## Required remediation pattern
 
