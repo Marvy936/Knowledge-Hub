@@ -89,18 +89,18 @@ Replication poskytuje nízke RPO a rýchlejší failover, ale môže okamžite p
 
 Backup je dôveryhodný iba vtedy, keď je jasné, čo obsahuje, kto ho môže zmazať, ako sa šifruje a ako sa obnovuje. Zelený status backup jobu znamená, že workflow dokončil zápis, nie že aplikácia bola úspešne obnovená do konzistentného stavu.
 
-Backup contract má definovať:
+Backup contract musí vysvetliť každý prvok recovery capability:
 
-- authoritative data a scope;
-- cadence, retention a recovery points;
-- encryption a key recovery;
-- off-account alebo off-environment copy;
-- immutability a deletion protection;
-- integrity checks;
-- catalog a ownership;
-- restore procedure a pravidelné testovanie.
+- **Authoritative data a scope** — určujú, ktoré databázy, objecty, queues, configuration a metadata sú potrebné na obnovenie business služby a ktoré kópie sú iba odvodené alebo znovu vytvoriteľné.
+- **Cadence, retention a recovery points** — definujú, ako často vzniká nový point, ako dlho sa uchováva a či dostupná história pokrýva ransomware, delayed detection aj právne povinnosti.
+- **Encryption a key recovery** — zabezpečujú confidentiality backupu a zároveň nezávislú schopnosť dešifrovať ho pri strate primárneho accountu, Regionu alebo KMS access pathu.
+- **Off-account alebo off-environment copy** — oddeľuje recovery data od production administratorov a automatizácie, aby jedna credential alebo policy chyba nemohla zničiť obe vrstvy.
+- **Immutability a deletion protection** — bránia okamžitému odstráneniu alebo prepísaniu recovery pointov počas compromise, pričom musia mať zdokumentovaný break-glass a retention lifecycle.
+- **Integrity checks** — overujú, že uložené bytes, manifesty a databázové logy nie sú poškodené, ale samy ešte nepreukazujú application consistency.
+- **Catalog a ownership** — umožňujú zistiť, ktoré recovery points existujú, komu patria, aký majú retention a kto zodpovedá za ich testovanie a výnimky.
+- **Restore procedure a pravidelné testovanie** — dokazujú, že data možno v požadovanom čase dešifrovať, načítať, aplikovať v správnom poradí a validovať cez reálny business transaction.
 
-Backup uložený v rovnakom account-e a spravovaný rovnakou kompromitovanou admin identity môže byť zmazaný spolu s production dátami.
+Backup uložený v rovnakom account-e a spravovaný rovnakou kompromitovanou admin identity môže byť zmazaný spolu s production dátami. Recovery design preto posudzuje nielen počet kópií, ale aj nezávislosť identity, policy, key a failure domainu.
 
 ## 12. Application-consistent recovery
 
@@ -224,11 +224,11 @@ Praktická validácia kontroluje identity, DNS, TLS, network, application health
 
 DR testovanie má postupovať od diskusie po technický failover. Každá úroveň overuje inú časť capability a nemala by sa zamieňať s plným production dôkazom.
 
-- **Tabletop** overuje role, rozhodnutia, communication a medzery v runbooku.
-- **Component restore** overuje konkrétny backup, database alebo secret.
-- **Isolated recovery** obnoví celý workload bez production trafficu.
-- **Partial failover** presunie obmedzený service, tenant alebo read traffic.
-- **Full failover exercise** overí reálny production cutover a business outcome.
+- **Tabletop — overenie rozhodovania a koordinácie**: tím prejde disaster scenár, authority, communication a runbook bez technického failoveru, čím odhalí nejasné role a chýbajúce rozhodovacie pravidlá.
+- **Component restore — overenie konkrétneho recovery mechanizmu**: obnoví sa database, object store, secret alebo configuration a meria sa decryption, integrity, čas a použiteľnosť výsledku.
+- **Isolated recovery — overenie kompletného dependency chainu bez production trafficu**: celý workload sa vytvorí v oddelenom account-e alebo Regione a prejde application aj business validation.
+- **Partial failover — overenie routing a state transition pre obmedzený scope**: vybraný service, tenant, read traffic alebo shard sa presunie tak, aby sa otestoval cutover s kontrolovaným blast radiusom.
+- **Full failover exercise — overenie reálnej production capability**: production traffic a write ownership prejdú do recovery prostredia, pričom sa meria user outcome, RTA, RPA a schopnosť bezpečne vykonať failback.
 
 Každý test musí merať RTA a RPA a zaznamenať manuálne kroky, chyby a dependency gaps. Úspech scriptu bez business validácie nie je úspešný DR test.
 
@@ -277,13 +277,13 @@ detection
 → traffic cutover
 ```
 
-Typické scenáre:
+Typické scenáre prepájajú symptóm s konkrétnou recovery vrstvou:
 
-- **Recovery environment beží, ale application nefunguje** — over secrets, DNS, KMS, certificates, registry, network a external allowlists.
-- **Obnovené dáta sú príliš staré** — over posledný úspešný recovery point, replication lag a backup completeness.
-- **DNS failover nepokrýva všetkých clients** — over TTL, resolver cache, hard-coded endpoints a client retry behavior.
-- **Failback vytvára konflikty** — zastav dual writes, urč authoritative state a synchronizačný smer pred cutover-om.
-- **RTO je prekročené** — zmeraj každú fázu a odstráň najdlhší manuálny alebo technický bottleneck.
+- **Recovery environment beží, ale application nefunguje** — over secrets, DNS, KMS, certificates, registry, network a external allowlists, pretože running compute nepreukazuje dostupnosť dependency chainu.
+- **Obnovené dáta sú príliš staré** — over posledný úspešný recovery point, replication lag a backup completeness, aby si zistil, či zlyhal data-protection contract alebo výber pointu.
+- **DNS failover nepokrýva všetkých clients** — over TTL, resolver cache, hard-coded endpoints a client retry behavior, pretože časť klientov môže stále používať primárnu lokalitu.
+- **Failback vytvára konflikty** — zastav dual writes, urč authoritative state a synchronizačný smer pred cutover-om, aby sa rozdielne history nezlúčili nekontrolovane.
+- **RTO je prekročené** — zmeraj každú fázu a odstráň najdlhší manuálny alebo technický bottleneck namiesto všeobecného zrýchľovania restore skriptu.
 
 ## 34. Anti-patterny
 
@@ -309,14 +309,14 @@ Dočasný recovery Region sa môže stať dlhodobým neplánovaným production p
 
 ## 35. Kontrolné otázky
 
-1. Aký je rozdiel medzi high availability a disaster recovery?
-2. Prečo dostupný process nemusí znamenať dostupnú business službu?
-3. Čo všetko sa musí započítať do RTO?
-4. Prečo backup cadence sama nepreukazuje RPO?
-5. Ako sa líšia RTA/RPA od RTO/RPO?
-6. Prečo replication nenahrádza backup?
-7. Aké trade-offy majú backup/restore, pilot light, warm standby a active-active?
-8. Kedy môže automatický failover vytvoriť split brain?
+1. Aký je rozdiel medzi HA a DR a aký failure scope rieši každé z nich?
+2. Prečo process health nie je dostatočná definícia availability?
+3. Ako BIA ovplyvňuje voľbu RTO, RPO a recovery stratégie?
+4. Prečo backup cadence sama osebe nepreukazuje RPO?
+5. Aký je rozdiel medzi RTO/RPO a RTA/RPA?
+6. Ako sa líšia backup, replication a kompletný DR capability?
+7. Kedy je pilot light vhodnejší než warm standby?
+8. Prečo active-active nezaručuje ochranu pred logical corruption?
 9. Čo znamená authoritative state a ako sa vynúti?
 10. Prečo je failback samostatná operácia?
 11. Ako account a KMS isolation ovplyvňujú security recovery?
