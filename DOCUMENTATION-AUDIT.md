@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10451**
-- Total words: **405,958**
-- Findings: **17438** (critical 4503, high 5314, medium 5568, low 2053)
+- Audited conceptual sections: **10447**
+- Total words: **407,869**
+- Findings: **17389** (critical 4478, high 5294, medium 5546, low 2071)
 - File grades: A 0, B 0, C 2, D 255
 
 ## Interpretation
@@ -78,7 +78,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 599 | 27 | 24 | 25 | 2 | 1778 | `docs/09-kubernetes/api-object-model.md` |
 | D | 595 | 23 | 25 | 29 | 14 | 1773 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | D | 593 | 22 | 27 | 32 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
-| D | 590 | 25 | 25 | 27 | 3 | 1314 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 | D | 587 | 27 | 24 | 21 | 4 | 1624 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | D | 579 | 21 | 27 | 32 | 2 | 1252 | `docs/13-security-and-identity/least-privilege.md` |
 | D | 569 | 25 | 23 | 25 | 3 | 1344 | `docs/06-gitlab/security-scanning.md` |
@@ -277,6 +276,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 130 | 2 | 12 | 3 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 127 | 4 | 9 | 2 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 104 | 1 | 6 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
+| D | 85 | 0 | 5 | 5 | 21 | 3225 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 | D | 76 | 1 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | C | 65 | 1 | 3 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | C | 58 | 0 | 2 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
@@ -8933,59 +8933,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 - **HIGH** line 698, `thin-concept-section` — **37. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 763, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md`
-
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Scalability**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 26, `outline-instead-of-explanation` — **2. Vertical scaling**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 53, `outline-instead-of-explanation` — **3. Horizontal scaling**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 79, `outline-instead-of-explanation` — **5. Elasticity**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 96, `empty-section` — **6. Reactive a predictive scaling**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 98, `outline-instead-of-explanation` — **Reactive**: 5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 118, `outline-instead-of-explanation` — **7. Scale-out signal**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **8. Scale-in**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `empty-section` — **9. Stateless a stateful scaling**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 155, `outline-instead-of-explanation` — **Stateful tier**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 169, `outline-instead-of-explanation` — **10. Queue-based load leveling**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 194, `outline-instead-of-explanation` — **11. Backpressure**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 206, `outline-instead-of-explanation` — **12. Load balancing**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 223, `outline-instead-of-explanation` — **13. Fault tolerance**: 9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 241, `outline-instead-of-explanation` — **14. Redundancy**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `empty-section` — **15. Active-active a active-passive**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 257, `outline-instead-of-explanation` — **Active-active**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 274, `outline-instead-of-explanation` — **Active-passive**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 290, `outline-instead-of-explanation` — **16. Retry**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 317, `outline-instead-of-explanation` — **18. Bulkhead isolation**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 331, `outline-instead-of-explanation` — **19. Graceful degradation**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 357, `outline-instead-of-explanation` — **21. Quotas**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 371, `outline-instead-of-explanation` — **22. Cost a elasticity**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **23. Scalability testing**: 16 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 409, `outline-instead-of-explanation` — **24. Fault injection**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **HIGH** line 485, `list-first-introduction` — **Oficiálna dokumentácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 26, `thin-concept-section` — **2. Vertical scaling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 53, `thin-concept-section` — **3. Horizontal scaling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 69, `thin-concept-section` — **4. Diagonal scaling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 79, `thin-concept-section` — **5. Elasticity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 98, `thin-concept-section` — **Reactive**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 118, `thin-concept-section` — **7. Scale-out signal**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **8. Scale-in**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 155, `thin-concept-section` — **Stateful tier**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 169, `thin-concept-section` — **10. Queue-based load leveling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 194, `thin-concept-section` — **11. Backpressure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 206, `thin-concept-section` — **12. Load balancing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 223, `thin-concept-section` — **13. Fault tolerance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 241, `thin-concept-section` — **14. Redundancy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 257, `thin-concept-section` — **Active-active**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 274, `thin-concept-section` — **Active-passive**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 290, `thin-concept-section` — **16. Retry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 305, `thin-concept-section` — **17. Circuit breaker**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 317, `thin-concept-section` — **18. Bulkhead isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 331, `thin-concept-section` — **19. Graceful degradation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 357, `thin-concept-section` — **21. Quotas**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 371, `thin-concept-section` — **22. Cost a elasticity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 385, `thin-concept-section` — **23. Scalability testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 409, `thin-concept-section` — **24. Fault injection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 485, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
 ### `docs/11-cloud-and-aws/security-groups-network-acls.md`
 
 - **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Security Group**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
@@ -10867,6 +10814,14 @@ The target is not to remove lists. A list should summarize a model that the surr
 - **HIGH** line 407, `term-before-explanation` — **34. Ako merať reálny pokrok**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `Resource`, `enforcement`, `Identity`, `workload`, `Policy`, `freshness`
 - **HIGH** line 421, `term-before-explanation` — **35. Kompletný príklad access decisionu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `ID`, `EDR`, `CI`, `PEP`, `Identity`, `Posture`
 
+### `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md`
+
+- **HIGH** line 100, `list-heavy-section` — **9. Scaling signal**: 6 odrážok a iba 60 slov súvislého vysvetlenia.
+- **HIGH** line 160, `list-heavy-section` — **15. Stateless a stateful scaling**: 7 odrážok a iba 69 slov súvislého vysvetlenia.
+- **HIGH** line 232, `list-heavy-section` — **22. Retry**: 6 odrážok a iba 66 slov súvislého vysvetlenia.
+- **HIGH** line 385, `list-first-introduction` — **Oficiálna dokumentácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 385, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/13-security-and-identity/policy-as-code.md`
 
 - **HIGH** line 422, `list-heavy-section` — **34. Kompletný príklad: production image admission**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
@@ -10876,17 +10831,17 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 3942 | 0 | 0 | 0 | 3942 |
-| `thin-concept-section` | 0 | 3668 | 0 | 0 | 3668 |
-| `term-before-explanation` | 0 | 339 | 2260 | 0 | 2599 |
-| `single-sentence-explanation` | 0 | 0 | 2438 | 0 | 2438 |
+| `outline-instead-of-explanation` | 3920 | 0 | 0 | 0 | 3920 |
+| `thin-concept-section` | 0 | 3645 | 0 | 0 | 3645 |
+| `term-before-explanation` | 0 | 339 | 2251 | 0 | 2590 |
+| `single-sentence-explanation` | 0 | 0 | 2425 | 0 | 2425 |
 | `list-first-introduction` | 0 | 1110 | 0 | 0 | 1110 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1073 | 1073 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1075 | 1075 |
 | `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
-| `example-not-explicit` | 0 | 0 | 0 | 691 | 691 |
-| `empty-section` | 561 | 0 | 0 | 0 | 561 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 289 | 289 |
-| `list-heavy-section` | 0 | 197 | 0 | 0 | 197 |
+| `example-not-explicit` | 0 | 0 | 0 | 703 | 703 |
+| `empty-section` | 558 | 0 | 0 | 0 | 558 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 293 | 293 |
+| `list-heavy-section` | 0 | 200 | 0 | 0 | 200 |
 
 ## Required remediation pattern
 
