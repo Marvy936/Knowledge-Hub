@@ -1,161 +1,127 @@
 # Authentication, authorization a auditing
 
-Authentication, authorization a auditing tvoria tri odlišné bezpečnostné funkcie. Authentication overuje identitu alebo platnosť credentials, authorization rozhoduje, či konkrétny principal smie vykonať konkrétnu action voči konkrétnemu resource-u, a auditing vytvára evidence o tom, čo sa stalo. Ich zamieňanie vedie k nejasným trust boundaries, príliš širokým oprávneniam a incidentom bez použiteľnej dôkazovej stopy.
+Authentication, authorization a auditing sú tri rozdielne bezpečnostné funkcie, ktoré spolu tvoria jeden access lifecycle. Authentication vytvorí dôveryhodný kontext o principalovi, authorization rozhodne o konkrétnej operácii a auditing zachová evidence o tom, ako rozhodnutie vzniklo a čo systém skutočne vykonal. Ak sa tieto vrstvy zlúčia do jednej neurčitej predstavy „používateľ je prihlásený“, systém typicky povoľuje príliš veľa, nevie korektne revoke-nuť access a po incidente nedokáže vysvetliť udalosti.
 
-## 1. Mentálny model
+## 1. Mentálny model celého access lifecycle-u
 
 ```text
 identity proofing a enrollment
-→ credential issuance
-→ authentication
+→ account a credential issuance
+→ authentication request
 → session alebo token
 → authorization decision
-→ protected operation
-→ audit event
-→ detection, investigation a accountability
+→ enforcement pri resource boundary
+→ audit event a telemetry
+→ review, revocation a recovery
 ```
 
-Každý krok má vlastný owner, failure modes a assurance level.
+Každý krok rieši inú otázku. Identity proofing zisťuje, komu má digitálna identita patriť. Authentication overuje, kto alebo čo predkladá request a akú assurance má toto tvrdenie. Authorization vyhodnocuje konkrétnu action voči konkrétnemu resource-u. Auditing zaznamenáva actora, context, decision a výsledok tak, aby sa dali neskôr overiť.
 
-## 2. Identity, subject, principal a account
+Dôležitý dôsledok je, že silná jedna vrstva neopraví chybu v inej. Phishing-resistant MFA nepomôže, ak bol účet pri enrollment-e priradený nesprávnej osobe. Platne podpísaný token nepomôže, ak API nekontroluje tenant ownership. Detailný audit nepomôže, ak workload môže vlastné logy prepísať.
 
-- **Identity** reprezentuje osobu, workload, zariadenie alebo organizáciu.
-- **Account** je administratívny záznam v konkrétnom systéme.
+## 2. Identity, account, subject, principal a credential
+
+Tieto pojmy sa často zamieňajú, hoci označujú rôzne vrstvy modelu.
+
+- **Identity** je reprezentácia osoby, workloadu, zariadenia alebo organizácie.
+- **Account** je administratívny záznam identity v konkrétnom systéme.
 - **Subject** je entita, ktorá sa pokúša vykonať operáciu.
-- **Principal** je security identity používaná pri authentication alebo authorization.
-- **Credential** je dôkaz alebo secret naviazaný na principal.
-- **Authenticator** je prostriedok, ktorým claimant preukazuje kontrolu nad credentialom.
+- **Principal** je security identita, ktorú systém používa pri authentication alebo authorization.
+- **Credential** je secret, key, token alebo iný dôkaz naviazaný na principal.
+- **Authenticator** je mechanizmus alebo zariadenie, ktorým claimant preukazuje kontrolu nad credentialom.
 
-Jedna osoba môže mať viac accounts a principals. Jeden workload môže používať service account, cloud role, Kubernetes ServiceAccount a database user. Identity correlation musí byť explicitná.
+Jedna osoba môže mať bežný účet, privilegovaný účet, lokálny application account a federovaný principal. Jeden workload môže súčasne používať Kubernetes ServiceAccount, cloud role a database usera. Preto audit a authorization nesmú identity korelovať iba podľa display name-u alebo emailu. Potrebujú stabilný issuer, subject, account ID alebo inú explicitnú väzbu.
 
-## 3. Identity proofing nie je authentication
+## 3. Identity proofing a enrollment
 
-Identity proofing overuje, komu má byť digitálna identita priradená. Authentication pri neskoršom prístupe overuje, že claimant kontroluje príslušný authenticator.
-
-Príklad:
+Identity proofing je proces, ktorým sa overuje, komu má byť digitálna identita pridelená. Enrollment potom túto identitu spojí s accountom a authenticatorom. Authentication prebieha až pri neskoršom používaní.
 
 ```text
-HR overí zamestnanca
-→ identity system vytvorí account
-→ authenticator sa zaregistruje
-→ používateľ sa neskôr autentizuje
+HR alebo registračný proces overí osobu
+→ identity platforma vytvorí account
+→ používateľ zaregistruje authenticator
+→ authenticator sa naviaže na konkrétny principal
+→ neskôr sa vykonáva authentication
 ```
 
-Silné MFA neopraví nesprávne identity proofing ani account priradený zlej osobe.
+Ak helpdesk pri recovery priradí nový authenticator útočníkovi, následné MFA bude cryptographically správne, ale dokazuje kontrolu nad nesprávne prideleným accountom. Enrollment, reset a recovery preto potrebujú vlastnú assurance, audit a separation of duties.
 
-NIST SP 800-63-4 rozlišuje Identity Assurance Level, Authentication Assurance Level a Federation Assurance Level. Požadovaná úroveň má vychádzať z risku a dopadu, nie z univerzálneho pravidla pre všetky aplikácie.
+NIST Digital Identity Guidelines rozlišujú Identity Assurance Level, Authentication Assurance Level a Federation Assurance Level. Tieto úrovne sa nevyberajú podľa prestíže technológie, ale podľa rizika nesprávneho identity proofingu, kompromitácie authenticatora a federovaného assertion flowu.
 
-## 4. Authentication
+## 4. Authentication ako dôkaz kontroly
 
 Authentication odpovedá:
 
 ```text
-Ktorý principal predkladá request a s akou mierou dôvery?
+Ktorý principal predkladá request,
+aký authenticator kontroluje
+a akú mieru dôvery má výsledok?
 ```
 
-Faktory:
+Password je knowledge factor. Security key alebo telefón môže byť possession factor. Biometria je inherence factor, ale často iba lokálne odomyká zariadenie, ktoré potom používa cryptographic key. Contextual signals, napríklad location alebo device risk, môžu rozhodnutie doplniť, no samy nemusia byť samostatným authentication faktorom.
 
-- niečo, čo používateľ vie,
-- niečo, čo vlastní,
-- niečo, čím je,
-- device alebo cryptographic identity,
-- contextual/risk signals ako doplnok.
+Dva knowledge secrets nie sú skutočné multi-factor authentication. Password a security question zlyhávajú podobným spôsobom. MFA má zmysel vtedy, keď faktory majú odlišné compromise boundaries.
 
-### Single-factor a multi-factor
+Phishing-resistant authentication navyše viaže cryptographic operation na legitímny verifier alebo origin. FIDO2/WebAuthn authenticator napríklad podpisuje challenge pre konkrétny relying-party identifier. Používateľ preto nemôže jednoduchým prepísaním OTP do phishing stránky autorizovať session pre inú doménu.
 
-Dva secrets z rovnakej kategórie nie sú plnohodnotné MFA. Password a security question sú oba knowledge factors.
+## 5. Human a workload authentication
 
-MFA má odolávať relevantným attacks:
+Human authentication rieši interaktívneho používateľa, recovery, phishing a session theft. Workload authentication rieši non-human process, jeho runtime context a automatickú rotation.
 
-- phishing,
-- credential stuffing,
-- replay,
-- SIM swap,
-- malware,
-- session theft,
-- MFA fatigue.
+Human mechanizmy zahŕňajú password s MFA, passkeys, smart cards a federation. Workload mechanizmy zahŕňajú cloud workload identities, mTLS certificates, Kubernetes projected ServiceAccount tokens, SPIFFE identities alebo Kerberos service principals.
 
-Phishing-resistant authenticators používajú cryptographic binding na verifier alebo origin, napríklad FIDO/WebAuthn alebo vhodne navrhnutú certificate-based authentication.
+Workload nemá používať osobný účet developera. Taký účet má nesprávny lifecycle, môže byť blokovaný pri odchode človeka, vytvára nejasný audit a zväčša má širšie permissions než konkrétna služba potrebuje. Preferovaný model je krátkodobá platformou vydaná identity viazaná na repository, namespace, service account, node alebo inú runtime boundary.
 
-### Human a workload authentication
+## 6. Credential lifecycle
 
-Human identities:
-
-- password + MFA,
-- passkey,
-- smart card,
-- federated sign-in.
-
-Workload identities:
-
-- short-lived cloud role credentials,
-- mTLS certificate,
-- Kubernetes projected ServiceAccount token,
-- SPIFFE identity,
-- Kerberos service principal a keytab.
-
-Workload nemá používať osobný user account ani statický secret, keď platforma podporuje short-lived identity.
-
-## 5. Credential lifecycle
+Credential nie je statická hodnota, ale objekt s lifecycle-om:
 
 ```text
-enrollment
+enrollment alebo generation
 → issuance
 → activation
-→ use
-→ rotation/renewal
+→ storage a use
+→ renewal alebo rotation
 → suspension
 → revocation
 → recovery
-→ deletion
+→ destruction
 ```
 
-Kontroluj:
+Pri každej fáze treba vedieť, kto ju smie vykonať, kde sa private material nachádza, ako dlho je credential platný a ako rýchlo sa zneplatnenie rozšíri ku všetkým verifierom.
 
-- kto smie credential vydať,
-- kde je uložený,
-- ako sa chráni private material,
-- expiration,
-- rotation overlap,
-- revocation propagation,
-- recovery a break-glass,
-- audit registrácie a zmeny.
+Credential compromise sa nevyrieši iba zmenou passwordu. Aktívne session cookies, refresh tokens, API keys, certificates alebo delegated grants môžu zostať použiteľné. Incident response preto potrebuje inventory všetkých artifacts odvodených z pôvodného credentialu.
 
-Credential compromise sa nerieši iba zmenou hesla, ak zostali aktívne sessions, refresh tokens, certificates alebo delegated grants.
+## 7. Authentication event, session a token nie sú to isté
 
-## 6. Session a token
+Authentication event je okamih, keď verifier akceptuje dôkaz. Session je dlhšie trvajúci lokálny security context. Token je prenosný artifact s claims alebo reference na serverový stav.
 
-Úspešná authentication často vytvorí session alebo token.
+```text
+authentication event
+→ vytvorí session alebo vydá token
+→ session/token sa používa pri ďalších requestoch
+→ authorization sa vyhodnocuje opakovane
+```
 
-Rozlišuj:
+ID Token potvrdzuje OIDC authentication event pre clienta. Access token je určený resource serveru. Refresh token umožňuje vydávať ďalšie access tokens. Kerberos ticket reprezentuje ticket-based session key a principal context. API key býva dlhodobejší bearer credential bez samostatného user authentication eventu.
 
-- authentication event,
-- session cookie,
-- access token,
-- refresh token,
-- ID token,
-- Kerberos ticket,
-- API key.
+Session potrebuje idle a absolute timeout, secure storage, replay ochranu, revocation, step-up model a jednoznačné logout semantics. „Authenticated once“ nesmie znamenať „trusted forever“.
 
-Session security zahŕňa:
+## 8. Step-up a reauthentication
 
-- expiration a idle timeout,
-- token audience a scope,
-- replay protection,
-- secure storage,
-- revocation,
-- step-up authentication,
-- device/context binding,
-- logout semantics.
+Nie každá operácia potrebuje rovnakú assurance. Čítanie interného dashboardu môže akceptovať existujúcu session, zatiaľ čo zmena bankového účtu, vydanie production credentialu alebo deaktivácia auditu môže vyžadovať čerstvú phishing-resistant authentication.
 
-`Authenticated once` neznamená `trusted forever`.
+Step-up zvýši požadovanú assurance v konkrétnom bode. Reauthentication overí používateľa znovu, často s podmienkou maximálneho veku predchádzajúcej authentication. Systém musí zachovať, ktorá metóda bola použitá, kedy prebehla a na aký sensitive action sa vzťahovala.
 
-## 7. Authorization
+## 9. Authorization ako rozhodnutie nad operáciou
 
 Authorization odpovedá:
 
 ```text
-Smie principal P vykonať action A voči resource R v context-e C?
+Smie principal P
+vykonať action A
+voči resource R
+v context-e C?
 ```
 
 Formálne:
@@ -164,335 +130,208 @@ Formálne:
 allow = policy(principal, action, resource, context)
 ```
 
-Context môže zahŕňať:
+Context môže obsahovať role, groups, resource ownership, tenant, environment, time, device posture, session assurance, approval state alebo data classification. Platný principal je iba jeden input. Authorization musí stále určiť, či tento principal smie vykonať práve túto operáciu.
 
-- role a group membership,
-- resource ownera,
-- environment,
-- time,
-- network alebo device posture,
-- tenant,
-- data classification,
-- approval state,
-- session assurance.
+Príklad: access token môže povoľovať `orders.read`, ale API musí ešte overiť, že objednávka patrí rovnakému tenantovi a že používateľ má access k danému customer accountu. Inak vzniká object-level authorization chyba, často označovaná ako IDOR alebo BOLA.
 
-### Enforcement point
+## 10. Authorization models a ich úloha
 
-Authorization musí byť presadená pri skutočnej resource boundary.
+ACL viaže permissions priamo na resource a principals. RBAC zoskupuje permissions do roles. ABAC používa attributes principalu, resource-u a environmentu. Relationship-based model vyhodnocuje väzby ako owner, parent, member alebo delegated administrator.
 
-Príklady:
+Tieto modely sa nevylučujú. Cloud systém môže použiť RBAC role na základnú capability, resource policy na cross-account access, ABAC condition na tags a explicitný deny z organizačného guardrailu. Výsledné oprávnenie vzniká až z evaluation semantics všetkých vrstiev.
 
-- API gateway môže overiť token, ale application stále musí kontrolovať object-level authorization,
-- UI skryté tlačidlo nie je authorization control,
-- Kubernetes admission policy nenahrádza runtime access control,
-- database role môže byť posledná boundary aj keď application už kontrolovala access.
+## 11. Policy administration, decision, information a enforcement
 
-## 8. Policy decision a enforcement
+Policy systém možno rozložiť na štyri logické komponenty:
 
-Useful model:
+- **Policy Administration Point (PAP)** spravuje policy, jej revision, rollout a lifecycle.
+- **Policy Decision Point (PDP)** vyhodnocuje request a vracia decision.
+- **Policy Information Point (PIP)** poskytuje attributes a supporting data.
+- **Policy Enforcement Point (PEP)** zachytí operáciu a presadí výsledok.
+
+Toto rozdelenie pomáha pri diagnostike. Nesprávny allow môže vzniknúť zlou policy v PAP, stale group membershipom z PIP, chybnou evaluation v PDP alebo bypassom PEP. Bez tohto modelu sa všetky chyby označia neurčito ako „RBAC problém“.
+
+## 12. Enforcement musí byť pri skutočnej boundary
+
+UI, ktoré skryje tlačidlo, nie je authorization control. Útočník môže zavolať API priamo. API gateway môže overiť token, ale backend stále musí kontrolovať resource ownership. Kubernetes admission môže odmietnuť chybný manifest, ale nekontroluje každé neskoršie API alebo data-plane volanie.
+
+PEP musí byť na ceste ku chránenej operácii a nesmie existovať jednoduchý alternate path. Ak služba dôveruje identity headers od gatewaya, musí odstrániť rovnaké headers z untrusted requestu a prijať ich iba z autentizovaného proxy spojenia.
+
+## 13. Default deny, explicit deny a combining semantics
+
+Default deny znamená, že neznámy alebo neúplný prípad sa nepovolí bez explicitného allow. Neurčuje však, ako sa kombinujú viaceré policies.
+
+Niektoré platformy používajú additive allow. Iné používajú explicit deny, ktorý prevažuje nad allow. Ďalšie počítajú intersection identity policy, permissions boundary a organization guardrail. Pri troubleshooting preto treba poznať konkrétny evaluation model, inheritance, priority a cache semantics.
+
+## 14. Federation presúva authentication, nie resource authorization
+
+Federation umožňuje relying party dôverovať assertionu od Identity Providera. Trust contract zahŕňa issuer, audience, signing keys, protocol, claims, assurance, lifetime a key rotation.
+
+Po úspešnej federácii aplikácia stále musí mapovať external identity na local principal a vykonať vlastnú authorization. Group alebo role claim z IdP nie je automaticky vhodný ako application permission. Potrebuje schema, authoritative source, normalization, tenant boundary a deprovisioning lifecycle.
+
+## 15. Delegation, impersonation a confused deputy
+
+Pri impersonation systém vykonáva operáciu ako iná identity. Audit musí zachovať pôvodného actora aj impersonovaného subjecta. Pri delegation principal odovzdá obmedzenú authority ďalšiemu principalu alebo službe.
+
+Confused deputy vzniká, keď privilegovaná služba použije vlastnú authority v prospech žiadateľa bez správneho resource alebo actor contextu. Typickým príkladom je backend, ktorý má široký database access a vykoná request podľa user-provided object ID bez kontroly ownershipu.
+
+Delegovaný token má preto explicitne zachovať subject, actor, audience, scope, lifetime a chain depth. Downstream service nemá automaticky dediť všetky permissions upstream služby.
+
+## 16. Break-glass access
+
+Break-glass je núdzová cesta pre prípad, keď bežný identity alebo authorization plane nefunguje. Nie je to trvalý admin účet používaný pre pohodlie.
+
+Potrebné sú oddelené credentials, minimálny počet účtov, time-bound use, okamžitý alert, povinný dôvod, audit a rotation po použití. Recovery cesta musí byť pravidelne testovaná. Netestovaný emergency account môže byť počas incidentu zablokovaný, expirovaný alebo závislý od rovnakého nefunkčného IdP.
+
+## 17. Čo je security auditing
+
+Auditing vytvára evidence pre detection, incident response, accountability, compliance a forensic analysis. Audit event nemá iba povedať, že „niečo zlyhalo“. Má umožniť rekonštruovať actora, target, decision context a výsledok.
+
+Typický record obsahuje:
+
+- event time a trusted time source,
+- actor/principal a prípadne delegated subject,
+- session alebo credential identifier bez secret value,
+- action a target resource,
+- source device, workload alebo network context,
+- authorization decision a policy revision,
+- result a error category,
+- correlation alebo trace ID.
+
+Passwordy, private keys, authorization codes, raw tokens a citlivé payloady do auditu nepatria.
+
+## 18. Authentication, authorization a administrative events
+
+Authentication audit zahŕňa login attempts, MFA challenge, authenticator enrollment, reset, session creation a revocation. Authorization audit zahŕňa sensitive allow/deny, role assignment, policy zmenu, impersonation a break-glass activation. Administrative audit zahŕňa account lifecycle, key rotation, audit configuration a deletion/export udalosti.
+
+Nie je potrebné ukladať každý low-risk read ako drahý forensic event. Audit schema sa má riadiť threat modelom. Privileged changes, cross-tenant reads, security-control mutations a failed attempts však typicky potrebujú silnejšiu evidence než bežná telemetry.
+
+## 19. Audit integrity, availability a separation
+
+Audit je sám security asset. Ak kompromitovaný workload môže logy prepísať alebo zastaviť bez detekcie, ich dôkazová hodnota je nízka.
+
+Production model preto používa centralizovaný append-oriented storage, oddelený account alebo failure domain, obmedzené delete permissions, retention, clock synchronization a monitoring ingestion gaps. Kritické events môžu vyžadovať immutable storage, cryptographic integrity alebo nezávislý export.
+
+Audit pipeline musí byť tiež dostupná. Ak exporter alebo queue zlyhá, systém potrebuje buffer, backpressure alebo explicitný failure model. Tiché zahadzovanie events je control failure.
+
+## 20. Accounting oproti auditing
+
+Accounting sleduje usage, duration, consumption alebo billing. Auditing sleduje security-relevant actions a accountability. Rovnaký event môže slúžiť obom, ale požiadavky sa líšia.
+
+Billing record môže agregovať počet requestov. Security audit musí zachovať actora, target a policy context. Naopak audit nemusí obsahovať všetky detailné metriky potrebné na cost allocation.
+
+## 21. End-to-end príklad
+
+Používateľ chce zmeniť production deployment configuration.
 
 ```text
-Policy Administration Point
-→ vytvára a spravuje policy
-
-Policy Decision Point
-→ vyhodnotí request
-
-Policy Enforcement Point
-→ povolí alebo zamietne operation
-
-Policy Information Point
-→ poskytne attributes a context
+IdP vykoná phishing-resistant authentication
+→ application vytvorí session s auth_time a assurance
+→ user požiada o privileged action
+→ policy vyžaduje čerstvú step-up authentication
+→ PDP overí role, environment, approval a resource scope
+→ PEP povolí update iba konkrétneho deploymentu
+→ operation sa vykoná
+→ audit uloží actora, approvera, resource, diff a policy revision
 ```
 
-Rozdelenie umožňuje analyzovať, kde vznikla chyba:
+Ak sa neskôr objaví incident, tím vie odlíšiť kompromitovaný authenticator, chybnú role assignment, policy bypass a neautorizovanú zmenu auditu.
 
-- nesprávna policy,
-- stale attributes,
-- nesprávne decision,
-- chýbajúce enforcement,
-- bypass path.
+## 22. Authentication failure model
 
-## 9. Default deny a explicit deny
-
-Bez explicitného allow má byť request zamietnutý.
-
-Policy systémy sa líšia:
-
-- first match,
-- deny overrides,
-- allow overrides,
-- additive permissions,
-- intersection viacerých boundaries.
-
-Pri troubleshooting nepredpokladaj univerzálnu evaluation logiku. Zdokumentuj poradie policies, inheritance, explicit deny a session restrictions.
-
-## 10. Authorization models
-
-### ACL
-
-Permissions sú naviazané na resource a konkrétnych principals alebo groups.
-
-### RBAC
-
-Permissions sú združené v roles, ktoré sa priraďujú principals.
-
-### ABAC
-
-Decision používa attributes principalu, resource-u, action a environmentu.
-
-### Relationship-based access control
-
-Decision závisí od vzťahov, napríklad owner, member, parent alebo delegated admin.
-
-### Policy-based access control
-
-Centrálne alebo distribuované policy vyhodnocuje komplexný context.
-
-Reálne systémy často kombinujú viac modelov.
-
-## 11. Authentication nie je authorization
-
-Platný token neznamená oprávnenie na každý resource.
-
-Klasické chyby:
-
-- IDOR/BOLA: používateľ zmení object ID a pristúpi k cudziemu objektu,
-- backend dôveruje role z client payloadu,
-- service overí signature, ale nie audience alebo scope,
-- admin UI a API používajú odlišné rules,
-- broad group membership dá neplánovaný transitive access.
-
-Každá protected operation potrebuje authorization decision na serverovej strane.
-
-## 12. Auditing
-
-Auditing vytvára evidence pre:
-
-- security monitoring,
-- incident response,
-- compliance,
-- accountability,
-- forensic analysis,
-- change review.
-
-Audit record má typicky obsahovať:
-
-- event time,
-- actor/principal,
-- authentication method alebo session identity,
-- source device/network,
-- action,
-- target resource,
-- result,
-- authorization context,
-- delegated/impersonated identity,
-- correlation ID,
-- policy alebo change revision.
-
-Audit log nemá obsahovať passwords, private keys, raw session tokens ani nadbytočné sensitive data.
-
-## 13. Authentication, authorization a audit eventy
-
-### Authentication events
-
-- login success/failure,
-- MFA challenge,
-- authenticator enrollment,
-- credential reset,
-- session creation/revocation,
-- suspicious authentication.
-
-### Authorization events
-
-- allow/deny pre sensitive action,
-- role alebo group change,
-- policy update,
-- privilege escalation,
-- break-glass activation,
-- impersonation/delegation.
-
-### Administrative events
-
-- account creation/deletion,
-- key/certificate rotation,
-- directory schema/config zmena,
-- audit configuration change,
-- log deletion alebo export failure.
-
-## 14. Audit integrity a availability
-
-Audit je security asset.
-
-Controls:
-
-- centralizovaný append-oriented storage,
-- oddelený account/tenant/failure domain,
-- obmedzený delete access,
-- encryption,
-- retention a legal hold,
-- clock synchronization,
-- integrity validation,
-- monitoring ingestion gaps,
-- export a recovery tests.
-
-Ak kompromitovaný workload môže prepísať vlastný audit trail, evidence assurance je nízka.
-
-## 15. Accounting oproti auditing
-
-AAA sa často uvádza ako Authentication, Authorization and Accounting.
-
-Accounting sa zameriava na usage, session duration, consumption alebo billing. Auditing sa zameriava na security-relevant evidence a accountability. Jeden event môže slúžiť obom účelom, ale retention, schema a integrity požiadavky môžu byť odlišné.
-
-## 16. Federation
-
-Federation umožňuje relying party dôverovať authentication assertion od identity provider-a.
-
-Trust contract zahŕňa:
-
-- issuer,
-- audience,
-- signing keys,
-- protocol,
-- claims/attributes,
-- assurance,
-- token lifetime,
-- revocation a key rotation,
-- metadata distribution.
-
-Federation presúva authentication, ale resource authorization zostáva responsibility relying party alebo resource servera.
-
-## 17. Impersonation a delegation
-
-### Impersonation
-
-Systém vykonáva action ako používateľ. Audit musí zachovať:
-
-- pôvodného actora,
-- impersonovanú identity,
-- dôvod,
-- schválenie,
-- duration.
-
-### Delegation
-
-Principal odovzdá obmedzenú authority ďalšiemu principalu alebo service.
-
-Riziká:
-
-- širšie scope než bolo potrebné,
-- dlhá životnosť,
-- transitive delegation,
-- confused deputy,
-- strata pôvodnej identity.
-
-## 18. Break-glass access
-
-Emergency access potrebuje:
-
-- silnú oddelenú authentication,
-- minimálny počet účtov,
-- offline alebo nezávislú recovery cestu,
-- okamžité alerting,
-- time-bound use,
-- post-use credential rotation,
-- povinný review.
-
-Break-glass account bez pravidelného testu môže počas incidentu zlyhať.
-
-## 19. Troubleshooting authentication
+Pri authentication probléme postupuj od identity lifecycle-u ku konkrétnemu verifieru:
 
 ```text
-identity/account existuje a je enabled?
-→ authenticator/credential validný?
-→ clock, DNS a network?
-→ verifier alebo IdP reachable?
-→ issuer/audience/signature/certificate?
-→ MFA/conditional policy?
-→ session/token expiration?
-→ revocation alebo lockout?
-→ application mapping principalu?
+account existuje a je enabled?
+→ authenticator je správne enrolled a platný?
+→ DNS, clock a network fungujú?
+→ IdP alebo verifier je reachable?
+→ issuer, audience, signature a certificate sú správne?
+→ MFA alebo conditional policy bola splnená?
+→ session/token neexpiroval alebo nebol revoke-nutý?
+→ aplikácia správne mapovala principal?
 ```
 
-Zachovaj exact error, timestamp, principal, correlation ID a authentication method.
+Zachovaj exact timestamp, principal, correlation ID a authentication method. Všeobecné hlásenie „login nefunguje“ nestačí na oddelenie enrollment, protocol, policy a session chyby.
 
-## 20. Troubleshooting authorization
+## 23. Authorization failure model
+
+Najprv identifikuj presný tuple principal–action–resource–context.
 
 ```text
-ktorý principal a session?
-→ aká action a resource?
-→ ktoré policies sa aplikujú?
-→ role/group/attributes aktuálne?
-→ inheritance a explicit deny?
-→ scope a tenant?
-→ enforcement point?
-→ cache alebo propagation delay?
-→ decision/audit evidence?
+správny principal a session?
+→ presná action a resource?
+→ role, groups a attributes?
+→ scope, tenant a ownership?
+→ boundaries a explicit deny?
+→ PIP data fresh?
+→ správny PEP?
+→ policy/cache propagation?
+→ decision log?
 ```
 
-Testuj pozitívne aj negatívne cases. `Admin funguje` nie je dôkaz správnej policy.
+Testuj positive aj negative cases. To, že operácia funguje s admin rolou, iba dokazuje, že broad role obchádza chýbajúcu permission; nedokazuje správny least-privilege návrh.
 
-## 21. Troubleshooting auditing
+## 24. Audit failure model
+
+Pri chýbajúcom evente over celý pipeline:
 
 ```text
 event vznikol pri source?
-→ správny severity/category?
-→ correlation a actor fields?
-→ agent/exporter/queue?
-→ central ingestion?
-→ tenant/index/time range?
-→ retention/filtering?
-→ access a integrity?
+→ mal správnu category a schema?
+→ exporter alebo agent ho prijal?
+→ queue a transport ho doručili?
+→ central ingestion ho zaindexoval?
+→ hľadáš správny tenant, čas a index?
+→ retention alebo filtering ho neodstránili?
 ```
 
-Chýbajúci audit event je security incident alebo control gap, nie iba observability problém.
+Chýbajúci security audit je control gap. Ak sa týka privilegovanej alebo incidentnej operácie, môže byť sám security incidentom.
 
-## 22. Anti-patterny
+## 25. Typické anti-patterny
 
-### Login úspešný, teda access je povolený
+### Authentication úspešná, teda access je povolený
 
-Authentication sa zamieňa s authorization.
+Authentication iba určila principal. Resource authorization stále chýba.
 
-### Role iba v UI
+### Role sa kontroluje iba v UI
 
-API možno volať priamo.
+API zostáva priamo volateľné a enforcement je obíditeľný.
 
 ### Shared admin account
 
-Nie je možné spoľahlivo určiť actora.
+Nie je možné spoľahlivo určiť actora ani individuálne revoke-nuť access.
 
-### Long-lived service credentials
+### Signature tokenu je validná, audience sa nekontroluje
 
-Compromise má dlhé okno a zlá je revocation.
+Token určený pre inú službu sa môže zneužiť na cross-service access.
 
-### Audit iba úspešných operácií
+### Auditujú sa iba úspešné operácie
 
-Denied a failed attempts chýbajú pri detekcii.
+Failed a denied attempts, ktoré často tvoria detection signal, zostanú neviditeľné.
 
-### Audit bez centralizácie
+### Audit zostáva iba na kompromitovateľnom workload-e
 
-Útočník môže evidence zmazať spolu s workloadom.
+Útočník môže odstrániť evidence spolu s workloadom.
 
-### Token signature overená, audience ignorovaná
+## 26. Kontrolné otázky
 
-Token určený pre inú službu sa môže zneužiť.
-
-## 23. Kontrolné otázky
-
-1. Aký je rozdiel medzi identity proofing a authentication?
-2. Čo odlišuje subject, principal, account a credential?
-3. Prečo MFA nemusí byť phishing-resistant?
-4. Čo tvorí authorization request?
-5. Kde musí byť authorization presadená?
-6. Aký je rozdiel medzi ACL, RBAC a ABAC?
-7. Prečo federácia nerieši resource authorization?
-8. Čo musí obsahovať security audit record?
-9. Ako sa líši accounting a auditing?
-10. Ako diagnostikuješ authentication, authorization a audit failure?
+1. Prečo identity proofing a authentication riešia odlišné riziká?
+2. Aký je rozdiel medzi identity, accountom, subjectom, principalom a credentialom?
+3. Prečo dva knowledge secrets netvoria kvalitné MFA?
+4. Ako sa líši authentication event, session a token?
+5. Z akých vstupov vzniká authorization decision?
+6. Prečo musí byť enforcement pri skutočnej resource boundary?
+7. Ako sa líšia PAP, PDP, PIP a PEP?
+8. Prečo federácia neodstraňuje potrebu local authorization?
+9. Ako sa líši delegation a impersonation?
+10. Čo musí obsahovať audit record, aby bol použiteľný pri incidente?
+11. Ako chrániť integrity a availability audit pipeline-u?
+12. Ako oddelíš authentication failure od authorization failure?
 
 ## Glossary impact
 
-Relevantné pojmy: identity proofing, identity, account, subject, principal, credential, authenticator, authentication, authorization, auditing, accounting, session, token, Policy Administration Point, Policy Decision Point, Policy Enforcement Point, Policy Information Point, federation, impersonation, delegation, confused deputy a break-glass access.
+Relevantné pojmy: identity proofing, identity, account, subject, principal, credential, authenticator, authentication, authorization, auditing, accounting, session, token, step-up authentication, Policy Administration Point, Policy Decision Point, Policy Enforcement Point, Policy Information Point, federation, impersonation, delegation, confused deputy a break-glass access.
 
 ## Primárne zdroje
 
