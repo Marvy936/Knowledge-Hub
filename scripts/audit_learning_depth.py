@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Audit whether learning documentation explains concepts instead of only listing them.
+"""Audit whether learning documentation teaches concepts instead of listing them.
 
-The audit is intentionally heuristic. It does not declare technical correctness.
-It identifies sections that deserve human review because they are likely too terse,
-list-heavy, or introduce terminology without enough local explanation.
+The audit is intentionally heuristic. It does not prove technical correctness.
+It identifies sections that deserve human review because they are empty, rely on
+one sentence, are list-heavy, or introduce terminology without enough local
+explanation.
 
 Default scope:
 - authoritative learning articles listed in docs/NN-*/README.md
 - optionally all Markdown files under docs/ with --all-docs
 
-The script is standard-library only so it can run in local development and CI.
+The script is standard-library only so it can run locally and in CI.
 """
 
 from __future__ import annotations
@@ -19,7 +20,7 @@ import json
 import re
 import sys
 from collections import Counter, defaultdict
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,7 +32,7 @@ ORDERED_LINK_RE = re.compile(r"^\s*\d+\.\s+\[([^\]]+)\]\(([^)#]+\.md)\)\s*$")
 HEADING_RE = re.compile(r"^(#{2,4})\s+(.+?)\s*$")
 BULLET_RE = re.compile(r"^\s*(?:[-*+]|\d+\.)\s+(.+?)\s*$")
 FENCE_RE = re.compile(r"^\s*```")
-SENTENCE_END_RE = re.compile(r"[.!?](?:\s|$)")
+SENTENCE_END_RE = re.compile(r"[.!?](?:[\"')\]}]*)(?:\s|$)")
 WORD_RE = re.compile(r"[\wÀ-ž][\wÀ-ž+./:#-]*", re.UNICODE)
 INLINE_CODE_RE = re.compile(r"`([^`\n]+)`")
 ACRONYM_RE = re.compile(r"\b[A-Z][A-Z0-9-]{1,12}\b")
@@ -39,7 +40,9 @@ ENGLISH_TERM_RE = re.compile(
     r"\b(?:attestation|posture|workload|policy|identity|resource|scope|"
     r"enforcement|delegation|freshness|failure semantics|blast radius|"
     r"control plane|data plane|trust domain|step-up|risk signal|"
-    r"availability|durability|reliability|burn rate|error budget)\b",
+    r"availability|durability|reliability|burn rate|error budget|"
+    r"scalability|elasticity|fault tolerance|recovery point|"
+    r"recovery time|service control policy|resource control policy)\b",
     re.IGNORECASE,
 )
 
@@ -47,6 +50,7 @@ EXEMPT_HEADINGS = {
     "kontrolné otázky",
     "glossary impact",
     "primárne zdroje",
+    "oficiálna dokumentácia",
     "zdroje",
     "referencie",
     "navigácia",
@@ -57,30 +61,68 @@ EXEMPT_HEADINGS = {
     "governance",
     "stav",
 }
-
 EXEMPT_TITLE_PARTS = (
     "kontrolné otázky",
     "glossary",
     "primárne zdroje",
+    "oficiálna dokumentácia",
     "navigácia",
 )
 
 MECHANISM_MARKERS = (
-    "funguje", "prebieha", "vyhodnot", "vytvor", "odosiela", "overuje",
-    "používa", "číta", "zapisuje", "mapuje", "viaže", "porovnáva",
-    "rozhoduje", "presadí", "zlyhá", "dependency", "boundary", "tok",
-    "flow", "intern", "mechaniz", "pretože", "dôvod", "následne",
+    "funguje",
+    "prebieha",
+    "vyhodnot",
+    "vytvor",
+    "odosiela",
+    "overuje",
+    "používa",
+    "číta",
+    "zapisuje",
+    "mapuje",
+    "viaže",
+    "porovnáva",
+    "rozhoduje",
+    "presadí",
+    "zlyhá",
+    "dependency",
+    "boundary",
+    "tok",
+    "flow",
+    "intern",
+    "mechaniz",
+    "pretože",
+    "dôvod",
+    "následne",
 )
-
 EXAMPLE_MARKERS = (
-    "napríklad", "príklad", "predstavme", "v praxi", "scenár",
-    "typicky", "konkrétne", "napr.", "ak ",
+    "napríklad",
+    "príklad",
+    "predstavme",
+    "v praxi",
+    "scenár",
+    "typicky",
+    "konkrétne",
+    "napr.",
+    "ak ",
 )
-
 FAILURE_MARKERS = (
-    "zlyh", "chyba", "rizik", "trade-off", "tradeoff", "limit",
-    "nedostup", "stale", "comprom", "bypass", "nespráv", "failure",
-    "výpad", "latency", "rollback", "incident",
+    "zlyh",
+    "chyba",
+    "rizik",
+    "trade-off",
+    "tradeoff",
+    "limit",
+    "nedostup",
+    "stale",
+    "comprom",
+    "bypass",
+    "nespráv",
+    "failure",
+    "výpad",
+    "latency",
+    "rollback",
+    "incident",
 )
 
 
@@ -167,6 +209,10 @@ def split_sections(lines: list[str]) -> tuple[str, list[Section]]:
     for number, line in enumerate(lines, start=1):
         if FENCE_RE.match(line):
             in_fence = not in_fence
+            if current:
+                current.lines.append(line)
+            continue
+
         if in_fence:
             if current:
                 current.lines.append(line)
@@ -221,7 +267,7 @@ def section_content(section: Section) -> dict[str, object]:
             prose_lines.append(strip_markdown(stripped))
             meaningful.append("prose")
 
-    prose = " ".join(p for p in prose_lines if p)
+    prose = " ".join(part for part in prose_lines if part)
     all_text = " ".join(prose_lines + bullets)
     return {
         "prose": prose,
@@ -237,17 +283,15 @@ def section_content(section: Section) -> dict[str, object]:
 def introduced_terms(data: dict[str, object]) -> list[str]:
     prose = str(data["prose"])
     bullets = list(data["bullets"])
+    bullet_text = " ".join(bullets)
     terms: list[str] = []
 
-    bullet_text = " ".join(bullets)
     for match in INLINE_CODE_RE.findall(bullet_text):
         if 1 <= len(match.split()) <= 5 and match.lower() not in prose.lower():
             terms.append(match)
-
     for match in ACRONYM_RE.findall(bullet_text):
         if match not in prose and len(match) > 1:
             terms.append(match)
-
     for match in ENGLISH_TERM_RE.findall(bullet_text):
         if match.lower() not in prose.lower():
             terms.append(match)
@@ -302,6 +346,15 @@ def audit_section(path: Path, section: Section) -> list[Finding]:
         add("critical", "empty-section", "Sekcia nemá vysvetľovací obsah.", 12)
         return findings
 
+    if prose_words > 0 and sentences <= 1:
+        add(
+            "high",
+            "single-sentence-concept",
+            "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. "
+            "Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+            8,
+        )
+
     if meaningful and meaningful[0] in {"bullet", "code"} and prose_words < 35:
         add(
             "high",
@@ -337,14 +390,6 @@ def audit_section(path: Path, section: Section) -> list[Finding]:
             "medium",
             "short-concept-section",
             "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-            4,
-        )
-
-    if sentences <= 1 and bullets and prose_words < 55:
-        add(
-            "medium",
-            "single-sentence-explanation",
-            "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
             4,
         )
 
@@ -392,8 +437,8 @@ def audit_file(path: Path) -> tuple[FileStats, list[Finding]]:
     for section in sections:
         findings.extend(audit_section(path, section))
 
-    counts = Counter(f.severity for f in findings)
-    score = sum(f.score for f in findings)
+    counts = Counter(finding.severity for finding in findings)
+    score = sum(finding.score for finding in findings)
     stats = FileStats(
         path=path.relative_to(ROOT).as_posix(),
         title=title or path.stem,
@@ -421,7 +466,7 @@ def grade(stats: FileStats) -> str:
 
 
 def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
-    counts = Counter(f.severity for f in findings)
+    counts = Counter(finding.severity for finding in findings)
     grades = Counter(grade(item) for item in files)
     sections = sum(item.sections for item in files)
     total_words = sum(item.words for item in files)
@@ -446,11 +491,11 @@ def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
         "## Interpretation",
         "",
         "- **Critical** usually means a heading is functioning as an outline: very little prose followed by several bullets.",
-        "- **High** identifies thin conceptual explanations, list-first introductions, or terminology introduced mainly inside lists.",
+        "- **High** identifies single-sentence concepts, thin explanations, list-first introductions, or terminology introduced mainly inside lists.",
         "- **Medium** identifies sections that likely need another paragraph, definitions, or a worked example.",
         "- **Low** is a review hint for an absent explicit mechanism, example, or failure boundary; it can be a false positive.",
         "",
-        "The target is not to remove lists. A list should summarize a model that the surrounding prose has already explained.",
+        "The target is not to remove lists. Every normal conceptual section must contain more than one substantive explanatory sentence, and a list should summarize a model that surrounding prose has already explained.",
         "",
         "## Highest-priority files",
         "",
@@ -458,22 +503,25 @@ def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
         "|---|---:|---:|---:|---:|---:|---:|---|",
     ]
 
-    for item in sorted(files, key=lambda x: (-x.score, x.path)):
+    for item in sorted(files, key=lambda value: (-value.score, value.path)):
         lines.append(
             f"| {grade(item)} | {item.score} | {item.critical} | {item.high} | "
             f"{item.medium} | {item.low} | {item.words} | `{item.path}` |"
         )
 
     lines.extend(["", "## Critical and high findings", ""])
-
-    important = [f for f in findings if f.severity in {"critical", "high"}]
+    important = [
+        finding
+        for finding in findings
+        if finding.severity in {"critical", "high"}
+    ]
     if not important:
         lines.append("No critical or high findings.")
     else:
         by_path: dict[str, list[Finding]] = defaultdict(list)
         for finding in sorted(
             important,
-            key=lambda x: (-x.score, x.path, x.line, x.rule),
+            key=lambda value: (-value.score, value.path, value.line, value.rule),
         ):
             by_path[finding.path].append(finding)
 
@@ -485,14 +533,15 @@ def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
                     f"`{finding.rule}` — **{finding.section}**: {finding.detail}"
                 )
 
-    lines.extend([
-        "",
-        "## All findings by rule",
-        "",
-        "| Rule | Critical | High | Medium | Low | Total |",
-        "|---|---:|---:|---:|---:|---:|",
-    ])
-
+    lines.extend(
+        [
+            "",
+            "## All findings by rule",
+            "",
+            "| Rule | Critical | High | Medium | Low | Total |",
+            "|---|---:|---:|---:|---:|---:|",
+        ]
+    )
     by_rule: dict[str, Counter[str]] = defaultdict(Counter)
     for finding in findings:
         by_rule[finding.rule][finding.severity] += 1
@@ -506,22 +555,25 @@ def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
             f"{counter['medium']} | {counter['low']} | {total} |"
         )
 
-    lines.extend([
-        "",
-        "## Required remediation pattern",
-        "",
-        "For each critical or high conceptual section:",
-        "",
-        "1. Add a short definition and state the problem the concept solves.",
-        "2. Explain the mechanism or decision flow in connected prose.",
-        "3. Explain unfamiliar terms before or where they first appear.",
-        "4. Keep bullets as a summary; use `term — explanation` when each item has distinct semantics.",
-        "5. Add at least one concrete example, boundary, trade-off, or failure mode where relevant.",
-        "6. Cross-link a prior authoritative chapter when a full re-explanation would be redundant, but include a short local reminder.",
-        "",
-        "See [`AUTHORING-GUIDE.md`](AUTHORING-GUIDE.md).",
-        "",
-    ])
+    lines.extend(
+        [
+            "",
+            "## Required remediation pattern",
+            "",
+            "For each critical or high conceptual section:",
+            "",
+            "1. Add at least two connected explanatory sentences; do not add filler.",
+            "2. Define the concept and state the problem it solves.",
+            "3. Explain the mechanism or decision flow in connected prose.",
+            "4. Explain unfamiliar terms before or where they first appear.",
+            "5. Keep bullets as a summary; use `term — explanation` when each item has distinct semantics.",
+            "6. Add at least one concrete example, boundary, trade-off, or failure mode where relevant.",
+            "7. Cross-link a prior authoritative chapter when a full re-explanation would be redundant, but include a short local reminder.",
+            "",
+            "See [`AUTHORING-GUIDE.md`](AUTHORING-GUIDE.md).",
+            "",
+        ]
+    )
     return "\n".join(lines)
 
 
@@ -542,11 +594,11 @@ def main() -> int:
     args = parser.parse_args()
 
     paths = (
-        sorted(p for p in DOCS.rglob("*.md") if p.name != "README.md")
+        sorted(path for path in DOCS.rglob("*.md") if path.name != "README.md")
         if args.all_docs
         else authoritative_articles()
     )
-    missing = [p for p in paths if not p.exists()]
+    missing = [path for path in paths if not path.exists()]
     if missing:
         for path in missing:
             print(f"missing article: {path.relative_to(ROOT)}", file=sys.stderr)
@@ -559,11 +611,18 @@ def main() -> int:
         files.append(stats)
         findings.extend(file_findings)
 
-    args.report.write_text(markdown_report(files, findings), encoding="utf-8", newline="\n")
+    args.report.write_text(
+        markdown_report(files, findings),
+        encoding="utf-8",
+        newline="\n",
+    )
     args.json.write_text(
         json.dumps(
             {
-                "files": [asdict(item) | {"grade": grade(item)} for item in files],
+                "files": [
+                    asdict(item) | {"grade": grade(item)}
+                    for item in files
+                ],
                 "findings": [asdict(item) for item in findings],
             },
             ensure_ascii=False,
@@ -574,7 +633,7 @@ def main() -> int:
         newline="\n",
     )
 
-    counts = Counter(f.severity for f in findings)
+    counts = Counter(finding.severity for finding in findings)
     print(
         f"audited {len(files)} files; "
         f"critical={counts['critical']} high={counts['high']} "
