@@ -31,15 +31,15 @@
     {
       "path": "docs/00-foundations/continuous-improvement.md",
       "title": "Continuous Improvement",
-      "words": 994,
-      "headings": 33,
-      "sections": 33,
-      "findings": 70,
-      "critical": 29,
-      "high": 30,
-      "medium": 9,
-      "low": 2,
-      "score": 618,
+      "words": 3481,
+      "headings": 43,
+      "sections": 43,
+      "findings": 56,
+      "critical": 7,
+      "high": 7,
+      "medium": 11,
+      "low": 31,
+      "score": 224,
       "grade": "D"
     },
     {
@@ -4810,15 +4810,6 @@
       "path": "docs/00-foundations/continuous-improvement.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -4830,7 +4821,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -4846,10 +4837,28 @@
       "path": "docs/00-foundations/continuous-improvement.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
@@ -4862,89 +4871,44 @@
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
+      "section": "1. Definícia",
+      "line": 13,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "2. Problém, ktorý continuous improvement rieši",
+      "line": 19,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 62 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
+      "section": "2. Problém, ktorý continuous improvement rieši",
+      "line": 19,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "4. Improvement object a system boundary",
+      "line": 52,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rastúcej komplexity,`, `nových závislostí,`, `väčšieho tímu,`, `vyššieho trafficu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "4. PDCA cyklus",
-      "line": 53,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Plan",
-      "line": 55,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Do",
-      "line": 59,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Check",
-      "line": 63,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "5. Kaizen a malé zmeny",
-      "line": 79,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšie sa vyhodnocujú,`, `majú menší blast radius,`, `ľahšie sa vracajú,`, `umožňujú častejšie učenie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "5. Kaizen a malé zmeny",
-      "line": 79,
+      "section": "4. Improvement object a system boundary",
+      "line": 52,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -4952,8 +4916,179 @@
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "5. Kaizen a malé zmeny",
-      "line": 79,
+      "section": "4. Improvement object a system boundary",
+      "line": 52,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "4. Improvement object a system boundary",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "4. Improvement object a system boundary",
+      "line": 52,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`, `MTTR`, `policy`, `reliability`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "Do",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "6. Kaizen a malé kroky",
+      "line": 92,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "6. Kaizen a malé kroky",
+      "line": 92,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "6. Kaizen a malé kroky",
+      "line": 92,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "7. Baseline",
+      "line": 106,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 51 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "9. Hypotéza",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "10. Experiment design",
+      "line": 144,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "10. Experiment design",
+      "line": 144,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "10. Experiment design",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "10. Experiment design",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "10. Experiment design",
+      "line": 144,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`, `workload`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "11. Improvement Kata",
+      "line": 155,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "11. Improvement Kata",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "11. Improvement Kata",
+      "line": 155,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "12. Retrospective",
+      "line": 168,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "12. Retrospective",
+      "line": 168,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "13. Post-incident review",
+      "line": 182,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
@@ -4961,89 +5096,17 @@
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "8. Improvement Kata",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "14. Toil",
+      "line": 195,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "8. Improvement Kata",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je cieľový stav?`, `Aký je aktuálny stav?`, `Aké prekážky bránia dosiahnuť cieľ?`, `Aký je ďalší malý experiment?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "8. Improvement Kata",
-      "line": 125,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "9. Retrospektívy",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "9. Retrospektívy",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pracuje s konkrétnymi pozorovaniami,`, `rozlišuje symptóm a príčinu,`, `vyberie malý počet priorít,`, `priradí vlastníka,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "9. Retrospektívy",
-      "line": 136,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "10. Postmortems",
-      "line": 151,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "10. Postmortems",
-      "line": 151,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečo bol chybný krok v danom kontexte rozumný,`, `ktoré obranné vrstvy zlyhali,`, `prečo sa problém nezachytil skôr,`, `ako znížiť pravdepodobnosť alebo dopad opakovania.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "10. Postmortems",
-      "line": 151,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "10. Postmortems",
-      "line": 151,
+      "section": "15. Toil budget a opportunity cost",
+      "line": 209,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -5051,170 +5114,8 @@
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "11. Toil",
-      "line": 164,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "11. Toil",
-      "line": 164,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ručné obnovovanie služieb,`, `opakované prideľovanie prístupov,`, `manuálne deployment kroky,`, `ručné čistenie diskov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "11. Toil",
-      "line": 164,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "12. Technical debt",
-      "line": 178,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "12. Technical debt",
-      "line": 178,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nie je evidovaný,`, `nemá vlastníka,`, `jeho úrok nie je meraný,`, `dočasné riešenie nemá podmienku odstránenia.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "12. Technical debt",
-      "line": 178,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "13. Praktický príklad: nestabilné deploymenty",
-      "line": 189,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Aktuálny stav",
-      "line": 191,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Aktuálny stav",
-      "line": 191,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Aktuálny stav",
-      "line": 191,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `20 % deploymentov vyžaduje manuálny zásah,`, `rollback trvá priemerne 35 minút,`, `príčina je často chýbajúca konfigurácia.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Aktuálny stav",
-      "line": 191,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Hypotéza",
-      "line": 197,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Experiment",
-      "line": 201,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Experiment",
-      "line": 201,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Experiment",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Experiment",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenať typy chýb za posledný mesiac,`, `pridať validáciu pre najčastejšiu triedu,`, `nasadiť kontrolu do jednej pipeline,`, `sledovať failure rate štyri týždne,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Experiment",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Výsledok",
-      "line": 209,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "14. Prioritizácia zlepšení",
-      "line": 213,
+      "section": "17. Prioritizácia zlepšení",
+      "line": 230,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
@@ -5222,61 +5123,7 @@
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "14. Prioritizácia zlepšení",
-      "line": 213,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľský dopad,`, `frekvencia problému,`, `čas spotrebovaný toil-om,`, `bezpečnostné riziko,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "14. Prioritizácia zlepšení",
-      "line": 213,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "14. Prioritizácia zlepšení",
-      "line": 213,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "15. Štandardizácia po zlepšení",
-      "line": 230,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "15. Štandardizácia po zlepšení",
-      "line": 230,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "15. Štandardizácia po zlepšení",
-      "line": 230,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentácia,`, `automatizovaný test,`, `pipeline template,`, `platform capability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "15. Štandardizácia po zlepšení",
+      "section": "17. Prioritizácia zlepšení",
       "line": 230,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -5285,156 +5132,183 @@
     },
     {
       "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "15. Štandardizácia po zlepšení",
+      "section": "17. Prioritizácia zlepšení",
       "line": 230,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "16. Čo merať",
-      "line": 244,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "16. Čo merať",
-      "line": 244,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "16. Čo merať",
-      "line": 244,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lead time,`, `deployment frequency,`, `change failure rate,`, `time to restore,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "16. Čo merať",
-      "line": 244,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "16. Čo merať",
-      "line": 244,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Improvement theatre",
-      "line": 264,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Priveľa paralelných iniciatív",
-      "line": 268,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Zmena bez baseline",
-      "line": 272,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Automatizácia symptómu",
-      "line": 276,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "Trvalý emergency mode",
-      "line": 280,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "19. Zhrnutie",
-      "line": 293,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "19. Zhrnutie",
-      "line": 293,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "19. Zhrnutie",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "19. Zhrnutie",
-      "line": 293,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Continuous improvement je opakovaná experimentálna slučka.`, `Každá zmena potrebuje problém, baseline, hypotézu a meranie.`, `Malé reverzibilné kroky zrýchľujú učenie a znižujú riziko.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "19. Zhrnutie",
-      "line": 293,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/continuous-improvement.md",
-      "section": "19. Zhrnutie",
-      "line": 293,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "17. Prioritizácia zlepšení",
+      "line": 230,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "17. Prioritizácia zlepšení",
+      "line": 230,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "17. Prioritizácia zlepšení",
+      "line": 230,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Reliability`, `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "20. Measurement a guardrails",
+      "line": 267,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "20. Measurement a guardrails",
+      "line": 267,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "20. Measurement a guardrails",
+      "line": 267,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "20. Measurement a guardrails",
+      "line": 267,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "20. Measurement a guardrails",
+      "line": 267,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "20. Measurement a guardrails",
+      "line": 267,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `Recovery time`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "22. Standardization",
+      "line": 290,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "22. Standardization",
+      "line": 290,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "22. Standardization",
+      "line": 290,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "22. Standardization",
+      "line": 290,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "23. Follow-up a effectiveness review",
+      "line": 303,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "24. Improvement portfolio a WIP",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "25. Continuous improvement v incident response",
+      "line": 319,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "27. Continuous improvement v security",
+      "line": 344,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "30. Zhrnutie",
+      "line": 396,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/continuous-improvement.md",
+      "section": "30. Zhrnutie",
+      "line": 396,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",

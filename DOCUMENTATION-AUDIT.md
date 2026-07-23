@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10420**
-- Total words: **424,606**
-- Findings: **23435** (critical 8478, high 9583, medium 3082, low 2292)
+- Audited conceptual sections: **10430**
+- Total words: **427,093**
+- Findings: **23421** (critical 8456, high 9560, medium 3084, low 2321)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -181,7 +181,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 628 | 28 | 33 | 8 | 6 | 1167 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 622 | 28 | 35 | 5 | 0 | 984 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | D | 621 | 25 | 34 | 12 | 5 | 1464 | `docs/09-kubernetes/service-endpointslice.md` |
-| D | 618 | 29 | 30 | 9 | 2 | 994 | `docs/00-foundations/continuous-improvement.md` |
 | D | 614 | 28 | 32 | 6 | 8 | 1527 | `docs/00-foundations/t-shaped-engineer.md` |
 | D | 611 | 30 | 25 | 14 | 4 | 1175 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
@@ -267,6 +266,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 234 | 10 | 11 | 4 | 8 | 876 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 232 | 11 | 10 | 4 | 4 | 707 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
+| D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
 | D | 209 | 7 | 6 | 12 | 27 | 3036 | `docs/00-foundations/feedback-loops.md` |
 | D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
@@ -378,64 +378,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/continuous-improvement.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Feedback Loops, Systems Thinking`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý rieši**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rastúcej komplexity,`, `nových závislostí,`, `väčšieho tímu,`, `vyššieho trafficu,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 53, `empty-section` — **4. PDCA cyklus**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 79, `bare-bullet-items` — **5. Kaizen a malé zmeny**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšie sa vyhodnocujú,`, `majú menší blast radius,`, `ľahšie sa vracajú,`, `umožňujú častejšie učenie,`.
-- **CRITICAL** line 125, `bare-bullet-items` — **8. Improvement Kata**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je cieľový stav?`, `Aký je aktuálny stav?`, `Aké prekážky bránia dosiahnuť cieľ?`, `Aký je ďalší malý experiment?`.
-- **CRITICAL** line 125, `outline-instead-of-explanation` — **8. Improvement Kata**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 136, `bare-bullet-items` — **9. Retrospektívy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pracuje s konkrétnymi pozorovaniami,`, `rozlišuje symptóm a príčinu,`, `vyberie malý počet priorít,`, `priradí vlastníka,`.
-- **CRITICAL** line 136, `outline-instead-of-explanation` — **9. Retrospektívy**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 151, `bare-bullet-items` — **10. Postmortems**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečo bol chybný krok v danom kontexte rozumný,`, `ktoré obranné vrstvy zlyhali,`, `prečo sa problém nezachytil skôr,`, `ako znížiť pravdepodobnosť alebo dopad opakovania.`.
-- **CRITICAL** line 151, `outline-instead-of-explanation` — **10. Postmortems**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 164, `bare-bullet-items` — **11. Toil**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ručné obnovovanie služieb,`, `opakované prideľovanie prístupov,`, `manuálne deployment kroky,`, `ručné čistenie diskov,`.
-- **CRITICAL** line 164, `outline-instead-of-explanation` — **11. Toil**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 178, `bare-bullet-items` — **12. Technical debt**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nie je evidovaný,`, `nemá vlastníka,`, `jeho úrok nie je meraný,`, `dočasné riešenie nemá podmienku odstránenia.`.
-- **CRITICAL** line 178, `outline-instead-of-explanation` — **12. Technical debt**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 189, `empty-section` — **13. Praktický príklad: nestabilné deploymenty**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 191, `no-prose-concept` — **Aktuálny stav**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 201, `bare-bullet-items` — **Experiment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenať typy chýb za posledný mesiac,`, `pridať validáciu pre najčastejšiu triedu,`, `nasadiť kontrolu do jednej pipeline,`, `sledovať failure rate štyri týždne,`.
-- **CRITICAL** line 201, `no-prose-concept` — **Experiment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 201, `outline-instead-of-explanation` — **Experiment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 213, `bare-bullet-items` — **14. Prioritizácia zlepšení**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľský dopad,`, `frekvencia problému,`, `čas spotrebovaný toil-om,`, `bezpečnostné riziko,`.
-- **CRITICAL** line 213, `outline-instead-of-explanation` — **14. Prioritizácia zlepšení**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 230, `bare-bullet-items` — **15. Štandardizácia po zlepšení**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentácia,`, `automatizovaný test,`, `pipeline template,`, `platform capability,`.
-- **CRITICAL** line 230, `outline-instead-of-explanation` — **15. Štandardizácia po zlepšení**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 244, `bare-bullet-items` — **16. Čo merať**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lead time,`, `deployment frequency,`, `change failure rate,`, `time to restore,`.
-- **CRITICAL** line 244, `outline-instead-of-explanation` — **16. Čo merať**: 11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 293, `outline-instead-of-explanation` — **19. Zhrnutie**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 52, `outline-instead-of-explanation` — **4. Improvement object a system boundary**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 144, `outline-instead-of-explanation` — **10. Experiment design**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 230, `outline-instead-of-explanation` — **17. Prioritizácia zlepšení**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 267, `outline-instead-of-explanation` — **20. Measurement a guardrails**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 290, `outline-instead-of-explanation` — **22. Standardization**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Problém, ktorý rieši**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 55, `single-sentence-concept` — **Plan**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 59, `single-sentence-concept` — **Do**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 63, `single-sentence-concept` — **Check**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 191, `bare-bullet-items` — **Aktuálny stav**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `20 % deploymentov vyžaduje manuálny zásah,`, `rollback trvá priemerne 35 minút,`, `príčina je často chýbajúca konfigurácia.`.
-- **HIGH** line 191, `list-first-introduction` — **Aktuálny stav**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 197, `single-sentence-concept` — **Hypotéza**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 201, `list-first-introduction` — **Experiment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 209, `single-sentence-concept` — **Výsledok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 230, `single-sentence-concept` — **15. Štandardizácia po zlepšení**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 244, `single-sentence-concept` — **16. Čo merať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 264, `single-sentence-concept` — **Improvement theatre**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 268, `single-sentence-concept` — **Priveľa paralelných iniciatív**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 272, `single-sentence-concept` — **Zmena bez baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 276, `single-sentence-concept` — **Automatizácia symptómu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **Trvalý emergency mode**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 293, `bare-bullet-items` — **19. Zhrnutie**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Continuous improvement je opakovaná experimentálna slučka.`, `Každá zmena potrebuje problém, baseline, hypotézu a meranie.`, `Malé reverzibilné kroky zrýchľujú učenie a znižujú riziko.`.
-- **HIGH** line 293, `list-first-introduction` — **19. Zhrnutie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 293, `single-sentence-concept` — **19. Zhrnutie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. Problém, ktorý rieši**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 125, `thin-concept-section` — **8. Improvement Kata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 136, `thin-concept-section` — **9. Retrospektívy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 191, `thin-concept-section` — **Aktuálny stav**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 201, `thin-concept-section` — **Experiment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 213, `thin-concept-section` — **14. Prioritizácia zlepšení**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 230, `thin-concept-section` — **15. Štandardizácia po zlepšení**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 244, `thin-concept-section` — **16. Čo merať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 293, `thin-concept-section` — **19. Zhrnutie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 19, `list-heavy-section` — **2. Problém, ktorý continuous improvement rieši**: 7 odrážok a iba 62 slov súvislého vysvetlenia.
+- **HIGH** line 106, `list-heavy-section` — **7. Baseline**: 6 odrážok a iba 51 slov súvislého vysvetlenia.
+- **HIGH** line 52, `term-before-explanation` — **4. Improvement object a system boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`, `MTTR`, `policy`, `reliability`
+- **HIGH** line 144, `thin-concept-section` — **10. Experiment design**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 230, `thin-concept-section` — **17. Prioritizácia zlepšení**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 290, `thin-concept-section` — **22. Standardization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/declarative-vs-imperative.md`
 
@@ -19111,19 +19066,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4272 | 0 | 0 | 4272 |
-| `bare-bullet-items` | 3900 | 355 | 0 | 0 | 4255 |
-| `outline-instead-of-explanation` | 3750 | 0 | 0 | 0 | 3750 |
-| `thin-concept-section` | 0 | 3440 | 0 | 0 | 3440 |
-| `term-before-explanation` | 0 | 336 | 2206 | 0 | 2542 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1118 | 1118 |
-| `list-first-introduction` | 0 | 977 | 0 | 0 | 977 |
-| `short-concept-section` | 0 | 0 | 876 | 0 | 876 |
-| `example-not-explicit` | 0 | 0 | 0 | 838 | 838 |
-| `empty-section` | 524 | 0 | 0 | 0 | 524 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 336 | 336 |
-| `no-prose-concept` | 304 | 0 | 0 | 0 | 304 |
-| `list-heavy-section` | 0 | 203 | 0 | 0 | 203 |
+| `single-sentence-concept` | 0 | 4258 | 0 | 0 | 4258 |
+| `bare-bullet-items` | 3889 | 353 | 0 | 0 | 4242 |
+| `outline-instead-of-explanation` | 3744 | 0 | 0 | 0 | 3744 |
+| `thin-concept-section` | 0 | 3433 | 0 | 0 | 3433 |
+| `term-before-explanation` | 0 | 337 | 2209 | 0 | 2546 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1129 | 1129 |
+| `list-first-introduction` | 0 | 974 | 0 | 0 | 974 |
+| `short-concept-section` | 0 | 0 | 875 | 0 | 875 |
+| `example-not-explicit` | 0 | 0 | 0 | 849 | 849 |
+| `empty-section` | 522 | 0 | 0 | 0 | 522 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 343 | 343 |
+| `no-prose-concept` | 301 | 0 | 0 | 0 | 301 |
+| `list-heavy-section` | 0 | 205 | 0 | 0 | 205 |
 
 ## Required remediation pattern
 
