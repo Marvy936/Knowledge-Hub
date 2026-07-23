@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10447**
-- Total words: **407,869**
-- Findings: **17389** (critical 4478, high 5294, medium 5546, low 2071)
+- Audited conceptual sections: **10440**
+- Total words: **409,436**
+- Findings: **17333** (critical 4454, high 5267, medium 5517, low 2095)
 - File grades: A 0, B 0, C 2, D 255
 
 ## Interpretation
@@ -64,7 +64,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 681 | 25 | 32 | 32 | 13 | 1986 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | D | 677 | 24 | 31 | 30 | 26 | 2042 | `docs/11-cloud-and-aws/aws-backup.md` |
 | D | 668 | 25 | 29 | 35 | 14 | 1688 | `docs/11-cloud-and-aws/systems-manager.md` |
-| D | 655 | 25 | 30 | 34 | 4 | 1486 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | D | 655 | 28 | 24 | 32 | 12 | 1692 | `docs/12-observability/instrumentation-telemetry.md` |
 | D | 653 | 23 | 30 | 36 | 11 | 1353 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | D | 644 | 26 | 30 | 29 | 0 | 1063 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
@@ -276,6 +275,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 130 | 2 | 12 | 3 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 127 | 4 | 9 | 2 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 104 | 1 | 6 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
+| D | 91 | 1 | 3 | 5 | 28 | 3053 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | D | 85 | 0 | 5 | 5 | 21 | 3225 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 | D | 76 | 1 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | C | 65 | 1 | 3 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
@@ -8299,61 +8299,10 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 ### `docs/11-cloud-and-aws/high-availability-disaster-recovery.md`
 
-- **CRITICAL** line 10, `outline-instead-of-explanation` — **1. Availability**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 31, `outline-instead-of-explanation` — **2. High availability**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 47, `outline-instead-of-explanation` — **3. HA nie je DR**: 13 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 70, `outline-instead-of-explanation` — **4. Disaster**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 87, `outline-instead-of-explanation` — **5. Business Impact Analysis**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 102, `outline-instead-of-explanation` — **6. RTO**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 139, `empty-section` — **9. Backup, replication a DR**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 155, `outline-instead-of-explanation` — **10. Backup requirements**: 10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 176, `outline-instead-of-explanation` — **Backup and restore**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 193, `outline-instead-of-explanation` — **Warm standby**: 4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **Multi-site active-active**: 4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **12. Recovery Region**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 228, `outline-instead-of-explanation` — **13. Cross-Region data replication**: 9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 244, `outline-instead-of-explanation` — **14. Routing a failover**: 12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 266, `outline-instead-of-explanation` — **15. Failover decision**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 281, `outline-instead-of-explanation` — **16. Failback**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 295, `outline-instead-of-explanation` — **17. Dependency mapping**: 11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 313, `outline-instead-of-explanation` — **18. Account-level isolation**: 11 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 332, `outline-instead-of-explanation` — **19. Infrastructure as Code pre DR**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 346, `outline-instead-of-explanation` — **20. Runbook a automation**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 388, `outline-instead-of-explanation` — **22. Operational readiness**: 10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 403, `outline-instead-of-explanation` — **23. Data corruption**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 414, `outline-instead-of-explanation` — **24. Security incident recovery**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 428, `outline-instead-of-explanation` — **25. Cost model**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 472, `empty-section` — **27. Troubleshooting DR**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 511, `list-first-introduction` — **Oficiálna dokumentácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 10, `thin-concept-section` — **1. Availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 31, `thin-concept-section` — **2. High availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 47, `thin-concept-section` — **3. HA nie je DR**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 70, `thin-concept-section` — **4. Disaster**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 87, `thin-concept-section` — **5. Business Impact Analysis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 118, `thin-concept-section` — **7. RPO**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 130, `thin-concept-section` — **8. Recovery Time Actual a Recovery Point Actual**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 155, `thin-concept-section` — **10. Backup requirements**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **Backup and restore**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 185, `thin-concept-section` — **Pilot light**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 193, `thin-concept-section` — **Warm standby**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 202, `thin-concept-section` — **Multi-site active-active**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 211, `thin-concept-section` — **12. Recovery Region**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 228, `thin-concept-section` — **13. Cross-Region data replication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 244, `thin-concept-section` — **14. Routing a failover**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 266, `thin-concept-section` — **15. Failover decision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 281, `thin-concept-section` — **16. Failback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 295, `term-before-explanation` — **17. Dependency mapping**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `KMS`, `CI`, `CD`, `API`, `SMS`, `identity`
-- **HIGH** line 295, `thin-concept-section` — **17. Dependency mapping**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 313, `term-before-explanation` — **18. Account-level isolation**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `DNS`, `policy`, `blast radius`
-- **HIGH** line 313, `thin-concept-section` — **18. Account-level isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 332, `thin-concept-section` — **19. Infrastructure as Code pre DR**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 346, `thin-concept-section` — **20. Runbook a automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 388, `term-before-explanation` — **22. Operational readiness**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `DNS`, `freshness`, `availability`
-- **HIGH** line 388, `thin-concept-section` — **22. Operational readiness**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 403, `thin-concept-section` — **23. Data corruption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 414, `thin-concept-section` — **24. Security incident recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 428, `thin-concept-section` — **25. Cost model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 511, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 265, `outline-instead-of-explanation` — **33. Troubleshooting recovery**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **HIGH** line 88, `list-heavy-section` — **11. Backup contract**: 8 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 332, `list-first-introduction` — **Oficiálna dokumentácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 332, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/iaas-paas-saas.md`
 
@@ -10831,17 +10780,17 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 3920 | 0 | 0 | 0 | 3920 |
-| `thin-concept-section` | 0 | 3645 | 0 | 0 | 3645 |
-| `term-before-explanation` | 0 | 339 | 2251 | 0 | 2590 |
-| `single-sentence-explanation` | 0 | 0 | 2425 | 0 | 2425 |
+| `outline-instead-of-explanation` | 3898 | 0 | 0 | 0 | 3898 |
+| `thin-concept-section` | 0 | 3620 | 0 | 0 | 3620 |
+| `term-before-explanation` | 0 | 336 | 2241 | 0 | 2577 |
+| `single-sentence-explanation` | 0 | 0 | 2406 | 0 | 2406 |
 | `list-first-introduction` | 0 | 1110 | 0 | 0 | 1110 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1075 | 1075 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1079 | 1079 |
 | `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
-| `example-not-explicit` | 0 | 0 | 0 | 703 | 703 |
-| `empty-section` | 558 | 0 | 0 | 0 | 558 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 293 | 293 |
-| `list-heavy-section` | 0 | 200 | 0 | 0 | 200 |
+| `example-not-explicit` | 0 | 0 | 0 | 721 | 721 |
+| `empty-section` | 556 | 0 | 0 | 0 | 556 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 295 | 295 |
+| `list-heavy-section` | 0 | 201 | 0 | 0 | 201 |
 
 ## Required remediation pattern
 
