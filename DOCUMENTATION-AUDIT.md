@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10447**
-- Total words: **434,224**
-- Findings: **23436** (critical 8401, high 9497, medium 3111, low 2427)
+- Audited conceptual sections: **10461**
+- Total words: **436,007**
+- Findings: **23445** (critical 8391, high 9489, medium 3114, low 2451)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -251,7 +251,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 319 | 11 | 23 | 2 | 0 | 816 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 318 | 16 | 11 | 7 | 10 | 928 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
-| D | 315 | 14 | 16 | 5 | 3 | 749 | `docs/00-foundations/declarative-vs-imperative.md` |
 | D | 305 | 9 | 23 | 4 | 1 | 1062 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 304 | 12 | 17 | 6 | 4 | 1070 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 302 | 13 | 14 | 7 | 7 | 1331 | `docs/01-linux-and-systems/namespaces.md` |
@@ -270,6 +269,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
 | D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
+| D | 175 | 4 | 8 | 8 | 27 | 2532 | `docs/00-foundations/declarative-vs-imperative.md` |
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
@@ -372,35 +372,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/declarative-vs-imperative.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Automation Mindset`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 43, `bare-bullet-items` — **4. Imperatívny príklad**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či resource už existuje,`, `čo sa stane pri prerušení uprostred vykonávania,`, `ako sa pokračuje po chybe,`, `ako sa zmena vráti späť.`.
-- **CRITICAL** line 43, `outline-instead-of-explanation` — **4. Imperatívny príklad**: 5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 74, `bare-bullet-items` — **6. Kubernetes príklad**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor tri procesy,`, `vyber nodes,`, `prideľ IP adresy,`, `reštartuj zlyhaný proces.`.
-- **CRITICAL** line 74, `outline-instead-of-explanation` — **6. Kubernetes príklad**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 122, `bare-bullet-items` — **9. Kedy je vhodný imperatívny prístup**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednorazovej diagnostike,`, `procedurálnych dátových migráciách,`, `explicitných recovery krokoch,`, `sekvenciách, kde každý krok závisí od výstupu predchádzajúceho,`.
-- **CRITICAL** line 122, `outline-instead-of-explanation` — **9. Kedy je vhodný imperatívny prístup**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 134, `bare-bullet-items` — **10. Kedy je vhodný deklaratívny prístup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure as Code,`, `Kubernetes resources,`, `GitOps,`, `policy konfigurácii,`.
-- **CRITICAL** line 134, `outline-instead-of-explanation` — **10. Kedy je vhodný deklaratívny prístup**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 156, `empty-section` — **12. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 170, `bare-bullet-items` — **13. Praktické posúdenie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebujem opísať cieľ alebo presnú procedúru?`, `Existuje authoritative source of truth?`, `Ako systém zistí aktuálny stav?`, `Ako sa správa pri opakovanom spustení?`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **13. Praktické posúdenie**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 190, `outline-instead-of-explanation` — **15. Imperatívny prístup: vhodné scenáre**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 289, `outline-instead-of-explanation` — **22. Návrhové a troubleshooting otázky**: 10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 29, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 43, `list-first-introduction` — **4. Imperatívny príklad**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 43, `single-sentence-concept` — **4. Imperatívny príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 59, `list-first-introduction` — **5. Deklaratívny príklad**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 59, `single-sentence-concept` — **5. Deklaratívny príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 74, `list-first-introduction` — **6. Kubernetes príklad**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 134, `single-sentence-concept` — **10. Kedy je vhodný deklaratívny prístup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 145, `single-sentence-concept` — **11. Trade-offs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 170, `single-sentence-concept` — **13. Praktické posúdenie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 43, `thin-concept-section` — **4. Imperatívny príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 74, `thin-concept-section` — **6. Kubernetes príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 122, `thin-concept-section` — **9. Kedy je vhodný imperatívny prístup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 134, `thin-concept-section` — **10. Kedy je vhodný deklaratívny prístup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 170, `thin-concept-section` — **13. Praktické posúdenie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 47, `list-heavy-section` — **4. Imperatívny prístup**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 222, `single-sentence-concept` — **18. Porovnanie trade-offov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 273, `single-sentence-concept` — **Imperatívny command sa používa ako trvalá správa state-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 285, `single-sentence-concept` — **Human hotfix sa nevráti do source of truth**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 289, `single-sentence-concept` — **22. Návrhové a troubleshooting otázky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 190, `thin-concept-section` — **15. Imperatívny prístup: vhodné scenáre**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 289, `thin-concept-section` — **22. Návrhové a troubleshooting otázky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/desired-state-and-reconciliation.md`
 
@@ -18948,19 +18930,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4213 | 0 | 0 | 4213 |
-| `bare-bullet-items` | 3853 | 349 | 0 | 0 | 4202 |
-| `outline-instead-of-explanation` | 3742 | 0 | 0 | 0 | 3742 |
-| `thin-concept-section` | 0 | 3420 | 0 | 0 | 3420 |
-| `term-before-explanation` | 0 | 343 | 2220 | 0 | 2563 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1150 | 1150 |
-| `list-first-introduction` | 0 | 964 | 0 | 0 | 964 |
-| `example-not-explicit` | 0 | 0 | 0 | 904 | 904 |
-| `short-concept-section` | 0 | 0 | 891 | 0 | 891 |
-| `empty-section` | 511 | 0 | 0 | 0 | 511 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 373 | 373 |
-| `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
-| `list-heavy-section` | 0 | 208 | 0 | 0 | 208 |
+| `single-sentence-concept` | 0 | 4212 | 0 | 0 | 4212 |
+| `bare-bullet-items` | 3848 | 349 | 0 | 0 | 4197 |
+| `outline-instead-of-explanation` | 3739 | 0 | 0 | 0 | 3739 |
+| `thin-concept-section` | 0 | 3416 | 0 | 0 | 3416 |
+| `term-before-explanation` | 0 | 343 | 2222 | 0 | 2565 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1154 | 1154 |
+| `list-first-introduction` | 0 | 960 | 0 | 0 | 960 |
+| `example-not-explicit` | 0 | 0 | 0 | 916 | 916 |
+| `short-concept-section` | 0 | 0 | 892 | 0 | 892 |
+| `empty-section` | 510 | 0 | 0 | 0 | 510 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 381 | 381 |
+| `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
+| `list-heavy-section` | 0 | 209 | 0 | 0 | 209 |
 
 ## Required remediation pattern
 

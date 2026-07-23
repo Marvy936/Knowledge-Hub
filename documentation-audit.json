@@ -45,15 +45,15 @@
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
       "title": "Declarative vs. Imperative Approach",
-      "words": 749,
-      "headings": 19,
-      "sections": 19,
-      "findings": 38,
-      "critical": 14,
-      "high": 16,
-      "medium": 5,
-      "low": 3,
-      "score": 315,
+      "words": 2532,
+      "headings": 33,
+      "sections": 33,
+      "findings": 47,
+      "critical": 4,
+      "high": 8,
+      "medium": 8,
+      "low": 27,
+      "score": 175,
       "grade": "D"
     },
     {
@@ -5485,15 +5485,6 @@
       "path": "docs/00-foundations/declarative-vs-imperative.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -5505,7 +5496,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -5521,10 +5512,28 @@
       "path": "docs/00-foundations/declarative-vs-imperative.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
@@ -5537,26 +5546,17 @@
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 20,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 20,
+      "section": "1. Definícia",
+      "line": 13,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 20,
+      "section": "2. Problém, ktorý modely riešia",
+      "line": 26,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -5564,161 +5564,53 @@
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "3. Mentálny model",
-      "line": 29,
+      "section": "4. Imperatívny prístup",
+      "line": 47,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "4. Imperatívny príklad",
-      "line": 43,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "4. Imperatívny príklad",
-      "line": 43,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "4. Imperatívny príklad",
-      "line": 43,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "4. Imperatívny príklad",
-      "line": 43,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či resource už existuje,`, `čo sa stane pri prerušení uprostred vykonávania,`, `ako sa pokračuje po chybe,`, `ako sa zmena vráti späť.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "4. Imperatívny príklad",
-      "line": 43,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "4. Imperatívny príklad",
-      "line": 43,
+      "section": "4. Imperatívny prístup",
+      "line": 47,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "5. Deklaratívny príklad",
-      "line": 59,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. Imperatívny prístup",
+      "line": 47,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "5. Deklaratívny príklad",
-      "line": 59,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "6. Kubernetes príklad",
-      "line": 74,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "6. Kubernetes príklad",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "6. Kubernetes príklad",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor tri procesy,`, `vyber nodes,`, `prideľ IP adresy,`, `reštartuj zlyhaný proces.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "6. Kubernetes príklad",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "6. Kubernetes príklad",
-      "line": 74,
+      "section": "4. Imperatívny prístup",
+      "line": 47,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`, `resource`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "9. Kedy je vhodný imperatívny prístup",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "5. Imperatívny state a recovery",
+      "line": 68,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "9. Kedy je vhodný imperatívny prístup",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednorazovej diagnostike,`, `procedurálnych dátových migráciách,`, `explicitných recovery krokoch,`, `sekvenciách, kde každý krok závisí od výstupu predchádzajúceho,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "9. Kedy je vhodný imperatívny prístup",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "9. Kedy je vhodný imperatívny prístup",
-      "line": 122,
+      "section": "7. Desired, observed a last-known state",
+      "line": 93,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -5726,102 +5618,291 @@
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "10. Kedy je vhodný deklaratívny prístup",
-      "line": 134,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "7. Desired, observed a last-known state",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "10. Kedy je vhodný deklaratívny prístup",
-      "line": 134,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "10. Kedy je vhodný deklaratívny prístup",
-      "line": 134,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure as Code,`, `Kubernetes resources,`, `GitOps,`, `policy konfigurácii,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "10. Kedy je vhodný deklaratívny prístup",
-      "line": 134,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "10. Kedy je vhodný deklaratívny prístup",
-      "line": 134,
+      "section": "7. Desired, observed a last-known state",
+      "line": 93,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "11. Trade-offs",
-      "line": 145,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Kubernetes reconciliation príklad",
+      "line": 104,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "12. Časté omyly",
-      "line": 156,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "9. Event-driven a periodic reconciliation",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "13. Praktické posúdenie",
-      "line": 170,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Deklaratívne neznamená bez poradia",
+      "line": 143,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "13. Praktické posúdenie",
-      "line": 170,
+      "section": "12. Drift",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "12. Drift",
+      "line": 162,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "12. Drift",
+      "line": 162,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "13. Source of truth a ownership",
+      "line": 176,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "13. Source of truth a ownership",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "14. Partial failure v deklaratívnom systéme",
+      "line": 182,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "15. Imperatívny prístup: vhodné scenáre",
+      "line": 190,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "13. Praktické posúdenie",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebujem opísať cieľ alebo presnú procedúru?`, `Existuje authoritative source of truth?`, `Ako systém zistí aktuálny stav?`, `Ako sa správa pri opakovanom spustení?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/declarative-vs-imperative.md",
-      "section": "13. Praktické posúdenie",
-      "line": 170,
+      "section": "15. Imperatívny prístup: vhodné scenáre",
+      "line": 190,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "15. Imperatívny prístup: vhodné scenáre",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "16. Deklaratívny prístup: vhodné scenáre",
+      "line": 202,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "16. Deklaratívny prístup: vhodné scenáre",
+      "line": 202,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "16. Deklaratívny prístup: vhodné scenáre",
+      "line": 202,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "16. Deklaratívny prístup: vhodné scenáre",
+      "line": 202,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`, `Policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "18. Porovnanie trade-offov",
+      "line": 222,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "18. Porovnanie trade-offov",
+      "line": 222,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "19. Bezpečnosť",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "Imperatívny command sa používa ako trvalá správa state-u",
+      "line": 273,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "Human hotfix sa nevráti do source of truth",
+      "line": 285,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "22. Návrhové a troubleshooting otázky",
+      "line": 289,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "24. Zhrnutie",
+      "line": 319,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/declarative-vs-imperative.md",
+      "section": "24. Zhrnutie",
+      "line": 319,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
