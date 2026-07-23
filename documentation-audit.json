@@ -3027,16 +3027,16 @@
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
       "title": "Scalability, elasticity a fault tolerance",
-      "words": 3225,
+      "words": 3841,
       "headings": 41,
       "sections": 41,
-      "findings": 32,
-      "critical": 4,
-      "high": 4,
-      "medium": 3,
-      "low": 21,
-      "score": 118,
-      "grade": "D"
+      "findings": 25,
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 23,
+      "score": 36,
+      "grade": "C"
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
@@ -170444,21 +170444,12 @@
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "4. Vertical scaling",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legacy aplikácia, ktorú nemožno ľahko rozdeliť;`, `relačná databáza pred dosiahnutím praktického scale-up limitu;`, `dočasné odstránenie bottlenecku počas migrácie;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
       "section": "5. Horizontal scaling",
       "line": 56,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný spôsob rozdelenia trafficu alebo práce;`, `health checks a odstránenie nezdravých replicas;`, `stateless processing alebo explicitný state ownership;`, `koordináciu, partitioning a consistency model;`.",
-      "score": 12
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
@@ -170486,15 +170477,6 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "9. Scaling signal",
-      "line": 100,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 60 slov súvislého vysvetlenia.",
-      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
@@ -170536,28 +170518,19 @@
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
       "section": "15. Stateless a stateful scaling",
       "line": 160,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 69 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "15. Stateless a stateful scaling",
-      "line": 160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partition alebo shard ownership;`, `leader/follower alebo multi-writer model;`, `replication lag;`, `conflict resolution;`.",
-      "score": 12
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
       "section": "15. Stateless a stateful scaling",
       "line": 160,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
@@ -170599,15 +170572,6 @@
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
       "section": "20. Redundancy a nezávislé failure domains",
       "line": 210,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `backup v rovnakom account-e s rovnakým delete oprávnením;`, `dve DNS cesty závislé od jednej authoritative zóny;`, `všetky replicas deployované rovnakou chybnou pipeline naraz;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "20. Redundancy a nezávislé failure domains",
-      "line": 210,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -170621,33 +170585,6 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "20. Redundancy a nezávislé failure domains",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "22. Retry",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 66 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "22. Retry",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré error classes sú retryable;`, `maximálny čas alebo počet attempts;`, `exponential backoff a jitter;`, `timeout hierarchy;`.",
-      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",

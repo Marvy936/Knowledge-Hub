@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **257**
 - Audited conceptual sections: **10435**
-- Total words: **410,846**
-- Findings: **23560** (critical 8638, high 9746, medium 3055, low 2121)
-- File grades: A 0, B 0, C 2, D 255
+- Total words: **411,462**
+- Findings: **23553** (critical 8634, high 9742, medium 3054, low 2123)
+- File grades: A 0, B 0, C 3, D 254
 
 ## Interpretation
 
@@ -276,10 +276,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 125 | 2 | 9 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
-| D | 118 | 4 | 4 | 3 | 21 | 3225 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 | D | 80 | 2 | 1 | 3 | 28 | 3053 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
+| C | 36 | 0 | 0 | 2 | 23 | 3841 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 
 ## Critical and high findings
 
@@ -15942,17 +15942,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 698, `term-before-explanation` — **37. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `EFS`, `AZ`, `KMS`, `S3`, `SSE-KMS`, `SG`, `policy`
 - **HIGH** line 698, `thin-concept-section` — **37. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md`
-
-- **CRITICAL** line 41, `bare-bullet-items` — **4. Vertical scaling**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legacy aplikácia, ktorú nemožno ľahko rozdeliť;`, `relačná databáza pred dosiahnutím praktického scale-up limitu;`, `dočasné odstránenie bottlenecku počas migrácie;`.
-- **CRITICAL** line 56, `bare-bullet-items` — **5. Horizontal scaling**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný spôsob rozdelenia trafficu alebo práce;`, `health checks a odstránenie nezdravých replicas;`, `stateless processing alebo explicitný state ownership;`, `koordináciu, partitioning a consistency model;`.
-- **CRITICAL** line 160, `bare-bullet-items` — **15. Stateless a stateful scaling**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partition alebo shard ownership;`, `leader/follower alebo multi-writer model;`, `replication lag;`, `conflict resolution;`.
-- **CRITICAL** line 232, `bare-bullet-items` — **22. Retry**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré error classes sú retryable;`, `maximálny čas alebo počet attempts;`, `exponential backoff a jitter;`, `timeout hierarchy;`.
-- **HIGH** line 100, `list-heavy-section` — **9. Scaling signal**: 6 odrážok a iba 60 slov súvislého vysvetlenia.
-- **HIGH** line 160, `list-heavy-section` — **15. Stateless a stateful scaling**: 7 odrážok a iba 69 slov súvislého vysvetlenia.
-- **HIGH** line 210, `bare-bullet-items` — **20. Redundancy a nezávislé failure domains**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `backup v rovnakom account-e s rovnakým delete oprávnením;`, `dve DNS cesty závislé od jednej authoritative zóny;`, `všetky replicas deployované rovnakou chybnou pipeline naraz;`.
-- **HIGH** line 232, `list-heavy-section` — **22. Retry**: 6 odrážok a iba 66 slov súvislého vysvetlenia.
-
 ### `docs/11-cloud-and-aws/security-groups-network-acls.md`
 
 - **CRITICAL** line 5, `bare-bullet-items` — **1. Security Group**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priraďuje sa k network interface-u alebo podporovanému resource-u,`, `obsahuje inbound a outbound allow rules,`, `nemá explicitné deny rules,`, `je stateful,`.
@@ -19441,18 +19430,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | `single-sentence-concept` | 0 | 4361 | 0 | 0 | 4361 |
-| `bare-bullet-items` | 3973 | 364 | 0 | 0 | 4337 |
+| `bare-bullet-items` | 3969 | 363 | 0 | 0 | 4332 |
 | `outline-instead-of-explanation` | 3790 | 0 | 0 | 0 | 3790 |
 | `thin-concept-section` | 0 | 3486 | 0 | 0 | 3486 |
-| `term-before-explanation` | 0 | 332 | 2186 | 0 | 2518 |
+| `term-before-explanation` | 0 | 332 | 2185 | 0 | 2517 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1080 | 1080 |
 | `list-first-introduction` | 0 | 1002 | 0 | 0 | 1002 |
 | `short-concept-section` | 0 | 0 | 869 | 0 | 869 |
-| `example-not-explicit` | 0 | 0 | 0 | 742 | 742 |
+| `example-not-explicit` | 0 | 0 | 0 | 744 | 744 |
 | `empty-section` | 555 | 0 | 0 | 0 | 555 |
 | `no-prose-concept` | 320 | 0 | 0 | 0 | 320 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 299 | 299 |
-| `list-heavy-section` | 0 | 201 | 0 | 0 | 201 |
+| `list-heavy-section` | 0 | 198 | 0 | 0 | 198 |
 
 ## Required remediation pattern
 
