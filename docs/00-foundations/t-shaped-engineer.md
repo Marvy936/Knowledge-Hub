@@ -1,483 +1,290 @@
-# T-shaped Engineer
+# T-shaped, I-shaped a π-shaped Engineer
 
 ## Metadata
 
 - Status: Learning
 - Úroveň: L2 — rozumiem mechanizmu
 - Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md)
-- Súvisiace témy: skill matrix, systems thinking, ownership, platform engineering, career development
+- Predpoklady: [DevOps](devops.md), [Systems Thinking](systems-thinking.md)
+- Súvisiace témy: skill matrix, ownership, platform engineering, career development, team topology
+
+Metadata zaraďuje kapitolu medzi organizačné a profesijné základy. Skill-shape model nie je hodnotenie osobnosti ani požiadavka naučiť sa všetky technológie; opisuje rozloženie pracovnej šírky a expertnej hĺbky.
 
 ## 1. Definícia
 
-T-shaped engineer má široký pracovný prehľad naprieč viacerými disciplínami a zároveň hlbokú expertízu v jednej alebo niekoľkých oblastiach.
+T-shaped engineer má dostatočne široký systémový prehľad na spoluprácu cez technické boundaries a zároveň hlbokú expertízu v jednej oblasti, v ktorej dokáže diagnostikovať, navrhovať a obhajovať riešenia. Horizontála vytvára spoločný jazyk a vertikála poskytuje expertízu potrebnú pri komplexnom probléme.
 
 ```text
-Šírka znalostí
+šírka pracovného porozumenia
 ────────────────────────────────────────────
-        │
-        │
-        │ Hĺbka expertízy
-        │
-        │
+                 │
+                 │ hlboká expertíza
+                 │
+                 │
 ```
 
-Horizontálna časť písmena T umožňuje rozumieť celému systému a spolupracovať naprieč rolami. Vertikálna časť umožňuje riešiť komplexné problémy do potrebnej hĺbky.
+Model nehovorí, že každý engineer musí mať rovnakú šírku alebo tú istú vertikálu. Je užitočný najmä pri návrhu kolektívnych schopností tímu, kariérneho rozvoja a escalation paths.
 
-## 2. Problém, ktorý rieši
+## 2. Problém, ktorý skill-shape model rieši
 
-Moderné systémy prekračujú hranice jednej technológie. Incident v Kubernetes môže mať koreňovú príčinu v:
+Moderný incident často prekračuje hranice jedného nástroja. Kubernetes Pod môže zlyhávať pre DNS, cloud route, TLS trust, database connection pool, resource limits, secret delivery alebo application behavior.
 
-- DNS,
-- TLS,
-- Linux cgroups,
-- cloud networkingu,
-- databáze,
-- CI/CD konfigurácii,
-- aplikačnom kóde.
+Čisto úzka expertíza môže viesť k lokálnej optimalizácii a množstvu handoffov. Čisto široký profil môže identifikovať affected layers, ale nemusí mať hĺbku na bezpečný redesign control plane-u, database recovery alebo multi-account identity modelu.
 
-Čisto úzka špecializácia môže viesť k tomu, že odborník rozumie svojej vrstve, ale nevie správne lokalizovať problém v širšom systéme. Čisto široký profil zasa môže chýbať hĺbka potrebná na návrh alebo diagnostiku náročných riešení.
+Skill-shape model pomáha odlíšiť tri schopnosti:
 
-T-shaped model kombinuje obe potreby.
+- **Orientácia — určenie relevantnej vrstvy**: engineer vie, aké components a evidence patria do problem space-u.
+- **Spolupráca — komunikácia cez boundary**: dokáže formulovať symptóm, hypotheses a požadovaný input pre špecialistu bez neurčitého ticketu.
+- **Expert resolution — hlboká práca v doméne**: rozumie internému state-u, failure modes a trade-offs natoľko, aby navrhol a overil nápravu.
 
-## 3. T-shaped profil DevOps engineera
+## 3. Šírka a hĺbka ako odlišné druhy znalosti
 
-Príklad horizontálnej šírky:
+Šírka neznamená poznať syntax desiatok produktov. Znamená mať použiteľný mentálny model susedných disciplín a vedieť rozpoznať, keď je symptom iba prejavom problému na inej boundary.
+
+Hĺbka nie je množstvo zapamätaných príkazov. Prejavuje sa schopnosťou vysvetliť interný mechanismus, predvídať failure behavior, diagnostikovať ambiguous evidence a obhájiť návrh proti alternatívam.
+
+## 4. Použiteľná horizontálna šírka
+
+Pri susednej oblasti má engineer vedieť viac než definíciu. Potrebuje minimum, ktoré podporuje end-to-end reasoning:
+
+- **Účel oblasti — aký systémový problem rieši**: napríklad DNS mapuje names na records a ovplyvňuje service discovery, nie iba „prekladá adresy“.
+- **Hlavné actors a state — kto komunikuje a kde je authoritative informácia**: pri IAM treba rozlíšiť principal, credential, policy a resource decision.
+- **Inputs a outputs — čo prechádza cez boundary**: certificate, token, packet, artifact alebo query majú odlišný trust a lifecycle contract.
+- **Bežné failure modes — ako sa problém prejaví**: timeout, deny, stale data, saturation alebo integrity error smerujú diagnosis na inú vrstvu.
+- **Evidence sources — čo môže hypotézu potvrdiť**: logs, metrics, packet capture, audit event alebo database state majú rozdielnu autoritu a completeness.
+- **Escalation threshold — kedy potrebuje špecialistu**: engineer má vedieť bezpečne zastaviť vlastný zásah pred poškodením state-u alebo trust boundary.
+
+## 5. Príklad šírky v databázovej oblasti
+
+DevOps engineer nemusí navrhovať query optimizer, ale databázová šírka musí byť prevádzkovo použiteľná. Pri application latency má vedieť odlíšiť connection acquisition, lock wait, slow query, storage saturation a replication lag.
+
+Relevantné koncepty majú konkrétnu úlohu:
+
+- **Transaction — atomicita a consistency boundary**: určuje, ktoré writes sa commitnú spolu a čo sa stane pri partial failure.
+- **Connection pool — obmedzená concurrency vrstva**: saturation poolu môže vytvárať application timeout aj pri zdravej CPU databázy.
+- **Index — read performance a write cost trade-off**: nesprávny alebo chýbajúci index mení query plan, storage a maintenance behavior.
+- **Lock — koordinácia concurrent accessu**: blocking chain môže vytvoriť tail latency a deadlock bez vysokého resource utilization.
+- **Replication — availability a read-scale mechanismus**: lag ovplyvňuje stale reads, failover data loss a recovery decision.
+- **Backup a restore — ochrana authoritative state-u**: backup success nestačí bez decryption, application consistency a recovery testu.
+
+## 6. Dôkaz vertikálnej hĺbky
+
+Hlboká expertíza sa preukazuje na zložitejších úlohách, nie self-ratingom. Expert vie prejsť od symptom-u k internému state-u, vyhodnotiť viac hypotheses a navrhnúť riešenie s explicitnými trade-offs.
+
+Hĺbka zahŕňa:
+
+- **Internal mechanisms — state machines, control loops a data structures**: umožňujú predvídať behavior mimo happy pathu.
+- **Failure modes — očakávané aj neobvyklé zlyhania**: expert vie, ktoré evidence odlišuje podobné symptoms.
+- **Performance characteristics — limits a nonlinearities**: rozumie queueing, caching, contention a scale boundaries.
+- **Security boundaries — identity, authority a trust**: vie, kde sa control presadzuje a čo nezaručuje.
+- **Lifecycle — upgrade, migration, rollback a retirement**: návrh počíta s budúcou zmenou state-u, nie iba prvým deploymentom.
+- **Design trade-offs — porovnanie alternatív podľa constraints**: dokáže vysvetliť, prečo jednoduchšie riešenie môže byť vhodnejšie než technicky pokročilejšie.
+- **Teaching and review — schopnosť preniesť model**: expert znižuje bus factor a zlepšuje decision quality tímu.
+
+## 7. Úrovne znalosti
+
+Úroveň má opisovať behavior, ktorý možno pozorovať a overiť. Pomenovanie technológie v životopise alebo absolvovaný kurz nie sú samostatným dôkazom praktickej schopnosti.
 
 ```text
-SDLC
-Git
-Linux
-Networking
-Security
-CI/CD
-Cloud
-Containers
-Kubernetes
-Observability
-Databases
-Automation
-SRE
+L0 — tému nepoznám alebo ju neviem spoľahlivo rozpoznať
+L1 — viem pojem definovať a odlíšiť od susedného konceptu
+L2 — rozumiem actors, state-u, flowu a hlavným failure modes
+L3 — viem mechanizmus samostatne použiť v bounded scenári
+L4 — viem diagnostikovať ambiguous failure a obnoviť systém
+L5 — viem navrhnúť, obhájiť, migrovať a učiť riešenie
 ```
 
-Príklad vertikálnej hĺbky:
+Rovnaký človek môže mať v jednej oblasti L5 a v susednej L2. Model pomáha vybrať ďalší praktický dôkaz, nie vytvoriť jeden celkový „seniority score“.
+
+## 8. I-shaped engineer
+
+I-shaped engineer má hlbokú expertízu v jednej doméne a obmedzenejší pracovný prehľad mimo nej. Je mimoriadne hodnotný pri problémoch, kde je potrebné rozumieť interným detailom, formal correctness alebo špecializovanému hardware a protocolu.
+
+Výhody a riziká vychádzajú z rovnakého tvaru:
+
+- **Vysoká doménová hĺbka — riešenie expert-only problemov**: tím má človeka schopného analyzovať interný state a neštandardný failure.
+- **Silná review capability — ochrana critical designu**: expert odhalí trade-off alebo compatibility risk, ktorý všeobecný reviewer nevidí.
+- **Obmedzená cross-boundary orientácia — viac handoffov**: symptom môže zostať nesprávne priradený vlastnej doméne alebo sa vracať medzi tímami.
+- **Local optimization risk — najlepší výsledok pre component**: solution môže poškodiť flow, operability alebo cost celého systému.
+
+I-shaped profil nie je „horší“. Potrebuje doplňujúci tímový interface a dostatočnú spoločnú horizontálu na efektívnu spoluprácu.
+
+## 9. T-shaped engineer
+
+T-shaped engineer kombinuje jednu hlbokú vertikálu s pracovným porozumením celého relevantného system pathu. Vie viesť diagnosis cez viac vrstiev a zároveň prevziať expert ownership vo svojej doméne.
+
+Rizikom je falošná šírka. Ak človek venuje čas veľkému počtu produktov bez laboratórnej alebo production skúsenosti, môže vedieť terminology, ale nie boundaries ani failure evidence.
+
+## 10. π-shaped a comb-shaped profil
+
+π-shaped engineer má dve hlboké oblasti spojené spoločnou horizontálou. Profil je silný, keď vertikály tvoria dôležitú boundary, napríklad Kubernetes a cloud networking alebo application runtime a observability.
+
+Comb-shaped profil má viac expert vertikál vybudovaných počas dlhšieho obdobia. Jeho rizikom je maintenance cost: technológie a standards sa menia a nie je realistické udržať L5 hĺbku vo veľkom počte aktívnych oblastí bez pravidelnej praxe.
+
+Tvar preto nie je statická identita. Vertikála môže časom slabnúť, rozšíriť sa alebo presunúť podľa roly, produktu a organization needs.
+
+## 11. Kolektívny T-shaped tím
+
+Najdôležitejší je profil tímu, nie hero jednotlivca. Členovia môžu zdieľať základnú horizontálu a mať rozdielne vertikály, ktoré pokrývajú kritické service boundaries.
 
 ```text
-Kubernetes platforma
-  ├── control plane
-  ├── networking
-  ├── storage
-  ├── scheduling
-  ├── security
-  ├── upgrades
-  └── troubleshooting
+Engineer A — Kubernetes a orchestration
+Engineer B — application runtime a performance
+Engineer C — networking, identity a security
+Engineer D — database a data recovery
+
+Spoločná horizontála — SDLC, Git, delivery, observability, incident response
 ```
 
-Iný DevOps engineer môže mať rovnakú šírku, ale hĺbku v AWS networkingu, Terraform platforme alebo CI/CD architektúre.
+Kolektívny model prináša konkrétne výhody:
 
-## 4. Šírka neznamená povrchnosť
+- **Menší knowledge silo — viac ľudí rozumie interface-u**: expert nie je jediný, kto dokáže identifikovať alebo eskalovať failure.
+- **Nižší bus factor — zastupiteľnosť critical capability**: dovolenka alebo odchod jedného človeka nevyradí recovery a change path.
+- **Kvalitnejší design review — viac perspektív**: security, runtime a data trade-offs vstupujú do návrhu pred production failure-om.
+- **Menej slepých handoffov — presnejší shared language**: tím dokáže odovzdať evidence a hypothesis, nie iba symptom.
 
-Šírka má vytvoriť použiteľný systémový model. Pri susednej oblasti by mal engineer minimálne vedieť:
+## 12. Skill coverage a critical paths
 
-- čo táto oblasť rieši,
-- aké má hlavné komponenty,
-- aké sú jej vstupy a výstupy,
-- ako sa prejavuje zlyhanie,
-- kde nájsť dôkazy,
-- kedy je potrebný špecialista.
+Tím nemá budovať vertikály podľa popularity technológií. Má mapovať critical user a operational paths a zistiť, kde chýba diagnosis, design alebo recovery capability.
 
-Napríklad pri databázach DevOps engineer nemusí vedieť navrhovať komplexný query planner, ale mal by rozumieť:
+Ak služba používa Kubernetes, managed database, OIDC a Kafka, kritické vertikály sa viažu na orchestration, data, identity a messaging. Ďalší frontend framework nemusí byť najväčšou capability medzerou pre on-call a recovery.
 
-- transakciám,
-- connection poolingu,
-- indexom,
-- locks,
-- replikácii,
-- backupu a restore,
-- prevádzkovým metrikám.
+Coverage sa posudzuje aj podľa času. Musí existovať niekto schopný reagovať počas incidentu, nie iba externý expert dostupný o niekoľko dní.
 
-Takáto šírka umožňuje správne rozpoznať hranice problému.
+## 13. Vzťah k DevOps a ownershipu
 
-## 5. Hĺbka neznamená izoláciu
+DevOps potrebuje cross-boundary feedback a shared service outcome. T-shaped profil pomáha engineerovi rozumieť, ako jeho zmena ovplyvní build, deployment, runtime, security a user experience.
 
-Hlboká expertíza nie je iba poznanie syntaxe. Zahŕňa:
+Praktická hodnota horizontály sa prejavuje takto:
 
-- interné mechanizmy,
-- failure modes,
-- tradeoffs,
-- performance charakteristiky,
-- bezpečnostné hranice,
-- produkčný lifecycle,
-- troubleshooting,
-- návrh a obhajobu riešenia.
+- **Impact reasoning — identifikácia downstream consequences**: configuration change sa posudzuje aj cez rollout, recovery a cost.
+- **Shared language — presná komunikácia so špecialistom**: ticket obsahuje evidence, timestamps a hypotheses namiesto „nefunguje sieť“.
+- **Root-cause localization — rozlíšenie vrstiev**: engineer vie, kedy je Pod symptomom DNS alebo database saturation.
+- **Escalation — zapojenie správnej expertízy**: ownership znamená zabezpečiť resolution, nie osobne vykonať každý zásah.
+- **Lifecycle design — operability od planningu**: expertíza sa premieta do tests, telemetry a migration, nie až do incident response.
 
-Príklad hĺbky v Terraform:
+## 14. Budovanie horizontálnej šírky
+
+Šírka sa buduje cez fundamenty a interfaces, nie cez memorovanie UI. Každá oblasť má dosiahnuť minimálne mechanistické porozumenie a bounded praktický dôkaz.
+
+DevOps horizontála typicky zahŕňa:
+
+- **SDLC a DevOps — tok zmeny a ownership**: engineer chápe build, release, deployment, feedback a production outcome.
+- **Linux a systems — process, memory, storage a permissions**: umožňujú diagnosis host a container runtime behavioru.
+- **Networking a DNS — packet path a name resolution**: timeout sa analyzuje cez route, policy, transport a application boundary.
+- **Git a source control — change identity a collaboration**: history, branching a review podporujú audit a safe integration.
+- **Testing a CI/CD — evidence a promotion**: rozlišuje test boundaries, artifact identity, gates a rollout.
+- **Security a identity — trust a authorization**: principal, credential, policy, encryption a audit sa posudzujú cez threat boundary.
+- **Containers a Kubernetes — packaging a reconciliation**: engineer rozumie image, scheduling, probes, services, storage a control loopom.
+- **Cloud — responsibility a failure domains**: services sa vyberajú podľa ownershipu, scope-u, costu a recovery.
+- **Observability — evidence a correlation**: metrics, logs a traces sa používajú na hypothesis-driven diagnosis.
+- **Databases a messaging — state, consistency a delivery**: transaction, replication, queue a idempotency ovplyvňujú correctness.
+- **SRE a incident management — reliability a recovery**: SLO, alerting, mitigation a learning prepájajú runtime s engineering backlogom.
+
+## 15. Budovanie vertikálnej hĺbky
+
+Hĺbka vzniká opakovaným kontaktom s interným mechanismom a následkami rozhodnutí. Čítanie vytvorí vocabulary a model, ale diagnosis a design vyžadujú labs, failures, migrations a review reálnych riešení.
 
 ```text
-L1: viem definovať resource
-L2: rozumiem desired state a dependency graphu
-L3: viem vytvoriť modul a remote backend
-L4: viem riešiť drift, import a state recovery
-L5: viem navrhnúť bezpečný multi-account workflow a obhájiť tradeoffs
+teória a source documentation
+→ minimálna implementácia
+→ controlled failure a troubleshooting
+→ production-like scale a lifecycle
+→ porovnanie alternatív
+→ vysvetlenie, review a teaching
+→ zložitejší scenár
 ```
 
-Vertikálna hĺbka má byť napojená na širší kontext delivery systému.
+Najväčší rast často vzniká pri zlyhaní hypothesis. Engineer, ktorý vie iba opakovať úspešný tutorial, ešte nemá evidence o behavior-e pri partial state, upgrade alebo dependency outage.
 
-## 6. Porovnanie profilov
+## 16. Skill matrix
 
-### I-shaped engineer
+Skill matrix mapuje capability na pozorovateľný dôkaz. Jej cieľom nie je vytvoriť ranking ľudí, ale identifikovať team coverage, single points a ďalší praktický krok.
 
-I-shaped engineer má hlbokú expertízu v jednej oblasti, ale obmedzený prehľad mimo nej.
+| Oblasť | Aktuálny behavior | Cieľový behavior | Dôkaz |
+|---|---|---|---|
+| Linux | samostatná základná diagnosis procesu | analyzovať CPU, memory a I/O contention | zdokumentovaný failure lab a recovery |
+| Networking | rozumie DNS a routes | izolovať packet, TLS a policy boundary | end-to-end packet-path troubleshooting |
+| Terraform | spravuje resources a modules | navrhnúť multi-account state a recovery | architecture review, import a recovery exercise |
+| Kubernetes | prevádzkuje workloads | diagnostikovať scheduling, network a storage failure | CKA-style drills a production incident evidence |
+| Databases | pozná základné queries | rozumie transactions, pooling, locks a restore | lab s contention, backup a application validation |
+
+Self-rating sa má doplniť reviewom a artifactom. Certifikát môže byť jeden dôkaz, ale nepreukazuje automaticky production design a recovery capability.
+
+## 17. Learning plan a priority
+
+Rozvoj nemá rovnakú prioritu pre všetky oblasti. Horizontála sa zvyšuje tam, kde chýba schopnosť lokalizovať incident alebo spolupracovať, a vertikála tam, kde tím nemá expert coverage pre critical path.
+
+Praktický learning goal má formu behavioru: „dokážem diagnostikovať DNS timeout od Podu po authoritative resolver“ je lepší než „naučím sa DNS“. Definuje scope, evidence a completion condition.
+
+## 18. End-to-end troubleshooting príklad
+
+Aplikácia v Kubernetes nedokáže komunikovať s databázou. Nástrojový prístup reštartuje Pod, ale T-shaped reasoning najprv rozdelí path na hypotheses.
 
 ```text
-        │
-        │
-        │
-        │
-        │
+application configuration a timeout
+→ Secret a runtime environment
+→ DNS resolution
+→ Pod a Node networking
+→ NetworkPolicy, firewall a security group
+→ TLS handshake a trust
+→ database listener a authentication
+→ connection pool, limits a locks
+→ correlated logs, metrics a audit
 ```
 
-Výhody:
+Šírka umožní určiť failure boundary a získať správne evidence. Hĺbka database alebo network experta potom rieši interný state, ak problém prekročí bounded capability aplikačného tímu.
 
-- vysoká technická hĺbka,
-- schopnosť riešiť špecializované problémy,
-- silná doménová expertíza.
+## 19. Anti-patterny
 
-Riziká:
+### Checklist collector
 
-- slabšia spolupráca cez systémové hranice,
-- lokálna optimalizácia,
-- závislosť na handoffoch,
-- ťažšia diagnostika multi-layer problémov.
+Engineer zbiera názvy tools a certifikáty bez mechanistickej alebo praktickej väzby. Profil vyzerá široko, ale pri incidente nevie určiť evidence ani boundaries.
 
-### T-shaped engineer
+### Expert silo
 
-```text
-────────────────────────
-          │
-          │
-          │
-```
+Jeden človek rieši všetky kritické failures a decisions. Tím nezískava horizontálu, documentation ani zastupiteľnosť a expert sa stáva bottleneckom.
 
-Výhody:
+### Forced generalist
 
-- systémové porozumenie,
-- jedna hlboká expertíza,
-- lepšia spolupráca,
-- schopnosť lokalizovať problémy.
+Organizácia očakáva, že každý bude produkčný expert na všetko, a ruší špecializované roly. Výsledkom je povrchný design, stress a nebezpečné zásahy mimo kompetencie.
 
-Riziko:
+### Skill matrix ako performance ranking
 
-- príliš široký scope môže spomaliť budovanie skutočnej hĺbky.
+Úrovne sa používajú na porovnávanie ľudí namiesto plánovania coverage a learningu. Ľudia potom nadhodnocujú score a skrývajú neistotu.
 
-### π-shaped engineer
+### Hĺbka bez lifecycle-u
 
-π-shaped engineer má široký prehľad a dve hlboké oblasti.
+Engineer pozná setup a syntax, ale nie upgrade, rollback, security a recovery. Expertíza funguje iba pri prvom happy-path deployment-e.
 
-```text
-────────────────────────
-     │             │
-     │             │
-     │             │
-```
+## 20. Kontrolné otázky
 
-Príklad:
+1. Aký rozdiel je medzi horizontálnou šírkou a vertikálnou hĺbkou?
+2. Prečo šírka neznamená iba poznať názvy technológií?
+3. Aké behaviorálne evidence dokazujú hlbokú expertízu?
+4. Kedy je I-shaped profil pre tím veľmi hodnotný a aké interface potrebuje?
+5. Ako sa T-shaped, π-shaped a comb-shaped profily líšia?
+6. Prečo je kolektívny skill shape dôležitejší než profil jedného človeka?
+7. Ako sa mapujú vertikály na critical service paths?
+8. Akú horizontálnu database znalosť potrebuje DevOps engineer?
+9. Prečo certifikát alebo self-rating nie je dostatočný dôkaz úrovne?
+10. Ako navrhneš learning goal, ktorý má pozorovateľný completion condition?
 
-- hĺbka v Kubernetes,
-- hĺbka v AWS networkingu.
+## 21. Zhrnutie
 
-Takýto profil môže byť veľmi hodnotný, ak sa dve expertízy vzájomne dopĺňajú.
+Skill-shape model spája pracovnú šírku s expert hĺbkou. Šírka podporuje system orientation, collaboration a správnu escalation, zatiaľ čo hĺbka umožňuje diagnosis, design a lifecycle ownership v komplexnej doméne.
 
-### Comb-shaped engineer
+Cieľom nie je vytvoriť univerzálneho jednotlivca. Zdravý tím má spoločnú horizontálu, dopĺňajúce sa vertikály, zastupiteľnosť a learning plán odvodený od critical paths a reálnych evidence medzier.
 
-Comb-shaped profil má viacero hlbokých vertikál. V praxi vzniká dlhodobým rozvojom, nie snahou naučiť sa všetko naraz.
+## Glossary impact
 
-```text
-────────────────────────
-  │    │      │     │
-  │    │      │     │
-```
+Relevantné pojmy: I-shaped engineer, T-shaped engineer, π-shaped engineer, comb-shaped engineer, horizontal breadth, vertical depth, skill matrix, behavior evidence, collective capability, bus factor a critical-path coverage.
 
-Rizikom je rozptýlenie a neudržateľná snaha udržať expertnú hĺbku vo veľkom počte rýchlo sa meniacich oblastí.
+## Primárne zdroje
 
-## 7. T-shaped tím, nie iba jednotlivec
-
-Nie je potrebné, aby každý člen tímu mal rovnakú hĺbku. Dôležité je, aby sa vertikály členov dopĺňali.
-
-```text
-Engineer A: Kubernetes
-Engineer B: Application runtime
-Engineer C: Networking and security
-Engineer D: Data platform
-
-Spoločná horizontála:
-SDLC, Git, delivery, observability, incident response
-```
-
-Tím má potom širšiu kolektívnu schopnosť než ktorýkoľvek jednotlivec.
-
-T-shaped tím znižuje:
-
-- knowledge silos,
-- bottleneck jedného experta,
-- počet slepých handoffov,
-- bus factor.
-
-## 8. Vzťah k DevOps
-
-DevOps vyžaduje spoluprácu naprieč vývojom, prevádzkou, bezpečnosťou a business kontextom. T-shaped profil túto spoluprácu podporuje, pretože engineer dokáže:
-
-- chápať dopad svojej zmeny na ďalšie vrstvy,
-- formulovať problém v jazyku iného tímu,
-- rozlíšiť symptóm od root cause,
-- zapojiť správneho špecialistu,
-- navrhnúť riešenie s ohľadom na celý lifecycle.
-
-T-shaped model však neznamená, že každý musí vedieť vykonávať všetky roly.
-
-## 9. Ako budovať horizontálnu šírku
-
-Šírka sa buduje cez fundamenty a rozhrania medzi systémami.
-
-Odporúčaný základ pre DevOps:
-
-1. SDLC a DevOps princípy
-2. Linux
-3. Networking a DNS
-4. Git
-5. Testing a CI/CD
-6. Security a identity
-7. Containers
-8. Kubernetes
-9. Cloud
-10. Observability
-11. Databases
-12. SRE a incident management
-
-Pri každej oblasti je cieľom L2 až L3:
-
-- rozumiem mechanizmu,
-- viem použiť základné nástroje,
-- viem identifikovať bežné failure modes.
-
-## 10. Ako budovať vertikálnu hĺbku
-
-Hĺbka vzniká opakovaným cyklom:
-
-```text
-Teória
-  ↓
-Praktická implementácia
-  ↓
-Zlyhanie a troubleshooting
-  ↓
-Produkčné tradeoffs
-  ↓
-Vysvetlenie a obhajoba
-  ↓
-Opakovanie na zložitejšom scenári
-```
-
-Samotné čítanie dokumentácie zvyčajne vytvorí L1 alebo L2. Hĺbka L4 a L5 vyžaduje diagnostiku, návrh a skúsenosť s následkami rozhodnutí.
-
-## 11. Skill matrix
-
-Skill matrix pomáha odlíšiť pocit znalosti od konkrétnej schopnosti.
-
-Príklad:
-
-| Oblasť | Aktuálna úroveň | Cieľ | Dôkaz |
-|---|---:|---:|---|
-| Linux | L3 | L4 | diagnostika CPU, memory a process problémov |
-| Networking | L2 | L3 | samostatný DNS a routing lab |
-| Terraform | L4 | L5 | návrh multi-environment workflow |
-| Kubernetes | L3 | L4 | CKA a troubleshooting labs |
-| Databases | L1 | L2 | transakcie, backup a connection pooling |
-
-Dôkaz je dôležitejší než subjektívne označenie „poznám“.
-
-## 12. Prepojenie s týmto Knowledge Hubom
-
-Knowledge Hub používa úrovne:
-
-```text
-L0 — tému nepoznám
-L1 — viem ju definovať
-L2 — rozumiem mechanizmu
-L3 — viem ju prakticky použiť
-L4 — viem ju diagnostikovať
-L5 — viem navrhnúť a obhájiť riešenie
-```
-
-Horizontálna časť T profilu má pri kľúčových susedných témach dosiahnuť približne L2 až L3.
-
-Vertikálna časť má v jednej alebo niekoľkých strategických oblastiach smerovať k L4 až L5.
-
-## 13. Príklad scenára
-
-Symptóm: aplikácia v Kubernetes nedokáže komunikovať s databázou.
-
-Čisto nástrojový prístup:
-
-```text
-Pod nefunguje → reštartovať Pod
-```
-
-T-shaped prístup skúma vrstvy:
-
-```text
-Aplikácia
-  ├── správny connection string?
-  ├── timeout alebo authentication error?
-Kubernetes
-  ├── Secret a environment?
-  ├── NetworkPolicy?
-DNS
-  ├── resolvuje hostname?
-Network
-  ├── routing, firewall, security group?
-TLS
-  ├── certifikát a trust chain?
-Database
-  ├── listener, user, connection limit, locks?
-Observability
-  └── logs, metrics, traces a časová korelácia?
-```
-
-Engineer nemusí byť expert v každej vrstve. Šírka mu však umožní vytvoriť správny diagnostický strom a nevykonávať náhodné zásahy.
-
-## 14. T-shaped profil a pohovor
-
-Cieľom T-shaped učenia nie je memorovať odpovede. Pri technickej diskusii sa prejaví schopnosť:
-
-- začať presným mentálnym modelom,
-- vysvetliť mechanizmus,
-- pomenovať závislosti,
-- identifikovať failure modes,
-- navrhnúť spôsob overenia,
-- uviesť tradeoffs.
-
-Takýto profil je obhájiteľný aj bez toho, aby bola každá technológia hlavnou expertízou.
-
-## 15. Anti-patterny osobného rozvoja
-
-### Tutorial hopping
-
-Človek prechádza veľa kurzov, ale nevytvára hlboké projekty, labs ani troubleshooting skúsenosť.
-
-### Tool collector
-
-Zoznam nástrojov rastie, ale chýbajú fundamenty a porozumenie, prečo sa nástroje používajú.
-
-### Syntax-first learning
-
-Učenie sa sústreďuje na príkazy a YAML bez pochopenia objektového modelu, state transitions a failure modes.
-
-### Nekonečná šírka
-
-Človek stále začína nové témy a odkladá výber oblasti, v ktorej bude budovať hĺbku.
-
-### Jedna technológia ako identita
-
-Engineer viaže svoju hodnotu na konkrétny produkt. Keď sa architektúra alebo nástroj zmení, chýba prenositeľný systémový model.
-
-### Certifikácia bez praktického dôkazu
-
-Certifikácia môže štruktúrovať učenie, ale sama nepreukazuje troubleshooting ani návrhovú schopnosť.
-
-## 16. Produkčný kontext
-
-V produkčnom tíme sa T-shaped schopnosti podporujú cez:
-
-- pairing,
-- rotáciu on-call,
-- code a infrastructure review,
-- spoločné incidenty a postmortems,
-- interné technical talks,
-- communities of practice,
-- dokumentované service ownership,
-- labs a game days,
-- rozumnú rotáciu úloh.
-
-Rotácia bez mentoringu môže vytvoriť iba povrchnosť. Hĺbka potrebuje stabilný čas, ownership a reálne problémy.
-
-## 17. Praktický plán osobného rozvoja
-
-### Krok 1 — Urči horizontálny baseline
-
-Pre každú hlavnú DevOps doménu stanov aktuálnu úroveň L0 až L5.
-
-### Krok 2 — Vyber vertikálu
-
-Vertikála má zodpovedať:
-
-- pracovným potrebám,
-- dlhodobému záujmu,
-- dostupnosti praktických projektov,
-- hodnote pre tím.
-
-### Krok 3 — Definuj dôkaz zvládnutia
-
-Napríklad:
-
-```text
-Nie: „Prečítal som Kubernetes networking.“
-Áno: „Vytvoril som lab s chybným Service selectorom,
-      DNS problémom a NetworkPolicy a diagnostikoval som ich.“
-```
-
-### Krok 4 — Prepájaj témy
-
-Každá hlboká téma má odkazovať na susedné fundamenty. Kubernetes networking napríklad prepája Linux network namespaces, CNI, DNS, routing a network policy.
-
-### Krok 5 — Pravidelne aktualizuj profil
-
-T-shaped profil nie je statický. Potreby organizácie aj technológie sa menia.
-
-## 18. Časté omyly
-
-### „T-shaped znamená byť expert na všetko“
-
-Nie. Horizontála je pracovné porozumenie, vertikála je skutočná hĺbka.
-
-### „Špecialisti už nie sú potrební“
-
-Nie. Komplexné systémy potrebujú hlbokých špecialistov. T-shaped model zlepšuje ich systémový kontext a spoluprácu.
-
-### „Každý DevOps engineer má mať rovnakú vertikálu“
-
-Nie. Tím je silnejší, keď sa vertikály dopĺňajú.
-
-### „Certifikácia automaticky vytvorí vertikálnu hĺbku“
-
-Nie. Certifikácia môže pokryť syllabus, ale hĺbka zahŕňa failure modes, prevádzku a návrhové tradeoffs.
-
-### „Šírka sa dá získať iba rokmi v každej roli“
-
-Nie. Základný systémový model možno budovať cielene cez labs, incident analysis, dokumentáciu a spoluprácu. Produkčná skúsenosť však zostáva dôležitá pre vyššie úrovne.
-
-## 19. Kontrolné otázky
-
-1. Čo predstavuje horizontálna a vertikálna časť písmena T?
-2. Aký je rozdiel medzi I-shaped a T-shaped profilom?
-3. Čo znamená π-shaped engineer?
-4. Prečo šírka neznamená znalosť iba definícií?
-5. Aký dôkaz by preukázal L4 úroveň v Kubernetes?
-6. Prečo je T-shaped tím dôležitejší než identické profily jednotlivcov?
-7. Ako môže prílišná šírka poškodiť rozvoj?
-8. Prečo syntax-first learning nevytvára hlbokú expertízu?
-9. Aké oblasti by mali tvoriť horizontálny baseline DevOps engineera?
-10. Ktorú oblasť chceš mať ako svoju hlavnú vertikálu a aký praktický dôkaz ju potvrdí?
-
-## 20. Zhrnutie
-
-- T-shaped engineer kombinuje široký systémový prehľad s hlbokou expertízou.
-- Horizontála umožňuje spoluprácu, lokalizáciu problémov a chápanie závislostí.
-- Vertikála umožňuje riešiť komplexné problémy, diagnostikovať a navrhovať riešenia.
-- I-shaped profil má jednu hĺbku bez výraznej šírky; π-shaped profil má dve hĺbky.
-- Tím má mať spoločnú horizontálu a dopĺňajúce sa vertikály.
-- Hĺbka vzniká cez implementáciu, zlyhania, troubleshooting a obhajobu tradeoffov.
-- Knowledge Hub má budovať horizontálu naprieč DevOps a L4 až L5 hĺbku vo vybraných oblastiach.
+- [Team Topologies](https://teamtopologies.com/)
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
+- [DORA — Research program](https://dora.dev/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
