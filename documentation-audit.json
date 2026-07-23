@@ -2733,15 +2733,15 @@
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
       "title": "AWS Organizations a accounts",
-      "words": 1708,
-      "headings": 51,
-      "sections": 51,
-      "findings": 96,
-      "critical": 28,
-      "high": 32,
-      "medium": 29,
-      "low": 7,
-      "score": 690,
+      "words": 3118,
+      "headings": 46,
+      "sections": 46,
+      "findings": 38,
+      "critical": 1,
+      "high": 2,
+      "medium": 2,
+      "low": 33,
+      "score": 75,
       "grade": "D"
     },
     {
@@ -104960,143 +104960,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "1. AWS account ako boundary",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "1. AWS account ako boundary",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "1. AWS account ako boundary",
-      "line": 5,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "1. AWS account ako boundary",
-      "line": 5,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `IAM`, `KMS`, `blast radius`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "2. Prečo nepoužívať jeden account",
+      "section": "2. AWS account ako isolation boundary",
       "line": 21,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "2. Prečo nepoužívať jeden account",
-      "line": 21,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "2. Prečo nepoužívať jeden account",
-      "line": 21,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "2. Prečo nepoužívať jeden account",
-      "line": 21,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "2. Prečo nepoužívať jeden account",
-      "line": 21,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "3. AWS Organizations",
-      "line": 35,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "3. AWS Organizations",
-      "line": 35,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "3. AWS Organizations",
-      "line": 35,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "4. Management account",
-      "line": 64,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "4. Management account",
-      "line": 64,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "4. Management account",
-      "line": 64,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "4. Management account",
-      "line": 64,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -105104,80 +104969,134 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "4. Management account",
-      "line": 64,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
-      "score": 4
+      "section": "5. All features a consolidated-billing-only mode",
+      "line": 54,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "5. Member account",
-      "line": 80,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "6. Management account",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "5. Member account",
-      "line": 80,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
+      "section": "7. Prečo SCP a RCP nechráni management account",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "5. Member account",
-      "line": 80,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`",
-      "score": 4
+      "section": "8. Member account",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "7. Organizational Unit",
+      "section": "8. Member account",
+      "line": 72,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
+      "section": "9. Organization root",
+      "line": 78,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
+      "section": "10. Organizational Unit",
+      "line": 84,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
+      "section": "10. Organizational Unit",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
+      "section": "10. Organizational Unit",
+      "line": 84,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
+      "section": "12. Organization policy categories",
       "line": 96,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "7. Organizational Unit",
-      "line": 96,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "14. Resource Control Policy",
+      "line": 116,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "8. OU design",
-      "line": 112,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "16. Effective policy a inheritance",
+      "line": 128,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "8. OU design",
-      "line": 112,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "17. Deny-list a allow-list SCP stratégia",
+      "line": 134,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "8. OU design",
-      "line": 112,
+      "section": "19. Region guardrails",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
+      "section": "20. Declarative policies",
+      "line": 154,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -105185,44 +105104,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "8. OU design",
-      "line": 112,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "22. Trusted access",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "9. Service Control Policy",
-      "line": 126,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "24. Delegated policy management pre Organizations",
+      "line": 178,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "9. Service Control Policy",
-      "line": 126,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "27. Account metadata a stable identity",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "9. Service Control Policy",
-      "line": 126,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
+      "section": "29. Workload cross-account access",
+      "line": 228,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "9. Service Control Policy",
-      "line": 126,
+      "section": "30. Security foundation accounts",
+      "line": 234,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -105230,467 +105149,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "9. Service Control Policy",
-      "line": 126,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `OU`, `identity`, `resource`, `policy`",
-      "score": 7
+      "section": "30. Security foundation accounts",
+      "line": 234,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "10. Allow-list a deny-list SCP stratégia",
-      "line": 149,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "31. Network a shared-services accounts",
+      "line": 240,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "Deny-list",
-      "line": 151,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "32. Production, non-production a sandbox",
+      "line": 246,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "Deny-list",
-      "line": 151,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "Deny-list",
-      "line": 151,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "Allow-list",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "Allow-list",
-      "line": 165,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "Allow-list",
-      "line": 165,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "11. SCP nie je IAM policy replacement",
-      "line": 179,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "11. SCP nie je IAM policy replacement",
-      "line": 179,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "11. SCP nie je IAM policy replacement",
-      "line": 179,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "11. SCP nie je IAM policy replacement",
-      "line": 179,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "13. Region guardrails",
-      "line": 207,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "13. Region guardrails",
-      "line": 207,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "13. Region guardrails",
-      "line": 207,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `STS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "14. Tag policies",
-      "line": 221,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "14. Tag policies",
-      "line": 221,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "16. Consolidated billing",
-      "line": 241,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "16. Consolidated billing",
-      "line": 241,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "17. Account vending",
-      "line": 255,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "17. Account vending",
-      "line": 255,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "17. Account vending",
-      "line": 255,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "17. Account vending",
-      "line": 255,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`, `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "18. Account naming a email",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "18. Account naming a email",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "19. Workforce access",
-      "line": 286,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "19. Workforce access",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "19. Workforce access",
-      "line": 286,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "20. Workload cross-account access",
-      "line": 309,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "20. Workload cross-account access",
-      "line": 309,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "20. Workload cross-account access",
-      "line": 309,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SCP`, `KMS`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "21. Delegated administrator",
-      "line": 326,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "21. Delegated administrator",
-      "line": 326,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "23. Network account",
-      "line": 357,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "23. Network account",
-      "line": 357,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "23. Network account",
-      "line": 357,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `VPN`, `DNS`, `IPAM`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "24. Shared services account",
-      "line": 370,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "24. Shared services account",
-      "line": 370,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "24. Shared services account",
-      "line": 370,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `DNS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "25. Production a non-production accounts",
-      "line": 383,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "25. Production a non-production accounts",
-      "line": 383,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "25. Production a non-production accounts",
-      "line": 383,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "25. Production a non-production accounts",
-      "line": 383,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "26. Sandbox accounts",
-      "line": 395,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "26. Sandbox accounts",
-      "line": 395,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "26. Sandbox accounts",
-      "line": 395,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "27. Suspended/quarantine OU",
-      "line": 409,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "27. Suspended/quarantine OU",
-      "line": 409,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "28. Account closure",
-      "line": 424,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "28. Account closure",
-      "line": 424,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "28. Account closure",
-      "line": 424,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "28. Account closure",
-      "line": 424,
+      "section": "33. Quarantine a suspended OU",
+      "line": 252,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -105698,89 +105185,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "28. Account closure",
-      "line": 424,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `AWS`",
-      "score": 4
+      "section": "33. Quarantine a suspended OU",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "29. Break-glass access",
-      "line": 440,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "34. Account closure",
+      "line": 258,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "29. Break-glass access",
-      "line": 440,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "34. Account closure",
+      "line": 258,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "29. Break-glass access",
-      "line": 440,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
+      "section": "35. Root-user a break-glass governance",
+      "line": 264,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "29. Break-glass access",
-      "line": 440,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
-      "score": 4
+      "section": "35. Root-user a break-glass governance",
+      "line": 264,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "30. Observability a audit",
-      "line": 454,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "36. Observability a audit organization control plane-u",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "30. Observability a audit",
-      "line": 454,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "36. Observability a audit organization control plane-u",
+      "line": 270,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "30. Observability a audit",
-      "line": 454,
-      "severity": "medium",
-      "rule": "single-sentence-explanation",
-      "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
-      "section": "30. Observability a audit",
-      "line": 454,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SCP`",
-      "score": 4
+      "section": "37. Troubleshooting effective access",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
       "section": "Oficiálna dokumentácia",
-      "line": 535,
+      "line": 337,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -105789,16 +105267,16 @@
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
       "section": "Oficiálna dokumentácia",
-      "line": 535,
+      "line": 337,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
       "section": "Oficiálna dokumentácia",
-      "line": 535,
+      "line": 337,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -105807,7 +105285,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
       "section": "Oficiálna dokumentácia",
-      "line": 535,
+      "line": 337,
       "severity": "medium",
       "rule": "single-sentence-explanation",
       "detail": "Jedna vysvetľovacia veta pravdepodobne nestačí na definíciu, mechanizmus a význam zoznamu.",
@@ -105816,10 +105294,10 @@
     {
       "path": "docs/11-cloud-and-aws/aws-organizations-accounts.md",
       "section": "Oficiálna dokumentácia",
-      "line": 535,
+      "line": 337,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `Resource`",
       "score": 4
     },
     {

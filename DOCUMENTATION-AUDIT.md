@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10440**
-- Total words: **409,436**
-- Findings: **17333** (critical 4454, high 5267, medium 5517, low 2095)
+- Audited conceptual sections: **10435**
+- Total words: **410,846**
+- Findings: **17275** (critical 4427, high 5237, medium 5490, low 2121)
 - File grades: A 0, B 0, C 2, D 255
 
 ## Interpretation
@@ -60,7 +60,6 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 705 | 28 | 24 | 44 | 11 | 2095 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | D | 704 | 26 | 37 | 28 | 6 | 1209 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
 | D | 692 | 26 | 34 | 28 | 11 | 1728 | `docs/12-observability/metrics-logs-traces-events.md` |
-| D | 690 | 28 | 32 | 29 | 7 | 1708 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | D | 681 | 25 | 32 | 32 | 13 | 1986 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | D | 677 | 24 | 31 | 30 | 26 | 2042 | `docs/11-cloud-and-aws/aws-backup.md` |
 | D | 668 | 25 | 29 | 35 | 14 | 1688 | `docs/11-cloud-and-aws/systems-manager.md` |
@@ -278,6 +277,7 @@ The target is not to remove lists. A list should summarize a model that the surr
 | D | 91 | 1 | 3 | 5 | 28 | 3053 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | D | 85 | 0 | 5 | 5 | 21 | 3225 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 | D | 76 | 1 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
+| D | 75 | 1 | 2 | 2 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | C | 65 | 1 | 3 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | C | 58 | 0 | 2 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 
@@ -7586,66 +7586,9 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 ### `docs/11-cloud-and-aws/aws-organizations-accounts.md`
 
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. AWS account ako boundary**: 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 21, `outline-instead-of-explanation` — **2. Prečo nepoužívať jeden account**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 35, `outline-instead-of-explanation` — **3. AWS Organizations**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 64, `outline-instead-of-explanation` — **4. Management account**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 96, `outline-instead-of-explanation` — **7. Organizational Unit**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 112, `outline-instead-of-explanation` — **8. OU design**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `outline-instead-of-explanation` — **9. Service Control Policy**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `empty-section` — **10. Allow-list a deny-list SCP stratégia**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 151, `outline-instead-of-explanation` — **Deny-list**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 165, `outline-instead-of-explanation` — **Allow-list**: 4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 179, `outline-instead-of-explanation` — **11. SCP nie je IAM policy replacement**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 207, `outline-instead-of-explanation` — **13. Region guardrails**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 221, `outline-instead-of-explanation` — **14. Tag policies**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 241, `outline-instead-of-explanation` — **16. Consolidated billing**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `outline-instead-of-explanation` — **17. Account vending**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **18. Account naming a email**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **19. Workforce access**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 309, `outline-instead-of-explanation` — **20. Workload cross-account access**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 326, `outline-instead-of-explanation` — **21. Delegated administrator**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 357, `outline-instead-of-explanation` — **23. Network account**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 370, `outline-instead-of-explanation` — **24. Shared services account**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 383, `outline-instead-of-explanation` — **25. Production a non-production accounts**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 395, `outline-instead-of-explanation` — **26. Sandbox accounts**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 409, `outline-instead-of-explanation` — **27. Suspended/quarantine OU**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 424, `outline-instead-of-explanation` — **28. Account closure**: 9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 440, `outline-instead-of-explanation` — **29. Break-glass access**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 454, `outline-instead-of-explanation` — **30. Observability a audit**: 9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 535, `outline-instead-of-explanation` — **Oficiálna dokumentácia**: 4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **HIGH** line 535, `list-first-introduction` — **Oficiálna dokumentácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 5, `term-before-explanation` — **1. AWS account ako boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `IAM`, `KMS`, `blast radius`
-- **HIGH** line 5, `thin-concept-section` — **1. AWS account ako boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 21, `thin-concept-section` — **2. Prečo nepoužívať jeden account**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 35, `thin-concept-section` — **3. AWS Organizations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 80, `thin-concept-section` — **5. Member account**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 96, `thin-concept-section` — **7. Organizational Unit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 112, `thin-concept-section` — **8. OU design**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 126, `term-before-explanation` — **9. Service Control Policy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `OU`, `identity`, `resource`, `policy`
-- **HIGH** line 126, `thin-concept-section` — **9. Service Control Policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 151, `thin-concept-section` — **Deny-list**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 165, `thin-concept-section` — **Allow-list**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 179, `thin-concept-section` — **11. SCP nie je IAM policy replacement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 207, `thin-concept-section` — **13. Region guardrails**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 221, `thin-concept-section` — **14. Tag policies**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 241, `thin-concept-section` — **16. Consolidated billing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 255, `thin-concept-section` — **17. Account vending**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 272, `thin-concept-section` — **18. Account naming a email**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **19. Workforce access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 309, `term-before-explanation` — **20. Workload cross-account access**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SCP`, `KMS`, `identity`, `policy`
-- **HIGH** line 309, `thin-concept-section` — **20. Workload cross-account access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 326, `thin-concept-section` — **21. Delegated administrator**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 357, `term-before-explanation` — **23. Network account**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `VPN`, `DNS`, `IPAM`
-- **HIGH** line 357, `thin-concept-section` — **23. Network account**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 370, `thin-concept-section` — **24. Shared services account**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 383, `thin-concept-section` — **25. Production a non-production accounts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 395, `thin-concept-section` — **26. Sandbox accounts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 409, `thin-concept-section` — **27. Suspended/quarantine OU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 424, `thin-concept-section` — **28. Account closure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 440, `thin-concept-section` — **29. Break-glass access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 454, `thin-concept-section` — **30. Observability a audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 535, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 337, `outline-instead-of-explanation` — **Oficiálna dokumentácia**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **HIGH** line 337, `list-first-introduction` — **Oficiálna dokumentácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 337, `thin-concept-section` — **Oficiálna dokumentácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md`
 
@@ -10780,16 +10723,16 @@ The target is not to remove lists. A list should summarize a model that the surr
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `outline-instead-of-explanation` | 3898 | 0 | 0 | 0 | 3898 |
-| `thin-concept-section` | 0 | 3620 | 0 | 0 | 3620 |
-| `term-before-explanation` | 0 | 336 | 2241 | 0 | 2577 |
-| `single-sentence-explanation` | 0 | 0 | 2406 | 0 | 2406 |
+| `outline-instead-of-explanation` | 3872 | 0 | 0 | 0 | 3872 |
+| `thin-concept-section` | 0 | 3594 | 0 | 0 | 3594 |
+| `term-before-explanation` | 0 | 332 | 2228 | 0 | 2560 |
+| `single-sentence-explanation` | 0 | 0 | 2393 | 0 | 2393 |
 | `list-first-introduction` | 0 | 1110 | 0 | 0 | 1110 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1079 | 1079 |
-| `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
-| `example-not-explicit` | 0 | 0 | 0 | 721 | 721 |
-| `empty-section` | 556 | 0 | 0 | 0 | 556 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 295 | 295 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1080 | 1080 |
+| `short-concept-section` | 0 | 0 | 869 | 0 | 869 |
+| `example-not-explicit` | 0 | 0 | 0 | 742 | 742 |
+| `empty-section` | 555 | 0 | 0 | 0 | 555 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 299 | 299 |
 | `list-heavy-section` | 0 | 201 | 0 | 0 | 201 |
 
 ## Required remediation pattern
