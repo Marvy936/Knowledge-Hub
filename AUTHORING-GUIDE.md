@@ -4,7 +4,7 @@ Knowledge Hub is a learning system, not a catalog of terms. A chapter is complet
 
 ## Core rule
 
-A heading followed by one sentence and a list is usually an outline, not an explanation.
+A heading followed by one sentence and a list is usually an outline, not an explanation. A single sentence is not considered sufficient explanatory content for a normal conceptual section, even when no list follows it.
 
 Lists are useful for summarizing dimensions, options, signals, steps, or checks. They must not carry the entire conceptual load unless the section is explicitly a reference checklist, source list, control-question set, or glossary.
 
@@ -25,10 +25,13 @@ Not every section needs six labeled subsections. Two to five coherent paragraphs
 
 For a conceptual heading, use the following baseline:
 
+- at least two connected explanatory sentences, whether or not a list follows;
 - at least two explanatory sentences before a multi-item list;
 - normally at least one short paragraph describing the mechanism;
 - a second paragraph or worked example when the concept introduces several new terms;
 - a local reminder even when the authoritative explanation exists in another chapter.
+
+The minimum is not a writing target. Two filler sentences do not make a section educational. The prose must explain meaning, mechanism, consequence, or boundary rather than restating the heading in different words.
 
 A cross-link does not replace all local explanation. The reader should understand why the referenced concept matters in the current context before leaving the page.
 
@@ -141,6 +144,7 @@ Each learning chapter should include:
 
 Before marking a chapter complete, ask:
 
+- Does every normal conceptual section contain more than one substantive explanatory sentence?
 - Could a reader explain the mechanism without reading only the bullet lists?
 - Are all important terms explained before or at first use?
 - Does each long list have a unifying model and a consequence?
@@ -155,7 +159,7 @@ Before marking a chapter complete, ask:
 The generated audit is a prioritization system, not a bulk rewrite instruction. Remediation proceeds in controlled passes so that expanding prose does not introduce inaccurate terminology or duplicate explanations across chapters.
 
 1. **Inventory pass** — confirm that every authoritative article listed in a section `README.md` is present in the audit corpus.
-2. **Critical pass** — fix empty sections and sections classified as `outline-instead-of-explanation`.
+2. **Critical pass** — fix empty sections, single-sentence conceptual sections, and sections classified as `outline-instead-of-explanation`.
 3. **Terminology pass** — explain terms reported as `term-before-explanation` where they first matter.
 4. **Mechanism pass** — add actors, state, data flow, decision flow, lifecycle, and trust boundaries.
 5. **Example and failure pass** — add concrete cause-and-effect examples, limits, and failure semantics.
