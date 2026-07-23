@@ -8,394 +8,316 @@
 - Predpoklady: [DevOps](devops.md), [DevOps Lifecycle](devops-lifecycle.md)
 - Súvisiace témy: culture, automation, Lean, measurement, sharing, DORA metrics
 
+Metadata zaraďuje CALMS za všeobecný DevOps operating model. Rámec sa používa na diagnostiku schopností a ich vzájomných väzieb, nie ako univerzálna certifikačná stupnica.
+
 ## 1. Definícia
 
-CALMS je rámec na posúdenie DevOps schopností organizácie cez päť vzájomne závislých oblastí:
+CALMS je diagnostický rámec, ktorý skúma DevOps schopnosť organizácie cez päť oblastí: Culture, Automation, Lean, Measurement a Sharing. Každá oblasť opisuje inú podmienku potrebnú na bezpečný a rýchly tok zmien.
 
-- **Culture**,
-- **Automation**,
-- **Lean**,
-- **Measurement**,
-- **Sharing**.
+Skratka nepredstavuje päť nezávislých projektov. Hodnota vzniká ich kombináciou: automation potrebuje dôveru a jasný ownership, Lean potrebuje measurement na identifikáciu bottlenecku a sharing premieňa lokálne zistenie na opakovateľnú schopnosť celej organizácie.
 
-Rámec pomáha zabrániť tomu, aby sa DevOps redukoval iba na nástroje alebo CI/CD pipeline.
+- **Culture — spôsob spolupráce a rozhodovania**: určuje, či tímy zdieľajú outcome, hovoria otvorene o riziku a učia sa zo zlyhaní.
+- **Automation — konzistentné vykonávanie pochopeného procesu**: znižuje manuálnu variabilitu, feedback latency a závislosť od individuálnej pamäte.
+- **Lean — optimalizácia end-to-end flowu**: zmenšuje batch sizes, waiting, handoffs, rework a nadmernú rozpracovanosť.
+- **Measurement — evidence pre rozhodnutie**: spája delivery flow, reliability a business outcome a ukazuje, či zmena systému priniesla výsledok.
+- **Sharing — distribúcia znalostí a spätnej väzby**: zabraňuje tomu, aby kritický context zostal v jednom tíme, dokumente bez ownera alebo hlave jedného človeka.
 
-## 2. Problém, ktorý rieši
+## 2. Problém, ktorý CALMS rieši
 
-DevOps transformácie často zlyhávajú, pretože organizácia optimalizuje iba jednu vrstvu. Napríklad zavedie Kubernetes, nový CI systém a Infrastructure as Code, ale ponechá:
+DevOps transformácia sa často redukuje na nákup technológií alebo vytvorenie centralizovaného pipeline tímu. Toolchain sa zmení, ale konfliktné ciele, manuálne approvals a nejasný production ownership zostanú rovnaké.
 
-- konfliktné ciele tímov,
-- manuálne schvaľovacie fronty,
-- slabý ownership,
-- málo produkčnej spätnej väzby,
-- kultúru obviňovania.
+CALMS núti posudzovať celý socio-technický systém. Ak deployment zostáva mesačnou rizikovou udalosťou, nestačí sa pýtať, ktorý orchestrator chýba; treba skúmať veľkosť batchu, trust medzi tímami, kvalitu feedbacku, rozhodovacie metriky a dostupnosť prevádzkových znalostí.
 
-CALMS poskytuje jednoduchý kontrolný model: technická automatizácia musí byť podporená kultúrou, štíhlym tokom, meraním a zdieľaním poznatkov.
+Typické symptómy ukazujú na kombináciu oblastí:
 
-## 3. Mentálny model
+- **Moderná platforma, ale dlhý lead time** — Automation existuje, no Lean flow môže zostať blokovaný approvals, frontami a veľkými batchmi.
+- **Tímy spolupracujú, ale robia veľa ručných chýb** — Culture je relatívne zdravá, no chýba Automation a štandardizovaný execution contract.
+- **Veľa dashboardov bez zlepšenia** — Measurement produkuje čísla, ale Culture a governance ich nepoužívajú na experiment alebo rozhodnutie.
+- **Opakované incidenty s rovnakou príčinou** — feedback vzniká, ale Sharing a institutional learning ho nepremenili na test, guardrail alebo architecture zmenu.
+
+## 3. Mentálny model závislostí
+
+CALMS je vhodné predstaviť si ako päť spojených control surfaces. Zlyhanie jednej oblasti znižuje účinnosť ostatných, preto výsledok nemožno vypočítať jednoduchým súčtom jednotlivých bodov.
 
 ```text
 Culture
-   ├── umožňuje dôveru a ownership
-Automation
-   ├── robí proces opakovateľný a rýchly
-Lean
-   ├── optimalizuje tok a znižuje odpad
-Measurement
-   ├── ukazuje správanie a výsledky systému
+  vytvára dôveru, ownership a bezpečný feedback
+       ↓
+Lean ───────────────→ určuje, ktorý flow problém má zmysel riešiť
+       ↓                                  ↓
+Automation ─────────→ vykonáva zjednodušený proces konzistentne
+       ↓                                  ↓
+Measurement ←─────── sleduje flow, reliability a outcome
+       ↓
 Sharing
-   └── distribuuje poznatky a spätnú väzbu
+  distribuuje evidence, rozhodnutia a naučené mechanizmy späť do systému
 ```
 
-Tieto oblasti sa nesčítavajú ako nezávislé body. Slabá oblasť môže obmedziť celý systém.
+Napríklad automation môže skrátiť technický deployment z hodiny na desať minút. Ak release stále čaká tri dni na nejasné manuálne schválenie, Lean a Measurement ukážu, že hlavný bottleneck zostal mimo automatizovaného kroku.
 
 ## 4. Culture
 
-### Čo znamená Culture
+Culture opisuje správanie, motivácie a decision patterns, ktoré vznikajú medzi ľuďmi a tímami. Nie je to neurčitá požiadavka „lepšie komunikovať“, ale súbor podmienok ovplyvňujúcich, či sa risk zviditeľní, či je outcome spoločný a či sa po chybe zmení systém.
 
-Culture je spôsob, akým ľudia spolupracujú, rozhodujú, reagujú na chyby a chápu zodpovednosť.
+Zdravá DevOps culture má viac prepojených vlastností:
 
-DevOps kultúra typicky podporuje:
+- **Shared ownership — spoločná zodpovednosť za service outcome**: development, platform a operations neprenášajú production problém cez hranicu role bez ďalšieho záujmu o výsledok.
+- **Psychological safety — možnosť oznámiť neistotu a chybu bez ponižovania**: ľudia eskalujú near miss alebo nebezpečný workaround skôr, než sa z neho stane incident.
+- **Transparency — viditeľné rozhodnutia, fronty a riziká**: tím dokáže vysvetliť, prečo sa zmena zastavila a kto vlastní ďalší krok.
+- **Cross-functional collaboration — expertíza dostupná v správnom čase**: security, database alebo operations poznatok vstupuje do designu, nie až do neskorého approval gate-u.
+- **Learning response to failure — analýza systémových podmienok**: post-incident review hľadá chýbajúce controls, zlé defaults a nepresné feedback loops namiesto jednoduchého označenia vinníka.
+- **Autonomy within guardrails — lokálne rozhodnutie v jasnej boundary**: tímy nemusia čakať na centralizovaný ticket pri každej bežnej zmene, ale poznajú policy, budget a escalation path.
+- **Outcome orientation — hodnotenie výsledku namiesto objemu aktivity**: počet commitov alebo ticketov nie je náhradou za flow, reliability a používateľskú hodnotu.
 
-- shared ownership,
-- psychologické bezpečie,
-- transparentnosť,
-- spoluprácu naprieč rolami,
-- učenie z incidentov,
-- lokálnu autonómiu v jasných guardrails,
-- orientáciu na výsledok namiesto aktivity.
+Culture sa prejavuje v rozhodnutiach pod tlakom. Organizácia môže deklarovať blameless prístup, ale ak incident review ovplyvňuje odmenu jednotlivca a nefinancuje remediation, ľudia sa naučia risk skrývať.
 
-### Prečo je kritická
+## 5. Culture failure modes
 
-Automatizácia nemení motivácie tímov. Ak je vývoj hodnotený podľa počtu funkcií a prevádzka podľa počtu zmien, ktorým zabránila, konflikt zostane aj po zavedení modernej platformy.
+Konfliktné incentives sú častou príčinou slabého DevOps modelu. Ak development získava uznanie za feature throughput a operations za blokovanie zmien, každý tím racionálne optimalizuje metriku, ktorá poškodzuje spoločný flow.
 
-### Príklad zdravej kultúry
+Ďalšie culture failures majú konkrétne dôsledky:
 
-Po incidente tím nehľadá osobu, ktorá „urobila chybu“. Skúma:
+- **Hero culture — oceňovanie opakovaných manuálnych záchran**: organizácia investuje do jednotlivca schopného hasiť incident namiesto odstránenia príčiny potreby zásahu.
+- **Blame culture — trestanie nositeľa zlej správy**: incidenty a near misses sa hlásia neskoro a evidence je neúplné.
+- **Ownership without capability — povinnosť bez nástrojov a času**: príkaz „you build it, you run it“ bez telemetry, runbookov a reliability kapacity iba presunie stres.
+- **Central approval dependency — dôvera nahradená frontou**: každý tím čaká na malú skupinu administrátorov, ktorá nemá context ani kapacitu na včasné rozhodnutia.
 
-- aké podmienky umožnili chybe prejsť,
-- prečo systém neposkytol skoršiu spätnú väzbu,
-- aké guardrails alebo automatizácia chýbali,
-- ako znížiť pravdepodobnosť opakovania.
+## 6. Automation
 
-### Anti-pattern
+Automation premieňa opakovateľný a pochopený proces na versioned, konzistentné a auditovateľné vykonanie. Jej cieľom nie je odstrániť človeka za každú cenu, ale presunúť jeho pozornosť z mechanického opakovania na návrh, exception handling a zlepšovanie systému.
 
-„You build it, you run it“ sa zavedie ako príkaz bez observability, dokumentácie, on-call podpory a času na reliability prácu. Výsledkom nie je ownership, ale presun stresu.
+Automation je účinná v rôznych častiach lifecycle-u:
 
-## 5. Automation
+- **Build a test automation — rovnaké kontroly pre každý revision**: znižuje rozdiel medzi lokálnym prostredím a shared evidence a poskytuje feedback pred merge alebo release-om.
+- **Infrastructure provisioning — deklaratívne a opakovateľné prostredia**: nahrádza console clicks versionovaným change planom a umožňuje recovery alebo review.
+- **Configuration management — kontrola desired state-u a driftu**: distribuuje nastavenia podľa definovaného contractu a odhaľuje neautorizované odchýlky.
+- **Deployment automation — riadený ordering, verification a rollback**: znižuje manuálnu variabilitu pri zmene runtime-u a zachováva audit trail.
+- **Policy enforcement — konzistentné organization guardrails**: kontroluje známe pravidlá pri source, build, admission alebo runtime boundary namiesto občasnej manuálnej kontroly.
+- **Security scanning — opakované hľadanie známych risks**: poskytuje triage input, ale nenahrádza threat modeling ani posúdenie exploitability.
+- **Backup a recovery automation — pravidelné vytváranie a testovanie recovery points**: znižuje manuálne oneskorenie, no potrebuje application validation a izoláciu credentials.
+- **Incident enrichment — context pri prvom page-i**: pripája recent deployments, ownership, dependency a runbook, aby responder nezačínal z prázdneho alertu.
+- **Environment creation — self-service v guardrails**: odstraňuje ticketovú frontu, pričom policy, quotas a cleanup chránia cost a security.
 
-### Čo znamená Automation
+## 7. Automation lifecycle a hranice
 
-Automation premieňa opakovateľnú činnosť na konzistentný, auditovateľný a reprodukovateľný proces.
-
-Typické oblasti:
-
-- build a test,
-- provisioning infraštruktúry,
-- configuration management,
-- deployment,
-- policy enforcement,
-- security scanning,
-- backup,
-- incident enrichment,
-- environment creation.
-
-### Hodnota automatizácie
-
-Automatizácia znižuje:
-
-- manuálnu variabilitu,
-- počet handoffov,
-- čas spätnej väzby,
-- závislosť od individuálnej pamäte,
-- neauditovateľné zásahy.
-
-### Dôležitá hranica
-
-Nie všetko sa má automatizovať okamžite.
-
-Rozumné poradie:
+Rozumné poradie začína pochopením problému. Ak tím automatizuje proces s piatimi zbytočnými approvals, výsledkom je rýchlejšie odosielanie formulárov, nie kratší flow.
 
 ```text
-Pochopiť proces
-  ↓
-Odstrániť zbytočné kroky
-  ↓
-Štandardizovať
-  ↓
-Automatizovať
-  ↓
-Merať výsledok
+pozorovať a zmerať proces
+→ odstrániť kroky bez hodnoty
+→ definovať vstupy, výstupy a failure semantics
+→ štandardizovať bežnú cestu
+→ automatizovať
+→ merať outcome a udržiavať automation
 ```
 
-Automatizácia zlého procesu iba zrýchli jeho zlé výsledky.
+Automation musí riešiť partial failure, retries, permissions a rollback. Script, ktorý funguje iba pri ideálnom stave a pri chybe vyžaduje zásah pôvodného autora, presúva toil namiesto jeho odstránenia.
 
-### Príklad
+## 8. Lean
 
-Namiesto ručného vytvárania VM cez cloud konzolu sa infraštruktúra deklaruje v Terraform konfigurácii. Zmena prejde review, planom, policy kontrolou a auditovateľným apply krokom.
+Lean optimalizuje plynulý tok hodnoty cez celý value stream. Neznamená „robiť viac s menším počtom ľudí“; znižuje waiting, nadmernú rozpracovanosť, handoffs, rework a prácu, ktorá nevytvára požadovaný outcome.
 
-## 6. Lean
+Flow problémy sa prejavujú rôznymi merateľnými javmi:
 
-### Čo znamená Lean
+- **Wait time — čas, keď práca nepokračuje**: review alebo environment queue môže tvoriť väčšinu lead time-u, aj keď active processing je rýchly.
+- **Handoff — presun ownershipu a contextu**: každé odovzdanie pridáva frontu, potrebu vysvetlenia a riziko, že ďalší tím optimalizuje iný cieľ.
+- **Work in progress — množstvo nedokončenej práce**: vysoký WIP zvyšuje multitasking a čas, počas ktorého sa požiadavka alebo branch môže stať zastaranou.
+- **Batch size — množstvo zmien viazaných na jedno rozhodnutie**: veľký release zväčšuje blast radius, test scope a počet možných príčin incidentu.
+- **Rework — opakovaná oprava už vykonanej práce**: často signalizuje neskorý feedback, nejasný contract alebo nekonzistentné prostredie.
+- **Bottleneck — krok obmedzujúci throughput celku**: zrýchlenie inej časti iba zväčší front pred obmedzením.
 
-Lean sa sústreďuje na plynulý tok hodnoty, malé dávky práce, obmedzenie rozpracovanosti a odstránenie odpadu.
+## 9. Small batch sizes a WIP limits
 
-V DevOps kontexte sa sleduje najmä:
+Malé batch sizes skracujú interval medzi vznikom zmeny a jej overením. Pri code change znižujú review complexity a pri deployment-e zmenšujú blast radius a počet premenných počas diagnosis.
 
-- wait time,
-- handoffy,
-- work in progress,
-- veľkosť zmien,
-- opakovaná manuálna práca,
-- úzke miesta,
-- rework.
+Jednotlivé výhody majú konkrétny dôvod:
 
-### Small batch sizes
+- **Jednoduchší review — menší cognitive scope**: reviewer dokáže pochopiť change intent a failure paths bez kombinácie viacerých tém.
+- **Rýchlejšie testovanie — užší affected surface**: test selection a diagnosis sa viažu na menší počet komponentov, hoci kritická zmena stále môže vyžadovať široké testy.
+- **Bezpečnejší rollout — menší počet súčasných rizík**: canary signal sa ľahšie priradí konkrétnej zmene.
+- **Rýchlejší rollback alebo roll-forward — menšia kompatibilitná medzera**: návrat neodstráni veľký balík zdravých funkcií spolu s jednou chybnou.
 
-Malé zmeny sa jednoduchšie:
+WIP limit obmedzuje počet rozpracovaných položiek, aby tím dokončoval bottleneck namiesto zakladania ďalšej práce. Stopercentná utilization každého človeka odstraňuje rezervu na variabilitu, review a incidenty a zvyšuje celkový waiting time.
 
-- reviewujú,
-- testujú,
-- nasadzujú,
-- diagnostikujú,
-- vracajú späť.
+## 10. Value stream a bottleneck
 
-Veľká zmena kombinuje mnoho premenných a zväčšuje blast radius.
+Value stream je celý tok od potreby po používateľskú hodnotu a produkčný feedback. Zahŕňa active work, waiting, approvals, technical systems aj organizačné decision points.
 
-### Limitovanie WIP
+Predstav si build trvajúci osem minút a release čakajúci tri dni na manuálne schválenie. Zrýchlenie build cache o dve minúty je lokálne zlepšenie, ale odstránenie nejasnej approval fronty môže skrátiť lead time o dni.
 
-Ak tím začne viac práce, než dokáže dokončiť, rastie multitasking a čakacia doba. Vyššia lokálna vyťaženosť nemusí znamenať vyšší systémový throughput.
+Bottleneck sa po optimalizácii môže presunúť. Lean preto nie je jednorazové mapovanie procesu, ale opakované meranie a zlepšovanie aktuálneho obmedzenia.
 
-### Value stream
+## 11. Measurement
 
-Value stream je celý tok od požiadavky po hodnotu v produkcii. Lean optimalizuje celý tok, nie iba jednu technickú fázu.
+Measurement poskytuje evidence o správaní delivery systému, prevádzkovanej služby a business výsledku. Metrika má podporiť konkrétne rozhodnutie; bez ownera, threshold-u alebo experimentu je dashboard iba pasívny report.
 
-### Príklad
+Rozličné metric families odpovedajú na odlišné otázky:
 
-Build trvá 8 minút, ale release čaká 3 dni na manuálne schválenie. Optimalizácia build cache o 2 minúty má menší systémový efekt než odstránenie alebo automatizovanie schvaľovacieho úzkeho miesta.
+- **Flow metrics — kde a ako dlho sa pohybuje práca**: lead time, cycle time, throughput, wait time a WIP odhaľujú fronty a bottlenecks v delivery systéme.
+- **Delivery metrics — ako často a bezpečne sa mení produkcia**: deployment frequency, lead time for changes, change failure rate a recovery time spájajú throughput so stability outcome-om.
+- **Reliability metrics — čo zažíva používateľ v runtime**: availability, latency, errors, SLI, SLO a incident frequency merajú service contract a jeho porušenia.
+- **Outcome metrics — či zmena priniesla hodnotu**: adoption, conversion, task completion alebo satisfaction odlišujú technicky zdravú feature od užitočného produktu.
 
-## 7. Measurement
+Metriky musia mať presnú definíciu scope-u a denominatora. „Počet deploymentov“ bez určenia environmentu, úspechu a change identity možno interpretovať viacerými spôsobmi a ľahko manipulovať.
 
-### Čo znamená Measurement
+## 12. Goodhartov problém a metric safety
 
-Measurement poskytuje dôkazy o správaní delivery systému aj prevádzkovanej služby.
+Keď sa metrika stane individuálnym cieľom alebo odmenou, ľudia optimalizujú číslo namiesto systému. Cieľ „viac deploymentov“ môže viesť k umelému deleniu zmien a počet uzavretých ticketov k zakladaniu menších, no stále nehodnotných položiek.
 
-Meranie má odpovedať na otázky:
+Bezpečné measurement používa balanced metrics, trend a context. DORA ukazovatele sa posudzujú spoločne, pretože vysoká frequency bez change quality alebo rýchly lead time bez reliability nie je zdravý delivery outcome.
 
-- Dodávame rýchlejšie?
-- Zlyhávajú zmeny častejšie?
-- Obnovujeme službu rýchlo?
-- Prináša zmena používateľskú hodnotu?
-- Kde sa práca najdlhšie zdržiava?
-- Je služba spoľahlivá z pohľadu používateľa?
+Measurement bez zdravej Culture môže znižovať pravdivosť dát. Ak číslo slúži na trest, tímy menia klasifikáciu incidentu alebo skrývajú manual work namiesto odstránenia príčiny.
 
-### Typy metrík
+## 13. Sharing
 
-#### Flow metrics
+Sharing premieňa individuálnu znalosť na dostupné a udržiavané informačné rozhranie. Neznamená viac meetingov ani hromadné kopírovanie dokumentov; informácia musí byť nájditeľná, dôveryhodná, aktuálna a prepojená s prácou, ktorú podporuje.
 
-- lead time,
-- cycle time,
-- throughput,
-- wait time,
-- work in progress.
+Mechanizmy zdieľania slúžia rôznym potrebám:
 
-#### Delivery metrics
+- **Code review — distribúcia change contextu**: viac ľudí rozumie designu a zároveň sa decisions zachovajú pri source zmene.
+- **Runbook — vykonávacie knowledge pri known failure**: opisuje význam alertu, dôkazy, bezpečné remediation a validation, nie iba zoznam príkazov.
+- **Architecture Decision Record — zachovanie dôvodu rozhodnutia**: budúci tím vie, ktoré constraints a trade-offs viedli k súčasnému návrhu.
+- **Post-incident review — prenos runtime learningu**: prepája incident evidence s konkrétnou zmenou tests, guardrails, architecture alebo ownershipu.
+- **Service catalog — nájditeľnosť ownera a dependencies**: umožňuje rýchlo určiť, kto službu vlastní, čo spotrebúva a aký má operational contract.
+- **Community of practice — zdieľanie expertízy naprieč tímami**: vytvára reusable patterns bez centralizácie všetkých rozhodnutí do jedného delivery bottlenecku.
+- **Pairing a interné školenie — prenos tacit knowledge**: pomáhajú pri činnostiach, ktoré samotný dokument nedokáže úplne zachytiť.
 
-- deployment frequency,
-- lead time for changes,
-- change failure rate,
-- time to restore service.
+## 14. Knowledge lifecycle
 
-#### Reliability metrics
+Dokumentácia bez ownera a lifecycle-u sa rýchlo stane nedôveryhodná. Ak incident responder opakovane nájde neaktuálny runbook, prestane veriť aj správnym dokumentom.
 
-- availability,
-- latency,
-- error rate,
-- SLI a SLO,
-- incident frequency.
+Knowledge má vznikať spolu so zmenou a byť overované používaním. Runbook sa testuje počas game day alebo incidentu, architecture record sa aktualizuje pri zmene decisionu a service catalog sa synchronizuje s account alebo repository lifecycle-om.
 
-#### Outcome metrics
+Sharing znižuje bus factor iba vtedy, keď druhý človek dokáže informáciu skutočne použiť. Uloženie videa bez indexu, textového contractu a ownera je archív, nie operational capability.
 
-- adopcia funkcie,
-- conversion rate,
-- task completion,
-- používateľská spokojnosť.
+## 15. Vzájomné zlyhania CALMS oblastí
 
-### Goodhartov problém
+Oblasti sa navzájom obmedzujú a rovnaký symptom môže mať viac príčin. Diagnostika preto nemá priradiť problém iba jednému písmenu bez overenia dependencies.
 
-Keď sa metrika stane cieľom bez kontextu, ľudia môžu optimalizovať číslo namiesto systému.
+- **Automation bez Culture — centralizované nové silo**: malý platform tím vlastní všetky pipelines a ostatné tímy čakajú na zmenu namiesto self-service a shared ownershipu.
+- **Culture bez Automation — dobrá spolupráca s vysokou variabilitou**: ľudia si pomáhajú, ale manuálne deploymenty a recovery závisia od pamäte a vytvárajú opakované chyby.
+- **Automation bez Lean — zrýchlenie odpadu**: komplikovaný approval a handoff proces sa vykonáva elektronicky, no end-to-end waiting zostane.
+- **Measurement bez Culture — trestajúce čísla**: tímy optimalizujú klasifikáciu a reporting, pretože metriky sa používajú proti nim.
+- **Lean bez Measurement — zlepšenie podľa dojmu**: tím nevie, či odstránil hlavný bottleneck alebo iba presunul frontu.
+- **Sharing bez štandardov — množstvo nedôveryhodných informácií**: duplicity a neaktuálne návody zvyšujú čas hľadania namiesto jeho zníženia.
 
-Príklad: cieľ „zvýšiť počet deploymentov“ môže viesť k umelému rozdeľovaniu zmien bez zlepšenia hodnoty alebo reliability.
+## 16. End-to-end CALMS audit
 
-### Meranie bez akcie
+Predstav si tím, ktorý nasadzuje raz mesačne, deployment trvá štyri hodiny a často potrebuje manuálny zásah. CALMS audit rozkladá symptom na overiteľné hypotheses.
 
-Dashboard nie je zlepšenie. Metrika má viesť k rozhodnutiu, experimentu alebo zmene procesu.
+| Oblasť | Pozorovanie | Čo mechanizmus znamená | Ďalší dôkaz |
+|---|---|---|---|
+| Culture | Deployment vlastní izolovaný Ops tím | Product tím nemá production feedback ani authority zmeniť delivery path | Kto rozhoduje o rollbacku a kto vlastní incident follow-up? |
+| Automation | Kroky sa vykonávajú podľa checklistu | Execution závisí od poradia a pamäte operátora a partial failure sa rieši improvizovane | Koľko krokov je stabilných, opakovateľných a vhodných na versioned automation? |
+| Lean | Mesačný batch obsahuje mnoho zmien | Veľký scope zväčšuje test, coordination a diagnosis a spätne posilňuje strach z deploymentu | Aký je wait time, WIP a veľkosť typického release-u? |
+| Measurement | Sleduje sa iba status deployment jobu | Tím nevie, kde vzniká lead time ani či zmena poškodila user outcome | Poznáme flow, change failure, recovery a business metrics? |
+| Sharing | Postup poznajú dvaja administrátori | Recovery a execution majú human single point of failure | Existuje verzovaný, testovaný runbook a dostupný backup owner? |
 
-## 8. Sharing
+Audit nevytvára automaticky solution backlog podľa názvov nástrojov. Najprv identifikuje obmedzenie a až potom navrhne experiment, napríklad zmenšenie batchu a automatizáciu jedného stabilného deployment pathu.
 
-### Čo znamená Sharing
+## 17. Praktické auditné otázky
 
-Sharing je systematické zdieľanie vedomostí, spätnej väzby, rozhodnutí a prevádzkových skúseností.
-
-Mechanizmy zahŕňajú:
-
-- code review,
-- dokumentáciu,
-- runbooks,
-- architecture decision records,
-- demos,
-- communities of practice,
-- postmortems,
-- pairing,
-- interné školenia,
-- service catalogs.
-
-### Prečo je dôležité
-
-Ak kritické znalosti existujú iba v hlave jedného človeka, systém má vysoký bus factor a slabú schopnosť škálovať.
-
-Sharing znižuje:
-
-- opakované riešenie rovnakých problémov,
-- závislosť od jednotlivcov,
-- nekonzistentné lokálne riešenia,
-- čas onboardingu.
-
-### Príklad
-
-Po incidente tím vytvorí postmortem, aktualizuje runbook, pridá alert a upraví test. Poznatok sa tým mení z individuálnej skúsenosti na systémovú schopnosť.
-
-## 9. Ako sa oblasti ovplyvňujú
-
-### Automation bez Culture
-
-Vzniká centralizovaný tím, ktorý vlastní všetky pipeline a stáva sa novým úzkym miestom.
-
-### Culture bez Automation
-
-Tímy dobre spolupracujú, ale manuálne procesy sú pomalé a náchylné na chyby.
-
-### Automation bez Lean
-
-Automatizuje sa veľký, komplikovaný proces s množstvom zbytočných krokov.
-
-### Measurement bez Culture
-
-Metriky sa používajú na hodnotenie a trestanie jednotlivcov. Ľudia ich začnú skrývať alebo manipulovať.
-
-### Sharing bez štandardov
-
-Veľa dokumentácie vzniká nekonzistentne, bez ownershipu a údržby. Informácie sú dostupné, ale nedôveryhodné.
-
-## 10. Príklad CALMS auditu
-
-Scenár: tím nasadzuje raz mesačne, deployment trvá štyri hodiny a často vyžaduje manuálny zásah.
-
-| Oblasť | Pozorovanie | Otázka |
-|---|---|---|
-| Culture | Deployment vlastní izolovaný Ops tím | Má produktový tím ownership výsledku? |
-| Automation | Kroky sa vykonávajú podľa manuálneho checklistu | Ktoré opakovateľné kroky možno bezpečne automatizovať? |
-| Lean | Veľké mesačné batch releases | Možno zmenšiť dávky a skrátiť fronty? |
-| Measurement | Sleduje sa iba úspech alebo zlyhanie deploymentu | Poznáme lead time, failure rate a recovery time? |
-| Sharing | Postupy poznajú dvaja administrátori | Existuje verzovaný runbook a zdieľaná dokumentácia? |
-
-CALMS nepredpisuje jeden nástroj. Pomáha identifikovať, v ktorej systémovej oblasti chýba schopnosť.
-
-## 11. Praktické otázky pre každú oblasť
+Otázky majú odhaliť konkrétnu boundary alebo chýbajúci dôkaz, nie iba vyvolať diskusiu.
 
 ### Culture
 
-- Kto vlastní výsledok služby?
-- Ako tím reaguje na zlyhanie?
-- Sú ciele tímov kompatibilné?
-- Môžu ľudia bezpečne upozorniť na riziko?
+- **Kto vlastní service outcome po deployment-e?** — odhalí, či ownership končí handoffom alebo zahŕňa runtime a learning.
+- **Ako tím reaguje na chybu alebo near miss?** — ukáže, či sa risk zviditeľňuje alebo skrýva pre blame a incentives.
+- **Sú lokálne ciele kompatibilné?** — porovná feature throughput, change approvals, security a reliability expectations.
+- **Môže človek zastaviť nebezpečný rollout?** — overí psychologickú aj formálnu authority konať pri riziku.
 
 ### Automation
 
-- Ktoré kroky sú opakovateľné a manuálne?
-- Je automatizácia verzovaná a testovaná?
-- Je možné proces bezpečne opakovať?
-- Existuje audit trail?
+- **Ktoré manuálne kroky sú stabilné a opakované?** — identifikuje automation kandidátov namiesto jednorazových výnimiek.
+- **Je automation versioned, testovaná a reviewovaná?** — odlišuje engineering capability od osobného scriptu.
+- **Čo sa stane po partial failure alebo retry?** — overuje idempotency, compensation a recovery semantics.
+- **Existuje audit trail source-to-runtime?** — ukáže, či možno priradiť zmenu k actorovi, artifactu a výsledku.
 
 ### Lean
 
-- Kde práca čaká?
-- Aká je veľkosť batchu?
-- Koľko práce je rozpracovanej?
-- Ktorý krok obmedzuje celý tok?
+- **Kde práca čaká a prečo?** — oddeľuje active work od queue, approval a dependency delay.
+- **Aký veľký je typický batch?** — ukazuje blast radius a feedback interval.
+- **Koľko položiek je rozpracovaných?** — odhaľuje multitasking a skrytý inventory práce.
+- **Ktorý krok obmedzuje throughput celku?** — zabraňuje optimalizácii neobmedzujúcej lokálnej aktivity.
 
 ### Measurement
 
-- Meriame aktivitu alebo výsledok?
-- Máme delivery aj reliability metriky?
-- Vedie metrika ku konkrétnemu rozhodnutiu?
-- Dá sa metrika jednoducho manipulovať?
+- **Meriame activity, flow, reliability alebo outcome?** — odlíši počet vykonaných krokov od výsledku pre používateľa.
+- **Ktoré rozhodnutie metrika mení?** — odhaľuje dashboards bez action contractu.
+- **Aký je numerator, denominator a scope?** — preverí, či má číslo stabilnú a porovnateľnú semantics.
+- **Ako možno metriku manipulovať?** — identifikuje Goodhart risk a potrebu balanced metrics.
 
 ### Sharing
 
-- Kde sú uložené rozhodnutia a prevádzkové znalosti?
-- Kto dokumentáciu vlastní?
-- Aktualizuje sa dokumentácia spolu so zmenou?
-- Vie nový člen tímu nájsť potrebné informácie bez neformálnej eskalácie?
+- **Kde sa nachádza authoritative knowledge?** — odlíši udržiavaný source od viacerých konfliktných kópií.
+- **Kto informáciu vlastní a kedy sa overila?** — odhaľuje orphaned dokumentáciu.
+- **Aktualizuje sa knowledge spolu so zmenou?** — preverí, či docs a runbooks driftujú od runtime-u.
+- **Dokáže nový člen vykonať úlohu bez neformálnej eskalácie?** — testuje skutočný bus factor a použiteľnosť rozhrania.
 
-## 12. Anti-patterny
+## 18. Anti-patterny
 
 ### Tooling-first CALMS
 
-Automation sa považuje za hlavný alebo jediný pilier a ostatné oblasti zostanú ignorované.
+Automation sa považuje za jediný technicky vážny pilier. Organizácia potom investuje do platformy, ale neodstráni conflicting incentives, waiting ani neprístupný production feedback.
 
 ### Vanity metrics
 
-Merajú sa ľahko dostupné čísla, ktoré nepomáhajú rozhodovať, napríklad počet pipeline jobov alebo počet commitov na osobu.
+Meriavajú sa ľahko dostupné čísla, napríklad počet commitov alebo pipeline jobs na osobu. Tieto čísla možno zvýšiť bez zlepšenia flow, reliability alebo používateľskej hodnoty.
 
 ### Knowledge dumping
 
-Sharing sa chápe ako vytvorenie veľkého množstva dokumentov bez jasnej štruktúry, relevance a ownershipu.
+Sharing sa zamieňa za vytvorenie veľkého množstva dokumentov. Bez informačnej architecture, ownera, review dátumu a prepojenia na workflow sa zvyšuje search cost a klesá dôvera.
 
-### Permanentná transformácia bez výsledku
+### Permanentná transformácia bez outcome-u
 
-Organizácia vykonáva workshopy a reorganizácie, ale nemeria zlepšenie toku, kvality ani používateľských výsledkov.
+Organizácia vykonáva workshopy, reorganizácie a tool migrations, ale nemá baseline ani cieľový flow alebo reliability outcome. Transformácia sa stane aktivitou, ktorá nemôže byť označená za úspešnú ani ukončená.
 
-## 13. Časté omyly
+## 19. Časté omyly
 
-### „CALMS je maturity score“
+### CALMS je univerzálne maturity score
 
-CALMS možno použiť pri posudzovaní vyspelosti, ale nie je to presný univerzálny bodovací systém. Kontext produktu, rizika a organizácie je rozhodujúci.
+CALMS môže organizovať assessment, ale neexistuje jedno správne číslo pre všetky produkty. Kritický regulovaný systém a malý interný tool potrebujú odlišné controls, automation aj measurement depth.
 
-### „Automation je najtechnickejšia a preto najdôležitejšia časť“
+### Automation je najdôležitejšia časť, pretože je technická
 
-Nie. Automatizácia bez kultúry a správneho toku môže iba stabilizovať zlé silá.
+Automation iba vykonáva zvolený proces. Bez zdravej Culture a Lean môže stabilizovať silo alebo zrýchliť kroky, ktoré by sa mali odstrániť.
 
-### „Sharing znamená viac meetingov“
+### Sharing znamená viac meetingov
 
-Nie. Zdieľanie má vytvárať dostupné a opakovateľné informačné rozhrania. Často ide o kvalitnejšiu dokumentáciu a asynchrónne mechanizmy.
+Sharing vytvára dostupné informačné interfaces a spätnú väzbu. Asynchrónny ADR, testovaný runbook alebo service catalog môže byť hodnotnejší než opakovaný meeting bez zachovaného rozhodnutia.
 
-### „Lean znamená robiť viac s menším počtom ľudí“
+### Lean znamená maximalizovať vyťaženosť a znížiť headcount
 
-Nie. Lean znamená znižovať odpad a optimalizovať tok hodnoty, nie maximalizovať vyťaženosť ľudí.
+Lean optimalizuje flow a odstraňuje waste. Systém bez rezervnej kapacity má dlhé queues a nevie reagovať na variabilitu, incident ani review potrebu.
 
-## 14. Kontrolné otázky
+## 20. Kontrolné otázky
 
-1. Čo znamená skratka CALMS?
-2. Prečo Automation sama osebe nevytvára DevOps model?
-3. Ako small batch sizes znižujú riziko?
-4. Aký je rozdiel medzi flow metric a outcome metric?
-5. Prečo môže Measurement bez zdravej Culture zhoršiť systém?
-6. Uveď príklad automatizácie zlého procesu.
-7. Ako Sharing znižuje bus factor?
-8. Ktorú oblasť CALMS by si skúmal pri trojdňovom čakaní na schválenie a prečo?
-9. Prečo vysoká vyťaženosť každého tímu nemusí znamenať vysoký throughput systému?
+1. Prečo CALMS nie je päť nezávislých transformačných projektov?
+2. Ako Culture ovplyvňuje pravdivosť Measurement dát?
+3. Prečo sa proces pred automatizáciou najprv zjednodušuje?
+4. Ako WIP limit znižuje waiting time a multitasking?
+5. Aký je rozdiel medzi flow, delivery, reliability a outcome metrics?
+6. Prečo môže vysoká deployment frequency bez ďalších metrík zavádzať?
+7. Ako Sharing premieňa incident z individuálnej skúsenosti na systémovú schopnosť?
+8. Čo vznikne pri Automation bez Lean a pri Lean bez Measurement?
+9. Ktoré CALMS oblasti by si skúmal pri trojdňovom approval waitingu a prečo?
+10. Ako navrhneš CALMS experiment s merateľným outcome-om namiesto neurčitej transformácie?
 
-## 15. Zhrnutie
+## 21. Zhrnutie
 
-- CALMS pokrýva Culture, Automation, Lean, Measurement a Sharing.
-- DevOps schopnosť vzniká kombináciou organizačných aj technických mechanizmov.
-- Culture určuje ownership, dôveru a reakciu na zlyhania.
-- Automation robí proces konzistentný, reprodukovateľný a auditovateľný.
-- Lean optimalizuje celý tok, malé dávky a obmedzenie rozpracovanosti.
-- Measurement má podporovať rozhodovanie, nie iba produkovať dashboardy.
-- Sharing premieňa individuálne skúsenosti na systémové znalosti.
-- Slabosť jedného piliera môže obmedziť hodnotu ostatných.
+CALMS skúma DevOps schopnosť cez Culture, Automation, Lean, Measurement a Sharing. Oblasti sa navzájom podmieňujú a slabá boundary môže obmedziť hodnotu celého delivery systému.
+
+Culture vytvára podmienky na pravdivý feedback a ownership, Lean určuje, čo treba zlepšiť, Automation vykonáva stabilný proces, Measurement overuje výsledok a Sharing zachováva learning. Rámec je najužitočnejší ako diagnostika a návrh malého experimentu, nie ako rebríček nástrojov alebo jediné maturity číslo.
+
+## Glossary impact
+
+Relevantné pojmy: CALMS, Culture, Automation, Lean, Measurement, Sharing, psychological safety, WIP limit, batch size, value stream, bottleneck, Goodhartov zákon, bus factor a knowledge lifecycle.
+
+## Primárne zdroje
+
+- [DORA — Research program](https://dora.dev/)
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
+- [The Lean Enterprise Institute — What is Lean Thinking?](https://www.lean.org/explore-lean/what-is-lean-thinking/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
