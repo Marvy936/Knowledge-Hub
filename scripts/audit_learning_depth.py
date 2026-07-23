@@ -3,8 +3,8 @@
 
 The audit is intentionally heuristic. It does not prove technical correctness.
 It identifies sections that deserve human review because they are empty, rely on
-one sentence, are list-heavy, or introduce terminology without enough local
-explanation.
+one sentence, use unexplained bullet items, are list-heavy, or introduce
+terminology without enough local explanation.
 
 Default scope:
 - authoritative learning articles listed in docs/NN-*/README.md
@@ -36,6 +36,14 @@ SENTENCE_END_RE = re.compile(r"[.!?](?:[\"')\]}]*)(?:\s|$)")
 WORD_RE = re.compile(r"[\wÀ-ž][\wÀ-ž+./:#-]*", re.UNICODE)
 INLINE_CODE_RE = re.compile(r"`([^`\n]+)`")
 ACRONYM_RE = re.compile(r"\b[A-Z][A-Z0-9-]{1,12}\b")
+BULLET_EXPLANATION_DELIMITER_RE = re.compile(r"\s(?:—|–|:)\s")
+BULLET_EXPLANATION_VERB_RE = re.compile(
+    r"\b(?:je|sú|znamená|opisuje|vysvetľuje|predstavuje|určuje|riadi|"
+    r"používa|umožňuje|zabraňuje|chráni|overuje|ukazuje|meria|obsahuje|"
+    r"spôsobuje|vedie|vzniká|zlyhá|slúži|poskytuje|vytvára|prenáša|"
+    r"ukladá|spracúva|odmieta|povoľuje|obmedzuje|vyžaduje)\b",
+    re.IGNORECASE,
+)
 ENGLISH_TERM_RE = re.compile(
     r"\b(?:attestation|posture|workload|policy|identity|resource|scope|"
     r"enforcement|delegation|freshness|failure semantics|blast radius|"
@@ -187,6 +195,32 @@ def sentence_count(text: str) -> int:
     return count
 
 
+def bullet_has_contextual_explanation(text: str) -> bool:
+    """Return True when a bullet explains more than a bare label or noun phrase."""
+
+    clean = strip_markdown(text).strip()
+    words = word_count(clean)
+    if not clean:
+        return False
+
+    delimiter = BULLET_EXPLANATION_DELIMITER_RE.search(clean)
+    if delimiter:
+        explanation = clean[delimiter.end() :]
+        if word_count(explanation) >= 4:
+            return True
+
+    if sentence_count(clean) >= 1 and words >= 9:
+        return True
+
+    if words >= 10 and BULLET_EXPLANATION_VERB_RE.search(clean):
+        return True
+
+    if words >= 14:
+        return True
+
+    return False
+
+
 def authoritative_articles() -> list[Path]:
     result: list[Path] = []
     for readme in sorted(DOCS.glob("[0-9][0-9]-*/README.md")):
@@ -269,9 +303,13 @@ def section_content(section: Section) -> dict[str, object]:
 
     prose = " ".join(part for part in prose_lines if part)
     all_text = " ".join(prose_lines + bullets)
+    bare_bullets = [
+        bullet for bullet in bullets if not bullet_has_contextual_explanation(bullet)
+    ]
     return {
         "prose": prose,
         "bullets": bullets,
+        "bare_bullets": bare_bullets,
         "code_lines": code_lines,
         "meaningful": meaningful,
         "prose_words": word_count(prose),
@@ -324,6 +362,7 @@ def audit_section(path: Path, section: Section) -> list[Finding]:
     all_words = int(data["all_words"])
     sentences = int(data["sentences"])
     bullets = list(data["bullets"])
+    bare_bullets = list(data["bare_bullets"])
     meaningful = list(data["meaningful"])
     prose = str(data["prose"])
     lower = prose.lower()
@@ -345,6 +384,14 @@ def audit_section(path: Path, section: Section) -> list[Finding]:
     if all_words == 0:
         add("critical", "empty-section", "Sekcia nemá vysvetľovací obsah.", 12)
         return findings
+
+    if prose_words == 0 and (bullets or data["code_lines"]):
+        add(
+            "critical",
+            "no-prose-concept",
+            "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+            12,
+        )
 
     if prose_words > 0 and sentences <= 1:
         add(
@@ -377,6 +424,26 @@ def audit_section(path: Path, section: Section) -> list[Finding]:
             f"{len(bullets)} odrážok a iba {prose_words} slov súvislého vysvetlenia.",
             8,
         )
+
+    if bullets and len(bare_bullets) >= 2:
+        ratio = len(bare_bullets) / len(bullets)
+        examples = ", ".join(f"`{item[:70]}`" for item in bare_bullets[:4])
+        if len(bullets) >= 4 and ratio >= 0.75:
+            add(
+                "critical",
+                "bare-bullet-items",
+                f"{len(bare_bullets)} z {len(bullets)} odrážok iba pomenúva položky bez "
+                f"kontextového vysvetlenia. Príklady: {examples}.",
+                12,
+            )
+        elif ratio >= 0.5:
+            add(
+                "high",
+                "bare-bullet-items",
+                f"{len(bare_bullets)} z {len(bullets)} odrážok nemá vysvetlenú úlohu, "
+                f"význam alebo dôsledok v aktuálnom kontexte. Príklady: {examples}.",
+                8,
+            )
 
     if prose_words < 28 and bullets:
         add(
@@ -490,12 +557,12 @@ def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
         "",
         "## Interpretation",
         "",
-        "- **Critical** usually means a heading is functioning as an outline: very little prose followed by several bullets.",
-        "- **High** identifies single-sentence concepts, thin explanations, list-first introductions, or terminology introduced mainly inside lists.",
+        "- **Critical** usually means a heading is functioning as an outline, contains no prose, or most bullet items are unexplained labels.",
+        "- **High** identifies single-sentence concepts, thin explanations, list-first introductions, or partially unexplained bullet lists.",
         "- **Medium** identifies sections that likely need another paragraph, definitions, or a worked example.",
         "- **Low** is a review hint for an absent explicit mechanism, example, or failure boundary; it can be a false positive.",
         "",
-        "The target is not to remove lists. Every normal conceptual section must contain more than one substantive explanatory sentence, and a list should summarize a model that surrounding prose has already explained.",
+        "The target is not to remove lists. Every normal conceptual section must contain more than one substantive explanatory sentence. Every meaningful bullet must also state what the item means, what role it has, or why it matters in the current context.",
         "",
         "## Highest-priority files",
         "",
@@ -566,9 +633,10 @@ def markdown_report(files: list[FileStats], findings: list[Finding]) -> str:
             "2. Define the concept and state the problem it solves.",
             "3. Explain the mechanism or decision flow in connected prose.",
             "4. Explain unfamiliar terms before or where they first appear.",
-            "5. Keep bullets as a summary; use `term — explanation` when each item has distinct semantics.",
-            "6. Add at least one concrete example, boundary, trade-off, or failure mode where relevant.",
-            "7. Cross-link a prior authoritative chapter when a full re-explanation would be redundant, but include a short local reminder.",
+            "5. Replace bare bullet labels with `term — explanation`, `condition: consequence`, or a complete explanatory sentence.",
+            "6. Explain how the bullet items relate, which item is authoritative, or what decision they affect.",
+            "7. Add at least one concrete example, boundary, trade-off, or failure mode where relevant.",
+            "8. Cross-link a prior authoritative chapter when a full re-explanation would be redundant, but include a short local reminder.",
             "",
             "See [`AUTHORING-GUIDE.md`](AUTHORING-GUIDE.md).",
             "",
