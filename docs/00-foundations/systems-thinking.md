@@ -8,289 +8,344 @@
 - Predpoklady: [DevOps](devops.md), [Three Ways of DevOps](three-ways.md)
 - Súvisiace témy: feedback loops, value stream mapping, bottlenecks, observability, SRE
 
+Metadata zaraďuje systems thinking medzi základné mentálne modely DevOps. Kapitola sa nesústredí iba na technickú architecture; analyzuje aj ľudí, fronty, incentives, decision points a oneskorené dôsledky.
+
 ## 1. Definícia
 
-Systems thinking je spôsob uvažovania, pri ktorom systém neposudzujeme ako izolované komponenty, ale ako sieť vzájomne závislých častí, tokov, obmedzení a spätných väzieb.
+Systems thinking je spôsob uvažovania, pri ktorom výsledok nevysvetľujeme iba vlastnosťami jednotlivých komponentov. Skúmame ich vzťahy, toky, feedback loops, delays, constraints a pravidlá, ktoré vytvárajú správanie celku.
 
-V DevOps kontexte znamená sledovať celý tok zmeny od nápadu až po produkčný výsledok a optimalizovať výsledok systému, nie iba výkon jedného tímu alebo jedného nástroja.
+V DevOps kontexte znamená sledovať celý value stream od potreby po production outcome. Tím sa nepýta iba, či je konkrétny build job rýchly, ale či jeho zmena skrátila end-to-end lead time, znížila risk alebo zlepšila používateľský výsledok.
 
-## 2. Problém, ktorý rieši
+## 2. Problém, ktorý systems thinking rieši
 
-Komplexné technické systémy často zlyhávajú na rozhraniach medzi komponentmi a tímami. Každá časť môže lokálne vyzerať efektívne, ale celkový výsledok môže byť pomalý alebo nespoľahlivý.
+Komplexné systémy často zlyhávajú na rozhraniach. Každý tím môže plniť svoje lokálne KPI a napriek tomu vytvárať pomalý, krehký alebo drahý celok.
 
-Príklad:
+Predstav si delivery flow, v ktorom development dokončí zmenu za dve hodiny, security review čaká dva dni, environment provisioning tri dni a release týždenné okno. Optimalizácia kompilácie z desiatich na sedem minút je technicky úspešná, ale systémový outcome sa prakticky nezmení.
+
+Systems thinking pomáha odhaliť tri časté chyby:
+
+- **Príliš úzka hranica — analyzuje sa iba viditeľný component**: dominantný waiting, policy alebo dependency zostane mimo modelu.
+- **Lokálna optimalizácia — tím zlepšuje vlastnú metriku**: downstream queue alebo rework môže rásť a zhoršiť globálny flow.
+- **Lineárna príčina — incident sa pripíše poslednej udalosti**: prehliadnu sa feedback loops, accumulation a conditions, ktoré umožnili failure.
+
+## 3. Mentálny model systému
+
+Systém má účel, hranicu, vstupy, výstupy, stav, aktérov a pravidlá. Jednotlivé components transformujú vstupy, ale ich správanie ovplyvňujú queues, shared resources, feedback a časové oneskorenia.
 
 ```text
-Development dokončí zmenu za 2 hodiny.
-Security review čaká 2 dni.
-Provisioning prostredia trvá 3 dni.
-Deployment čaká na týždenné okno.
+vstupná potreba a demand
+→ rozhodnutia a prioritizácia
+→ engineering a delivery flow
+→ runtime service a dependencies
+→ používateľský alebo business outcome
+→ feedback, incidents a nové rozhodnutia
 ```
 
-Optimalizovať čas kompilácie z 10 na 7 minút má v takom systéme zanedbateľný vplyv. Dominantným problémom sú čakacie doby a organizačné handoffy.
+Ak sa zmení jedna časť, ostatné reagujú. Zvýšenie deployment frequency môže zvýšiť feedback a value, ale bez testov a operability môže tiež zvýšiť incident load, ktorý následne zníži kapacitu na ďalší development.
 
-## 3. Mentálny model
+## 4. System boundary
 
-Systém možno chápať ako tok práce cez viacero závislých stupňov:
+System boundary určuje, ktoré actors, components a effects patria do analýzy. Hranica nie je objektívne daná; vyberá sa podľa otázky a musí byť dostatočne široká na zachytenie rozhodujúceho cause-and-effect pathu.
 
-```text
-Požiadavka
-  ↓
-Analýza
-  ↓
-Implementácia
-  ↓
-Build a test
-  ↓
-Security a compliance
-  ↓
-Release a deployment
-  ↓
-Prevádzka
-  ↓
-Používateľský výsledok
-```
-
-Výstup jedného stupňa je vstupom ďalšieho. Kapacita celého systému je obmedzená jeho najužším miestom, nie priemerným výkonom všetkých častí.
-
-## 4. Systém, komponent a hranica
-
-Pred analýzou treba určiť hranicu systému.
-
-Napríklad pri probléme „deployment je pomalý“ môže byť hranica príliš úzka:
+Pri probléme „deployment je pomalý“ môže príliš úzka hranica obsahovať iba pipeline job a Kubernetes API. Reálny flow môže zahŕňať review queue, runner capacity, test environment, approval, artifact promotion, readiness a produkčnú validation.
 
 ```text
-Pipeline job → Kubernetes API
-```
-
-Reálna hranica môže zahŕňať:
-
-```text
-Commit
-→ code review
+commit
+→ review
 → CI queue
-→ build
-→ test environment
+→ build a tests
+→ environment provisioning
 → approval
 → artifact promotion
 → deployment
 → readiness
-→ produkčné overenie
+→ production outcome verification
 ```
 
-Ak zvolíme príliš úzku hranicu, optimalizujeme iba viditeľný fragment a prehliadneme dominantný zdroj oneskorenia.
+Ak najväčší delay vzniká pred pipeline alebo po nej, optimalizácia orchestration code-u problém nevyrieši.
 
-## 5. Lokálna a globálna optimalizácia
+## 5. Actors, incentives a decision rights
 
-### Lokálna optimalizácia
+Technický diagram bez ľudí a rozhodovacích práv je neúplný. Tím, ktorý vlastní approval, budget, incident command alebo platform roadmap, ovplyvňuje flow rovnako ako API alebo database.
 
-Jedna časť systému zlepší vlastnú metriku bez ohľadu na celkový tok.
+Incentives menia správanie systému. Development odmeňovaný za začaté features zvyšuje WIP, security hodnotené podľa počtu blokovaných zmien pridáva approvals a platform tím hodnotený podľa štandardizácie môže vytvoriť povinný interface, ktorý nepokrýva reálne use cases.
 
-Príklady:
+Pri modelovaní preto vysvetli:
 
-- vývoj zvýši počet rozpracovaných úloh,
-- QA vytvorí veľkú dávku regresných testov až na konci releasu,
-- bezpečnostný tím zvýši počet manuálnych kontrol,
-- platformový tím štandardizuje proces, ale vytvorí dlhý ticket queue.
+- **Kto môže začať alebo zastaviť zmenu?** — určuje decision latency a authority počas risku.
+- **Kto nesie následky failure-u?** — ovplyvňuje motiváciu investovať do tests, operability a recovery.
+- **Ktoré KPI riadia lokálne rozhodnutie?** — odhaľuje konflikt medzi activity a end-to-end outcome-om.
+- **Kde vzniká neformálna eskalácia?** — signalizuje chýbajúci interface, dokumentáciu alebo delegated ownership.
 
-### Globálna optimalizácia
+## 6. Components a interactions
 
-Zmena sa hodnotí podľa výsledku celého systému:
+Component môže byť service, pipeline stage, tím, policy engine alebo externý provider. Systems thinking sa však sústreďuje najmä na interaction: aké data, authority, artifact alebo feedback prechádzajú cez boundary a aký contract sa pri tom predpokladá.
 
-- lead time,
-- spoľahlivosť,
-- kvalita,
-- obnoviteľnosť,
-- používateľská hodnota,
-- množstvo manuálneho toil-u.
+Mnoho incidentov vzniká pri správnych components a nepresnom interface. Producer publikuje event, consumer predpokladá inú schema alebo timeout hierarchy umožní, aby client čakal kratšie než downstream retry; izolované health checks pritom môžu zostať zelené.
 
-Lokálna efektivita má význam iba vtedy, keď zlepšuje alebo aspoň nepoškodzuje globálny výsledok.
+## 7. Local optimization
 
-## 6. Bottleneck
+Local optimization zlepší metriku jednej časti bez posúdenia celého outcome-u. Môže byť racionálna pre daný tím a súčasne škodlivá pre value stream.
 
-Bottleneck je časť systému, ktorá obmedzuje jeho priepustnosť.
+Typické prípady ukazujú konkrétny presun problému:
+
+- **Development zvýši počet rozpracovaných úloh — rastie WIP a review queue**: lokálny počet „aktívnych“ položiek stúpne, ale počet dokončených zmien nie.
+- **QA vykoná veľkú regresiu až na konci — feedback sa odloží**: test tím maximalizuje utilization, no correction cost rastie pre celý release.
+- **Security pridá manuálnu kontrolu každej zmeny — decision queue sa centralizuje**: risk môže klesnúť pre jeden typ chyby, ale bypasses a lead time môžu narásť.
+- **Platforma vynúti jednotný template — exceptions sa presunú do ticketov**: technická uniformita môže poškodiť self-service a zvýšiť shadow tooling.
+
+Lokálna metrika je užitočná iba vtedy, keď má vysvetlenú väzbu na globálny výsledok.
+
+## 8. Global optimization
+
+Global optimization hodnotí zmenu podľa správania celého systému. Neznamená ignorovať lokálne performance; znamená posudzovať ich v kontexte end-to-end flowu a constraints.
+
+Globálny outcome má viac dimenzií:
+
+- **Lead time — čas od potreby alebo commitu po produkčný feedback**: odhaľuje waiting aj active work naprieč tímami.
+- **Reliability — schopnosť poskytovať definovaný user outcome**: zabraňuje zrýchleniu delivery za cenu rastúceho incident risku.
+- **Quality a correctness — splnenie contractu**: zahŕňa technické aj business failures, nie iba test pass rate.
+- **Recoverability — schopnosť obmedziť a obnoviť failure**: zohľadňuje rollback, data recovery, diagnosis a authority.
+- **User value — výsledok, pre ktorý systém existuje**: odlišuje efektívne dodanie od užitočného produktu.
+- **Toil a sustainability — dlhodobá prevádzková cena**: zachytáva, či krátkodobé zlepšenie nevytvára rastúcu manuálnu prácu.
+
+## 9. Constraint a bottleneck
+
+Constraint je faktor, ktorý obmedzuje schopnosť systému dosiahnuť cieľ. Bottleneck je krok alebo resource, ktorého kapacita alebo behavior aktuálne obmedzuje throughput flowu.
+
+Ak development zvládne dvadsať zmien denne, CI pätnásť, QA päť a deployment desať, tok sa bude hromadiť pred QA. Zvýšenie CI na tridsať iba zrýchli príchod práce do rovnakej fronty.
 
 ```text
-Kapacita:
-Development: 20 zmien/deň
-CI:          15 zmien/deň
-QA:           5 zmien/deň
-Deployment:  10 zmien/deň
+arrival do QA: 15 zmien/deň
+QA capacity:     5 zmien/deň
+backlog growth: 10 zmien/deň
 ```
 
-Celý tok je prakticky obmedzený QA kapacitou približne na 5 zmien denne. Zvýšenie CI kapacity z 15 na 30 problém nevyrieši; môže iba zväčšiť front pred QA.
+Bottleneck sa môže meniť podľa času a typu práce. Incident, veľká migration alebo absencia jedného reviewer-a môžu dočasne presunúť constraint na inú boundary.
 
-Práca nahromadená pred bottleneckom predlžuje lead time a zvyšuje rozpracovanosť.
+## 10. Queues a waiting time
 
-## 7. Fronty a čakacie doby
+Queue vzniká, keď práca prichádza rýchlejšie alebo nepravidelnejšie, než ju downstream dokáže spracovať. Aj priemerná kapacita blízka demandu môže vytvárať dlhé waiting times, ak systém nemá rezervu na variabilitu.
 
-V delivery systémoch býva väčšina lead time často čakanie, nie aktívna práca.
+Typické queues majú odlišného ownera a failure mode:
 
-Typické fronty:
+- **Pull request queue — obmedzená reviewer kapacita alebo veľké changes**: context autora starne a merge konflikty rastú.
+- **CI runner queue — nedostatok alebo zlá segmentácia compute**: rýchle tests čakajú za dlhými jobs a feedback latency rastie.
+- **Environment queue — central provisioning alebo shared state**: tímy čakajú na resource a súčasne sa navzájom rušia v jednom prostredí.
+- **Approval queue — nejasné decision criteria**: manuálny reviewer opakuje rovnakú kontrolu bez risk segmentationu.
+- **Incident ownership queue — chýbajúci service catalog alebo routing**: user impact pokračuje, kým sa hľadá správny responder.
 
-- merge request čakajúci na review,
-- pipeline čakajúca na runner,
-- deployment čakajúci na approval,
-- ticket čakajúci na infra tím,
-- incident čakajúci na správneho vlastníka.
+Waiting time sa musí merať oddelene od processing time-u. Inak sa tím snaží zrýchliť vykonanie, hoci dominantný problém je fronta.
 
-Front vzniká, keď príchod práce dlhodobo prekračuje schopnosť systému túto prácu spracovať alebo keď je spracovanie nepravidelné.
+## 11. Work in progress
 
-## 8. Batch size
+WIP je inventory rozpracovanej práce. V software systéme starne: branch diverguje, požiadavka sa mení, dependency vydá novú verziu a pôvodný mental context sa stráca.
 
-Veľké dávky znižujú frekvenciu odovzdávok, ale zvyšujú riziko, variabilitu a cenu diagnostiky.
+Zvyšovanie WIP môže krátkodobo vyzerať ako vyššia produktivita, pretože všetci majú „na čom pracovať“. V skutočnosti sa dokončenie oneskoruje a rastie počet context switches a blocked položiek.
+
+WIP limit presúva kapacitu k dokončeniu bottlenecku. Developer môže pomôcť s testom, documentation alebo review namiesto otvorenia ďalšej feature, ktorá by čakala v rovnakej fronte.
+
+## 12. Batch size
+
+Batch size určuje, koľko zmien sa viaže na jeden review, test, release alebo recovery decision. Veľký batch znižuje frekvenciu transakcií, ale zvyšuje variability, blast radius a počet možných príčin failure-u.
 
 ```text
-Veľký release:
-50 zmien → zložité testovanie → ťažký rollback → nejasná príčina chyby
+veľký release
+→ široký test scope
+→ koordinované dependencies
+→ zložité rollout rozhodnutie
+→ ťažký rollback a diagnosis
 
-Malé zmeny:
-1–5 zmien → rýchla spätná väzba → jednoduchšia izolácia problému
+malý batch
+→ rýchlejší feedback
+→ obmedzený exposure
+→ jasnejšia change identity
+→ jednoduchší rollback alebo roll-forward
 ```
 
-Menší batch size znižuje množstvo súčasne menených premenných a podporuje plynulejší tok.
+Veľkosť sa neposudzuje iba počtom riadkov. Krátka IAM policy alebo destructive migration môže mať väčší systémový dopad než rozsiahla izolovaná refaktorizácia.
 
-## 9. Závislosti a coupling
+## 13. Coupling a dependencies
 
-Systémová analýza sleduje nielen komponenty, ale aj ich väzby.
+Coupling opisuje, ako silno zmena alebo failure jedného prvku ovplyvňuje ďalšie. Skryté dependencies znižujú schopnosť predpovedať blast radius a komplikujú independent deployment a recovery.
 
-Silný coupling môže znamenať, že:
+Význam jednotlivých coupling patterns je odlišný:
 
-- release jednej služby vyžaduje release ďalších služieb,
-- databázová zmena blokuje viacero aplikácií,
-- centrálna pipeline zmena ovplyvní desiatky tímov,
-- zlyhanie identity provideru znefunkční veľkú časť platformy.
+- **Coordinated release coupling — služby sa musia nasadiť spolu**: jeden tím alebo failure blokuje celý release train.
+- **Shared database coupling — viac aplikácií závisí od jednej schema**: migration môže vytvoriť cross-team compatibility a ownership problém.
+- **Central pipeline coupling — jedna platform zmena ovplyvní desiatky tímov**: štandardizácia znižuje duplicitu, ale zväčšuje blast radius chyby.
+- **Identity coupling — jeden IdP alebo policy plane chráni celý systém**: jeho outage môže vyradiť aj inak nezávislé services.
+- **Operational coupling — recovery jednej služby vyžaduje inú**: registry, DNS, KMS alebo observability sa môže stať skrytou DR dependency.
 
-Čím viac skrytých závislostí systém obsahuje, tým ťažšie sa predvída správanie zmien.
+Loose coupling neznamená nulové dependencies. Znamená explicitný contract, failure isolation a schopnosť meniť alebo obnovovať components s obmedzeným coordination scope-om.
 
-## 10. Delay a nepriame dôsledky
+## 14. Feedback loops
 
-Dôsledok rozhodnutia nemusí byť okamžitý.
+Feedback loop mení ďalšie správanie na základe observed outcome-u. Negative feedback znižuje odchýlku od cieľa, zatiaľ čo positive feedback zosilňuje trend bez ohľadu na to, či je výsledok žiaduci.
 
-Príklad:
+Autoscaler používajúci queue age môže pridať workers a znížiť backlog, čo je stabilizujúci negative loop. Retry storm pri zlyhávajúcej dependency zvyšuje load, ktorý vytvára ďalšie timeouts a ďalšie retries, čo je zosilňujúci positive loop.
+
+Systems thinking skúma celý loop vrátane latency, gain, limits a actor-a, ktorý reaguje. Signál bez reaction pathu nie je uzavretý feedback loop.
+
+## 15. Delays
+
+Delay je čas medzi príčinou a pozorovateľným dôsledkom. Oneskorenie môže viesť k overcorrection alebo k nesprávnemu záveru, že zmena nemala účinok.
+
+Autoscaling reagujúci na stale metric môže pridať kapacitu po skončení spike-u a následne ju rýchlo odobrať. Organizačný delay je podobný: zníženie test investmentu zvýši krátkodobo throughput, no incident rate môže narásť až po viacerých release-och.
+
+Pri každom rozhodnutí sa pýtaj, kedy sa výsledok prejaví a aké ďalšie zmeny sa dovtedy uskutočnia. Krátke evaluation window môže vyhodnotiť iba počiatočný efekt a prehliadnuť dlhodobý cost.
+
+## 16. Accumulation a stock-and-flow
+
+Stock je nahromadený stav, napríklad backlog, technical debt, queue messages alebo neopravené vulnerabilities. Flow je rýchlosť, ktorou položky do stocku prichádzajú a odchádzajú.
+
+Backlog nerastie iba preto, že tím je „pomalý“. Rastie, keď arrival rate dlhodobo prevyšuje completion rate; jednorazové heroické vyčistenie nepomôže, ak pôvodný rozdiel zostane.
 
 ```text
-Zrýchlenie delivery bez investície do testov
-  ↓
-krátkodobo vyššia deployment frequency
-  ↓
-postupný rast regresií
-  ↓
-viac incidentov a manuálnych hotfixov
-  ↓
-nižšia kapacita na ďalší vývoj
+zmena backlogu = prichádzajúca práca − dokončená práca
 ```
 
-Oneskorené efekty vedú k nesprávnym záverom, ak meriame iba krátke obdobie.
+Tento model pomáha odlíšiť symptom od cause. Zvýšenie počtu workers môže znížiť stock iba vtedy, ak bottleneck skutočne leží v ich kapacite a downstream dokáže výsledok prijať.
 
-## 11. Praktický príklad: pomalý deployment
+## 17. Nonlinearity a thresholds
 
-### Symptóm
+Complex systems nereagujú vždy lineárne. Služba môže fungovať stabilne do bodu saturation a potom prudko zvýšiť queueing latency, retries a errors.
 
-Tím uvádza, že produkčný deployment trvá priemerne štyri dni od merge.
+Threshold behavior znamená, že priemer môže maskovať proximity ku capacity cliffu. CPU 70 % nemusí byť problém, ale connection pool s 95 zo 100 slots a rastúcim wait time-om môže byť tesne pred kaskádovým failure-om.
 
-### Úzka interpretácia
+Load tests a capacity models preto skúmajú tvar response-u, nie iba jednu hodnotu. Dôležité je vedieť, kde sa systém preklopí do iného behavioru a ako sa z neho zotaví.
 
-„Kubernetes rollout je pomalý.“
+## 18. Emergent behavior
 
-### Systémové pozorovanie
+Emergent behavior je vlastnosť celku, ktorá nie je explicitne naprogramovaná v jednom componente. Vzniká interakciou lokálnych pravidiel, delays a feedback loops.
+
+Napríklad každý client môže mať zdanlivo rozumný retry s tromi attempts. Keď tisíce clients reagujú rovnako na outage, súhrnný traffic zabráni dependency v recovery; retry storm nevlastní jeden component, ale vzniká zo spoločného behavioru.
+
+Emergent behavior sa skúma cez end-to-end telemetry, simulations a fault experiments. Unit test jedného clienta nemusí odhaliť systémový amplification factor.
+
+## 19. Resilience a graceful degradation
+
+Resilience je schopnosť systému absorbovať disturbance, zachovať kritický outcome a zotaviť sa. Neznamená iba redundantný hardware; zahŕňa isolation, backpressure, recovery, ľudské rozhodovanie a schopnosť učiť sa.
+
+Graceful degradation zámerne obmedzí menej dôležitú capability, aby chránila kritický flow. Recommendations sa môžu vypnúť pri preťažení, ale financial correctness alebo authorization nemôžu použiť nebezpečný stale fallback.
+
+Systems thinking pomáha určiť, ktorú function možno degradovať a akú shared dependency tým uvoľníme. Lokálne vypnutie features nemá hodnotu, ak bottleneck zostáva v nezávislej state vrstve.
+
+## 20. Value stream mapping
+
+Value stream mapping zaznamenáva kroky potrebné na dodanie hodnoty a oddeľuje active processing, waiting, rework, handoffs a feedback. Cieľom nie je vytvoriť diagram pre audit, ale nájsť constraint a navrhnúť merateľný experiment.
+
+Každý krok má mať vysvetlené:
+
+- **Input a output — čo sa v kroku transformuje**: napríklad source revision na artifact alebo artifact na runtime state.
+- **Owner a decision — kto vykonáva alebo schvaľuje zmenu**: odhaľuje queues a nejasnú authority.
+- **Processing time — čas aktívnej práce**: umožňuje posúdiť execution efficiency.
+- **Wait time — čas bez progresu**: ukazuje fronty, batching a coordination delay.
+- **Failure a rework — ako často sa práca vracia**: signalizuje neskorý feedback alebo nepresný upstream contract.
+- **Evidence — čo potvrdzuje úspešný výsledok**: zabraňuje tomu, aby status jobu nahradil user outcome.
+
+## 21. End-to-end príklad pomalého deploymentu
+
+Tím uvádza, že deployment trvá štyri dni od merge. Prvá hypotéza obviňuje Kubernetes rollout, no rozklad času ukáže iný systémový obraz.
 
 ```text
-Merge → CI queue:             20 min
-Build a test:                 25 min
-Čakanie na test environment:  9 h
-Acceptance test:              40 min
-Čakanie na approval:          2 dni
-Deployment:                   8 min
-Produkčné overenie:           15 min
+Merge → CI queue:              20 min
+Build a test:                  25 min
+Čakanie na test environment:    9 h
+Acceptance test:               40 min
+Čakanie na approval:            2 dni
+Kubernetes deployment:          8 min
+Production validation:         15 min
 ```
 
-Samotný Kubernetes deployment nie je bottleneck. Najväčšiu časť lead time tvorí dostupnosť prostredia a approval proces.
+Kubernetes nie je bottleneck. Vhodnejší experiment vytvorí self-service environment, rozdelí approvals podľa risku a začne merať processing a waiting oddelene.
 
-### Vhodná náprava
+Navrhované opatrenia majú jasný mechanizmus:
 
-- self-service ephemeral environments,
-- automatizované risk-based approvals,
-- jasná politika, ktoré zmeny vyžadujú manuálny zásah,
-- meranie času čakania oddelene od času spracovania.
+- **Ephemeral self-service environment — odstránenie provisioning queue**: tím vytvorí izolovaný test scope bez ticketového handoffu.
+- **Risk-based automated evidence — zmenšenie approval fronty**: bežná nízkoriziková zmena prejde po splnení policy a vyšší risk sa eskaluje človeku.
+- **Explicitná manual-review policy — jasné decision criteria**: reviewer nerobí tú istú kontrolu pre každú zmenu bez ohľadu na scope.
+- **Oddelené meranie waiting a processing — overenie výsledku**: tím zistí, či sa fronta skrátila alebo sa iba presunula.
 
-## 12. Value stream
+## 22. Systemické diagnostické otázky
 
-Value stream je celý sled aktivít potrebných na dodanie hodnoty používateľovi.
+Otázka má rozširovať model a viesť k evidence, nie iba k brainstormingu.
 
-Pri mapovaní sledujeme:
+1. **Aký outcome má systém produkovať?** — zabraňuje optimalizácii aktivity, ktorá nemá väzbu na hodnotu.
+2. **Kde začína a končí analyzovaný flow?** — určuje, ktoré waits a dependencies nesmú zostať mimo boundary.
+3. **Kde sa hromadí stock alebo queue?** — identifikuje rozdiel medzi arrival a processing rate.
+4. **Ktorý constraint obmedzuje throughput?** — smeruje investíciu na aktuálny bottleneck.
+5. **Kde vzniká rework a prečo?** — odhaľuje nepresný contract alebo neskorý feedback.
+6. **Ktoré dependencies a decision rights sú skryté?** — rozširuje technický model o organization a external paths.
+7. **Ktoré KPI motivujú lokálnu optimalizáciu?** — vysvetľuje správanie actorov bez zjednodušenia na osobné zlyhanie.
+8. **Aké delays a nepriame dôsledky má zásah?** — zabraňuje predčasnému vyhodnoteniu experimentu.
+9. **Ako sa zmení ďalšia časť systému?** — testuje, či sa problém iba nepresunie.
 
-- aktívny processing time,
-- waiting time,
-- rework,
-- handoffy,
-- počet rozpracovaných položiek,
-- frekvenciu zlyhaní,
-- tok informácií a spätnej väzby.
+## 23. Produkčný kontext
 
-Cieľom nie je vytvoriť pekný diagram. Cieľom je identifikovať obmedzenia a zbytočné oneskorenia.
+Systems thinking sa používa pri architecture, CI/CD, platform engineeringu, security controls, incident response, capacity a migrations. Spoločným prvkom je potreba analyzovať širší outcome a cross-boundary effects.
 
-## 13. Typické systémové otázky
+Praktické použitia majú odlišný dôraz:
 
-Pri probléme sa pýtame:
+- **CI/CD design — flow, queues a evidence**: optimalizuje lead time bez oslabenia release quality.
+- **Team topology a ownership — communication paths**: znižuje handoffs a vytvára jasné service decision rights.
+- **Incident response — causal chain a feedback**: odlišuje trigger od podmienok, ktoré zväčšili dopad alebo recovery time.
+- **Capacity planning — stock, flow a nonlinear saturation**: spája demand s bottleneckom a failover headroomom.
+- **Security controls — threat, boundary a workflow impact**: zabraňuje tomu, aby control presunul risk do bypassu alebo shadow procesu.
+- **Modernization — coupling a migration sequencing**: rozdeľuje systém bez vytvorenia koordinovaného distributed monolithu.
 
-1. Aký výsledok má celý systém produkovať?
-2. Kde začína a končí analyzovaný tok?
-3. Kde práca čaká?
-4. Ktorý krok obmedzuje priepustnosť?
-5. Kde vzniká rework?
-6. Aké závislosti nie sú explicitné?
-7. Ktoré metriky podporujú lokálnu optimalizáciu?
-8. Aké oneskorené dôsledky môže mať navrhovaná zmena?
-
-## 14. Anti-patterny
+## 24. Anti-patterny
 
 ### Optimalizácia viditeľného nástroja
 
-Tím rieši výkon pipeline, pretože je ľahko merateľný, hoci väčšina času sa stráca mimo pipeline.
+Tím rieši pipeline alebo cluster, pretože má dostupné metrics, hoci dominantný delay leží v review alebo approval procese. Merateľnosť nástroja sa zamieňa za význam jeho vplyvu.
 
 ### Presun problému
 
-Automatizácia zrýchli odovzdanie práce ďalšiemu tímu, ale nevyrieši jeho kapacitný limit. Front sa iba presunie.
+Automation zrýchli odoslanie práce do ďalšej fronty bez zvýšenia downstream capacity. Lokálny processing time klesne, ale WIP a waiting celku narastú.
 
 ### Viac rozpracovanej práce ako riešenie
 
-Začatie ďalších úloh zvyšuje work in progress, no nezvyšuje počet dokončených zmien.
+Keď je položka blocked, ľudia začnú ďalšiu. Systém zvýši inventory a context switching, no completion rate constraintu sa nezmení.
 
 ### Izolované tímové KPI
 
-Tímy optimalizujú počet ticketov, deploymentov alebo kontrol bez väzby na výsledok služby.
+Tímy optimalizujú počet ticketov, controls alebo deployments bez spoločného outcome-u. Individuálne čísla môžu rásť, zatiaľ čo reliability alebo lead time sa zhoršujú.
 
-## 15. Produkčný kontext
+### Jedna root cause
 
-Systems thinking sa uplatňuje pri:
+Complex incident sa redukuje na posledný failed component alebo human action. Tým sa prehliadnu feedback, coupling a safeguards, ktoré mohli zabrániť dopadu.
 
-- návrhu CI/CD procesu,
-- organizácii tímov a ownershipu,
-- incident response,
-- capacity planningu,
-- platform engineeringu,
-- bezpečnostných kontrolách,
-- migráciách a modernizácii systémov.
+## 25. Kontrolné otázky
 
-Technická zmena je kvalitná iba vtedy, keď rešpektuje správanie širšieho systému.
+1. Prečo systém nie je iba súčet svojich komponentov?
+2. Ako výber príliš úzkej boundary vedie k nesprávnej optimalizácii?
+3. Aký je rozdiel medzi local a global optimization?
+4. Prečo zvýšenie capacity neobmedzujúceho kroku môže zhoršiť flow?
+5. Ako queues a variability ovplyvňujú waiting time?
+6. Prečo vysoký WIP spomaľuje completion aj pri plnej utilization?
+7. Aký rozdiel je medzi component dependency a coupling riskom?
+8. Ako positive feedback vytvára retry storm alebo incident spiral?
+9. Prečo delay komplikuje vyhodnotenie zmeny?
+10. Ako stock-and-flow model vysvetľuje rast backlogu alebo technical debt?
+11. Čo je emergent behavior a prečo ho nemusí odhaliť unit test?
+12. Ako value stream mapping vedie k experimentu namiesto iba diagramu?
 
-## 16. Kontrolné otázky
+## 26. Zhrnutie
 
-1. Prečo zvýšenie kapacity kroku, ktorý nie je bottleneck, nemusí zrýchliť celý tok?
-2. Aký je rozdiel medzi processing time a waiting time?
-3. Ako môže lokálne úspešné KPI poškodiť globálny výsledok?
-4. Prečo veľké batch sizes komplikujú diagnostiku?
-5. Ako by si určil hranice systému pri probléme s pomalým releasom?
-6. Uveď príklad oneskoreného negatívneho dôsledku technického rozhodnutia.
+Systems thinking analyzuje účel, boundary, actors, components, queues, constraints, coupling, delays a feedback loops ako jeden celok. Pomáha vysvetliť, prečo lokálne správne decisions môžu vytvoriť globálne zlý outcome.
 
-## 17. Zhrnutie
+Najväčšiu hodnotu prináša pri rozhodovaní, čo neoptimalizovať. Tím zmeria end-to-end flow, nájde aktuálny constraint, navrhne malý zásah a overí, či sa outcome zlepšil alebo sa problém iba presunul.
 
-- Systém je viac než súčet jeho komponentov.
-- Celkový tok obmedzuje bottleneck a čakacie doby.
-- Lokálna optimalizácia môže zhoršiť globálny výsledok.
-- Treba sledovať závislosti, fronty, batch sizes a oneskorené dôsledky.
-- DevOps optimalizuje celý value stream od zmeny po používateľský výsledok.
+## Glossary impact
+
+Relevantné pojmy: systems thinking, system boundary, actor, incentive, decision right, local optimization, global optimization, constraint, bottleneck, queue, waiting time, WIP, batch size, coupling, delay, stock and flow, nonlinearity, emergent behavior, resilience a value stream mapping.
+
+## Primárne zdroje
+
+- [MIT OpenCourseWare — System Dynamics](https://ocw.mit.edu/courses/15-871-introduction-to-system-dynamics-fall-2013/)
+- [Google Cloud — DevOps capabilities](https://cloud.google.com/architecture/devops)
+- [The Lean Enterprise Institute — What is Lean Thinking?](https://www.lean.org/explore-lean/what-is-lean-thinking/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
