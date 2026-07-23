@@ -1,6 +1,6 @@
 # Názov témy
 
-> Táto šablóna je učebná, nie iba štrukturálna. Jedna veta nasledovaná zoznamom sa nepovažuje za dokončené vysvetlenie konceptu. Každá hlavná sekcia má v súvislom texte vysvetliť význam, mechanizmus a dôsledok; odrážky slúžia až ako zhrnutie alebo referencia.
+> Táto šablóna je učebná, nie iba štrukturálna. Jedna veta nasledovaná zoznamom sa nepovažuje za dokončené vysvetlenie konceptu. Každá hlavná sekcia má v súvislom texte vysvetliť význam, mechanizmus a dôsledok; odrážky slúžia až ako zhrnutie alebo referencia. Významová odrážka nesmie byť iba holý názov: musí priamo vysvetliť úlohu položky v aktuálnom kontexte alebo musí byť jej význam jednoznačne vysvetlený v bezprostrednom texte.
 
 ## Metadata
 
@@ -10,6 +10,8 @@
 - Prerequisites:
 - Related topics:
 - Last reviewed:
+
+Metadata je referenčná výnimka. Hodnoty môžu zostať stručné, pretože nejde o konceptuálny výklad.
 
 ## 1. Definícia
 
@@ -31,21 +33,23 @@ Mentálny model doplň o pomenovanie aktérov, stavu, vstupov, výstupov a trust
 
 ## 4. Ako to funguje
 
-Popíš mechanizmus krok po kroku v súvislom texte. Uveď:
+Popíš mechanizmus krok po kroku v súvislom texte. Uveď, kto iniciuje operáciu, aké vstupy systém prijíma, kde sa mení stav, podľa čoho sa rozhoduje a čo predstavuje úspešný výsledok. Samostatne vysvetli, čo sa stane pri chýbajúcom, stale alebo neplatnom vstupe.
 
-- kto iniciuje operáciu a prečo;
-- aké vstupy alebo dôkazy systém prijíma;
-- ktoré komponenty komunikujú a akým smerom;
-- kde sa ukladá alebo mení stav;
-- podľa čoho sa vykonáva rozhodnutie;
-- aký je úspešný výsledok;
-- čo sa stane pri chýbajúcom, stale alebo neplatnom vstupe.
+Nasledujúci zoznam je iba kontrola pokrytia; v hotovej kapitole musí mať každý bod konkrétny význam v texte:
 
-Každý bod zo zoznamu musí mať vysvetlenie v texte. Samotné pomenovanie komponentov alebo signálov nestačí.
+- iniciátor — kto začína operáciu a aký outcome očakáva;
+- vstupy a dôkazy — čo komponent prijíma a ktorému zdroju dôveruje;
+- komunikácia — ktoré komponenty spolu hovoria a akým smerom tečú dáta alebo control;
+- stav — kde sa ukladá, mení alebo verziuje authoritative state;
+- rozhodnutie — ktoré pravidlá, algoritmus alebo policy určia výsledok;
+- úspech — aký pozorovateľný stav potvrdzuje správne dokončenie;
+- neplatný vstup — ako systém odmietne, obmedzí alebo bezpečne degraduje operáciu.
+
+Samotné pomenovanie komponentov alebo signálov nestačí. Ak položka zavádza nový pojem, použi formu `pojem — vysvetlenie jeho úlohy` alebo celý vysvetľovací odsek.
 
 ## 5. Komponenty a pojmy
 
-Pred tabuľkou vysvetli, čo komponenty spoločne tvoria a ako medzi nimi prechádza control alebo data flow.
+Pred tabuľkou vysvetli, čo komponenty spoločne tvoria a ako medzi nimi prechádza control alebo data flow. Čitateľ musí rozumieť vzťahu medzi položkami, nie iba ich samostatným definíciám.
 
 | Komponent alebo pojem | Čo presne znamená | Zodpovednosť v mechanizme | Hranica alebo typické zlyhanie |
 |---|---|---|---|
@@ -71,12 +75,9 @@ Vysvetli rozhodnutia: prečo boli zvolené konkrétne boundaries, identity, time
 
 ## 9. Chybný príklad
 
-Uveď zámerne chybnú konfiguráciu alebo scenár. Popíš:
+Uveď zámerne chybnú konfiguráciu alebo scenár. Vysvetli, čo je chybné, aký symptóm sa objaví, prečo systém zlyhá práve týmto spôsobom a aký dôkaz odlíši túto príčinu od podobných problémov.
 
-- čo je chybné;
-- aký symptóm sa objaví;
-- prečo systém zlyhá práve týmto spôsobom;
-- aký dôkaz odlíši túto príčinu od podobných problémov.
+Ak použiješ odrážky, každý bod musí obsahovať vysvetlenie, napríklad `symptóm — čo používateľ alebo operátor pozoruje`, nie iba slovo `Symptóm`.
 
 ## 10. Vysvetlenie príkladov
 
@@ -92,13 +93,15 @@ Táto sekcia má vysvetliť správanie „pod kapotou“, nie zopakovať zoznam 
 
 ## 12. Bezpečnosť
 
-Vysvetli identity, oprávnenia, šifrovanie, hranice dôvery, secrets a hlavné riziká. Pri každom controle uveď:
+Vysvetli identity, oprávnenia, šifrovanie, hranice dôvery, secrets a hlavné riziká. Každý uvedený control musí mať vysvetlené, ktorému threatu čelí, na akej boundary sa presadzuje, aký dôkaz používa, čo nezaručuje a čo sa stane pri jeho zlyhaní alebo obídení.
 
-- ktorému threatu čelí;
-- na akej boundary sa presadzuje;
-- aký dôkaz alebo signal používa;
-- čo control nezaručuje;
-- čo sa stane pri jeho zlyhaní alebo obídení.
+Namiesto holého zoznamu používaj napríklad:
+
+- authorization policy — obmedzuje, ktoré actions môže principal vykonať nad konkrétnym resource-om;
+- encryption at rest — chráni uložené bytes pred čítaním mimo autorizovaného storage a key pathu, ale nechráni dáta po legitímnom dešifrovaní aplikáciou;
+- audit log — zachytáva actor, action, target a outcome, aby bolo možné spätne overiť použitie oprávnenia.
+
+Po zozname vysvetli, ako sa controls skladajú a kde zostáva residual risk.
 
 ## 13. Produkčný kontext
 
@@ -124,25 +127,13 @@ Vysvetli limity signálov. Absencia logu, metriky alebo eventu nemusí znamenať
 
 Pred jednotlivými prípadmi vysvetli troubleshooting model: od používateľského symptómu cez failure-domain narrowing po dôkaz a overenú nápravu.
 
-Pri každom probléme použi štruktúru:
-
-- Symptóm
-- Pravdepodobná príčina
-- Diagnostika
-- Mechanizmus zlyhania
-- Náprava
-- Overenie
+Každý problém musí vysvetliť symptóm, pravdepodobnú príčinu, diagnostiku, mechanizmus zlyhania, nápravu a overenie. Tieto názvy nemajú zostať ako samostatné holé odrážky; použite podnadpisy, tabuľku s vysvetľovacími stĺpcami alebo formu `položka — konkrétny obsah`.
 
 Zoznam príkazov bez vysvetlenia, prečo odlišujú jednotlivé hypotézy, nestačí.
 
 ## 16. Časté omyly
 
-Popíš nesprávne alebo neúplné mentálne modely. Pri každom omyle vysvetli:
-
-1. prečo pôsobí intuitívne;
-2. v čom je technicky nepresný;
-3. aký presnejší model ho nahrádza;
-4. aké praktické zlyhanie z omylu vzniká.
+Popíš nesprávne alebo neúplné mentálne modely. Pri každom omyle vysvetli, prečo pôsobí intuitívne, v čom je technicky nepresný, aký presnejší model ho nahrádza a aké praktické zlyhanie z omylu vzniká.
 
 ## 17. Súvisiace témy
 
@@ -162,7 +153,7 @@ Odkaz na príslušný dokument v `labs/`. Uveď, ktorú časť mechanizmu má la
 4. Troubleshooting scenár vyžadujúci hypotézu a dôkaz.
 5. Návrhová otázka s boundary, failure a recovery požiadavkami.
 
-Otázky nemajú testovať iba rozpoznanie názvov alebo memorovanie zoznamu.
+Otázky nemajú testovať iba rozpoznanie názvov alebo memorovanie zoznamu. Táto sekcia je referenčná výnimka a nemusí vysvetľovať každú otázku ako koncept.
 
 ## 20. Zhrnutie
 
@@ -172,11 +163,11 @@ Zhrň najdôležitejšie informácie na rýchle zopakovanie. Zhrnutie môže by�
 
 Pred dokončením kapitoly skontroluj `GLOSSARY.md`:
 
-- pridaj nové opakovane použiteľné technické pojmy;
-- existujúce heslá spresni, ak kapitola priniesla presnejší mechanizmus;
-- každé heslo podľa možnosti prepoj na autoritatívnu kapitolu;
-- nepridávaj jednorazové názvy príkazov alebo polí bez širšieho významu;
-- ak kapitola glossary nemení, explicitne to potvrď pri review.
+- nový pojem — pridaj iba opakovane použiteľný technický termín a vysvetli jeho stabilný význam;
+- existujúce heslo — spresni ho, ak kapitola priniesla presnejší mechanizmus;
+- autoritatívny odkaz — prepoj heslo na kapitolu, ktorá pojem vysvetľuje do hĺbky;
+- jednorazový názov — nepridávaj command alebo field bez širšieho významu;
+- bez zmeny — pri review explicitne potvrď, že kapitola glossary nemení.
 
 Glossary sa má aktualizovať v rovnakom pracovnom bloku ako článok, nie odložene v samostatnom neurčitom backloge.
 
@@ -194,12 +185,14 @@ python scripts/audit_learning_depth.py
 
 Skontroluj najmä nálezy:
 
-- `outline-instead-of-explanation`;
-- `list-first-introduction`;
-- `thin-concept-section`;
-- `term-before-explanation`.
+- `single-sentence-concept` — konceptuálna sekcia má iba jednu obsahovú vetu;
+- `outline-instead-of-explanation` — zoznam nahrádza samotný výklad;
+- `list-first-introduction` — sekcia začína zoznamom bez mentálneho modelu;
+- `bare-bullet-items` — odrážky iba pomenúvajú položky bez kontextového vysvetlenia;
+- `thin-concept-section` — súvislý výklad je príliš krátky;
+- `term-before-explanation` — nový pojem sa objavil skôr, než bol vysvetlený.
 
-Heuristický audit nie je náhradou ľudského review. Autor musí overiť, že každá dôležitá sekcia odpovedá na otázky **čo**, **prečo**, **ako**, **príklad** a **kde to zlyháva**.
+Heuristický audit nie je náhradou ľudského review. Autor musí overiť, že každá dôležitá sekcia odpovedá na otázky **čo**, **prečo**, **ako**, **príklad** a **kde to zlyháva** a že každá významová odrážka objasňuje svoju úlohu v aktuálnom kontexte.
 
 ## Navigačný kontrakt
 
