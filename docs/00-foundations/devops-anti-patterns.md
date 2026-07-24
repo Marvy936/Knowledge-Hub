@@ -8,328 +8,184 @@
 - Predpoklady: [DevOps](devops.md), [Systems Thinking](systems-thinking.md), [Ownership Mindset](ownership-mindset.md)
 - Súvisiace témy: team topology, platform engineering, CI/CD, SRE, continuous improvement
 
-## 1. Definícia
+## 1. Čo je anti-pattern
 
-Anti-pattern je opakovane sa vyskytujúce riešenie alebo spôsob práce, ktorý pôsobí rozumne lokálne alebo krátkodobo, ale systematicky vytvára nežiaduce výsledky.
+Anti-pattern je opakovane sa vyskytujúce riešenie alebo spôsob práce, ktorý pôsobí rozumne lokálne alebo krátkodobo, ale systematicky vytvára nežiaduce výsledky. Na rozdiel od obyčajnej chyby býva anti-pattern stabilizovaný incentívami, organizačnými hranicami alebo nástrojmi.
 
-DevOps anti-patterny často vznikajú vtedy, keď organizácia prevezme nástroj alebo názov roly bez zmeny ownershipu, toku práce, spätnej väzby a rozhodovacích hraníc.
+DevOps anti-patterny často vznikajú vtedy, keď organizácia prevezme názov roly alebo technológiu bez zmeny ownershipu, toku práce a spätnej väzby. Preto ich nemožno opraviť iba výmenou nástroja.
 
-## 2. Tool-first transformation
+## 2. Ako anti-pattern analyzovať
 
-Organizácia začne transformáciu nákupom alebo nasadením nástrojov:
-
-```text
-GitLab + Kubernetes + Terraform + monitoring
-```
-
-Proces však zostáva:
+Pri každom anti-patterne treba rozlíšiť štyri vrstvy: lokálny dôvod, systémový mechanizmus, pozorovateľné signály a korekčný model. Samotné označenie „zlá kultúra“ neposkytuje použiteľnú diagnózu.
 
 ```text
-vývoj → ticket → infra tím → ticket → security → ticket → operations
+lokálny tlak alebo incentíva
+→ zdanlivo rozumné riešenie
+→ front, strata feedbacku alebo nejasný ownership
+→ zhoršený end-to-end výsledok
 ```
 
-Výsledkom je modernejšia technológia obsluhujúca rovnaké fronty a handoffs.
+## 3. Tool-first transformation
 
-### Symptómy
+Organizácia začne transformáciu nasadením GitLabu, Kubernetes, Terraformu alebo nového monitoringu. Nástroj je viditeľný, ľahko sa nakupuje a jeho zavedenie možno prezentovať ako konkrétny míľnik.
 
-- úspech sa meria počtom migrovaných pipeline,
-- nástroje nemajú jasný problém, ktorý riešia,
-- tímy používajú platformu iba cez centrálnych administrátorov,
-- automatizuje sa existujúci proces bez jeho zjednodušenia.
+Proces však zostane založený na ticketoch, ručných schváleniach a odovzdávkach. Výsledkom je modernejšia technológia obsluhujúca rovnaké fronty a rovnaký nejasný ownership.
 
-### Náprava
+Typickým signálom je meranie úspechu počtom migrovaných pipeline alebo clusterov namiesto lead time, reliability a používateľského výsledku. Náprava začína zmapovaním value streamu a výberom capability, ktorú má technológia podporiť.
 
-Najprv zmapovať value stream, ownership a constraints. Nástroj vybrať až podľa požadovanej capability.
+## 4. DevOps ako premenovaný Ops tím
 
-## 3. DevOps ako premenovaný Ops tím
+Centrálne oddelenie dostane názov DevOps a preberie build, deployment, infraštruktúru aj prevádzku za aplikačné tímy. Krátkodobo to zjednotí expertízu a môže znížiť chaos.
 
-Vznikne centrálne oddelenie s názvom DevOps, ktorému vývoj odovzdá aplikáciu na build, deployment a prevádzku.
+Dlhodobo vznikne nový ticket queue a aplikačné tímy stratia produkčný feedback. Centrálny tím nesie zodpovednosť za systémy, ktorých architektúru nemôže ovplyvniť, a stáva sa bottleneckom pre každú zmenu.
 
-```text
-Developers → DevOps ticket queue → production
-```
+Lepší model oddeľuje platform capability od service ownershipu. Platform tím poskytuje self-service rozhrania a guardrails, zatiaľ čo produktový tím vlastní správanie služby v jasne definovanom rozsahu.
 
-Silo sa nepodarilo odstrániť; iba dostalo nový názov.
+## 5. You build it, you run it bez podpory
 
-### Dôsledky
+Vývojárom sa pridelí pager a produkčná zodpovednosť bez observability, runbookov, prístupov a kapacity na reliability prácu. Organizácia tým formálne presunie ownership, ale neposkytne decision rights ani capabilities potrebné na jeho vykonanie.
 
-- centrálny tím sa stane bottleneckom,
-- vývoj nemá produkčný feedback,
-- prevádzkový tím nesie zodpovednosť bez kontroly nad návrhom aplikácie,
-- platform knowledge sa koncentruje u malej skupiny.
+Výsledkom je únava, pomalá diagnostika a odpor voči zmenám. Zdravý model potrebuje operational readiness, akčné alerty, platform support, tréning a explicitný priestor v roadmap-e na odstránenie opakovaných failure modes.
 
-### Lepší model
+## 6. Ticket-driven operations
 
-Platform alebo enablement tím vytvára self-service capabilities a guardrails. Produktové tímy zachovávajú ownership svojich služieb v jasne definovanom rozsahu.
+Štandardné požiadavky ako namespace, DNS record, databáza alebo zmena limitu sa vykonávajú manuálnym ticketom. Ticket poskytuje auditnú stopu, ale funguje ako veľmi pomalé a neštruktúrované API.
 
-## 4. You build it, you run it bez podpory
+Pri raste organizácie vznikajú fronty, nekonzistentné výsledky a skryté priority. Opakovateľné požiadavky majú prejsť do verzovanej konfigurácie, self-service workflowu alebo policy-controlled API; ticket zostáva vhodný pre výnimku a konzultáciu.
 
-Vývojárom sa pridelí on-call a produkčná zodpovednosť bez:
+## 7. Pipeline ako cieľ
 
-- observability,
-- runbookov,
-- školenia,
-- bezpečných deployment mechanizmov,
-- SLO,
-- kapacity na reliability prácu,
-- podpory platformy.
+Tím vytvorí pipeline s veľkým počtom stages a považuje tým delivery problém za vyriešený. Komplexita pipeline sa začne zamieňať s kvalitou procesu.
 
-Výsledkom nie je ownership, ale presunutie stresu.
+Ak joby nemajú jasnú failure policy, spätná väzba je pomalá a deployment zostáva manuálny, pipeline iba automatizovala časť handoff modelu. Každý krok má existovať preto, že znižuje konkrétnu neistotu alebo riziko a poskytuje akčný dôkaz.
 
-Ownership potrebuje právomoc meniť systém a investovať do jeho zlepšenia.
+## 8. Automate everything
 
-## 5. Ticket-driven operations
+Automatizácia sa považuje za hodnotu samu osebe. Jednorazová úloha dostane univerzálny framework, nestabilný proces sa zakóduje a skripty vzniknú bez ownera, testov a observability.
 
-Každá infraštruktúrna alebo prevádzková požiadavka prechádza manuálnym ticketom:
+Mechanizmom zlyhania je rast maintenance costu a blast radiusu. Automatizovať treba stabilnú, opakovateľnú a hodnotnú prácu; pred automatizáciou sa má proces zjednodušiť a po nej overovať skutočný outcome.
 
-- vytvor namespace,
-- pridaj DNS,
-- vytvor databázu,
-- zmeň limit,
-- nasad aplikáciu.
+## 9. Hero culture
 
-Ticket je vhodný na evidenciu výnimky alebo komplexnej služby. Je slabým runtime API pre opakovateľné štandardné požiadavky.
+Niekoľko expertov opakovane zachraňuje systém pomocou manuálnych zásahov a neformálnych znalostí. Krátkodobo je ich zásah efektívny, preto organizácia správanie odmeňuje.
 
-### Náprava
+Dlhodobo sa však incidenty nemenia na runbooky, testy ani architektonické opatrenia. Bus factor zostáva nízky a expert nemá kapacitu odstrániť príčinu potreby vlastného hrdinstva.
 
-Stabilné opakovateľné operácie presunúť do:
+Korekčný model zahŕňa kolektívny on-call, dokumentáciu, pairing, game days a povinné sledovanie opakovaných zásahov ako toil-u. Cieľom nie je znížiť hodnotu expertízy, ale premeniť ju na schopnosť systému.
 
-- version-controlled konfigurácie,
-- self-service portálu alebo API,
-- automatizovaných workflow,
-- policy-as-code,
-- štandardizovaných templates.
+## 10. Shared responsibility bez accountability
 
-## 6. Pipeline ako cieľ
+Tvrdenie „všetci sú zodpovední“ môže znamenať, že nikto nemá poslednú zodpovednosť za výsledok. Pri incidente sa problém presúva medzi tímami a každý správne tvrdí, že vlastní iba časť systému.
 
-Tím vytvorí rozsiahlu pipeline s desiatkami stages a považuje tým CI/CD za dokončené.
+Zdieľaná spolupráca potrebuje explicitný service owner, platform owner, escalation path a decision rights. Accountability neznamená, že owner všetko vykonáva osobne; znamená, že zabezpečí uzavretie outcome-u a koordináciu dependencies.
 
-### Symptómy
+## 11. DevSecOps ako finálna security gate
 
-- pipeline je pomalšia než pôvodný proces,
-- joby existujú bez jasnej failure policy,
-- nikto nevie, ktoré kontroly poskytujú hodnotu,
-- retry je štandardný spôsob úspechu,
-- deployment zostáva manuálny a neauditovateľný.
+Security review prebehne tesne pred produkciou a môže zastaviť release. Organizácia tým zachová expert control, ale feedback prichádza v najdrahšom možnom bode.
 
-Pipeline je mechanizmus spätnej väzby a delivery, nie cieľ transformácie.
+Architektonické riziko odhalené po mesiacoch implementácie vytvorí veľký rework a security tím začne byť vnímaný ako blokátor. Lepší model kombinuje skorý threat modeling, bezpečné defaults, policy-as-code a expert review pre skutočne vysokorizikové rozhodnutia.
 
-## 7. Automate everything
+## 12. One-size-fits-all platform
 
-Automatizácia sa hodnotí ako dobrá sama osebe.
+Platforma vynúti rovnaký runtime, deployment a observability model pre každý workload. Štandardizácia znižuje podporovaný variant space, preto je lokálne atraktívna.
 
-Problémy:
+Ak však ignoruje kritickosť, state model alebo compliance, jednoduché služby nesú zbytočnú komplexitu a špecifické workloady platformu obchádzajú. Golden path má byť preferovaný a podporovaný, ale potrebuje explicitný escape hatch s vlastným risk contractom.
 
-- automatizuje sa nestabilný proces,
-- jednorazová úloha dostane zložitý framework,
-- údržba automatizácie je drahšia než ušetrená práca,
-- zlyhanie skriptu nemá ownera ani monitoring,
-- ľudia prestanú rozumieť mechanizmu pod automatizáciou.
+## 13. Copy-paste Infrastructure as Code
 
-Automatizovať treba prioritne opakovateľnú, stabilnú a hodnotnú prácu.
+Tímy kopírujú moduly, charty alebo pipeline templates a lokálne ich upravujú. Copy-paste umožní rýchly začiatok bez závislosti na central ownerovi.
 
-## 8. Hero culture
+Postupne sa však verzie rozídu, opravy sa nedajú distribuovať a rovnaká chyba existuje v mnohých kópiách. Reusable component potrebuje verziovaný kontrakt, testy, changelog a upgrade path; zároveň nesmie skryť behavior, ktorý konzument potrebuje chápať.
 
-Systém závisí od niekoľkých expertov, ktorí riešia incidenty, poznajú manuálne kroky a obchádzajú štandardné procesy.
+## 14. Environment snowflakes
 
-Krátkodobo hero obnoví službu. Dlhodobo organizácia odmeňuje individuálne zachraňovanie namiesto odstránenia systémovej príčiny.
+Development, test a production vznikajú odlišnými procesmi a majú nezdokumentované rozdiely. Manuálne úpravy často riešia lokálny incident, ale nevstúpia späť do source of truth.
 
-### Symptómy
+Výsledkom je strata dôvery v predprodukčné testovanie. Rovnaký artifact, IaC, parity checks a explicitne zdokumentované environment-specific values znižujú rozdiel medzi tým, čo bolo overené, a tým, čo bolo nasadené.
 
-- bus factor je nízky,
-- dokumentácia je v hlavách ľudí,
-- incidenty sa riešia cez súkromné správy,
-- opakované zásahy sa nepremenia na runbook alebo automatizáciu,
-- expert nemá čas na preventívnu prácu.
+## 15. Big-bang releases
 
-## 9. Shared responsibility bez jasného ownershipu
+Veľa zmien sa integruje a nasadzuje naraz v dlhých intervaloch. Dlhé release okno môže pôsobiť efektívne, pretože koordinácia sa vykoná iba raz.
 
-„Všetci sú zodpovední“ sa môže zmeniť na „nikto nie je accountable“.
+Veľký batch však zväčšuje blast radius, počet súčasne menených premenných a náročnosť rollbacku. Menšie koherentné zmeny, trunk-based development a progressive delivery skracujú feedback loop a zjednodušujú izoláciu príčiny.
 
-Zdieľaná spolupráca potrebuje explicitne určiť:
+## 16. Change approval theater
 
-- ownera služby,
-- ownera platform capability,
-- escalation path,
-- hranice supportu,
-- rozhodovacie práva,
-- kto udržiava runbook, dashboard a SLO.
+Každá zmena potrebuje manuálne schválenie bez ohľadu na riziko. Schvaľovateľ často vidí iba formulár a nemá evidence potrebné na technické rozhodnutie.
 
-Ownership neznamená izoláciu. Znamená jasnú poslednú zodpovednosť za výsledok.
+Proces vytvára wait time bez primeraného zníženia rizika. Risk-based model používa automatizované pipeline evidence, policy classes a manuálny review iba tam, kde je potrebné ľudské posúdenie neautomatizovateľného rizika.
 
-## 10. DevSecOps ako finálna security gate
+## 17. Vanity metrics
 
-Security tím vykoná kontrolu tesne pred produkciou a môže zmenu zastaviť.
+Organizácia sleduje počet commitov, ticketov, pipeline jobov alebo percento využitia ľudí. Tieto čísla sú ľahko dostupné a vytvárajú dojem objektívneho riadenia.
 
-Dôsledky:
+Aktivita však nie je totožná s flow, kvalitou ani hodnotou. Metrika musí podporovať konkrétne rozhodnutie a byť spojená s outcome-om; inak motivuje k produkcii viditeľnej práce bez systémového zlepšenia.
 
-- feedback prichádza neskoro,
-- oprava je drahá,
-- security je vnímaná ako blokátor,
-- tímy obchádzajú proces pri urgentných zmenách.
+## 18. DORA metrics ako leaderboard
 
-Shift-left neznamená preniesť všetku bezpečnostnú zodpovednosť na vývojárov. Znamená poskytnúť skoré kontroly, bezpečné defaults, threat modeling a jasnú podporu expertov.
+Tímy sa zoradia podľa deployment frequency alebo lead time bez zohľadnenia služby a release modelu. Metrika určená na učenie sa zmení na nástroj hodnotenia a rozpočtovania.
 
-## 11. One-size-fits-all platform
+Výsledkom je gaming: umelé deploymenty, nepriznané incidenty alebo zmena definície úspechu. DORA sa má používať na trend konkrétneho value streamu a spolu s instability, reliability a kontextom.
 
-Platforma vynúti rovnaký deployment, runtime a observability model pre všetky workloads bez ohľadu na ich riziko a charakter.
+## 19. No-blame ako no-accountability
 
-Výsledok:
+Blameless postmortem sa nesprávne interpretuje ako zákaz pomenovať zlé rozhodnutie alebo neprideliť nápravné opatrenie. Dokument potom opisuje incident, ale systém zostane nezmenený.
 
-- jednoduché služby nesú zbytočnú komplexitu,
-- špecifické workloads platformu obchádzajú,
-- paved road sa stane povinnou diaľnicou bez výjazdu,
-- centrálna platforma spomaľuje experimenty.
+Blameless prístup odmieta jednoduchý záver „human error“ a skúma podmienky, ktoré rozhodnutie umožnili. Accountability zostáva zachovaná cez konkrétne actions, ownerov, termíny a overenie účinku.
 
-Dobrý golden path je preferovaný, podporovaný a bezpečný, ale má definovaný escape hatch.
+## 20. Permanent emergency mode
 
-## 12. Copy-paste Infrastructure as Code
+Urgentná výnimka sa stane normálnym spôsobom práce. Každý problém obíde testy, štandardný review alebo plánovanie, pretože systém už nemá rezervnú kapacitu.
 
-Tímy kopírujú celé Terraform moduly, Helm charty alebo pipeline templates a lokálne ich upravujú.
+Emergency path je potrebný, ale musí byť užší, auditovaný a následne reconciliovaný so source of truth. Opakované použitie tej istej výnimky je signálom technického dlhu alebo nefunkčného normálneho procesu.
 
-### Dôsledky
+## 21. Observability ako dashboard factory
 
-- opravy sa nedajú distribuovať,
-- verzie sa nekontrolovane rozchádzajú,
-- rovnaká chyba existuje v mnohých kópiách,
-- vlastníctvo template nie je jasné.
+Tím vytvorí veľa dashboardov a alertov bez väzby na používateľský outcome, ownera alebo rozhodnutie. Viditeľnosť technických metrík sa zamieňa s observability capability.
 
-### Náprava
+Výsledkom je noise, alert fatigue a pomalá diagnostika. Telemetry má podporovať konkrétne otázky, SLI, release verification a incident workflow; nepoužívaný dashboard je maintenance cost, nie automaticky hodnota.
 
-Používať verziované reusable modules s jasným kontraktom, changelogom, testami a upgrade procesom. Abstrakcia však nesmie skryť dôležité platformové správanie.
+## 22. Platforma ako produkt iba podľa názvu
 
-## 13. Environment snowflakes
+Platform tím sa označí za produktový, ale používateľské tímy nemajú možnosť ovplyvniť roadmapu a platforma nemeria adoption ani task success. Interný monopol sa iba premenoval na produkt.
 
-Development, test a production vznikajú odlišnými procesmi a majú nezdokumentované rozdiely.
+Skutočný platform product má definovaných používateľov, podporované journeys, SLO, feedback mechanism a lifecycle. Self-service capability musí znižovať cognitive load bez skrývania kritických failure boundaries.
 
-Typická veta:
+## 23. Ako vykonať audit anti-patternov
 
-```text
-„V teste to fungovalo, produkcia je však trochu iná.“
-```
+Vyber jeden opakovaný symptóm, napríklad dlhý deployment lead time alebo opakovaný nočný zásah. Zmapuj lokálnu motiváciu, kto nesie náklady, kde sa stráca feedback a ktoré metriky správanie odmeňujú.
 
-Náprava:
+Potom navrhni jednu zmenu boundary, capability alebo incentive a stanov evidence úspechu. Anti-pattern sa nepovažuje za odstránený zmenou názvu tímu; musí sa zmeniť pozorovateľné správanie systému.
 
-- rovnaké artifacts,
-- Infrastructure as Code,
-- environment-specific dáta oddelené od spoločnej definície,
-- automatizované parity kontroly,
-- explicitné a odôvodnené rozdiely.
+## 24. Troubleshooting organizačnej zmeny
 
-Úplná identita prostredí nie je vždy možná, ale rozdiely musia byť známe.
+Ak nový proces neprináša zlepšenie, over, či sa front iba presunul do inej fázy. Self-service portal môže napríklad skrátiť ticket creation, ale provisioning zostane manuálny za rovnakým bottleneckom.
 
-## 14. Big-bang releases
+Ak ľudia obchádzajú golden path, nehľadaj automaticky problém v disciplíne. Porovnaj, či platforma podporuje ich use case, poskytuje dostatočný feedback a má primeraný escape-hatch proces.
 
-Veľa zmien sa integruje a nasadzuje naraz v dlhých intervaloch.
+## 25. Kontrolné otázky
 
-Dôsledky:
+1. Prečo anti-pattern často pôsobí lokálne rozumne?
+2. Ako tool-first transformácia zachová starý handoff model?
+3. Prečo centrálny DevOps tím môže vytvoriť nové silo?
+4. Aké capabilities potrebuje you-build-it-you-run-it model?
+5. Kedy je ticket vhodný a kedy funguje ako slabé API?
+6. Prečo automatizácia môže zväčšiť blast radius?
+7. Ako hero culture blokuje systémové učenie?
+8. Prečo shared responsibility potrebuje explicitnú accountability?
+9. Ako risk-based approval znižuje theater bez straty kontroly?
+10. Prečo DORA leaderboard vedie ku gamingu?
+11. Ako sa blameless analysis líši od no-accountability?
+12. Aké evidence dokazuje, že anti-pattern bol skutočne odstránený?
 
-- veľký blast radius,
-- komplikovaný rollback,
-- dlhý feedback loop,
-- náročné hľadanie príčiny,
-- koordinácia veľkého počtu tímov,
-- rastúci stres release okna.
+## 26. Zhrnutie
 
-Menšie batches, trunk-based development, automatické testy a progressive delivery znižujú počet súčasne menených premenných.
-
-## 15. Change approval theater
-
-Manuálne schválenie existuje pre každú zmenu bez ohľadu na riziko. Schvaľovateľ často nemá technický kontext a iba potvrdí formulár.
-
-To vytvára delay bez reálneho zníženia rizika.
-
-Lepší model:
-
-- automatizované dôkazy z pipeline,
-- preddefinované risk classes,
-- policy-based approval,
-- manuálny review pri vysokorizikových výnimkách,
-- audit trail každej zmeny.
-
-## 16. Vanity metrics
-
-Tím sleduje čísla, ktoré vyzerajú dobre, ale neriadia výsledok:
-
-- počet commitov na developera,
-- počet pipeline jobov,
-- počet vytvorených automatizácií,
-- percento využitia všetkých ľudí,
-- počet uzavretých ticketov bez hodnotenia dopadu.
-
-Vyťaženosť a aktivita nie sú to isté ako flow, kvalita alebo hodnota.
-
-## 17. DORA metrics ako leaderboard
-
-Tímy sa zoradia podľa deployment frequency alebo lead time bez zohľadnenia kontextu. Metriky sa použijú na hodnotenie ľudí a rozpočtov.
-
-Výsledkom je gaming:
-
-- umelé deploymenty,
-- rozdelenie zmien bez hodnoty,
-- nepriznané incidenty,
-- zmena definície úspechu,
-- presúvanie problematických deploymentov mimo meraného systému.
-
-DORA metriky majú slúžiť na zlepšovanie konkrétnej služby v čase.
-
-## 18. No-blame ako no-accountability
-
-Blameless postmortem neznamená, že sa ignorujú rozhodnutia alebo zodpovednosť.
-
-Správny prístup:
-
-- nehľadá vinníka ako jednoduché vysvetlenie,
-- skúma podmienky, ktoré robili rozhodnutie rozumným,
-- pomenúva chybné procesy a technické mechanizmy,
-- prideľuje konkrétne nápravné actions a ownerov.
-
-Bez následných actions je postmortem iba dokumentácia incidentu.
-
-## 19. Permanent emergency mode
-
-Urgentná výnimka sa stane bežným delivery procesom:
-
-- priame zmeny v produkcii,
-- vypnuté testy,
-- zdieľané admin účty,
-- ručné hotfixy bez spätného zápisu,
-- neustále presúvanie preventívnej práce.
-
-Emergency proces musí byť rýchly, auditovateľný a následne uzavretý reconciliation krokmi.
-
-## 20. Ako anti-pattern analyzovať
-
-Pri každom podozrivom procese sa pýtaj:
-
-1. Aký lokálny problém riešenie pôvodne riešilo?
-2. Aké správanie motivuje?
-3. Kde vytvára queue alebo handoff?
-4. Kto nesie zodpovednosť bez právomoci?
-5. Aký feedback sa stráca alebo prichádza neskoro?
-6. Ako sa systém správa pri raste?
-7. Ktorá metrika môže ukázať skutočný dopad?
-8. Aký malý experiment vie hypotézu overiť?
-
-## 21. Kontrolné otázky
-
-1. Prečo samotné zavedenie Kubernetes nevytvára DevOps model?
-2. Ako sa líši platform tím od centrálneho ticketového DevOps tímu?
-3. Prečo môže povinné manuálne approval zvyšovať riziko namiesto jeho znižovania?
-4. Aký je rozdiel medzi blameless culture a absenciou accountability?
-5. Prečo hero culture blokuje continuous improvement?
-6. Ako copy-paste IaC vytvára dlhodobý drift?
-7. Prečo sa DORA metriky nemajú používať ako leaderboard?
-8. Čo musí nasledovať po emergency hotfixe vykonanom priamo v produkcii?
-
-## 22. Zhrnutie
-
-DevOps anti-patterny sú najmä zlyhania socio-technického systému: nejasný ownership, dlhé handoffs, neskorý feedback, lokálna optimalizácia a automatizácia bez pochopenia procesu. Rozpoznať ich znamená sledovať celý tok hodnoty a výsledné správanie, nie názvy tímov ani počet používaných nástrojov.
+DevOps anti-patterny nevznikajú iba zo zlých nástrojov alebo jednotlivých chýb. Vznikajú zo systému incentív, hraníc a feedback loops, ktorý lokálne odmeňuje správanie poškodzujúce end-to-end výsledok. Náprava preto musí meniť capability, ownership alebo tok práce a jej účinok sa musí overiť merateľným správaním systému.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
 
 **Navigácia**
 
-[← Predchádzajúca: DORA metrics](dora-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kernel a user space →](../01-linux-and-systems/kernel-and-user-space.md)
+[← Predchádzajúca: DORA metrics](dora-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca sekcia: Linux and Systems →](../01-linux-and-systems/README.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
