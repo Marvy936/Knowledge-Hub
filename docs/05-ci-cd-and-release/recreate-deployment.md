@@ -1,369 +1,500 @@
 # Recreate deployment
 
-Recreate deployment nahradí všetky instances starej verzie novou verziou tak, že medzi ukončením starej a pripravenosťou novej verzie môže vzniknúť obdobie bez dostupnej application capacity.
+## Metadata
 
-Je to jednoduchá deployment stratégia s nízkou súbežnou resource spotrebou, ale typicky s downtime alebo výrazným capacity dipom.
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-## 1. Základný mechanizmus
+## 1. Definícia
 
-```text
-old version running
-→ stop old version
-→ deploy/start new version
-→ readiness verification
-→ serve traffic
-```
-
-Počas prechodu môže byť služba nedostupná:
+Recreate deployment nahradí starú runtime verziu novou tak, že stará application capacity sa odstráni pred tým, než je nová verzia pripravená prijímať produkčný traffic. Stratégia preto vytvára plánovaný capacity gap a zvyčajne aj downtime.
 
 ```text
-capacity
-100 % ──────┐
-             └──── 0 % ────┐
-                           └──── 100 %
+old active
+→ traffic stop alebo maintenance mode
+→ drain a shutdown old
+→ migration/deployment
+→ start a verify new
+→ traffic restore
 ```
 
-## 2. Kedy je recreate vhodný
+Je to jednoduchá a často úplne legitímna stratégia. Bezpečná je však iba vtedy, keď organizácia vedome akceptuje outage, pozná jeho hornú hranicu a má overený recovery postup.
 
-Recreate môže byť racionálna voľba, ak:
+## 2. Mental model: exkluzívny runtime slot
 
-- downtime je akceptovateľný,
-- aplikácia je interná alebo má maintenance window,
-- nie je možné súčasne spustiť dve verzie,
-- resource capacity je obmedzená,
-- workload je single-instance alebo stateful,
-- stará a nová verzia nemôžu bezpečne koexistovať,
-- deployment je jednoduchší než orchestration rolling alebo blue-green modelu.
-
-Jednoduchšia stratégia môže byť bezpečnejšia, ak sú jej obmedzenia explicitné a business ich akceptuje.
-
-## 3. Downtime budget
-
-Pred použitím recreate definuj:
-
-- maximálny akceptovaný downtime,
-- očakávaný startup time,
-- migration duration,
-- readiness verification time,
-- rollback time,
-- používateľskú komunikáciu,
-- maintenance window.
-
-Celkový outage nie je iba čas kopírovania artifactu:
+Recreate používa jeden logický runtime slot:
 
 ```text
-total downtime = shutdown + deployment + startup + migration + readiness + routing propagation
+slot = old
+→ empty/maintenance
+→ new
 ```
 
-## 4. Graceful shutdown
+V jednom okamihu má byť aktívny iba jeden application generation. Tým sa odstraňuje mixed-version problém, ale zároveň mizne produkčná fallback capacity.
 
-Stará verzia nemá byť okamžite zabitá bez ukončenia práce.
+Hlavný trade-off:
+
+```text
+nižšia orchestration a compatibility zložitosť
+za cenu downtime, cutover blast radiusu a pomalšieho rollbacku
+```
+
+## 3. Kedy je stratégia vhodná
+
+Recreate je racionálna, keď:
+
+- **Downtime je explicitne prijateľný —** interný systém, maintenance window alebo služba s dohodnutým outage budgetom.
+- **Workload je single-instance alebo exkluzívne stateful —** dve súbežné generácie by vytvorili split-brain, lock alebo licensing problém.
+- **Verzie nemôžu bezpečne koexistovať —** protocol, local state alebo schema vyžaduje ostrý cutover.
+- **Peak capacity je obmedzená —** organizácia nemôže držať surge alebo druhé prostredie.
+- **Jednoduchší recovery model je hodnotnejší —** sekvencia je ľahšie auditovateľná a testovateľná než komplexný partial rollout.
+
+Nie je vhodná tam, kde business požaduje kontinuálnu dostupnosť, startup je nepredvídateľný alebo neexistuje bezpečný maintenance režim.
+
+## 4. Deployment subject a preconditions
+
+Pred zásahom musí byť jednoznačné:
+
+- artifact digest a release ID,
+- config revision a secret references,
+- infrastructure a database state,
+- previous rollback candidate,
+- deployment owner a target environment,
+- maintenance a communication plan,
+- maximálny downtime,
+- abort decision deadline.
+
+Preconditions:
+
+- starý artifact a config sú stále dostupné,
+- backup alebo recovery mechanizmus je použiteľný,
+- migration plan bol testovaný na reprezentatívnom stave,
+- maintenance response je dostupná mimo nasadzovanej aplikácie,
+- observability a synthetics fungujú,
+- dependencies a quotas sú zdravé,
+- neprebieha konfliktujúca mutácia environmentu.
+
+## 5. Downtime contract
+
+Downtime nie je iba čas štartu procesu:
+
+```text
+total outage
+= traffic withdrawal propagation
++ drain
++ shutdown
++ migration
++ artifact transfer
++ startup
++ readiness
++ smoke validation
++ routing restoration
+```
+
+Definuj pre každú fázu:
+
+- očakávaný čas,
+- hard timeout,
+- ownera,
+- failure action,
+- dôkaz začiatku a konca.
+
+Bez rozkladu nemožno zistiť, prečo maintenance window prekročilo plán.
+
+## 6. Recreate state machine
+
+Odporúčaný lifecycle:
+
+```text
+planned
+→ prechecks passed
+→ maintenance enabled
+→ writes/work intake stopped
+→ old draining
+→ old stopped
+→ migration/deploying
+→ new starting
+→ new verifying
+→ traffic restoring
+→ observing
+→ completed
+```
+
+Alternatívne konce:
+
+```text
+aborted before shutdown
+rollback in progress
+roll-forward in progress
+recovery failed
+```
+
+Každý transition musí byť idempotentný alebo musí rozpoznať už vykonaný stav.
+
+## 7. Maintenance mode
+
+Maintenance mode má znížiť používateľský dopad a chrániť konzistenciu:
+
+- vracia kontrolovaný status a retry guidance,
+- môže povoliť read-only operácie,
+- blokuje nové writes a background work,
+- poskytuje status page alebo maintenance page,
+- chráni systém pred connection stormom počas štartu.
+
+Musí byť nezávislý od služby, ktorú vypínaš. Maintenance stránka hostovaná tou istou aplikáciou zmizne spolu s ňou.
+
+## 8. Traffic withdrawal a graceful drain
 
 Bezpečný shutdown:
 
 ```text
-stop accepting new traffic
-→ drain active requests/connections
-→ finish or checkpoint work
+mark unavailable for new traffic
+→ wait for routing propagation
+→ drain requests/connections
+→ stop consumers a schedulers
+→ checkpoint work
 → release locks
 → flush telemetry
-→ terminate process
+→ terminate
 ```
 
-Dôležité sú:
+Osobitne rieš:
 
-- termination grace period,
-- connection draining,
-- message-consumer shutdown,
-- job checkpointing,
-- idempotent retry,
-- session persistence.
+- keep-alive a HTTP/2 connections,
+- WebSockets a streaming,
+- dlhé requests a uploads,
+- queue acknowledgements,
+- distributed locks,
+- leader leases,
+- cron alebo schedulers,
+- in-memory sessions.
 
-## 5. Readiness novej verzie
+Hard kill po grace timeout-e musí zanechať dôkaz o nedokončenej práci.
 
-Process start nie je readiness.
+## 9. Write freeze a background work
 
-Nová verzia môže potrebovať:
+Application traffic nemusí byť jediný zdroj writes. Pred migration alebo shutdownom zastav:
 
-- načítať configuration,
+- scheduled jobs,
+- queue consumers,
+- webhook workers,
+- batch a reconciliation jobs,
+- externé producers, ak to kontrakt vyžaduje,
+- administratívne mutácie.
+
+Potvrď, že work intake je skutočne nulový alebo bounded. Inak môže migration prebiehať proti meniacej sa databáze.
+
+## 10. Databázové migrácie
+
+Recreate odstraňuje mixed-version application window, ale nie riziko dátovej zmeny.
+
+Kontroluj:
+
+- lock duration a blocking,
+- migration runtime pri reálnom objeme,
+- disk a log growth,
+- partial execution,
+- retry/idempotency,
+- checksum alebo post-migration invariants,
+- rollback alebo roll-forward semantiku,
+- backup restore čas.
+
+Nekompatibilná offline migration môže byť prijateľná, ale iba s explicitným outage a recovery kontraktom. Pri veľkých dátach môže byť expand-contract stále bezpečnejší.
+
+## 11. Stateful workloads
+
+Pri stateful službe over:
+
+- persistent volume attachment a ownership,
+- fencing pred novým leaderom,
+- WAL alebo journal recovery,
+- unclean shutdown behavior,
+- hostname/identity assumptions,
+- lock a lease expiráciu,
+- data integrity po reštarte,
+- backup a restore.
+
+Recreate môže znižovať split-brain riziko, ale iba ak je potvrdené, že stará generácia už nemôže zapisovať.
+
+## 12. Artifact a configuration deployment
+
+Nasadzuj immutable artifact identifikovaný digestom. Config musí byť validovaná proti novej verzii pred odstránením starej capacity, ak je to možné.
+
+Zachovaj:
+
+- artifact digest,
+- config revision,
+- migration bundle version,
+- deployment tool revision,
+- runtime image a platform identity,
+- effective rendered configuration bez secret values.
+
+Mutable tag alebo runtime download nepinovaných dependencies predlžuje outage a ničí reprodukovateľnosť.
+
+## 13. Startup a readiness
+
+Process start nie je readiness. Nová verzia môže potrebovať:
+
+- načítať config a secrets,
+- overiť schema compatibility,
 - pripojiť dependencies,
-- warmnúť cache,
-- aplikovať migrations,
-- zostaviť runtime indexes,
-- zaregistrovať sa v service discovery,
+- obnoviť local state,
+- zahriať JIT, cache alebo model,
+- zaregistrovať sa v discovery,
 - dokončiť startup probes.
 
-Traffic sa má obnoviť až po overení kritickej request path, nie iba PID existencie.
+Readiness má overiť schopnosť vykonať kritickú operáciu. Pri read/write službe nestačí iba read-only health endpoint.
 
-## 6. Maintenance mode
+## 14. Pre-traffic validation
 
-Maintenance mode môže počas recreate:
+Pred obnovením trafficu vykonaj:
 
-- vracať kontrolovanú response,
-- zablokovať write operácie,
-- povoliť read-only režim,
-- komunikovať expected duration,
-- odkloniť traffic na statickú stránku.
+- artifact a version verification,
+- startup/readiness checks,
+- dependency connectivity,
+- authorization a secret access,
+- migration status,
+- kritický synthetic smoke,
+- queue a scheduler ownership,
+- telemetry a alert readiness,
+- data invariants.
 
-Maintenance stránka má byť prevádzkovo nezávislá od aplikácie, ktorá sa práve nasadzuje.
+Failure v tejto fáze má viesť k explicitnému rozhodnutiu rollback verzus roll-forward, nie k nekonečnému čakaniu.
 
-## 7. Load balancer a routing
+## 15. Traffic restoration
 
-Možné flow:
-
-```text
-remove backend from load balancer
-→ wait for drain
-→ stop old version
-→ deploy new version
-→ readiness test
-→ add backend to load balancer
-```
-
-Pri jedinom backende removal znamená nulovú application capacity. Load balancer však môže poskytovať kontrolovanú maintenance response.
-
-## 8. Databázové migrácie
-
-Recreate neodstraňuje potrebu bezpečných migrácií.
-
-Ak je aplikácia úplne zastavená, možno vykonať nekompatibilnú migration bez mixed-version obdobia. Riziká však zostávajú:
-
-- dlhý migration time,
-- locky,
-- failure uprostred migrácie,
-- nedostatok disk capacity,
-- nemožný rollback dát,
-- neoverený restore.
-
-Pre veľké dáta je online expand-contract často bezpečnejší aj pri recreate deployment-e.
-
-## 9. Stateful applications
-
-Pri stateful workload-e over:
-
-- persistent storage attachment,
-- exclusive locks,
-- leader election,
-- unclean shutdown recovery,
-- write-ahead log replay,
-- backup/restore,
-- identity a hostname assumptions.
-
-Recreate môže znížiť riziko split-brain, pretože stará a nová verzia nie sú súčasne aktívne.
-
-## 10. Background jobs a consumers
-
-Pred ukončením starej verzie:
-
-- zastav scheduling novej práce,
-- drainuj queue alebo bezpečne vráť messages,
-- zachovaj checkpoint,
-- uvoľni distributed locks,
-- over idempotency po re-delivery.
-
-Nečisté ukončenie consumerov môže vytvoriť duplicates alebo stratené side effects.
-
-## 11. Sessions
-
-In-memory sessions sa pri recreate stratia.
-
-Možnosti:
-
-- external session store,
-- stateless tokens,
-- kontrolované session invalidation,
-- maintenance komunikácia,
-- client retry a re-authentication.
-
-## 12. Deployment workflow
-
-Príklad:
+Traffic neobnovuj nutne naraz. Aj recreate môže použiť riadené otvorenie:
 
 ```text
-1. validate release identity
-2. verify backup a recovery prerequisites
-3. announce maintenance
-4. enable maintenance/read-only mode
-5. stop new background work
-6. drain requests a consumers
-7. stop old version
-8. apply required migrations
-9. deploy immutable new artifact
-10. start new version
-11. readiness a smoke tests
-12. restore routing/write traffic
-13. observe technical a business signals
-14. close maintenance window
+maintenance
+→ interné synthetics
+→ obmedzený request rate
+→ 25 % ingress capacity
+→ 100 %
 ```
-
-## 13. Rollback
-
-Rollback flow:
-
-```text
-stop failed new version
-→ restore compatible schema/config if required
-→ deploy previous immutable artifact
-→ readiness test
-→ restore traffic
-```
-
-Rollback môže predĺžiť downtime. Preto definuj maximum decision time a abort criteria ešte pred začiatkom deploymentu.
-
-## 14. Roll-forward
-
-Ak migration nie je reversible alebo nová verzia už vykonala external side effects, roll-forward môže byť bezpečnejší:
-
-```text
-fix forward artifact
-→ deploy opravu
-→ verify state
-```
-
-Emergency fix musí stále zachovať artifact identity a audit trail.
-
-## 15. Capacity a resource model
-
-Výhoda recreate:
-
-```text
-peak capacity ≈ max(old capacity, new capacity)
-```
-
-Nie je potrebné držať starú a novú fleet súčasne.
-
-Nevýhoda:
-
-- nulová alebo znížená dostupnosť počas replacementu,
-- startup spike,
-- cold caches,
-- connection storm po obnovení trafficu.
-
-## 16. Cold start a thundering herd
-
-Po obnovení môže všetok traffic zasiahnuť cold application.
 
 Ochrany:
 
-- warm-up pred routingom,
-- gradual traffic restoration,
-- connection limits,
+- rate limiting,
+- connection admission,
+- retry jitter,
 - cache prewarming,
-- client retry s jitterom,
+- dependency pool limity,
 - queue rate control.
 
-## 17. Monitoring
+Tým sa znižuje thundering herd po outage.
 
-Sleduj počas a po deployment-e:
+## 16. Post-deploy validation
 
-- downtime duration,
-- shutdown/drain duration,
-- startup time,
-- readiness latency,
-- migration duration,
-- request success rate,
-- tail latency,
-- queue backlog,
-- session/auth failures,
-- dependency connection count,
-- business transaction recovery.
+Po obnovení sleduj:
 
-## 18. Recreate v orchestrátoroch
+- request success a tail latency,
+- business completion,
+- authentication/session errors,
+- dependency connections,
+- queue backlog a drain,
+- resource saturation,
+- data integrity,
+- new-version logs a traces,
+- support alebo user signal.
 
-Niektoré orchestrátory podporujú explicitnú recreate strategy. Aj vtedy treba rozumieť:
+Deployment nie je completed pri prvom zelenom health checku. Potrebuje definovanú observation window.
 
-- poradiu termination/start,
-- scheduler timing,
-- storage reattachment,
-- readiness gates,
-- rollout timeoutom,
-- starým resources čakajúcim na termination.
+## 17. Rollback eligibility
 
-Deklarovaný strategy name nie je dôkaz nulového overlapu vo všetkých external dependencies.
+Rollback je možný iba ak:
 
-## 19. Výhody
+- previous artifact a config existujú,
+- stará verzia rozumie aktuálnej schema a dátam,
+- nové writes neporušili staré invariants,
+- external contracts zostali kompatibilné,
+- queue/events možno bezpečne spracovať,
+- storage a session format sú kompatibilné.
 
-- jednoduchý mental model,
-- nízka peak resource spotreba,
-- žiadne mixed-version traffic obdobie,
-- jednoduchšia compatibility matica,
-- vhodné pre exclusive stateful workloady,
-- ľahšie reprodukovateľná sekvencia.
+Routing ani binary rollback nevracia automaticky data state.
 
-## 20. Nevýhody
+## 18. Rollback workflow
 
-- downtime,
-- tvrdý capacity cutover,
-- cold-start riziko,
-- pomalší rollback,
-- veľký blast radius,
-- release pre všetkých používateľov naraz,
-- potreba maintenance komunikácie.
+```text
+re-enable maintenance
+→ stop new writes/work
+→ drain a stop failed new version
+→ restore/adjust compatible state
+→ deploy previous immutable artifact
+→ verify readiness a data invariants
+→ restore traffic
+→ observe
+```
 
-## 21. Anti-patterny
+Stanov decision deadline. Príliš dlhé hľadanie chyby počas nulovej capacity môže byť horšie než skorý rollback.
 
-### Recreate prezentovaný ako zero-downtime
+## 19. Roll-forward
 
-Ak je jediná aktívna capacity odstránená pred novou readiness, downtime existuje.
+Roll-forward je vhodnejší, keď:
 
-### Stop process bez drainu
+- migration je nevratná,
+- nová verzia už vytvorila external side effects,
+- starý artifact nevie čítať nový state,
+- oprava je malá a rýchlo overiteľná,
+- restore by prekročil RTO.
 
-Requests a messages sa prerušia uprostred práce.
+Hotfix musí stále prejsť immutable buildom, minimálnymi gates a audit trailom.
 
-### Migration bez odhadu času
+## 20. Failure taxonomy
 
-Maintenance window sa nepredvídateľne predĺži.
+Rozlišuj:
 
-### Traffic obnovený pri process start
+- **Precheck failure —** deployment sa ešte nemá začať.
+- **Drain failure —** stará práca sa nevie bezpečne ukončiť.
+- **Migration failure —** data state môže byť partial.
+- **Artifact/startup failure —** nová verzia sa nespustí.
+- **Readiness failure —** proces beží, ale služba nie je použiteľná.
+- **Traffic restoration failure —** routing, TLS alebo discovery nefunguje.
+- **Post-release regression —** problém sa prejaví až pri reálnom workloade.
+- **Recovery failure —** rollback alebo roll-forward neobnoví službu.
 
-Aplikácia nemusí byť pripravená.
+Každá trieda potrebuje inú reakciu a artifacts.
 
-### Rollback artifact už nie je dostupný
+## 21. Capacity a dependency shock
 
-Retention policy zrušila recovery možnosť.
+Peak application capacity môže byť nízka, ale po štarte vzniká náraz na shared dependencies:
 
-### Maintenance page beží v rovnakej aplikácii
+- všetky connection pools sa otvoria naraz,
+- cache je cold,
+- clients retryujú,
+- queues začnú rýchlo drainovať,
+- autoscaler reaguje oneskorene,
+- externé API dostane burst.
 
-Zmizne spolu s nasadzovanou službou.
+Recreate capacity model preto zahŕňa aj downstream limits, nie iba počet instances.
 
-## 22. Troubleshooting
+## 22. Observability a evidence
 
-### Downtime je výrazne dlhší než plán
+Zachovaj timeline:
 
-Rozlož čas na shutdown, migrations, image pull, startup, readiness a routing. Meraj každý krok oddelene.
+- maintenance enabled,
+- traffic withdrawn,
+- last old request/work item,
+- old termination,
+- migration start/end,
+- artifact pull/start,
+- readiness pass,
+- traffic restoration,
+- business recovery,
+- final verdict.
 
-### Stará verzia sa nevie ukončiť
+Evidence musí byť viazaná na release ID, artifact digest a environment.
 
-Skontroluj active connections, stuck jobs, termination handler, locky a grace timeout.
+## 23. Metriky stratégie
 
-### Nová verzia je ready, ale traffic zlyháva
+Sleduj:
 
-Over routing, DNS/service discovery, TLS, dependency credentials a reálny smoke request.
+- planned verzus actual downtime,
+- čas každej state-machine fázy,
+- drain timeout rate,
+- migration failure rate,
+- startup/readiness p95,
+- rollback decision time,
+- rollback/roll-forward success,
+- post-restore thundering-herd incidenty,
+- maintenance-window overrun,
+- user-visible error a lost-work count.
 
-### Po obnovení rastie latency
+## 24. Typické anti-patterny
 
-Hľadaj cold cache, connection storm, JIT warm-up, autoscaling delay a retry amplification.
+### Recreate prezentovaný ako zero downtime
 
-### Rollback nevie čítať dáta
+Ak stará capacity zmizne pred novou readiness, outage existuje.
 
-Nová verzia vykonala nekompatibilnú schema alebo data zmenu. Použi restore alebo roll-forward podľa pripraveného recovery plánu.
+### Maintenance mode bez write freeze
 
-## 23. Kontrolné otázky
+Používateľské requests sú blokované, ale consumers alebo cron stále menia dáta.
 
-1. Ako funguje recreate deployment?
-2. Kedy je downtime prijateľný trade-off?
-3. Čo všetko tvorí celkový downtime?
-4. Prečo je graceful shutdown kritický?
-5. Ako maintenance mode znižuje používateľský dopad?
-6. Aké riziká majú databázové migrácie počas recreate?
-7. Prečo môže recreate pomôcť pri exclusive stateful workload-e?
-8. Ako zabrániť thundering-herd efektu po štarte?
-9. Kedy rollback nemusí byť bezpečný?
-10. Aké metriky treba zachovať pre analýzu deploymentu?
+### Process kill bez drainu
+
+Prerušia sa requests, transactions a queue work.
+
+### Migration bez partial-failure plánu
+
+Po chybe nie je jasné, či opakovať, obnoviť alebo pokračovať.
+
+### Traffic pri process start
+
+Aplikácia ešte nemusí byť pripravená ani zahrievaná.
+
+### Rollback podľa verzie, nie podľa eligibility
+
+Starý artifact môže byť dostupný, ale nekompatibilný s novými dátami.
+
+### Maintenance komponent v rovnakom failure domaine
+
+Status stránka alebo control endpoint zmizne spolu s aplikáciou.
+
+## 25. Diagnostický postup
+
+1. Urči aktuálny state machine stav.
+2. Over artifact, config, migration a environment identity.
+3. Rozlož elapsed time podľa fáz.
+4. Skontroluj routing a skutočný traffic withdrawal.
+5. Over aktívne requests, consumers, locks a sessions.
+6. Pri migration failure urč partial state a posledný úspešný krok.
+7. Pri readiness failure porovnaj process health s critical-path smoke.
+8. Pri post-start regresii skontroluj cold state, dependency burst a retry amplification.
+9. Posúď rollback eligibility, nie iba technickú dostupnosť starej verzie.
+10. Po recovery over business a data invariants.
+
+## 26. Rozhodovací rámec
+
+1. Aký downtime je businessovo prijateľný?
+2. Aká je horná hranica každej fázy?
+3. Prečo verzie nemôžu alebo nemusia koexistovať?
+4. Ktoré writes a background work treba zastaviť?
+5. Aký je migration a data-recovery kontrakt?
+6. Ako sa preukáže úplné vypnutie starej generácie?
+7. Čo tvorí funkčnú readiness?
+8. Ako sa traffic obnoví bez thundering herd?
+9. Kedy je rollback kompatibilný?
+10. Aký je roll-forward path?
+11. Ktorý nezávislý control path zapne maintenance alebo recovery?
+12. Aké evidence zostane po deploymente?
+
+## 27. Kontrolný checklist
+
+- release identity je immutable,
+- downtime budget je schválený,
+- maintenance komponent je nezávislý,
+- traffic a work intake možno zastaviť,
+- graceful drain je otestovaný,
+- backup/restore a migration boli overené,
+- previous artifact a config sú dostupné,
+- startup/readiness majú samostatné timeouty,
+- smoke overuje kritický outcome,
+- traffic restoration je rate-controlled,
+- rollback eligibility je vyhodnotená,
+- data invariants sa overia po recovery,
+- timeline a artifacts sa uchovajú.
+
+## 28. Kontrolné otázky
+
+1. Aký je základný trade-off recreate deploymentu?
+2. Čo tvorí celkový downtime?
+3. Prečo maintenance mode nestačí bez zastavenia background writes?
+4. Ako sa líši shutdown, drain a fencing?
+5. Prečo offline migration stále potrebuje recovery plán?
+6. Čo musí overiť funkčná readiness?
+7. Ako sa dá znížiť thundering herd po obnovení?
+8. Kedy je rollback nekompatibilný s dátami?
+9. Prečo je roll-forward niekedy bezpečnejší?
+10. Aké state-machine a business evidence treba uchovať?
+
+## Summary
+
+Recreate deployment používa jeden exkluzívny runtime slot a vedome vytvára obdobie bez application capacity. Jeho výhodou je jednoduchší orchestration a nulové mixed-version obdobie; nevýhodou downtime, ostrý blast radius a slabšia okamžitá fallback kapacita. Bezpečný recreate potrebuje downtime contract, nezávislý maintenance mode, graceful drain, write freeze, overenú migration a recovery cestu, funkčnú readiness, riadené obnovenie trafficu a rollback eligibility založenú na stave dát, nie iba na dostupnosti starého artifactu.
 
 ## Glossary impact
 
-Relevantné pojmy: recreate deployment, maintenance window, maintenance mode, graceful shutdown, connection draining, startup readiness, cold start, thundering herd, exclusive stateful workload a deployment downtime.
+Relevantné pojmy: recreate deployment, exclusive runtime slot, maintenance mode, downtime budget, write freeze, graceful drain, fencing, functional readiness, traffic restoration, thundering herd, rollback eligibility a offline migration.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
