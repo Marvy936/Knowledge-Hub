@@ -1165,15 +1165,15 @@
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
       "title": "Verification vs. validation",
-      "words": 994,
-      "headings": 25,
-      "sections": 25,
-      "findings": 59,
-      "critical": 24,
-      "high": 24,
+      "words": 2828,
+      "headings": 37,
+      "sections": 37,
+      "findings": 69,
+      "critical": 15,
+      "high": 15,
       "medium": 7,
-      "low": 4,
-      "score": 505,
+      "low": 32,
+      "score": 361,
       "grade": "D"
     },
     {
@@ -70670,341 +70670,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "1. Verification",
-      "line": 12,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "1. Verification",
-      "line": 12,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "1. Verification",
-      "line": 12,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `požiadavkou,`, `API kontraktom,`, `návrhom,`, `schémou,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "1. Verification",
-      "line": 12,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "1. Verification",
-      "line": 12,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `JSON`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "2. Validation",
-      "line": 35,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "2. Validation",
-      "line": 35,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "2. Validation",
-      "line": 35,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľ dokáže dokončiť objednávku bez nejasných krokov,`, `alert vedie operátora ku konkrétnej akcii,`, `recovery proces obnoví službu v požadovanom čase,`, `API semantics zodpovedajú potrebám consumerov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "2. Validation",
-      "line": 35,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "2. Validation",
-      "line": 35,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "2. Validation",
-      "line": 35,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "4. Statická a dynamická kontrola",
-      "line": 70,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Statická verification",
-      "line": 72,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Statická verification",
-      "line": 72,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Statická verification",
-      "line": 72,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `code review,`, `compiler checks,`, `type checking,`, `linting,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Statická verification",
-      "line": 72,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Statická verification",
-      "line": 72,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Dynamická verification",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Dynamická verification",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit tests,`, `integration tests,`, `API tests,`, `load tests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Dynamická verification",
-      "line": 85,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Dynamická verification",
-      "line": 85,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Dynamická verification",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "6. Test oracle",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "6. Test oracle",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presná očakávaná hodnota,`, `invariant,`, `schema,`, `referenčná implementácia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "6. Test oracle",
-      "line": 125,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "7. False positive a false negative",
-      "line": 158,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "False positive",
-      "line": 160,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "False positive",
-      "line": 160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "False positive",
-      "line": 160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strata dôvery v test suite,`, `ignorovanie alertov,`, `zbytočné blokovanie pipeline,`, `manuálne reruny.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "False positive",
-      "line": 160,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "False negative",
-      "line": 171,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `chybný release,`, `falošný pocit bezpečnosti,`, `incident zachytený až používateľom.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "False negative",
-      "line": 171,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "9. Quality gates",
-      "line": 206,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "9. Quality gates",
-      "line": 206,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "9. Quality gates",
-      "line": 206,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontroluje relevantné riziko,`, `výsledok je dostatočne spoľahlivý,`, `failure má jasného ownera,`, `existuje diagnostický výstup,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "9. Quality gates",
-      "line": 206,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "10. Infrastructure a operations kontext",
-      "line": 219,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure verification",
-      "line": 223,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -71012,8 +70679,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure verification",
-      "line": 223,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -71021,26 +70688,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure verification",
-      "line": 223,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure verification",
-      "line": 223,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntax a schema manifestu,`, `policy compliance,`, `plánované resource changes,`, `idempotencia,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: YAML, JSON a regular expressions, Feedback loops`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure verification",
-      "line": 223,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -71048,143 +70715,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure verification",
-      "line": 223,
-      "severity": "medium",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure validation",
-      "line": 233,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure validation",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure validation",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `služba je dosiahnuteľná z povolených sietí,`, `zakázaná cesta je skutočne blokovaná,`, `failover funguje pod realistickým failure scenárom,`, `backup je obnoviteľný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Infrastructure validation",
-      "line": 233,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `YAML`, `JSON`, `SLI`, `SLO`",
       "score": 7
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "11. Typické anti-patterny",
-      "line": 244,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Testovanie implementácie namiesto správania",
-      "line": 246,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Akceptačné kritérium bez merateľného výsledku",
-      "line": 250,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Produkčný monitoring ako náhrada testov",
-      "line": 254,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Testy bez negatívnych scenárov",
-      "line": 258,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Compliance checkbox",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "12. Praktický rozhodovací rámec",
-      "line": 266,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "12. Praktický rozhodovací rámec",
-      "line": 266,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "12. Praktický rozhodovací rámec",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký používateľský alebo prevádzkový výsledok má zmena priniesť?`, `Aké explicitné kontrakty musí dodržať?`, `Aké failure modes sú najrizikovejšie?`, `Ktoré kontroly môžu byť statické?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "12. Praktický rozhodovací rámec",
-      "line": 266,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "12. Praktický rozhodovací rámec",
-      "line": 266,
+      "section": "2. Mentálny model: potreba, kontrakt, dôkaz a rozhodnutie",
+      "line": 24,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -71192,8 +70733,557 @@
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "12. Praktický rozhodovací rámec",
-      "line": 266,
+      "section": "3. Verification: správnosť voči explicitnému kontraktu",
+      "line": 44,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "3. Verification: správnosť voči explicitnému kontraktu",
+      "line": 44,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "3. Verification: správnosť voči explicitnému kontraktu",
+      "line": 44,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `YAML`, `TLS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "4. Validation: užitočnosť v reálnom kontexte",
+      "line": 59,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 62 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "4. Validation: užitočnosť v reálnom kontexte",
+      "line": 59,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "6. Statická verification",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "6. Statická verification",
+      "line": 88,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "6. Statická verification",
+      "line": 88,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "7. Dynamická verification",
+      "line": 102,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "7. Dynamická verification",
+      "line": 102,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "9. Test oracle",
+      "line": 146,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "9. Test oracle",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "9. Test oracle",
+      "line": 146,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "9. Test oracle",
+      "line": 146,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "10. Oracle problem a neistota",
+      "line": 162,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "11. False positive a false negative",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "12. Dôkazná sila a scope",
+      "line": 191,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 60 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "12. Dôkazná sila a scope",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "12. Dôkazná sila a scope",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "12. Dôkazná sila a scope",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "13. Environment fidelity",
+      "line": 206,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "13. Environment fidelity",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "14. Verification a validation počas delivery lifecycle",
+      "line": 222,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "15. Quality gate ako rozhodovací mechanizmus",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failure signal je spoľahlivý a reprodukovateľný;`, `kontrolované riziko má významný dopad;`, `runtime a cena kontroly zodpovedajú miestu v pipeline;`, `existuje auditovateľný exception proces s ownerom a expiráciou.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "16. Príklad: API zmena",
+      "line": 251,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "16. Príklad: API zmena",
+      "line": 251,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema test potvrdí nový tvar response;`, `consumer-driven contract overí, ktoré consumers stále vyžadujú total ;`, `unit a integration testy overia mapovanie dát;`, `compatibility test potvrdí prechodné poskytovanie oboch polí;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "16. Príklad: API zmena",
+      "line": 251,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "16. Príklad: API zmena",
+      "line": 251,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "16. Príklad: API zmena",
+      "line": 251,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "16. Príklad: API zmena",
+      "line": 251,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser a schema potvrdia syntakticky platný manifest;`, `plan review ukáže presné create/update/delete operácie;`, `povolený klient dosiahne službu cez očakávaný hostname;`, `nepovolená sieťová cesta je reálne blokovaná;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "17. Príklad: Infrastructure as Code",
+      "line": 272,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "18. Príklad: backup a disaster recovery",
+      "line": 293,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "19. Failure modes slabej testovacej stratégie",
+      "line": 299,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "20. Diagnostika zlyhanej kontroly",
+      "line": 321,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "20. Diagnostika zlyhanej kontroly",
+      "line": 321,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikuj commit, artifact, environment a presný čas kontroly;`, `zaznamenaj vstupy, fixture verzie a relevantnú konfiguráciu;`, `zopakuj najmenší diskriminačný test v izolovanom prostredí;`, `skontroluj, či failure reprodukuje používateľský alebo prevádzkový dop`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "20. Diagnostika zlyhanej kontroly",
+      "line": 321,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "20. Diagnostika zlyhanej kontroly",
+      "line": 321,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "20. Diagnostika zlyhanej kontroly",
+      "line": 321,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj používateľský alebo prevádzkový výsledok;`, `definuj explicitné kontrakty a zakázané stavy;`, `identifikuj failure modes, dopad a pravdepodobnosť;`, `zvoľ najnižší scope, ktorý failure mode spoľahlivo odhalí;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "21. Praktický návrhový workflow",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontrolované riziko je explicitne pomenované;`, `očakávaný výsledok je merateľný;`, `oracle overuje význam, nie iba úspešné vykonanie;`, `failure výstup umožní lokalizovať problém;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "22. Kontrolný checklist",
+      "line": 360,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "23. Časté omyly",
+      "line": 375,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/verification-vs-validation.md",
+      "section": "25. Zhrnutie",
+      "line": 412,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
