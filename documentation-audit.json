@@ -1277,15 +1277,15 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "title": "Databázová kompatibilita počas deploymentu",
-      "words": 1528,
-      "headings": 50,
-      "sections": 50,
-      "findings": 105,
-      "critical": 42,
-      "high": 51,
-      "medium": 9,
-      "low": 3,
-      "score": 933,
+      "words": 2158,
+      "headings": 62,
+      "sections": 62,
+      "findings": 197,
+      "critical": 79,
+      "high": 88,
+      "medium": 18,
+      "low": 12,
+      "score": 1703,
       "grade": "D"
     },
     {
@@ -85772,35 +85772,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "1. Prečo je problém zložitejší než migration script",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "1. Prečo je problém zložitejší než migration script",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "1. Prečo je problém zložitejší než migration script",
-      "line": 5,
-      "severity": "critical",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `staré application instances,`, `nové application instances,`, `background workers,`, `scheduled jobs,`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "1. Prečo je problém zložitejší než migration script",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -85808,26 +85808,107 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "1. Prečo je problém zložitejší než migration script",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "2. Compatibility dimensions",
-      "line": 20,
+      "section": "1. Definícia",
+      "line": 9,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Schema compatibility",
-      "line": 24,
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupnosť,`, `read a write correctness,`, `business semantics,`, `operational limity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "2. Mental model: databázová zmena je distribuovaný protocol",
+      "line": 22,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "2. Mental model: databázová zmena je distribuovaný protocol",
+      "line": 22,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old a new application instances,`, `workers a schedulers,`, `old/new clients,`, `reporting a ETL,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "2. Mental model: databázová zmena je distribuovaný protocol",
+      "line": 22,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "2. Mental model: databázová zmena je distribuovaný protocol",
+      "line": 22,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "2. Mental model: databázová zmena je distribuovaný protocol",
+      "line": 22,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ETL`, `CDC`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "3. Compatibility dimensions",
+      "line": 36,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "Structural/schema compatibility",
+      "line": 38,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -85836,7 +85917,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Read compatibility",
-      "line": 28,
+      "line": 42,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -85845,7 +85926,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Write compatibility",
-      "line": 32,
+      "line": 46,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -85854,7 +85935,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Semantic compatibility",
-      "line": 36,
+      "line": 50,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -85863,7 +85944,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Operational compatibility",
-      "line": 40,
+      "line": 54,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -85871,8 +85952,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "3. Expand-contract pattern",
-      "line": 44,
+      "section": "Recovery compatibility",
+      "line": 58,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -85880,26 +85961,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "4. Expand fáza",
-      "line": 59,
+      "section": "4. Consumer inventory a ownership",
+      "line": 62,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "4. Expand fáza",
-      "line": 59,
+      "section": "4. Consumer inventory a ownership",
+      "line": 62,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať nullable column,`, `pridať table,`, `pridať index online/concurrently,`, `zaviesť compatibility view,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ORM/application access,`, `workers a cron,`, `direct SQL consumers,`, `BI/reporting,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "4. Expand fáza",
-      "line": 59,
+      "section": "4. Consumer inventory a ownership",
+      "line": 62,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -85907,35 +85988,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "5. Contract fáza",
-      "line": 73,
+      "section": "4. Consumer inventory a ownership",
+      "line": 62,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ORM`, `SQL`, `BI`, `CDC`, `ETL`",
+      "score": 7
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "5. Contract fáza",
-      "line": 73,
+      "section": "5. Migration identity a immutable history",
+      "line": 78,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "5. Contract fáza",
-      "line": 73,
+      "section": "5. Migration identity a immutable history",
+      "line": 78,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drop column/table,`, `rename bez compatibility bridge,`, `zúženie type alebo length,`, `pridanie NOT NULL bez pripravených dát,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique monotonic alebo otherwise ordered ID,`, `immutable content/checksum,`, `ownera a purpose,`, `compatibility phase,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "5. Contract fáza",
-      "line": 73,
+      "section": "5. Migration identity a immutable history",
+      "line": 78,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -85943,53 +86024,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "5. Contract fáza",
-      "line": 73,
+      "section": "5. Migration identity a immutable history",
+      "line": 78,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NOT`, `NULL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "6. Rename bez big-bang zmeny",
-      "line": 87,
+      "section": "6. Expand-migrate-contract lifecycle",
+      "line": 93,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "7. Dual write",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "7. Dual write",
-      "line": 103,
+      "section": "7. Expand fáza",
+      "line": 107,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "7. Dual write",
-      "line": 103,
+      "section": "7. Expand fáza",
+      "line": 107,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partial failure,`, `ordering rozdiely,`, `duplicate writes,`, `retry ambiguity,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nová nullable column,`, `nová table,`, `nový index,`, `compatibility view,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "7. Dual write",
-      "line": 103,
+      "section": "7. Expand fáza",
+      "line": 107,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -85997,8 +86069,143 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "7. Dual write",
-      "line": 103,
+      "section": "8. Tolerant application release",
+      "line": 121,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "8. Tolerant application release",
+      "line": 121,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "8. Tolerant application release",
+      "line": 121,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `toleruje neprítomnosť alebo prítomnosť nového tvaru podľa phase,`, `pozná unknown values,`, `dokáže fallback read,`, `používa idempotentné writes,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "8. Tolerant application release",
+      "line": 121,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "9. Contract fáza",
+      "line": 134,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "9. Contract fáza",
+      "line": 134,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "9. Contract fáza",
+      "line": 134,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drop table/column,`, `rename bez bridge,`, `type narrowing,`, `NOT NULL enforcement,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "9. Contract fáza",
+      "line": 134,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "9. Contract fáza",
+      "line": 134,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NOT`, `NULL`, `enforcement`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "10. Rename bez big bang",
+      "line": 148,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "10. Rename bez big bang",
+      "line": 148,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "11. Dual write",
+      "line": 165,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "11. Dual write",
+      "line": 165,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "11. Dual write",
+      "line": 165,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý store/field je authoritative,`, `čo sa stane pri partial failure,`, `ako sa drift deteguje a opraví.`, `idempotency,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "11. Dual write",
+      "line": 165,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "11. Dual write",
+      "line": 165,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -86006,8 +86213,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "8. Read switching",
-      "line": 125,
+      "section": "12. Alternatives k application dual write",
+      "line": 185,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86015,26 +86222,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "8. Read switching",
-      "line": 125,
+      "section": "12. Alternatives k application dual write",
+      "line": 185,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "8. Read switching",
-      "line": 125,
+      "section": "12. Alternatives k application dual write",
+      "line": 185,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-old,`, `read-new with fallback,`, `shadow read a diff,`, `percentage read rollout,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database trigger,`, `CDC replication,`, `transactional outbox,`, `migration worker odvodený zo source of truth,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "8. Read switching",
-      "line": 125,
+      "section": "12. Alternatives k application dual write",
+      "line": 185,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86042,449 +86249,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "9. Backfill",
-      "line": 138,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "9. Backfill",
-      "line": 138,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded batches,`, `checkpointing,`, `idempotentný restart,`, `rate limiting,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "9. Backfill",
-      "line": 138,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "10. Online schema changes",
-      "line": 155,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "10. Online schema changes",
-      "line": 155,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrent index creation,`, `online DDL,`, `in-place alter,`, `copy-based migration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "10. Online schema changes",
-      "line": 155,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "10. Online schema changes",
-      "line": 155,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DDL`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "11. Locky a blocking",
-      "line": 168,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "11. Locky a blocking",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "11. Locky a blocking",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required lock mode,`, `lock acquisition timeout,`, `statement timeout,`, `long-running transactions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "11. Locky a blocking",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "13. Default values",
-      "line": 197,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "13. Default values",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata-only,`, `okamžitý table rewrite,`, `lazy materialization,`, `behavior závislý od engine/version.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "13. Default values",
-      "line": 197,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "14. Nullability",
-      "line": 208,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "14. Nullability",
-      "line": 208,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "14. Nullability",
-      "line": 208,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application začne zapisovať hodnotu,`, `backfill existujúce rows,`, `monitoring potvrdí nulový počet chýbajúcich hodnôt,`, `constraint sa validuje/enforcuje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "14. Nullability",
-      "line": 208,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "15. Enum a stavové hodnoty",
-      "line": 220,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "15. Enum a stavové hodnoty",
-      "line": 220,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tolerant reader s unknown handlingom,`, `oddelenie deploymentu readera pred writerom,`, `capability negotiation,`, `feature flag pre nové writes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "15. Enum a stavové hodnoty",
-      "line": 220,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "16. Index lifecycle",
-      "line": 235,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "16. Index lifecycle",
-      "line": 235,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `staré versions nie sú aktívne,`, `rollback ho nepotrebuje,`, `reporting/maintenance queries ho nepoužívajú,`, `query plans sú stabilné.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "16. Index lifecycle",
-      "line": 235,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "17. Data type changes",
-      "line": 246,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "18. Multi-service ownership",
-      "line": 261,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "18. Multi-service ownership",
-      "line": 261,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema owner,`, `consumer inventory,`, `compatibility contract,`, `migration review,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "18. Multi-service ownership",
-      "line": 261,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "19. CDC, analytics a replicas",
-      "line": 275,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "19. CDC, analytics a replicas",
-      "line": 275,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "19. CDC, analytics a replicas",
-      "line": 275,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `change-data-capture connector,`, `replica lag,`, `ETL jobs,`, `data warehouse schemas,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "19. CDC, analytics a replicas",
-      "line": 275,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "19. CDC, analytics a replicas",
-      "line": 275,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ETL`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "20. Migration identity a ordering",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "20. Migration identity a ordering",
-      "line": 289,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "20. Migration identity a ordering",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique ID,`, `deterministic ordering,`, `checksum alebo immutable content,`, `applied-state table,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "20. Migration identity a ordering",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "20. Migration identity a ordering",
-      "line": 289,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "21. Forward-only vs. reversible migrations",
-      "line": 303,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Reversible migration",
-      "line": 305,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "22. Migration a application ordering",
-      "line": 315,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "23. Feature flags",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "23. Feature flags",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové writes,`, `read source,`, `dual write,`, `backfill activation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "23. Feature flags",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "24. Rollback compatibility",
-      "line": 343,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "25. Validation",
-      "line": 354,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "25. Validation",
-      "line": 354,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "25. Validation",
-      "line": 354,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration syntax/test database,`, `schema diff,`, `lock a duration rehearsal,`, `representative data volume,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "25. Validation",
-      "line": 354,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "25. Validation",
-      "line": 354,
+      "section": "12. Alternatives k application dual write",
+      "line": 185,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`",
@@ -86492,35 +86258,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "26. Observability",
-      "line": 371,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "26. Observability",
-      "line": 371,
+      "section": "13. Read switching",
+      "line": 198,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "26. Observability",
-      "line": 371,
+      "section": "13. Read switching",
+      "line": 198,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration phase a version,`, `rows processed/remain,`, `batch duration,`, `error/retry rate,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read old,`, `shadow read new a compare,`, `read new with fallback old,`, `percentage/ring read new,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "26. Observability",
-      "line": 371,
+      "section": "13. Read switching",
+      "line": 198,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86528,17 +86285,179 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "26. Observability",
-      "line": 371,
+      "section": "14. Shadow reads",
+      "line": 211,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "14. Shadow reads",
+      "line": 211,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `extra database load,`, `privacy v diff logs,`, `nondeterminism a timing,`, `snapshot consistency,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "14. Shadow reads",
+      "line": 211,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "15. Backfill contract",
+      "line": 224,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "15. Backfill contract",
+      "line": 224,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "15. Backfill contract",
+      "line": 224,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded batch size,`, `deterministic key ordering,`, `checkpointing,`, `idempotent restart,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "15. Backfill contract",
+      "line": 224,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "16. Backfill concurrency s live writes",
+      "line": 242,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "16. Backfill concurrency s live writes",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "16. Backfill concurrency s live writes",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compare-and-swap/version column,`, `backfill iba null/unmigrated rows,`, `live dual write s monotonic version,`, `repeat reconciliation pass,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "16. Backfill concurrency s live writes",
+      "line": 242,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "17. Backfill completion",
+      "line": 260,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "17. Backfill completion",
+      "line": 260,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "17. Backfill completion",
+      "line": 260,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected population,`, `null/missing counts,`, `checksums alebo aggregates,`, `business invariants,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "17. Backfill completion",
+      "line": 260,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "17. Backfill completion",
+      "line": 260,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "27. Backup a restore",
-      "line": 389,
+      "section": "18. Online schema change",
+      "line": 273,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "18. Online schema change",
+      "line": 273,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata-only alteration,`, `in-place operation,`, `table copy,`, `concurrent index build,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "18. Online schema change",
+      "line": 273,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "19. Locks a transactions",
+      "line": 288,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86546,26 +86465,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "27. Backup a restore",
-      "line": 389,
+      "section": "19. Locks a transactions",
+      "line": 288,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "27. Backup a restore",
-      "line": 389,
+      "section": "19. Locks a transactions",
+      "line": 288,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `posledný úspešný backup,`, `restore test,`, `point-in-time recovery window,`, `expected RPO/RTO,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required lock mode,`, `lock acquisition timeout,`, `statement timeout,`, `long transactions,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "27. Backup a restore",
-      "line": 389,
+      "section": "19. Locks a transactions",
+      "line": 288,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86573,8 +86492,485 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "27. Backup a restore",
-      "line": 389,
+      "section": "20. Resource budget",
+      "line": 303,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "20. Resource budget",
+      "line": 303,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "20. Resource budget",
+      "line": 303,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database CPU,`, `I/O a storage throughput,`, `WAL/binlog growth,`, `replication lag,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "20. Resource budget",
+      "line": 303,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "20. Resource budget",
+      "line": 303,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "21. Constraints lifecycle",
+      "line": 319,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "22. NOT NULL",
+      "line": 334,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "22. NOT NULL",
+      "line": 334,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "22. NOT NULL",
+      "line": 334,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "22. NOT NULL",
+      "line": 334,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `readers tolerujú null aj value,`, `writers vždy zapisujú value,`, `backfill existing nulls,`, `monitor null count,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "22. NOT NULL",
+      "line": 334,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "23. Defaults",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "23. Defaults",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application default,`, `database default,`, `materialized existing-row value,`, `semantic default.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "23. Defaults",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "24. Enum a stavové hodnoty",
+      "line": 356,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "24. Enum a stavové hodnoty",
+      "line": 356,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tolerant unknown handling,`, `reader-first rollout,`, `feature flag na nové writes,`, `versioned event/schema,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "24. Enum a stavové hodnoty",
+      "line": 356,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "25. Data type change",
+      "line": 369,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "26. Index lifecycle",
+      "line": 384,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "26. Index lifecycle",
+      "line": 384,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "26. Index lifecycle",
+      "line": 384,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "26. Index lifecycle",
+      "line": 384,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor index pred aktiváciou nového query pathu,`, `build monitoruj pre I/O, storage a lag,`, `over query plans,`, `zachovaj old index pre rollback/old versions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "26. Index lifecycle",
+      "line": 384,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "27. Partitioning a large-table changes",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "27. Partitioning a large-table changes",
+      "line": 394,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "27. Partitioning a large-table changes",
+      "line": 394,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partition key compatibility,`, `online repartitioning,`, `hot partitions,`, `foreign keys,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "27. Partitioning a large-table changes",
+      "line": 394,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "28. Multi-service database ownership",
+      "line": 408,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "28. Multi-service database ownership",
+      "line": 408,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema/table ownera,`, `explicitné APIs alebo views,`, `consumer registry,`, `query telemetry,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "28. Multi-service database ownership",
+      "line": 408,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "29. CDC, replicas a analytics",
+      "line": 423,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "29. CDC, replicas a analytics",
+      "line": 423,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "29. CDC, replicas a analytics",
+      "line": 423,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CDC schema registry/connectors,`, `replica apply a lag,`, `ETL a warehouse,`, `materialized views,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "29. CDC, replicas a analytics",
+      "line": 423,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "29. CDC, replicas a analytics",
+      "line": 423,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`, `ETL`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "30. Migration orchestration",
+      "line": 438,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "30. Migration orchestration",
+      "line": 438,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `distributed lock,`, `migration ordering,`, `permissions,`, `timeout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "30. Migration orchestration",
+      "line": 438,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "32. Feature flags a migration phase",
+      "line": 463,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "32. Feature flags a migration phase",
+      "line": 463,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `new writes,`, `read source,`, `shadow read,`, `dual write,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "32. Feature flags a migration phase",
+      "line": 463,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "33. Rollback window",
+      "line": 477,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "33. Rollback window",
+      "line": 477,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "33. Rollback window",
+      "line": 477,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expanded schema,`, `old read/write compatibility,`, `old artifacts,`, `event/cache compatibility,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "33. Rollback window",
+      "line": 477,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "34. Forward-only verzus reversible",
+      "line": 489,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "34. Forward-only verzus reversible",
+      "line": 489,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "34. Forward-only verzus reversible",
+      "line": 489,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "34. Forward-only verzus reversible",
+      "line": 489,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "35. Backup, restore a PITR",
+      "line": 497,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "35. Backup, restore a PITR",
+      "line": 497,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "35. Backup, restore a PITR",
+      "line": 497,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup integrity,`, `restore test,`, `point-in-time window,`, `encryption keys,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "35. Backup, restore a PITR",
+      "line": 497,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "35. Backup, restore a PITR",
+      "line": 497,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
@@ -86582,8 +86978,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Dual-write dáta sa rozchádzajú",
-      "line": 417,
+      "section": "36. Validation layers",
+      "line": 513,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "36. Validation layers",
+      "line": 513,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "36. Validation layers",
+      "line": 513,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "36. Validation layers",
+      "line": 513,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration unit/integration test,`, `schema diff,`, `compatibility matrix test,`, `lock/runtime rehearsal,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "36. Validation layers",
+      "line": 513,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "36. Validation layers",
+      "line": 513,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "37. Contract evidence",
+      "line": 528,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86591,8 +87041,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Rename/drop v rovnakom release ako nový kód",
-      "line": 427,
+      "section": "37. Contract evidence",
+      "line": 528,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "37. Contract evidence",
+      "line": 528,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zero old application/worker versions,`, `zero old write/read telemetry,`, `completed backfill a reconciliation,`, `fallback usage nulové alebo vysvetlené,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "37. Contract evidence",
+      "line": 528,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "38. Observability",
+      "line": 541,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86600,8 +87077,242 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Migration beží pri startup-e každej instance",
-      "line": 431,
+      "section": "38. Observability",
+      "line": 541,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "38. Observability",
+      "line": 541,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration ID/phase,`, `rows processed/remaining,`, `batch latency a error,`, `lock waits,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "38. Observability",
+      "line": 541,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "38. Observability",
+      "line": 541,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DB`, `CPU`, `WAL`, `CDC`, `ETL`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "39. Failure taxonomy",
+      "line": 558,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "39. Failure taxonomy",
+      "line": 558,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "39. Failure taxonomy",
+      "line": 558,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "39. Failure taxonomy",
+      "line": 558,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lock acquisition/blocking failure,`, `partial migration,`, `resource saturation,`, `backfill stale overwrite,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "39. Failure taxonomy",
+      "line": 558,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "39. Failure taxonomy",
+      "line": 558,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči migration ID, phase a applied state.`, `Zisti aktívne application/worker/consumer versions.`, `Over locks, transactions a resource pressure.`, `Pri backfill-e skontroluj checkpoint, rate a live-write race.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "40. Diagnostický postup",
+      "line": 572,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `CDC`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "41. Metriky capability",
+      "line": 585,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "41. Metriky capability",
+      "line": 585,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "41. Metriky capability",
+      "line": 585,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "41. Metriky capability",
+      "line": 585,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration success/failure rate,`, `lock wait a blocking incidents,`, `backfill duration a throttle time,`, `replication-lag guardrail activations,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "41. Metriky capability",
+      "line": 585,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "41. Metriky capability",
+      "line": 585,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "42. Typické anti-patterny",
+      "line": 599,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "Rename/drop v jednom release",
+      "line": 601,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86609,8 +87320,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "down script = garantovaný rollback",
-      "line": 435,
+      "section": "Migration pri startup-e každej instance",
+      "line": 605,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86619,7 +87330,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Dual write bez reconciliation",
-      "line": 439,
+      "line": 609,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86627,8 +87338,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Backfill bez rate limitu",
-      "line": 443,
+      "section": "Backfill bez rate limitu a checkpointu",
+      "line": 613,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86636,8 +87347,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "Contract podľa dátumu, nie podľa evidence",
-      "line": 447,
+      "section": "Down script = garantovaný rollback",
+      "line": 617,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86645,8 +87356,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "Contract podľa dátumu",
+      "line": 621,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "Application health = data ecosystem health",
+      "line": 625,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "Additive DDL sa považuje za lacnú",
+      "line": 629,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -86654,8 +87392,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -86663,26 +87401,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré versions a consumers budú súčasne aktívne?`, `Akú schema/read/write/semantic compatibility potrebujú?`, `Ako sa riadia dual writes, reads a reconciliation?`, `Ako prebehne backfill a jeho pause/resume?`.",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré readers/writers/consumers budú súčasne aktívne?`, `Aká je expand a contract boundary?`, `Kto je authoritative source počas dual write?`, `Ako sa riešia partial failures a reconciliation?`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86690,8 +87428,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -86699,8 +87437,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -86708,12 +87446,102 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 451,
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "43. Rozhodovací rámec",
+      "line": 633,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DDL`, `CDC`, `resource`",
       "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer inventory a owner sú známe,`, `migration content je immutable,`, `phases sú explicitné a pozorovateľné,`, `tolerant readers predchádzajú new writers,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "44. Kontrolný checklist",
+      "line": 648,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DDL`, `CDC`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
+      "section": "Summary",
+      "line": 680,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
