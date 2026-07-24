@@ -605,15 +605,15 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "title": "HTTP",
-      "words": 1270,
-      "headings": 48,
-      "sections": 48,
-      "findings": 98,
-      "critical": 33,
-      "high": 54,
-      "medium": 8,
-      "low": 3,
-      "score": 846,
+      "words": 3521,
+      "headings": 60,
+      "sections": 60,
+      "findings": 147,
+      "critical": 37,
+      "high": 46,
+      "medium": 25,
+      "low": 39,
+      "score": 945,
       "grade": "D"
     },
     {
@@ -27344,8 +27344,71 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "2. Celý request lifecycle",
+      "line": 25,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2. Celý request lifecycle",
+      "line": 25,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či vznikla transportná connection;`, `či bol odoslaný platný HTTP request;`, `ktorý komponent odpoveď vytvoril;`, `či response prešla cez cache alebo transformáciu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2. Celý request lifecycle",
+      "line": 25,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4. URI, URL a request target",
+      "line": 78,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4. URI, URL a request target",
+      "line": 78,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `8443 — explicitný port;`, `/orders/42 — path;`, `include=items — query;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4. URI, URL a request target",
+      "line": 78,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4. URI, URL a request target",
+      "line": 78,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `SNI`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5. HTTP/1.1 request a response",
+      "line": 99,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27353,17 +27416,26 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `HTTP/1.1 typicky používa TCP,`, `HTTP/2 používa multiplexované streams nad jedným TCP connection,`, `HTTP/3 používa QUIC nad UDP.`.",
-      "score": 8
+      "section": "5. HTTP/1.1 request a response",
+      "line": 99,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "5. HTTP/1.1 request a response",
+      "line": 99,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `start line;`, `headers;`, `prázdny riadok;`, `voliteľné body.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5. HTTP/1.1 request a response",
+      "line": 99,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27371,26 +27443,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `QUIC`, `UDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "2. Request a response",
-      "line": 21,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "4. Methods",
-      "line": 61,
+      "section": "6. Method semantics",
+      "line": 131,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -27398,152 +27452,53 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "HEAD",
-      "line": 67,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "OPTIONS",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "5. Safe a idempotent semantics",
-      "line": 91,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "5. Safe a idempotent semantics",
-      "line": 91,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "6. Status codes",
-      "line": 100,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "1xx — informational",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "2xx — success",
-      "line": 106,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "2xx — success",
-      "line": 106,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "2xx — success",
-      "line": 106,
+      "section": "POST",
+      "line": 145,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "2xx — success",
-      "line": 106,
+      "section": "POST",
+      "line": 145,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 OK`, `201 Created`, `202 Accepted`, `204 No Content`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť podriadený resource;`, `spustiť command alebo workflow;`, `odoslať formulár;`, `vykonať ne-idempotentnú business operáciu.`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "2xx — success",
-      "line": 106,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "2xx — success",
-      "line": 106,
+      "section": "POST",
+      "line": 145,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "3xx — redirection a caching",
-      "line": 113,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "7. Safe, idempotent a cacheable nie sú synonymá",
+      "line": 182,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "3xx — redirection a caching",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "7. Safe, idempotent a cacheable nie sú synonymá",
+      "line": 182,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "3xx — redirection a caching",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `301 Moved Permanently`, `302 Found`, `303 See Other`, `304 Not Modified`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "3xx — redirection a caching",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "4xx — client-side request problem",
-      "line": 124,
+      "section": "1xx — priebežný protocol stav",
+      "line": 204,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -27551,8 +27506,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "4xx — client-side request problem",
-      "line": 124,
+      "section": "1xx — priebežný protocol stav",
+      "line": 204,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -27560,26 +27515,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "4xx — client-side request problem",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "4xx — client-side request problem",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `400 Bad Request`, `404 Not Found`, `409 Conflict`, `412 Precondition Failed`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "4xx — client-side request problem",
-      "line": 124,
+      "section": "1xx — priebežný protocol stav",
+      "line": 204,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27587,8 +27524,647 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "4xx — client-side request problem",
-      "line": 124,
+      "section": "1xx — priebežný protocol stav",
+      "line": 204,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2xx — request bol úspešne spracovaný podľa konkrétnej semantics",
+      "line": 210,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2xx — request bol úspešne spracovaný podľa konkrétnej semantics",
+      "line": 210,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2xx — request bol úspešne spracovaný podľa konkrétnej semantics",
+      "line": 210,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2xx — request bol úspešne spracovaný podľa konkrétnej semantics",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "2xx — request bol úspešne spracovaný podľa konkrétnej semantics",
+      "line": 210,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "3xx — ďalší krok, presmerovanie alebo cache revalidation",
+      "line": 220,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "3xx — ďalší krok, presmerovanie alebo cache revalidation",
+      "line": 220,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "3xx — ďalší krok, presmerovanie alebo cache revalidation",
+      "line": 220,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `301 a 308 — permanentné presmerovanie;`, `302 a 307 — dočasné presmerovanie;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "3xx — ďalší krok, presmerovanie alebo cache revalidation",
+      "line": 220,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "3xx — ďalší krok, presmerovanie alebo cache revalidation",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "4xx — request nie je prijateľný v aktuálnom client kontexte",
+      "line": 229,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WWW-`, `policy`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5xx — serverová alebo intermediary vrstva request nedokončila",
+      "line": 243,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5xx — serverová alebo intermediary vrstva request nedokončila",
+      "line": 243,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5xx — serverová alebo intermediary vrstva request nedokončila",
+      "line": 243,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5xx — serverová alebo intermediary vrstva request nedokončila",
+      "line": 243,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "5xx — serverová alebo intermediary vrstva request nedokončila",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "9. Headers a ich scope",
+      "line": 252,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "9. Headers a ich scope",
+      "line": 252,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `routing a authority — Host , Forwarded , Via ;`, `representation — Content-Type , Content-Encoding , Content-Language ;`, `negotiation — Accept , Accept-Encoding , Accept-Language ;`, `authentication — Authorization , Proxy-Authorization , WWW-Authenticat`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "9. Headers a ich scope",
+      "line": 252,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "9. Headers a ich scope",
+      "line": 252,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "9. Headers a ich scope",
+      "line": 252,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "9. Headers a ich scope",
+      "line": 252,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WWW-`, `X-`, `Policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "10. Authority, Host a virtual hosting",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povoliť iba očakávané authority values;`, `prepísať neautorizované forwarding headers;`, `zosúladiť TLS SNI, HTTP authority a route policy.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "10. Authority, Host a virtual hosting",
+      "line": 271,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "10. Authority, Host a virtual hosting",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "10. Authority, Host a virtual hosting",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "10. Authority, Host a virtual hosting",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `SNI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "11. Message body a framing",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Content-Length ;`, `chunked transfer encoding;`, `ukončením connection v obmedzených legacy prípadoch.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "11. Message body a framing",
+      "line": 288,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "12. Request body lifecycle",
+      "line": 310,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "12. Request body lifecycle",
+      "line": 310,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "12. Request body lifecycle",
+      "line": 310,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načítané celé do memory;`, `spoolované na disk;`, `streamované upstreamu;`, `odmietnuté podľa size limitu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "12. Request body lifecycle",
+      "line": 310,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "12. Request body lifecycle",
+      "line": 310,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "12. Request body lifecycle",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "13. Persistent connections a pooling",
+      "line": 331,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "13. Persistent connections a pooling",
+      "line": 331,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej handshakes;`, `nižšia latency;`, `menší CPU a port overhead;`, `lepšia efektivita congestion window.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "13. Persistent connections a pooling",
+      "line": 331,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "13. Persistent connections a pooling",
+      "line": 331,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "13. Persistent connections a pooling",
+      "line": 331,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "13. Persistent connections a pooling",
+      "line": 331,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "15. HTTP/2 lifecycle",
+      "line": 360,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 61 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "15. HTTP/2 lifecycle",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stream identifiers oddeľujú súbežné requesty;`, `HPACK komprimuje headers pomocou zdieľaného state;`, `flow control existuje na stream aj connection úrovni;`, `server môže limitovať concurrent streams;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "15. HTTP/2 lifecycle",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "15. HTTP/2 lifecycle",
+      "line": 360,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "16. HTTP/3 lifecycle",
+      "line": 377,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "16. HTTP/3 lifecycle",
+      "line": 377,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "16. HTTP/3 lifecycle",
+      "line": 377,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "16. HTTP/3 lifecycle",
+      "line": 377,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `NAT`, `QPACK`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "18. Freshness a Cache-Control",
+      "line": 411,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "18. Freshness a Cache-Control",
+      "line": 411,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `max-age určuje freshness lifetime;`, `no-cache povoľuje uloženie, ale pred použitím vyžaduje revalidation;`, `no-store zakazuje uloženie response;`, `must-revalidate obmedzuje použitie stale response po expiracii.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "18. Freshness a Cache-Control",
+      "line": 411,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "18. Freshness a Cache-Control",
+      "line": 411,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "21. Redirect lifecycle",
+      "line": 488,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "21. Redirect lifecycle",
+      "line": 488,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redirect loop medzi proxy a aplikáciou;`, `zmena method pri nesprávnom status kóde;`, `open redirect cez nekontrolovaný parameter;`, `strata Authorization pri cross-origin presmerovaní;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "22. Cookies a browser session state",
+      "line": 510,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "22. Cookies a browser session state",
+      "line": 510,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "22. Cookies a browser session state",
+      "line": 510,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "22. Cookies a browser session state",
+      "line": 510,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "22. Cookies a browser session state",
+      "line": 510,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "23. Authentication a authorization",
+      "line": 536,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `authentication — kto je volajúci;`, `authorization — čo smie vykonať;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "23. Authentication a authorization",
+      "line": 536,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "23. Authentication a authorization",
+      "line": 536,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "23. Authentication a authorization",
+      "line": 536,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -27596,8 +28172,44 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "5xx — server-side failure",
-      "line": 135,
+      "section": "24. CORS",
+      "line": 554,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "24. CORS",
+      "line": 554,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "24. CORS",
+      "line": 554,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "24. CORS",
+      "line": 554,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "25. Compression",
+      "line": 582,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27605,35 +28217,26 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "5xx — server-side failure",
-      "line": 135,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "5xx — server-side failure",
-      "line": 135,
+      "section": "25. Compression",
+      "line": 582,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "5xx — server-side failure",
-      "line": 135,
+      "section": "25. Compression",
+      "line": 582,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `500 Internal Server Error`, `502 Bad Gateway`, `503 Service Unavailable`, `504 Gateway Timeout`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU náklady na kompresiu;`, `latency pre malé responses;`, `memory a buffering;`, `cache varianty podľa Accept-Encoding ;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "5xx — server-side failure",
-      "line": 135,
+      "section": "25. Compression",
+      "line": 582,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27641,35 +28244,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "7. Headers",
-      "line": 144,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "7. Headers",
-      "line": 144,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `content negotiation: Accept , Content-Type , Accept-Encoding ,`, `caching: Cache-Control , ETag , Last-Modified , Vary ,`, `authentication: Authorization , WWW-Authenticate ,`, `routing: Host , Forwarded , Via ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "7. Headers",
-      "line": 144,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "7. Headers",
-      "line": 144,
+      "section": "25. Compression",
+      "line": 582,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -27677,35 +28253,35 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "7. Headers",
-      "line": 144,
+      "section": "25. Compression",
+      "line": 582,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "25. Compression",
+      "line": 582,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WWW-`, `Policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "8. Message body framing",
-      "line": 160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "8. Message body framing",
-      "line": 160,
-      "severity": "critical",
+      "section": "26. Range requests",
+      "line": 602,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Content-Length ,`, `chunked transfer encoding,`, `connection close v obmedzených prípadoch,`, `method/status semantics bez body.`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pokračovanie downloadu;`, `media seeking;`, `selektívne čítanie veľkého objektu.`.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "8. Message body framing",
-      "line": 160,
+      "section": "26. Range requests",
+      "line": 602,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27713,8 +28289,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "9. Persistent connections",
-      "line": 173,
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27722,26 +28298,26 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "9. Persistent connections",
-      "line": 173,
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "14 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "9. Persistent connections",
-      "line": 173,
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej TCP/TLS handshakes,`, `nižšia latency,`, `menší CPU overhead.`, `idle connection limits,`.",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `terminovať connection;`, `meniť headers;`, `normalizovať path;`, `cacheovať response;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "9. Persistent connections",
-      "line": 173,
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27749,161 +28325,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "9. Persistent connections",
-      "line": 173,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `TLS`, `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "11. HTTP/2",
-      "line": 194,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "11. HTTP/2",
-      "line": 194,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `binary framing,`, `multiplexované streams,`, `header compression HPACK,`, `stream priorities v historickom modeli,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "11. HTTP/2",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "11. HTTP/2",
-      "line": 194,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPACK`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "12. HTTP/3",
-      "line": 206,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "12. HTTP/3",
-      "line": 206,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatné reliable streams,`, `TLS 1.3 integráciu,`, `connection migration,`, `menší cross-stream head-of-line dopad pri packet loss.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "12. HTTP/3",
-      "line": 206,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "12. HTTP/3",
-      "line": 206,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "14. Caching",
-      "line": 235,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "14. Caching",
-      "line": 235,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `no-cache neznamená „nikdy neuložiť“; znamená revalidovať pred použitím`, `no-store zakazuje ukladanie.`, `private obmedzuje shared caches.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "14. Caching",
-      "line": 235,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "15. Validators a conditional requests",
-      "line": 251,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "16. Cookies",
-      "line": 274,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "16. Cookies",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "16. Cookies",
-      "line": 274,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SameSite — obmedzuje cross-site odosielanie,`, `Domain a Path — určujú scope,`, `Max-Age alebo Expires — životnosť.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "16. Cookies",
-      "line": 274,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "16. Cookies",
-      "line": 274,
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -27911,206 +28334,188 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "16. Cookies",
-      "line": 274,
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "27. Intermediaries a transformácie",
+      "line": 625,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "19. Compression",
-      "line": 320,
+      "section": "28. Timeouty a client cancellation",
+      "line": 647,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 50 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "19. Compression",
-      "line": 320,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "19. Compression",
-      "line": 320,
+      "section": "28. Timeouty a client cancellation",
+      "line": 647,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `komprimovateľný content type,`, `minimum size,`, `CPU overhead,`, `cache variants,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS a connect timeout;`, `TLS handshake timeout;`, `request-header timeout;`, `request-body timeout;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "19. Compression",
-      "line": 320,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "20. Range requests",
-      "line": 332,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "20. Range requests",
-      "line": 332,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "20. Range requests",
-      "line": 332,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `resumable downloads,`, `media seeking,`, `paralelné sťahovanie.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "20. Range requests",
-      "line": 332,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "21. Observability",
-      "line": 346,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "21. Observability",
-      "line": 346,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "21. Observability",
-      "line": 346,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate podľa method/path/status,`, `latency percentily,`, `response size,`, `active connections a streams,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "21. Observability",
-      "line": 346,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "22. Diagnostický postup",
-      "line": 363,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "22. Diagnostický postup",
-      "line": 363,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "22. Diagnostický postup",
-      "line": 363,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odlíš DNS, TCP a TLS od HTTP,`, `zachyť request method, target a Host,`, `skontroluj redirects,`, `over request/response headers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "22. Diagnostický postup",
-      "line": 363,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "22. Diagnostický postup",
-      "line": 363,
+      "section": "28. Timeouty a client cancellation",
+      "line": 647,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "22. Diagnostický postup",
-      "line": 363,
+      "section": "28. Timeouty a client cancellation",
+      "line": 647,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "29. Observability",
+      "line": 664,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "29. Observability",
+      "line": 664,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate podľa normalizovanej route a method;`, `status class a konkrétny status;`, `origin status versus proxy-generated status;`, `end-to-end latency a jednotlivé fázy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "29. Observability",
+      "line": 664,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "29. Observability",
+      "line": 664,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "29. Observability",
+      "line": 664,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "29. Observability",
+      "line": 664,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "30. Diagnostický postup",
+      "line": 684,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "30. Diagnostický postup",
+      "line": 684,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "30. Diagnostický postup",
+      "line": 684,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď používateľský symptóm a presný request;`, `odlíš DNS, TCP a TLS od HTTP;`, `zaznamenaj negotiated protocol version;`, `over method, authority, path, query a body;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "30. Diagnostický postup",
+      "line": 684,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "30. Diagnostický postup",
+      "line": 684,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "30. Diagnostický postup",
+      "line": 684,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `HTTP`, `ID`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "23. Typické symptómy",
-      "line": 387,
+      "section": "31. Typické failure patterns",
+      "line": 711,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "400 Bad Request",
-      "line": 389,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/http.md",
-      "section": "304 , ale klient vidí staré dáta",
-      "line": 397,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Funguje HTTP/1.1, nie HTTP/2",
-      "line": 401,
+      "line": 725,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -28118,8 +28523,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "Redirect loop",
-      "line": 405,
+      "section": "Malé requesty fungujú, veľké nie",
+      "line": 733,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -28127,8 +28532,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "24. Časté omyly",
-      "line": 409,
+      "section": "32. Časté omyly",
+      "line": 741,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -28136,8 +28541,8 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "„GET nikdy nič nemení“",
-      "line": 415,
+      "section": "33. Praktický checklist",
+      "line": 767,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -28145,30 +28550,66 @@
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "„no-cache znamená necachovať“",
-      "line": 419,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "33. Praktický checklist",
+      "line": 767,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "„CORS chráni API pred všetkými klientmi“",
-      "line": 423,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "33. Praktický checklist",
+      "line": 767,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canonical scheme, host a path behavior;`, `explicitné method semantics a idempotency;`, `konzistentné status codes a error body contract;`, `request body size a timeout limits;`.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/http.md",
-      "section": "„HTTP/2 otvorí connection pre každý request“",
-      "line": 427,
+      "section": "33. Praktický checklist",
+      "line": 767,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "33. Praktický checklist",
+      "line": 767,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "33. Praktický checklist",
+      "line": 767,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "33. Praktický checklist",
+      "line": 767,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/http.md",
+      "section": "33. Praktický checklist",
+      "line": 767,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CORS`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
