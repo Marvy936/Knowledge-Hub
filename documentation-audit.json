@@ -1487,15 +1487,15 @@
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
       "title": "Trigger, artifact a cache",
-      "words": 1325,
-      "headings": 37,
-      "sections": 37,
-      "findings": 94,
-      "critical": 43,
-      "high": 39,
-      "medium": 11,
-      "low": 1,
-      "score": 854,
+      "words": 3369,
+      "headings": 54,
+      "sections": 54,
+      "findings": 172,
+      "critical": 53,
+      "high": 48,
+      "medium": 31,
+      "low": 40,
+      "score": 1177,
       "grade": "D"
     },
     {
@@ -95501,8 +95501,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "1. Trigger",
-      "line": 5,
+      "section": "1. Mental model",
+      "line": 13,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -95510,26 +95510,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "1. Trigger",
-      "line": 5,
+      "section": "1. Mental model",
+      "line": 13,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "1. Trigger",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `push na branch,`, `vytvorenie alebo aktualizácia merge requestu,`, `tag alebo release event,`, `schedule,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "1. Trigger",
-      "line": 5,
+      "section": "1. Mental model",
+      "line": 13,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -95537,575 +95528,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "1. Trigger",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "2. Event payload nie je dôveryhodný automaticky",
-      "line": 32,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "2. Event payload nie je dôveryhodný automaticky",
-      "line": 32,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch a commit SHA,`, `actor identity,`, `changed paths,`, `pull request metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "2. Event payload nie je dôveryhodný automaticky",
-      "line": 32,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "2. Event payload nie je dôveryhodný automaticky",
-      "line": 32,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "3. Push vs. merge-request pipeline",
-      "line": 46,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "3. Push vs. merge-request pipeline",
-      "line": 46,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source branch SHA,`, `merge request head,`, `synthetic merge result so súčasným target branch,`, `merge train alebo merge queue result.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "3. Push vs. merge-request pipeline",
-      "line": 46,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "3. Push vs. merge-request pipeline",
-      "line": 46,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "4. Duplicate pipelines",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "4. Duplicate pipelines",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dvojité náklady,`, `duplicated status checks,`, `racing deployments,`, `nejasný autoritatívny result.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "4. Duplicate pipelines",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "5. Path-based triggers",
-      "line": 68,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "5. Path-based triggers",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "5. Path-based triggers",
-      "line": 68,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena shared library ovplyvní viac služieb,`, `rename alebo generated files uniknú jednoduchému globu,`, `build tooling zmena môže ovplyvniť všetko,`, `base commit pre diff môže byť nesprávny.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "5. Path-based triggers",
-      "line": 68,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "6. Scheduled pipelines",
-      "line": 89,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "6. Scheduled pipelines",
-      "line": 89,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "6. Scheduled pipelines",
-      "line": 89,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `širšie regression tests,`, `dependency update checks,`, `certificate alebo secret expiry checks,`, `drift detection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "6. Scheduled pipelines",
-      "line": 89,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "7. Manual trigger",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "8. Trigger permissions",
-      "line": 114,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "8. Trigger permissions",
-      "line": 114,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "8. Trigger permissions",
-      "line": 114,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fork pull request: read-only, bez secrets,`, `protected branch: build a publish rights,`, `protected tag: release signing,`, `manual production deployment: environment-scoped identity.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "8. Trigger permissions",
-      "line": 114,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "8. Trigger permissions",
-      "line": 114,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "9. Artifact",
-      "line": 125,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "9. Artifact",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "9. Artifact",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container image,`, `binary package,`, `archive,`, `Helm chart,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "9. Artifact",
-      "line": 125,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "9. Artifact",
-      "line": 125,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "11. Artifact identity",
-      "line": 164,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "11. Artifact identity",
-      "line": 164,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `content digest,`, `immutable version,`, `commit SHA,`, `build run ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "11. Artifact identity",
-      "line": 164,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "11. Artifact identity",
-      "line": 164,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "12. Artifact repository",
-      "line": 179,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "12. Artifact repository",
-      "line": 179,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upload a download,`, `access control,`, `retention,`, `immutability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "12. Artifact repository",
-      "line": 179,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "13. Artifact retention",
-      "line": 195,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "13. Artifact retention",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "13. Artifact retention",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporary diagnostic artifacts,`, `pull-request builds,`, `release candidates,`, `production releases,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "13. Artifact retention",
-      "line": 195,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "14. Artifact integrity a authenticity",
-      "line": 207,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "14. Artifact integrity a authenticity",
-      "line": 207,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý builder artifact vytvoril,`, `z akého source commitu,`, `s akým workflowom,`, `v akom trusted environment-e.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "14. Artifact integrity a authenticity",
-      "line": 207,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "15. Reports ako špeciálny artifact",
-      "line": 218,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "15. Reports ako špeciálny artifact",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "15. Reports ako špeciálny artifact",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit,`, `coverage,`, `SAST/SCA,`, `performance results,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "15. Reports ako špeciálny artifact",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "15. Reports ako špeciálny artifact",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `SCA`, `SBOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "16. Cache",
-      "line": 231,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "16. Cache",
-      "line": 231,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package-manager download cache,`, `compiler cache,`, `dependency directory,`, `build-system intermediate data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "16. Cache",
-      "line": 231,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "17. Artifact vs. cache",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "18. Cache key",
-      "line": 264,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "19. Exact a fallback restore",
-      "line": 284,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "19. Exact a fallback restore",
-      "line": 284,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "19. Exact a fallback restore",
-      "line": 284,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skúsiť exact key,`, `prípadne bezpečný prefix fallback,`, `validovať alebo doplniť obsah,`, `uložiť nový exact cache.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "19. Exact a fallback restore",
-      "line": 284,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "20. Cache poisoning",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "20. Cache poisoning",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "20. Cache poisoning",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť cache namespaces podľa trust levelu,`, `nepovoliť fork pipeline zapisovať do protected cache,`, `zahrnúť toolchain a lockfile identity,`, `overovať package integrity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "20. Cache poisoning",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "20. Cache poisoning",
-      "line": 295,
+      "section": "1. Mental model",
+      "line": 13,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -96113,8 +95537,539 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "20. Cache poisoning",
-      "line": 295,
+      "section": "1. Mental model",
+      "line": 13,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "1. Mental model",
+      "line": 13,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "1. Mental model",
+      "line": 13,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `SHA`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "2. Trigger ako vytvorenie pipeline runu",
+      "line": 42,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "2. Trigger ako vytvorenie pipeline runu",
+      "line": 42,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "2. Trigger ako vytvorenie pipeline runu",
+      "line": 42,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "2. Trigger ako vytvorenie pipeline runu",
+      "line": 42,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "3. Runtime context triggeru",
+      "line": 60,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "3. Runtime context triggeru",
+      "line": 60,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a workflow path,`, `workflow revision,`, `event type a event ID,`, `actor alebo service identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "3. Runtime context triggeru",
+      "line": 60,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "3. Runtime context triggeru",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "3. Runtime context triggeru",
+      "line": 60,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "3. Runtime context triggeru",
+      "line": 60,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SHA`, `identity`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "4. Event payload nie je automaticky dôveryhodný",
+      "line": 79,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "14 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "4. Event payload nie je automaticky dôveryhodný",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch a tag name,`, `commit message,`, `pull-request title alebo body,`, `actor display name,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "4. Event payload nie je automaticky dôveryhodný",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "4. Event payload nie je automaticky dôveryhodný",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "5. Push pipeline verzus merge-request pipeline",
+      "line": 105,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "5. Push pipeline verzus merge-request pipeline",
+      "line": 105,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source branch SHA,`, `pull-request head SHA,`, `synthetic merge commit vytvorený proti target branchu,`, `merge queue alebo merge train candidate,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "5. Push pipeline verzus merge-request pipeline",
+      "line": 105,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "5. Push pipeline verzus merge-request pipeline",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "5. Push pipeline verzus merge-request pipeline",
+      "line": 105,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "6. Trigger deduplikácia",
+      "line": 133,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "6. Trigger deduplikácia",
+      "line": 133,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicitné náklady,`, `viac statusov pre rovnaké rozhodnutie,`, `racing artifact uploads,`, `paralelné deploymenty,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "6. Trigger deduplikácia",
+      "line": 133,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "6. Trigger deduplikácia",
+      "line": 133,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "6. Trigger deduplikácia",
+      "line": 133,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `read-only validation možno agresívne cancelovať;`, `artifact publishing musí zabrániť prepísaniu immutable identity;`, `superseded result nesmie zostať authoritative pre nový SHA;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "7. Supersession a cancellation",
+      "line": 155,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "8. Path-based triggers",
+      "line": 168,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "8. Path-based triggers",
+      "line": 168,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "8. Path-based triggers",
+      "line": 168,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared library alebo schema zmenu,`, `build tool, lockfile alebo root config,`, `generated code,`, `rename alebo delete,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "8. Path-based triggers",
+      "line": 168,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "9. Scheduled pipelines",
+      "line": 202,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 60 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "9. Scheduled pipelines",
+      "line": 202,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `full regression,`, `dependency a base-image refresh,`, `certificate, token alebo secret expiry,`, `drift detection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "9. Scheduled pipelines",
+      "line": 202,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "9. Scheduled pipelines",
+      "line": 202,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "10. Manual dispatch",
+      "line": 219,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "10. Manual dispatch",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `caller identity a role,`, `environment allowlist,`, `artifact existenciu a podpis,`, `artifact eligibility pre dané prostredie,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "10. Manual dispatch",
+      "line": 219,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "10. Manual dispatch",
+      "line": 219,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "11. API a webhook triggers",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "11. API a webhook triggers",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizáciu odosielateľa,`, `signature verification payloadu,`, `ochranu proti replayu,`, `event ID deduplikáciu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "11. API a webhook triggers",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "11. API a webhook triggers",
+      "line": 245,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "12. Trigger permissions",
+      "line": 260,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "13. Artifact",
+      "line": 277,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "13. Artifact",
+      "line": 277,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container image,`, `binary alebo language package,`, `archive alebo installer,`, `Helm chart alebo rendered deployment bundle,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "13. Artifact",
+      "line": 277,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "13. Artifact",
+      "line": 277,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "14. Artifact state model",
+      "line": 296,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "14. Artifact state model",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `digest,`, `source a workflow identity,`, `evidence bundle,`, `policy version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "14. Artifact state model",
+      "line": 296,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "14. Artifact state model",
+      "line": 296,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "14. Artifact state model",
+      "line": 296,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -96122,26 +96077,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "21. Cache invalidation",
-      "line": 308,
+      "section": "15. Build once, promote many",
+      "line": 322,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "15. Build once, promote many",
+      "line": 322,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "21. Cache invalidation",
-      "line": 308,
+      "section": "15. Build once, promote many",
+      "line": 322,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency lockfile,`, `compiler/toolchain,`, `build flags,`, `OS image,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency resolution,`, `base image,`, `compiler alebo linker,`, `timestamp a generated metadata,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "21. Cache invalidation",
-      "line": 308,
+      "section": "15. Build once, promote many",
+      "line": 322,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96149,35 +96113,71 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "21. Cache invalidation",
-      "line": 308,
+      "section": "16. Artifact identity",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "16. Artifact identity",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable version,`, `source repository a commit SHA,`, `workflow a pipeline run ID,`, `builder identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "16. Artifact identity",
+      "line": 355,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "23. Container layer cache",
-      "line": 328,
+      "section": "16. Artifact identity",
+      "line": 355,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "16. Artifact identity",
+      "line": 355,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "16. Artifact identity",
+      "line": 355,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `ID`, `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "17. Integrity, authenticity a provenance",
+      "line": 371,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "23. Container layer cache",
-      "line": 328,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable base tag,`, `secret zahrnutý do layeru,`, `nepresný build context,`, `stale package metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "23. Container layer cache",
-      "line": 328,
+      "section": "17. Integrity, authenticity a provenance",
+      "line": 371,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96185,44 +96185,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "24. Artifact fan-out",
-      "line": 340,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "17. Integrity, authenticity a provenance",
+      "line": 371,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "25. Trigger-to-artifact traceability",
-      "line": 355,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "17. Integrity, authenticity a provenance",
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "25. Trigger-to-artifact traceability",
-      "line": 355,
+      "section": "18. Artifact repository alebo registry",
+      "line": 382,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "25. Trigger-to-artifact traceability",
-      "line": 355,
+      "section": "18. Artifact repository alebo registry",
+      "line": 382,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý event spustil pipeline,`, `ktorý commit bol buildnutý,`, `aký workflow a runner ho spracoval,`, `aké gates prešli,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable upload alebo version protection,`, `content-addressable identity,`, `access control,`, `checksums a signature metadata,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "25. Trigger-to-artifact traceability",
-      "line": 355,
+      "section": "18. Artifact repository alebo registry",
+      "line": 382,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96230,35 +96230,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Cache sa nikdy nenájde",
-      "line": 370,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "18. Artifact repository alebo registry",
+      "line": 382,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Cache sa nikdy nenájde",
-      "line": 370,
+      "section": "18. Artifact repository alebo registry",
+      "line": 382,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "18. Artifact repository alebo registry",
+      "line": 382,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "19. Artifact retention",
+      "line": 399,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "14 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Cache sa nikdy nenájde",
-      "line": 370,
+      "section": "19. Artifact retention",
+      "line": 399,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key a hashing,`, `branch/trust namespace,`, `runner architecture,`, `cache retention,`.",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ephemeral debug logs,`, `pull-request artifacts,`, `test reports,`, `release candidates,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Cache sa nikdy nenájde",
-      "line": 370,
+      "section": "19. Artifact retention",
+      "line": 399,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96266,8 +96284,71 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Artifact downstream chýba",
-      "line": 385,
+      "section": "19. Artifact retention",
+      "line": 399,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "19. Artifact retention",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "19. Artifact retention",
+      "line": 399,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "19. Artifact retention",
+      "line": 399,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "20. Reports ako evidence artifacts",
+      "line": 423,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "20. Reports ako evidence artifacts",
+      "line": 423,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit,`, `coverage,`, `SAST/SCA,`, `SBOM,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "20. Reports ako evidence artifacts",
+      "line": 423,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `SCA`, `SBOM`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "21. Artifact fan-out a fan-in",
+      "line": 440,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96275,26 +96356,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Artifact downstream chýba",
-      "line": 385,
+      "section": "21. Artifact fan-out a fan-in",
+      "line": 440,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Artifact downstream chýba",
-      "line": 385,
+      "section": "21. Artifact fan-out a fan-in",
+      "line": 440,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či upload job prešiel,`, `when policy,`, `retention,`, `dependency declaration,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky povinné výsledky patria digestu A,`, `žiadny shard/report nechýba,`, `evidence je čerstvá podľa policy,`, `tool failures nie sú interpretované ako pass,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Artifact downstream chýba",
-      "line": 385,
+      "section": "21. Artifact fan-out a fan-in",
+      "line": 440,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96302,8 +96383,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "Artifact downstream chýba",
-      "line": 385,
+      "section": "21. Artifact fan-out a fan-in",
+      "line": 440,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -96311,8 +96392,494 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "27. Časté omyly",
-      "line": 400,
+      "section": "22. Cache",
+      "line": 461,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "22. Cache",
+      "line": 461,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downloaded packages,`, `compiler cache,`, `build-system intermediate state,`, `container layers,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "22. Cache",
+      "line": 461,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "23. Artifact verzus cache",
+      "line": 474,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "25. Exact a fallback restore",
+      "line": 516,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "25. Exact a fallback restore",
+      "line": 516,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypočítaj exact key;`, `hľadaj cache v správnom trust namespace;`, `prípadne použi obmedzený fallback;`, `validuj alebo znovu vyrieš dependencies podľa lockfileu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "25. Exact a fallback restore",
+      "line": 516,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "25. Exact a fallback restore",
+      "line": 516,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelené namespaces podľa trust levelu,`, `fork a untrusted runs nemôžu zapisovať protected cache,`, `privileged run používa read-only alebo provenance-aware cache,`, `package integrity sa verifikuje,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "26. Cache poisoning",
+      "line": 530,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "27. Cache write timing",
+      "line": 554,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "27. Cache write timing",
+      "line": 554,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý job je writer,`, `či write nastáva iba po úspešnej validation,`, `ako sa rieši race viacerých writerov,`, `či je cache immutable per exact key,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "27. Cache write timing",
+      "line": 554,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "27. Cache write timing",
+      "line": 554,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "27. Cache write timing",
+      "line": 554,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "27. Cache write timing",
+      "line": 554,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "28. Partial restore a validita",
+      "line": 569,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "28. Partial restore a validita",
+      "line": 569,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "28. Partial restore a validita",
+      "line": 569,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact hit,`, `fallback hit,`, `partial/corrupt restore,`, `miss,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "28. Partial restore a validita",
+      "line": 569,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "28. Partial restore a validita",
+      "line": 569,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "29. Cache invalidation",
+      "line": 588,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "29. Cache invalidation",
+      "line": 588,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency lockfileu,`, `toolchainu alebo compileru,`, `base OS/container image,`, `architecture,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "29. Cache invalidation",
+      "line": 588,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "29. Cache invalidation",
+      "line": 588,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "29. Cache invalidation",
+      "line": 588,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "30. Dependency cache verzus dependency policy",
+      "line": 604,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "30. Dependency cache verzus dependency policy",
+      "line": 604,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lockfile,`, `version constraints,`, `checksums/signatures,`, `schválené registry,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "30. Dependency cache verzus dependency policy",
+      "line": 604,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "30. Dependency cache verzus dependency policy",
+      "line": 604,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "31. Container layer cache",
+      "line": 617,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "31. Container layer cache",
+      "line": 617,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "31. Container layer cache",
+      "line": 617,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable base tag,`, `secret zapísaný do layeru,`, `príliš široký alebo nestabilný build context,`, `stale package index,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "31. Container layer cache",
+      "line": 617,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "31. Container layer cache",
+      "line": 617,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "31. Container layer cache",
+      "line": 617,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `COPY`, `ARG`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "32. Cold-run verification",
+      "line": 638,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "32. Cold-run verification",
+      "line": 638,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prázdny dependency cache,`, `prázdny compiler cache,`, `fresh ephemeral runner,`, `clean checkout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "32. Cold-run verification",
+      "line": 638,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý event a actor vytvorili pipeline run;`, `aká workflow revision a policy sa použila;`, `ktorý source alebo merge-result SHA sa buildol;`, `aké build materials a toolchain vstúpili do procesu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "33. Trigger-to-artifact traceability",
+      "line": 652,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "34. Failure semantics",
+      "line": 669,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "34. Failure semantics",
+      "line": 669,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "34. Failure semantics",
+      "line": 669,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "35. Diagnostický postup",
+      "line": 685,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -96320,8 +96887,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "„Tag jednoznačne identifikuje image“",
-      "line": 406,
+      "section": "Artifact downstream chýba",
+      "line": 695,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96329,8 +96896,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "„Schedule pipeline nahrádza merge checks“",
-      "line": 410,
+      "section": "Cache sa nikdy nenájde",
+      "line": 707,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96338,12 +96905,147 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "„Fork pipeline môže používať rovnaké secrets a cache“",
-      "line": 414,
+      "section": "36. Typické anti-patterny",
+      "line": 711,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Mutable tag je jediná identity",
+      "line": 717,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Fork pipeline dostane protected cache write a secrets",
+      "line": 721,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Schedule nahrádza merge gates",
+      "line": 725,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Manual production trigger prijíma branch name",
+      "line": 729,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Artifact retention je kratšia než rollback window",
+      "line": 733,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Cache write po failed build-e",
+      "line": 737,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Trigger result nie je viazaný na SHA",
+      "line": 741,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger types a authoritative run sú explicitné,`, `event payload sa validuje ako nedôveryhodný input,`, `trigger permissions zodpovedajú trust contextu,`, `webhooky majú signature, replay protection a deduplikáciu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "37. Praktický checklist",
+      "line": 745,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "Summary",
+      "line": 789,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",

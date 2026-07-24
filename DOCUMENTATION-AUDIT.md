@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11675**
-- Total words: **567,785**
-- Findings: **26514** (critical 8694, high 9717, medium 3705, low 4398)
+- Audited conceptual sections: **11692**
+- Total words: **569,829**
+- Findings: **26592** (critical 8704, high 9726, medium 3725, low 4437)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -62,6 +62,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
 | D | 1237 | 58 | 56 | 25 | 13 | 1960 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
+| D | 1177 | 53 | 48 | 31 | 40 | 3369 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 1171 | 50 | 60 | 21 | 21 | 1801 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 1166 | 53 | 52 | 28 | 11 | 2095 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | D | 1165 | 47 | 74 | 8 | 4 | 1174 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
@@ -119,7 +120,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 863 | 38 | 45 | 15 | 4 | 1491 | `docs/13-security-and-identity/ldap.md` |
 | D | 862 | 42 | 40 | 10 | 9 | 1354 | `docs/12-observability/red-method.md` |
 | D | 859 | 39 | 41 | 18 | 5 | 1478 | `docs/12-observability/monitoring-vs-observability.md` |
-| D | 854 | 43 | 39 | 11 | 1 | 1325 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 853 | 40 | 41 | 11 | 14 | 1328 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
 | D | 849 | 41 | 38 | 14 | 8 | 1770 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | D | 844 | 37 | 42 | 16 | 10 | 1665 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
@@ -6721,88 +6721,107 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/05-ci-cd-and-release/trigger-artifact-cache.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Trigger**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `push na branch,`, `vytvorenie alebo aktualizácia merge requestu,`, `tag alebo release event,`, `schedule,`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Trigger**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 32, `bare-bullet-items` — **2. Event payload nie je dôveryhodný automaticky**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch a commit SHA,`, `actor identity,`, `changed paths,`, `pull request metadata,`.
-- **CRITICAL** line 32, `outline-instead-of-explanation` — **2. Event payload nie je dôveryhodný automaticky**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 46, `bare-bullet-items` — **3. Push vs. merge-request pipeline**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source branch SHA,`, `merge request head,`, `synthetic merge result so súčasným target branch,`, `merge train alebo merge queue result.`.
-- **CRITICAL** line 46, `outline-instead-of-explanation` — **3. Push vs. merge-request pipeline**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 57, `bare-bullet-items` — **4. Duplicate pipelines**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dvojité náklady,`, `duplicated status checks,`, `racing deployments,`, `nejasný autoritatívny result.`.
-- **CRITICAL** line 57, `outline-instead-of-explanation` — **4. Duplicate pipelines**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 68, `bare-bullet-items` — **5. Path-based triggers**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena shared library ovplyvní viac služieb,`, `rename alebo generated files uniknú jednoduchému globu,`, `build tooling zmena môže ovplyvniť všetko,`, `base commit pre diff môže byť nesprávny.`.
-- **CRITICAL** line 68, `outline-instead-of-explanation` — **5. Path-based triggers**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 89, `bare-bullet-items` — **6. Scheduled pipelines**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `širšie regression tests,`, `dependency update checks,`, `certificate alebo secret expiry checks,`, `drift detection,`.
-- **CRITICAL** line 89, `outline-instead-of-explanation` — **6. Scheduled pipelines**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 114, `bare-bullet-items` — **8. Trigger permissions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fork pull request: read-only, bez secrets,`, `protected branch: build a publish rights,`, `protected tag: release signing,`, `manual production deployment: environment-scoped identity.`.
-- **CRITICAL** line 114, `outline-instead-of-explanation` — **8. Trigger permissions**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 125, `bare-bullet-items` — **9. Artifact**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container image,`, `binary package,`, `archive,`, `Helm chart,`.
-- **CRITICAL** line 125, `outline-instead-of-explanation` — **9. Artifact**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 164, `bare-bullet-items` — **11. Artifact identity**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `content digest,`, `immutable version,`, `commit SHA,`, `build run ID,`.
-- **CRITICAL** line 164, `outline-instead-of-explanation` — **11. Artifact identity**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 179, `bare-bullet-items` — **12. Artifact repository**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upload a download,`, `access control,`, `retention,`, `immutability,`.
-- **CRITICAL** line 179, `outline-instead-of-explanation` — **12. Artifact repository**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 195, `bare-bullet-items` — **13. Artifact retention**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporary diagnostic artifacts,`, `pull-request builds,`, `release candidates,`, `production releases,`.
-- **CRITICAL** line 195, `outline-instead-of-explanation` — **13. Artifact retention**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 207, `bare-bullet-items` — **14. Artifact integrity a authenticity**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý builder artifact vytvoril,`, `z akého source commitu,`, `s akým workflowom,`, `v akom trusted environment-e.`.
-- **CRITICAL** line 207, `outline-instead-of-explanation` — **14. Artifact integrity a authenticity**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 218, `bare-bullet-items` — **15. Reports ako špeciálny artifact**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit,`, `coverage,`, `SAST/SCA,`, `performance results,`.
-- **CRITICAL** line 218, `outline-instead-of-explanation` — **15. Reports ako špeciálny artifact**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 231, `bare-bullet-items` — **16. Cache**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package-manager download cache,`, `compiler cache,`, `dependency directory,`, `build-system intermediate data,`.
-- **CRITICAL** line 231, `outline-instead-of-explanation` — **16. Cache**: 10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 284, `bare-bullet-items` — **19. Exact a fallback restore**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skúsiť exact key,`, `prípadne bezpečný prefix fallback,`, `validovať alebo doplniť obsah,`, `uložiť nový exact cache.`.
-- **CRITICAL** line 284, `outline-instead-of-explanation` — **19. Exact a fallback restore**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 295, `bare-bullet-items` — **20. Cache poisoning**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť cache namespaces podľa trust levelu,`, `nepovoliť fork pipeline zapisovať do protected cache,`, `zahrnúť toolchain a lockfile identity,`, `overovať package integrity,`.
-- **CRITICAL** line 295, `outline-instead-of-explanation` — **20. Cache poisoning**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 308, `bare-bullet-items` — **21. Cache invalidation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency lockfile,`, `compiler/toolchain,`, `build flags,`, `OS image,`.
-- **CRITICAL** line 308, `outline-instead-of-explanation` — **21. Cache invalidation**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 328, `bare-bullet-items` — **23. Container layer cache**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable base tag,`, `secret zahrnutý do layeru,`, `nepresný build context,`, `stale package metadata,`.
-- **CRITICAL** line 328, `outline-instead-of-explanation` — **23. Container layer cache**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 355, `bare-bullet-items` — **25. Trigger-to-artifact traceability**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý event spustil pipeline,`, `ktorý commit bol buildnutý,`, `aký workflow a runner ho spracoval,`, `aké gates prešli,`.
-- **CRITICAL** line 355, `outline-instead-of-explanation` — **25. Trigger-to-artifact traceability**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 370, `bare-bullet-items` — **Cache sa nikdy nenájde**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key a hashing,`, `branch/trust namespace,`, `runner architecture,`, `cache retention,`.
-- **CRITICAL** line 370, `outline-instead-of-explanation` — **Cache sa nikdy nenájde**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `bare-bullet-items` — **Artifact downstream chýba**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či upload job prešiel,`, `when policy,`, `retention,`, `dependency declaration,`.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **Artifact downstream chýba**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 400, `empty-section` — **27. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 5, `single-sentence-concept` — **1. Trigger**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 68, `single-sentence-concept` — **5. Path-based triggers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 89, `single-sentence-concept` — **6. Scheduled pipelines**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 102, `single-sentence-concept` — **7. Manual trigger**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 114, `single-sentence-concept` — **8. Trigger permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 125, `single-sentence-concept` — **9. Artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 195, `single-sentence-concept` — **13. Artifact retention**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 218, `single-sentence-concept` — **15. Reports ako špeciálny artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 253, `single-sentence-concept` — **17. Artifact vs. cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 264, `single-sentence-concept` — **18. Cache key**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 284, `single-sentence-concept` — **19. Exact a fallback restore**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 295, `single-sentence-concept` — **20. Cache poisoning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `single-sentence-concept` — **24. Artifact fan-out**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 355, `single-sentence-concept` — **25. Trigger-to-artifact traceability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 370, `single-sentence-concept` — **Cache sa nikdy nenájde**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 385, `single-sentence-concept` — **Artifact downstream chýba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 406, `single-sentence-concept` — **„Tag jednoznačne identifikuje image“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 410, `single-sentence-concept` — **„Schedule pipeline nahrádza merge checks“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 414, `single-sentence-concept` — **„Fork pipeline môže používať rovnaké secrets a cache“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `thin-concept-section` — **1. Trigger**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 46, `thin-concept-section` — **3. Push vs. merge-request pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 57, `thin-concept-section` — **4. Duplicate pipelines**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 68, `thin-concept-section` — **5. Path-based triggers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 89, `thin-concept-section` — **6. Scheduled pipelines**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 114, `thin-concept-section` — **8. Trigger permissions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 125, `thin-concept-section` — **9. Artifact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 164, `thin-concept-section` — **11. Artifact identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 179, `thin-concept-section` — **12. Artifact repository**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 195, `thin-concept-section` — **13. Artifact retention**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 207, `thin-concept-section` — **14. Artifact integrity a authenticity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 218, `thin-concept-section` — **15. Reports ako špeciálny artifact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 231, `thin-concept-section` — **16. Cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 284, `thin-concept-section` — **19. Exact a fallback restore**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 295, `thin-concept-section` — **20. Cache poisoning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 308, `thin-concept-section` — **21. Cache invalidation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 328, `thin-concept-section` — **23. Container layer cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 355, `thin-concept-section` — **25. Trigger-to-artifact traceability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 370, `thin-concept-section` — **Cache sa nikdy nenájde**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 385, `thin-concept-section` — **Artifact downstream chýba**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 13, `outline-instead-of-explanation` — **1. Mental model**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 60, `bare-bullet-items` — **3. Runtime context triggeru**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a workflow path,`, `workflow revision,`, `event type a event ID,`, `actor alebo service identity,`.
+- **CRITICAL** line 79, `bare-bullet-items` — **4. Event payload nie je automaticky dôveryhodný**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch a tag name,`, `commit message,`, `pull-request title alebo body,`, `actor display name,`.
+- **CRITICAL** line 105, `bare-bullet-items` — **5. Push pipeline verzus merge-request pipeline**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source branch SHA,`, `pull-request head SHA,`, `synthetic merge commit vytvorený proti target branchu,`, `merge queue alebo merge train candidate,`.
+- **CRITICAL** line 133, `bare-bullet-items` — **6. Trigger deduplikácia**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicitné náklady,`, `viac statusov pre rovnaké rozhodnutie,`, `racing artifact uploads,`, `paralelné deploymenty,`.
+- **CRITICAL** line 133, `outline-instead-of-explanation` — **6. Trigger deduplikácia**: 12 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 155, `outline-instead-of-explanation` — **7. Supersession a cancellation**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 168, `bare-bullet-items` — **8. Path-based triggers**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared library alebo schema zmenu,`, `build tool, lockfile alebo root config,`, `generated code,`, `rename alebo delete,`.
+- **CRITICAL** line 168, `outline-instead-of-explanation` — **8. Path-based triggers**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 202, `bare-bullet-items` — **9. Scheduled pipelines**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `full regression,`, `dependency a base-image refresh,`, `certificate, token alebo secret expiry,`, `drift detection,`.
+- **CRITICAL** line 219, `bare-bullet-items` — **10. Manual dispatch**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `caller identity a role,`, `environment allowlist,`, `artifact existenciu a podpis,`, `artifact eligibility pre dané prostredie,`.
+- **CRITICAL** line 245, `bare-bullet-items` — **11. API a webhook triggers**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizáciu odosielateľa,`, `signature verification payloadu,`, `ochranu proti replayu,`, `event ID deduplikáciu,`.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **11. API a webhook triggers**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 277, `bare-bullet-items` — **13. Artifact**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container image,`, `binary alebo language package,`, `archive alebo installer,`, `Helm chart alebo rendered deployment bundle,`.
+- **CRITICAL** line 277, `outline-instead-of-explanation` — **13. Artifact**: 10 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 296, `bare-bullet-items` — **14. Artifact state model**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `digest,`, `source a workflow identity,`, `evidence bundle,`, `policy version,`.
+- **CRITICAL** line 296, `outline-instead-of-explanation` — **14. Artifact state model**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `bare-bullet-items` — **15. Build once, promote many**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency resolution,`, `base image,`, `compiler alebo linker,`, `timestamp a generated metadata,`.
+- **CRITICAL** line 322, `outline-instead-of-explanation` — **15. Build once, promote many**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 355, `bare-bullet-items` — **16. Artifact identity**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable version,`, `source repository a commit SHA,`, `workflow a pipeline run ID,`, `builder identity,`.
+- **CRITICAL** line 355, `outline-instead-of-explanation` — **16. Artifact identity**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 371, `outline-instead-of-explanation` — **17. Integrity, authenticity a provenance**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 382, `bare-bullet-items` — **18. Artifact repository alebo registry**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable upload alebo version protection,`, `content-addressable identity,`, `access control,`, `checksums a signature metadata,`.
+- **CRITICAL** line 382, `outline-instead-of-explanation` — **18. Artifact repository alebo registry**: 10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 399, `bare-bullet-items` — **19. Artifact retention**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ephemeral debug logs,`, `pull-request artifacts,`, `test reports,`, `release candidates,`.
+- **CRITICAL** line 399, `outline-instead-of-explanation` — **19. Artifact retention**: 14 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 423, `bare-bullet-items` — **20. Reports ako evidence artifacts**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit,`, `coverage,`, `SAST/SCA,`, `SBOM,`.
+- **CRITICAL** line 440, `bare-bullet-items` — **21. Artifact fan-out a fan-in**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky povinné výsledky patria digestu A,`, `žiadny shard/report nechýba,`, `evidence je čerstvá podľa policy,`, `tool failures nie sú interpretované ako pass,`.
+- **CRITICAL** line 440, `outline-instead-of-explanation` — **21. Artifact fan-out a fan-in**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 461, `bare-bullet-items` — **22. Cache**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downloaded packages,`, `compiler cache,`, `build-system intermediate state,`, `container layers,`.
+- **CRITICAL** line 461, `outline-instead-of-explanation` — **22. Cache**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 516, `bare-bullet-items` — **25. Exact a fallback restore**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypočítaj exact key;`, `hľadaj cache v správnom trust namespace;`, `prípadne použi obmedzený fallback;`, `validuj alebo znovu vyrieš dependencies podľa lockfileu;`.
+- **CRITICAL** line 516, `outline-instead-of-explanation` — **25. Exact a fallback restore**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 530, `bare-bullet-items` — **26. Cache poisoning**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelené namespaces podľa trust levelu,`, `fork a untrusted runs nemôžu zapisovať protected cache,`, `privileged run používa read-only alebo provenance-aware cache,`, `package integrity sa verifikuje,`.
+- **CRITICAL** line 530, `outline-instead-of-explanation` — **26. Cache poisoning**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 554, `bare-bullet-items` — **27. Cache write timing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý job je writer,`, `či write nastáva iba po úspešnej validation,`, `ako sa rieši race viacerých writerov,`, `či je cache immutable per exact key,`.
+- **CRITICAL** line 569, `bare-bullet-items` — **28. Partial restore a validita**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact hit,`, `fallback hit,`, `partial/corrupt restore,`, `miss,`.
+- **CRITICAL** line 569, `outline-instead-of-explanation` — **28. Partial restore a validita**: 11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 588, `bare-bullet-items` — **29. Cache invalidation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency lockfileu,`, `toolchainu alebo compileru,`, `base OS/container image,`, `architecture,`.
+- **CRITICAL** line 588, `outline-instead-of-explanation` — **29. Cache invalidation**: 9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 604, `bare-bullet-items` — **30. Dependency cache verzus dependency policy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lockfile,`, `version constraints,`, `checksums/signatures,`, `schválené registry,`.
+- **CRITICAL** line 604, `outline-instead-of-explanation` — **30. Dependency cache verzus dependency policy**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 617, `bare-bullet-items` — **31. Container layer cache**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable base tag,`, `secret zapísaný do layeru,`, `príliš široký alebo nestabilný build context,`, `stale package index,`.
+- **CRITICAL** line 617, `outline-instead-of-explanation` — **31. Container layer cache**: 13 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 638, `bare-bullet-items` — **32. Cold-run verification**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prázdny dependency cache,`, `prázdny compiler cache,`, `fresh ephemeral runner,`, `clean checkout,`.
+- **CRITICAL** line 638, `outline-instead-of-explanation` — **32. Cold-run verification**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 652, `bare-bullet-items` — **33. Trigger-to-artifact traceability**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý event a actor vytvorili pipeline run;`, `aká workflow revision a policy sa použila;`, `ktorý source alebo merge-result SHA sa buildol;`, `aké build materials a toolchain vstúpili do procesu;`.
+- **CRITICAL** line 652, `outline-instead-of-explanation` — **33. Trigger-to-artifact traceability**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 669, `outline-instead-of-explanation` — **34. Failure semantics**: 9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 685, `empty-section` — **35. Diagnostický postup**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 711, `empty-section` — **36. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 745, `bare-bullet-items` — **37. Praktický checklist**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger types a authoritative run sú explicitné,`, `event payload sa validuje ako nedôveryhodný input,`, `trigger permissions zodpovedajú trust contextu,`, `webhooky majú signature, replay protection a deduplikáciu,`.
+- **CRITICAL** line 745, `outline-instead-of-explanation` — **37. Praktický checklist**: 18 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **HIGH** line 13, `single-sentence-concept` — **1. Mental model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 42, `list-heavy-section` — **2. Trigger ako vytvorenie pipeline runu**: 9 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 60, `list-heavy-section` — **3. Runtime context triggeru**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 79, `list-heavy-section` — **4. Event payload nie je automaticky dôveryhodný**: 14 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 105, `list-heavy-section` — **5. Push pipeline verzus merge-request pipeline**: 10 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 155, `bare-bullet-items` — **7. Supersession a cancellation**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `read-only validation možno agresívne cancelovať;`, `artifact publishing musí zabrániť prepísaniu immutable identity;`, `superseded result nesmie zostať authoritative pre nový SHA;`.
+- **HIGH** line 168, `single-sentence-concept` — **8. Path-based triggers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 202, `list-heavy-section` — **9. Scheduled pipelines**: 8 odrážok a iba 60 slov súvislého vysvetlenia.
+- **HIGH** line 219, `list-heavy-section` — **10. Manual dispatch**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 322, `single-sentence-concept` — **15. Build once, promote many**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 423, `list-heavy-section` — **20. Reports ako evidence artifacts**: 8 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 440, `single-sentence-concept` — **21. Artifact fan-out a fan-in**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 474, `single-sentence-concept` — **23. Artifact verzus cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 530, `single-sentence-concept` — **26. Cache poisoning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 554, `list-heavy-section` — **27. Cache write timing**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 569, `single-sentence-concept` — **28. Partial restore a validita**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 617, `single-sentence-concept` — **31. Container layer cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 652, `single-sentence-concept` — **33. Trigger-to-artifact traceability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 695, `single-sentence-concept` — **Artifact downstream chýba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 707, `single-sentence-concept` — **Cache sa nikdy nenájde**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 717, `single-sentence-concept` — **Mutable tag je jediná identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 721, `single-sentence-concept` — **Fork pipeline dostane protected cache write a secrets**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 725, `single-sentence-concept` — **Schedule nahrádza merge gates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 729, `single-sentence-concept` — **Manual production trigger prijíma branch name**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 733, `single-sentence-concept` — **Artifact retention je kratšia než rollback window**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 737, `single-sentence-concept` — **Cache write po failed build-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 741, `single-sentence-concept` — **Trigger result nie je viazaný na SHA**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 745, `single-sentence-concept` — **37. Praktický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 13, `thin-concept-section` — **1. Mental model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 60, `term-before-explanation` — **3. Runtime context triggeru**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SHA`, `identity`, `scope`
+- **HIGH** line 155, `thin-concept-section` — **7. Supersession a cancellation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `thin-concept-section` — **11. API a webhook triggers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 296, `thin-concept-section` — **14. Artifact state model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 322, `thin-concept-section` — **15. Build once, promote many**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 371, `thin-concept-section` — **17. Integrity, authenticity a provenance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 382, `thin-concept-section` — **18. Artifact repository alebo registry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 399, `thin-concept-section` — **19. Artifact retention**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 423, `term-before-explanation` — **20. Reports ako evidence artifacts**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `SCA`, `SBOM`, `policy`
+- **HIGH** line 440, `thin-concept-section` — **21. Artifact fan-out a fan-in**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 516, `thin-concept-section` — **25. Exact a fallback restore**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 530, `thin-concept-section` — **26. Cache poisoning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 569, `thin-concept-section` — **28. Partial restore a validita**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 588, `thin-concept-section` — **29. Cache invalidation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 604, `thin-concept-section` — **30. Dependency cache verzus dependency policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 617, `thin-concept-section` — **31. Container layer cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 652, `thin-concept-section` — **33. Trigger-to-artifact traceability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 669, `thin-concept-section` — **34. Failure semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 745, `thin-concept-section` — **37. Praktický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/06-gitlab/artifacts-and-cache.md`
 
@@ -19461,18 +19480,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4031 | 400 | 0 | 0 | 4431 |
+| `bare-bullet-items` | 4037 | 401 | 0 | 0 | 4438 |
 | `single-sentence-concept` | 0 | 4064 | 0 | 0 | 4064 |
-| `outline-instead-of-explanation` | 3852 | 0 | 0 | 0 | 3852 |
-| `thin-concept-section` | 0 | 3415 | 0 | 0 | 3415 |
-| `term-before-explanation` | 0 | 436 | 2510 | 0 | 2946 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1792 | 1792 |
-| `example-not-explicit` | 0 | 0 | 0 | 1704 | 1704 |
-| `short-concept-section` | 0 | 0 | 1195 | 0 | 1195 |
+| `outline-instead-of-explanation` | 3855 | 0 | 0 | 0 | 3855 |
+| `thin-concept-section` | 0 | 3413 | 0 | 0 | 3413 |
+| `term-before-explanation` | 0 | 438 | 2521 | 0 | 2959 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1804 | 1804 |
+| `example-not-explicit` | 0 | 0 | 0 | 1720 | 1720 |
+| `short-concept-section` | 0 | 0 | 1204 | 0 | 1204 |
 | `list-first-introduction` | 0 | 967 | 0 | 0 | 967 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 902 | 902 |
-| `empty-section` | 480 | 0 | 0 | 0 | 480 |
-| `list-heavy-section` | 0 | 435 | 0 | 0 | 435 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 913 | 913 |
+| `empty-section` | 481 | 0 | 0 | 0 | 481 |
+| `list-heavy-section` | 0 | 443 | 0 | 0 | 443 |
 | `no-prose-concept` | 331 | 0 | 0 | 0 | 331 |
 
 ## Required remediation pattern
