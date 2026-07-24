@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10617**
-- Total words: **465,494**
-- Findings: **23384** (critical 8128, high 9234, medium 3096, low 2926)
+- Audited conceptual sections: **10627**
+- Total words: **467,266**
+- Findings: **23407** (critical 8125, high 9232, medium 3096, low 2954)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -236,9 +236,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 319 | 11 | 23 | 2 | 0 | 816 | `docs/03-git-and-automation/merge-and-rebase.md` |
-| D | 302 | 13 | 14 | 7 | 7 | 1331 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
+| D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 278 | 12 | 14 | 5 | 3 | 904 | `docs/03-git-and-automation/git-object-model.md` |
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
@@ -832,33 +832,28 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/01-linux-and-systems/namespaces.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Súvisiace témy: containers, cgroups, capabilities, mounts, process iso`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý rieši**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process IDs,`, `mount tree,`, `network interfaces a routes,`, `hostname,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 159, `bare-bullet-items` — **8. Network namespace**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interfaces,`, `IP addresses,`, `routes,`, `neighbor table,`.
-- **CRITICAL** line 197, `bare-bullet-items` — **9. User namespace**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership bind-mounted súborov,`, `device access,`, `subordinate UID/GID ranges,`, `filesystem podporu ID mappingu,`.
-- **CRITICAL** line 226, `empty-section` — **10. UTS, IPC, cgroup a time namespaces**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 268, `bare-bullet-items` — **12. Namespaces nie sú kompletný sandbox**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource limits,`, `syscall filtering,`, `mandatory access control,`, `kernel vulnerabilities,`.
-- **CRITICAL** line 268, `outline-instead-of-explanation` — **12. Namespaces nie sú kompletný sandbox**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 310, `bare-bullet-items` — **14. Produkčný kontext**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pripraví root filesystem,`, `vytvorí alebo pripojí namespaces,`, `nastaví mounts a network,`, `aplikuje cgroups, capabilities a security policy,`.
-- **CRITICAL** line 310, `outline-instead-of-explanation` — **14. Produkčný kontext**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 341, `empty-section` — **16. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 129, `bare-bullet-items` — **8. PID 1 semantics v namespace**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reapovať child procesy,`, `preposielať alebo spracovať shutdown signals,`, `nenechať shell wrapper zadržať SIGTERM ,`, `ukončiť celý child tree pred runtime timeoutom.`.
+- **CRITICAL** line 232, `bare-bullet-items` — **14. Network namespace a DNS**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolver configuration v mount namespace,`, `network path k DNS serveru v network namespace,`, `NSS policy aplikácie,`, `prípadný sidecar alebo local DNS proxy.`.
+- **CRITICAL** line 344, `outline-instead-of-explanation` — **23. Namespaces a kontajner runtime**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 358, `bare-bullet-items` — **24. Namespace sharing v Kubernetes Pode**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sidecar komunikuje s aplikáciou cez localhost ,`, `všetky kontajnery zdieľajú Pod network policy identity,`, `process inventory závisí od PID namespace sharing nastavenia.`.
+- **CRITICAL** line 371, `bare-bullet-items` — **25. Namespaces nie sú kompletný sandbox**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `--privileged alebo široké capabilities,`, `host PID/network namespace sharing,`, `writable host filesystem bind mounts,`, `host device passthrough,`.
+- **CRITICAL** line 425, `outline-instead-of-explanation` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 441, `outline-instead-of-explanation` — **28. Troubleshooting: ownership bind mountu nesedí**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 453, `empty-section` — **29. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 32, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 77, `bare-bullet-items` — **5. Vytvorenie a pripojenie**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `clone() môže vytvoriť proces zároveň v nových namespaces,`, `setns() pripojí proces alebo thread k existujúcemu namespace.`.
-- **HIGH** line 103, `bare-bullet-items` — **6. PID namespace**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reaping orphaned child procesov,`, `spracovanie signalov,`, `lifecycle namespace.`.
-- **HIGH** line 159, `list-heavy-section` — **8. Network namespace**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 228, `single-sentence-concept` — **UTS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 294, `single-sentence-concept` — **13. Namespace lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 355, `single-sentence-concept` — **„Network namespace má iba inú IP“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `bare-bullet-items` — **15. User namespace**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `subordinate UID/GID ranges musia byť pridelené a spravované,`, `device a kernel-global operácie zostávajú obmedzené,`, `security policy musí rozumieť namespace mapovaniu.`.
+- **HIGH** line 371, `list-heavy-section` — **25. Namespaces nie sú kompletný sandbox**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 425, `single-sentence-concept` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 463, `single-sentence-concept` — **„Nový network namespace automaticky má internet“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. Problém, ktorý rieši**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 77, `thin-concept-section` — **5. Vytvorenie a pripojenie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 268, `thin-concept-section` — **12. Namespaces nie sú kompletný sandbox**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 294, `thin-concept-section` — **13. Namespace lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 310, `thin-concept-section` — **14. Produkčný kontext**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 344, `term-before-explanation` — **23. Namespaces a kontajner runtime**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CNI`, `UID`, `GID`, `LSM`, `PID`, `policy`, `resource`
+- **HIGH** line 344, `thin-concept-section` — **23. Namespaces a kontajner runtime**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 425, `term-before-explanation` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `NAT`, `NIC`, `policy`
+- **HIGH** line 425, `thin-concept-section` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 441, `thin-concept-section` — **28. Troubleshooting: ownership bind mountu nesedí**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/package-management.md`
 
@@ -18412,17 +18407,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4092 | 0 | 0 | 4092 |
-| `bare-bullet-items` | 3706 | 330 | 0 | 0 | 4036 |
+| `single-sentence-concept` | 0 | 4091 | 0 | 0 | 4091 |
+| `bare-bullet-items` | 3704 | 330 | 0 | 0 | 4034 |
 | `outline-instead-of-explanation` | 3635 | 0 | 0 | 0 | 3635 |
-| `thin-concept-section` | 0 | 3328 | 0 | 0 | 3328 |
-| `term-before-explanation` | 0 | 353 | 2226 | 0 | 2579 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1274 | 1274 |
-| `example-not-explicit` | 0 | 0 | 0 | 1111 | 1111 |
-| `list-first-introduction` | 0 | 913 | 0 | 0 | 913 |
-| `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 541 | 541 |
-| `empty-section` | 494 | 0 | 0 | 0 | 494 |
+| `thin-concept-section` | 0 | 3326 | 0 | 0 | 3326 |
+| `term-before-explanation` | 0 | 355 | 2227 | 0 | 2582 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1283 | 1283 |
+| `example-not-explicit` | 0 | 0 | 0 | 1119 | 1119 |
+| `list-first-introduction` | 0 | 912 | 0 | 0 | 912 |
+| `short-concept-section` | 0 | 0 | 869 | 0 | 869 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 552 | 552 |
+| `empty-section` | 493 | 0 | 0 | 0 | 493 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 218 | 0 | 0 | 218 |
 

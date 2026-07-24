@@ -408,16 +408,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "title": "Linux Namespaces",
-      "words": 1331,
-      "headings": 28,
-      "sections": 28,
-      "findings": 41,
-      "critical": 13,
-      "high": 14,
+      "title": "Linux namespaces",
+      "words": 3103,
+      "headings": 38,
+      "sections": 38,
+      "findings": 64,
+      "critical": 10,
+      "high": 12,
       "medium": 7,
-      "low": 7,
-      "score": 302,
+      "low": 35,
+      "score": 287,
       "grade": "D"
     },
     {
@@ -16519,10 +16519,10 @@
       "path": "docs/01-linux-and-systems/namespaces.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Súvisiace témy: containers, cgroups, capabilities, mounts, process iso`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
@@ -16544,62 +16544,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process IDs,`, `mount tree,`, `network interfaces a routes,`, `hostname,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IPC`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "3. Mentálny model",
-      "line": 32,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "4. Hlavné typy namespaces",
-      "line": 48,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "4. Hlavné typy namespaces",
-      "line": 48,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -16607,17 +16562,251 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "5. Vytvorenie a pripojenie",
-      "line": 77,
+      "section": "3. Namespace set procesu",
+      "line": 38,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "4. Hlavné typy namespaces",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "5. Vytvorenie a pripojenie namespaceov",
+      "line": 72,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "5. Vytvorenie a pripojenie namespaceov",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "5. Vytvorenie a pripojenie namespaceov",
+      "line": 72,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "6. Namespace nesting",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "6. Namespace nesting",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "7. PID namespace",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "8. PID 1 semantics v namespace",
+      "line": 129,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reapovať child procesy,`, `preposielať alebo spracovať shutdown signals,`, `nenechať shell wrapper zadržať SIGTERM ,`, `ukončiť celý child tree pred runtime timeoutom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "8. PID 1 semantics v namespace",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "11. Root filesystem a pivot root",
+      "line": 177,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "12. Network namespace",
+      "line": 195,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "13. Veth pair, bridge a packet path",
+      "line": 209,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "14. Network namespace a DNS",
+      "line": 232,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolver configuration v mount namespace,`, `network path k DNS serveru v network namespace,`, `NSS policy aplikácie,`, `prípadný sidecar alebo local DNS proxy.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "14. Network namespace a DNS",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "14. Network namespace a DNS",
+      "line": 232,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `NSS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "15. User namespace",
+      "line": 245,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `clone() môže vytvoriť proces zároveň v nových namespaces,`, `setns() pripojí proces alebo thread k existujúcemu namespace.`.",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `subordinate UID/GID ranges musia byť pridelené a spravované,`, `device a kernel-global operácie zostávajú obmedzené,`, `security policy musí rozumieť namespace mapovaniu.`.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "5. Vytvorenie a pripojenie",
-      "line": 77,
+      "section": "15. User namespace",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "15. User namespace",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "16. Subordinate UID/GID ranges",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "17. UTS namespace",
+      "line": 284,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "18. IPC namespace",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "18. IPC namespace",
+      "line": 292,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "20. Time namespace",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "20. Time namespace",
+      "line": 308,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "21. Namespace lifecycle",
+      "line": 316,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "23. Namespaces a kontajner runtime",
+      "line": 344,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "23. Namespaces a kontajner runtime",
+      "line": 344,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -16625,8 +16814,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "5. Vytvorenie a pripojenie",
-      "line": 77,
+      "section": "23. Namespaces a kontajner runtime",
+      "line": 344,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16634,62 +16823,71 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "6. PID namespace",
-      "line": 103,
+      "section": "23. Namespaces a kontajner runtime",
+      "line": 344,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "23. Namespaces a kontajner runtime",
+      "line": 344,
       "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CNI`, `UID`, `GID`, `LSM`, `PID`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "24. Namespace sharing v Kubernetes Pode",
+      "line": 358,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reaping orphaned child procesov,`, `spracovanie signalov,`, `lifecycle namespace.`.",
-      "score": 8
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sidecar komunikuje s aplikáciou cez localhost ,`, `všetky kontajnery zdieľajú Pod network policy identity,`, `process inventory závisí od PID namespace sharing nastavenia.`.",
+      "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "6. PID namespace",
-      "line": 103,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "6. PID namespace",
-      "line": 103,
+      "section": "24. Namespace sharing v Kubernetes Pode",
+      "line": 358,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "7. Mount namespace",
-      "line": 134,
+      "section": "24. Namespace sharing v Kubernetes Pode",
+      "line": 358,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "8. Network namespace",
-      "line": 159,
+      "section": "25. Namespaces nie sú kompletný sandbox",
+      "line": 371,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "8. Network namespace",
-      "line": 159,
+      "section": "25. Namespaces nie sú kompletný sandbox",
+      "line": 371,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interfaces,`, `IP addresses,`, `routes,`, `neighbor table,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `--privileged alebo široké capabilities,`, `host PID/network namespace sharing,`, `writable host filesystem bind mounts,`, `host device passthrough,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "8. Network namespace",
-      "line": 159,
+      "section": "25. Namespaces nie sú kompletný sandbox",
+      "line": 371,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -16697,26 +16895,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "8. Network namespace",
-      "line": 159,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "9. User namespace",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership bind-mounted súborov,`, `device access,`, `subordinate UID/GID ranges,`, `filesystem podporu ID mappingu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "9. User namespace",
-      "line": 197,
+      "section": "25. Namespaces nie sú kompletný sandbox",
+      "line": 371,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16724,8 +16904,71 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "9. User namespace",
-      "line": 197,
+      "section": "25. Namespaces nie sú kompletný sandbox",
+      "line": 371,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "26. Diagnostika namespace membership",
+      "line": 399,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -16733,107 +16976,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "10. UTS, IPC, cgroup a time namespaces",
-      "line": 226,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "UTS",
-      "line": 228,
+      "section": "27. Troubleshooting: port existuje v kontajneri, nie na hoste",
+      "line": 425,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "12. Namespaces nie sú kompletný sandbox",
-      "line": 268,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "12. Namespaces nie sú kompletný sandbox",
-      "line": 268,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource limits,`, `syscall filtering,`, `mandatory access control,`, `kernel vulnerabilities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "12. Namespaces nie sú kompletný sandbox",
-      "line": 268,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "13. Namespace lifecycle",
-      "line": 294,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "13. Namespace lifecycle",
-      "line": 294,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "14. Produkčný kontext",
-      "line": 310,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "14. Produkčný kontext",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pripraví root filesystem,`, `vytvorí alebo pripojí namespaces,`, `nastaví mounts a network,`, `aplikuje cgroups, capabilities a security policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "14. Produkčný kontext",
-      "line": 310,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "14. Produkčný kontext",
-      "line": 310,
-      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `NAT`, `NIC`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "15. Troubleshooting scenár",
-      "line": 323,
+      "section": "28. Troubleshooting: ownership bind mountu nesedí",
+      "line": 441,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "28. Troubleshooting: ownership bind mountu nesedí",
+      "line": 441,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "28. Troubleshooting: ownership bind mountu nesedí",
+      "line": 441,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16841,8 +17012,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "16. Časté omyly",
-      "line": 341,
+      "section": "28. Troubleshooting: ownership bind mountu nesedí",
+      "line": 441,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "28. Troubleshooting: ownership bind mountu nesedí",
+      "line": 441,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "28. Troubleshooting: ownership bind mountu nesedí",
+      "line": 441,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "29. Časté omyly",
+      "line": 453,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -16850,12 +17048,21 @@
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
-      "section": "„Network namespace má iba inú IP“",
-      "line": 355,
+      "section": "„Nový network namespace automaticky má internet“",
+      "line": 463,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/namespaces.md",
+      "section": "31. Zhrnutie",
+      "line": 494,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
