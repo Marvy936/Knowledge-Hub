@@ -10,120 +10,209 @@
 
 ## 1. Cieľ
 
-Network troubleshooting je systematické zužovanie failure scope od používateľského symptómu po konkrétnu vrstvu, component a mechanizmus zlyhania.
+Network troubleshooting je systematické zužovanie failure scope od používateľského symptómu po konkrétny flow, observation point, vrstvu a mechanizmus zlyhania.
 
-Cieľom nie je náhodne skúšať príkazy, ale vytvárať a testovať hypotézy s čo najnižším rizikom zmeny systému.
+Cieľom nie je náhodne spúšťať príkazy. Každý krok má:
 
-## 2. Základný princíp
+1. testovať konkrétnu hypotézu;
+2. rozlišovať aspoň dva možné failure modes;
+3. používať autoritatívny observation point;
+4. minimalizovať zmenu systému;
+5. zachovať dôkazy;
+6. viesť k overiteľnej náprave.
+
+## 2. Základný metodický model
 
 ```text
-symptóm
+používateľský symptóm
   ↓
-scope
+scope a čas
   ↓
-vrstva
+flow identity
+  ↓
+end-to-end path
   ↓
 hypotéza
   ↓
-dôkaz
+diskriminačný dôkaz
   ↓
-náprava
+root cause mechanizmus
+  ↓
+najmenšia bezpečná náprava
   ↓
 overenie používateľského výsledku
 ```
 
-Pred každým zásahom si polož:
+Troubleshooting sa nesmie skončiť vetou „sieť nefungovala“. Musí vysvetliť, ktorý packet, request alebo state zlyhal, kde a prečo.
 
-- Čo presne nefunguje?
-- Komu a odkedy?
-- Je problém trvalý alebo prerušovaný?
-- Čo sa zmenilo?
-- Ktorý zdravý porovnávací prípad existuje?
+## 3. Začni používateľským symptómom
 
-## 3. Scope
+Namiesto:
 
-Rozdeľ incident podľa:
+```text
+API je pomalé
+```
 
-- jedného klienta vs. všetkých klientov,
-- jednej IP family,
-- subnetu, zóny alebo regiónu,
-- jedného backendu,
-- konkrétneho hostname/pathu,
-- jednej verzie aplikácie,
-- nových vs. existujúcich connections,
-- interného vs. externého prístupu.
+definuj:
 
-Scope často odhalí failure domain skôr než hlboký packet analysis.
+```text
+Klienti z pobočky A od 10:14 nedokončia HTTPS POST
+na api.example.com/payments do 10 sekúnd.
+GET health endpoint funguje. Klienti z internetu nie sú postihnutí.
+```
 
-## 4. End-to-end path
+Zaznamenaj:
 
-Pre typický HTTPS request:
+- presný hostname, IP alebo URL;
+- protocol a port;
+- method alebo aplikačnú operáciu;
+- source identity a location;
+- čas vrátane timezone;
+- očakávaný výsledok;
+- skutočný error alebo timeout;
+- frequency a duration;
+- či problém ovplyvňuje nové aj existujúce connections;
+- čo sa zmenilo tesne pred incidentom.
+
+Bez presného symptómu nemožno vybrať správny observation point.
+
+## 4. Scope ako prvý silný filter
+
+Rozdeľ incident podľa nezávislých dimenzií:
+
+- jeden client verzus všetci;
+- jeden subnet, VLAN, Availability Zone alebo región;
+- interný verzus externý prístup;
+- IPv4 verzus IPv6;
+- jeden resolver alebo DNS view;
+- jedna destination IP;
+- jeden load-balancer backend;
+- jedna application version;
+- jedna route/path;
+- nový flow verzus reused connection;
+- malé payloady verzus veľké;
+- jedna identity alebo tenant;
+- konkrétny časový pattern.
+
+Scope často priamo ukáže failure domain. Ak každý štvrtý request zlyhá, hypotéza „jeden zo štyroch backendov“ je silnejšia než všeobecné „Internet je nestabilný“.
+
+## 5. Flow identity
+
+Pred capture alebo firewall analýzou identifikuj flow:
+
+```text
+protocol
+source IP
+source port
+original destination IP
+original destination port
+translated tuple, ak existuje NAT
+hostname/SNI/HTTP authority
+request ID
+čas
+network namespace/VRF
+```
+
+TCP flow sa typicky identifikuje päťprvkom. Proxy vytvára nový flow, takže client → proxy a proxy → upstream majú odlišné tuples a lifecycle.
+
+Pri NAT existuje original aj translated tuple. Pri HTTP/2 môže jedna TCP connection obsahovať viac request streams. Pri WebSocket môže jeden HTTP handshake viesť k dlhodobému message channelu.
+
+## 6. End-to-end HTTPS path
 
 ```text
 client application
-→ local resolver/cache
-→ recursive DNS
-→ destination IP
-→ local route/source address
-→ neighbor/gateway
-→ host/network firewall
-→ NAT/middleboxes
-→ load balancer/proxy
-→ TLS handshake
-→ HTTP routing
-→ backend listener
-→ application/dependency
-→ response return path
+  ↓ local application cache
+OS/NSS stub resolver
+  ↓ recursive DNS/cache
+DNS answer a address-family selection
+  ↓ local socket/connect
+routing rule a source-address selection
+  ↓ ARP/NDP k next hopu
+local firewall / endpoint policy
+  ↓ network path, ACL, NAT, tunnels
+edge load balancer
+  ↓ TLS SNI/ALPN/certificate
+reverse proxy alebo gateway
+  ↓ route, pool, retry, timeout
+backend listener
+  ↓ application processing
+backend dependencies
+  ↓ response cez všetky vrstvy späť
+client interpretation a business result
 ```
 
-Každý krok má iné autoritatívne dôkazy.
+Každý krok má vlastný state a môže generovať podobný používateľský timeout.
 
-## 5. Vrstevná diagnostika
+## 7. Observation point musí zodpovedať otázke
 
-### Application
+Príklady:
 
-- request/response semantics,
-- status codes,
-- authentication/authorization,
-- business result,
-- application logs a traces.
+- „Akú IP vybrala aplikácia?“ — application/runtime resolver log alebo `getent`, nie iba verejný `dig`.
+- „Akú route vybral kernel?“ — `ip route get` s konkrétnym source/mark/namespace.
+- „Prišiel SYN na server?“ — packet capture na správnom server interface/namespace.
+- „Ktoré firewall pravidlo sa zhodlo?“ — ruleset counters/trace na enforcement point-e.
+- „Ktorý backend vybral LB?“ — LB access log alebo response debug metadata.
+- „Kde vznikol 504?“ — proxy/gateway log s request ID.
+- „Spracoval server payment?“ — business database/event audit, nie iba client timeout.
 
-### TLS
+Jeden observation point nikdy nie je automaticky autoritatívny pre celý distributed path.
 
-- SNI,
-- certificate chain,
-- hostname,
-- protocol/cipher,
-- ALPN,
-- trust store.
+## 8. Hypotéza a diskriminačný test
 
-### Transport
+Dobrá hypotéza je falzifikovateľná:
 
-- listening socket,
-- handshake,
-- TCP states,
-- resets,
-- retransmissions,
-- port exhaustion.
+```text
+Hypotéza:
+Klient preferuje chybnú IPv6 AAAA adresu.
 
-### Network
+Predikcia:
+curl -6 zlyhá, curl -4 uspeje;
+packet capture ukáže IPv6 SYN bez odpovede;
+DNS vráti obe families.
+```
 
-- IP address,
-- route,
-- source selection,
-- MTU,
-- forward/return path.
+Slabá hypotéza:
 
-### Link
+```text
+Asi firewall.
+```
 
-- interface/carrier,
-- VLAN,
-- ARP/NDP,
-- switch port.
+Pred každým testom si napíš:
 
-Vrstvy používaj ako mapu, nie ako rigidný checklist. Začni tam, kde je najlacnejší diskriminačný test.
+- čo očakávam, ak je hypotéza pravdivá;
+- čo očakávam, ak je nepravdivá;
+- ktorý výsledok zvolí ďalšiu vetvu;
+- či test mení systém;
+- aký má blast radius.
 
-## 6. Minimálna klientská diagnostika
+## 9. Bottom-up, top-down a divide-and-conquer
+
+### Bottom-up
+
+Začni linkom a pokračuj nahor. Vhodné, keď host nemá základnú konektivitu alebo scope nie je jasný.
+
+```text
+interface → neighbor → route → transport → TLS → HTTP
+```
+
+### Top-down
+
+Začni presným user requestom a postupne izoluj failure phase. Vhodné pri dobrej application observability.
+
+```text
+business result → HTTP → TLS → transport → network
+```
+
+### Divide-and-conquer
+
+Testuj strednú vrstvu s vysokou diskriminačnou hodnotou. Napríklad zisti, či prebehol TCP handshake:
+
+- ak nie, pokračuj nižšie;
+- ak áno, pokračuj TLS/HTTP.
+
+Neexistuje povinnosť vždy začať Layer 1. Začni testom s najvyššou informačnou hodnotou a najnižším rizikom.
+
+## 10. Minimálny klientský snapshot
 
 ```bash
 getent ahosts api.example.com
@@ -134,144 +223,465 @@ curl -v --connect-timeout 5 https://api.example.com/path
 openssl s_client -connect api.example.com:443 -servername api.example.com
 ```
 
-Zaznamenaj:
+Zachyť:
 
-- resolved IPs a family,
-- zvolený source address a interface,
-- connection timing,
-- TLS certificate/SNI/ALPN,
-- HTTP status a headers,
-- presný čas testu.
+- exact command a environment;
+- timestamp;
+- DNS answers a TTL, ak relevantné;
+- selected IP family;
+- source IP a interface;
+- connect time;
+- TLS SNI, certificate a ALPN;
+- remote IP z reálnej connection;
+- HTTP status, headers a redirect chain;
+- request ID;
+- error text bez odstránenia podstatného detailu.
 
-## 7. Server-side diagnostika
+Snapshot má byť reprodukovateľný. „Mne to nejde“ nie je diagnostický artefakt.
+
+## 11. Minimálny server snapshot
 
 ```bash
 ip -br addr
-ip route
+ip rule
+ip route show table all
 ss -lntup
 systemctl status <service>
-journalctl -u <service> --since '10 min ago'
+journalctl -u <service> --since '10 minutes ago'
 sudo nft list ruleset -a
 sudo tcpdump -ni any host <client-ip> and port <port>
 ```
 
 Over:
 
-- proces existuje,
-- počúva na správnej adrese a porte,
-- je v správnom namespace,
-- firewall rule sa zhoduje,
-- request prichádza,
-- response odchádza,
-- aplikácia request zaznamená.
+- proces a unit lifecycle;
+- listener address, port a protocol;
+- network namespace;
+- route späť ku klientovi;
+- firewall counters;
+- príchod request packetov;
+- odchod responses;
+- application access/error log;
+- cgroup pressure, ak služba nestíha;
+- proxy/backend connection, ak server nie je origin.
 
-## 8. DNS troubleshooting
+## 12. DNS troubleshooting lifecycle
 
-Postup:
+### Krok 1: reprodukuj rovnakú resolution path
 
-1. over search domain a presný query name,
-2. porovnaj A a AAAA,
-3. testuj cez system resolver (`getent`),
-4. testuj recursive resolver (`dig`),
-5. skontroluj TTL a negative cache,
-6. over authoritative data,
-7. porovnaj interný a externý view,
-8. over DNSSEC, ak sa validuje,
-9. koreluj destination IP s infraštruktúrou.
+Aplikácia môže používať NSS, vlastný runtime resolver, sidecar alebo cache. `dig` testuje DNS protocol, nie nevyhnutne aplikačnú path.
 
-Rozlíš:
+```bash
+getent ahosts api.example.com
+resolvectl query api.example.com
+dig api.example.com A
+dig api.example.com AAAA
+```
+
+### Krok 2: klasifikuj výsledok
+
+- timeout — resolver alebo network path neodpovedá;
+- `NXDOMAIN` — meno neexistuje podľa daného view;
+- NODATA — meno existuje, ale nie daný record type;
+- `SERVFAIL` — recursion, authority alebo DNSSEC validation zlyhala;
+- nesprávna IP — data alebo split-view problém;
+- správna IP, connection zlyhá — pokračuj routingom.
+
+### Krok 3: porovnaj vrstvy
+
+- local hosts/NSS;
+- stub/cache;
+- configured recursive resolver;
+- iný resolver iba ako comparison;
+- authoritative server;
+- interný verzus externý view.
+
+### Krok 4: cache a čas
+
+Skontroluj TTL, negative caching, application cache a to, či zmena DNS prebehla pred alebo po vytvorení cache entry.
+
+### Krok 5: transport a validation
+
+Over UDP aj TCP port 53, EDNS, fragmentation/MTU a DNSSEC chain.
+
+## 13. Address-family selection
+
+Dual-stack klient môže zlyhávať iba cez jednu family.
+
+```bash
+curl -4 -v https://api.example.com/
+curl -6 -v https://api.example.com/
+ip -4 route get <ipv4>
+ip -6 route get <ipv6>
+```
+
+Over:
+
+- A a AAAA;
+- IPv6 default route;
+- firewall rules pre obe families;
+- listener bind;
+- ICMPv6/PMTUD;
+- source-address selection;
+- Happy Eyeballs behavior;
+- rozdielne backendy za IPv4/IPv6 endpointom.
+
+„IPv4 funguje“ neznamená, že služba funguje pre clienta, ktorý vybral IPv6.
+
+## 14. Routing a source selection
+
+```bash
+ip rule show
+ip route show table all
+ip route get <destination>
+ip route get <destination> from <source>
+```
+
+Kontroluj:
+
+- longest-prefix match;
+- policy rules a priority;
+- routing table;
+- source-address selection;
+- next hop a interface;
+- namespace alebo VRF;
+- packet mark;
+- connected route;
+- default route;
+- explicit blackhole/unreachable route;
+- reverse path.
+
+Routing table je decision state, nie dôkaz doručenia. Next hop môže byť nedostupný a return path môže byť odlišný.
+
+## 15. Neighbor a L2 troubleshooting
+
+```bash
+ip -br link
+ip -s link show dev <iface>
+ip neigh show dev <iface>
+sudo arping -I <iface> <ipv4-next-hop>
+sudo tcpdump -eni <iface> 'arp or icmp6'
+```
+
+Otázky:
+
+- je interface administratívne up;
+- má carrier;
+- je správny VLAN context;
+- odchádza ARP/NDP request;
+- prichádza reply;
+- odpovedá správna MAC;
+- neexistuje duplicate IP;
+- neflappuje MAC medzi ports;
+- nie sú RX/TX errors alebo drops;
+- nie je endpoint v inom network namespace.
+
+Route k gateway neznamená úspešnú neighbor resolution.
+
+## 16. Forward a return path
+
+Každá obojsmerná komunikácia potrebuje dve route decisions:
 
 ```text
-DNS query zlyhala
-DNS vrátil nesprávnu odpoveď
-DNS je správny, ale destination nefunguje
+client → server
+server → client
 ```
 
-## 9. Routing troubleshooting
+Forward path môže fungovať, ale response môže:
+
+- ísť cez inú stateful firewall;
+- obísť NAT mapping;
+- použiť nesprávny source IP;
+- naraziť na chýbajúcu route;
+- byť zahodená reverse-path filteringom;
+- vstúpiť do iného tunnelu/VRF.
+
+Pri asymmetric incidentoch rob capture na oboch stranách a na relevantných middleboxes. Absencia response u clienta nevysvetľuje, či ju server nevytvoril alebo sa stratila späť.
+
+## 17. TCP handshake klasifikácia
+
+### SYN bez odpovede
+
+Možnosti:
+
+- client packet neopustil host;
+- route/neighbor failure;
+- firewall drop;
+- remote path outage;
+- server packet neprijal;
+- SYN-ACK sa stratil na return path;
+- backlog/SYN protection.
+
+### SYN → RST
+
+Aktívne odmietnutie:
+
+- nič nepočúva;
+- listener je na inej adrese;
+- firewall reject;
+- proxy/LB nemá route/target;
+- packet patrí neexistujúcemu flowu.
+
+### Handshake uspeje
+
+Transportná cesta existuje. Pokračuj TLS alebo application protocol. Handshake neoveruje business health.
+
+### Opakované SYN/SYN-ACK
+
+Jedna strana nedostáva nasledujúci packet. Skontroluj asymetriu, firewall state a capture na oboch smeroch.
+
+## 18. TCP state a pressure
 
 ```bash
-ip route get <destination>
-ip rule
-ip route show table all
+ss -tan
+ss -ti
+ss -s
+nstat
+```
+
+Dôležité patterns:
+
+- veľa `SYN-SENT` — connect attempts nedokončujú handshake;
+- veľa `SYN-RECV` — incomplete handshake/backlog pressure;
+- veľa `CLOSE-WAIT` — lokálna aplikácia nezatvára po peer FIN;
+- veľa `TIME-WAIT` — vysoký connection churn; posúď port capacity;
+- retransmissions — loss, congestion alebo severe delay;
+- zero window — receiver/application nestíha čítať;
+- listen queue overflow — proces počúva, ale nestíha accept.
+
+Nemeň TCP sysctls pred potvrdením konkrétneho capacity bottlenecku.
+
+## 19. UDP troubleshooting
+
+UDP nemá transportný handshake. Absencia response môže znamenať:
+
+- request sa stratil;
+- server nepočúva;
+- firewall ho zahodil;
+- application ho odmietla bez odpovede;
+- response sa stratila;
+- NAT mapping expiroval;
+- datagram fragmentácia zlyhala;
+- receiver buffer overflow;
+- protocol transaction ID nesedel.
+
+Potrebný postup:
+
+1. zachyť request na senderi;
+2. zachyť request na receiveri;
+3. over socket/bind;
+4. over application logs;
+5. zachyť response;
+6. over return path;
+7. skontroluj ICMP errors;
+8. analyzuj aplikačný timeout/retry model.
+
+## 20. Firewall troubleshooting
+
+Firewall analýza musí určiť:
+
+- ktorý enforcement point;
+- packet direction;
+- hook/chain;
+- original alebo translated tuple;
+- conntrack state;
+- matching rule;
+- verdict;
+- counter/log evidence.
+
+```bash
+sudo nft list ruleset -a
+sudo conntrack -L
+sudo tcpdump -ni any host <address> and port <port>
+```
+
+Dôležité:
+
+- INPUT nie je FORWARD;
+- security group nie je host firewall;
+- stateless ACL potrebuje return rules;
+- established conntrack state nie je to isté ako TCP `ESTABLISHED`;
+- policy zmena môže ovplyvniť iba nové flows;
+- IPv4 a IPv6 rules môžu byť odlišné;
+- drop vedie k timeoutu, reject k rýchlej chybe.
+
+Nevypínaj firewall ako prvý test. Použi counters, tracing, dočasné úzke pravidlo alebo controlled source.
+
+## 21. NAT troubleshooting
+
+Sleduj celý translation lifecycle:
+
+```text
+inside original packet
+  ↓ rule match
+translated egress packet
+  ↓ remote response
+return packet k translation pointu
+  ↓ conntrack lookup
+reverse translation
+  ↓ inside delivery
+```
+
+Over:
+
+1. client route na NAT gateway;
+2. packet na inside interface;
+3. forwarding;
+4. NAT rule match;
+5. translated source/destination;
+6. conntrack entry;
+7. egress packet;
+8. remote response;
+9. symmetric return cez správny NAT node;
+10. reverse translation;
+11. port/table capacity.
+
+Existujúce mappings môžu fungovať, kým nové zlyhávajú pre source-port alebo conntrack exhaustion.
+
+## 22. MTU a Path MTU Discovery
+
+Silný pattern:
+
+```text
+small request works
+large request stalls
+```
+
+alebo:
+
+- TCP handshake funguje;
+- malé TLS/HTTP messages fungujú;
+- veľký certificate chain, upload alebo response timeoutuje;
+- problém existuje iba cez VPN/overlay.
+
+Nástroje:
+
+```bash
 tracepath <destination>
+ip link show
+ping -M do -s <size> <destination>
+```
+
+Otázky:
+
+- aké MTU má každý segment/tunnel;
+- prichádza ICMP Fragmentation Needed alebo Packet Too Big;
+- neblokuje ho firewall;
+- funguje MSS clamping;
+- capture je pred alebo po offloade;
+- ide o IPv4 fragmentáciu alebo IPv6 source PMTUD.
+
+Zníženie MTU môže potvrdiť hypotézu, ale permanentný fix má opraviť path alebo PMTUD policy.
+
+## 23. TLS troubleshooting
+
+```bash
+openssl s_client \
+  -connect api.example.com:443 \
+  -servername api.example.com \
+  -showcerts
+
+curl -v https://api.example.com/
 ```
 
 Kontroluj:
 
-- longest-prefix match,
-- policy routing,
-- source address selection,
-- default gateway,
-- VRF/namespace,
-- forward aj return path,
-- asymmetric routing a stateful devices.
-
-Traceroute ukazuje reakciu na probes, nie úplnú pravdu o aplikačnom flow.
-
-## 10. Transport troubleshooting
-
-TCP:
-
-```bash
-ss -tan state syn-sent
-ss -tan state established
-ss -tan state time-wait
-ss -tan state close-wait
-```
-
-Interpretácia packet capture:
-
-- SYN bez odpovede: drop, route, remote host alebo return path,
-- SYN → RST: nič nepočúva alebo active reject,
-- handshake → immediate reset: application/proxy protocol failure,
-- retransmissions: loss, congestion alebo receiver behavior,
-- zero window: receiver backpressure.
-
-UDP vyžaduje aplikačný request/response kontext; absencia odpovede je nejednoznačná.
-
-## 11. TLS troubleshooting
-
-```bash
-openssl s_client -connect host:443 -servername host -showcerts
-curl -vk https://host/
-```
-
-`-k` používaj iba na diagnostické rozlíšenie trust failure od ostatných vrstiev, nie ako produkčnú nápravu.
-
-Kontroluj:
-
-- presented chain,
-- SAN,
-- validity,
-- issuer trust,
-- SNI,
-- ALPN,
-- protocol/cipher,
+- destination IP;
+- SNI;
+- selected TLS version;
+- cipher/group/signature;
+- presented chain;
+- SAN;
+- validity a čas;
+- client trust store;
+- EKU/constraints;
+- revocation policy;
+- ALPN;
 - client certificate pri mTLS.
 
-## 12. HTTP a proxy troubleshooting
+`curl -k` môže ako kontrolovaný experiment ukázať, že jediným blockerom je trust validation. Nie je to náprava a nesmie sa preniesť do production configu.
+
+## 24. HTTP a proxy troubleshooting
 
 ```bash
-curl -v https://host/path
-curl -H 'Host: expected.example' http://<ip>/path
-curl --resolve expected.example:443:<ip> https://expected.example/path
+curl -v https://api.example.com/path
+curl --resolve api.example.com:443:<ip> -v https://api.example.com/path
+curl --http1.1 -v https://api.example.com/path
+curl --http2 -v https://api.example.com/path
 ```
 
-`--resolve` umožní testovať konkrétnu IP pri zachovaní SNI a Host.
+`--resolve` zachová hostname pre SNI a HTTP authority, ale použije konkrétnu IP. Je vhodný na odlíšenie DNS steeringu od endpoint behavior.
+
+Over:
+
+- method, host, path a query;
+- redirect chain;
+- protocol version;
+- proxy route;
+- forwarding headers;
+- body limits/framing;
+- downstream a upstream timeout;
+- retry;
+- cache hit/miss;
+- status source;
+- request ID;
+- origin business result.
+
+Test originu priamo je iba comparison. Môže obísť authentication, WAF, rewrite alebo client identity, preto nepreukazuje, že proxy path je chybná bez ďalších dôkazov.
+
+## 25. `502`, `503` a `504`
+
+### `502 Bad Gateway`
+
+Proxy nedostala platnú upstream response. Hľadaj connection reset, protocol mismatch, malformed response, TLS failure k upstreamu alebo chybný target.
+
+### `503 Service Unavailable`
+
+Môže znamenať žiadny healthy backend, overload, maintenance, circuit breaker alebo explicitný load shedding.
+
+### `504 Gateway Timeout`
+
+Proxy nedostala upstream výsledok v budgete. Upstream mohol pokračovať a operáciu dokončiť po client timeout-e.
+
+Status mapovanie je implementation-specific. Koreluj proxy error reason, upstream timings a backend logs.
+
+## 26. Load balancer troubleshooting
+
+Ak zlyháva časť requests:
+
+1. zisti selected frontend IP a backend;
+2. rozdeľ výsledky podľa backendu/zóny/version;
+3. porovnaj health-check request s reálnym requestom;
+4. over weights a selection algorithm;
+5. skontroluj affinity alebo connection reuse;
+6. odlíš per-connection a per-request balancing;
+7. over draining/slow start;
+8. sleduj outlier ejection;
+9. porovnaj backend capacity;
+10. skontroluj retry amplification.
+
+Pattern „každý tretí request“ nemusí byť presne round robin; pri persistent connections môže jedna connection držať chybný backend dlhšie.
+
+## 27. Long-lived connections
+
+WebSocket, SSE, streaming alebo database connections majú odlišný failure model než krátke requests.
 
 Kontroluj:
 
-- redirect chain,
-- proxy-generated vs. origin status,
-- Host/path routing,
-- forwarding headers,
-- body size limits,
-- buffering,
-- connect/upstream/idle timeout,
-- retries,
-- cache.
+- idle timeout na každom middleboxe;
+- heartbeat;
+- maximum connection lifetime;
+- token expiry;
+- NAT timeout;
+- server draining;
+- reconnect policy;
+- per-client buffer;
+- half-open detection;
+- state recovery po reconnecte.
 
-## 13. Packet capture
+Pravidelné odpojenie po presne rovnakom intervale silno ukazuje timeout alebo lease/lifetime policy.
+
+## 28. Packet capture ako experiment
 
 ```bash
 sudo tcpdump -ni any host 198.51.100.25 and port 443
@@ -280,285 +690,396 @@ sudo tcpdump -ni eth0 -s 0 -w incident.pcap
 
 Pred capture definuj otázku:
 
-- Prichádza SYN?
-- Odchádza SYN-ACK?
-- Kde vzniká RST?
-- Sú retransmissions?
-- Aký MTU/fragmentation behavior vidím?
-- Odpovedá DNS server?
+- odchádza DNS query;
+- prichádza reply;
+- odchádza SYN;
+- prichádza SYN-ACK alebo RST;
+- kde vzniká retransmission;
+- aký tuple existuje pred/po NAT;
+- prichádza ICMP error;
+- odchádza server response;
+- kde sa flow zastaví.
 
-Capture na nesprávnom interface alebo namespace môže vytvoriť falošný záver.
+Capture scope:
 
-## 14. Observation points
+- správny interface;
+- správny network namespace;
+- pre/post tunnel;
+- inside/outside NAT;
+- client aj server;
+- dostatočný snap length;
+- časová synchronizácia.
 
-Pri proxy chain-e:
+Packet capture môže obsahovať citlivé dáta. Minimalizuj filter, access a retention.
+
+## 29. Offloading a capture artefakty
+
+Host capture môže ukazovať:
+
+- veľké logical segments pre TSO/GSO;
+- checksum ako neplatný pred hardware offloadom;
+- spojené receive buffers pri GRO;
+- packet na virtual interface, nie fyzickom wire;
+- duplicate-looking observation na `any` alebo bridge/veth paths.
+
+Neinterpretuj hostový pcap ako presnú wire reprezentáciu bez znalosti observation pointu a offloadov.
+
+## 30. Časová korelácia
+
+Distributed flow môže mať logs na:
 
 ```text
-client capture/log
-edge load balancer log
-reverse proxy access/error log
-service mesh proxy log
-backend application log/trace
-server capture
+client
+DNS resolver
+edge load balancer
+WAF
+reverse proxy
+service mesh
+backend
+identity provider
+dependency
 ```
 
-Hľadaj spoločný request ID, source identity, timestamp a upstream target.
+Korelácia potrebuje:
 
-Bez časovej synchronizácie sa korelácia výrazne komplikuje.
+- synchronizované clocks;
+- timestamp s timezone;
+- request/trace ID;
+- client identity;
+- upstream target;
+- selected backend;
+- status source;
+- duration fázy.
 
-## 15. MTU a PMTUD
+Clock skew môže vytvoriť falošný záver, že response vznikla pred requestom alebo že timeout nastal na nesprávnej vrstve.
 
-Typický symptóm:
+## 31. Intermittent failures
 
-- malé requests fungujú,
-- TLS handshake alebo veľké responses timeoutujú,
-- VPN/overlay cesta je postihnutá.
-
-Nástroje:
-
-```bash
-tracepath destination
-ping -M do -s <size> destination
-ip link show
-```
-
-Neblokuj bez rozmyslu ICMP Fragmentation Needed alebo ICMPv6 Packet Too Big; sú súčasťou Path MTU Discovery.
-
-## 16. Firewall a NAT troubleshooting
-
-Kontroluj postupne:
-
-1. route pred NAT,
-2. translation rule,
-3. conntrack entry,
-4. filter rule a counter,
-5. translated packet na egress,
-6. return packet,
-7. reverse translation,
-8. doručenie socketu.
+Jednorazový manuálny test nemusí zachytiť problém. Použi bounded probe s identitou každého pokusu:
 
 ```bash
-sudo nft list ruleset -a
-sudo conntrack -L
-sudo tcpdump -ni any host <address>
-```
-
-NAT a firewall sú odlišné rozhodnutia, aj keď ich implementuje rovnaký framework.
-
-## 17. Load balancer troubleshooting
-
-Ak zlyháva iba časť requests:
-
-- identifikuj backend podľa logu/headera,
-- porovnaj health-check a reálny endpoint,
-- skontroluj weights a affinity,
-- over draining,
-- porovnaj zóny,
-- odlíš nové a reused connections,
-- skontroluj retry amplification.
-
-Pravidelný pattern, napríklad každý štvrtý request, často ukazuje jeden chybný backend.
-
-## 18. Intermittent failures
-
-Potrebujú časovú sériu a automatizovaný probe:
-
-```bash
-while true; do
+for i in $(seq 1 60); do
   date -Is
-  curl -sS -o /dev/null -w '%{remote_ip} %{http_code} %{time_connect} %{time_starttransfer}\n' https://example.com/
+  curl -sS -o /dev/null \
+    -w 'ip=%{remote_ip} code=%{http_code} connect=%{time_connect} ttfb=%{time_starttransfer} total=%{time_total}\n' \
+    https://example.com/
   sleep 1
 done
 ```
 
-Zaznamenaj destination IP, latency fázy, status a čas. Neobmedzený probe môže incident zhoršiť; používaj primeranú frekvenciu.
+Zaznamenaj:
 
-## 19. Healthy comparison
+- remote IP;
+- protocol version;
+- backend/request ID, ak bezpečne dostupný;
+- connect/TLS/TTFB/total latency;
+- status/error;
+- time.
 
-Porovnaj chybný prípad so zdravým:
+Probe nesmie incident zosilniť. Frekvencia a concurrency musia byť nižšie než production impact.
 
-- iný klient v rovnakom subnete,
-- rovnaký klient k inému endpointu,
-- iný backend,
-- IPv4 vs. IPv6,
-- cez proxy vs. priamo,
-- pred a po zmene,
-- rovnaký request s konkrétnou destination IP.
+## 32. Healthy comparison
 
-Meníš iba jednu premennú naraz.
+Vyber zdravý prípad, ktorý sa líši jednou dimenziou:
 
-## 20. Change timeline
+- rovnaký client, iný endpoint;
+- iný client v rovnakom subnete;
+- rovnaký request cez IPv4 a IPv6;
+- rovnaký hostname s konkrétnou IP;
+- proxy path verzus origin comparison;
+- zdravý a chybný backend;
+- pred a po config zmene;
+- nový a reused connection;
+- malý a veľký payload.
+
+Ak zmeníš naraz DNS, source, protocol aj payload, úspešný test nevysvetlí, ktorá zmena bola rozhodujúca.
+
+## 33. Change timeline
 
 Koreluj incident s:
 
-- deploymentom,
-- DNS zmenou,
-- certificate rotation,
-- firewall policy,
-- route advertisement,
-- autoscalingom,
-- proxy config reloadom,
-- OS/kernel update,
-- cloud/network maintenance.
+- deploymentom;
+- DNS recordom alebo TTL;
+- certificate/CA rotation;
+- firewall/ACL/security group policy;
+- route advertisementom;
+- NAT/LB scalingom;
+- proxy config reloadom;
+- autoscaling/scale-in;
+- tunnel/VPN zmenou;
+- OS/kernel updateom;
+- dependency incidentom;
+- cloud maintenance;
+- identity policy.
 
-„Nič sa nemenilo“ je hypotéza, nie dôkaz.
+„Nič sa nemenilo“ je hypotéza. Desired state, runtime state a provider control plane sa mohli zmeniť mimo application deploymentu.
 
-## 21. Bezpečné experimenty
+## 34. Bezpečný aktívny experiment
 
-Preferuj read-only observation. Pri aktívnom teste definuj:
+Pred zásahom definuj:
 
-- očakávaný výsledok,
-- blast radius,
-- rollback,
-- časové okno,
-- success/failure signal.
+```text
+hypotéza
+predikcia
+presná zmena
+scope
+trvanie
+blast radius
+rollback
+success signal
+failure signal
+```
+
+Príklad:
+
+```text
+Hypotéza: IPv6 path je chybná.
+Experiment: jeden testovací client použije curl -4 a curl -6.
+Blast radius: iba testovací request.
+Dôkaz: -4 success, -6 SYN timeout.
+```
 
 Nebezpečné náhodné zásahy:
 
-- vypnúť firewall,
-- vymazať conntrack table,
-- reštartovať všetky proxy,
-- flushnúť DNS cache bez zachovania dôkazov,
-- meniť MTU na produkcii bez hypotézy.
+- vypnúť firewall;
+- flushnúť conntrack;
+- reštartovať celý proxy fleet;
+- vymazať DNS cache bez snapshotu;
+- zmeniť MTU na všetkých nodes;
+- zvýšiť všetky timeouty;
+- vypnúť certificate verification.
 
-## 22. Typické failure patterns
+Takéto zásahy môžu skryť root cause, odstrániť evidence alebo vytvoriť nový incident.
 
-### Timeout
+## 35. Root cause, contributing factors a trigger
 
-Drop, chýbajúca route, return path, upstream stall alebo príliš dlhá queue.
+### Trigger
 
-### Connection refused
+Udalosť, ktorá incident aktivovala, napríklad deployment alebo traffic spike.
 
-RST z hosta/firewallu; nič nepočúva alebo explicit reject.
+### Root cause mechanism
 
-### Name resolution failure
+Konkrétny technický mechanizmus, bez ktorého by incident nevznikol, napríklad:
 
-Resolver, search domain, DNS server, record alebo validation.
+- backend po deploymente nebol ready, ale health check kontroloval iba port;
+- return route obchádzala stateful firewall;
+- certificate renewal nevykonal reload;
+- unbounded retries preťažili dependency;
+- MTU tunnelu bolo menšie a ICMP bolo blokované.
 
-### Certificate failure
+### Contributing factors
 
-Chain, hostname, expiry, trust store, clock alebo SNI.
+- chýbajúci canary;
+- slabá observability;
+- manual lifecycle;
+- single failure domain;
+- príliš dlhý timeout;
+- chýbajúci load shedding;
+- nejasné ownership.
 
-### `502/503/504`
+Postmortem nemá skončiť pri „human error“ alebo „bad config“. Má vysvetliť, prečo control, test alebo recovery mechanizmus chybu nezachytil.
 
-Proxy-upstream protocol/connectivity, no healthy backend/overload alebo upstream timeout.
+## 36. Mitigation verzus permanentná náprava
 
-### Existujúce connections fungujú, nové nie
+Mitigation obnoví službu:
 
-Port/conntrack exhaustion, listener backlog, firewall pre new state, certificate rotation alebo balancer health.
+- rollback route;
+- odstránenie unhealthy backendu;
+- dočasné zníženie trafficu;
+- pridanie capacity;
+- obnova starého certificate;
+- failover.
 
-### Jeden región alebo subnet
+Permanentná náprava zmení systémový mechanizmus:
 
-Route, ACL, DNS view, NAT gateway, MTU alebo zone-specific backend.
+- správny readiness check;
+- automated certificate deployment verification;
+- retry budget;
+- route validation;
+- MTU/ICMP policy;
+- idempotency;
+- HA state sync;
+- observability a alerting.
 
-## 23. Root cause vs. trigger
+Mitigation je legitímna počas incidentu, ale nesmie byť omylom označená za root-cause fix.
 
-Trigger môže byť deployment. Root cause môže byť:
-
-- chýbajúci timeout,
-- neobmedzený retry,
-- nedostatočná capacity,
-- nesprávny health check,
-- single failure domain,
-- manuálny certificate lifecycle,
-- chýbajúca observability.
-
-Postmortem nemá skončiť pri „zlá konfigurácia“. Má vysvetliť, prečo systém chybu dovolil, nezachytil a nezvládol.
-
-## 24. Overenie nápravy
+## 37. Overenie nápravy
 
 Po zmene over:
 
-- pôvodný používateľský scenár,
-- všetky postihnuté IP families/zóny,
-- error rate a latency,
-- nové aj existujúce connections,
-- logs a health checks,
-- neprítomnosť vedľajších dopadov,
-- stabilitu počas primeraného intervalu.
+1. pôvodný používateľský scenár;
+2. všetky postihnuté source groups;
+3. IPv4 aj IPv6, ak relevantné;
+4. všetky regions/zones/backends;
+5. nové aj existujúce connections;
+6. malý aj pôvodne chybný veľký payload;
+7. error rate a latency percentily;
+8. queue, conntrack, port a capacity metrics;
+9. absence novej regresie;
+10. stabilitu počas primeraného intervalu;
+11. business state pri operáciách retryovaných počas incidentu.
 
-„Príkaz prešiel“ nie je dôkaz obnovy služby.
+„curl vrátil 200 raz“ nie je dôkaz obnovy fleet-wide služby.
 
-## 25. Diagnostický checklist
+## 38. Typické symptom-to-hypothesis mapovanie
+
+### Timeout pred connection
+
+Hypotézy: DNS timeout, route, ARP/NDP, firewall drop, return path, SYN backlog.
+
+### Okamžité `connection refused`
+
+Hypotézy: no listener, wrong bind, firewall reject, LB bez targetu.
+
+### Connection funguje, TLS zlyhá
+
+Hypotézy: SNI, certificate chain, hostname, trust store, protocol/cipher, mTLS.
+
+### TLS funguje, HTTP `502`
+
+Hypotézy: proxy → upstream connect/reset, protocol mismatch, invalid upstream response.
+
+### `503`
+
+Hypotézy: no eligible backend, overload, circuit breaker, maintenance.
+
+### `504`
+
+Hypotézy: upstream timeout, queue, dependency stall, timeout-budget mismatch.
+
+### Existujúce connections fungujú, nové nie
+
+Hypotézy: listener/backlog, conntrack/port exhaustion, new-flow firewall policy, certificate rotation, LB health.
+
+### Malé funguje, veľké nie
+
+Hypotézy: MTU/PMTUD, body limit, proxy buffering, flow control, compression, timeout.
+
+### Jeden región alebo subnet
+
+Hypotézy: route/ACL, DNS view, NAT gateway, MTU, zone backend, provider failure domain.
+
+### Pravidelný disconnect
+
+Hypotézy: idle timeout, token expiry, lease/lifetime, heartbeat mismatch.
+
+## 39. Praktický incident checklist
 
 ### Identity a čas
 
-- presný hostname, IP, port, protocol,
-- client identity a location,
-- timestamp a timezone.
+- exact request;
+- source/client location;
+- protocol/hostname/IP/port;
+- timestamp/timezone;
+- request ID.
 
 ### DNS
 
-- system resolver,
-- recursive response,
-- authoritative record,
-- TTL/cache/view.
+- application/system resolver;
+- A/AAAA;
+- cache/TTL;
+- internal/external view;
+- authoritative data;
+- DNSSEC/transport.
 
 ### Network
 
-- source/destination,
-- route a policy,
-- neighbor/gateway,
-- MTU,
-- forward/return path.
+- source address;
+- route/policy table;
+- next hop a neighbor;
+- namespace/VRF;
+- MTU;
+- forward a return path.
 
 ### Transport
 
-- listener,
-- handshake,
-- states,
-- loss/retransmissions,
-- port/queue capacity.
+- listener/bind;
+- SYN/SYN-ACK/RST;
+- TCP states;
+- retransmissions;
+- queue/port capacity;
+- UDP request/response evidence.
 
-### Security
+### Enforcement a translation
 
-- firewall/ACL/security group,
-- NAT/conntrack,
-- TLS identity/trust,
-- authentication/authorization.
+- firewall hook/rule/counter;
+- ACL/security group;
+- original/translated tuple;
+- conntrack state;
+- NAT capacity.
+
+### TLS
+
+- SNI;
+- chain/SAN/time/trust;
+- TLS version/cipher;
+- ALPN;
+- mTLS.
+
+### Proxy/LB
+
+- selected frontend/backend;
+- route/weight/health;
+- retries/timeouts;
+- draining;
+- status source.
 
 ### Application
 
-- proxy route,
-- status/body,
-- dependency,
-- request ID/trace,
-- business result.
+- request log/trace;
+- authn/authz;
+- dependency;
+- business side effect;
+- user-visible result.
 
-## 26. Časté omyly
+## 40. Časté omyly
 
 ### „Ping funguje, sieť je v poriadku“
 
-Ping netestuje DNS, TCP port, TLS ani aplikáciu.
+Ping testuje konkrétny ICMP flow. Netestuje DNS, TCP/UDP port, TLS, proxy route ani application behavior.
 
-### „Traceroute ukázal problém na hop-e 5“
+### „Traceroute ukázal chybný hop“
 
-Router môže iba neodpovedať na probe a forwardovať traffic správne.
+Router môže neodpovedať na probes a pritom forwardovať application traffic. Forward a return paths môžu byť rozdielne a ECMP môže zvoliť inú cestu.
 
 ### „Tcpdump nič nevidí, packet neexistuje“
 
-Môžeš byť na nesprávnom interface, namespace alebo observation point-e.
+Capture môže byť na nesprávnom interface, namespace, VRF alebo strane tunnelu. Offloading môže meniť pozorovaný tvar.
+
+### „Firewall rule vyzerá správne“
+
+Musíš dokázať, že packet prešiel konkrétnym hookom a zhodil sa s konkrétnym pravidlom v effective rulesete.
 
 ### „Reštart vyriešil root cause“
 
-Obnovil stav, ale mohol odstrániť dôkazy.
+Reštart mohol uvoľniť queue, porty alebo stale state, ale zároveň odstrániť evidence. Je mitigation, kým nie je mechanizmus vysvetlený.
 
 ### „HTTP 200 znamená, že incident skončil“
 
-Treba overiť správny business výsledok, latency a všetky failure domains.
+Over body, latency, business state, všetky failure domains a dostatočný interval.
 
-## 27. Kontrolné otázky
+## 41. Kontrolné otázky
 
-1. Ako definuješ scope incidentu?
-2. Aké sú hlavné kroky HTTPS request pathu?
-3. Aký je rozdiel medzi DNS, route, transport a HTTP failure?
-4. Ako packet capture rozlíši drop od rejectu?
-5. Prečo traceroute nie je dôkaz presného application pathu?
-6. Ako diagnostikuješ malé requesty fungujúce a veľké zlyhávajúce?
-7. Prečo existujúce connections môžu fungovať a nové nie?
-8. Ako používaš healthy comparison?
-9. Aký je rozdiel medzi triggerom a root cause?
-10. Ako overíš nápravu z pohľadu používateľa?
+1. Ako vytvoríš presnú definíciu používateľského symptómu?
+2. Ktoré scope dimenzie najrýchlejšie odhalia failure domain?
+3. Čo musí obsahovať identity jedného network flowu?
+4. Ako vyberieš autoritatívny observation point pre konkrétnu otázku?
+5. Čo je diskriminačný test a ako falzifikuje hypotézu?
+6. Aký je rozdiel medzi bottom-up, top-down a divide-and-conquer postupom?
+7. Prečo `dig` nemusí reprodukovať DNS správanie aplikácie?
+8. Ako rozlíšiš forward-path a return-path failure?
+9. Čo packet capture ukáže pri drop-e a čo pri reject-e?
+10. Prečo môže TCP handshake uspieť a aplikácia stále zlyhať?
+11. Ako diagnostikuješ UDP request bez response?
+12. Prečo existujúce NAT/TCP connections môžu fungovať a nové nie?
+13. Ako rozlíšiš TLS SNI, HTTP authority a destination IP?
+14. Prečo malé requesty môžu fungovať a veľké zlyhávať?
+15. Ako odlíšiš `502`, `503` a `504` podľa failure fázy?
+16. Prečo packet capture na hoste nemusí zodpovedať wire packetom?
+17. Ako healthy comparison izoluje jednu premennú?
+18. Aký je rozdiel medzi triggerom, root cause a contributing factorom?
+19. Aký je rozdiel medzi mitigation a permanentnou nápravou?
+20. Ako overíš obnovu z pohľadu používateľa a všetkých failure domains?
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
