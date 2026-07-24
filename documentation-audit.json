@@ -689,15 +689,15 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "title": "OSI a TCP/IP model",
-      "words": 1085,
-      "headings": 32,
-      "sections": 32,
-      "findings": 49,
-      "critical": 21,
-      "high": 21,
-      "medium": 6,
-      "low": 1,
-      "score": 435,
+      "words": 2392,
+      "headings": 26,
+      "sections": 26,
+      "findings": 30,
+      "critical": 6,
+      "high": 6,
+      "medium": 3,
+      "low": 15,
+      "score": 145,
       "grade": "D"
     },
     {
@@ -30503,53 +30503,44 @@
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `meniť jednu technológiu bez úplného prepisu ostatných vrstiev,`, `štandardizovať rozhrania,`, `oddeliť lokálny prenos od end-to-end komunikácie,`, `diagnostikovať problém podľa vrstvy,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý mechanizmus rieši konkrétnu časť komunikácie,`, `ktoré metadata sa v danej vrstve pridávajú,`, `ktoré zariadenia alebo procesy ich interpretujú,`, `kde možno komunikáciu pozorovať,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "3. OSI model",
-      "line": 29,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "3. OSI model",
-      "line": 29,
+      "section": "2. Prečo vrstvenie existuje",
+      "line": 23,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
+      "section": "5. Encapsulation",
+      "line": 64,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -30558,25 +30549,25 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "5. Encapsulation",
-      "line": 60,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "5. Encapsulation",
-      "line": 60,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application data/message,`, `TCP segment,`, `UDP datagram,`, `IP packet,`.",
-      "score": 12
+      "section": "6. Protocol Data Units",
+      "line": 84,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "5. Encapsulation",
-      "line": 60,
+      "section": "6. Protocol Data Units",
+      "line": 84,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -30584,233 +30575,80 @@
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "5. Encapsulation",
-      "line": 60,
+      "section": "6. Protocol Data Units",
+      "line": 84,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
+      "section": "6. Protocol Data Units",
+      "line": 84,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`, `IP`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `UDP`, `L2`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "9. End-to-end vs. hop-by-hop",
-      "line": 133,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "7. Header, payload a trailer",
+      "line": 97,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Hop-by-hop",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Adresovanie a identity podľa vrstvy",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Hop-by-hop",
-      "line": 135,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "8. Adresovanie a identity podľa vrstvy",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Hop-by-hop",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ethernet frame,`, `neighbor resolution,`, `TTL/hop limit decrement,`, `queueing na interface.`.",
-      "score": 12
+      "section": "9. Linkový scope a routovaný scope",
+      "line": 131,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Hop-by-hop",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "12. Protocol, implementation, service a endpoint",
+      "line": 172,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Hop-by-hop",
-      "line": 135,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "End-to-end",
-      "line": 144,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "End-to-end",
-      "line": 144,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `TCP connection,`, `application request,`, `TLS session typicky medzi klientom a terminujúcim serverom/proxy.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "End-to-end",
-      "line": 144,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "End-to-end",
-      "line": 144,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "10. Data plane a control plane",
-      "line": 154,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Data plane",
-      "line": 156,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Data plane",
-      "line": 156,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Data plane",
-      "line": 156,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `forwarding,`, `filtering,`, `queueing,`, `encapsulation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Data plane",
-      "line": 156,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Control plane",
-      "line": 165,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Control plane",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Control plane",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `routing protocols,`, `ARP/NDP neighbor discovery,`, `configuration management,`, `DNS records,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Control plane",
-      "line": 165,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "Control plane",
-      "line": 165,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `NDP`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "11. Protokol, služba a implementácia",
-      "line": 177,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "11. Protokol, služba a implementácia",
-      "line": 177,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protokol: pravidlá komunikácie, napríklad HTTP,`, `služba: schopnosť poskytovaná používateľovi, napríklad web API,`, `implementácia: konkrétny server alebo client software,`, `port: transport identifier, nie samotná služba.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "11. Protokol, služba a implementácia",
-      "line": 177,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "11. Protokol, služba a implementácia",
-      "line": 177,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "12. Kde patria TLS a QUIC",
+      "section": "13. Kde patria TLS a QUIC",
       "line": 188,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
+      "section": "19. Praktický mini-lab",
+      "line": 288,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -30818,75 +30656,66 @@
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "14. Bottom-up a top-down diagnostika",
-      "line": 229,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "15. Anti-pattern: „Je to L7 problém“ bez dôkazu",
-      "line": 245,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "15. Anti-pattern: „Je to L7 problém“ bez dôkazu",
-      "line": 245,
+      "section": "19. Praktický mini-lab",
+      "line": 288,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "15. Anti-pattern: „Je to L7 problém“ bez dôkazu",
-      "line": 245,
+      "section": "19. Praktický mini-lab",
+      "line": 288,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet loss a retransmissions,`, `MTU black hole,`, `DNS delay,`, `SYN backlog,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `linkový source a destination pre lokálny hop,`, `end-to-end source a destination IP,`, `TCP source a destination ports,`, `SYN, SYN-ACK a ACK,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "15. Anti-pattern: „Je to L7 problém“ bez dôkazu",
-      "line": 245,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "19. Praktický mini-lab",
+      "line": 288,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "15. Anti-pattern: „Je to L7 problém“ bez dôkazu",
-      "line": 245,
+      "section": "19. Praktický mini-lab",
+      "line": 288,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
+      "section": "19. Praktický mini-lab",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
+      "section": "19. Praktický mini-lab",
+      "line": 288,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `DNS`, `SYN`, `TLS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `SYN`, `SYN-ACK`, `ACK`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "16. Časté omyly",
-      "line": 259,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
-      "section": "„Keď ping funguje, všetky vrstvy fungujú“",
-      "line": 277,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "21. Zhrnutie",
+      "line": 324,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
