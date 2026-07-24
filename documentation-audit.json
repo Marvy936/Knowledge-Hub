@@ -633,15 +633,15 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "title": "IPv4, IPv6 a subnetting",
-      "words": 1469,
-      "headings": 41,
-      "sections": 41,
-      "findings": 70,
-      "critical": 23,
-      "high": 40,
-      "medium": 6,
-      "low": 1,
-      "score": 609,
+      "words": 2923,
+      "headings": 49,
+      "sections": 49,
+      "findings": 97,
+      "critical": 26,
+      "high": 32,
+      "medium": 11,
+      "low": 28,
+      "score": 643,
       "grade": "D"
     },
     {
@@ -27137,152 +27137,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "3. Network, host a broadcast address",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "3. Network, host a broadcast address",
-      "line": 41,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `/32 reprezentuje jednu IPv4 adresu alebo host route,`, `cloud platforma môže rezervovať ďalšie adresy v subnet-e.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "3. Network, host a broadcast address",
-      "line": 41,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "4. Binárny základ subnettingu",
-      "line": 63,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "5. Rýchly výpočet IPv4 prefixov",
-      "line": 96,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "6. Zistenie subnetu adresy",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "6. Zistenie subnetu adresy",
-      "line": 112,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `block size: 64,`, `intervaly: 0, 64, 128, 192,`, `77 patrí do 64–127.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "6. Zistenie subnetu adresy",
-      "line": 112,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "7. Overlapping subnets",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejednoznačný routing,`, `komplikovaný NAT,`, `nemožné priame reachability,`, `zložité DNS a identity mapovanie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "7. Overlapping subnets",
-      "line": 140,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `DNS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "8. Private, public a špeciálne IPv4 ranges",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "8. Private, public a špeciálne IPv4 ranges",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `loopback 127.0.0.0/8 ,`, `link-local 169.254.0.0/16 ,`, `multicast 224.0.0.0/4 ,`, `documentation 192.0.2.0/24 , 198.51.100.0/24 , 203.0.113.0/24 ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "8. Private, public a špeciálne IPv4 ranges",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "9. IPv4 packet header",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "9. IPv4 packet header",
-      "line": 182,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version,`, `header length,`, `total length,`, `identification a fragmentation fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "9. IPv4 packet header",
-      "line": 182,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "9. IPv4 packet header",
-      "line": 182,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -27290,8 +27146,35 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "11. IPv6 základ",
-      "line": 216,
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "2. Adresa, prefix a route",
+      "line": 19,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "4. Maska a CIDR",
+      "line": 67,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "7. Block size a výpočet subnetu",
+      "line": 128,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27299,26 +27182,143 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "11. IPv6 základ",
-      "line": 216,
+      "section": "7. Block size a výpočet subnetu",
+      "line": 128,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "7. Block size a výpočet subnetu",
+      "line": 128,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `urči počet host bitov,`, `vypočítaj počet adries v bloku,`, `tento násobok je začiatok subnetu,`, `koniec bloku je začiatok ďalšieho subnetu mínus jedna.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "7. Block size a výpočet subnetu",
+      "line": 128,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "7. Block size a výpočet subnetu",
+      "line": 128,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "7. Block size a výpočet subnetu",
+      "line": 128,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "8. Bežné IPv4 prefixes",
+      "line": 162,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "8. Bežné IPv4 prefixes",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "10. Overlapping prefixes",
+      "line": 193,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `leading zeros v skupine možno vynechať,`, `jednu súvislú sekvenciu nulových skupín možno nahradiť :: .`.",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `priame routing rozhodnutie je nejednoznačné,`, `NAT musí prekladať aj interné identity,`, `security logy a allowlists sú ťažšie interpretovateľné.`.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "11. IPv6 základ",
-      "line": 216,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "10. Overlapping prefixes",
+      "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "13. Typy IPv6 adries",
-      "line": 258,
+      "section": "10. Overlapping prefixes",
+      "line": 193,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "11. Private a špeciálne IPv4 ranges",
+      "line": 216,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `127.0.0.0/8 — loopback,`, `169.254.0.0/16 — IPv4 link-local,`, `224.0.0.0/4 — multicast,`, `192.0.2.0/24 , 198.51.100.0/24 , 203.0.113.0/24 — dokumentačné rozsahy`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "12. IPv4 header a forwarding",
+      "line": 238,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "12. IPv4 header a forwarding",
+      "line": 238,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version a header length,`, `total length,`, `identification a fragmentation flags/offset,`, `TTL,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "14. IPv6 adresný model",
+      "line": 273,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "15. IPv6 prefixy a /64",
+      "line": 296,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "16. Typy a scopes IPv6 adries",
+      "line": 318,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -27326,17 +27326,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "Global unicast",
-      "line": 260,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Link-local",
-      "line": 264,
+      "line": 324,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -27345,7 +27336,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Unique local",
-      "line": 278,
+      "line": 336,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -27354,16 +27345,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Multicast",
-      "line": 286,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "Multicast",
-      "line": 286,
+      "line": 344,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -27372,25 +27354,34 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Loopback a unspecified",
-      "line": 294,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "14. IPv6 header",
-      "line": 301,
+      "line": 352,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "14. IPv6 header",
-      "line": 301,
+      "section": "Loopback a unspecified",
+      "line": 352,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "17. IPv6 header a extension headers",
+      "line": 361,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 63 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "17. IPv6 header a extension headers",
+      "line": 361,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version,`, `traffic class,`, `flow label,`, `payload length,`.",
@@ -27398,125 +27389,314 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "14. IPv6 header",
-      "line": 301,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "17. IPv6 header a extension headers",
+      "line": 361,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "15. NDP namiesto ARP",
-      "line": 319,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "17. IPv6 header a extension headers",
+      "line": 361,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "15. NDP namiesto ARP",
-      "line": 319,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neighbor address resolution,`, `router discovery,`, `prefix discovery,`, `duplicate address detection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "15. NDP namiesto ARP",
-      "line": 319,
+      "section": "18. NDP namiesto ARP",
+      "line": 379,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "16. SLAAC a DHCPv6",
-      "line": 334,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "SLAAC",
-      "line": 336,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "DHCPv6",
-      "line": 340,
+      "section": "18. NDP namiesto ARP",
+      "line": 379,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neighbor address resolution,`, `router discovery,`, `prefix discovery,`, `Duplicate Address Detection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "18. NDP namiesto ARP",
+      "line": 379,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "19. Duplicate Address Detection",
+      "line": 395,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tentative ,`, `dadfailed ,`, `deprecated ,`, `temporary ,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "19. Duplicate Address Detection",
+      "line": 395,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "21. DHCPv6",
+      "line": 435,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLAAC pre adresu a RA pre gateway,`, `SLAAC plus stateless DHCPv6 pre doplnkové údaje,`, `stateful DHCPv6 pre adresu plus RA pre gateway,`, `statické adresovanie plus RA alebo statická route.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "21. DHCPv6",
+      "line": 435,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "21. DHCPv6",
+      "line": 435,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "22. Privacy a stable addresses",
+      "line": 450,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 59 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "17. Privacy addresses",
-      "line": 350,
+      "section": "22. Privacy a stable addresses",
+      "line": 450,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `link-local address,`, `stable global address,`, `temporary global addresses,`, `multiple deprecated addresses.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `link-local,`, `stable global,`, `temporary privacy address,`, `deprecated staršiu adresu,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "17. Privacy addresses",
-      "line": 350,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "22. Privacy a stable addresses",
+      "line": 450,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "20. Subnet design princípy",
-      "line": 398,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "22. Privacy a stable addresses",
+      "line": 450,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "20. Subnet design princípy",
-      "line": 398,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet a rast endpoints,`, `Availability Zones alebo failure domains,`, `routing summarization,`, `security boundaries,`.",
-      "score": 12
+      "section": "22. Privacy a stable addresses",
+      "line": 450,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "20. Subnet design princípy",
-      "line": 398,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "20. Subnet design princípy",
-      "line": 398,
+      "section": "22. Privacy a stable addresses",
+      "line": 450,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ULA`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "22. Linux diagnostika adries",
-      "line": 435,
+      "section": "23. Source-address selection",
+      "line": 465,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neexistujúci return path,`, `firewall drop,`, `nesprávnu DNS identity,`, `asymetriu medzi interfaces,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "23. Source-address selection",
+      "line": 465,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "23. Source-address selection",
+      "line": 465,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "23. Source-address selection",
+      "line": 465,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "24. Dual stack",
+      "line": 486,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "24. Dual stack",
+      "line": 486,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `addresses,`, `routes,`, `neighbor state,`, `firewall rules,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "24. Dual stack",
+      "line": 486,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "24. Dual stack",
+      "line": 486,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `PMTU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "25. IPv4-mapped IPv6 adresy",
+      "line": 517,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "26. Address planning",
+      "line": 531,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "26. Address planning",
+      "line": 531,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organizačné a environment boundaries,`, `regions a Availability Zones,`, `failure domains,`, `routing summarization,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "26. Address planning",
+      "line": 531,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `Availability`, `delegation`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "29. Renumbering a address lifecycle",
+      "line": 589,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "29. Renumbering a address lifecycle",
+      "line": 589,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridanie nového prefixu popri starom,`, `aktualizáciu routes, firewallov a DNS,`, `overenie source-address selection,`, `zníženie DNS TTL pred cutoverom,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "29. Renumbering a address lifecycle",
+      "line": 589,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "29. Renumbering a address lifecycle",
+      "line": 589,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "29. Renumbering a address lifecycle",
+      "line": 589,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "29. Renumbering a address lifecycle",
+      "line": 589,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "30. Linux diagnostika",
+      "line": 606,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27524,35 +27704,26 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "22. Linux diagnostika adries",
-      "line": 435,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "22. Linux diagnostika adries",
-      "line": 435,
+      "section": "30. Linux diagnostika",
+      "line": 606,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "22. Linux diagnostika adries",
-      "line": 435,
+      "section": "30. Linux diagnostika",
+      "line": 606,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prefix length,`, `scope,`, `tentative/deprecated flags,`, `source address selection,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prefix length,`, `scope,`, `dynamic/static pôvod,`, `tentative , dadfailed alebo deprecated state,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "22. Linux diagnostika adries",
-      "line": 435,
+      "section": "30. Linux diagnostika",
+      "line": 606,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27560,8 +27731,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "22. Linux diagnostika adries",
-      "line": 435,
+      "section": "30. Linux diagnostika",
+      "line": 606,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
@@ -27569,8 +27740,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia",
-      "line": 456,
+      "section": "31. Troubleshooting: hosty sa považujú za susedov rozdielne",
+      "line": 637,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27578,35 +27749,26 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia",
-      "line": 456,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia",
-      "line": 456,
+      "section": "31. Troubleshooting: hosty sa považujú za susedov rozdielne",
+      "line": 637,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia",
-      "line": 456,
+      "section": "31. Troubleshooting: hosty sa považujú za susedov rozdielne",
+      "line": 637,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over IP a prefix na oboch hostoch.`, `Vypočítaj, či sa navzájom považujú za on-link.`, `Skontroluj ARP/NDP.`, `Over VLAN a link stav.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj IP a prefix na oboch hostoch,`, `vypočítaj network range z pohľadu každého hosta,`, `over route selection na destination,`, `skontroluj ARP/NDP target,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia",
-      "line": 456,
+      "section": "31. Troubleshooting: hosty sa považujú za susedov rozdielne",
+      "line": 637,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27614,8 +27776,17 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia",
-      "line": 456,
+      "section": "31. Troubleshooting: hosty sa považujú za susedov rozdielne",
+      "line": 637,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "31. Troubleshooting: hosty sa považujú za susedov rozdielne",
+      "line": 637,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ARP`, `NDP`, `VLAN`",
@@ -27623,8 +27794,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout",
-      "line": 470,
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27632,35 +27803,26 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout",
-      "line": 470,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout",
-      "line": 470,
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout",
-      "line": 470,
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AAAA record existuje, ale server alebo route nie,`, `chýba IPv6 default route,`, `firewall blokuje ICMPv6 alebo TCP,`, `return path chýba,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AAAA record existuje, ale server alebo route nie,`, `chýba IPv6 default route z RA,`, `adresa zostala tentative alebo DAD zlyhal,`, `firewall blokuje ICMPv6 alebo TCP,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout",
-      "line": 470,
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -27668,17 +27830,71 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout",
-      "line": 470,
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "32. Troubleshooting: IPv6 preferencia spôsobuje timeout",
+      "line": 658,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `TCP`, `MTU`, `PMTUD`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `RA`, `DAD`, `TCP`, `PMTUD`, `DNS`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "25. Časté omyly",
-      "line": 490,
+      "section": "Prefix sa odhaduje podľa zvyku",
+      "line": 695,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "Subnet sa dimenzuje iba podľa dnešného počtu hostov",
+      "line": 699,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "Private adresa sa považuje za security control",
+      "line": 703,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "Summary route sa publikuje bez failure policy",
+      "line": 711,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "34. Praktický mini-lab",
+      "line": 715,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -27686,8 +27902,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "„IPv6 nemá subnetting“",
-      "line": 500,
+      "section": "IPv4",
+      "line": 717,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -27695,21 +27911,48 @@
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "„IPv6 nepotrebuje ICMP“",
-      "line": 504,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "IPv4",
+      "line": 717,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
-      "section": "„Dual stack znamená, že obe families fungujú rovnako“",
-      "line": 508,
+      "section": "IPv4",
+      "line": 717,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network address,`, `broadcast address,`, `prvú a poslednú klasicky použiteľnú adresu,`, `počet adries,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "IPv4",
+      "line": 717,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "IPv6",
+      "line": 733,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
+      "section": "36. Zhrnutie",
+      "line": 763,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",

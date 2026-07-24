@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10679**
-- Total words: **478,243**
-- Findings: **23503** (critical 8072, high 9184, medium 3107, low 3140)
+- Audited conceptual sections: **10687**
+- Total words: **479,697**
+- Findings: **23530** (critical 8075, high 9176, medium 3112, low 3167)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -173,6 +173,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 648 | 31 | 29 | 11 | 6 | 1192 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 645 | 31 | 29 | 11 | 6 | 968 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | D | 644 | 29 | 29 | 14 | 10 | 1651 | `docs/09-kubernetes/requests-limits-qos.md` |
+| D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 642 | 30 | 31 | 9 | 8 | 1209 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 639 | 29 | 35 | 6 | 0 | 1038 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | D | 638 | 30 | 32 | 7 | 5 | 1368 | `docs/02-networking-and-web/firewalls.md` |
@@ -183,7 +184,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 611 | 30 | 25 | 14 | 4 | 1175 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 610 | 24 | 34 | 11 | 10 | 1719 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
-| D | 609 | 23 | 40 | 6 | 1 | 1469 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 607 | 28 | 34 | 3 | 1 | 928 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
 | D | 599 | 28 | 30 | 9 | 0 | 923 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | D | 585 | 27 | 28 | 9 | 9 | 1070 | `docs/04-testing-and-quality/shift-left.md` |
@@ -1456,67 +1456,62 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 140, `bare-bullet-items` — **7. Overlapping subnets**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejednoznačný routing,`, `komplikovaný NAT,`, `nemožné priame reachability,`, `zložité DNS a identity mapovanie.`.
-- **CRITICAL** line 162, `bare-bullet-items` — **8. Private, public a špeciálne IPv4 ranges**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `loopback 127.0.0.0/8 ,`, `link-local 169.254.0.0/16 ,`, `multicast 224.0.0.0/4 ,`, `documentation 192.0.2.0/24 , 198.51.100.0/24 , 203.0.113.0/24 ,`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **8. Private, public a špeciálne IPv4 ranges**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 182, `bare-bullet-items` — **9. IPv4 packet header**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version,`, `header length,`, `total length,`, `identification a fragmentation fields,`.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **9. IPv4 packet header**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 258, `empty-section` — **13. Typy IPv6 adries**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 294, `empty-section` — **Loopback a unspecified**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 301, `bare-bullet-items` — **14. IPv6 header**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version,`, `traffic class,`, `flow label,`, `payload length,`.
-- **CRITICAL** line 319, `bare-bullet-items` — **15. NDP namiesto ARP**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neighbor address resolution,`, `router discovery,`, `prefix discovery,`, `duplicate address detection,`.
-- **CRITICAL** line 319, `outline-instead-of-explanation` — **15. NDP namiesto ARP**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 334, `empty-section` — **16. SLAAC a DHCPv6**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 350, `bare-bullet-items` — **17. Privacy addresses**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `link-local address,`, `stable global address,`, `temporary global addresses,`, `multiple deprecated addresses.`.
-- **CRITICAL** line 398, `bare-bullet-items` — **20. Subnet design princípy**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet a rast endpoints,`, `Availability Zones alebo failure domains,`, `routing summarization,`, `security boundaries,`.
-- **CRITICAL** line 398, `outline-instead-of-explanation` — **20. Subnet design princípy**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 435, `bare-bullet-items` — **22. Linux diagnostika adries**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prefix length,`, `scope,`, `tentative/deprecated flags,`, `source address selection,`.
-- **CRITICAL** line 435, `outline-instead-of-explanation` — **22. Linux diagnostika adries**: 7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 456, `bare-bullet-items` — **23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over IP a prefix na oboch hostoch.`, `Vypočítaj, či sa navzájom považujú za on-link.`, `Skontroluj ARP/NDP.`, `Over VLAN a link stav.`.
-- **CRITICAL** line 456, `outline-instead-of-explanation` — **23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia**: 8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 470, `bare-bullet-items` — **24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AAAA record existuje, ale server alebo route nie,`, `chýba IPv6 default route,`, `firewall blokuje ICMPv6 alebo TCP,`, `return path chýba,`.
-- **CRITICAL** line 470, `outline-instead-of-explanation` — **24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout**: 6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 490, `empty-section` — **25. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 128, `bare-bullet-items` — **7. Block size a výpočet subnetu**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `urči počet host bitov,`, `vypočítaj počet adries v bloku,`, `tento násobok je začiatok subnetu,`, `koniec bloku je začiatok ďalšieho subnetu mínus jedna.`.
+- **CRITICAL** line 128, `outline-instead-of-explanation` — **7. Block size a výpočet subnetu**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 216, `bare-bullet-items` — **11. Private a špeciálne IPv4 ranges**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `127.0.0.0/8 — loopback,`, `169.254.0.0/16 — IPv4 link-local,`, `224.0.0.0/4 — multicast,`, `192.0.2.0/24 , 198.51.100.0/24 , 203.0.113.0/24 — dokumentačné rozsahy`.
+- **CRITICAL** line 238, `bare-bullet-items` — **12. IPv4 header a forwarding**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version a header length,`, `total length,`, `identification a fragmentation flags/offset,`, `TTL,`.
+- **CRITICAL** line 318, `empty-section` — **16. Typy a scopes IPv6 adries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 361, `bare-bullet-items` — **17. IPv6 header a extension headers**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version,`, `traffic class,`, `flow label,`, `payload length,`.
+- **CRITICAL** line 379, `bare-bullet-items` — **18. NDP namiesto ARP**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neighbor address resolution,`, `router discovery,`, `prefix discovery,`, `Duplicate Address Detection,`.
+- **CRITICAL** line 395, `bare-bullet-items` — **19. Duplicate Address Detection**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tentative ,`, `dadfailed ,`, `deprecated ,`, `temporary ,`.
+- **CRITICAL** line 435, `bare-bullet-items` — **21. DHCPv6**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLAAC pre adresu a RA pre gateway,`, `SLAAC plus stateless DHCPv6 pre doplnkové údaje,`, `stateful DHCPv6 pre adresu plus RA pre gateway,`, `statické adresovanie plus RA alebo statická route.`.
+- **CRITICAL** line 450, `bare-bullet-items` — **22. Privacy a stable addresses**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `link-local,`, `stable global,`, `temporary privacy address,`, `deprecated staršiu adresu,`.
+- **CRITICAL** line 465, `bare-bullet-items` — **23. Source-address selection**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neexistujúci return path,`, `firewall drop,`, `nesprávnu DNS identity,`, `asymetriu medzi interfaces,`.
+- **CRITICAL** line 486, `bare-bullet-items` — **24. Dual stack**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `addresses,`, `routes,`, `neighbor state,`, `firewall rules,`.
+- **CRITICAL** line 531, `bare-bullet-items` — **26. Address planning**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organizačné a environment boundaries,`, `regions a Availability Zones,`, `failure domains,`, `routing summarization,`.
+- **CRITICAL** line 589, `bare-bullet-items` — **29. Renumbering a address lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridanie nového prefixu popri starom,`, `aktualizáciu routes, firewallov a DNS,`, `overenie source-address selection,`, `zníženie DNS TTL pred cutoverom,`.
+- **CRITICAL** line 589, `outline-instead-of-explanation` — **29. Renumbering a address lifecycle**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 606, `bare-bullet-items` — **30. Linux diagnostika**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prefix length,`, `scope,`, `dynamic/static pôvod,`, `tentative , dadfailed alebo deprecated state,`.
+- **CRITICAL** line 606, `outline-instead-of-explanation` — **30. Linux diagnostika**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 637, `bare-bullet-items` — **31. Troubleshooting: hosty sa považujú za susedov rozdielne**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj IP a prefix na oboch hostoch,`, `vypočítaj network range z pohľadu každého hosta,`, `over route selection na destination,`, `skontroluj ARP/NDP target,`.
+- **CRITICAL** line 637, `outline-instead-of-explanation` — **31. Troubleshooting: hosty sa považujú za susedov rozdielne**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 658, `bare-bullet-items` — **32. Troubleshooting: IPv6 preferencia spôsobuje timeout**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AAAA record existuje, ale server alebo route nie,`, `chýba IPv6 default route z RA,`, `adresa zostala tentative alebo DAD zlyhal,`, `firewall blokuje ICMPv6 alebo TCP,`.
+- **CRITICAL** line 658, `outline-instead-of-explanation` — **32. Troubleshooting: IPv6 preferencia spôsobuje timeout**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 715, `empty-section` — **34. Praktický mini-lab**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 717, `bare-bullet-items` — **IPv4**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network address,`, `broadcast address,`, `prvú a poslednú klasicky použiteľnú adresu,`, `počet adries,`.
+- **CRITICAL** line 717, `outline-instead-of-explanation` — **IPv4**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 41, `bare-bullet-items` — **3. Network, host a broadcast address**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `/32 reprezentuje jednu IPv4 adresu alebo host route,`, `cloud platforma môže rezervovať ďalšie adresy v subnet-e.`.
-- **HIGH** line 41, `single-sentence-concept` — **3. Network, host a broadcast address**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 63, `single-sentence-concept` — **4. Binárny základ subnettingu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 96, `single-sentence-concept` — **5. Rýchly výpočet IPv4 prefixov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 112, `bare-bullet-items` — **6. Zistenie subnetu adresy**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `block size: 64,`, `intervaly: 0, 64, 128, 192,`, `77 patrí do 64–127.`.
-- **HIGH** line 112, `single-sentence-concept` — **6. Zistenie subnetu adresy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 216, `bare-bullet-items` — **11. IPv6 základ**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `leading zeros v skupine možno vynechať,`, `jednu súvislú sekvenciu nulových skupín možno nahradiť :: .`.
-- **HIGH** line 216, `single-sentence-concept` — **11. IPv6 základ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 260, `single-sentence-concept` — **Global unicast**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 264, `list-first-introduction` — **Link-local**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 278, `list-first-introduction` — **Unique local**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 286, `list-first-introduction` — **Multicast**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 286, `single-sentence-concept` — **Multicast**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `list-heavy-section` — **14. IPv6 header**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 336, `single-sentence-concept` — **SLAAC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `single-sentence-concept` — **DHCPv6**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 435, `list-first-introduction` — **22. Linux diagnostika adries**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 435, `single-sentence-concept` — **22. Linux diagnostika adries**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 456, `list-first-introduction` — **23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 456, `single-sentence-concept` — **23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 470, `list-first-introduction` — **24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 470, `single-sentence-concept` — **24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 500, `single-sentence-concept` — **„IPv6 nemá subnetting“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 504, `single-sentence-concept` — **„IPv6 nepotrebuje ICMP“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 508, `single-sentence-concept` — **„Dual stack znamená, že obe families fungujú rovnako“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 128, `single-sentence-concept` — **7. Block size a výpočet subnetu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 193, `bare-bullet-items` — **10. Overlapping prefixes**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `priame routing rozhodnutie je nejednoznačné,`, `NAT musí prekladať aj interné identity,`, `security logy a allowlists sú ťažšie interpretovateľné.`.
+- **HIGH** line 238, `list-heavy-section` — **12. IPv4 header a forwarding**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 273, `single-sentence-concept` — **14. IPv6 adresný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 324, `list-first-introduction` — **Link-local**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 336, `list-first-introduction` — **Unique local**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 344, `list-first-introduction` — **Multicast**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 352, `list-first-introduction` — **Loopback a unspecified**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 352, `single-sentence-concept` — **Loopback a unspecified**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 361, `list-heavy-section` — **17. IPv6 header a extension headers**: 7 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 379, `list-heavy-section` — **18. NDP namiesto ARP**: 7 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 450, `list-heavy-section` — **22. Privacy a stable addresses**: 6 odrážok a iba 59 slov súvislého vysvetlenia.
+- **HIGH** line 486, `list-heavy-section` — **24. Dual stack**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 531, `list-heavy-section` — **26. Address planning**: 10 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 606, `single-sentence-concept` — **30. Linux diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 637, `single-sentence-concept` — **31. Troubleshooting: hosty sa považujú za susedov rozdielne**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 658, `single-sentence-concept` — **32. Troubleshooting: IPv6 preferencia spôsobuje timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 695, `single-sentence-concept` — **Prefix sa odhaduje podľa zvyku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 699, `single-sentence-concept` — **Subnet sa dimenzuje iba podľa dnešného počtu hostov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 703, `single-sentence-concept` — **Private adresa sa považuje za security control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 711, `single-sentence-concept` — **Summary route sa publikuje bez failure policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 717, `single-sentence-concept` — **IPv4**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `OSI`, `TCP`, `IP`, `MAC`, `ARP`, `NAT`, `DNS`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 41, `thin-concept-section` — **3. Network, host a broadcast address**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 112, `thin-concept-section` — **6. Zistenie subnetu adresy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **8. Private, public a špeciálne IPv4 ranges**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 216, `thin-concept-section` — **11. IPv6 základ**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 319, `thin-concept-section` — **15. NDP namiesto ARP**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 398, `thin-concept-section` — **20. Subnet design princípy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 435, `thin-concept-section` — **22. Linux diagnostika adries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 456, `term-before-explanation` — **23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ARP`, `NDP`, `VLAN`
-- **HIGH** line 456, `thin-concept-section` — **23. Troubleshooting scenár: hosty v rovnakom subnet-e sa nevidia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 470, `term-before-explanation` — **24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `TCP`, `MTU`, `PMTUD`
-- **HIGH** line 470, `thin-concept-section` — **24. Troubleshooting scenár: IPv6 preferencia spôsobuje timeout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 606, `thin-concept-section` — **30. Linux diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 637, `term-before-explanation` — **31. Troubleshooting: hosty sa považujú za susedov rozdielne**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ARP`, `NDP`, `VLAN`
+- **HIGH** line 637, `thin-concept-section` — **31. Troubleshooting: hosty sa považujú za susedov rozdielne**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 658, `term-before-explanation` — **32. Troubleshooting: IPv6 preferencia spôsobuje timeout**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `RA`, `DAD`, `TCP`, `PMTUD`, `DNS`
+- **HIGH** line 658, `thin-concept-section` — **32. Troubleshooting: IPv6 preferencia spôsobuje timeout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 717, `thin-concept-section` — **IPv4**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/load-balancing.md`
 
@@ -18306,19 +18301,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4047 | 0 | 0 | 4047 |
-| `bare-bullet-items` | 3681 | 336 | 0 | 0 | 4017 |
-| `outline-instead-of-explanation` | 3618 | 0 | 0 | 0 | 3618 |
-| `thin-concept-section` | 0 | 3312 | 0 | 0 | 3312 |
-| `term-before-explanation` | 0 | 361 | 2234 | 0 | 2595 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1340 | 1340 |
-| `example-not-explicit` | 0 | 0 | 0 | 1193 | 1193 |
-| `list-first-introduction` | 0 | 902 | 0 | 0 | 902 |
-| `short-concept-section` | 0 | 0 | 873 | 0 | 873 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 607 | 607 |
-| `empty-section` | 478 | 0 | 0 | 0 | 478 |
+| `single-sentence-concept` | 0 | 4043 | 0 | 0 | 4043 |
+| `bare-bullet-items` | 3687 | 334 | 0 | 0 | 4021 |
+| `outline-instead-of-explanation` | 3617 | 0 | 0 | 0 | 3617 |
+| `thin-concept-section` | 0 | 3307 | 0 | 0 | 3307 |
+| `term-before-explanation` | 0 | 361 | 2237 | 0 | 2598 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1350 | 1350 |
+| `example-not-explicit` | 0 | 0 | 0 | 1205 | 1205 |
+| `list-first-introduction` | 0 | 900 | 0 | 0 | 900 |
+| `short-concept-section` | 0 | 0 | 875 | 0 | 875 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 612 | 612 |
+| `empty-section` | 476 | 0 | 0 | 0 | 476 |
 | `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
-| `list-heavy-section` | 0 | 226 | 0 | 0 | 226 |
+| `list-heavy-section` | 0 | 231 | 0 | 0 | 231 |
 
 ## Required remediation pattern
 
