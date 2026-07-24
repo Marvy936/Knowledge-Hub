@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11597**
-- Total words: **556,153**
-- Findings: **26113** (critical 8686, high 9677, medium 3608, low 4142)
+- Audited conceptual sections: **11607**
+- Total words: **558,292**
+- Findings: **26135** (critical 8671, high 9671, medium 3617, low 4176)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -194,7 +194,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 610 | 24 | 34 | 11 | 10 | 1719 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | D | 599 | 28 | 30 | 9 | 0 | 923 | `docs/05-ci-cd-and-release/ring-deployment.md` |
-| D | 585 | 27 | 28 | 9 | 9 | 1070 | `docs/04-testing-and-quality/shift-left.md` |
 | D | 579 | 23 | 18 | 19 | 72 | 5784 | `docs/13-security-and-identity/secrets-management.md` |
 | D | 575 | 21 | 39 | 5 | 0 | 1338 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 570 | 28 | 27 | 6 | 4 | 1037 | `docs/05-ci-cd-and-release/canary-deployment.md` |
@@ -222,6 +221,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
+| D | 447 | 12 | 22 | 18 | 43 | 3209 | `docs/04-testing-and-quality/shift-left.md` |
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -4611,60 +4611,39 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/04-testing-and-quality/shift-left.md`
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 30, `bare-bullet-items` — **2. Prečo vznikol**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `množstvo rozpracovanej práce,`, `počet závislých zmien,`, `náklady na koordináciu,`, `čas diagnostiky,`.
-- **CRITICAL** line 30, `outline-instead-of-explanation` — **2. Prečo vznikol**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 46, `bare-bullet-items` — **3. Shift-left nie je jedna technológia**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spresnenie acceptance criteria pred implementáciou,`, `threat modeling pri návrhu,`, `architecture decision review,`, `pre-commit formatter a linter,`.
-- **CRITICAL** line 46, `outline-instead-of-explanation` — **3. Shift-left nie je jedna technológia**: 13 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 89, `bare-bullet-items` — **5. Shift-left v requirements a dizajne**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasné acceptance criteria,`, `explicitné failure modes,`, `compatibility requirements,`, `security boundaries,`.
-- **CRITICAL** line 89, `outline-instead-of-explanation` — **5. Shift-left v requirements a dizajne**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 119, `bare-bullet-items` — **6. Developer feedback loop**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatting,`, `linting,`, `type checking,`, `focused unit tests,`.
-- **CRITICAL** line 119, `outline-instead-of-explanation` — **6. Developer feedback loop**: 12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **8. Test selection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected-project detection,`, `dependency graph,`, `changed-file mapping,`, `test impact analysis,`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **8. Test selection**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 184, `bare-bullet-items` — **9. Security shift-left**: 17 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threat modeling,`, `secure defaults,`, `SAST,`, `secret scanning,`.
-- **CRITICAL** line 184, `outline-instead-of-explanation` — **9. Security shift-left**: 18 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 213, `bare-bullet-items` — **10. Infrastructure shift-left**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zakázané public endpoints,`, `encryption settings,`, `required tags,`, `IAM privilege,`.
-- **CRITICAL** line 213, `outline-instead-of-explanation` — **10. Infrastructure shift-left**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 239, `bare-bullet-items` — **11. Databázové zmeny**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward compatibility,`, `lock duration,`, `runtime,`, `disk growth,`.
-- **CRITICAL** line 239, `outline-instead-of-explanation` — **11. Databázové zmeny**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 256, `bare-bullet-items` — **12. Shift-left observability**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `structured log fields,`, `request/correlation ID,`, `metrics a labels,`, `traces a spans,`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **12. Shift-left observability**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `bare-bullet-items` — **13. Platform engineering a golden paths**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository template,`, `reusable CI pipeline,`, `standard linter/type checker,`, `dependency update automation,`.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **13. Platform engineering a golden paths**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 289, `bare-bullet-items` — **14. Riziko lokálnych hooks**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľ ho môže obísť,`, `nemusí byť nainštalovaný,`, `lokálne prostredie môže byť odlišné,`, `jeho výsledok nemusí byť auditovaný.`.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **14. Riziko lokálnych hooks**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 322, `bare-bullet-items` — **16. Metriky**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas do prvého užitočného feedbacku,`, `median/p95 pipeline duration,`, `failure stage distribution,`, `defect escape rate,`.
-- **CRITICAL** line 322, `outline-instead-of-explanation` — **16. Metriky**: 9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 338, `bare-bullet-items` — **17. Rozhodovací rámec**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké riziko pokrýva?`, `Aký je najskorší bod s dostatočnou fidelity?`, `Aký je runtime a maintenance cost?`, `Aká je false-positive/false-negative charakteristika?`.
-- **CRITICAL** line 338, `outline-instead-of-explanation` — **17. Rozhodovací rámec**: 10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 50, `bare-bullet-items` — **3. Prečo je skorý feedback hodnotný**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poskytuje chronicky hlučný výsledok,`, `trvá tak dlho, že ju používatelia obchádzajú,`, `nereprodukuje sa mimo centrálnej pipeline,`, `používa neaktuálnu konfiguráciu alebo iný toolchain,`.
+- **CRITICAL** line 309, `bare-bullet-items` — **14. Performance shift-left**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `microbenchmark kritického algoritmu,`, `query plan a index test s realistickou distribúciou,`, `component load test jednej služby,`, `memory allocation profil pri parseri,`.
+- **CRITICAL** line 341, `bare-bullet-items` — **16. Blocking verzus advisory feedback**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chráni relevantné a významné riziko,`, `výsledok je presný a reprodukovateľný,`, `failure má jasnú remediation,`, `runtime je primeraný bodu pipeline,`.
+- **CRITICAL** line 364, `outline-instead-of-explanation` — **17. Failure ownership a remediation**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 376, `bare-bullet-items` — **18. Vzťah shift-left a shift-right**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočné regionálne sieťové podmienky,`, `produkčné quotas a identity federation,`, `reálny traffic mix a používateľské správanie,`, `emergentné distribuované interakcie,`.
+- **CRITICAL** line 418, `outline-instead-of-explanation` — **20. Diagnostický postup pri zlom feedback loope**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 433, `empty-section` — **21. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 467, `bare-bullet-items` — **22. Praktický rozhodovací rámec**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké konkrétne riziko alebo failure mode chráni?`, `Aký dôkaz je potrebný na rozhodnutie?`, `Ktorá najskoršia vrstva poskytne dostatočnú fidelity?`, `Čo táto vrstva nedokáže overiť a zostáva neskôr?`.
+- **CRITICAL** line 467, `outline-instead-of-explanation` — **22. Praktický rozhodovací rámec**: 14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 486, `bare-bullet-items` — **23. Kontrolný checklist**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `riziko a boundary sú explicitné,`, `kontrola má jasný oracle,`, `toolchain a konfigurácia sú versionované,`, `lokálny a CI príkaz používajú rovnaký kontrakt,`.
+- **CRITICAL** line 486, `outline-instead-of-explanation` — **23. Kontrolný checklist**: 13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 46, `single-sentence-concept` — **3. Shift-left nie je jedna technológia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 66, `bare-bullet-items` — **4. Ekonomika skorého feedbacku**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `schema validácia môže odhaliť chýbajúci field lokálne,`, `integration test musí overiť správanie reálnej databázy,`, `produkčná observability musí overiť skutočný traffic pattern.`.
-- **HIGH** line 119, `single-sentence-concept` — **6. Developer feedback loop**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 184, `single-sentence-concept` — **9. Security shift-left**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 289, `single-sentence-concept` — **14. Riziko lokálnych hooks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 302, `single-sentence-concept` — **Všetko musí bežať pred commitom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 306, `single-sentence-concept` — **Shift-left ako presun práce na developerov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 310, `single-sentence-concept` — **Stopercentné blokovanie findings**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 314, `single-sentence-concept` — **Fake production lokálne**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 318, `single-sentence-concept` — **Skorý test nahrádza produkčnú validáciu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 322, `single-sentence-concept` — **16. Metriky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **17. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 76, `single-sentence-concept` — **4. Evidence-placement model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 107, `list-heavy-section` — **5. Shift-left začína pri požiadavke**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 136, `list-heavy-section` — **6. Shift-left v návrhu a architektúre**: 6 odrážok a iba 66 slov súvislého vysvetlenia.
+- **HIGH** line 206, `list-heavy-section` — **9. Test selection a false-negative riziko**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 229, `list-heavy-section` — **10. Security shift-left**: 13 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 278, `list-heavy-section` — **12. Databázové zmeny a compatibility**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 294, `list-heavy-section` — **13. Observability shift-left**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 309, `list-heavy-section` — **14. Performance shift-left**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 324, `list-heavy-section` — **15. Platform engineering a golden paths**: 8 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 341, `list-heavy-section` — **16. Blocking verzus advisory feedback**: 11 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 376, `list-heavy-section` — **18. Vzťah shift-left a shift-right**: 6 odrážok a iba 69 slov súvislého vysvetlenia.
+- **HIGH** line 400, `list-heavy-section` — **19. Metriky účinnosti**: 9 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 418, `single-sentence-concept` — **20. Diagnostický postup pri zlom feedback loope**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 463, `single-sentence-concept` — **Permanentné výnimky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 467, `single-sentence-concept` — **22. Praktický rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 486, `single-sentence-concept` — **23. Kontrolný checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 46, `thin-concept-section` — **3. Shift-left nie je jedna technológia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 66, `thin-concept-section` — **4. Ekonomika skorého feedbacku**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 89, `thin-concept-section` — **5. Shift-left v requirements a dizajne**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 119, `thin-concept-section` — **6. Developer feedback loop**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **8. Test selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 184, `thin-concept-section` — **9. Security shift-left**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 213, `thin-concept-section` — **10. Infrastructure shift-left**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 239, `thin-concept-section` — **11. Databázové zmeny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 256, `thin-concept-section` — **12. Shift-left observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 272, `thin-concept-section` — **13. Platform engineering a golden paths**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **14. Riziko lokálnych hooks**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 322, `thin-concept-section` — **16. Metriky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 338, `thin-concept-section` — **17. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 418, `thin-concept-section` — **20. Diagnostický postup pri zlom feedback loope**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 467, `thin-concept-section` — **22. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 486, `thin-concept-section` — **23. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/shift-right.md`
 
@@ -19413,18 +19392,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4019 | 388 | 0 | 0 | 4407 |
-| `single-sentence-concept` | 0 | 4069 | 0 | 0 | 4069 |
-| `outline-instead-of-explanation` | 3864 | 0 | 0 | 0 | 3864 |
-| `thin-concept-section` | 0 | 3450 | 0 | 0 | 3450 |
-| `term-before-explanation` | 0 | 428 | 2473 | 0 | 2901 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1711 | 1711 |
-| `example-not-explicit` | 0 | 0 | 0 | 1594 | 1594 |
-| `short-concept-section` | 0 | 0 | 1135 | 0 | 1135 |
+| `bare-bullet-items` | 4012 | 387 | 0 | 0 | 4399 |
+| `single-sentence-concept` | 0 | 4063 | 0 | 0 | 4063 |
+| `outline-instead-of-explanation` | 3855 | 0 | 0 | 0 | 3855 |
+| `thin-concept-section` | 0 | 3440 | 0 | 0 | 3440 |
+| `term-before-explanation` | 0 | 428 | 2477 | 0 | 2905 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1721 | 1721 |
+| `example-not-explicit` | 0 | 0 | 0 | 1606 | 1606 |
+| `short-concept-section` | 0 | 0 | 1140 | 0 | 1140 |
 | `list-first-introduction` | 0 | 963 | 0 | 0 | 963 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 837 | 837 |
-| `empty-section` | 476 | 0 | 0 | 0 | 476 |
-| `list-heavy-section` | 0 | 379 | 0 | 0 | 379 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 849 | 849 |
+| `empty-section` | 477 | 0 | 0 | 0 | 477 |
+| `list-heavy-section` | 0 | 390 | 0 | 0 | 390 |
 | `no-prose-concept` | 327 | 0 | 0 | 0 | 327 |
 
 ## Required remediation pattern
