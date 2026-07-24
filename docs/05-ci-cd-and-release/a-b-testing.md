@@ -1,320 +1,495 @@
 # A/B testing
 
-A/B testing porovnáva dve alebo viac variantov správania na súbežných skupinách používateľov s cieľom zmerať rozdiel v definovanom výsledku. Je to experimentačná technika pre produktové alebo behaviorálne rozhodnutia, nie deployment stratégia sama osebe.
+## Metadata
 
-## 1. Základný model
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
+
+## 1. Definícia
+
+A/B testing porovnáva dve alebo viac súbežných variantov správania na kontrolovane priradených skupinách subjektov. Cieľom je odhadnúť kauzálny dopad treatmentu na vopred definovaný používateľský alebo business výsledok.
 
 ```text
 eligible population
-→ deterministic assignment
-→ control A / treatment B
-→ exposure logging
-→ outcome measurement
-→ statistical and practical evaluation
+→ assignment
+→ exposure
+→ outcomes
+→ validity checks
+→ effect estimation
 → product decision
+→ rollout, iteration alebo removal
 ```
 
-Variant B môže byť nasadený pomocou feature flagu, canary infraštruktúry alebo samostatného deployment targetu. Mechanizmus doručenia však nie je experimentálny dizajn.
+A/B test nie je deployment stratégia. Variant môže byť doručený feature flagom, samostatným backendom alebo client buildom, ale experimentálnu dôveryhodnosť vytvára dizajn priradenia, merania a rozhodovania.
 
-## 2. A/B test vs. canary deployment
+## 2. A/B verzus canary
 
-**Canary deployment** primárne odpovedá:
+Canary odpovedá najmä:
 
-> Je nová verzia dostatočne bezpečná na širší rollout?
+> Je nová verzia prevádzkovo dostatočne bezpečná na širšiu expozíciu?
 
-**A/B testing** primárne odpovedá:
+A/B experiment odpovedá:
 
-> Ktorý variant vedie k lepšiemu používateľskému alebo business výsledku?
+> Aký je kauzálny rozdiel medzi variantmi pre definovanú populáciu a outcome?
 
-Canary sa často vyhodnocuje podľa reliability a safety metrík. A/B test potrebuje experimentálnu hypotézu, control group, outcome metrics a analýzu biasu.
+Canary používa reliability guardrails a môže byť krátky. A/B test potrebuje randomizáciu alebo iný identifikačný dizajn, exposure logging, sample plán a ochranu pred biasom. Obe vrstvy možno kombinovať: najprv safety canary, potom produktový experiment.
 
-## 3. Experiment hypothesis
+## 3. Experiment contract
 
-Dobrá hypotéza je explicitná:
+Pred spustením definuj:
+
+- hypothesis,
+- eligible population,
+- unit of randomization,
+- control a treatment,
+- assignment ratio,
+- primary metric,
+- guardrail metrics,
+- attribution a observation window,
+- minimum detectable effect,
+- sample/duration plán,
+- stopping rules,
+- planned segments,
+- privacy a ethics review,
+- ownera a decision policy.
+
+Experiment bez vopred definovaného kontraktu umožňuje po výsledku vybrať najvýhodnejšie vysvetlenie.
+
+## 4. Hypotéza
+
+Silná hypotéza:
 
 ```text
-Ak zmeníme onboarding flow z A na B,
-noví používatelia dokončia aktiváciu častejšie,
-bez zhoršenia support rate a error rate.
+Pre nových oprávnených používateľov
+variant B zvýši 7-dňovú activation completion
+aspoň o prakticky významnú hranicu
+bez zhoršenia error, support a retention guardrails.
 ```
 
-Musí obsahovať:
+Obsahuje populáciu, treatment, outcome, horizon, očakávaný smer a safety constraints.
 
-- population,
-- treatment,
-- primary outcome,
-- očakávaný smer alebo efekt,
-- observation horizon,
-- guardrail metrics.
+## 5. Experiment identity a versioning
 
-## 4. Experiment unit
+Experiment musí mať immutable alebo versionovanú identitu:
 
-Randomizovať možno podľa:
+- experiment key,
+- experiment version,
+- variants a payload revisions,
+- assignment salt,
+- eligibility revision,
+- metric definitions,
+- application/artifact versions,
+- start/stop timestamps.
 
-- user ID,
-- account alebo tenant ID,
-- device ID,
+Ak sa treatment alebo eligibility významne zmení, ide o novú experiment version. Miešanie odlišných variantov do jedného výsledku znehodnocuje interpretáciu.
+
+## 6. Unit of randomization
+
+Unit musí zodpovedať tomu, kde treatment pôsobí:
+
+- user,
+- account alebo tenant,
+- device,
 - session,
-- requestu,
-- geografického clusteru,
-- organizácie.
+- request,
+- organization,
+- geografický cluster,
+- časový interval pri switchback dizajne.
 
-Unit musí zodpovedať tomu, kde môže treatment ovplyvniť výsledok. Pri team collaboration produkte randomizácia jednotlivcov v jednom tíme môže spôsobiť interference medzi variantmi.
+Pri collaboration produkte môžu členovia jedného tímu ovplyvňovať výsledok navzájom; randomizácia userov potom porušuje independence a cluster randomization môže byť vhodnejšia.
 
-## 5. Deterministic assignment
-
-Použi stabilný identifikátor a versioned experiment salt:
+## 7. Deterministic assignment
 
 ```text
-bucket = hash(subject_id + experiment_key) mod N
+bucket = hash(experiment_key + version + subject_id + salt) mod N
 ```
 
 Požiadavky:
 
-- rovnaký subjekt zostáva v rovnakom variante,
-- assignment je auditovateľný,
-- rollout percentage možno meniť bez neúmyselného reshuffle,
-- experimenty nemajú kolidovať,
-- missing identity má explicitné správanie.
+- rovnaký subjekt má stabilný variant,
+- assignment je konzistentný naprieč services,
+- zmena percenta má predvídateľný reshuffle model,
+- anonymous identity má lifecycle,
+- missing identity má explicitný fallback,
+- experiment namespaces zabraňujú kolíziám.
 
-Random assignment pri každom requeste porušuje experimentálnu konzistenciu.
+## 8. Eligibility
 
-## 6. Eligibility
+Eligibility sa aplikuje pred assignmentom a môže zahŕňať:
 
-Pred assignmentom definuj, kto môže vstúpiť do experimentu:
-
-- noví vs. existujúci používatelia,
-- krajina alebo právna jurisdikcia,
+- nový/existujúci používateľ,
+- jurisdikciu,
 - plan alebo tenant tier,
-- client version,
-- device capability,
-- používateľské nastavenie,
-- predchádzajúca exposure.
+- client capability,
+- locale,
+- predchádzajúci experiment exposure,
+- consent alebo opt-out,
+- bezpečnostné obmedzenia.
 
-Eligibility zmenená počas experimentu môže meniť population mix a skresliť výsledok.
+Zmenu eligibility počas experimentu versionuj alebo analyzuj ako samostatnú fázu. Inak sa mení population mix.
 
-## 7. Exposure event
+## 9. Assignment verzus exposure
 
-Assignment nie je to isté ako exposure. Používateľ môže byť zaradený do B, ale variant reálne neuvidí.
+Assignment znamená, že subjekt patrí do variantu. Exposure znamená, že treatment skutočne ovplyvnil jeho skúsenosť.
 
-Exposure event má obsahovať:
+Exposure event potrebuje:
 
-- experiment ID a version,
+- experiment ID/version,
 - variant,
-- stable subject ID alebo privacy-safe key,
+- privacy-safe subject key,
 - timestamp,
-- eligibility context,
-- application version,
-- relevantný request/session ID.
+- assignment reason,
+- application/artifact version,
+- session/request correlation,
+- treatment payload revision.
 
-Outcome sa má analyzovať podľa vopred zvoleného modelu, napríklad intention-to-treat alebo exposed population.
+Chýbajúci exposure logging môže zameniť „priradený“ a „reálne zasiahnutý“ population set.
 
-## 8. Metrics hierarchy
+## 10. Intention-to-treat a exposed analysis
 
-### Primary metric
+- **Intention-to-treat —** analyzuje všetkých pridelených subjektov; zachováva randomizáciu a je robustnejší proti behaviorálnemu selection biasu.
+- **Exposed-only —** analyzuje iba potvrdené exposures; môže zlepšiť citlivosť, ale exposure samotná môže závisieť od treatmentu.
 
-Hlavný výsledok, podľa ktorého sa rozhoduje.
+Primárny analytický model definuj vopred. Exposed-only výsledok používaj opatrne a spolu s assignment diagnostics.
 
-### Secondary metrics
+## 11. Metric contract
 
-Pomáhajú vysvetliť mechanizmus alebo dopad.
+Každá metric má definovať:
 
-### Guardrail metrics
+- event source a schema,
+- numerator a denominator,
+- deduplication,
+- attribution rule,
+- time window,
+- timezone,
+- late-event handling,
+- bot/internal traffic,
+- missing values,
+- unit of analysis.
 
-Nesmú sa neprijateľne zhoršiť, napríklad:
+Rozdielne dashboardy často ukazujú iný výsledok pre odlišné inclusion alebo attribution pravidlá.
 
-- error rate,
-- latency,
-- cancellation rate,
-- support contacts,
-- abuse alebo fraud,
-- accessibility,
-- revenue quality,
-- retention.
+## 12. Primary, secondary a guardrail metrics
 
-### Diagnostic metrics
+- **Primary —** hlavný outcome pre decision.
+- **Secondary —** vysvetľuje mechanizmus alebo širší dopad.
+- **Guardrail —** chráni reliability, bezpečnosť, support, retention, accessibility alebo kvalitu revenue.
+- **Diagnostic —** slúži na troubleshooting, nie na post hoc vyhlásenie víťaza.
 
-Pomáhajú analyzovať segmenty a technické príčiny, ale nemajú sa post hoc meniť na hlavný cieľ.
+Viac primárnych metrík zvyšuje decision ambiguity a multiple-testing riziko.
 
-## 9. Statistical significance vs. practical significance
+## 13. Sample size a praktický efekt
 
-Štatisticky detegovateľný rozdiel nemusí byť produktovo významný. Pred experimentom definuj:
+Pred experimentom odhadni:
 
-- baseline rate,
+- baseline rate/variance,
 - minimum detectable effect,
-- significance alebo credible interval policy,
-- požadovanú power,
-- maximálnu duration,
-- rozhodovací threshold.
+- desired power,
+- false-positive policy,
+- expected eligibility a exposure rate,
+- cluster effect, ak sa randomizuje skupina,
+- maximum duration.
 
-Veľmi veľká vzorka môže označiť zanedbateľný efekt za štatisticky významný.
+Štatisticky detegovateľný efekt môže byť ekonomicky alebo používateľsky zanedbateľný. Rozhodnutie potrebuje practical significance.
 
-## 10. Sequential peeking
+## 14. Precedence experimentálnych validity checks
 
-Opakované sledovanie výsledku a ukončenie pri prvom priaznivom čísle zvyšuje false-positive riziko.
+Pred interpretáciou outcome over:
 
-Možnosti:
+1. assignment integrity,
+2. sample ratio,
+3. exposure completeness,
+4. metric pipeline health,
+5. population comparability,
+6. concurrent experiment interference,
+7. novelty/seasonality,
+8. guardrail safety.
 
-- pevne definovaná sample size a duration,
-- sequential testing s korektnou boundary,
-- Bayesian decision policy,
-- explicitný early-stop model pre harm.
+Pozitívny primary result pri neplatnom assignment systéme nie je dôveryhodný.
 
-Safety guardrail môže experiment zastaviť okamžite aj pri inom analytickom modeli.
+## 15. Sample Ratio Mismatch
 
-## 11. Sample ratio mismatch
-
-Ak sa očakáva 50/50, ale reálna exposure je 57/43, môže ísť o:
+Ak očakávaš 50/50, ale pozoruješ významne odlišný pomer, hľadaj:
 
 - assignment bug,
 - variant-specific crash,
 - logging loss,
-- cache alebo routing problém,
-- eligibility rozdiel,
+- cache/routing rozdiel,
+- eligibility aplikovanú po assignment-e,
 - bot traffic,
 - client incompatibility.
 
-Sample ratio mismatch treba vyšetriť pred interpretáciou outcome.
+SRM je experiment integrity incident, nie iba kozmetická odchýlka.
 
-## 12. Interference a network effects
+## 16. A/A test a instrumentation validation
 
-Výsledok jedného subjektu môže ovplyvniť iných, napríklad:
+A/A test posiela ekvivalentné správanie do dvoch skupín a overuje:
 
-- marketplace supply a demand,
-- social feed,
+- assignment ratio,
+- exposure logging,
+- metric parity,
+- variance assumptions,
+- analysis pipeline,
+- false-positive calibration.
+
+A/A test nenahrádza produktový experiment, ale môže odhaliť platformové chyby pred treatmentom.
+
+## 17. Sequential monitoring a stopping
+
+Priebežné pozeranie a zastavenie pri prvom priaznivom výsledku zvyšuje false-positive riziko.
+
+Použi:
+
+- fixed horizon,
+- validný sequential design,
+- Bayesian decision rule,
+- oddelené immediate harm guardrails.
+
+Safety abort môže byť okamžitý; product-win decision musí rešpektovať analytický plán.
+
+## 18. Delayed outcomes a attribution
+
+Outcome môže vzniknúť po hodinách alebo týždňoch. Definuj:
+
+- exposure-to-outcome attribution,
+- conversion window,
+- censoring pri konci testu,
+- late events,
+- repeat exposure,
+- cross-device identity.
+
+Experiment neukončuj skôr, než relevantný outcome horizon dozreje.
+
+## 19. Interference a network effects
+
+Treatment jedného subjektu môže ovplyvniť control:
+
+- marketplace supply/demand,
+- social graph,
 - collaboration,
 - shared tenant quota,
-- pricing,
-- recommendation inventory.
+- pricing alebo recommendations.
 
-Vtedy môže byť potrebná cluster randomization, geo experiment alebo switchback design.
+Možnosti:
 
-## 13. Novelty a learning effects
+- cluster randomization,
+- geo experiment,
+- switchback design,
+- holdout na spoločnom markete,
+- modelovanie spillover efektu.
 
-Krátkodobý efekt môže vzniknúť iba preto, že zmena je nová. Naopak, používateľ môže potrebovať čas na naučenie nového flow.
+## 20. Novelty, learning a carryover
 
-Observation horizon musí pokryť:
+Krátkodobý efekt môže pochádzať z novosti; používateľ sa tiež môže nový workflow postupne naučiť. Pri crossover alebo switchback dizajne môže treatment ovplyvniť následné obdobie.
 
-- celý business cycle,
-- weekday/weekend variation,
-- retention window,
-- delayed outcomes,
-- adaptation.
+Observation horizon má pokrývať celý relevantný business cycle a adaptation.
 
-## 14. Multiple experiments
+## 21. Multiple experiments
 
-Súbežné experimenty môžu interagovať. Potrebné sú:
+Experiment platforma potrebuje:
 
-- experiment namespaces,
-- mutual exclusion groups,
-- dependency metadata,
-- exposure joinability,
-- interaction analysis pri kritických kombináciách.
+- namespaces,
+- mutual-exclusion groups,
+- dependencies,
+- interaction metadata,
+- exposure join keys,
+- global holdout podľa potreby.
 
-Globálne vypnutie všetkých kombinácií znižuje experimentačnú kapacitu; úplné ignorovanie interakcií znižuje dôveryhodnosť.
+Úplné zakázanie overlapu znižuje kapacitu; ignorovanie interakcií znižuje validitu.
 
-## 15. Experiment lifecycle
+## 22. Operational safety
 
-```text
-draft hypothesis
-→ review metrics and ethics
-→ validate instrumentation
-→ dry run / A-A test
-→ limited rollout
-→ full planned exposure
-→ analysis
-→ decision
-→ rollout or removal
-→ archive experiment record
-```
+Aj produktový experiment je produkčný rollout. Potrebuje:
 
-A-A test môže odhaliť assignment, logging a analysis pipeline problémy bez rozdielneho treatmentu.
+- kill switch,
+- max exposure,
+- guardrail alerts,
+- ownera a on-call context,
+- feature/config fallback,
+- expiry,
+- rollback alebo disable postup,
+- audit zmien.
 
-## 16. Ethics, privacy a compliance
+Experiment platforma je privilegovaný control plane.
+
+## 23. Privacy, ethics a fairness
 
 Over:
 
-- či treatment môže poškodiť používateľa,
-- či je potrebný consent alebo disclosure,
-- či nie je segmentácia diskriminačná,
-- minimalizáciu osobných údajov,
-- retention experiment dát,
+- oprávnenie experimentovať,
+- consent alebo disclosure,
 - citlivé segmenty,
-- právo používateľa opt-out,
-- právne obmedzenia podľa jurisdikcie.
+- diskriminačný targeting,
+- data minimization,
+- retention exposure/outcome dát,
+- opt-out,
+- jurisdiction constraints,
+- možnosť reálnej škody.
 
-Nie každý produktový nápad je vhodný na tichý experiment.
+Nie každý behaviorálny zásah je vhodný na tichý randomizovaný experiment.
 
-## 17. Operational safety
+## 24. Experiment decision taxonomy
 
-Experiment musí mať:
+Výsledok nemusí byť iba „B vyhralo“:
 
-- ownera,
-- kill switch,
-- guardrail alerts,
-- max exposure,
-- expiry,
-- on-call context,
-- rollback alebo disable postup.
+- ship treatment,
+- keep control,
+- iterate and rerun,
+- inconclusive,
+- invalid experiment,
+- stop for harm,
+- segment-specific follow-up,
+- no practical benefit.
 
-Experiment platforma je produkčný control plane a vyžaduje audit, least privilege a vysokú dostupnosť.
+Decision record má oddeliť evidence od business rozhodnutia.
 
-## 18. Troubleshooting
+## 25. Rollout po experimente
 
-### Variant B má menej exposure eventov než assignmentov
+Víťazný variant nepromotionuj automaticky bez:
 
-Over rendering path, crashes, client compatibility, ad blockers, logging a network failures.
+- guardrail review,
+- capacity a reliability overenia,
+- support/operability readiness,
+- cleanup plánu,
+- compatibility kontroly,
+- monitoring-u po 100 %.
 
-### Výsledok sa líši podľa dashboardu
+Experiment často bežal na čiastočnom scope a nemusí dokazovať behavior pri plnom load-e.
 
-Skontroluj metric definition, attribution window, timezone, deduplication, late events a inclusion rules.
+## 26. Cleanup a archive
 
-### Experiment je pozitívny iba v jednom segmente
+Po rozhodnutí:
 
-Rozlišuj vopred plánovanú segmentáciu od post hoc data dredging. Over sample size a interaction effect.
+- nastav finálny behavior,
+- odstráň obsolete variant,
+- odstráň flag a assignment logiku,
+- ukonči exposure events,
+- archivuj hypothesis, queries a result,
+- zachovaj privacy retention policy,
+- vytvor následné actions.
 
-### Po ukončení experimentu sa efekt stratil
+Experiment bez cleanupu sa mení na permanentný nezdokumentovaný branch.
 
-Možné novelty effect, seasonality, instrumentation drift alebo zmena population mixu.
+## 27. Failure modes
 
-## 19. Anti-patterny
+- assignment bug,
+- missing exposure,
+- SRM,
+- metric drift,
+- concurrent treatment interference,
+- insufficient sample,
+- peeking bias,
+- delayed-outcome truncation,
+- privacy breach,
+- stale variant po expiry.
 
-### Testujeme bez primárnej metriky
+## 28. Diagnostický postup
+
+1. Over experiment/version a treatment payload.
+2. Skontroluj eligibility a assignment counts.
+3. Testuj SRM.
+4. Porovnaj assignment a exposure funnel.
+5. Validuj metric query, dedup a attribution.
+6. Skontroluj concurrent experiments a population mix.
+7. Over sample maturity a delayed outcomes.
+8. Rozlíš planned segment analysis od post hoc data mining.
+9. Skontroluj guardrails a operational incidents.
+10. Klasifikuj result ako valid, inconclusive alebo invalid.
+
+## 29. Metriky experimentačnej platformy
+
+- SRM incident rate,
+- exposure logging completeness,
+- invalid/inconclusive experiment rate,
+- time to sufficient sample,
+- stale experiment count,
+- guardrail aborts,
+- decision-to-cleanup time,
+- metric-definition drift,
+- podiel shipped treatments s post-rollout regression,
+- privacy alebo targeting incidents.
+
+## 30. Typické anti-patterny
+
+### Traffic split bez assignment integrity
+
+Nie je to dôveryhodný A/B experiment.
+
+### Bez primary metric
 
 Po výsledku sa vyberie najpriaznivejšie číslo.
 
-### 50/50 routing = A/B test
+### Assignment sa zamieňa s exposure
 
-Bez assignment integrity, exposure a outcome modelu ide iba o traffic split.
+Nezobrazený treatment riedi alebo skresľuje odhad.
 
-### Experiment beží bez expiry
+### Peeking bez validného dizajnu
 
-Varianty sa menia na nezdokumentovanú permanentnú konfiguráciu.
+False-positive riziko rastie.
 
-### Každý používateľ vidí oba varianty
+### Pozitívny segment nájdený post hoc
 
-Carryover a learning effects môžu znemožniť interpretáciu.
+Môže ísť o náhodu bez dostatočnej vzorky.
 
-### Štatistická významnosť = automatický rollout
+### Statistical significance = automatický ship
 
-Rozhodnutie musí zahŕňať practical effect, guardrails, náklady, ethics a dlhodobý dopad.
+Ignoruje practical effect, costs, guardrails a ethics.
 
-## 20. Kontrolné otázky
+### Experiment bez expiry a cleanupu
 
-1. Aký je rozdiel medzi A/B testom a canary deploymentom?
-2. Ako zvoliť správnu experiment unit?
-3. Prečo assignment nie je exposure?
-4. Čo je primary metric a guardrail metric?
-5. Čo je minimum detectable effect?
-6. Prečo je sequential peeking problém?
-7. Čo signalizuje sample ratio mismatch?
-8. Kedy treba cluster randomization?
-9. Na čo slúži A-A test?
-10. Aké etické a privacy kontroly má experiment potrebovať?
+Varianty zostanú trvalou komplexitou.
+
+## 31. Rozhodovací rámec
+
+1. Aká je kauzálna hypotéza?
+2. Aká je správna randomization unit?
+3. Kto je eligible a prečo?
+4. Ako sa assignment odlišuje od exposure?
+5. Aká metric a attribution definícia rozhoduje?
+6. Aký minimum detectable effect je prakticky relevantný?
+7. Aký sample/duration a stopping design použijeme?
+8. Ktoré interference a concurrent experiments hrozia?
+9. Aké guardrails chránia používateľov?
+10. Aké privacy/ethics constraints platia?
+11. Aké výsledné verdicts sú možné?
+12. Ako sa variant rolloutne a následne odstráni experiment debt?
+
+## 32. Kontrolný checklist
+
+- hypothesis a primary metric sú vopred zapísané,
+- experiment version identifikuje treatment,
+- unit a eligibility sú správne,
+- assignment je deterministický,
+- exposure event je spoľahlivý,
+- sample a stopping rules sú definované,
+- SRM a instrumentation checks existujú,
+- attribution pokrýva delayed outcomes,
+- guardrails a kill switch sú aktívne,
+- privacy a ethics boli posúdené,
+- decision taxonomy zahŕňa invalid/inconclusive,
+- rollout a cleanup plan existujú.
+
+## 33. Kontrolné otázky
+
+1. Aký je rozdiel medzi canary a A/B testom?
+2. Prečo randomization unit musí zodpovedať mechanismu účinku?
+3. Aký je rozdiel medzi assignment a exposure?
+4. Kedy je intention-to-treat vhodnejší než exposed-only?
+5. Čo je Sample Ratio Mismatch?
+6. Načo slúži A/A test?
+7. Prečo sequential peeking zvyšuje false positives?
+8. Ako interference porušuje jednoduchý user-level experiment?
+9. Prečo štatistický efekt nemusí byť prakticky významný?
+10. Čo musí nasledovať po experimentálnom rozhodnutí?
+
+## Summary
+
+A/B testing je kauzálny experiment, nie obyčajný traffic split. Dôveryhodnosť vzniká explicitnou hypotézou, správnou randomization unit, stabilným assignmentom, exposure loggingom, versionovanými metric definitions, sample a stopping plánom a validity checks ako SRM. Rozhodnutie musí zohľadniť praktický efekt, guardrails, privacy a operational readiness. Po experimente treba variant bezpečne rolloutovať alebo odstrániť a uzavrieť flag aj analytický debt.
 
 ## Glossary impact
 
-Relevantné pojmy: A/B testing, control variant, treatment variant, experiment unit, deterministic assignment, eligibility, exposure event, intention-to-treat, primary metric, guardrail metric, minimum detectable effect, statistical power, sample ratio mismatch, A-A test a experiment namespace.
+Relevantné pojmy: A/B testing, causal effect, experiment contract, randomization unit, eligibility, deterministic assignment, exposure event, intention-to-treat, primary metric, guardrail metric, minimum detectable effect, Sample Ratio Mismatch, A/A test, interference, sequential design a experiment cleanup.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
