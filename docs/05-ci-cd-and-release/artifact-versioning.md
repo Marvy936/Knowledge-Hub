@@ -1,143 +1,186 @@
 # Artifact versioning
 
-Artifact versioning je systém jednoznačnej identifikácie build výstupov tak, aby bolo možné presne určiť, čo bolo zostavené, testované, schválené, nasadené a prípadne rollbacknuté.
+## Metadata
 
-Verzia artifactu nie je iba názov súboru. Je súčasťou release identity, provenance, promotion evidence a incidentnej diagnostiky.
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-## 1. Čo je artifact
+## 1. Definícia
 
-Artifact je immutable alebo aspoň jednoznačne identifikovateľný výstup build procesu, napríklad:
+Artifact versioning je systém identifikácie, publikovania a správy build výstupov tak, aby bolo možné jednoznačne určiť, ktoré bytes boli vytvorené, testované, schválené, nasadené, stiahnuté, zneplatnené alebo použité na rollback.
 
-- container image,
-- binary alebo executable,
-- package,
-- archive,
-- VM image,
-- Helm chart,
-- firmware,
+Versioning nie je iba formát názvu súboru. Dôveryhodná artifact identity prepája viac vrstiev:
+
+```text
+logical release version
++ artifact name a namespace
++ immutable content digest
++ target platform/variant
++ build provenance
++ evidence manifest
+→ release identity
+```
+
+Čitateľná verzia komunikuje ľuďom release význam. Digest identifikuje konkrétny obsah. Provenance vysvetľuje, ako obsah vznikol. Release record viaže tento obsah na schválenie, konfiguráciu a deployment state.
+
+## 2. Artifact verzus source
+
+Artifact je výstup build alebo packaging procesu určený na ďalšie overenie, distribúciu alebo execution. Môže to byť:
+
+- container image alebo OCI artifact,
+- binary, executable alebo library,
+- package pre language ecosystem,
+- archive alebo installer,
+- VM image alebo firmware,
+- Helm chart alebo deployment bundle,
 - static web bundle,
 - database migration bundle,
-- Software Bill of Materials.
+- model alebo data package,
+- SBOM, provenance attestation alebo signature bundle.
 
-Source commit nie je automaticky deployovateľný artifact. Rovnaký source môže pri rozdielnom toolchaine, dependencies alebo build konfigurácii vytvoriť rozdielne bytes.
+Source commit nie je automaticky artifact identity. Rovnaký commit môže vytvoriť rozdielne bytes pri zmene:
 
-## 2. Požiadavky na dobrú artifact identity
+- toolchainu,
+- dependency resolutionu,
+- base image,
+- OS alebo architecture,
+- build flags,
+- timestamps,
+- locale alebo timezone,
+- environment variables,
+- external network inputu.
 
-Artifact identity má byť:
+Preto commit vysvetľuje source revision, ale digest vysvetľuje skutočný build output.
 
-- jednoznačná,
-- nemenná,
-- strojovo spracovateľná,
-- auditovateľná,
-- spätne mapovateľná na source a build,
-- vhodná pre promotion aj rollback,
-- nezávislá od názvu environmentu.
+## 3. Tri typy identity
 
-Príklad stabilnej identity:
+Je užitočné oddeliť tri vrstvy:
 
-```text
-registry.example.com/payments/api@sha256:4f2c...
-```
+### Logical version
 
-Ľudsky čitateľný tag môže byť:
-
-```text
-payments-api:2.8.1
-```
-
-Digest však identifikuje konkrétny obsah. Tag môže byť v niektorých registry systémoch prepísateľný.
-
-## 3. Logical version vs. content identity
-
-Rozlišuj:
+Ľudsky čitateľné označenie release významu:
 
 ```text
-logical version
-→ 2.8.1
-
-content identity
-→ sha256:4f2c...
+2.8.1
+2026.07.24
+build-18422
 ```
 
-Logical version komunikuje release význam a compatibility očakávania. Digest dokazuje konkrétne bytes.
+### Content identity
 
-Bezpečný release record typicky obsahuje oboje:
+Kryptografická identita konkrétnych bytes:
 
 ```text
-version: 2.8.1
-artifact: registry.example.com/payments/api
-artifact_digest: sha256:4f2c...
-source_commit: 8a71c9d
-pipeline_run: 18422
+sha256:4f2c...
 ```
 
-## 4. Build metadata
+### Deployment identity
 
-Artifact metadata môžu zahŕňať:
+Konkrétny runtime state:
 
-- source repository,
-- commit SHA,
-- branch alebo tag,
-- build timestamp,
-- pipeline run ID,
-- builder identity,
-- toolchain versions,
-- dependency lock hash,
-- target OS/architecture,
-- build configuration,
-- SBOM,
-- provenance attestation,
-- signatures.
+```text
+artifact digest
++ config revision
++ infrastructure revision
++ schema state
++ feature exposure
++ target environment
+```
 
-Metadata nemajú meniť runtime obsah spôsobom, ktorý ničí reproducibility, ak to nie je zámerné.
+Incidentný tím potrebuje všetky tri. Samotné `2.8.1` nehovorí, ktoré bytes registry v danom čase poskytla. Samotný digest zas nemusí vysvetliť compatibility alebo release intent.
 
-## 5. Versioning schémy
+## 4. Artifact name a namespace
 
-Bežné možnosti:
+Verzia je významná iba v správnom namespace.
 
-### Semantic version
+```text
+payments/api:2.8.1
+payments/worker:2.8.1
+```
+
+Obe položky môžu mať rovnaké číslo verzie a pritom ide o iné artifacts. Plná logical identity typicky obsahuje:
+
+- registry alebo repository,
+- organization/project namespace,
+- package alebo artifact name,
+- logical version,
+- variant/platform podľa potreby.
+
+Globálne nejednoznačný build number ako `18422` je použiteľný iba spolu s pipeline/project identity.
+
+## 5. Content digest
+
+Content digest je hash kanonického alebo registry-defined obsahu. Pri OCI image môže digest identifikovať manifest alebo index, nie iba filesystem layers.
+
+Vlastnosti digestu:
+
+- zmena jedného bytu vytvorí inú identity,
+- deployment môže presne pinovať obsah,
+- registry alebo transport môže overiť integrity,
+- evidence sa môže viazať na immutable subject,
+- tag movement nemení pôvodný digest.
+
+Hash dokazuje identitu obsahu, nie jeho dôveryhodnosť. Útočník môže publikovať škodlivý artifact a správne vypočítať jeho hash.
+
+## 6. Logical version
+
+Logical version komunikuje release intent alebo poradie. Môže používať:
+
+- Semantic Versioning,
+- Calendar Versioning,
+- monotónny release number,
+- commit-derived alebo distance-derived version,
+- kombinovaný interný formát.
+
+Logical version musí mať definovaný namespace, ordering a immutability policy. Ak sa vydaná verzia prepíše novými bytes, stráca auditnú aj dependency-resolution hodnotu.
+
+## 7. Versioning schémy
+
+### Semantic Versioning
 
 ```text
 2.8.1
 ```
 
-Vhodný pre verejné alebo stabilné compatibility kontrakty.
+Vhodné, keď artifact publikuje jasný compatibility contract.
 
-### Calendar version
+### Calendar Versioning
 
 ```text
-2026.07.21
+2026.07.24
+2026.07.24.1
 ```
 
-Vhodný pre pravidelný release cadence alebo dátumovo orientované produkty.
+Vhodné pri časovo orientovanom release cadence. Dátum sám o sebe nevyjadruje compatibility.
 
-### Incrementing build number
+### Monotónny build alebo release number
 
 ```text
 18422
 ```
 
-Jednoduchý interný identifikátor, ale bez významu mimo konkrétneho pipeline systému.
+Jednoduché ordering v rámci jedného systému. Pri migrácii CI treba zachovať namespace alebo mapovanie.
 
-### Commit-based version
+### Commit-derived version
 
 ```text
 8a71c9d
 ```
 
-Silná väzba na source, ale commit sám neidentifikuje build prostredie ani výsledné bytes.
+Dobrá source traceability, ale neidentifikuje build configuration ani bytes.
 
-### Hybridná verzia
+### Hybrid
 
 ```text
-2.8.1+build.18422.sha.8a71c9d
+2.8.1-rc.2+build.18422.sha.8a71c9d
 ```
 
-Spája release význam a technickú traceability.
+Spája release intent s technickou stopou. Build metadata však podľa konkrétneho ecosystemu nemusí ovplyvňovať ordering alebo dependency resolution.
 
-## 6. Pre-release artifacts
+## 8. Pre-release identity
 
-Pre-release identifikátory môžu rozlišovať:
+Pre-release identifikátory odlišujú kandidátov:
 
 ```text
 2.8.1-alpha.3
@@ -145,237 +188,568 @@ Pre-release identifikátory môžu rozlišovať:
 2.8.1-rc.1
 ```
 
-Pre-release artifact musí byť stále immutable. Release candidate sa nemá po schválení rebuildovať pod rovnakou verziou.
+Každý candidate musí byť immutable. `rc.1` dnes a `rc.1` zajtra nesmie označovať rozdielne bytes.
 
 Bezpečný flow:
 
 ```text
-build immutable artifact
-→ priraď candidate identity
-→ testuj digest
-→ schváľ digest
-→ pridaj release alias/tag na ten istý digest
+build artifact D
+→ priraď candidate version
+→ testuj a skenuj D
+→ schváľ D
+→ vytvor final release alias na D
 ```
 
-Nie:
+Finalizácia release nemá rebuildovať source. Môže pridať metadata, signature alebo alias, ale subject digest musí zostať rovnaký.
+
+## 9. Build metadata
+
+Metadata pomáhajú reprodukcii, diagnostike a policy verification. Typicky obsahujú:
+
+- source repository a commit SHA,
+- branch/tag alebo release request,
+- pipeline a job run ID,
+- builder/workload identity,
+- pipeline definition revision,
+- resolved template/policy version,
+- toolchain a compiler versions,
+- dependency lock hash,
+- base image digests,
+- target OS/architecture,
+- build flags a feature set,
+- timestamp a build environment,
+- SBOM reference,
+- provenance a signatures.
+
+Metadata, ktoré sú vložené priamo do artifactu, môžu ovplyvniť digest a reproducibility. Rozlišuj runtime metadata od external attestations viazaných na digest.
+
+## 10. Build once, promote many
+
+Dôveryhodný model:
 
 ```text
-testuj RC
-→ rebuildni source
-→ publikuj nové bytes ako final
+source + pinned inputs
+→ build artifact D
+→ verify D
+→ staging deploy D
+→ production deploy D
 ```
 
-## 7. Mutable tags
-
-Tagy ako:
+Rizikový model:
 
 ```text
-latest
-stable
-production
-main
+source
+→ staging build D1
+→ production rebuild D2
 ```
 
-sú pointers, nie spoľahlivá artifact identity.
+Aj keď `D1` a `D2` vznikli z rovnakého commitu, nejde o rovnaký testovaný subject. Promotion má meniť environment assignment alebo release status, nie bytes artifactu.
 
-Môžu byť užitočné pre discovery, ale deployment record musí zachovať digest alebo inú immutable identity.
+## 11. Rebuild verzus reprodukovateľný build
 
-Riziká mutable tagov:
+Rebuild je nový execution attempt. Reproducible build znamená, že pri rovnakých deklarovaných vstupoch nový build vytvorí ekvivalentný alebo identický výsledok.
 
-- nejasný rollback,
-- cache inconsistency,
-- deployment drift,
-- nemožnosť dokázať, čo bolo nasadené,
-- race medzi promotion a pullom,
-- supply-chain substitution.
+Tieto koncepty sa nesmú zamieňať:
 
-## 8. Build once, promote many
+- produkčný release má použiť pôvodný schválený digest,
+- nezávislý rebuild môže overiť reproducibility,
+- zhodný digest zvyšuje dôveru v kontrolu vstupov,
+- nezhodný digest neznamená automaticky kompromitáciu; môže odhaliť nondeterministický timestamp alebo toolchain drift,
+- ani zhodný rebuild nenahrádza provenance pôvodného artifactu.
 
-Odporúčaný model:
+Reproducibility je verification mechanizmus, nie promotion mechanizmus.
+
+## 12. Publication contract
+
+Publikovanie artifactu je state transition s explicitnými pravidlami:
 
 ```text
-source commit
-→ build artifact A
-→ test A
-→ security scan A
-→ staging deploy A
-→ production deploy A
+build output
+→ validate identity
+→ upload temporary/staging object
+→ verify checksum/digest
+→ atomic publish immutable version
+→ publish metadata/attestations
 ```
 
-Neodporúčaný model:
+Publication contract má definovať:
+
+- namespace a version ownership,
+- create-only alebo write-once behavior,
+- atomicitu publication,
+- collision behavior,
+- retry a idempotency key,
+- signature/provenance timing,
+- cleanup partial uploadu,
+- who may publish, tag, yank alebo revoke.
+
+## 13. Publication race
+
+Dva jobs môžu súčasne publikovať rovnakú logical version.
+
+Riziká:
+
+- last writer prepíše prvý artifact,
+- metadata patria inému digestu,
+- tag smeruje na náhodného winnera,
+- consumers stiahnu rozdielny obsah podľa času.
+
+Ochrany:
+
+- registry create-if-absent/write-once policy,
+- unique candidate version per build,
+- environment alebo release lock,
+- optimistic comparison očakávaného state,
+- atomic tag update,
+- kontrola, že existujúca version už smeruje na rovnaký digest.
+
+## 14. Mutable tag a alias
+
+Tagy ako `latest`, `stable`, `production` alebo `main` sú aliases/pointers. Sú vhodné na discovery alebo channel semantics, nie ako jediná deployment identity.
+
+Bezpečný model:
 
 ```text
-source commit
-→ build staging artifact
-→ neskôr rebuild production artifact
+stable → digest D
+production record → digest D
 ```
 
-Aj pri rovnakom source môžu vzniknúť rozdielne dependencies, timestampy alebo toolchain outputs.
+Pri posune aliasu uchovaj:
 
-## 9. Multi-platform artifacts
+- starý a nový digest,
+- actor alebo workload identity,
+- čas,
+- dôvod/promotion record,
+- policy result,
+- target channel.
 
-Container alebo package release môže obsahovať viac variantov:
+Deployment má resolve-nuť alias na digest a zaznamenať digest. Neskorší pohyb aliasu nesmie meniť význam historického deployment recordu.
+
+## 15. Immutable tag
+
+Niektoré registry podporujú immutable tags. Vydaná verzia `2.8.1` sa potom nedá prepísať.
+
+To chráni pred náhodným alebo úmyselným replacementom, ale stále treba:
+
+- kontrolovať publisher identity,
+- overovať provenance a signature,
+- riešiť nesprávne publikovaný artifact cez yank/revocation, nie prepísanie,
+- uchovať retention roots,
+- auditovať zmeny aliases.
+
+## 16. Multi-platform artifacts
+
+Jeden release môže mať viac platformových variantov:
 
 ```text
-linux/amd64
-linux/arm64
-windows/amd64
+release 2.8.1
+→ OCI index digest I
+   ├─ linux/amd64 digest A
+   ├─ linux/arm64 digest B
+   └─ windows/amd64 digest C
 ```
 
-Release version môže smerovať na manifest alebo index, ktorý mapuje platformu na konkrétny digest.
+Index alebo manifest list má vlastný digest. Deployment platforma vyberie konkrétny child manifest podľa platformy.
 
-Test evidence musí byť platformovo explicitná. Úspešný test `linux/amd64` nedokazuje správnosť `linux/arm64` variantu.
+Evidence musí rozlišovať:
 
-## 10. Artifact repository a registry
+- index digest,
+- variant digests,
+- build provenance každého variantu,
+- test results podľa platformy,
+- spoločné release metadata.
 
-Artifact repository má poskytovať:
+Úspešný test `linux/amd64` nie je dôkazom `linux/arm64` variantu.
 
-- immutable publishing alebo write-once policy,
-- access control,
-- checksum verification,
-- retention rules,
-- metadata search,
-- vulnerability scan integration,
-- signatures a provenance,
-- replication a backup,
-- audit logs.
+## 17. Release manifest alebo BOM
 
-Artifacty nemajú byť závislé iba od krátkodobého CI storage.
+Komplexný systém môže pozostávať z viacerých artifacts. Release identity potom potrebuje manifest:
 
-## 11. Retention a garbage collection
+```yaml
+release: 2026.07.24.1
+components:
+  api: sha256:aaa...
+  worker: sha256:bbb...
+  web: sha256:ccc...
+  migrations: sha256:ddd...
+config_schema: 7
+```
 
-Retention policy musí rozlišovať:
+Release manifest musí byť:
 
-- aktívne production releases,
-- rollback candidates,
-- supported versions,
-- pre-release artifacts,
-- branch builds,
-- orphaned artifacts,
-- právne alebo auditné požiadavky.
+- immutable alebo content-addressed,
+- podpísaný podľa policy,
+- prepojený na component provenance,
+- použitý promotion aj rollback procesom,
+- validovaný proti compatibility rules.
 
-Artifact používaný v produkcii sa nesmie odstrániť iba preto, že pipeline run expiroval.
+Bez manifestu môže environment kombinovať komponenty, ktoré jednotlivo existujú, ale spolu neboli testované.
 
-## 12. Provenance a podpisovanie
+## 18. Evidence binding
+
+Test, scan, approval a deployment evidence musí byť viazaná na immutable subject:
+
+- artifact digest,
+- variant digest,
+- release-manifest digest,
+- config/infrastructure revision podľa typu dôkazu.
+
+Branch name alebo logical version nestačí, ak sa môže pohnúť. Evidence manifest má uviesť:
+
+- subject identity,
+- check type a version,
+- result/verdict,
+- timestamp a freshness scope,
+- environment alebo test context,
+- producer identity,
+- report digest/reference.
+
+## 19. Provenance
 
 Provenance odpovedá:
 
 ```text
-kto artifact zostavil?
+kto artifact vytvoril?
 z akého source?
-akým build procesom?
-s akými vstupmi?
-bolo build prostredie dôveryhodné?
+ktorou pipeline definíciou?
+s akými deklarovanými inputs?
+v akom builder environment-e?
 ```
 
-Podpis môže potvrdiť integritu a identitu publishera. Samotný podpis však nedokazuje, že artifact je bezpečný alebo funkčný.
+Policy môže požadovať:
 
-Verification policy môže vyžadovať:
-
-- povolenú builder identity,
-- trusted source repository,
-- protected branch,
+- povolený repository a commit/ref context,
+- protected branch alebo trusted release trigger,
+- schválenú builder identity,
+- pinované build dependencies,
 - konkrétny workflow,
-- neprítomnosť neoverených dependencies,
-- platný podpis a provenance.
+- nepoužitie nedôveryhodného runnera,
+- platný attestation a signature chain.
 
-## 13. Artifact a configuration versioning
+Provenance zvyšuje supply-chain dôveru, ale sama nedokazuje funkčnosť ani neprítomnosť zraniteľnosti.
 
-Deployment identity nie je iba application artifact:
+## 20. Signatures
+
+Signature viaže publisher alebo signer identity k artifact digestu alebo attestationu.
+
+Verification musí kontrolovať:
+
+- čo bolo podpísané,
+- kto podpis vytvoril,
+- či identity a certificate chain sú povolené,
+- čas a validity/revocation stav,
+- repository/workflow claims,
+- policy pre keyless alebo key-based signing.
+
+Podpis logical tagu bez digest bindingu môže byť slabý. Signer tiež môže legitímne podpísať chybný artifact; signature nie je quality gate sama osebe.
+
+## 21. SBOM a dependency identity
+
+SBOM opisuje components zahrnuté v artifacte. Musí byť viazaný na konkrétny digest a generovaný v bode, ktorý reprezentuje final artifact.
+
+Riziká:
+
+- SBOM vytvorený zo source neobsahuje build-time alebo base-image dependencies,
+- SBOM patrí predošlému rebuildu,
+- multi-platform variants majú rozdielne dependencies,
+- mutable package references sa nedajú neskôr presne resolve-nuť.
+
+SBOM môže byť embedded alebo external attestation; dôležitá je subject identity a integrity.
+
+## 22. Configuration a deployment versioning
+
+Artifact je iba jedna časť runtime state:
 
 ```text
-runtime state = artifact + config + secrets references + infrastructure + data schema
+runtime state
+= artifact/release manifest
++ rendered config
++ secret references/versions
++ infrastructure revision
++ schema/data state
++ feature flag/exposure state
 ```
 
-Release record má zachovať minimálne:
+Release alebo deployment record má zachovať relevantné revisions. Rovnaký artifact digest môže v dvoch environments fungovať odlišne pre inú config, IAM policy alebo database state.
 
-- artifact digest,
-- config revision,
-- infrastructure revision,
-- database schema/migration state,
-- feature-flag state alebo relevantnú snapshot reference.
+## 23. Yanking
 
-## 14. Rollback requirements
+Yank znamená, že vydaná version zostáva identifikovateľná a historicky dostupná, ale nové dependency resolution alebo bežná discovery ju nemá vyberať.
 
-Rollback potrebuje:
+Použitie:
 
-- dostupný starší artifact,
-- jeho metadata a provenance,
-- kompatibilnú konfiguráciu,
-- kompatibilnú databázovú schému,
-- známu deployment procedúru,
-- overený restore alebo roll-forward plán.
+- release obsahuje závažný bug,
+- metadata alebo compatibility declaration je chybná,
+- package sa nemá používať pre nové installs,
+- existujúci lockfile musí zostať reprodukovateľný.
 
-Version label bez zachovaného artifactu nie je rollback capability.
+Yank nemá prepisovať bytes. Musí mať dôvod, actor identity a audit trail.
 
-## 15. Typické anti-patterny
+## 24. Revocation
+
+Revocation je silnejšie bezpečnostné alebo prevádzkové rozhodnutie, že artifact už nie je dôveryhodný alebo povolený na deployment.
+
+Môže spustiť:
+
+- policy denial nových deployments,
+- alert pre environments, kde artifact beží,
+- incident a rotation credentials,
+- rollback alebo roll-forward,
+- update trust metadata,
+- quarantine v registry.
+
+Fyzické zmazanie nemusí byť okamžite správne, pretože môže zničiť forenznú stopu alebo recovery schopnosť. Rozlišuj „nesmie sa používať“ od „musí sa odstrániť“.
+
+## 25. Retention roots
+
+Garbage collection nesmie rozhodovať iba podľa veku tagu. Artifact môže byť retention root, ak je:
+
+- aktívne nasadený,
+- podporovaná production release,
+- rollback candidate,
+- referencovaný release manifestom,
+- predmet incidentu alebo legal hold,
+- potrebný pre audit/compliance,
+- base dependency pre reprodukciu.
+
+Registry inventory musí vedieť vyhodnotiť references a deployment records. Artifact používaný v produkcii sa nesmie odstrániť preto, že pôvodný CI run expiroval.
+
+## 26. Retention classes
+
+Rozlišuj minimálne:
+
+- transient branch artifacts,
+- pull-request candidates,
+- failed-build diagnostics,
+- release candidates,
+- active production releases,
+- rollback window,
+- supported historical releases,
+- revoked/quarantined artifacts,
+- compliance/legal evidence.
+
+Každá class má inú retention, access a deletion policy.
+
+## 27. Legal hold a incident hold
+
+Artifact, reports a provenance môžu byť počas vyšetrovania alebo právnej požiadavky chránené pred garbage collection.
+
+Hold record má obsahovať:
+
+- presný scope/digests,
+- dôvod,
+- ownera,
+- čas začiatku,
+- access restrictions,
+- release podmienku,
+- audit zmien.
+
+Hold nemá byť implementovaný iba mutable tagom, ktorý môže niekto odstrániť.
+
+## 28. Registry replication a disaster recovery
+
+Release artifact uložený iba v jednom registry môže byť single point of failure.
+
+Kontroluj:
+
+- replication integrity podľa digestu,
+- metadata a signature replication,
+- consistency lag,
+- access policy v secondary registry,
+- restore test,
+- behavior aliases pri failoveri,
+- retention parity,
+- audit logs.
+
+Backup existencie objektu nie je dôkaz, že celý release manifest a všetky variants sa dajú obnoviť.
+
+## 29. Rollback eligibility
+
+Starší artifact je rollback candidate iba vtedy, keď:
+
+- jeho bytes a provenance sú dostupné,
+- signature/trust policy ho stále povoľuje,
+- config je kompatibilná,
+- database/event schema ostala backward-compatible,
+- external contracts a data side effects umožňujú návrat,
+- deployment tool ho vie nasadiť,
+- potrebné secrets/keys/certificates sú dostupné,
+- post-rollback validation je definovaná.
+
+Version label bez artifactu alebo compatibility dôkazu nie je rollback capability.
+
+## 30. Artifact deletion
+
+Deletion musí byť chránená operácia. Pred odstránením over:
+
+- active deployments,
+- release-manifest references,
+- rollback windows,
+- legal/incident holds,
+- replication state,
+- dependency references,
+- support policy.
+
+Preferuj staged lifecycle:
+
+```text
+mark unreferenced
+→ quarantine/deletion candidate
+→ grace period
+→ final GC
+```
+
+## 31. Release notes a artifact identity
+
+Release notes majú odkazovať na konkrétnu logical version aj immutable release/artifact digest. Pri multi-component release majú používať release manifest.
+
+To umožní odpovedať:
+
+- ktoré changes sú v nasadených bytes,
+- či hotfix vytvoril nový artifact,
+- či rovnaké release notes neboli omylom priradené inému digestu,
+- ktoré variants a migrations release obsahuje.
+
+## 32. Typické anti-patterny
 
 ### Prepísanie vydanej verzie
 
-`2.8.1` dnes obsahuje iné bytes než včera. Audit a rollback sú nedôveryhodné.
+`2.8.1` obsahuje iné bytes než pri pôvodnom release. Audit, dependency locks a rollback sú neplatné.
 
-### Production používa `latest`
+### Production používa iba `latest`
 
-Deployment nie je deterministický.
-
-### Version je iba pipeline number
-
-Pri migrácii CI systému sa stratí význam a globálna jednoznačnosť.
+Nie je možné dokázať, čo bolo resolve-nuté v čase deploymentu.
 
 ### Rebuild pri promotion
 
-Produkcia nedostáva artifact, ktorý prešiel testami.
+Produkcia nedostáva artifact, ktorý bol testovaný a schválený.
 
-### Artifact bez source mappingu
+### Version je iba CI run number
 
-Incidentný tím nevie určiť obsah a ownera zmeny.
+Bez project/registry namespace je nejednoznačná a pri migrácii systému stráca význam.
 
-### Neobmedzená retention
+### Signature bez provenance policy
 
-Registry rastie bez kontroly nákladov a lifecycle pravidiel.
+Vieme, kto podpísal digest, ale nevieme, či build vznikol z povoleného source a workflowu.
 
-## 16. Troubleshooting
+### SBOM bez subject digestu
 
-### Rovnaká verzia má rôzny checksum
+Nie je možné dokázať, ku ktorému buildu zoznam dependencies patrí.
 
-Skontroluj:
+### Zmazanie revoked artifactu bez forenznej stopy
 
-- mutable repository policy,
-- paralelné publish jobs,
-- timestampy v archive,
-- nezapinned dependencies,
-- rozdielny toolchain,
-- platform-specific variant,
-- rebuild počas promotion.
+Odstráni sa evidence potrebná na incident analýzu.
 
-### Deployment nevie stiahnuť starý artifact
+### Jeden logical version pre rozdielne platform variants bez indexu
 
-Over retention, garbage collection, repository replication a referencie na digest.
+Consumers nevedia presne identifikovať, ktorý variant dostali.
 
-### Tag ukazuje na iný digest než deployment record
+### Retention podľa veku pipeline
 
-Tag bol prepísaný. Deployment diagnostikuj podľa digestu, nie podľa aktuálneho tagu.
+Môže odstrániť aktívny alebo rollback artifact.
 
-### Reproducible build sa nezhoduje
+## 33. Diagnostický postup
 
-Hľadaj nedeterministické vstupy: čas, locale, filesystem order, network dependencies, random seed a toolchain drift.
+Pri nejasnosti artifact identity:
 
-## 17. Kontrolné otázky
+1. zisti plný registry/package namespace;
+2. resolve-ni logical version alebo tag na digest;
+3. porovnaj digest s deployment a evidence recordom;
+4. identifikuj manifest/index a platform variant;
+5. over source commit, builder, pipeline a provenance;
+6. skontroluj publication audit a prípadný tag movement;
+7. over signature a trust policy;
+8. porovnaj SBOM/report subject digests;
+9. skontroluj yanked/revoked/quarantine stav;
+10. over retention, replication a rollback eligibility;
+11. pri rozdielnom rebuilde porovnaj všetky deklarované a nondeterministické inputs.
 
-1. Aký je rozdiel medzi logical version a content digestom?
+## 34. Troubleshooting scenáre
+
+### Rovnaká verzia má dva digesty
+
+Hľadaj mutable publication, parallel race, rebuild, rozdielny platform variant alebo registry replication inconsistency. Vydaná logical version má mať jednoznačný release record.
+
+### Tag ukazuje na iný digest než deployment
+
+Tag sa pohol. Historický deployment diagnostikuj podľa uloženého digestu, nie aktuálneho aliasu.
+
+### Produkcia nevie stiahnuť rollback artifact
+
+Over retention roots, GC, registry replication, credentials, trust/revocation policy a release-manifest references.
+
+### Reproducible rebuild sa nezhoduje
+
+Porovnaj toolchain, base-image digests, dependency locks, timestamps, locale, environment, file ordering, network downloads a random seed.
+
+### Multi-platform release zlyháva iba na arm64
+
+Over child variant digest, provenance, platform-specific SBOM, emulation/cross-build setup a test evidence pre arm64. Index-level scan nemusí pokryť všetky varianty.
+
+## 35. Praktický rozhodovací rámec
+
+1. Aký je artifact namespace a logical version contract?
+2. Aký digest identifikuje konkrétny subject?
+3. Je version write-once a publication atomic?
+4. Ako sa rieši parallel publication collision?
+5. Používa promotion pôvodný digest bez rebuildu?
+6. Ako sa version mapuje na source, toolchain a build inputs?
+7. Aké provenance a signature claims policy vyžaduje?
+8. Ako sú viazané SBOM, scans a approvals?
+9. Existujú platform variants alebo multi-component release manifest?
+10. Ktoré aliases sú mutable a ako sa auditujú?
+11. Ako funguje yank a revocation bez prepísania artifactu?
+12. Ktoré deployment/config/schema revisions tvoria runtime identity?
+13. Aké artifacts sú retention roots?
+14. Aká je rollback eligibility a support window?
+15. Ako sa registry obnoví pri strate alebo failoveri?
+
+## 36. Kontrolný checklist
+
+Pred release over:
+
+- artifact má plný namespace a logical version,
+- content digest je uložený v release recorde,
+- publication je create-only alebo write-once,
+- candidate nebol pre final release rebuildnutý,
+- aliases sú oddelené od immutable identity,
+- source, builder a workflow provenance sú dostupné,
+- signatures sú overené proti policy,
+- SBOM a scan evidence patria rovnakému digestu,
+- multi-platform index aj child digests sú známe,
+- multi-component release používa immutable manifest,
+- config, infra a schema revisions sú zaznamenané,
+- rollback artifact a compatibility sú overené,
+- retention chráni active, rollback a held artifacts,
+- yanking/revocation majú audit trail,
+- registry replication a restore sú testované.
+
+## 37. Kontrolné otázky
+
+1. Aký je rozdiel medzi logical version, digestom a deployment identity?
 2. Prečo commit SHA nestačí ako úplná artifact identity?
-3. Čo znamená build once, promote many?
-4. Prečo je rebuild release candidate pred produkciou rizikový?
-5. Kedy je mutable tag prijateľný?
-6. Čo má obsahovať artifact metadata?
-7. Ako versionovať multi-platform release?
-8. Ako retention policy súvisí s rollbackom?
-9. Aký je rozdiel medzi podpisom a dôkazom bezpečnosti?
-10. Ktoré časti runtime state treba zachytiť okrem artifactu?
+3. Čo znamená plný artifact namespace?
+4. Prečo sa release candidate nesmie rebuildovať pri finalizácii?
+5. Aký je rozdiel medzi rebuildom a reproducible build verification?
+6. Ako sa zabráni parallel publication race?
+7. Kedy je mutable alias prijateľný?
+8. Ako sa identifikuje multi-platform release?
+9. Načo slúži release manifest alebo BOM?
+10. Prečo musí byť evidence viazaná na digest?
+11. Čo provenance dokazuje a čo nedokazuje?
+12. Aký je rozdiel medzi yankingom a revocation?
+13. Prečo revoked artifact nemusí byť okamžite zmazaný?
+14. Čo je retention root?
+15. Kedy je starší artifact skutočne rollback-eligible?
+16. Ktoré vrstvy okrem artifactu tvoria runtime version?
+
+## Summary
+
+Artifact versioning spája ľudsky čitateľnú logical version s immutable content digestom, build provenance a deployment evidence. Dôveryhodný lifecycle používa write-once publication, build once/promote many, explicitné multi-platform alebo multi-component manifests, digest-bound signatures, SBOM a gates. Mutable aliases slúžia na discovery, nie na historickú identity. Retention, yanking, revocation, legal hold, registry recovery a rollback eligibility musia byť súčasťou rovnakého lifecycle; samotný názov verzie bez zachovaných bytes a compatibility dôkazu nie je release ani recovery mechanizmus.
 
 ## Glossary impact
 
-Relevantné pojmy: artifact version, logical version, content digest, immutable tag, mutable tag, build metadata, release candidate, calendar versioning, provenance attestation, artifact retention, multi-platform manifest a build once, promote many.
+Relevantné pojmy: artifact version, artifact namespace, logical version, content digest, deployment identity, immutable publication, publication race, release candidate, build metadata, reproducible build, mutable alias, immutable tag, multi-platform index, release manifest, evidence binding, provenance attestation, signature, SBOM, yank, revocation, retention root, legal hold a rollback eligibility.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
