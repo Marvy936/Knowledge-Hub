@@ -1319,15 +1319,15 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "title": "Pipeline as Code",
-      "words": 1304,
-      "headings": 40,
-      "sections": 40,
-      "findings": 104,
-      "critical": 42,
-      "high": 46,
-      "medium": 13,
-      "low": 3,
-      "score": 908,
+      "words": 3165,
+      "headings": 81,
+      "sections": 81,
+      "findings": 238,
+      "critical": 90,
+      "high": 91,
+      "medium": 31,
+      "low": 26,
+      "score": 1934,
       "grade": "D"
     },
     {
@@ -86177,8 +86177,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "1. Prečo Pipeline as Code",
-      "line": 5,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86186,26 +86186,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "1. Prečo Pipeline as Code",
-      "line": 5,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "16 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "1. Prečo Pipeline as Code",
-      "line": 5,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neauditovateľná UI konfigurácia,`, `nejasný ownership,`, `manuálny drift medzi projektmi,`, `zmeny bez code review,`.",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neauditovateľná UI konfigurácia,`, `zmena delivery bez code review,`, `drift medzi projektmi,`, `nejasný ownership,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "1. Prečo Pipeline as Code",
-      "line": 5,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86213,8 +86213,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "1. Prečo Pipeline as Code",
-      "line": 5,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -86222,80 +86222,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "1. Prečo Pipeline as Code",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "3. Source of truth",
-      "line": 45,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "3. Source of truth",
-      "line": 45,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priamo v application repository,`, `v central template repository,`, `v generated configuration,`, `v kombinácii lokálneho entrypointu a versionovaného reusable template.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "3. Source of truth",
-      "line": 45,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "5. Bootstrap a trust paradox",
-      "line": 69,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "5. Bootstrap a trust paradox",
-      "line": 69,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "5. Bootstrap a trust paradox",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto validuje pipeline zmenu,`, `ktorá verzia definície sa použije na pull request,`, `môže branch zmeniť runner labels alebo secrets,`, `môže zmeniť deployment target,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "5. Bootstrap a trust paradox",
-      "line": 69,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "5. Bootstrap a trust paradox",
-      "line": 69,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -86303,44 +86231,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "5. Bootstrap a trust paradox",
-      "line": 69,
+      "section": "2. Prečo Pipeline as Code",
+      "line": 24,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "6. Pipeline schema validation",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "6. Pipeline schema validation",
-      "line": 87,
+      "section": "4. Source of truth",
+      "line": 79,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "6. Pipeline schema validation",
-      "line": 87,
+      "section": "4. Source of truth",
+      "line": 79,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntax,`, `schema,`, `references,`, `required fields,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v application repository,`, `v centrálnom template repository,`, `v reusable workflow katalógu,`, `v generátore,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "6. Pipeline schema validation",
-      "line": 87,
+      "section": "4. Source of truth",
+      "line": 79,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86348,350 +86267,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "6. Pipeline schema validation",
-      "line": 87,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "7. Lint a static analysis pipeline definície",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "7. Lint a static analysis pipeline definície",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "7. Lint a static analysis pipeline definície",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable images,`, `unpinned external actions,`, `secrets v plaintexte,`, `shell injection risk,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "7. Lint a static analysis pipeline definície",
-      "line": 102,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "8. Version pinning",
-      "line": 118,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "8. Version pinning",
-      "line": 118,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "8. Version pinning",
-      "line": 118,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container images,`, `reusable actions/plugins,`, `templates,`, `package managers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "8. Version pinning",
-      "line": 118,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "9. External actions a plugins",
-      "line": 140,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "9. External actions a plugins",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a ownership,`, `pinned revision,`, `release process,`, `permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "9. External actions a plugins",
-      "line": 140,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "9. External actions a plugins",
-      "line": 140,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "11. Reprodukovateľnosť",
-      "line": 171,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "11. Reprodukovateľnosť",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "11. Reprodukovateľnosť",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline definition revision,`, `source commit,`, `included template revisions,`, `runner image/version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "11. Reprodukovateľnosť",
-      "line": 171,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "11. Reprodukovateľnosť",
-      "line": 171,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Variables a configuration",
-      "line": 187,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Variables a configuration",
-      "line": 187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Variables a configuration",
-      "line": 187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository-level non-secret config,`, `environment config,`, `protected variables,`, `runtime inputs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Variables a configuration",
-      "line": 187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Variables a configuration",
-      "line": 187,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "13. Secrets",
-      "line": 210,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "13. Secrets",
-      "line": 210,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret manager references,`, `environment-scoped secrets,`, `short-lived workload identity,`, `masked/protected variables iba tam, kde sú potrebné.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "13. Secrets",
-      "line": 210,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "13. Secrets",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "15. Includes a templates",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "15. Includes a templates",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "15. Includes a templates",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `štandardné build jobs,`, `security gates,`, `artifact publication,`, `deployment patterns,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "15. Includes a templates",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "15. Includes a templates",
-      "line": 238,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "16. Inheritance a hidden jobs",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "16. Inheritance a hidden jobs",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malý počet explicitných layers,`, `jasné parameters,`, `rendered configuration preview,`, `dokumentovaný merge/override model.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "16. Inheritance a hidden jobs",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "17. Dynamic pipeline generation",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "17. Dynamic pipeline generation",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selective CI,`, `dynamické matrix jobs,`, `veľké monorepo.`, `generator sa stáva critical compilerom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "17. Dynamic pipeline generation",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "17. Dynamic pipeline generation",
-      "line": 272,
+      "section": "4. Source of truth",
+      "line": 79,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -86699,71 +86276,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "17. Dynamic pipeline generation",
-      "line": 272,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
+      "section": "4. Source of truth",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "18. Pipeline testing",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. Source of truth",
+      "line": 79,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Static validation",
-      "line": 295,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Static validation",
-      "line": 295,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Static validation",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Static validation",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntax a schema,`, `policy lint,`, `forbidden patterns,`, `dependency graph.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Static validation",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Static validation",
-      "line": 295,
+      "section": "4. Source of truth",
+      "line": 79,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -86771,8 +86303,1106 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Unit tests scripts/tooling",
-      "line": 302,
+      "section": "5. Pipeline compiler phases",
+      "line": 99,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Schema validation",
+      "line": 105,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Include resolution",
+      "line": 109,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Parameter binding",
+      "line": 113,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Render/merge",
+      "line": 117,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Policy evaluation",
+      "line": 121,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Graph construction",
+      "line": 125,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "6. Resolved pipeline configuration",
+      "line": 135,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "6. Resolved pipeline configuration",
+      "line": 135,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky jobs a steps,`, `dependency graph,`, `runner requirements,`, `container/image digests,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "6. Resolved pipeline configuration",
+      "line": 135,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "6. Resolved pipeline configuration",
+      "line": 135,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "6. Resolved pipeline configuration",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "6. Resolved pipeline configuration",
+      "line": 135,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `failure semantics`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorá workflow revision validuje pull request,`, `či source branch môže meniť permissions,`, `či môže vybrať privileged runner,`, `či môže dostať secrets,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "9. Bootstrap a trust paradox",
+      "line": 185,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "11. Workflow revision semantics",
+      "line": 225,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "11. Workflow revision semantics",
+      "line": 225,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "11. Workflow revision semantics",
+      "line": 225,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `workflow zo source branchu,`, `workflow z target branchu,`, `kombináciu trusted wrapperu a branch scripts,`, `synthetic merge-result revision.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "11. Workflow revision semantics",
+      "line": 225,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "11. Workflow revision semantics",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Syntax a schema validation",
+      "line": 242,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Syntax a schema validation",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Syntax a schema validation",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntax,`, `schema,`, `required fields,`, `type constraints,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Syntax a schema validation",
+      "line": 242,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Syntax a schema validation",
+      "line": 242,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "13. Static analysis pipeline kódu",
+      "line": 259,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "13. Static analysis pipeline kódu",
+      "line": 259,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "13. Static analysis pipeline kódu",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable images alebo actions,`, `unpinned includes,`, `secrets v source,`, `shell injection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "13. Static analysis pipeline kódu",
+      "line": 259,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "13. Static analysis pipeline kódu",
+      "line": 259,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "13. Static analysis pipeline kódu",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "14. Variables a typed inputs",
+      "line": 279,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "14. Variables a typed inputs",
+      "line": 279,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "14. Variables a typed inputs",
+      "line": 279,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository non-secret config,`, `group/organization config,`, `environment config,`, `protected variables,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "14. Variables a typed inputs",
+      "line": 279,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "14. Variables a typed inputs",
+      "line": 279,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "16. Secrets",
+      "line": 324,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "16. Secrets",
+      "line": 324,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload identity/OIDC,`, `secret-manager references,`, `environment-scoped short-lived credentials,`, `per-job secret injection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "16. Secrets",
+      "line": 324,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "16. Secrets",
+      "line": 324,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `workload`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "17. Permission model",
+      "line": 344,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "17. Permission model",
+      "line": 344,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository token scopes,`, `registry access,`, `cloud IAM,`, `network reachability,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "17. Permission model",
+      "line": 344,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "17. Permission model",
+      "line": 344,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "18. Runner a executor trust",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "18. Runner a executor trust",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hosted/self-hosted,`, `ephemeral/persistent,`, `shell/container/VM/Kubernetes executor,`, `network access,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "18. Runner a executor trust",
+      "line": 372,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "18. Runner a executor trust",
+      "line": 372,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "18. Runner a executor trust",
+      "line": 372,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "19. Externé dependencies pipeline",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "19. Externé dependencies pipeline",
+      "line": 390,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "19. Externé dependencies pipeline",
+      "line": 390,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container images,`, `actions/plugins,`, `reusable workflows,`, `templates,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "19. Externé dependencies pipeline",
+      "line": 390,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "20. Immutable pinning",
+      "line": 405,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "20. Immutable pinning",
+      "line": 405,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container digest,`, `commit SHA,`, `signed artifact digest,`, `immutable internal template version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "20. Immutable pinning",
+      "line": 405,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "20. Immutable pinning",
+      "line": 405,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "20. Immutable pinning",
+      "line": 405,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "21. External actions a plugins",
+      "line": 419,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "21. External actions a plugins",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "21. External actions a plugins",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera a source,`, `pinned revision,`, `permissions,`, `code size a dependencies,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "21. External actions a plugins",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "21. External actions a plugins",
+      "line": 419,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "22. Download-and-execute",
+      "line": 436,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "22. Download-and-execute",
+      "line": 436,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "22. Download-and-execute",
+      "line": 436,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stiahnuť pinovanú verziu;`, `overiť checksum/signature;`, `uložiť alebo mirrorovať artifact;`, `spustiť s minimálnymi permissions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "22. Download-and-execute",
+      "line": 436,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "23. Includes a reusable templates",
+      "line": 454,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "23. Includes a reusable templates",
+      "line": 454,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "23. Includes a reusable templates",
+      "line": 454,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `štandardný build,`, `security gates,`, `artifact publication,`, `deployment workflow,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "23. Includes a reusable templates",
+      "line": 454,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "23. Includes a reusable templates",
+      "line": 454,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "24. Include resolution",
+      "line": 476,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "24. Include resolution",
+      "line": 476,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "24. Include resolution",
+      "line": 476,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed sources/domains/repositories,`, `authentication,`, `immutable revision,`, `recursion limit,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "24. Include resolution",
+      "line": 476,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "24. Include resolution",
+      "line": 476,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "25. Merge a override semantics",
+      "line": 491,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "25. Merge a override semantics",
+      "line": 491,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či arrays nahrádzajú alebo spájajú values,`, `ako sa správajú maps,`, `či null odstraňuje inherited field,`, `ktoré permissions možno iba zužovať,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "25. Merge a override semantics",
+      "line": 491,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "25. Merge a override semantics",
+      "line": 491,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "26. Template contract a version negotiation",
+      "line": 505,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "26. Template contract a version negotiation",
+      "line": 505,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena input type/default,`, `zmena permission requirement,`, `odstránenie job outputu,`, `zmena artifact naming,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "26. Template contract a version negotiation",
+      "line": 505,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "26. Template contract a version negotiation",
+      "line": 505,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `failure semantics`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "27. Centrálne template-y a globálny blast radius",
+      "line": 528,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "27. Centrálne template-y a globálny blast radius",
+      "line": 528,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable template versions,`, `canary repositories,`, `representative compatibility matrix,`, `opt-in upgrade,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "27. Centrálne template-y a globálny blast radius",
+      "line": 528,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "27. Centrálne template-y a globálny blast radius",
+      "line": 528,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "28. Scripts verzus inline commands",
+      "line": 545,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "28. Scripts verzus inline commands",
+      "line": 545,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "28. Scripts verzus inline commands",
+      "line": 545,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `argument parsing,`, `retries a timeouty,`, `state reconciliation,`, `API interaction,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "28. Scripts verzus inline commands",
+      "line": 545,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "28. Scripts verzus inline commands",
+      "line": 545,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "29. Dynamic pipeline generation",
+      "line": 560,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "29. Dynamic pipeline generation",
+      "line": 560,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "29. Dynamic pipeline generation",
+      "line": 560,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selective CI,`, `matrix expansion,`, `monorepo škálovanie,`, `dynamické child pipelines.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "29. Dynamic pipeline generation",
+      "line": 560,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "29. Dynamic pipeline generation",
+      "line": 560,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "29. Dynamic pipeline generation",
+      "line": 560,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "30. Generated graph completeness",
+      "line": 580,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "30. Generated graph completeness",
+      "line": 580,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "30. Generated graph completeness",
+      "line": 580,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré komponenty analyzoval,`, `aký base/merge SHA použil,`, `aký dependency graph version použil,`, `ktoré jobs vygeneroval,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "30. Generated graph completeness",
+      "line": 580,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "30. Generated graph completeness",
+      "line": 580,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "30. Generated graph completeness",
+      "line": 580,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "31. Dynamic input bezpečnosť",
+      "line": 594,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "31. Dynamic input bezpečnosť",
+      "line": 594,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "31. Dynamic input bezpečnosť",
+      "line": 594,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať structured serialization,`, `validovať identifiers,`, `neprodukovať raw shell z input stringov,`, `canonicalizovať paths,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "31. Dynamic input bezpečnosť",
+      "line": 594,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "32. Policy as Code",
+      "line": 608,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "32. Policy as Code",
+      "line": 608,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "32. Policy as Code",
+      "line": 608,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed runner pools,`, `minimálne token permissions,`, `pinované images/actions,`, `required security jobs,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "32. Policy as Code",
+      "line": 608,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "32. Policy as Code",
+      "line": 608,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "35. Pipeline testing",
+      "line": 650,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Static tests",
+      "line": 652,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -86780,8 +87410,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Unit tests scripts/tooling",
-      "line": 302,
+      "section": "Static tests",
+      "line": 652,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -86789,8 +87419,152 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Unit tests scripts/tooling",
-      "line": 302,
+      "section": "Static tests",
+      "line": 652,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Static tests",
+      "line": 652,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntax/schema,`, `resolved-config validation,`, `policy lint,`, `forbidden patterns,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Static tests",
+      "line": 652,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Static tests",
+      "line": 652,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Unit tests nástrojov",
+      "line": 660,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Unit tests nástrojov",
+      "line": 660,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Unit tests nástrojov",
+      "line": 660,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Unit tests nástrojov",
+      "line": 660,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `argument parsing,`, `rendering,`, `plan generation,`, `edge cases,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Unit tests nástrojov",
+      "line": 660,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Contract tests templates",
+      "line": 669,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Contract tests templates",
+      "line": 669,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Contract tests templates",
+      "line": 669,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Contract tests templates",
+      "line": 669,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inputs/outputs,`, `permissions,`, `artifact naming,`, `compatibility fixtures,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Contract tests templates",
+      "line": 669,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Component tests",
+      "line": 677,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Component tests",
+      "line": 677,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Component tests",
+      "line": 677,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -86798,17 +87572,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Unit tests scripts/tooling",
-      "line": 302,
+      "section": "Component tests",
+      "line": 677,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `argument parsing,`, `plan generation,`, `edge cases,`, `error handling.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disposable runner,`, `fake registry/cloud API,`, `artifact flow,`, `timeout/retry/cancel.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Unit tests scripts/tooling",
-      "line": 302,
+      "section": "Component tests",
+      "line": 677,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86817,106 +87591,52 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Component tests",
-      "line": 309,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Component tests",
-      "line": 309,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Component tests",
-      "line": 309,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pipeline job v disposable runner environment-e,`, `fake registry/cloud endpoint,`, `artifact flow.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Component tests",
-      "line": 309,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Integration tests",
-      "line": 315,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Integration tests",
-      "line": 315,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Integration tests",
-      "line": 315,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `sandbox repository/project,`, `reálna CI platforma,`, `protected environment bez produkčného dopadu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Integration tests",
-      "line": 315,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Integration tests",
-      "line": 315,
+      "line": 677,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "19. Pipeline change rollout",
-      "line": 321,
+      "section": "Integration tests",
+      "line": 684,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Integration tests",
+      "line": 684,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Integration tests",
+      "line": 684,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "19. Pipeline change rollout",
-      "line": 321,
+      "section": "Integration tests",
+      "line": 684,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canary projects,`, `opt-in template version,`, `compatibility matrix,`, `staged migration,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sandbox CI project,`, `reálna platforma,`, `protected test environment,`, `identity federation,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "19. Pipeline change rollout",
-      "line": 321,
+      "section": "Integration tests",
+      "line": 684,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86924,8 +87644,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "20. Policy as Code",
-      "line": 334,
+      "section": "Integration tests",
+      "line": 684,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Failure tests",
+      "line": 692,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Failure tests",
+      "line": 692,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Failure tests",
+      "line": 692,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Failure tests",
+      "line": 692,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry outage,`, `missing include,`, `invalid secret reference,`, `runner termination,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Failure tests",
+      "line": 692,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "36. Pipeline definition self-validation",
+      "line": 701,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86933,26 +87707,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "20. Policy as Code",
-      "line": 334,
+      "section": "36. Pipeline definition self-validation",
+      "line": 701,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "20. Policy as Code",
-      "line": 334,
+      "section": "36. Pipeline definition self-validation",
+      "line": 701,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed runner pools,`, `pinned images,`, `required security jobs,`, `restricted production deployment,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platform-native config validation pred runom,`, `trusted parent workflow, ktorý validuje branch config,`, `local CLI validator,`, `separate required check z target-branch workflowu,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "20. Policy as Code",
-      "line": 334,
+      "section": "36. Pipeline definition self-validation",
+      "line": 701,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86960,8 +87734,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "22. Review pipeline zmeny",
-      "line": 359,
+      "section": "36. Pipeline definition self-validation",
+      "line": 701,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "37. Pipeline change rollout",
+      "line": 713,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -86969,26 +87752,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "22. Review pipeline zmeny",
-      "line": 359,
+      "section": "37. Pipeline change rollout",
+      "line": 713,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "22. Review pipeline zmeny",
-      "line": 359,
+      "section": "37. Pipeline change rollout",
+      "line": 713,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mení sa trigger alebo permissions,`, `pribúda external dependency,`, `používa sa mutable reference,`, `zvyšuje sa network/secret access,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `run success/failure classes,`, `duration a queue impact,`, `permission changes,`, `artifact reproducibility,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "22. Review pipeline zmeny",
-      "line": 359,
+      "section": "37. Pipeline change rollout",
+      "line": 713,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -86996,8 +87779,242 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "22. Review pipeline zmeny",
-      "line": 359,
+      "section": "38. Pipeline rollback",
+      "line": 736,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "38. Pipeline rollback",
+      "line": 736,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predchádzajúcu template/workflow revision,`, `compatibility artifacts a inputs,`, `migration path pre consumers,`, `emergency pin,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "38. Pipeline rollback",
+      "line": 736,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "38. Pipeline rollback",
+      "line": 736,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "39. Reprodukovateľnosť",
+      "line": 751,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "39. Reprodukovateľnosť",
+      "line": 751,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "39. Reprodukovateľnosť",
+      "line": 751,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/source SHA,`, `workflow source revision,`, `resolved config digest,`, `template/include revisions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "39. Reprodukovateľnosť",
+      "line": 751,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "39. Reprodukovateľnosť",
+      "line": 751,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "40. Artifact a evidence lifecycle",
+      "line": 770,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "40. Artifact a evidence lifecycle",
+      "line": 770,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "40. Artifact a evidence lifecycle",
+      "line": 770,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je autoritatívny artifact,`, `ako vzniká digest,`, `kto ho môže publikovať,`, `ktoré reports patria digestu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "40. Artifact a evidence lifecycle",
+      "line": 770,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "41. Cache lifecycle",
+      "line": 785,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "41. Cache lifecycle",
+      "line": 785,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "41. Cache lifecycle",
+      "line": 785,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cache purpose,`, `key inputs,`, `trust namespace,`, `read/write permissions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "41. Cache lifecycle",
+      "line": 785,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "42. Timeouts, retries a cancellation",
+      "line": 800,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "42. Timeouts, retries a cancellation",
+      "line": 800,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "42. Timeouts, retries a cancellation",
+      "line": 800,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command/job timeout,`, `retry iba pre transient failure classes,`, `cancellation semantics,`, `always-run diagnostics/cleanup,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "42. Timeouts, retries a cancellation",
+      "line": 800,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "42. Timeouts, retries a cancellation",
+      "line": 800,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "43. Observability a audit",
+      "line": 813,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "43. Observability a audit",
+      "line": 813,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "43. Observability a audit",
+      "line": 813,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline source revision,`, `resolved config digest a artifact,`, `template/action/image digests,`, `policy decisions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "43. Observability a audit",
+      "line": 813,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "43. Observability a audit",
+      "line": 813,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -87005,8 +88022,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "23. Observability a audit",
-      "line": 373,
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87014,26 +88031,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "23. Observability a audit",
-      "line": 373,
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "23. Observability a audit",
-      "line": 373,
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolved pipeline configuration,`, `template versions,`, `policy decisions,`, `runner identity,`.",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mení sa trigger alebo event trust?`, `mení sa workflow revision source?`, `pribúda secret alebo permission?`, `mení sa runner pool/executor/network?`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "23. Observability a audit",
-      "line": 373,
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -87041,17 +88058,98 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "23. Observability a audit",
-      "line": 373,
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "44. Review checklist pipeline zmeny",
+      "line": 831,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "YAML ako programovací jazyk bez hraníc",
-      "line": 389,
+      "section": "45. Diagnostický postup",
+      "line": 849,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Pipeline sa zmenila bez repository diffu",
+      "line": 851,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Include zmenil job nečakane",
+      "line": 855,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Config je validná, ale job chýba",
+      "line": 863,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Required gate bol preskočený",
+      "line": 867,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Pipeline zlyháva iba v jednom projekte po template upgrade",
+      "line": 871,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "46. Typické anti-patterny",
+      "line": 879,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "YAML ako neobmedzený programovací jazyk",
+      "line": 881,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87060,7 +88158,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Copy-paste pipeline per repository",
-      "line": 393,
+      "line": 885,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87069,7 +88167,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Jeden mutable central template",
-      "line": 397,
+      "line": 889,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87078,7 +88176,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Pipeline s permanentnými admin credentials",
-      "line": 401,
+      "line": 893,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87086,8 +88184,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Download-and-execute z internetu",
-      "line": 405,
+      "section": "Branch definuje vlastný privileged deploy",
+      "line": 897,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87095,21 +88193,129 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Download-and-execute z internetu",
-      "line": 405,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "Pipeline sa správa inak bez zmeny repository",
-      "line": 415,
+      "section": "External action pinovaná iba major tagom",
+      "line": 901,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "UI variables ako skrytý source of truth",
+      "line": 905,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Policy sa aplikuje iba na source YAML",
+      "line": 909,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Generated config sa neuchováva",
+      "line": 913,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Pipeline rollback sa považuje za deployment rollback",
+      "line": 917,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "19 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoritatívny source je explicitný,`, `workflow revision semantics sú zdokumentované,`, `branch pipeline nemá privileged deployment boundary,`, `resolved config sa generuje a uchováva,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "47. Praktický checklist",
+      "line": 921,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "Summary",
+      "line": 972,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
