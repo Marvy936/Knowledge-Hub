@@ -1,4 +1,4 @@
-# Linux Performance and Troubleshooting
+# Linux performance a troubleshooting
 
 ## Metadata
 
@@ -6,93 +6,179 @@
 - Úroveň: L2 — rozumiem mechanizmu
 - Doména: Linux and Systems
 - Predpoklady: všetky predchádzajúce kapitoly sekcie Linux and Systems
-- Súvisiace témy: observability, SRE, incident response, capacity planning, eBPF, profiling
+- Súvisiace témy: observability, SRE, incident response, capacity planning, profiling, eBPF
 
 ## 1. Definícia
 
-Linux performance troubleshooting je systematický proces identifikácie vrstvy, resource alebo mechanizmu, ktorý spôsobuje degradáciu správania systému.
+Linux performance troubleshooting je systematický proces, ktorý prepája používateľský symptóm s konkrétnym mechanizmom v aplikácii, kerneli, resource hierarchy alebo externej dependency. Cieľom nie je nájsť najvyššie číslo v `top`, ale vytvoriť dôkazmi podložený kauzálny reťazec.
 
-Cieľom nie je nájsť „vysoké číslo“, ale vysvetliť kauzálny reťazec medzi workloadom, resource pressure, kernel správaním a používateľským dopadom.
+```text
+workload alebo zmena
+  ↓
+queue, contention, error alebo resource pressure
+  ↓
+kernel/application behavior
+  ↓
+latency, throughput, availability alebo correctness dopad
+```
 
-## 2. Problém, ktorý rieši
+Performance problém môže existovať aj pri nízkom priemernom utilization. Krátke quota throttling, lock convoy alebo storage tail-latency bursts môžu poškodiť p99 response time bez dramatického hostového priemeru.
 
-Symptómy ako „server je pomalý“, „CPU je vysoké“ alebo „disk nestíha“ sú príliš všeobecné.
+## 2. Performance verzus funkčná chyba
 
-Rovnaký používateľský symptóm môže vzniknúť z rozdielnych príčin:
+Nie každý pomalý request je resource bottleneck. Rovnaký symptóm môže vytvoriť chybný retry loop, DNS timeout, nesprávna route, lock, security denial, chýbajúci file descriptor alebo downstream rate limit.
 
-- CPU saturation,
-- lock contention,
-- memory pressure a reclaim,
-- storage latency,
-- network packet loss alebo retransmissions,
-- DNS alebo TLS delay,
-- cgroup throttling,
-- dependency timeout,
-- application queueing,
-- chybná konfigurácia po deploymente.
+Pred tuningom treba rozlíšiť:
 
-Troubleshooting musí rozlišovať vrstvu, rozsah a časový priebeh.
+- **Funkčnú chybu** — operácia zlyháva, vracia nesprávny výsledok alebo čaká na podmienku, ktorá nenastane.
+- **Capacity problém** — legitímna práca presahuje dostupnú CPU, memory, I/O alebo network kapacitu.
+- **Contention problém** — zdroj existuje, ale workloady alebo thready sa navzájom blokujú.
+- **Policy problém** — cgroup quota, rate limit, timeout alebo security policy vytvára zamýšľanú hranicu.
+- **Dependency problém** — lokálny proces čaká na remote službu alebo shared storage.
 
-## 3. Základný model: utilization, saturation, errors
+Tuning nesprávnej kategórie môže zhoršiť incident. Zvýšenie thread countu pri downstream saturation napríklad zväčší queue a tail latency.
 
-USE method pre každý resource:
+## 3. Začni používateľským dopadom
 
-- **Utilization** — akú časť kapacity resource používa,
-- **Saturation** — koľko práce čaká, pretože resource nestačí,
-- **Errors** — zlyhania alebo degradované operácie.
+Pred prvým diagnostickým príkazom definuj pozorovaný problém. Neurčité tvrdenie „server je pomalý“ neposkytuje testovateľnú hypotézu.
+
+Potrebné otázky:
+
+- **Ktorá operácia je pomalá alebo zlyháva?** — login, API endpoint, build, disk write alebo SSH session majú odlišný path.
+- **Aký je očakávaný baseline?** — porovnaj s predchádzajúcim obdobím, SLO alebo známym zdravým hostom.
+- **Kedy problém začal?** — presný čas umožní koreláciu s deployom, config zmenou a resource trendom.
+- **Aký je scope?** — jeden user, request class, Pod, host, availability zone alebo celý fleet.
+- **Je problém trvalý alebo burstový?** — snapshot nástroje môžu minúť krátky incident.
+- **Ktorý používateľský signál degradoval?** — latency percentile, error rate, throughput, queue age alebo business completion.
+
+Root cause musí vysvetliť práve tento dopad. Vysoká metrika bez časovej a scope korelácie je iba podozrenie.
+
+## 4. Incident timeline
+
+Performance analýza potrebuje časovú os. Zbieraj udalosti v spoločnej timezone a rozlišuj wall-clock timestamp od monotonic duration.
+
+```text
+10:00 deploy v2
+10:04 request rate rovnaký
+10:05 p99 latency rastie
+10:06 CPU quota throttling začína
+10:08 retry volume rastie
+10:12 downstream timeouts
+```
+
+Timeline pomáha rozlíšiť primárnu príčinu od následkov. Retry storm môže byť viditeľnejší než pôvodný quota alebo dependency problém, ale vznikol neskôr.
+
+Dôležité je zachytiť aj neprítomnosť zmeny. Ak workload a deploy zostali rovnaké, ale storage latency vzrástla, hypotéza sa presúva na infraštruktúru alebo susedný workload.
+
+## 5. Baseline a porovnávací kontext
+
+Jedna hodnota nemá význam bez kontextu. CPU `80 %`, disk latency `10 ms` alebo 500 otvorených file descriptors môže byť normálny alebo kritický stav podľa workloadu.
+
+Použiteľný baseline môže byť:
+
+- ten istý host pred incidentom,
+- zdravý sibling host s rovnakou verziou,
+- rovnaký request class pri nižšom loade,
+- load-test profil,
+- kapacitný alebo SLO limit.
+
+Porovnanie musí kontrolovať confounders: verzia aplikácie, input size, cache warmth, traffic mix, node type, cgroup limits a downstream stav.
+
+## 6. USE model
+
+USE method skúma každý resource podľa troch dimenzií:
+
+- **Utilization** — koľko kapacity je aktívne používané.
+- **Saturation** — koľko práce čaká, pretože resource alebo policy nestačí.
+- **Errors** — explicitné zlyhania, timeouts, resets alebo integrity problémy.
 
 Príklad CPU:
 
 ```text
-utilization: CPU time
-saturation: runnable queue, throttling, PSI
-errors: machine check, thermal throttling, scheduler anomalies
+utilization → user/system CPU time
+saturation  → runnable queue, cgroup throttling, CPU PSI
+errors      → hardware faults, thermal events, scheduler anomalies
 ```
 
 Príklad storage:
 
 ```text
-utilization: device busy time
-saturation: queue depth, await, I/O PSI
-errors: filesystem/device errors, timeouts, resets
+utilization → throughput a device busy time
+saturation  → queue, await, I/O PSI
+errors      → timeouts, resets, filesystem/device errors
 ```
 
-Vysoká utilization bez saturation nemusí byť problém. Nízka priemerná utilization s krátkymi saturation burstami môže spôsobovať vysokú tail latency.
+Vysoká utilization bez queue a používateľského dopadu môže byť zdravé využitie. Saturation a errors sú často lepšie signály než samotné percento.
 
-## 4. Začni používateľským dopadom
+## 7. RED a workload signály
 
-Pred spustením príkazov definuj:
+Pre request-oriented službu je vhodné doplniť RED model:
 
-- čo je pomalé alebo nefunkčné,
-- odkedy,
-- koho a ktoré requests to ovplyvňuje,
-- či je problém trvalý alebo prerušovaný,
-- čo sa zmenilo,
-- aký je očakávaný baseline,
-- ktoré SLI alebo business metriky degradovali.
+- **Rate** — počet requests alebo jobs za čas.
+- **Errors** — podiel alebo počet zlyhaní podľa failure class.
+- **Duration** — distribúcia latency, nie iba priemer.
 
-Bez toho môže diagnostika optimalizovať resource, ktorý nie je bottleneck.
+RED opisuje používateľský alebo aplikačný outcome, USE fyzické a kernelové resources. Spojenie oboch modelov umožní zistiť, či resource pressure vysvetľuje request degradáciu.
 
-## 5. Golden workflow
+```text
+p99 latency rastie
+  + CPU throttle rastie v rovnakom čase a cgroup scope
+  + stack samples ukazujú runnable work
+  → quota hypothesis je silná
+```
+
+## 8. Golden troubleshooting workflow
 
 ```text
 1. Potvrď symptóm
-2. Urči rozsah a čas
-3. Skontroluj nedávne zmeny
-4. Pozri top-level resource pressure
-5. Zúž problém na host, cgroup, process, thread alebo request
-6. Vytvor hypotézu
-7. Získaj dôkaz, ktorý ju môže potvrdiť alebo vyvrátiť
-8. Urob najmenšiu bezpečnú nápravu
-9. Over používateľský výsledok
-10. Zachyť prevenciu a monitoring gap
+2. Urči scope a čas
+3. Zachovaj evidence
+4. Skontroluj nedávne zmeny
+5. Získaj top-level pressure snapshot
+6. Zúž host → cgroup → process → thread → request
+7. Vytvor testovateľnú hypotézu
+8. Získaj dôkaz, ktorý ju môže potvrdiť aj vyvrátiť
+9. Aplikuj najmenšiu bezpečnú mitigation
+10. Over používateľský outcome a vedľajšie účinky
+11. Odstráň root cause a monitoring gap
 ```
 
-Troubleshooting nie je sekvencia náhodných príkazov. Každý krok má testovať konkrétnu hypotézu.
+Každý príkaz musí odpovedať na otázku. Zbieranie veľkého množstva metrík bez hypotézy vytvára náhodné korelácie a spomaľuje incident response.
 
-## 6. Rýchly host-level prehľad
+## 9. Zachovanie evidence
 
-Užitočný prvý snapshot:
+Restart, scale-out alebo node replacement môže rýchlo obnoviť službu, ale zároveň zničiť process stacks, `/proc` state, open descriptors a lokálny journal kontext.
+
+Pred deštruktívnou mitigation, ak to dopad dovolí, zachovaj:
+
+- čas a host/container identity,
+- process tree a cgroup path,
+- CPU/memory/I/O/network snapshot,
+- relevantný journal interval,
+- stack alebo profiler sample,
+- open files a sockets,
+- config a artifact version.
+
+Evidence collection nesmie predĺžiť kritický outage bez limitu. Incident commander musí vyvážiť recovery a diagnostickú hodnotu.
+
+## 10. Observation point
+
+Každý nástroj pozoruje konkrétnu vrstvu a namespace. Hostový `ss` neukáže všetky kontajnerové sockets, `df` opisuje filesystem allocation a `du` iba viditeľné path entries.
+
+Pred interpretáciou sa pýtaj:
+
+```text
+Ktorý object alebo namespace tento príkaz pozoruje?
+Je to host, Pod, container, service cgroup alebo process?
+Je metrika agregovaná cez descendants?
+Je údaj instantaneous, cumulative alebo rate?
+```
+
+Nesprávny observation point môže produkovať úplne správne číslo pre nesprávny scope.
+
+## 11. Rýchly host-level snapshot
+
+Prvý snapshot má rozhodnúť, ktorou vetvou pokračovať. Nemá byť finálnym root-cause dôkazom.
 
 ```bash
 uptime
@@ -105,7 +191,7 @@ ip -s link
 journalctl -p warning..alert -b
 ```
 
-Pri storage:
+Storage:
 
 ```bash
 iostat -xz 1
@@ -114,157 +200,238 @@ df -h
 df -i
 ```
 
-Tento prehľad má určiť ďalšiu vetvu diagnostiky. Nie je sám o sebe root cause analýzou.
+Snapshot čítaj ako kombináciu:
 
-## 7. CPU troubleshooting
+- CPU idle verzus runnable queue,
+- memory available verzus reclaim/swap,
+- I/O await a queue verzus device errors,
+- network drops/retransmissions verzus socket states,
+- kernel warnings verzus application time window.
 
-### Otázky
+## 12. CPU: utilization a states
 
-- Je vysoké user CPU alebo system CPU?
-- Je problém na všetkých cores alebo jednom core?
-- Je workload runnable alebo čaká?
-- Existuje CPU quota throttling?
-- Sú vysoké context switches alebo interrupts?
-- Ide o užitočnú prácu, busy loop, lock contention alebo retry storm?
-
-Príkazy:
+CPU čas sa delí na user, system, idle, iowait, steal a interrupt categories. Vysoký user CPU naznačuje aplikačný compute, zatiaľ čo vysoký system CPU môže znamenať syscalls, networking, memory management alebo kernel overhead.
 
 ```bash
 mpstat -P ALL 1
 pidstat -u -t 1
-top -H -p <PID>
-ps -eo pid,tid,psr,stat,comm,%cpu --sort=-%cpu
-cat /proc/<PID>/cgroup
+top -H -p <pid>
 ```
 
-Cgroup throttling:
+CPU state nie je root cause. Vysoké system CPU treba ďalej rozložiť profilovaním alebo subsystem metrics.
+
+Steal time vo virtualizácii znamená, že vCPU čakal na hypervisor scheduling. Lokálna aplikácia ho nevyrieši optimalizáciou kódu.
+
+## 13. CPU saturation a run queue
+
+Runnable task čaká na CPU, hoci je pripravený vykonávať inštrukcie. Run queue rastie, keď runnable demand presiahne dostupné scheduling slots alebo policy budget.
 
 ```bash
+vmstat 1
+cat /proc/loadavg
+cat /proc/pressure/cpu
+```
+
+`vmstat` pole `r` treba porovnať s počtom logical CPUs a cpusetom workloadu. Host môže mať 64 cores, ale service cgroup môže mať povolené iba dva.
+
+CPU PSI meria stall time, nie iba queue length. Je vhodný na koreláciu s latency, najmä pri krátkych burstoch.
+
+## 14. Load average
+
+Load average zahŕňa runnable tasks a niektoré tasks v uninterruptible sleep. Nie je to percento CPU.
+
+```bash
+uptime
+ps -eo state,pid,tid,wchan:32,comm | awk '$1 ~ /^D/'
+```
+
+Vysoký load môže vzniknúť:
+
+- CPU runnable queue,
+- storage alebo NFS waits v stave `D`,
+- kernel lock alebo device wait,
+- kombináciou viacerých zdrojov.
+
+Rozlíšenie vyžaduje CPU idle, `vmstat r/b`, process states, `wchan` a I/O evidence.
+
+## 15. Jeden core na 100 percent
+
+Hostový priemer môže byť nízky, ale kritický single-thread alebo serialized section saturuje jeden core.
+
+Možné mechanizmy:
+
+- single-threaded event loop,
+- global lock alebo mutex convoy,
+- CPU affinity/cpuset,
+- hot shard alebo partition,
+- interrupt concentration,
+- runtime GC alebo compiler thread.
+
+```bash
+mpstat -P ALL 1
+ps -eo pid,tid,psr,stat,comm,%cpu --sort=-%cpu
+cat /proc/<pid>/status | grep Cpus_allowed_list
+```
+
+Scale-up počtu cores nepomôže, ak aplikácia nevie prácu paralelizovať alebo je pinovaná.
+
+## 16. CPU cgroup throttling
+
+Workload môže mať latency pri voľnom host CPU, ak vyčerpal `cpu.max` quota.
+
+```bash
+cat /proc/<pid>/cgroup
 cat /sys/fs/cgroup/<path>/cpu.max
 cat /sys/fs/cgroup/<path>/cpu.stat
 cat /sys/fs/cgroup/<path>/cpu.pressure
 ```
 
-### Sampling profiler
+Dôkazom je rast `nr_throttled` a `throttled_usec` v rovnakom časovom okne ako request latency. Samotná existencia quota nestačí.
+
+Mitigation môže byť dočasné zvýšenie quota, ale root cause môže byť nový CPU-heavy code path, väčší batch alebo retry storm.
+
+## 17. CPU profiling
+
+Sampling profiler ukazuje, kde CPU čas trávi proces alebo kernel.
 
 ```bash
 sudo perf top
-sudo perf record -F 99 -g -p <PID> -- sleep 30
+sudo perf record -F 99 -g -p <pid> -- sleep 30
 sudo perf report
 ```
 
-Profil ukáže, kde CPU čas skutočne trávi proces alebo kernel. Interpretácia vyžaduje symbols a znalosť aplikácie.
+Profil potrebuje symbols a správny scope. Profil hosta môže byť zahltený inými workloadmi; profil iba main threadu môže minúť workers.
 
-### Jeden core na 100 %
+Sampling odpovedá na otázku „kde sa vykonáva CPU práca“. Neodpovedá dobre na off-CPU waits, ktoré potrebujú blocking, scheduler alebo tracing analýzu.
 
-Možné príčiny:
+## 18. On-CPU verzus off-CPU
 
-- single-threaded execution,
-- global lock,
-- CPU affinity,
-- hot shard alebo queue,
-- interrupt concentration,
-- runtime garbage collection thread.
+On-CPU analýza skúma aktívne vykonávanie. Off-CPU analýza skúma, prečo thread spal alebo čakal.
 
-Host-wide CPU môže vyzerať nízko, ale latency jednej kritickej služby môže byť vysoká.
-
-## 8. Load average
-
-Load average zahŕňa runnable tasks a niektoré tasks v uninterruptible sleep.
-
-```bash
-uptime
-cat /proc/loadavg
+```text
+on-CPU  → compute, syscall execution, spin
+off-CPU → I/O, lock, futex, timer, network, scheduler wait
 ```
 
-Interpretácia:
+Proces s nízkym CPU môže byť hlavným bottleneckom, ak väčšinu času čaká na lock alebo downstream response. `wchan`, stack traces, `strace -T` a eBPF off-CPU profiling pomáhajú odhaliť wait reason.
 
-- porovnaj s počtom logical CPUs,
-- over runnable queue cez `vmstat` alebo scheduler metrics,
-- skontroluj tasks v `D` state,
-- rozlíš CPU queue od I/O wait.
+## 19. Context switches a interrupts
+
+Vysoký počet context switches môže byť prirodzený pri I/O-heavy workload, ale aj dôsledok príliš veľkého thread poolu, lock contention alebo krátkych wakeups.
 
 ```bash
-ps -eo state,pid,tid,wchan:32,comm | awk '$1 ~ /^D/'
+vmstat 1
+pidstat -w -t 1
+mpstat -I ALL 1
 ```
 
-Vysoký load s nízkym CPU usage často smeruje k I/O alebo kernel waiting, nie automaticky k potrebe ďalších CPUs.
+Hodnota musí byť korelovaná s throughputom a latency. Milión context switches pri vysokom úspešnom throughput môže byť prijateľný; rovnaká hodnota pri nulovom progresse naznačuje thrash.
 
-## 9. Memory troubleshooting
+## 20. Memory inventory
 
-### Základné zdroje
+Memory analýza musí rozlišovať anonymous memory, file-backed pages, page cache, slab/kernel memory, swap a cgroup charge.
 
 ```bash
 free -h
 cat /proc/meminfo
-vmstat 1
+cat /proc/<pid>/smaps_rollup
 ps aux --sort=-%mem | head
-cat /proc/<PID>/smaps_rollup
 ```
 
-Rozlišuj:
+Nízke `free` nie je automaticky problém, pretože Linux používa RAM ako page cache. Dôležitejšie sú `MemAvailable`, reclaim rate, swap-in/out, PSI a používateľský dopad.
 
-- anonymous memory,
-- file-backed pages,
-- page cache,
-- slab/kernel memory,
-- swap,
-- cgroup charge,
-- reclaim pressure.
+## 21. Memory leak verzus pracovná množina
 
-### Memory pressure
+Rast RSS môže byť:
+
+- skutočný leak nedostupných objektov,
+- zámerná aplikačná cache,
+- allocator arena retention,
+- väčší workload working set,
+- memory-mapped file alebo shared library behavior.
+
+Jednorazový snapshot leak nepotvrdí. Potrebná je časová séria normalizovaná podľa trafficu a lifecycle udalostí.
+
+Silnejší dôkaz leak-u:
+
+```text
+RSS alebo heap rastie po každom cykle
+  + workload sa vracia na baseline
+  + memory sa nereclaimuje
+  + heap profile ukazuje retained objects
+```
+
+## 22. Memory pressure a reclaim
+
+Kernel pri pressure reclaimuje clean cache, zapisuje dirty pages, swapuje anonymous memory alebo vykonáva compaction.
 
 ```bash
+vmstat 1
 cat /proc/pressure/memory
 cat /sys/fs/cgroup/<path>/memory.pressure
 cat /sys/fs/cgroup/<path>/memory.events
 ```
 
-Jednorazový snapshot nestačí na rozlíšenie memory leak, workload growth a cache warming.
+Memory pressure môže zvýšiť latency ešte pred OOM. Reclaim CPU, direct reclaim a writeback blokujú aplikačné thready.
 
-### OOM
+`memory.events high` s rastúcim PSI môže vysvetliť degradáciu aj bez `oom_kill`.
+
+## 23. Swap a thrashing
+
+Swap usage samo osebe nie je incident. Staré anonymous pages môžu zostať v swap-e bez aktívneho výkonového dopadu.
+
+Kritický je aktívny swap churn:
+
+```bash
+vmstat 1
+sar -W 1
+```
+
+Trvalo vysoké `si` a `so`, vysoký memory PSI a nízky aplikačný progres naznačujú thrashing. Zvýšenie swapu môže oddialiť OOM, ale nevyrieši working set presahujúci dostupnú memory.
+
+## 24. OOM analýza
+
+OOM killer je recovery mechanizmus po zlyhaní allocation a reclaim, nie root cause.
 
 ```bash
 journalctl -k -b | grep -i -E 'oom|out of memory|killed process'
 cat /sys/fs/cgroup/<path>/memory.events
 ```
 
-Root cause nie je „OOM killer“. Ten je posledný recovery mechanizmus. Hľadaj:
+Treba rozlíšiť:
 
-- leak,
-- nízky limit,
-- burst,
-- concurrency,
-- page cache pressure,
-- absent backpressure,
-- nesprávny capacity model.
+- host-wide OOM,
+- cgroup-local OOM,
+- systemd OOM policy,
+- Kubernetes/container OOM event,
+- kubelet eviction bez kernel OOM.
 
-## 10. Storage a filesystem troubleshooting
+Root cause môže byť leak, nízky limit, startup burst, neobmedzená concurrency, cache policy alebo parent cgroup limit.
 
-### Capacity
+## 25. Storage capacity
+
+`df` a `du` merajú odlišné veci.
 
 ```bash
 df -h
 df -i
 du -xhd1 /var | sort -h
-```
-
-Rozlišuj:
-
-- voľné bloky,
-- voľné inodes,
-- deleted-open files,
-- filesystem reserved space,
-- quota,
-- underlying volume capacity.
-
-Deleted-open files:
-
-```bash
 sudo lsof +L1
 ```
 
-### Latency a saturation
+Kontroluj:
+
+- data blocks,
+- inodes,
+- user/project quota,
+- reserved blocks,
+- deleted-open files,
+- prekrytý mount content,
+- underlying LV alebo cloud volume capacity.
+
+`ENOSPC` neznamená iba nulové voľné gigabajty.
+
+## 26. Storage latency a queueing
 
 ```bash
 iostat -xz 1
@@ -272,351 +439,477 @@ pidstat -d 1
 cat /proc/pressure/io
 ```
 
-Dôležité metriky závisia od storage stacku, ale sleduj:
+Interpretuj:
 
 - request latency,
 - queue depth,
 - throughput,
-- utilization,
 - read/write mix,
-- retries a device errors.
+- device utilization,
+- retries a errors.
 
-Vysoké `%util` na modernom paralelnom storage nie je vždy rovnaký signál ako na jednom rotačnom disku. Potrebuješ poznať device model a queueing.
+Moderný NVMe alebo distributed storage môže obsluhovať viac paralelných requests, takže `%util=100` nemá univerzálny význam. Poznaj device model a service time distribution.
 
-### Kernel logs
+## 27. Storage stack a observation layer
 
-```bash
-journalctl -k -b | grep -i -E 'I/O error|reset|timeout|filesystem|ext4|xfs|nvme|scsi'
+Aplikačný path môže prechádzať cez filesystem, device mapper, encryption, LVM, RAID, virtual disk a remote backend.
+
+```text
+application path
+  ↓ filesystem
+page cache/writeback
+  ↓ logical volume
+DM/RAID/encryption
+  ↓ virtual/block device
+cloud or physical storage
 ```
 
-Device reset alebo filesystem error môže byť dôležitejší než aplikácia s najvyšším I/O.
+Bottleneck a metrika nemusia byť na rovnakej vrstve. `iostat` na logical device môže agregovať alebo skryť backend behavior.
 
-## 11. Network troubleshooting
+```bash
+findmnt -T /path
+lsblk -o NAME,MAJ:MIN,TYPE,PKNAME,MOUNTPOINTS
+```
 
-Vrstva po vrstve:
+## 28. Filesystem a device errors
+
+Kernel journal je autoritatívny zdroj pre resets, timeouts, filesystem remount read-only a I/O errors.
+
+```bash
+journalctl -k -b | grep -i -E \
+  'I/O error|reset|timeout|filesystem|ext4|xfs|btrfs|nvme|scsi'
+```
+
+Aplikácia s najvyšším I/O nemusí byť root cause, ak storage device opakovane resetuje. Repair alebo reboot bez zachovania evidence môže skryť hardware alebo platform fault.
+
+## 29. Network troubleshooting path
+
+Network problém diagnostikuj po vrstvách:
 
 ```text
 name resolution
-→ route a source address
-→ local interface/link
-→ firewall/policy
-→ packet path
-→ TCP/UDP state
-→ TLS
-→ application protocol
+  ↓
+address family a route
+  ↓
+neighbor/link
+  ↓
+local firewall/conntrack
+  ↓
+packet departure a return path
+  ↓
+TCP/UDP state
+  ↓
+TLS
+  ↓
+application protocol
 ```
-
-Príkazy:
 
 ```bash
 getent hosts example.com
-ip route get <IP>
+ip route get <ip>
 ip neigh
 ss -lntup
 ss -tan
 ip -s link
 nstat
-tcpdump -ni any host <IP>
+tcpdump -ni any host <ip>
 ```
 
-Sleduj:
+Ping testuje ICMP echo, nie port, TLS ani aplikáciu.
 
-- drops a errors na interface,
-- retransmissions,
-- SYN backlog,
-- connection states,
-- MTU symptoms,
-- DNS latency,
-- asymmetric return path,
-- namespace context.
+## 30. Packet loss a retransmissions
 
-Ping nie je test application availability.
+TCP retransmission môže vzniknúť packet lossom, reorderingom, congestion alebo timeoutom vyššej vrstvy. Interface drop counters ukazujú iba lokálny observation point.
 
-## 12. Process a thread troubleshooting
+```bash
+ip -s link
+nstat | grep -E 'Retrans|Listen|Drop'
+ss -ti dst <ip>
+```
+
+Dôkaz potrebuje časovú koreláciu s request latency a packet capture na správnom namespace/interface. Capture iba na klientovi nemusí vysvetliť remote alebo return-path loss.
+
+## 31. Socket queues a backlog
+
+Listening socket môže existovať, ale backlog alebo application accept loop môže byť saturovaný.
+
+```bash
+ss -lnt
+ss -s
+nstat | grep -E 'ListenOverflows|ListenDrops'
+```
+
+Rast accept queue spolu s `ListenOverflows` naznačuje, že application alebo CPU policy nestíha prijímať nové connections. Zvýšenie backlogu iba zväčší buffer, ak aplikácia nemá dostatočný service rate.
+
+## 32. DNS latency
+
+DNS problém môže vyzerať ako pomalá sieť alebo aplikácia.
+
+```bash
+time getent hosts example.com
+resolvectl query example.com
+dig example.com
+```
+
+`getent` testuje NSS path podobný bežnej aplikácii. `dig` môže obísť `/etc/hosts`, NSS modules alebo aplikáčný cache.
+
+Kontroluj resolver timeout/retry policy, search domains, IPv6/IPv4 behavior a network namespace reachability k resolveru.
+
+## 33. TLS a application layer
+
+Úspešný TCP handshake nepotvrdzuje funkčný TLS ani aplikáciu.
+
+```bash
+openssl s_client -connect host:443 -servername host
+curl -v --connect-timeout 5 --max-time 20 https://host/
+```
+
+Rozlišuj:
+
+- connect latency,
+- TLS handshake latency,
+- certificate validation,
+- request queueing,
+- server processing,
+- response transfer.
+
+Application tracing alebo server timing je potrebný, ak network path funguje, ale request stále čaká.
+
+## 34. Process states
 
 ```bash
 ps -eo pid,ppid,tid,stat,wchan:32,comm
-pstree -ap <PID>
-cat /proc/<PID>/status
-ls -l /proc/<PID>/fd
+pstree -ap <pid>
 ```
 
-### `strace`
+Stav `R` znamená running alebo runnable; `S` interruptible sleep; `D` uninterruptible kernel wait; `Z` zombie.
+
+Stav bez wait reason nestačí. `wchan`, kernel stack a syscall tracing pomáhajú vysvetliť, na čom thread čaká.
+
+## 35. `strace`
 
 ```bash
-sudo strace -ff -tt -T -p <PID>
+sudo strace -ff -tt -T -p <pid>
 ```
 
-Ukazuje system calls, ich arguments, výsledky a trvanie.
+`strace` ukazuje syscalls, arguments, výsledky, signals a trvanie. Je vhodný na:
 
-Použitie:
-
-- zistiť, na čom proces čaká,
-- odhaliť opakované failed opens alebo connects,
-- vidieť blocking syscalls,
-- rozlíšiť application compute od kernel wait.
+- opakované failed file opens,
+- connect timeouts,
+- blocking reads/writes/futex waits,
+- permission denials,
+- child-process lifecycle.
 
 Riziká:
 
-- overhead,
-- veľký objem dát,
-- citlivé arguments,
-- zmena timing-u,
-- ptrace security obmedzenia.
+- runtime overhead a timing perturbation,
+- veľký output,
+- secrets v arguments alebo buffers,
+- ptrace/LSM obmedzenia,
+- nesprávny target thread alebo namespace.
 
-### `/proc/<PID>/stack` a `wchan`
+Používaj časovo obmedzený a syscall-filtered trace, ak je produkčný workload citlivý.
 
-Môžu ukázať kernel wait point threadu. Sú užitočné pri tasks v `D` state alebo pri low-level blocking analýze.
+## 36. Stack traces a `wchan`
 
-## 13. File descriptors a limits
+```bash
+cat /proc/<pid>/stack
+cat /proc/<pid>/wchan
+```
 
-Symptómy:
+Kernel stack je užitočný pri `D` state alebo syscall wait. User-space stack potrebuje debugger, runtime-specific tooling alebo profiler.
+
+Jeden stack je snapshot. Pri intermittent probléme zbieraj viac samples a hľadaj opakujúci sa wait point.
+
+## 37. File descriptors
+
+Symptómy descriptor exhaustion:
 
 ```text
 Too many open files
-connection accept failures
-log file open errors
+accept/open failures
+neúspešné logovanie
 ```
 
-Kontrola:
-
 ```bash
-cat /proc/<PID>/limits
-ls /proc/<PID>/fd | wc -l
-sudo lsof -p <PID>
+cat /proc/<pid>/limits
+ls /proc/<pid>/fd | wc -l
+sudo lsof -p <pid>
 sysctl fs.file-nr
 ```
 
 Rozlišuj:
 
-- per-process soft/hard rlimit,
+- process soft/hard rlimit,
 - systemd `LimitNOFILE`,
 - host-wide file table,
-- application leak,
-- legitimate connection growth.
+- aplikáčný descriptor leak,
+- legitímny rast connections.
 
-Zvýšenie limitu bez opravy descriptor leak iba odďaľuje incident.
+Zvýšenie limitu bez opravy leak-u iba posunie incident a zväčší možný blast radius.
 
-## 14. cgroup a container context
+## 38. PID a thread limits
 
-Host-wide metriky nemusia vysvetliť lokálny workload incident.
-
-Kontroluj:
+Process creation môže zlyhať pre `RLIMIT_NPROC`, cgroup `pids.max`, host PID exhaustion alebo memory allocation failure.
 
 ```bash
-cat /proc/<PID>/cgroup
+cat /proc/<pid>/limits
+cat /sys/fs/cgroup/<path>/pids.current
+cat /sys/fs/cgroup/<path>/pids.max
+cat /sys/fs/cgroup/<path>/pids.events
+```
+
+Thread leak sa počíta do cgroup task limitu. Jednoduchý počet procesov môže preto výrazne podhodnotiť skutočný počet taskov.
+
+## 39. Locks a futex contention
+
+Aplikácia môže mať voľný CPU a memory, ale thready čakajú na mutex alebo futex.
+
+Signály:
+
+- vysoký off-CPU čas,
+- veľa threadov v rovnakom futex wait,
+- nízky throughput napriek dostupným resources,
+- jeden lock-holder thread na CPU alebo blocked v I/O.
+
+```bash
+strace -f -e trace=futex -p <pid>
+perf lock record -- <command>
+perf lock report
+```
+
+Runtime-specific profiler býva presnejší než raw futex count. Cieľom je nájsť serialized critical section a jej owner.
+
+## 40. Cgroup a container scope
+
+Host-wide metrics môžu vyzerať zdravo, kým workload naráža na local quota alebo limit.
+
+```bash
+cat /proc/<pid>/cgroup
 systemctl show <unit> -p ControlGroup -p MemoryCurrent -p MemoryMax
 cat /sys/fs/cgroup/<path>/cpu.stat
 cat /sys/fs/cgroup/<path>/memory.events
 cat /sys/fs/cgroup/<path>/pids.events
 ```
 
-Pri containers a Kubernetes porovnaj:
+Kontroluj aj ancestors. Pod alebo slice parent môže byť limitovaný, hoci child fields vyzerajú neobmedzene.
 
-```text
-orchestrator desired resources
-→ runtime settings
-→ cgroup fields
-→ process behavior
-```
+Container runtime event `OOMKilled` alebo throttling metric musí byť korelovaný s raw kernel/cgroup evidence.
 
-## 15. Logs, metrics, traces a profiles
+## 41. Namespaces
 
-Každý signál odpovedá na inú otázku:
-
-- logs: čo program explicitne oznámil,
-- metrics: ako sa hodnota mení v čase,
-- traces: kde request strávil čas naprieč komponentmi,
-- profiles: kde proces trávi CPU alebo memory,
-- events/audit: čo kernel alebo security vrstva rozhodla.
-
-Jeden signál nie je automaticky autoritatívny pre celý incident.
-
-## 16. Baseline a časová korelácia
-
-Výkonové číslo bez baseline je slabý dôkaz.
-
-Porovnávaj:
-
-- rovnaký host pred incidentom,
-- rovnakú službu na zdravom hoste,
-- rovnakú hodinu predchádzajúceho dňa,
-- pred a po deploymente,
-- normalizované hodnoty na request alebo workload unit.
-
-Časová os by mala spájať:
-
-```text
-deployment/config change
-→ resource behavior
-→ application latency/errors
-→ recovery action
-```
-
-Korelácia nie je automaticky kauzalita, ale pomáha vytvárať testovateľné hypotézy.
-
-## 17. Little's Law a queueing intuition
-
-Zjednodušený vzťah:
-
-```text
-concurrency = throughput × time in system
-```
-
-Ak throughput zostáva rovnaký a latency rastie, rastie aj počet rozpracovaných requests.
-
-To môže zvýšiť:
-
-- memory usage,
-- open connections,
-- queue depth,
-- lock contention,
-- timeout cascades.
-
-Výkonový incident preto môže byť pozitívna spätná väzba, nie izolovaný pomalý komponent.
-
-## 18. Coordinated omission a percentily
-
-Pri latency sleduj percentily, nie iba priemer.
-
-```text
-p50 = typický request
-p95/p99 = tail behavior
-```
-
-Priemer môže skryť malú, ale dôležitú skupinu veľmi pomalých requests.
-
-Load test musí generovať požadovanú arrival rate aj počas spomalenia. Inak môže vynechať requests, ktoré by reálni používatelia poslali, a podhodnotiť latency — coordinated omission.
-
-## 19. eBPF a moderné observability nástroje
-
-eBPF umožňuje bezpečne spúšťať overený bytecode na definovaných kernel hooks.
-
-Použitie:
-
-- syscall latency,
-- scheduler delay,
-- TCP retransmissions,
-- block I/O latency,
-- off-CPU profiling,
-- network tracing.
-
-Nástroje môžu zahŕňať BCC, bpftrace alebo distribučné eBPF observability platformy.
-
-Príklady konceptu:
+Diagnostický príkaz musí bežať v namespace, ktorý vlastní skúmaný stav.
 
 ```bash
-sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { @[comm] = count(); }'
+lsns -p <pid>
+sudo nsenter -t <pid> -n ss -lntup
+sudo nsenter -t <pid> -n ip route
+sudo nsenter -t <pid> -m findmnt
 ```
 
-Používaj ich cielene. eBPF nie je náhrada základného layer-by-layer modelu a môže mať version, privilege a overhead obmedzenia.
+Hostový socket alebo mount inventory nemusí opisovať kontajner. Nesprávny namespace je častá príčina protichodných pozorovaní.
 
-## 20. Zmeny počas incidentu
+## 42. Security denials ako performance symptóm
 
-Pred zmenou zaznamenaj:
+SELinux/AppArmor denial, chýbajúca capability alebo seccomp blok môže spôsobiť retry loop, timeout alebo fallback na pomalší path.
 
-- hypotézu,
-- očakávaný efekt,
-- rollback,
-- riziko,
-- spôsob overenia.
+```bash
+journalctl -k -b | grep -i -E 'avc|apparmor|seccomp|denied'
+grep '^Cap' /proc/<pid>/status
+```
 
-Preferuj reverzibilné kroky:
+Permission problém nemusí byť iba funkčný fail-fast. Aplikácia môže opakovane skúšať operáciu a vytvárať CPU/log storm.
 
-- zníženie trafficu,
-- rollback poslednej zmeny,
-- scale-out pri potvrdenej saturation,
-- vypnutie problémovej feature flagom,
-- izoláciu chybného workloadu.
+## 43. Little's Law a queueing
 
-Náhodný restart môže obnoviť službu, ale zničiť diagnostické dôkazy a maskovať root cause.
+Little's Law:
 
-## 21. Anti-patterny
+```text
+L = λ × W
+```
 
-### Metric roulette
+- `L` — priemerný počet položiek v systéme,
+- `λ` — arrival alebo throughput rate,
+- `W` — priemerný čas v systéme.
 
-Prezeranie veľkého počtu dashboardov bez hypotézy.
+Ak arrival rate zostáva rovnaký a latency rastie, rastie aj concurrency alebo queue length. Vyššia concurrency potom zvyšuje memory, sockets a lock contention.
 
-### Restart-first troubleshooting
+Tento vzťah vysvetľuje, prečo pomalý downstream môže sekundárne vyčerpať lokálne connections a memory.
 
-Restart pred zachytením stavu. Môže odstrániť symptóm aj dôkaz.
+## 44. Tail latency
 
-### Single-metric diagnosis
+Priemer môže zostať stabilný, hoci malé percento requests prekračuje timeout. Používateľský dopad často riadi p95, p99 alebo maximum queue age.
 
-„CPU je 90 %, takže treba viac CPU.“ Bez saturation, throughput a latency kontextu je záver slabý.
+Tail latency vytvárajú:
 
-### Tuning before measurement
+- queueing bursts,
+- GC alebo compaction,
+- cgroup quota periods,
+- storage outliers,
+- retransmissions,
+- lock convoys,
+- cold cache alebo DNS/TLS retries.
 
-Zmena sysctl, JVM flags alebo database settings bez baseline a experimentu.
+Analýza musí používať distribúciu a request class. Agregácia rýchlych a pomalých endpointov môže skryť problém.
 
-### Blame the network
+## 45. Coordinated omission
 
-Sieť sa označí za príčinu bez packet, route, loss alebo latency dôkazu.
+Load generator, ktorý po pomalom requeste prestane posielať ďalšie requests, môže podhodnotiť skutočnú latency počas saturation. Nezaznamená čakanie požiadaviek, ktoré by v reálnej prevádzke prichádzali.
 
-### Permanent debug logging
+Performance test musí modelovať arrival pattern a queueing. Inak môže systém vyzerať stabilne práve preto, že test znížil load pri degradácii.
 
-Dočasné detailné logovanie zostane zapnuté a vytvorí I/O, storage alebo privacy problém.
+## 46. Hypotéza a falzifikácia
 
-## 22. Praktický diagnostický checklist
+Dobrá hypotéza je konkrétna a vyvrátiteľná:
 
-### Scope
+```text
+P99 latency rastie, pretože payments.service vyčerpáva CPU quota.
+```
 
-- jeden request, používateľ, process, host, AZ alebo celý systém?
-- začiatok a trvanie?
-- čo sa zmenilo?
+Predikcie:
+
+- throttle counters rastú v rovnakom intervale,
+- latency postihuje iba túto cgroup,
+- stack samples ukazujú runnable CPU work,
+- dočasné zvýšenie quota zníži latency bez zmeny trafficu.
+
+Ak sa predikcie nepotvrdia, hypotézu treba odmietnuť. Nie ju zachraňovať výberom ďalšej nesúvisiacej metriky.
+
+## 47. Bezpečný experiment
+
+Experiment mení jednu relevantnú premennú a má definovaný rollback.
+
+Príklady:
+
+- zvýš CPU quota iba jednej canary instance,
+- zníž concurrency pre jednu worker group,
+- presmeruj malú časť trafficu na predchádzajúci artifact,
+- vypni konkrétny feature flag,
+- zmeň resolver iba v testovacom namespace.
+
+Experiment musí merať používateľský outcome aj možné vedľajšie účinky. Zvýšenie quota môže zlepšiť jednu službu a zhoršiť sibling workloads.
+
+## 48. Mitigation verzus root-cause fix
+
+Mitigation obnovuje službu; root-cause fix odstraňuje mechanizmus incidentu.
+
+```text
+restart procesu      → mitigation
+oprava descriptor leak-u → root-cause fix
+```
+
+```text
+zvýšenie memory limitu → mitigation alebo capacity change
+bounded queue/backpressure → systémová oprava
+```
+
+Mitigation nie je zlyhanie. Pri incidente je správna, ak je bezpečná a obnoví SLO, ale musí byť explicitne zaznamenaná ako dočasná alebo trvalá.
+
+## 49. Overenie nápravy
+
+Náprava je úspešná až keď sa obnoví používateľský výsledok a nezhorší sa iná kritická vlastnosť.
+
+Over:
+
+- latency/error/throughput SLI,
+- resource pressure a queue,
+- absence nových errors,
+- stabilitu počas dostatočného obdobia,
+- správanie pri očakávanom peak load,
+- sibling workloads,
+- persistenciu konfigurácie po restart/redeploy.
+
+Pokles CPU po reštarte nie je dôkaz opravy, ak sa leak alebo queue znovu vytvorí o hodinu.
+
+## 50. Antipatterny
+
+### Náhodné spúšťanie príkazov
+
+Veľa outputu bez otázky nevytvára kauzálny model. Každý nástroj má testovať hypotézu alebo zúžiť scope.
+
+### Najvyšší proces je vinník
+
+Proces s najvyšším CPU môže vykonávať užitočnú prácu alebo reagovať na downstream problém. Root cause môže byť queue source, retry policy alebo iný resource.
+
+### Reštart ako diagnóza
+
+Restart mení state a môže odstrániť evidence. Je to mitigation, nie vysvetlenie.
+
+### Zvýšenie všetkých limitov
+
+Odstráni ochranné boundaries a môže presunúť incident na celý host. Limit sa mení iba po potvrdení workload requirementu a parent capacity.
+
+### Priemer bez distribúcie
+
+Priemer maskuje tail latency, bursty a odlišné request classes.
+
+### Korelácia ako kauzalita
+
+Dve metriky môžu rásť spolu pre spoločnú príčinu. Experiment alebo mechanistický dôkaz musí vysvetliť smer vzťahu.
+
+## 51. Praktický host checklist
+
+### Scope a timeline
+
+- Definuj presný používateľský symptóm a request/job class.
+- Urči začiatok, duration, affected scope a nedávne zmeny.
+- Zachovaj artifact, config, host, namespace a cgroup identity.
 
 ### CPU
 
-- utilization per core,
-- runnable queue,
-- quota throttling,
-- hot threads,
-- profiles.
+- Porovnaj utilization, run queue, PSI a cgroup throttling.
+- Skontroluj per-core a per-thread rozloženie.
+- Použi on-CPU alebo off-CPU profiler podľa hypotézy.
 
 ### Memory
 
-- working set,
-- reclaim a swap,
-- PSI,
-- cgroup events,
-- OOM evidence.
+- Rozlíš anonymous, file cache, slab, swap a cgroup charge.
+- Sleduj reclaim, PSI, `memory.events` a OOM evidence.
+- Použi časovú sériu a heap/runtime profiler pre leak hypotézu.
 
 ### Storage
 
-- capacity a inodes,
-- latency a queue,
-- device/filesystem errors,
-- deleted-open files.
+- Over správny mount a device topology.
+- Rozlíš blocks, inodes, quota a deleted-open files.
+- Sleduj latency, queue, PSI a kernel errors.
 
 ### Network
 
-- DNS,
-- route,
-- drops/retransmissions,
-- sockets,
-- packet capture,
-- TLS/application layer.
+- Postupuj DNS → route → link/neighbor → firewall → packet → transport → TLS → application.
+- Over namespace a source address.
+- Koreluj drops/retransmissions a socket queues s request dopadom.
 
 ### Process
 
-- state a wchan,
-- file descriptors,
-- syscalls,
-- limits,
-- namespaces a cgroups.
+- Skontroluj state, thread count, wait channel a child tree.
+- Over file descriptors, rlimits, signals a syscalls.
+- Over capability/LSM denials a service manager policy.
 
-## 23. Kontrolné otázky
+## 52. Kontrolné otázky
 
-1. Aký je rozdiel medzi utilization a saturation?
-2. Prečo vysoký load average nemusí znamenať vysoké CPU usage?
-3. Ako rozlíšiš host-wide a cgroup-local resource problém?
-4. Prečo je OOM killer mechanizmus, nie root cause?
-5. Kedy je `strace` vhodný a aké má riziká?
-6. Prečo priemer latency nestačí?
-7. Ako Little's Law pomáha chápať rast concurrency?
-8. Prečo restart môže poškodiť troubleshooting?
-9. Kedy použiť profiler a kedy packet capture?
-10. Ako overíš, že náprava skutočne obnovila používateľský výsledok?
+1. Prečo vysoká utilization nemusí znamenať bottleneck?
+2. Aký je rozdiel medzi utilization, saturation a pressure?
+3. Prečo treba začať používateľským symptómom a časovou osou?
+4. Ako observation point a namespace menia interpretáciu príkazu?
+5. Prečo load average nie je CPU percentage?
+6. Ako potvrdíš CPU quota throttling ako príčinu latency?
+7. Aký je rozdiel medzi on-CPU a off-CPU profilingom?
+8. Ako rozlíšiš memory leak od cache alebo väčšieho working setu?
+9. Prečo OOM killer nie je root cause?
+10. Prečo sa `df` a `du` môžu líšiť?
+11. Ako rozlíšiš TCP, TLS a application latency?
+12. Kedy je `strace` vhodný a aké má riziká?
+13. Ako Little's Law vysvetľuje rast concurrency pri vyššej latency?
+14. Prečo priemer nestačí na tail-latency incident?
+15. Aké vlastnosti má falzifikovateľná troubleshooting hypotéza?
+16. Aký je rozdiel medzi mitigation a root-cause fixom?
+17. Ako overíš, že náprava obnovila používateľský outcome a nie iba jednu metriku?
+
+## 53. Zhrnutie
+
+Linux performance troubleshooting je metodika, nie katalóg príkazov. Začína presným používateľským dopadom, scope a timeline, pokračuje vrstvovým resource a process observation a končí testovateľnou hypotézou, bezpečným experimentom a overenou nápravou.
+
+USE, RED, PSI, cgroup events, profiling, syscall tracing a packet capture poskytujú rozdielne pohľady. Správny nástroj musí byť použitý na správnom hoste, namespace, cgroup a časovom intervale; až potom možno vytvoriť kauzálny reťazec medzi workloadom, kernelovým mechanizmom a používateľským výsledkom.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
