@@ -436,16 +436,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "title": "Linux Performance and Troubleshooting",
-      "words": 1721,
-      "headings": 47,
-      "sections": 47,
-      "findings": 136,
-      "critical": 57,
-      "high": 56,
-      "medium": 17,
-      "low": 6,
-      "score": 1191,
+      "title": "Linux performance a troubleshooting",
+      "words": 3838,
+      "headings": 66,
+      "sections": 66,
+      "findings": 137,
+      "critical": 43,
+      "high": 38,
+      "medium": 32,
+      "low": 24,
+      "score": 970,
       "grade": "D"
     },
     {
@@ -18056,35 +18056,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU saturation,`, `lock contention,`, `memory pressure a reclaim,`, `storage latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -18092,17 +18065,26 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
+      "section": "2. Performance verzus funkčná chyba",
+      "line": 27,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `Policy`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "3. Základný model: utilization, saturation, errors",
-      "line": 36,
+      "section": "3. Začni používateľským dopadom",
+      "line": 41,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "3. Začni používateľským dopadom",
+      "line": 41,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -18110,8 +18092,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "3. Základný model: utilization, saturation, errors",
-      "line": 36,
+      "section": "3. Začni používateľským dopadom",
+      "line": 41,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -18119,44 +18101,44 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "4. Začni používateľským dopadom",
-      "line": 62,
+      "section": "3. Začni používateľským dopadom",
+      "line": 41,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "3. Začni používateľským dopadom",
+      "line": 41,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "3. Začni používateľským dopadom",
+      "line": 41,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "4. Začni používateľským dopadom",
-      "line": 62,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "4. Začni používateľským dopadom",
-      "line": 62,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je pomalé alebo nefunkčné,`, `odkedy,`, `koho a ktoré requests to ovplyvňuje,`, `či je problém trvalý alebo prerušovaný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "4. Začni používateľským dopadom",
-      "line": 62,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SSH`, `SLO`, `resource`, `availability`",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "4. Začni používateľským dopadom",
-      "line": 62,
+      "section": "5. Baseline a porovnávací kontext",
+      "line": 73,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ten istý host pred incidentom,`, `zdravý sibling host s rovnakou verziou,`, `rovnaký request class pri nižšom loade,`, `load-test profil,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "5. Baseline a porovnávací kontext",
+      "line": 73,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -18164,17 +18146,53 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "4. Začni používateľským dopadom",
-      "line": 62,
+      "section": "5. Baseline a porovnávací kontext",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "5. Baseline a porovnávací kontext",
+      "line": 73,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "5. Golden workflow",
-      "line": 76,
+      "section": "6. USE model",
+      "line": 87,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "6. USE model",
+      "line": 87,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "7. RED a workload signály",
+      "line": 113,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "8. Golden troubleshooting workflow",
+      "line": 130,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -18182,143 +18200,26 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "7. CPU troubleshooting",
-      "line": 119,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Otázky",
-      "line": 121,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Otázky",
-      "line": 121,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Otázky",
-      "line": 121,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Otázky",
-      "line": 121,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je vysoké user CPU alebo system CPU?`, `Je problém na všetkých cores alebo jednom core?`, `Je workload runnable alebo čaká?`, `Existuje CPU quota throttling?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Otázky",
-      "line": 121,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Otázky",
-      "line": 121,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Sampling profiler",
+      "section": "9. Zachovanie evidence",
       "line": 148,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Jeden core na 100 %",
-      "line": 158,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Jeden core na 100 %",
-      "line": 158,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Jeden core na 100 %",
-      "line": 158,
+      "section": "9. Zachovanie evidence",
+      "line": 148,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-threaded execution,`, `global lock,`, `CPU affinity,`, `hot shard alebo queue,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas a host/container identity,`, `process tree a cgroup path,`, `CPU/memory/I/O/network snapshot,`, `relevantný journal interval,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Jeden core na 100 %",
-      "line": 158,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "8. Load average",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "8. Load average",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `porovnaj s počtom logical CPUs,`, `over runnable queue cez vmstat alebo scheduler metrics,`, `skontroluj tasks v D state,`, `rozlíš CPU queue od I/O wait.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "8. Load average",
-      "line": 171,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "8. Load average",
-      "line": 171,
+      "section": "9. Zachovanie evidence",
+      "line": 148,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -18326,323 +18227,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "8. Load average",
-      "line": 171,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "9. Memory troubleshooting",
-      "line": 193,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Základné zdroje",
-      "line": 195,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Základné zdroje",
-      "line": 195,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Základné zdroje",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Základné zdroje",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous memory,`, `file-backed pages,`, `page cache,`, `slab/kernel memory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Základné zdroje",
-      "line": 195,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Memory pressure",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Memory pressure",
-      "line": 215,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "OOM",
-      "line": 225,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "OOM",
-      "line": 225,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "OOM",
-      "line": 225,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `leak,`, `nízky limit,`, `burst,`, `concurrency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "OOM",
-      "line": 225,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "10. Storage a filesystem troubleshooting",
-      "line": 242,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Capacity",
-      "line": 244,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Capacity",
-      "line": 244,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Capacity",
-      "line": 244,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Capacity",
-      "line": 244,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `voľné bloky,`, `voľné inodes,`, `deleted-open files,`, `filesystem reserved space,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Capacity",
-      "line": 244,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Latency a saturation",
-      "line": 267,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Latency a saturation",
-      "line": 267,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Latency a saturation",
-      "line": 267,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request latency,`, `queue depth,`, `throughput,`, `utilization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Latency a saturation",
-      "line": 267,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Kernel logs",
-      "line": 286,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Kernel logs",
-      "line": 286,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "11. Network troubleshooting",
-      "line": 294,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "11. Network troubleshooting",
-      "line": 294,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "11. Network troubleshooting",
-      "line": 294,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drops a errors na interface,`, `retransmissions,`, `SYN backlog,`, `connection states,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "11. Network troubleshooting",
-      "line": 294,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "11. Network troubleshooting",
-      "line": 294,
+      "section": "9. Zachovanie evidence",
+      "line": 148,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `MTU`, `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `identity`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "12. Process a thread troubleshooting",
-      "line": 335,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "strace",
-      "line": 344,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "strace",
-      "line": 344,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "strace",
-      "line": 344,
+      "section": "11. Rýchly host-level snapshot",
+      "line": 179,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "strace",
-      "line": 344,
+      "section": "11. Rýchly host-level snapshot",
+      "line": 179,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zistiť, na čom proces čaká,`, `odhaliť opakované failed opens alebo connects,`, `vidieť blocking syscalls,`, `rozlíšiť application compute od kernel wait.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU idle verzus runnable queue,`, `memory available verzus reclaim/swap,`, `I/O await a queue verzus device errors,`, `network drops/retransmissions verzus socket states,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "strace",
-      "line": 344,
+      "section": "11. Rýchly host-level snapshot",
+      "line": 179,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -18650,98 +18263,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "13. File descriptors a limits",
-      "line": 371,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "13. File descriptors a limits",
-      "line": 371,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "13. File descriptors a limits",
-      "line": 371,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-process soft/hard rlimit,`, `systemd LimitNOFILE ,`, `host-wide file table,`, `application leak,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "13. File descriptors a limits",
-      "line": 371,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "14. cgroup a container context",
-      "line": 400,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "15. Logs, metrics, traces a profiles",
-      "line": 423,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "15. Logs, metrics, traces a profiles",
-      "line": 423,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "15. Logs, metrics, traces a profiles",
-      "line": 423,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logs: čo program explicitne oznámil,`, `metrics: ako sa hodnota mení v čase,`, `traces: kde request strávil čas naprieč komponentmi,`, `profiles: kde proces trávi CPU alebo memory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "15. Logs, metrics, traces a profiles",
-      "line": 423,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "15. Logs, metrics, traces a profiles",
-      "line": 423,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "15. Logs, metrics, traces a profiles",
-      "line": 423,
+      "section": "11. Rýchly host-level snapshot",
+      "line": 179,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
@@ -18749,26 +18272,170 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "16. Baseline a časová korelácia",
-      "line": 435,
+      "section": "12. CPU: utilization a states",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "12. CPU: utilization a states",
+      "line": 211,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "13. CPU saturation a run queue",
+      "line": 225,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "13. CPU saturation a run queue",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "14. Load average",
+      "line": 239,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "16. Baseline a časová korelácia",
-      "line": 435,
+      "section": "14. Load average",
+      "line": 239,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký host pred incidentom,`, `rovnakú službu na zdravom hoste,`, `rovnakú hodinu predchádzajúceho dňa,`, `pred a po deploymente,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU runnable queue,`, `storage alebo NFS waits v stave D ,`, `kernel lock alebo device wait,`, `kombináciou viacerých zdrojov.`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "16. Baseline a časová korelácia",
-      "line": 435,
+      "section": "14. Load average",
+      "line": 239,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "14. Load average",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "14. Load average",
+      "line": 239,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NFS`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "15. Jeden core na 100 percent",
+      "line": 257,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "15. Jeden core na 100 percent",
+      "line": 257,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-threaded event loop,`, `global lock alebo mutex convoy,`, `CPU affinity/cpuset,`, `hot shard alebo partition,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "15. Jeden core na 100 percent",
+      "line": 257,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "15. Jeden core na 100 percent",
+      "line": 257,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `GC`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "16. CPU cgroup throttling",
+      "line": 278,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "17. CPU profiling",
+      "line": 293,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "19. Context switches a interrupts",
+      "line": 318,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "21. Memory leak verzus pracovná množina",
+      "line": 343,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "21. Memory leak verzus pracovná množina",
+      "line": 343,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočný leak nedostupných objektov,`, `zámerná aplikačná cache,`, `allocator arena retention,`, `väčší workload working set,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "21. Memory leak verzus pracovná množina",
+      "line": 343,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -18776,8 +18443,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "16. Baseline a časová korelácia",
-      "line": 435,
+      "section": "21. Memory leak verzus pracovná množina",
+      "line": 343,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
@@ -18785,8 +18452,413 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "17. Little's Law a queueing intuition",
-      "line": 458,
+      "section": "23. Swap a thrashing",
+      "line": 379,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "24. OOM analýza",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "24. OOM analýza",
+      "line": 392,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host-wide OOM,`, `cgroup-local OOM,`, `systemd OOM policy,`, `Kubernetes/container OOM event,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "24. OOM analýza",
+      "line": 392,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "25. Storage capacity",
+      "line": 411,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "25. Storage capacity",
+      "line": 411,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data blocks,`, `inodes,`, `user/project quota,`, `reserved blocks,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "25. Storage capacity",
+      "line": 411,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "25. Storage capacity",
+      "line": 411,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LV`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "26. Storage latency a queueing",
+      "line": 434,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "26. Storage latency a queueing",
+      "line": 434,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "26. Storage latency a queueing",
+      "line": 434,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request latency,`, `queue depth,`, `throughput,`, `read/write mix,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "26. Storage latency a queueing",
+      "line": 434,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "29. Network troubleshooting path",
+      "line": 485,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "33. TLS a application layer",
+      "line": 558,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "33. TLS a application layer",
+      "line": 558,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect latency,`, `TLS handshake latency,`, `certificate validation,`, `request queueing,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "33. TLS a application layer",
+      "line": 558,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "34. Process states",
+      "line": 578,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "35. strace",
+      "line": 589,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "35. strace",
+      "line": 589,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "35. strace",
+      "line": 589,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované failed file opens,`, `connect timeouts,`, `blocking reads/writes/futex waits,`, `permission denials,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "35. strace",
+      "line": 589,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "35. strace",
+      "line": 589,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "36. Stack traces a wchan",
+      "line": 613,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "37. File descriptors",
+      "line": 624,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "37. File descriptors",
+      "line": 624,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "37. File descriptors",
+      "line": 624,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process soft/hard rlimit,`, `systemd LimitNOFILE ,`, `host-wide file table,`, `aplikáčný descriptor leak,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "37. File descriptors",
+      "line": 624,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "39. Locks a futex contention",
+      "line": 664,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "39. Locks a futex contention",
+      "line": 664,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký off-CPU čas,`, `veľa threadov v rovnakom futex wait,`, `nízky throughput napriek dostupným resources,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "39. Locks a futex contention",
+      "line": 664,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "39. Locks a futex contention",
+      "line": 664,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "39. Locks a futex contention",
+      "line": 664,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "43. Little's Law a queueing",
+      "line": 723,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "43. Little's Law a queueing",
+      "line": 723,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "44. Tail latency",
+      "line": 739,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "44. Tail latency",
+      "line": 739,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queueing bursts,`, `GC alebo compaction,`, `cgroup quota periods,`, `storage outliers,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "44. Tail latency",
+      "line": 739,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "44. Tail latency",
+      "line": 739,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "44. Tail latency",
+      "line": 739,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GC`, `DNS`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "45. Coordinated omission",
+      "line": 755,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "46. Hypotéza a falzifikácia",
+      "line": 761,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "46. Hypotéza a falzifikácia",
+      "line": 761,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `throttle counters rastú v rovnakom intervale,`, `latency postihuje iba túto cgroup,`, `stack samples ukazujú runnable CPU work,`, `dočasné zvýšenie quota zníži latency bez zmeny trafficu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "46. Hypotéza a falzifikácia",
+      "line": 761,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "46. Hypotéza a falzifikácia",
+      "line": 761,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "46. Hypotéza a falzifikácia",
+      "line": 761,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "47. Bezpečný experiment",
+      "line": 778,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
@@ -18794,17 +18866,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "17. Little's Law a queueing intuition",
-      "line": 458,
+      "section": "47. Bezpečný experiment",
+      "line": 778,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory usage,`, `open connections,`, `queue depth,`, `lock contention,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvýš CPU quota iba jednej canary instance,`, `zníž concurrency pre jednu worker group,`, `presmeruj malú časť trafficu na predchádzajúci artifact,`, `vypni konkrétny feature flag,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "17. Little's Law a queueing intuition",
-      "line": 458,
+      "section": "47. Bezpečný experiment",
+      "line": 778,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -18812,125 +18884,53 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "19. eBPF a moderné observability nástroje",
-      "line": 491,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "19. eBPF a moderné observability nástroje",
-      "line": 491,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syscall latency,`, `scheduler delay,`, `TCP retransmissions,`, `block I/O latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "19. eBPF a moderné observability nástroje",
-      "line": 491,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "19. eBPF a moderné observability nástroje",
-      "line": 491,
+      "section": "47. Bezpečný experiment",
+      "line": 778,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "20. Zmeny počas incidentu",
-      "line": 514,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "20. Zmeny počas incidentu",
-      "line": 514,
+      "section": "49. Overenie nápravy",
+      "line": 808,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "20. Zmeny počas incidentu",
-      "line": 514,
+      "section": "49. Overenie nápravy",
+      "line": 808,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotézu,`, `očakávaný efekt,`, `rollback,`, `riziko,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency/error/throughput SLI,`, `resource pressure a queue,`, `absence nových errors,`, `stabilitu počas dostatočného obdobia,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "20. Zmeny počas incidentu",
-      "line": 514,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "49. Overenie nápravy",
+      "line": 808,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Metric roulette",
-      "line": 536,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "49. Overenie nápravy",
+      "line": 808,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `resource`",
+      "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Single-metric diagnosis",
-      "line": 544,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Tuning before measurement",
-      "line": 548,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Blame the network",
-      "line": 552,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Permanent debug logging",
-      "line": 556,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "22. Praktický diagnostický checklist",
-      "line": 560,
+      "section": "50. Antipatterny",
+      "line": 824,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -18938,8 +18938,26 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Scope",
-      "line": 562,
+      "section": "Priemer bez distribúcie",
+      "line": 842,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "51. Praktický host checklist",
+      "line": 850,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "Scope a timeline",
+      "line": 852,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -18947,8 +18965,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Scope",
-      "line": 562,
+      "section": "Scope a timeline",
+      "line": 852,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -18956,17 +18974,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Scope",
-      "line": 562,
+      "section": "Scope a timeline",
+      "line": 852,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `začiatok a trvanie?`, `čo sa zmenilo?`.",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Definuj presný používateľský symptóm a request/job class.`, `Urči začiatok, duration, affected scope a nedávne zmeny.`, `Zachovaj artifact, config, host, namespace a cgroup identity.`.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Scope",
-      "line": 562,
+      "section": "Scope a timeline",
+      "line": 852,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -18974,17 +18992,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Scope",
-      "line": 562,
+      "section": "Scope a timeline",
+      "line": 852,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "CPU",
-      "line": 568,
+      "line": 858,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -18993,7 +19011,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "CPU",
-      "line": 568,
+      "line": 858,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -19002,25 +19020,16 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "CPU",
-      "line": 568,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "CPU",
-      "line": 568,
-      "severity": "critical",
+      "line": 858,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `utilization per core,`, `runnable queue,`, `quota throttling,`, `hot threads,`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Porovnaj utilization, run queue, PSI a cgroup throttling.`, `Skontroluj per-core a per-thread rozloženie.`, `Použi on-CPU alebo off-CPU profiler podľa hypotézy.`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "CPU",
-      "line": 568,
+      "line": 858,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -19028,8 +19037,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "CPU",
+      "line": 858,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`, `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Memory",
-      "line": 576,
+      "line": 864,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -19038,7 +19056,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Memory",
-      "line": 576,
+      "line": 864,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -19047,25 +19065,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Memory",
-      "line": 576,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Memory",
-      "line": 576,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `working set,`, `reclaim a swap,`, `PSI,`, `cgroup events,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Memory",
-      "line": 576,
+      "line": 864,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -19074,7 +19074,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Memory",
-      "line": 576,
+      "line": 864,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`, `OOM`",
@@ -19083,7 +19083,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Storage",
-      "line": 584,
+      "line": 870,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -19092,7 +19092,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Storage",
-      "line": 584,
+      "line": 870,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -19101,25 +19101,16 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Storage",
-      "line": 584,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Storage",
-      "line": 584,
-      "severity": "critical",
+      "line": 870,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capacity a inodes,`, `latency a queue,`, `device/filesystem errors,`, `deleted-open files.`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over správny mount a device topology.`, `Rozlíš blocks, inodes, quota a deleted-open files.`, `Sleduj latency, queue, PSI a kernel errors.`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Storage",
-      "line": 584,
+      "line": 870,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -19127,8 +19118,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "Storage",
+      "line": 870,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Network",
-      "line": 591,
+      "line": 876,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -19137,7 +19137,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Network",
-      "line": 591,
+      "line": 876,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -19146,25 +19146,16 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Network",
-      "line": 591,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Network",
-      "line": 591,
-      "severity": "critical",
+      "line": 876,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `route,`, `drops/retransmissions,`, `sockets,`.",
-      "score": 12
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over namespace a source address.`, `Koreluj drops/retransmissions a socket queues s request dopadom.`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Network",
-      "line": 591,
+      "line": 876,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -19173,7 +19164,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Network",
-      "line": 591,
+      "line": 876,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
@@ -19182,7 +19173,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Process",
-      "line": 600,
+      "line": 882,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -19191,7 +19182,7 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Process",
-      "line": 600,
+      "line": 882,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -19200,29 +19191,47 @@
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Process",
-      "line": 600,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
-      "section": "Process",
-      "line": 600,
-      "severity": "critical",
+      "line": 882,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `state a wchan,`, `file descriptors,`, `syscalls,`, `limits,`.",
-      "score": 12
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over file descriptors, rlimits, signals a syscalls.`, `Over capability/LSM denials a service manager policy.`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
       "section": "Process",
-      "line": 600,
+      "line": 882,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "Process",
+      "line": 882,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "53. Zhrnutie",
+      "line": 908,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",
+      "section": "53. Zhrnutie",
+      "line": 908,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
