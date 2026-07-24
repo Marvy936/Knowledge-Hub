@@ -423,15 +423,15 @@
     {
       "path": "docs/01-linux-and-systems/package-management.md",
       "title": "Package Management",
-      "words": 1106,
-      "headings": 21,
-      "sections": 21,
-      "findings": 49,
-      "critical": 17,
-      "high": 16,
-      "medium": 8,
-      "low": 8,
-      "score": 370,
+      "words": 1943,
+      "headings": 29,
+      "sections": 29,
+      "findings": 42,
+      "critical": 5,
+      "high": 6,
+      "medium": 7,
+      "low": 24,
+      "score": 168,
       "grade": "D"
     },
     {
@@ -16733,341 +16733,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "1. Definícia",
+      "section": "1. Čo package management skutočne riadi",
       "line": 11,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payload súborov,`, `názov, verziu a architektúru,`, `zoznam dependencies a conflicts,`, `checksums a podpisové informácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "4. Dependency resolution",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný názov balíka,`, `minimálnu alebo maximálnu verziu,`, `virtuálnu capability,`, `conflict alebo obsoletes vzťah,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "4. Dependency resolution",
-      "line": 94,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "5. Verzie, candidates a pinning",
-      "line": 118,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "5. Verzie, candidates a pinning",
-      "line": 118,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priorita repository,`, `distribution release,`, `module stream,`, `pinning alebo version lock,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "5. Verzie, candidates a pinning",
-      "line": 118,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "6. Update, upgrade a distribution upgrade",
-      "line": 154,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "6. Update, upgrade a distribution upgrade",
-      "line": 154,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "7. Package database ako zdroj pravdy",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "7. Package database ako zdroj pravdy",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odkiaľ súbor pochádza,`, `či je spravovaný balíkom,`, `ktorá verzia ho nainštalovala,`, `ktoré súbory do balíka patria.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "7. Package database ako zdroj pravdy",
-      "line": 170,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "8. Lifecycle scripts a vedľajšie efekty",
-      "line": 199,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "8. Lifecycle scripts a vedľajšie efekty",
-      "line": 199,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť používateľa,`, `reloadnúť systemd,`, `migrovať databázu,`, `upraviť cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "8. Lifecycle scripts a vedľajšie efekty",
-      "line": 199,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "8. Lifecycle scripts a vedľajšie efekty",
-      "line": 199,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "8. Lifecycle scripts a vedľajšie efekty",
-      "line": 199,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "9. Podpisy a trust chain",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridanie neznámeho third-party repository,`, `použitie zastaraného alebo kompromitovaného signing key,`, `miešanie repositories pre inú distribution release,`, `vypnutie signature verification,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "9. Podpisy a trust chain",
-      "line": 219,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "10. Locks a súbežné operácie",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti, ktorý proces drží lock,`, `počkaj alebo kontrolovane ukonči chybný proces,`, `až potom oprav prípadne nedokončenú transakciu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "10. Locks a súbežné operácie",
-      "line": 245,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "10. Locks a súbežné operácie",
-      "line": 245,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "10. Locks a súbežné operácie",
-      "line": 245,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "11. Diagnostika Debian/Ubuntu",
-      "line": 265,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "11. Diagnostika Debian/Ubuntu",
-      "line": 265,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "11. Diagnostika Debian/Ubuntu",
-      "line": 265,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "11. Diagnostika Debian/Ubuntu",
-      "line": 265,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dpkg --audit hľadá nekonzistentné alebo čiastočne nainštalované balíky`, `dpkg --configure -a dokončí configuration fázu rozbalených balíkov,`, `apt --fix-broken install sa pokúsi opraviť dependency state,`, `apt-mark showhold ukáže balíky blokované pred upgrade.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "11. Diagnostika Debian/Ubuntu",
-      "line": 265,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "12. Diagnostika RHEL/Fedora",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "12. Diagnostika RHEL/Fedora",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "12. Diagnostika RHEL/Fedora",
-      "line": 289,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `dnf check kontroluje dependency problémy,`, `dnf history zobrazuje transakcie,`, `rpm -Va porovnáva nainštalované files s RPM metadata.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "12. Diagnostika RHEL/Fedora",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "12. Diagnostika RHEL/Fedora",
-      "line": 289,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPM`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "13. Produkčný prístup",
-      "line": 304,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "13. Produkčný prístup",
-      "line": 304,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať schválené repositories,`, `testovať updates pred rolloutom,`, `evidovať reboot-required zmeny,`, `mať rollback alebo replacement stratégiu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "13. Produkčný prístup",
-      "line": 304,
+      "section": "1. Čo package management skutočne riadi",
+      "line": 11,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -17075,8 +16751,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "13. Produkčný prístup",
-      "line": 304,
+      "section": "1. Čo package management skutočne riadi",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -17084,8 +16760,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "13. Produkčný prístup",
-      "line": 304,
+      "section": "1. Čo package management skutočne riadi",
+      "line": 11,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -17093,17 +16769,224 @@
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "14. Časté omyly",
-      "line": 318,
+      "section": "1. Čo package management skutočne riadi",
+      "line": 11,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "2. High-level a low-level vrstva",
+      "line": 24,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "3. Repository je policy boundary",
+      "line": 47,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "3. Repository je policy boundary",
+      "line": 47,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "4. End-to-end tok transakcie",
+      "line": 60,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "6. Package dependency a runtime dependency nie sú totožné",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "7. Candidate version vzniká z precedence policy",
+      "line": 114,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "7. Candidate version vzniká z precedence policy",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "9. Update, upgrade a distribution upgrade riešia iné scope-y",
+      "line": 131,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "10. Local package database je evidovaný installed state",
+      "line": 145,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "10. Local package database je evidovaný installed state",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "11. Unpack a configure môžu byť oddelené fázy",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "12. Lifecycle scripts sú privilegované side effects",
+      "line": 166,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "„Podpísaný balík je bezpečný“",
-      "line": 328,
+      "section": "12. Lifecycle scripts sú privilegované side effects",
+      "line": 166,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "12. Lifecycle scripts sú privilegované side effects",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "12. Lifecycle scripts sú privilegované side effects",
+      "line": 166,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "12. Lifecycle scripts sú privilegované side effects",
+      "line": 166,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "13. Package install a service activation sú rozdielne operácie",
+      "line": 178,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "14. Trust chain overuje pôvod a integritu",
+      "line": 193,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "16. Lock chráni transakčnú konzistenciu",
+      "line": 217,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "18. Rollback package transakcie má limity",
+      "line": 257,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "18. Rollback package transakcie má limity",
+      "line": 257,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "18. Rollback package transakcie má limity",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "19. Security updates a upstream version numbers",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "20. Produkčný update workflow",
+      "line": 276,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -17111,12 +16994,66 @@
     },
     {
       "path": "docs/01-linux-and-systems/package-management.md",
-      "section": "„Ručne zmazaný package file sa automaticky obnoví“",
-      "line": 332,
+      "section": "20. Produkčný update workflow",
+      "line": 276,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "20. Produkčný update workflow",
+      "line": 276,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "20. Produkčný update workflow",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "20. Produkčný update workflow",
+      "line": 276,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "20. Produkčný update workflow",
+      "line": 276,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "21. Mutable a immutable model",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/package-management.md",
+      "section": "22. Časté omyly",
+      "line": 296,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/performance-and-troubleshooting.md",

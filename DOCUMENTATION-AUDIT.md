@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10568**
-- Total words: **456,534**
-- Findings: **23370** (critical 8212, high 9303, medium 3108, low 2747)
+- Audited conceptual sections: **10576**
+- Total words: **457,371**
+- Findings: **23363** (critical 8200, high 9293, medium 3107, low 2763)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -235,7 +235,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 370 | 15 | 20 | 7 | 5 | 1218 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
-| D | 370 | 17 | 16 | 8 | 8 | 1106 | `docs/01-linux-and-systems/package-management.md` |
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 352 | 16 | 17 | 7 | 1 | 976 | `docs/01-linux-and-systems/journald-and-logging.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
@@ -263,6 +262,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 175 | 5 | 6 | 8 | 31 | 2698 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
+| D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
@@ -943,37 +943,15 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payload súborov,`, `názov, verziu a architektúru,`, `zoznam dependencies a conflicts,`, `checksums a podpisové informácie,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Definícia**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 94, `bare-bullet-items` — **4. Dependency resolution**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný názov balíka,`, `minimálnu alebo maximálnu verziu,`, `virtuálnu capability,`, `conflict alebo obsoletes vzťah,`.
-- **CRITICAL** line 118, `bare-bullet-items` — **5. Verzie, candidates a pinning**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priorita repository,`, `distribution release,`, `module stream,`, `pinning alebo version lock,`.
-- **CRITICAL** line 118, `outline-instead-of-explanation` — **5. Verzie, candidates a pinning**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **7. Package database ako zdroj pravdy**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odkiaľ súbor pochádza,`, `či je spravovaný balíkom,`, `ktorá verzia ho nainštalovala,`, `ktoré súbory do balíka patria.`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **7. Package database ako zdroj pravdy**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 199, `bare-bullet-items` — **8. Lifecycle scripts a vedľajšie efekty**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť používateľa,`, `reloadnúť systemd,`, `migrovať databázu,`, `upraviť cache,`.
-- **CRITICAL** line 199, `outline-instead-of-explanation` — **8. Lifecycle scripts a vedľajšie efekty**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `bare-bullet-items` — **9. Podpisy a trust chain**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridanie neznámeho third-party repository,`, `použitie zastaraného alebo kompromitovaného signing key,`, `miešanie repositories pre inú distribution release,`, `vypnutie signature verification,`.
-- **CRITICAL** line 245, `bare-bullet-items` — **10. Locks a súbežné operácie**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti, ktorý proces drží lock,`, `počkaj alebo kontrolovane ukonči chybný proces,`, `až potom oprav prípadne nedokončenú transakciu.`.
-- **CRITICAL** line 265, `bare-bullet-items` — **11. Diagnostika Debian/Ubuntu**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dpkg --audit hľadá nekonzistentné alebo čiastočne nainštalované balíky`, `dpkg --configure -a dokončí configuration fázu rozbalených balíkov,`, `apt --fix-broken install sa pokúsi opraviť dependency state,`, `apt-mark showhold ukáže balíky blokované pred upgrade.`.
-- **CRITICAL** line 265, `outline-instead-of-explanation` — **11. Diagnostika Debian/Ubuntu**: 4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 304, `bare-bullet-items` — **13. Produkčný prístup**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať schválené repositories,`, `testovať updates pred rolloutom,`, `evidovať reboot-required zmeny,`, `mať rollback alebo replacement stratégiu,`.
-- **CRITICAL** line 318, `empty-section` — **14. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 166, `outline-instead-of-explanation` — **12. Lifecycle scripts sú privilegované side effects**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 276, `outline-instead-of-explanation` — **20. Produkčný update workflow**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 296, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 265, `list-first-introduction` — **11. Diagnostika Debian/Ubuntu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 265, `single-sentence-concept` — **11. Diagnostika Debian/Ubuntu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 289, `bare-bullet-items` — **12. Diagnostika RHEL/Fedora**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `dnf check kontroluje dependency problémy,`, `dnf history zobrazuje transakcie,`, `rpm -Va porovnáva nainštalované files s RPM metadata.`.
-- **HIGH** line 289, `list-first-introduction` — **12. Diagnostika RHEL/Fedora**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 289, `single-sentence-concept` — **12. Diagnostika RHEL/Fedora**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 304, `list-heavy-section` — **13. Produkčný prístup**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 328, `single-sentence-concept` — **„Podpísaný balík je bezpečný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 332, `single-sentence-concept` — **„Ručne zmazaný package file sa automaticky obnoví“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 11, `list-heavy-section` — **1. Čo package management skutočne riadi**: 6 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 276, `single-sentence-concept` — **20. Produkčný update workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 118, `thin-concept-section` — **5. Verzie, candidates a pinning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 154, `thin-concept-section` — **6. Update, upgrade a distribution upgrade**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 265, `thin-concept-section` — **11. Diagnostika Debian/Ubuntu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **12. Diagnostika RHEL/Fedora**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 276, `thin-concept-section` — **20. Produkčný update workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/performance-and-troubleshooting.md`
 
@@ -18565,17 +18543,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4122 | 0 | 0 | 4122 |
-| `bare-bullet-items` | 3758 | 336 | 0 | 0 | 4094 |
-| `outline-instead-of-explanation` | 3661 | 0 | 0 | 0 | 3661 |
-| `thin-concept-section` | 0 | 3354 | 0 | 0 | 3354 |
-| `term-before-explanation` | 0 | 346 | 2229 | 0 | 2575 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1227 | 1227 |
-| `example-not-explicit` | 0 | 0 | 0 | 1037 | 1037 |
-| `list-first-introduction` | 0 | 929 | 0 | 0 | 929 |
-| `short-concept-section` | 0 | 0 | 879 | 0 | 879 |
+| `single-sentence-concept` | 0 | 4119 | 0 | 0 | 4119 |
+| `bare-bullet-items` | 3749 | 335 | 0 | 0 | 4084 |
+| `outline-instead-of-explanation` | 3658 | 0 | 0 | 0 | 3658 |
+| `thin-concept-section` | 0 | 3350 | 0 | 0 | 3350 |
+| `term-before-explanation` | 0 | 346 | 2231 | 0 | 2577 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1233 | 1233 |
+| `example-not-explicit` | 0 | 0 | 0 | 1043 | 1043 |
+| `list-first-introduction` | 0 | 927 | 0 | 0 | 927 |
+| `short-concept-section` | 0 | 0 | 876 | 0 | 876 |
 | `empty-section` | 500 | 0 | 0 | 0 | 500 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 483 | 483 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 487 | 487 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 216 | 0 | 0 | 216 |
 
