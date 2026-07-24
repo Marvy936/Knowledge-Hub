@@ -759,15 +759,15 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "title": "TCP a UDP",
-      "words": 1807,
-      "headings": 43,
-      "sections": 43,
-      "findings": 108,
-      "critical": 41,
-      "high": 41,
-      "medium": 21,
-      "low": 5,
-      "score": 892,
+      "words": 3416,
+      "headings": 46,
+      "sections": 46,
+      "findings": 106,
+      "critical": 14,
+      "high": 27,
+      "medium": 20,
+      "low": 45,
+      "score": 509,
       "grade": "D"
     },
     {
@@ -34049,35 +34049,8 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "3. Porty",
-      "line": 41,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `well-known ports,`, `registered ports,`, `dynamic/ephemeral ports.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "3. Porty",
-      "line": 41,
+      "section": "3. Porty a ich význam",
+      "line": 43,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -34085,62 +34058,62 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "4. TCP byte stream",
-      "line": 55,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "3. Porty a ich význam",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "4. TCP byte stream",
-      "line": 55,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `length prefix,`, `delimiter,`, `fixed-size record,`, `self-describing serialization.`.",
-      "score": 12
+      "section": "3. Porty a ich význam",
+      "line": 43,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "4. TCP byte stream",
-      "line": 55,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "3. Porty a ich význam",
+      "line": 43,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "5. TCP handshake",
-      "line": 81,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. TCP je byte stream, nie správy",
+      "line": 53,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "5. TCP handshake",
-      "line": 81,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `synchronizovať initial sequence numbers,`, `potvrdiť obojsmernú reachability,`.",
-      "score": 8
+      "section": "4. TCP je byte stream, nie správy",
+      "line": 53,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "5. TCP handshake",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "5. Vytvorenie TCP connection",
+      "line": 71,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "5. TCP handshake",
-      "line": 81,
+      "section": "5. Vytvorenie TCP connection",
+      "line": 71,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MSS`, `SACK`",
@@ -34148,116 +34121,35 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "6. Sequence numbers a acknowledgments",
-      "line": 101,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ktoré dáta boli potvrdené,`, `ktoré môže odstrániť z retransmission queue,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "6. Sequence numbers a acknowledgments",
-      "line": 101,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "6. Sequence numbers a acknowledgments",
-      "line": 101,
+      "section": "6. Sequence numbers, ACK a ordered delivery",
+      "line": 92,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "6. Sequence numbers a acknowledgments",
-      "line": 101,
+      "section": "7. Loss detection a retransmission",
+      "line": 100,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "7. Loss detection a retransmission",
+      "line": 100,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACK`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SACK`, `RACK`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "7. Retransmissions",
-      "line": 113,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "7. Retransmissions",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "7. Retransmissions",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `congestion,`, `link errors,`, `firewall/policy drop,`, `route changes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "7. Retransmissions",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "7. Retransmissions",
-      "line": 113,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACK`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "9. Congestion control",
-      "line": 154,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "9. Congestion control",
-      "line": 154,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `congestion window,`, `slow start,`, `congestion avoidance,`, `loss alebo ECN signal,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "9. Congestion control",
-      "line": 154,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "9. Congestion control",
-      "line": 154,
+      "section": "8. RTT a retransmission timeout",
+      "line": 117,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34265,44 +34157,62 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "9. Congestion control",
-      "line": 154,
+      "section": "8. RTT a retransmission timeout",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "9. Flow control chráni receiver",
+      "line": 123,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "10. Congestion control chráni sieťovú cestu",
+      "line": 139,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECN`, `RTT`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "11. TCP states",
-      "line": 186,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Congestion control chráni sieťovú cestu",
+      "line": 139,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "11. TCP states",
-      "line": 186,
+      "section": "10. Congestion control chráni sieťovú cestu",
+      "line": 139,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "14. TCP state machine",
+      "line": 191,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "11. TCP states",
-      "line": 186,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LISTEN ,`, `SYN-SENT ,`, `SYN-RECV ,`, `ESTABLISHED ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "11. TCP states",
-      "line": 186,
+      "section": "14. TCP state machine",
+      "line": 191,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34310,143 +34220,53 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "11. TCP states",
-      "line": 186,
+      "section": "14. TCP state machine",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "14. TCP state machine",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "14. TCP state machine",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "14. TCP state machine",
+      "line": 191,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`, `SYN-SENT`, `SYN-RECV`, `ESTABLISHED`, `FIN-WAIT-1`, `FIN-WAIT-2`, `CLOSE-WAIT`, `LAST-ACK`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`, `SYN-SENT`, `SYN`, `SYN-RECV`, `ACK`, `ESTABLISHED`, `FIN-WAIT-1`, `CLOSE-WAIT`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "12. Graceful a abortive close",
+      "section": "15. CLOSE-WAIT a application cleanup",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "16. TIME-WAIT a bezpečné opätovné použitie tuple",
       "line": 216,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "RST",
-      "line": 224,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "RST",
-      "line": 224,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nič nepočúva na porte,`, `application abortne socket,`, `firewall aktívne rejectne,`, `packet patrí neexistujúcej connection.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "RST",
-      "line": 224,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "13. Listen backlog",
-      "line": 235,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "13. Listen backlog",
-      "line": 235,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN queue pressure,`, `accept queue overflow,`, `dropped connections,`, `retransmitted SYNs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "13. Listen backlog",
-      "line": 235,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "13. Listen backlog",
-      "line": 235,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "14. Ephemeral ports",
-      "line": 256,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "14. Ephemeral ports",
-      "line": 256,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľkom počte outbound connections,`, `dlhom TIME-WAIT ,`, `malom source IP/port priestore,`, `connection leak,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "14. Ephemeral ports",
-      "line": 256,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "14. Ephemeral ports",
-      "line": 256,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TIME-WAIT`, `IP`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "15. Keepalive",
-      "line": 283,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `protocol responsiveness,`, `business session,`, `dependency health.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "15. Keepalive",
-      "line": 283,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "16. Nagle, delayed ACK a malé writes",
-      "line": 297,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34454,53 +34274,8 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "17. UDP datagram model",
-      "line": 305,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "17. UDP datagram model",
-      "line": 305,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection handshake,`, `retransmission,`, `ordering,`, `flow control,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "17. UDP datagram model",
-      "line": 305,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "18. UDP header",
-      "line": 327,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "18. UDP header",
-      "line": 327,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source port,`, `destination port,`, `length,`, `checksum.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "18. UDP header",
-      "line": 327,
+      "section": "17. Graceful close, half-close a reset",
+      "line": 222,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -34508,98 +34283,8 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "19. Connected UDP socket",
-      "line": 340,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nastaví default destination,`, `filtruje incoming datagrams podľa peer,`, `môže doručovať niektoré asynchronous errors socketu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "19. Connected UDP socket",
-      "line": 340,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "20. UDP loss, duplication a reordering",
-      "line": 352,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "20. UDP loss, duplication a reordering",
-      "line": 352,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "20. UDP loss, duplication a reordering",
-      "line": 352,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepríde,`, `príde viackrát,`, `príde mimo poradia,`, `príde poškodený a bude zahodený,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "20. UDP loss, duplication a reordering",
-      "line": 352,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "21. UDP a MTU",
-      "line": 365,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "21. UDP a MTU",
-      "line": 365,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `držať datagrams pod bezpečným path MTU,`, `používať application fragmentation s vlastnou recovery logikou,`, `Path MTU discovery,`, `prepnúť na transport s vhodným segmentation/reliability modelom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "21. UDP a MTU",
-      "line": 365,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "21. UDP a MTU",
-      "line": 365,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "22. ICMP errors a UDP",
-      "line": 378,
+      "section": "17. Graceful close, half-close a reset",
+      "line": 222,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34607,71 +34292,35 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "23. Multicast a broadcast",
-      "line": 388,
+      "section": "17. Graceful close, half-close a reset",
+      "line": 222,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "18. TCP timeouty nie sú jedna hodnota",
+      "line": 235,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "23. Multicast a broadcast",
-      "line": 388,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service discovery,`, `routing/control protocols,`, `telemetry,`, `media distribution.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "23. Multicast a broadcast",
-      "line": 388,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "24. QUIC nad UDP",
-      "line": 401,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "24. QUIC nad UDP",
-      "line": 401,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reliable streams,`, `congestion control,`, `loss recovery,`, `encryption cez TLS 1.3 integráciu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "24. QUIC nad UDP",
-      "line": 401,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "24. QUIC nad UDP",
-      "line": 401,
+      "section": "18. TCP timeouty nie sú jedna hodnota",
+      "line": 235,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `TCP`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "25. TCP vs. UDP výber",
-      "line": 414,
+      "section": "18. TCP timeouty nie sú jedna hodnota",
+      "line": 235,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34679,80 +34328,89 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "26. Sockets v Linuxe",
-      "line": 427,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "26. Sockets v Linuxe",
-      "line": 427,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "26. Sockets v Linuxe",
-      "line": 427,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network namespace,`, `bind address,`, `port,`, `socket state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "26. Sockets v Linuxe",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "26. Sockets v Linuxe",
-      "line": 427,
+      "section": "19. Keepalive a application heartbeat",
+      "line": 247,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "27. Packet capture",
-      "line": 449,
+      "section": "19. Keepalive a application heartbeat",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "19. Keepalive a application heartbeat",
+      "line": 247,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "20. Nagle, delayed ACK a malé správy",
+      "line": 260,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "21. Ephemeral ports a outbound capacity",
+      "line": 266,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "21. Ephemeral ports a outbound capacity",
+      "line": 266,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TIME-WAIT`, `NAT`, `PAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "22. UDP datagram semantics",
+      "line": 285,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "27. Packet capture",
-      "line": 449,
+      "section": "22. UDP datagram semantics",
+      "line": 285,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "24. „Connected“ UDP socket",
+      "line": 306,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "27. Packet capture",
-      "line": 449,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN bez odpovede → drop, path alebo server reachability,`, `RST → aktívne odmietnutie alebo no listener,`, `handshake + immediate FIN/RST → application/protocol policy,`, `retransmissions → loss alebo severe delay,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "27. Packet capture",
-      "line": 449,
+      "section": "24. „Connected“ UDP socket",
+      "line": 306,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34760,17 +34418,116 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "27. Packet capture",
-      "line": 449,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `RST`, `FIN`, `policy`",
-      "score": 7
+      "section": "24. „Connected“ UDP socket",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "28. Troubleshooting scenár: TCP timeout",
-      "line": 473,
+      "section": "24. „Connected“ UDP socket",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "27. UDP, fragmentácia a Path MTU",
+      "line": 343,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "27. UDP, fragmentácia a Path MTU",
+      "line": 343,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "27. UDP, fragmentácia a Path MTU",
+      "line": 343,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "27. UDP, fragmentácia a Path MTU",
+      "line": 343,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `PMTUD`, `ICMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "28. ICMP chyby pri UDP",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "29. Broadcast a multicast",
+      "line": 362,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "29. Broadcast a multicast",
+      "line": 362,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "29. Broadcast a multicast",
+      "line": 362,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "29. Broadcast a multicast",
+      "line": 362,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "29. Broadcast a multicast",
+      "line": 362,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "30. QUIC nad UDP",
+      "line": 373,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34778,8 +34535,80 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "28. Troubleshooting scenár: TCP timeout",
-      "line": 473,
+      "section": "30. QUIC nad UDP",
+      "line": 373,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "30. QUIC nad UDP",
+      "line": 373,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "30. QUIC nad UDP",
+      "line": 373,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "30. QUIC nad UDP",
+      "line": 373,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "30. QUIC nad UDP",
+      "line": 373,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `TLS`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "31. TCP verzus UDP nie je „spoľahlivosť verzus rýchlosť“",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "31. TCP verzus UDP nie je „spoľahlivosť verzus rýchlosť“",
+      "line": 385,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34787,26 +34616,17 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "28. Troubleshooting scenár: TCP timeout",
-      "line": 473,
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "28. Troubleshooting scenár: TCP timeout",
-      "line": 473,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS failure,`, `route/ARP failure,`, `SYN drop,`, `RST,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "28. Troubleshooting scenár: TCP timeout",
-      "line": 473,
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34814,26 +34634,35 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "28. Troubleshooting scenár: TCP timeout",
-      "line": 473,
-      "severity": "high",
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "33. Pozorovanie TCP a UDP v Linuxe",
+      "line": 412,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `ARP`, `SYN`, `RST`, `TLS`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "29. Troubleshooting scenár: veľa CLOSE-WAIT",
-      "line": 492,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "29. Troubleshooting scenár: veľa CLOSE-WAIT",
-      "line": 492,
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34841,8 +34670,143 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "29. Troubleshooting scenár: veľa CLOSE-WAIT",
-      "line": 492,
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "34. Packet capture ako transportný dôkaz",
+      "line": 432,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `RST`, `L4`, `TLS`, `ACK`, `FIN`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "35. Diagnostický postup: TCP connect timeout",
+      "line": 450,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SYN`, `SYN-ACK`, `RST`, `ACK`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
@@ -34850,17 +34814,8 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "29. Troubleshooting scenár: veľa CLOSE-WAIT",
-      "line": 492,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identifikuj owning process.`, `Over, či remote peers posielajú FIN.`, `Skontroluj application socket lifecycle.`, `Pozri thread dumps alebo goroutines/tasks.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "29. Troubleshooting scenár: veľa CLOSE-WAIT",
-      "line": 492,
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34868,8 +34823,26 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "29. Troubleshooting scenár: veľa CLOSE-WAIT",
-      "line": 492,
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "36. Diagnostický postup: veľa CLOSE-WAIT",
+      "line": 470,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FIN`",
@@ -34877,17 +34850,17 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "30. Troubleshooting scenár: UDP request bez odpovede",
-      "line": 503,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "30. Troubleshooting scenár: UDP request bez odpovede",
-      "line": 503,
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34895,26 +34868,26 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "30. Troubleshooting scenár: UDP request bez odpovede",
-      "line": 503,
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "30. Troubleshooting scenár: UDP request bez odpovede",
-      "line": 503,
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť request na senderi.`, `Over route a firewall.`, `Zachyť request na receiveri.`, `Over listening socket a bind address.`.",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť request na receiveri v správnom network namespace.`, `Over UDP listener, bind address a receive-buffer drops.`, `Skontroluj aplikačné logy, parser a request identity.`, `Zachyť response na receiveri.`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "30. Troubleshooting scenár: UDP request bez odpovede",
-      "line": 503,
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34922,17 +34895,44 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "30. Troubleshooting scenár: UDP request bez odpovede",
-      "line": 503,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`, `ID`",
-      "score": 4
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "31. Časté omyly",
-      "line": 514,
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "37. Diagnostický postup: UDP request bez odpovede",
+      "line": 481,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `NAT`, `MTU`, `ICMP`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/tcp-and-udp.md",
+      "section": "38. Časté omyly",
+      "line": 494,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -34940,26 +34940,8 @@
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "„TCP connection je identifikovaná iba destination portom“",
-      "line": 528,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
-      "section": "„Keď handshake funguje, aplikácia je zdravá“",
-      "line": 532,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "„UDP nemá žiadny stav“",
-      "line": 536,
+      "line": 512,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

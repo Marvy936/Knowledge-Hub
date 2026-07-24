@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10693**
-- Total words: **481,229**
-- Findings: **23549** (critical 8068, high 9172, medium 3115, low 3194)
+- Audited conceptual sections: **10696**
+- Total words: **482,838**
+- Findings: **23547** (critical 8041, high 9158, medium 3114, low 3234)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -94,7 +94,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 894 | 40 | 48 | 11 | 4 | 1185 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 894 | 40 | 47 | 11 | 8 | 1597 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | D | 893 | 42 | 48 | 6 | 1 | 1269 | `docs/05-ci-cd-and-release/rolling-update.md` |
-| D | 892 | 41 | 41 | 21 | 5 | 1807 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 885 | 45 | 37 | 16 | 2 | 1413 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | D | 882 | 47 | 34 | 15 | 3 | 1344 | `docs/06-gitlab/security-scanning.md` |
 | D | 878 | 35 | 56 | 6 | 2 | 1825 | `docs/03-git-and-automation/python-for-automation.md` |
@@ -204,6 +203,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 520 | 20 | 32 | 7 | 2 | 1216 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | D | 515 | 25 | 23 | 8 | 7 | 1063 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 513 | 25 | 23 | 9 | 2 | 1008 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
+| D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 505 | 24 | 24 | 7 | 4 | 994 | `docs/04-testing-and-quality/verification-vs-validation.md` |
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
@@ -2052,86 +2052,45 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 55, `bare-bullet-items` — **4. TCP byte stream**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `length prefix,`, `delimiter,`, `fixed-size record,`, `self-describing serialization.`.
-- **CRITICAL** line 55, `outline-instead-of-explanation` — **4. TCP byte stream**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 113, `bare-bullet-items` — **7. Retransmissions**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `congestion,`, `link errors,`, `firewall/policy drop,`, `route changes,`.
-- **CRITICAL** line 113, `outline-instead-of-explanation` — **7. Retransmissions**: 10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 154, `bare-bullet-items` — **9. Congestion control**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `congestion window,`, `slow start,`, `congestion avoidance,`, `loss alebo ECN signal,`.
-- **CRITICAL** line 154, `outline-instead-of-explanation` — **9. Congestion control**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 186, `bare-bullet-items` — **11. TCP states**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LISTEN ,`, `SYN-SENT ,`, `SYN-RECV ,`, `ESTABLISHED ,`.
-- **CRITICAL** line 186, `outline-instead-of-explanation` — **11. TCP states**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 216, `empty-section` — **12. Graceful a abortive close**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 224, `bare-bullet-items` — **RST**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nič nepočúva na porte,`, `application abortne socket,`, `firewall aktívne rejectne,`, `packet patrí neexistujúcej connection.`.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **RST**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 235, `bare-bullet-items` — **13. Listen backlog**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN queue pressure,`, `accept queue overflow,`, `dropped connections,`, `retransmitted SYNs,`.
-- **CRITICAL** line 235, `outline-instead-of-explanation` — **13. Listen backlog**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 256, `bare-bullet-items` — **14. Ephemeral ports**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľkom počte outbound connections,`, `dlhom TIME-WAIT ,`, `malom source IP/port priestore,`, `connection leak,`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **14. Ephemeral ports**: 11 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 305, `bare-bullet-items` — **17. UDP datagram model**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection handshake,`, `retransmission,`, `ordering,`, `flow control,`.
-- **CRITICAL** line 305, `outline-instead-of-explanation` — **17. UDP datagram model**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 327, `bare-bullet-items` — **18. UDP header**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source port,`, `destination port,`, `length,`, `checksum.`.
-- **CRITICAL** line 327, `outline-instead-of-explanation` — **18. UDP header**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 352, `bare-bullet-items` — **20. UDP loss, duplication a reordering**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepríde,`, `príde viackrát,`, `príde mimo poradia,`, `príde poškodený a bude zahodený,`.
-- **CRITICAL** line 352, `outline-instead-of-explanation` — **20. UDP loss, duplication a reordering**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 365, `bare-bullet-items` — **21. UDP a MTU**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `držať datagrams pod bezpečným path MTU,`, `používať application fragmentation s vlastnou recovery logikou,`, `Path MTU discovery,`, `prepnúť na transport s vhodným segmentation/reliability modelom.`.
-- **CRITICAL** line 365, `outline-instead-of-explanation` — **21. UDP a MTU**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 388, `bare-bullet-items` — **23. Multicast a broadcast**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service discovery,`, `routing/control protocols,`, `telemetry,`, `media distribution.`.
-- **CRITICAL** line 388, `outline-instead-of-explanation` — **23. Multicast a broadcast**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 401, `bare-bullet-items` — **24. QUIC nad UDP**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reliable streams,`, `congestion control,`, `loss recovery,`, `encryption cez TLS 1.3 integráciu,`.
-- **CRITICAL** line 401, `outline-instead-of-explanation` — **24. QUIC nad UDP**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 427, `bare-bullet-items` — **26. Sockets v Linuxe**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network namespace,`, `bind address,`, `port,`, `socket state,`.
-- **CRITICAL** line 427, `outline-instead-of-explanation` — **26. Sockets v Linuxe**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 449, `bare-bullet-items` — **27. Packet capture**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN bez odpovede → drop, path alebo server reachability,`, `RST → aktívne odmietnutie alebo no listener,`, `handshake + immediate FIN/RST → application/protocol policy,`, `retransmissions → loss alebo severe delay,`.
-- **CRITICAL** line 449, `outline-instead-of-explanation` — **27. Packet capture**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 473, `bare-bullet-items` — **28. Troubleshooting scenár: TCP timeout**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS failure,`, `route/ARP failure,`, `SYN drop,`, `RST,`.
-- **CRITICAL** line 473, `outline-instead-of-explanation` — **28. Troubleshooting scenár: TCP timeout**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 492, `bare-bullet-items` — **29. Troubleshooting scenár: veľa CLOSE-WAIT**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identifikuj owning process.`, `Over, či remote peers posielajú FIN.`, `Skontroluj application socket lifecycle.`, `Pozri thread dumps alebo goroutines/tasks.`.
-- **CRITICAL** line 492, `outline-instead-of-explanation` — **29. Troubleshooting scenár: veľa CLOSE-WAIT**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 503, `bare-bullet-items` — **30. Troubleshooting scenár: UDP request bez odpovede**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť request na senderi.`, `Over route a firewall.`, `Zachyť request na receiveri.`, `Over listening socket a bind address.`.
-- **CRITICAL** line 503, `no-prose-concept` — **30. Troubleshooting scenár: UDP request bez odpovede**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 503, `outline-instead-of-explanation` — **30. Troubleshooting scenár: UDP request bez odpovede**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 514, `empty-section` — **31. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 191, `outline-instead-of-explanation` — **14. TCP state machine**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 235, `outline-instead-of-explanation` — **18. TCP timeouty nie sú jedna hodnota**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 306, `outline-instead-of-explanation` — **24. „Connected“ UDP socket**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 362, `outline-instead-of-explanation` — **29. Broadcast a multicast**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 373, `outline-instead-of-explanation` — **30. QUIC nad UDP**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 412, `outline-instead-of-explanation` — **33. Pozorovanie TCP a UDP v Linuxe**: 6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 432, `outline-instead-of-explanation` — **34. Packet capture ako transportný dôkaz**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 450, `outline-instead-of-explanation` — **35. Diagnostický postup: TCP connect timeout**: 7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 470, `outline-instead-of-explanation` — **36. Diagnostický postup: veľa CLOSE-WAIT**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 481, `bare-bullet-items` — **37. Diagnostický postup: UDP request bez odpovede**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť request na receiveri v správnom network namespace.`, `Over UDP listener, bind address a receive-buffer drops.`, `Skontroluj aplikačné logy, parser a request identity.`, `Zachyť response na receiveri.`.
+- **CRITICAL** line 481, `outline-instead-of-explanation` — **37. Diagnostický postup: UDP request bez odpovede**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 494, `empty-section` — **38. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 41, `bare-bullet-items` — **3. Porty**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `well-known ports,`, `registered ports,`, `dynamic/ephemeral ports.`.
-- **HIGH** line 81, `bare-bullet-items` — **5. TCP handshake**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `synchronizovať initial sequence numbers,`, `potvrdiť obojsmernú reachability,`.
-- **HIGH** line 81, `single-sentence-concept` — **5. TCP handshake**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 101, `bare-bullet-items` — **6. Sequence numbers a acknowledgments**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ktoré dáta boli potvrdené,`, `ktoré môže odstrániť z retransmission queue,`.
-- **HIGH** line 113, `single-sentence-concept` — **7. Retransmissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 186, `single-sentence-concept` — **11. TCP states**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 283, `bare-bullet-items` — **15. Keepalive**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `protocol responsiveness,`, `business session,`, `dependency health.`.
-- **HIGH** line 340, `bare-bullet-items` — **19. Connected UDP socket**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nastaví default destination,`, `filtruje incoming datagrams podľa peer,`, `môže doručovať niektoré asynchronous errors socketu.`.
-- **HIGH** line 352, `single-sentence-concept` — **20. UDP loss, duplication a reordering**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 427, `list-first-introduction` — **26. Sockets v Linuxe**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 449, `single-sentence-concept` — **27. Packet capture**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 473, `list-first-introduction` — **28. Troubleshooting scenár: TCP timeout**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 473, `single-sentence-concept` — **28. Troubleshooting scenár: TCP timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 492, `list-first-introduction` — **29. Troubleshooting scenár: veľa CLOSE-WAIT**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 492, `single-sentence-concept` — **29. Troubleshooting scenár: veľa CLOSE-WAIT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 503, `list-first-introduction` — **30. Troubleshooting scenár: UDP request bez odpovede**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 528, `single-sentence-concept` — **„TCP connection je identifikovaná iba destination portom“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 532, `single-sentence-concept` — **„Keď handshake funguje, aplikácia je zdravá“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 536, `single-sentence-concept` — **„UDP nemá žiadny stav“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 285, `list-heavy-section` — **22. UDP datagram semantics**: 6 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 373, `single-sentence-concept` — **30. QUIC nad UDP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 412, `list-first-introduction` — **33. Pozorovanie TCP a UDP v Linuxe**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 412, `single-sentence-concept` — **33. Pozorovanie TCP a UDP v Linuxe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 432, `list-first-introduction` — **34. Packet capture ako transportný dôkaz**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 450, `list-first-introduction` — **35. Diagnostický postup: TCP connect timeout**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 450, `single-sentence-concept` — **35. Diagnostický postup: TCP connect timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 470, `list-first-introduction` — **36. Diagnostický postup: veľa CLOSE-WAIT**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 470, `single-sentence-concept` — **36. Diagnostický postup: veľa CLOSE-WAIT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 481, `list-first-introduction` — **37. Diagnostický postup: UDP request bez odpovede**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 481, `single-sentence-concept` — **37. Diagnostický postup: UDP request bez odpovede**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 512, `single-sentence-concept` — **„UDP nemá žiadny stav“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `OSI`, `TCP`, `IP`, `DNS`, `HTTP`, `QUIC`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 55, `thin-concept-section` — **4. TCP byte stream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 81, `thin-concept-section` — **5. TCP handshake**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 113, `thin-concept-section` — **7. Retransmissions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 186, `term-before-explanation` — **11. TCP states**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`, `SYN-SENT`, `SYN-RECV`, `ESTABLISHED`, `FIN-WAIT-1`, `FIN-WAIT-2`, `CLOSE-WAIT`, `LAST-ACK`
-- **HIGH** line 186, `thin-concept-section` — **11. TCP states**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **RST**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 305, `thin-concept-section` — **17. UDP datagram model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 352, `thin-concept-section` — **20. UDP loss, duplication a reordering**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 388, `thin-concept-section` — **23. Multicast a broadcast**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 401, `thin-concept-section` — **24. QUIC nad UDP**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 427, `thin-concept-section` — **26. Sockets v Linuxe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 449, `term-before-explanation` — **27. Packet capture**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `RST`, `FIN`, `policy`
-- **HIGH** line 449, `thin-concept-section` — **27. Packet capture**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 473, `term-before-explanation` — **28. Troubleshooting scenár: TCP timeout**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `ARP`, `SYN`, `RST`, `TLS`
-- **HIGH** line 473, `thin-concept-section` — **28. Troubleshooting scenár: TCP timeout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 492, `thin-concept-section` — **29. Troubleshooting scenár: veľa CLOSE-WAIT**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 503, `thin-concept-section` — **30. Troubleshooting scenár: UDP request bez odpovede**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 191, `term-before-explanation` — **14. TCP state machine**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`, `SYN-SENT`, `SYN`, `SYN-RECV`, `ACK`, `ESTABLISHED`, `FIN-WAIT-1`, `CLOSE-WAIT`
+- **HIGH** line 191, `thin-concept-section` — **14. TCP state machine**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 306, `thin-concept-section` — **24. „Connected“ UDP socket**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 412, `thin-concept-section` — **33. Pozorovanie TCP a UDP v Linuxe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 432, `term-before-explanation` — **34. Packet capture ako transportný dôkaz**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `RST`, `L4`, `TLS`, `ACK`, `FIN`, `policy`
+- **HIGH** line 432, `thin-concept-section` — **34. Packet capture ako transportný dôkaz**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 450, `term-before-explanation` — **35. Diagnostický postup: TCP connect timeout**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SYN`, `SYN-ACK`, `RST`, `ACK`, `TLS`
+- **HIGH** line 450, `thin-concept-section` — **35. Diagnostický postup: TCP connect timeout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 470, `thin-concept-section` — **36. Diagnostický postup: veľa CLOSE-WAIT**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 481, `term-before-explanation` — **37. Diagnostický postup: UDP request bez odpovede**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `NAT`, `MTU`, `ICMP`, `identity`
+- **HIGH** line 481, `thin-concept-section` — **37. Diagnostický postup: UDP request bez odpovede**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/bash-automation.md`
 
@@ -18290,19 +18249,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4042 | 0 | 0 | 4042 |
-| `bare-bullet-items` | 3689 | 333 | 0 | 0 | 4022 |
-| `outline-instead-of-explanation` | 3610 | 0 | 0 | 0 | 3610 |
-| `thin-concept-section` | 0 | 3296 | 0 | 0 | 3296 |
-| `term-before-explanation` | 0 | 361 | 2234 | 0 | 2595 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1358 | 1358 |
-| `example-not-explicit` | 0 | 0 | 0 | 1215 | 1215 |
-| `list-first-introduction` | 0 | 900 | 0 | 0 | 900 |
-| `short-concept-section` | 0 | 0 | 881 | 0 | 881 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 621 | 621 |
-| `empty-section` | 474 | 0 | 0 | 0 | 474 |
-| `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
-| `list-heavy-section` | 0 | 240 | 0 | 0 | 240 |
+| `single-sentence-concept` | 0 | 4038 | 0 | 0 | 4038 |
+| `bare-bullet-items` | 3672 | 328 | 0 | 0 | 4000 |
+| `outline-instead-of-explanation` | 3602 | 0 | 0 | 0 | 3602 |
+| `thin-concept-section` | 0 | 3288 | 0 | 0 | 3288 |
+| `term-before-explanation` | 0 | 362 | 2232 | 0 | 2594 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1368 | 1368 |
+| `example-not-explicit` | 0 | 0 | 0 | 1230 | 1230 |
+| `list-first-introduction` | 0 | 901 | 0 | 0 | 901 |
+| `short-concept-section` | 0 | 0 | 882 | 0 | 882 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 636 | 636 |
+| `empty-section` | 473 | 0 | 0 | 0 | 473 |
+| `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
+| `list-heavy-section` | 0 | 241 | 0 | 0 | 241 |
 
 ## Required remediation pattern
 
