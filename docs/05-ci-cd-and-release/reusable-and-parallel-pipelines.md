@@ -1,166 +1,326 @@
 # Reusable a parallel pipelines
 
-Reusable pipelines znižujú duplicitu a zavádzajú konzistentné delivery capabilities. Paralelizácia skracuje feedback a deployment lead time. Obe techniky však musia mať explicitné contracts, isolation a ownership; inak iba presunú komplexitu do skrytých templates, race conditions a nečitateľných dependency graphov.
+## Metadata
 
-## 1. Úrovne reuse
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-Reuse môže existovať na viacerých úrovniach:
+## 1. Definícia
 
-- shell/Python/PowerShell script,
-- containerized tool,
-- reusable job,
-- reusable workflow alebo template,
-- child pipeline,
-- organization-level platform capability.
+Reusable pipeline component je versionovaný delivery contract, ktorý môže viac consumerov použiť bez kopírovania jeho implementácie. Paralelná pipeline je execution graph, v ktorom sa nezávislé práce vykonávajú súbežne a následne sa ich výsledky bezpečne agregujú.
 
-Preferuj najnižšiu úroveň, ktorá poskytuje stabilný contract bez zbytočného coupling-u na konkrétnu CI platformu.
+Reuse a paralelizácia riešia odlišné problémy:
 
-## 2. Reusable script
+```text
+reuse
+→ konzistentnosť, ownership, údržba a štandardizácia
 
-Script je vhodný pre logiku, ktorú možno spustiť lokálne aj v CI:
+parallel execution
+→ kratší critical path a rýchlejší feedback
+```
+
+Obe techniky môžu zlyhať rovnakým spôsobom: skryjú dependencies a vytvoria false-green výsledok. Reusable template bez explicitného contractu môže rozbiť desiatky repositories. Parallel fan-in bez kontroly úplnosti môže označiť release candidate za zelený, hoci jeden shard vôbec nebežal.
+
+## 2. Mental model: provider, consumer a runtime graph
+
+Reuse má dve organizačné strany:
+
+- **Provider —** tím alebo platforma, ktorá reusable component navrhuje, versionuje, testuje a podporuje.
+- **Consumer —** repository alebo workflow, ktorý komponent volá s konkrétnymi inputs, permissions a očakávanými outputs.
+
+Runtime vzniká až po spojení oboch strán:
+
+```text
+consumer definition
++ pinned provider version
++ inputs a secrets references
++ platform policy
+→ resolved pipeline graph
+→ jobs, permissions, artifacts a verdicts
+```
+
+Dôveryhodnosť sa preto neviaže iba na source YAML consumera. Potrebujeme poznať aj provider revision, resolved configuration a skutočný graph vykonaný platformou.
+
+## 3. Úrovne reuse
+
+Reuse môže existovať na viacerých úrovniach. Každá má iný contract a blast radius.
+
+- **Library alebo CLI tool —** reusable business alebo deployment logika s explicitným API/CLI kontraktom; môže sa testovať mimo CI platformy.
+- **Script —** malá orchestration alebo automation jednotka, ktorú možno spustiť lokálne aj v jobe.
+- **Containerized tool —** pinovaný runtime s dependencies; vhodný pre analyzátor, builder alebo release utility.
+- **Reusable step/job —** platform-specific execution contract s runtime, permissions, inputs a outputs.
+- **Reusable workflow/template —** skladá viac jobs, gates a artifact flows.
+- **Child pipeline —** samostatný runtime graph vytvorený parent pipeline.
+- **Multi-project workflow —** koordinuje viac repositories alebo delivery domén.
+- **Platform capability —** produktizovaný golden path s policy, observability, supportom a lifecycle.
+
+Preferuj najnižšiu úroveň reuse, ktorá poskytne potrebnú hodnotu. Komplexná business logika v centrálnej YAML inheritance vrstve je ťažšie testovateľná než normálny tool s unit testami.
+
+## 4. Reusable script a tool
+
+Script alebo nástroj je vhodný, keď logika nemá byť závislá od konkrétnej CI platformy.
 
 ```bash
 ./scripts/verify.sh
-./scripts/build.sh
-./scripts/deploy.py --environment staging
+./tools/build --output dist/
+./tools/deploy --artifact sha256:... --environment staging
 ```
 
-Výhody:
+Dobrý CLI contract definuje:
 
-- jednoduché unit/component testovanie,
-- menší vendor lock-in,
-- rovnaké správanie lokálne a v CI,
-- jasný CLI contract.
+- **Inputs —** arguments, environment alebo config file s typmi a validation.
+- **Outputs —** stdout pre machine-readable result, stderr pre diagnostics a explicitné files/artifacts.
+- **Exit codes —** stabilné rozlíšenie success, validation failure, transient infrastructure failure a usage error.
+- **Idempotency —** opakovaný beh s rovnakým inputom nespôsobí nekontrolované duplicity.
+- **Timeout/cancellation —** nástroj reaguje na signal a zachová failure evidence.
+- **Version identity —** výsledok uvádza verziu toolu a relevantné dependencies.
 
-Pipeline YAML zostáva orchestration vrstvou.
+Pipeline YAML potom ostáva orchestration vrstvou a nemusí kopírovať stovky riadkov shell logiky.
 
-## 3. Reusable job
+## 5. Reusable job contract
 
-Reusable job typicky definuje:
+Reusable job je najmenšia platformou plánovaná reusable execution unit. Contract má explicitne uviesť:
 
-- runtime image,
-- commands,
-- variables,
-- artifacts,
-- reports,
-- retry/timeout,
-- runner requirements.
+- input names, types, defaults a allowed values,
+- secret alebo workload-identity requirements,
+- runtime image a architecture,
+- runner capabilities,
+- required network access,
+- minimal permissions,
+- commands alebo tool entrypoint,
+- timeout a retry semantics,
+- outputs a ich schema,
+- artifacts, reports a retention,
+- success, failure, canceled a incomplete behavior,
+- supported platform/version matrix,
+- ownership a support channel.
 
-Je vhodný pre štandardné capabilities ako:
+Skrytá závislosť na názve branch, repository layout-e alebo implicitnom `latest` image je súčasť contractu, aj keď nie je zdokumentovaná. Práve takéto implicitné assumptions najčastejšie rozbijú consumers.
 
-- language build,
-- container scan,
-- artifact publication,
-- deployment smoke,
-- IaC validation.
+## 6. Reusable workflow contract
 
-## 4. Reusable workflow alebo template
-
-Template môže skladať viac jobs a gates:
+Reusable workflow skladá viac jobs do jednej capability, napríklad:
 
 ```text
-standard service pipeline
-├─> lint
-├─> unit
-├─> build image
-├─> scan
-├─> publish
-└─> deployment workflow
+standard service build
+├─> validate source
+├─> test
+├─> build immutable artifact
+├─> generate SBOM/provenance
+├─> scan artifact
+└─> publish evidence manifest
 ```
 
-Template je interný produkt. Potrebuje API contract, versioning, testovanie, dokumentáciu a support model.
+Contract musí definovať nielen inputs a outputs, ale aj systémové vlastnosti:
 
-## 5. Template contract
+- **Graph semantics —** ktoré jobs sú povinné, optional alebo conditional.
+- **Artifact identity —** ktorý job artifact vytvára a ako consumers dostanú digest.
+- **Verdict semantics —** čo znamená overall pass, warn, incomplete alebo tool error.
+- **Permission envelope —** maximálne práva, ktoré workflow potrebuje.
+- **Secret propagation —** ktoré secrets sa prenášajú a do ktorých jobs.
+- **Cancellation —** čo sa stane s child jobs a cleanupom.
+- **Observability —** aké deployment/build records a metrics workflow produkuje.
+- **Compatibility —** podporované consumer versions a deprecation policy.
 
-Explicitne definuj:
+## 7. Resolved template identity
 
-- required a optional inputs,
-- input types a defaults,
-- secrets/identity requirements,
-- outputs,
-- artifacts,
-- permissions,
-- supported environments,
-- failure semantics,
-- compatibility policy.
+Consumer často odkazuje na template fragment, ktorý ďalej zahŕňa ďalšie templates. Zdrojový odkaz preto nemusí stačiť na reprodukciu.
 
-Skryté závislosti na repository layout-e alebo názve branch komplikujú adopciu.
+Pre runtime run uchovaj:
 
-## 6. Versioning reusable components
+- consumer commit SHA,
+- reusable workflow alebo template revision,
+- všetky transitive include revisions,
+- rendered/resolved configuration digest,
+- policy revision,
+- runner/executor identity,
+- input values bez secret materialu,
+- effective permissions,
+- generated execution graph.
+
+```text
+source fragments
+→ include/merge/render
+→ policy mutation alebo validation
+→ resolved graph digest
+→ runtime execution
+```
+
+Keď pipeline zmení správanie bez diffu v application repository, prvým diagnostickým krokom je porovnať resolved graph a všetky provider revisions.
+
+## 8. Versioning reusable components
+
+Reusable component je dependency. Musí mať immutable identity a kontrolovaný update model.
 
 Možnosti:
 
-- immutable commit SHA,
-- versioned tag chránený proti prepísaniu,
-- semantic version,
-- organization-managed release channel.
+- **Commit SHA —** silná immutable identity, ale slabšia ľudská čitateľnosť.
+- **Protected immutable tag —** čitateľná release verzia, ak sa tag nedá prepísať.
+- **Semantic version —** vyjadruje kompatibilitu contractu, ak provider SemVer disciplinovane používa.
+- **Release channel —** napríklad `stable-v2`, ak channel update je auditovaný a consumer pozná riziko pohyblivej referencie.
 
-Floating `main` poskytuje okamžité updates, ale môže rozbiť consumers bez ich zmeny. Version pinning umožňuje kontrolovanú migráciu.
+Floating `main` alebo `latest` môže zmeniť pipeline bez consumer diffu. To je vhodné len v explicitnom centrally managed modeli s canary rolloutom, rollbackom a presnou auditnou stopou.
 
-## 7. Backward compatibility
+## 9. Compatibility contract
 
-Template zmena je breaking, keď:
+Breaking change nie je iba odstránenie inputu. Reusable workflow môže byť nekompatibilný aj zmenou behavioru.
 
-- odstráni input,
-- zmení default,
-- zmení artifact name/path,
-- sprísni permissions requirement,
-- zmení failure behavior,
-- zmení runner/runtime,
-- zmení output contract.
+Breaking zmeny môžu zahŕňať:
 
-Používaj deprecation warning, migration guide a support window.
+- zmenu default value alebo precedence,
+- zmenu artifact name, path alebo media type,
+- zmenu output schema,
+- zmenu required permissions,
+- zmenu runner OS/architecture,
+- zmenu timeoutu alebo retry behavioru,
+- nový blocking gate,
+- zmenu failure alebo cancellation propagation,
+- zmenu secret scope,
+- zmenu deployment side effects,
+- odstránenie podporovanej platformy.
 
-## 8. Centralizácia vs. autonómia
+Provider má publikovať contract, changelog, migration guide, deprecation warning a support window. Consumer potrebuje možnosť zostať na starej verzii počas riadenej migrácie.
 
-Príliš málo reuse vedie ku copy-paste driftu. Príliš veľa centralizácie vedie k:
+## 10. Contract negotiation a capability detection
 
-- globálnemu blast radiusu,
-- pomalým zmenám,
-- univerzálnemu template pre rozdielne workloads,
-- skrytému platform coupling-u.
+Pri veľkom počte consumerov môže template podporovať viac contract verzií alebo capabilities.
 
-Dobrá platforma poskytuje paved road s escape hatchom a explicitnou exception policy.
-
-## 9. Parallel execution
-
-Jobs bez dependency môžu bežať paralelne:
+Príklad:
 
 ```text
-lint ─────────────┐
-unit ─────────────┼─> package
-SAST ─────────────┤
-license-check ────┘
+consumer requests:
+- contract_version: 2
+- artifact_output: oci-digest
+- sbom: required
+- deploy: disabled
 ```
 
-Celková pipeline duration je určená critical pathom, nie súčtom všetkých job durations.
+Provider má odmietnuť neznámu alebo nepodporovanú kombináciu pred runtime execution. Silent fallback na iný behavior vytvára false confidence.
 
-## 10. Fan-out a fan-in
+Capability detection musí byť explicitná. Consumer nemá hádať, že nová output field existuje podľa template tagu alebo nezdokumentovaného job name.
 
-### Fan-out
+## 11. Centralizácia verzus autonómia
 
-Jeden input sa spracuje paralelne:
+Príliš málo reuse vytvára copy-paste drift. Príliš veľa centralizácie vytvára globálny failure domain a blokuje domain-specific potreby.
+
+Vyvážený model:
+
+- platforma poskytuje opinionated golden paths,
+- kritické security a provenance controls sú centrálne enforced,
+- service tím vlastní business-specific testy a rollout policy v dovolených hraniciach,
+- escape hatch je explicitný, auditovaný a časovo obmedzený,
+- consumer môže version pinovať a migrovať v support windowe,
+- provider meria adopciu, overrides a failure rate.
+
+Template nemá byť univerzálny framework pre každý workload. Má poskytovať stabilnú capability s jasnou boundary.
+
+## 12. Provider ownership a service model
+
+Reusable pipeline je interný produkt. Provider potrebuje:
+
+- dokumentovaný owner a support channel,
+- compatibility a release policy,
+- security review a dependency update proces,
+- representative test suite,
+- usage telemetry,
+- incident a rollback runbook,
+- deprecation lifecycle,
+- SLO pre kritické shared capabilities podľa významu.
+
+Ak template zlyhá a nikto nevie, kto ho opravuje, centralizácia iba presunula problém z repositories do neviditeľného bottlenecku.
+
+## 13. Consumer responsibilities
+
+Consumer nie je pasívny používateľ. Musí:
+
+- pinovať podporovanú provider version,
+- validovať inputs a repository assumptions,
+- deklarovať potrebné permissions a secrets,
+- spracovať outputs podľa contractu,
+- sledovať deprecation notices,
+- testovať domain-specific behavior,
+- vlastniť overrides a exceptions,
+- overiť migration pred updateom major version.
+
+Provider nemôže garantovať správnosť aplikačných tests alebo deployment konfigurácie, ktorú consumer odovzdá ako input.
+
+## 14. Parallel execution a critical path
+
+Jobs bez dependency môžu bežať paralelne. Trvanie pipeline určuje najdlhšia dependency cesta, nie súčet runtime všetkých jobs.
 
 ```text
-artifact
-├─> linux tests
-├─> windows tests
-├─> arm64 tests
-└─> security scan
+lint ────────────────┐
+unit tests ──────────┼─> build/package ─> verify artifact ─> release candidate
+SAST ────────────────┘
 ```
 
-### Fan-in
+Critical path optimalizácia môže:
 
-Downstream job čaká na viac upstream výsledkov:
+- odstrániť zbytočné stage barriers,
+- začať nezávislé checks skôr,
+- rozdeliť veľký suite na shards,
+- presunúť reusable setup do pinovaného image,
+- znížiť artifact transfer overhead,
+- pridať kapacitu bottleneck runner poolu.
+
+Viac paralelizácie však môže zvýšiť total compute, queueing a external-service contention.
+
+## 15. DAG dependencies
+
+DAG edge je execution contract. Znamená, že downstream job potrebuje completion, result alebo artifact konkrétneho upstream jobu.
+
+Rozlišuj:
+
+- **Control dependency —** job môže začať až po výsledku upstreamu.
+- **Data dependency —** job potrebuje konkrétny artifact alebo report.
+- **Policy dependency —** promotion potrebuje gate verdict alebo approval.
+- **Optional dependency —** absence alebo failure je povolený podľa explicitnej policy.
+
+Nesprávny alebo chýbajúci edge môže spustiť deployment pred dokončením security scan-u. Zbytočný edge zas predlžuje critical path bez zvýšenia dôkazu.
+
+## 16. Fan-out
+
+Fan-out rozdelí jeden immutable input na viac nezávislých kontrol:
 
 ```text
-linux + windows + arm64 + security
-→ release candidate
+artifact digest D
+├─> Linux verification
+├─> Windows verification
+├─> arm64 verification
+├─> vulnerability scan
+└─> signature/provenance verification
 ```
 
-Fan-in musí presne definovať required a optional dependencies.
+Každý consumer musí overiť rovnaký digest. Ak jednotlivé branches rebuildujú source alebo čítajú mutable tag, fan-out neoveruje jeden release candidate.
 
-## 11. Matrix pipeline
+Fan-out manifest má uviesť expected children. To umožní neskôr rozpoznať chýbajúci job alebo shard.
+
+## 17. Fan-in a completeness
+
+Fan-in agreguje paralelné výsledky do jedného rozhodnutia.
+
+```text
+expected set
++ received results
++ result identities
++ policy
+→ complete verdict
+```
+
+Aggregation job musí:
+
+- poznať očakávaný počet a identity výsledkov,
+- rozlíšiť required a optional children,
+- odmietnuť duplicate alebo výsledok z iného artifactu,
+- rozpoznať missing, canceled a timed-out child,
+- zachovať first-attempt failure,
+- overiť report schema a integrity,
+- publikovať overall verdict s provenance.
+
+Zelený fan-in pri chýbajúcom sharde je false success.
+
+## 18. Matrix pipeline
 
 Matrix generuje jobs z kombinácie dimensions:
 
@@ -170,319 +330,479 @@ matrix:
   runtime: [3.11, 3.12]
 ```
 
-Výsledok:
+Výsledný graph je Cartesian product, pokiaľ platforma nepoužíva `include` alebo `exclude` pravidlá.
 
-```text
-linux / 3.11
-linux / 3.12
-windows / 3.11
-windows / 3.12
-```
+Matrix contract má definovať:
 
-Rizikom je combinatorial explosion. Testuj iba kombinácie odôvodnené support matrixom a riskom.
+- support matrix zdroj pravdy,
+- required a experimental kombinácie,
+- expected job identities,
+- concurrency limits,
+- fail-fast policy,
+- report aggregation,
+- update lifecycle pri pridaní alebo odstránení platformy.
 
-## 12. Selective matrix
+## 19. Selective matrix
 
-Nie všetky kombinácie majú rovnakú hodnotu. Môžeš definovať:
+Nie všetky kombinácie musia bežať pri každom commite. Vrstvený model môže používať:
 
-- full matrix nightly,
-- representative matrix per merge request,
-- targeted matrix podľa changed componentu,
-- mandatory oldest/newest supported version.
+- representative smoke matrix v pull requeste,
+- affected combinations podľa componentu,
+- oldest a newest supported runtime ako povinné boundaries,
+- full matrix pred releaseom,
+- periodickú compatibility matrix,
+- experimentálne combinations ako advisory.
 
-Selection policy musí byť transparentná a nesmie vynechať kritickú compatibility boundary.
+Selection policy vytvára false-negative risk. Musí mať konzervatívny fallback a periodický full run, ktorý odhalí nesprávny mapping.
 
-## 13. DAG dependencies
+## 20. Test sharding
 
-Explicitný DAG umožní jobu začať hneď po jeho skutočných dependencies.
+Sharding rozdeľuje jeden logical suite medzi viac workers.
 
-Napríklad documentation deploy nemusí čakať na performance tests, ak tieto workflows nemajú spoločný artifact alebo gate.
+Metódy:
 
-Nesprávny DAG môže spustiť downstream pred dostupnosťou required artifactu alebo evidence.
+- statické rozdelenie podľa files,
+- hash test ID,
+- historical-duration balancing,
+- dynamic work stealing,
+- domain alebo fixture affinity.
 
-## 14. Parallel test sharding
+Dobrý shard model zachováva:
 
-Veľký test suite možno rozdeliť:
+- jednoznačný test inventory,
+- deterministic alebo auditovateľný assignment,
+- seed a environment identity,
+- izolované test data,
+- missing/duplicate detection,
+- report merge bez straty source shardu,
+- first-attempt result aj pri retry,
+- stabilný cleanup.
 
-- staticky podľa súborov,
-- podľa historical duration,
-- hashom test ID,
-- dynamickým schedulerom.
+## 21. Shard imbalance
 
-Dobrý shard model:
-
-- vyvažuje duration,
-- zachováva deterministický assignment alebo traceability,
-- agreguje reports,
-- zachytí missing/duplicate tests,
-- podporuje retry iba failed shardu bez maskovania first failure.
-
-## 15. Race conditions
-
-Paralelné jobs môžu kolidovať cez:
-
-- rovnaký environment,
-- database schema,
-- object-storage path,
-- mutable artifact tag,
-- shared cache,
-- static port,
-- external test account,
-- deployment lock.
-
-Používaj unique run IDs, isolated resources, immutable names a explicitné locks.
-
-## 16. Artifact flow
-
-Jobs si nemajú odovzdávať dáta cez náhodný shared filesystem. Použi explicitný flow:
-
-```text
-build job
-→ artifact digest
-→ parallel verification jobs
-→ promotion job
-```
-
-Každý consumer má overiť očakávanú identity a integrity artifactu.
-
-## 17. Cache pri paralelizácii
-
-Viac jobs môže súčasne zapisovať rovnaký cache key. Dôsledky:
-
-- last writer wins,
-- čiastočný obsah,
-- veľké duplicitné uploady,
-- cross-architecture contamination.
-
-Možnosti:
-
-- read-only shared base cache,
-- per-job exact cache,
-- jeden designated writer,
-- atomic cache publication,
-- architecture/toolchain-scoped keys.
-
-## 18. Concurrency limits
-
-Paralelizácia je limitovaná:
-
-- runner capacity,
-- organization quota,
-- external API rate limits,
-- database connections,
-- registry throughput,
-- test-environment capacity.
-
-Neobmedzený fan-out môže zvýšiť queue time a spomaliť všetky pipelines.
-
-## 19. Resource-aware scheduling
-
-Jobs môžu vyžadovať odlišné resources:
-
-- CPU-heavy compilation,
-- memory-heavy tests,
-- I/O-heavy package restore,
-- GPU,
-- private network.
-
-Scheduler a runner pools majú odrážať workload class. Jeden univerzálny pool vytvára noisy-neighbor a capacity planning problémy.
-
-## 20. Fail-fast
-
-Fail-fast zastaví zostávajúce matrix jobs po prvom failure.
-
-Výhody:
-
-- šetrí capacity,
-- rýchlejšie signalizuje failure.
-
-Nevýhody:
-
-- stratí informáciu o ďalších nekompatibilných kombináciách,
-- komplikuje diagnostiku release matrixu.
-
-Použi podľa účelu: merge feedback môže fail-fast, nightly compatibility run môže dokončiť celú matrix.
-
-## 21. Continue-on-error
-
-Optional job môže pokračovať po failure, napríklad experimentálna platforma. Result však musí zostať viditeľný.
-
-`continue-on-error` potrebuje:
-
-- explicitný dôvod,
-- ownera,
-- expiry alebo maturity plán,
-- oddelenie od required support matrixu.
-
-## 22. Child pipeline
-
-Parent pipeline môže vytvoriť child pipelines podľa components alebo deployment targets.
-
-Výhody:
-
-- menší graph per component,
-- samostatné ownership a reports,
-- dynamické monorepo workflows.
-
-Riziká:
-
-- zložitá observability,
-- nejasná cancellation propagation,
-- artifacts medzi parent/child,
-- permission escalation,
-- veľký počet pipeline objects.
-
-## 23. Multi-project pipeline
-
-Jeden project môže spustiť pipeline v inom repository, napríklad application release spustí environment-config update.
-
-Potrebné sú:
-
-- explicitný authentication model,
-- immutable input identity,
-- versioned contract,
-- idempotency,
-- cycle prevention,
-- cross-project traceability.
-
-Trigger token bez obmedzeného scope-u je security risk.
-
-## 24. Reusable deployment workflow
-
-Deployment template má akceptovať najmä:
-
-- artifact digest,
-- target environment,
-- config revision,
-- rollout policy,
-- change metadata.
-
-Nemá implicitne buildovať source alebo vyberať `latest` artifact. Deployment contract začína immutable release inputom.
-
-## 25. Aggregácia výsledkov
-
-Parallel jobs produkujú:
-
-- JUnit reports,
-- coverage fragments,
-- scan findings,
-- artifacts,
-- logs.
-
-Aggregation job musí:
-
-- rozpoznať chýbajúci shard,
-- deduplikovať results,
-- zachovať source job identity,
-- správne rozhodnúť overall status,
-- publikovať diagnostický summary.
-
-Zelený aggregation result pri chýbajúcom sharde je false success.
-
-## 26. Pipeline performance
+Pipeline končí podľa najpomalšieho required shardu. Priemerná shard duration môže byť dobrá, hoci jeden outlier drží celý fan-in.
 
 Sleduj:
 
-- critical path duration,
-- total compute time,
-- queue time,
-- fan-out width,
-- shard imbalance,
-- cache hit rate,
-- artifact transfer time,
-- canceled compute,
-- runner utilization.
+- p50/p95 shard duration,
+- rozdiel najrýchlejší verzus najpomalší shard,
+- test setup overhead,
+- historické outliers,
+- retry a flaky distribution,
+- queue time podľa runner poolu.
 
-Optimalizácia critical pathu môže zvýšiť total compute. Treba vyvážiť developer feedback a náklady.
+Historical balancing musí invalidovať model pri výraznej zmene test inventory alebo runtime environmentu.
 
-## 27. Observability reusable components
+## 22. Shared-state race conditions
 
-Template owner potrebuje vedieť:
+Paralelné jobs sa môžu ovplyvňovať cez zdieľaný mutable state:
 
-- koľko projects používa jednotlivé versions,
-- failure rate podľa version,
-- adoption novej release,
-- deprecated consumers,
-- performance trend,
-- najčastejšie override/escape patterns.
+- rovnakú databázu alebo schema,
+- statický tenant alebo test account,
+- object-storage prefix,
+- mutable artifact tag,
+- shared cache key,
+- fixed port,
+- environment alebo deployment target,
+- rate-limited external API,
+- globálny feature flag,
+- lock alebo migration state.
 
-Bez usage telemetry sa central template vyvíja naslepo.
+Ochrany:
 
-## 28. Testing reusable template
+- unique run/test IDs,
+- per-worker namespace alebo schema,
+- immutable artifact names,
+- environment lease,
+- idempotentný setup/cleanup,
+- scoped credentials,
+- rate a concurrency budget,
+- explicitný owner shared resourceu.
 
-Použi representative fixture repositories:
+## 23. Artifact flow
+
+Jobs si nemajú odovzdávať release-critical dáta cez nezdokumentovaný shared workspace.
+
+Správny flow:
+
+```text
+build job
+→ publish immutable artifact D
+→ verification jobs read D
+→ fan-in creates evidence manifest for D
+→ promotion consumes D + evidence manifest
+```
+
+Každý transfer má overiť digest, media type, access policy a retention. Artifact produced by retry musí mať jednoznačný relationship k pôvodnému attemptu; downstream nesmie náhodne zmiešať outputs z rôznych attempts.
+
+## 24. Retry identity
+
+Retry môže znamenať:
+
+- nový attempt toho istého jobu,
+- nový job instance,
+- nový child pipeline,
+- celý nový pipeline run.
+
+Evidence musí zachovať:
+
+- original failure,
+- attempt number,
+- input identity,
+- artifact identity produced by each attempt,
+- reason for retry,
+- final selected result.
+
+Ak build job pri retry vytvorí nový artifact digest, všetky downstream evidence musia patriť k vybranému digestu. Nie je bezpečné kombinovať test z prvého attemptu so scanom druhého artifactu.
+
+## 25. Cache pri paralelizácii
+
+Súbežný zápis do rovnakého cache key môže vytvoriť last-writer-wins, partial content alebo cross-platform contamination.
+
+Bezpečné patterns:
+
+- shared base cache je read-only,
+- exact cache je scoped podľa OS, architecture, toolchain a input hash,
+- jeden designated writer publikuje po úspešnom jobe,
+- publication je atomic,
+- untrusted jobs nezapisujú do trusted namespace,
+- cache output sa pred použitím validuje,
+- cold-cache run periodicky overuje correctness.
+
+Cache nie je fan-in mechanizmus ani release artifact store.
+
+## 26. Concurrency limits a backpressure
+
+Fan-out musí rešpektovať kapacitu celého systému:
+
+- runner pools,
+- CI organization quota,
+- registry throughput,
+- package mirrors,
+- database connection limits,
+- cloud API quotas,
+- external sandbox rate limits,
+- ephemeral environment capacity.
+
+Neobmedzený fan-out môže predĺžiť queue time všetkým projektom. Použi bounded concurrency, workload classes, priority policy a backpressure.
+
+## 27. Resource-aware scheduling
+
+Jobs majú rozdielne resource profiles:
+
+- CPU-heavy compilation,
+- memory-heavy static analysis,
+- I/O-heavy dependency restore,
+- network-heavy artifact transfer,
+- GPU workload,
+- private-network deployment.
+
+Runner label iba opisuje capability; nie je dostatočná security boundary. Použi oddelené pools, identity, network segmentation a explicitné permissions.
+
+Capacity plánovanie má pracovať s queue time, utilization, startup latency, throttling, OOM a critical-path impactom.
+
+## 28. Fail-fast
+
+Fail-fast zastaví zostávajúce matrix alebo sibling jobs po prvom relevantnom failure.
+
+Je vhodný, keď:
+
+- cieľom je čo najrýchlejší merge feedback,
+- ďalšie results nepridajú významnú diagnostickú hodnotu,
+- cancellation je bezpečná,
+- cleanup a report upload zostanú aktívne.
+
+Nie je vhodný, keď:
+
+- potrebujeme kompletnú compatibility matrix,
+- release decision vyžaduje všetky failures,
+- výsledky sú drahé a periodické,
+- zvyšné jobs poskytujú nezávislé evidence.
+
+Fail-fast policy musí zachovať completed artifacts a original failure.
+
+## 29. Continue-on-error a optional support
+
+Optional job môže zlyhať bez blokovania overall verdictu, ale jeho status musí zostať viditeľný.
+
+`continue-on-error` potrebuje:
+
+- explicitný risk dôvod,
+- ownera,
+- označenie experimental/advisory,
+- expiráciu alebo maturity criteria,
+- oddelenie od required support matrixu,
+- metrics a alert pri dlhodobom failure.
+
+Permanentne červený optional job je mŕtva kontrola, nie užitočné pokrytie.
+
+## 30. Child pipelines
+
+Parent pipeline môže vytvoriť child graph podľa componentu, environmentu alebo generated configuration.
+
+Contract musí definovať:
+
+- child input identity,
+- inherited a explicitné permissions,
+- artifacts a outputs,
+- completion/failure propagation,
+- cancellation propagation,
+- retry semantics,
+- parent fan-in behavior,
+- traceability medzi run IDs,
+- maximálnu recursion/depth a cycle prevention.
+
+Parent nesmie skončiť zeleno iba preto, že úspešne spustil child pipeline. Musí vedieť, či má čakať na child completion a ktoré výsledky sú required.
+
+## 31. Multi-project pipelines
+
+Cross-repository workflow sa používa napríklad pri promotion artifactu do GitOps repository alebo pri coordinated release viacerých komponentov.
+
+Potrebné controls:
+
+- short-lived scoped authentication,
+- immutable source a artifact identity,
+- versioned request/response contract,
+- idempotency key,
+- cycle a trigger-storm prevention,
+- authorization target repository a environmentu,
+- audit correlation ID,
+- timeout a failure propagation,
+- explicitný ownership boundary.
+
+Generic trigger token s právom spustiť ľubovoľný privileged workflow je security risk.
+
+## 32. Reusable deployment workflow
+
+Deployment workflow má začínať immutable release inputom, nie source checkoutom alebo mutable tagom.
+
+Odporúčané inputs:
+
+- artifact digest alebo release-manifest digest,
+- target environment identity,
+- config revision,
+- rollout strategy a guardrails,
+- change/risk metadata,
+- evidence-manifest reference,
+- requested release exposure.
+
+Deployment workflow nemá implicitne rebuildovať source. Má overiť provenance, policy, eligibility a vykonať idempotentnú state transition.
+
+## 33. Permission inheritance
+
+Reusable workflows môžu dediť tokeny, secrets alebo permissions od caller-a. To je významná trust boundary.
+
+Kontroluj:
+
+- či callee môže rozšíriť práva alebo iba zúžiť,
+- ktoré secrets sa prenášajú explicitne,
+- či nested workflow dostane rovnaké credentials,
+- či untrusted branch môže zvoliť privileged reusable workflow,
+- environment-scoped identity až v deployment jobe,
+- effective permissions v resolved graph-e.
+
+Implicitné `inherit all secrets` zväčšuje blast radius a komplikuje audit.
+
+## 34. Testing reusable components
+
+Provider má testovať viac vrstiev:
+
+### Static contract tests
+
+- input/output schema,
+- resolved config,
+- DAG cycles a missing dependencies,
+- permission policy,
+- pinning externých dependencies.
+
+### Unit tests tools/scripts
+
+- argument parsing,
+- error classes,
+- idempotency,
+- plan generation,
+- cancellation a timeout.
+
+### Component tests
+
+- disposable runner,
+- artifact publication a retrieval,
+- reports a outputs,
+- failure/cancel/cleanup paths.
+
+### Representative consumer fixtures
 
 - jednoduchá služba,
 - monorepo,
 - Windows/Linux workload,
 - protected deployment,
-- optional feature combinations.
+- optional feature combinations,
+- old a new supported contract versions.
 
-Testuj:
+### Canary rollout
 
-- rendered config,
-- input validation,
-- artifacts/outputs,
-- permissions,
-- failure paths,
-- backward compatibility.
+- provider release najprv používa interný alebo malý consumer set,
+- sleduje failure, runtime a permission changes,
+- až potom rozširuje adoption.
 
-## 29. Troubleshooting
+## 35. Observability providera
 
-### Parallel jobs používajú rozdielny artifact
+Provider potrebuje vedieť:
 
-Skontroluj, či každý job rebuildoval source alebo použil mutable tag. Fan-out musí začínať jedným immutable artifactom.
+- počet consumerov podľa version,
+- adoption a migration rate,
+- failure rate podľa provider revision,
+- critical-path contribution,
+- invalid/incomplete graph rate,
+- deprecated consumers,
+- override a escape-hatch patterns,
+- permissions používané v praxi,
+- support incidenty,
+- rollback frequency.
 
-### Matrix pipeline vytvorila stovky jobs
+Bez usage telemetry nie je možné bezpečne ukončiť starú version alebo posúdiť globálny blast radius zmeny.
 
-Over Cartesian product dimensions, excludes/includes a support policy. Použi representative combinations.
+## 36. Performance a cost model
 
-### Child pipeline nepropaguje failure
+Optimalizácia pipeline musí rozlišovať:
 
-Skontroluj trigger strategy, dependency semantics a whether parent čaká na child completion.
+- **Wall-clock latency —** čas, ktorý čaká developer alebo release.
+- **Critical path —** najdlhšia required dependency cesta.
+- **Total compute —** súčet runner času všetkých jobs.
+- **Queue time —** čakanie na kompatibilnú kapacitu.
+- **Transfer overhead —** artifact/cache upload a download.
+- **External cost —** API, test environmenty a licencované nástroje.
+- **Canceled waste —** compute spotrebovaný superseded alebo fail-fast jobs.
 
-### Shared template update rozbil staré projects
+Skrátenie wall-clock času z 20 na 10 minút pri desaťnásobnom compute môže byť správne pre kritický feedback, ale musí to byť vedomý trade-off.
 
-Chýbalo version pinning alebo backward compatibility. Rollbackni template release a migruj consumers po verziách.
+## 37. Diagnostický postup
 
-### Shards majú veľmi rozdielny čas
+Keď reusable alebo parallel pipeline zlyhá:
 
-Použi historical duration balancing a sleduj outlier tests.
+1. identifikuj consumer commit a provider/template revisions;
+2. získaj resolved graph digest a effective permissions;
+3. over immutable artifact identity použitú všetkými branches;
+4. porovnaj expected a actual child/shard inventory;
+5. rozlíš job failure, missing job, cancellation, timeout a tool error;
+6. skontroluj data/control dependencies a fan-in policy;
+7. over shared resources, locks, cache namespaces a quotas;
+8. skontroluj retry attempts a artifacts z každého attemptu;
+9. zmeraj critical path, queue time a shard imbalance;
+10. rollbackni provider version alebo zúž graph podľa compatibility policy;
+11. zachovaj evidence a pridaj regression fixture na zistený failure mode.
 
-## 30. Časté omyly
+## 38. Typické anti-patterny
 
-### „Reuse znamená skopírovať YAML anchor“
+### Reuse ako copy-paste YAML
 
-Lokálna deduplikácia nie je versionovaný reusable contract naprieč projects.
+Lokálna duplikácia nemá provider contract, versioning ani centrálnu opravu.
 
-### „Najviac paralelných jobs znamená najrýchlejšiu pipeline“
+### Floating template pre všetkých consumerov
 
-Capacity, queueing, external limits a transfer overhead môžu výsledok zhoršiť.
+Jedna zmena môže bez consumer diffu naraz rozbiť celú organizáciu.
 
-### „Central template má okamžite opraviť všetky repositories“
+### Template s implicitnými admin permissions
 
-Neversionovaný globálny update má veľký blast radius.
+Pohodlný reusable workflow sa stane privilege-escalation cestou.
 
-### „Optional matrix failure možno ignorovať navždy“
+### Fan-out z mutable tagu
 
-Optional support potrebuje explicitný lifecycle a ownership.
+Jednotlivé jobs môžu overovať rozdielny obsah.
 
-## 31. Kontrolné otázky
+### Fan-in bez expected inventory
 
-1. Aké úrovne reuse poznáš?
-2. Čo má obsahovať reusable template contract?
-3. Prečo version pinning znižuje globálny blast radius?
-4. Aký je rozdiel medzi fan-out a fan-in?
-5. Ako vzniká matrix combinatorial explosion?
-6. Ako rozdeliť veľký test suite na vyvážené shards?
-7. Aké shared-state race conditions vznikajú pri paralelných jobs?
-8. Kedy použiť fail-fast a kedy dokončiť celú matrix?
-9. Aké riziká majú child a multi-project pipelines?
-10. Ktoré metriky odlišujú skrátenie critical pathu od rastu celkových nákladov?
+Chýbajúci shard sa interpretuje ako neprítomný failure a pipeline je false green.
+
+### Maximum parallelism bez capacity budgetu
+
+Queueing a throttling predĺžia feedback a poškodia ostatné pipelines.
+
+### Retry bez attempt identity
+
+Výsledky a artifacts z rôznych attempts sa zmiešajú do neplatného evidence setu.
+
+### Child pipeline fire-and-forget
+
+Parent skončí úspešne po vytvorení child runu bez čakania na required výsledok.
+
+### Optional job bez lifecycle
+
+Dlhodobo červená kontrola sa stane ignorovanou dekoráciou.
+
+### Centralizácia bez escape hatchu
+
+Template núti rozdielne workloads do nesprávneho modelu a tímy ho začnú obchádzať mimo auditu.
+
+## 39. Praktický rozhodovací rámec
+
+1. Ktorá úroveň reuse je najnižšia a stále dostatočná?
+2. Kto je provider a kto consumer?
+3. Aký je explicitný input/output a failure contract?
+4. Aká immutable provider version sa používa?
+5. Ktoré zmeny sú breaking a aký je migration window?
+6. Aká resolved configuration sa reálne vykoná?
+7. Aké effective permissions a secrets workflow dostane?
+8. Ktoré jobs sú nezávislé a ktoré edges sú skutočne required?
+9. Aký expected inventory má fan-out/matrix/sharding?
+10. Ako fan-in rozpozná missing, duplicate alebo stale result?
+11. Používajú všetky jobs rovnaký artifact digest?
+12. Aké shared-state races a external quotas existujú?
+13. Ako sa propaguje cancellation, timeout a retry?
+14. Kedy je fail-fast vhodný?
+15. Ako sa meria critical path verzus total compute?
+16. Ako provider rolloutuje a rollbackuje novú template version?
+17. Ako sa deprecation a consumer adoption sledujú?
+
+## 40. Kontrolný checklist
+
+Pred publikovaním reusable alebo parallel workflowu over:
+
+- contract je versionovaný a dokumentovaný,
+- provider revision a transitive dependencies sú pinned,
+- resolved graph a permissions sú auditovateľné,
+- inputs majú typy, defaults a validation,
+- outputs majú schema a provenance,
+- secrets sa neprenášajú implicitne,
+- artifact fan-out používa jeden immutable digest,
+- expected matrix/shard inventory je známy,
+- fan-in blokuje pri missing required result,
+- retry attempts sa nemiešajú,
+- shared resources sú izolované alebo zamknuté,
+- concurrency rešpektuje capacity a quotas,
+- cleanup beží pri failure aj cancel,
+- child/multi-project completion sa správne propaguje,
+- provider má representative test fixtures,
+- major zmena má migration guide a rollback,
+- observability sleduje adoption, failures, cost a deprecated consumers.
+
+## 41. Kontrolné otázky
+
+1. Aký je rozdiel medzi reusable scriptom, jobom a workflowom?
+2. Čo tvorí provider/consumer contract?
+3. Prečo je resolved-template identity dôležitejšia než samotný include odkaz?
+4. Ktoré zmeny reusable workflowu môžu byť breaking bez zmeny input names?
+5. Ako funguje contract negotiation alebo capability detection?
+6. Prečo critical path nie je súčet všetkých job durations?
+7. Aký je rozdiel medzi control, data a policy dependency?
+8. Ako fan-in dokáže, že dostal kompletný result set?
+9. Prečo musia všetky fan-out jobs používať rovnaký artifact digest?
+10. Ako selective matrix vytvára false-negative risk?
+11. Čo musí zachovať dôveryhodný shard model?
+12. Ako retry mení artifact a evidence identity?
+13. Kedy je fail-fast vhodný a kedy škodlivý?
+14. Aké riziká má permission inheritance reusable workflowov?
+15. Ako parent pipeline správne vyhodnotí child pipeline?
+16. Ako sa vyvažuje wall-clock latency a total compute?
+17. Aké telemetry potrebuje provider centrálneho template?
+
+## Summary
+
+Reusable pipelines sú versionované provider/consumer contracts, nie iba zdieľané YAML fragmenty. Dôveryhodný model pozná immutable provider revision, resolved graph, effective permissions, input/output schema, compatibility a deprecation lifecycle. Paralelizácia skracuje critical path iba vtedy, keď DAG dependencies, artifact identity, shard inventory, fan-in completeness, shared-state isolation, retry identity a cancellation semantics zostávajú explicitné. Platforma musí súčasne merať latency, total compute, queueing, adoption a globálny blast radius shared zmien.
 
 ## Glossary impact
 
-Relevantné pojmy: reusable pipeline, reusable job, workflow template, template contract, fan-out, fan-in, matrix pipeline, test sharding, shard imbalance, child pipeline, multi-project pipeline, fail-fast, continue-on-error, critical path a pipeline concurrency.
+Relevantné pojmy: reusable pipeline, provider, consumer, reusable job, workflow template, template contract, resolved graph, contract negotiation, fan-out, fan-in, expected result inventory, matrix pipeline, selective matrix, test sharding, shard imbalance, child pipeline, multi-project pipeline, permission inheritance, fail-fast, continue-on-error, critical path a total compute.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
