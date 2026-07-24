@@ -675,15 +675,15 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "title": "Network troubleshooting",
-      "words": 1449,
-      "headings": 51,
-      "sections": 51,
-      "findings": 176,
-      "critical": 71,
-      "high": 85,
-      "medium": 18,
-      "low": 2,
-      "score": 1574,
+      "words": 3457,
+      "headings": 84,
+      "sections": 84,
+      "findings": 275,
+      "critical": 102,
+      "high": 115,
+      "medium": 28,
+      "low": 30,
+      "score": 2248,
       "grade": "D"
     },
     {
@@ -34220,98 +34220,44 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "2. Základný princíp",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "2. Základný princíp",
-      "line": 17,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "2. Základný princíp",
-      "line": 17,
+      "section": "1. Cieľ",
+      "line": 11,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "2. Základný princíp",
-      "line": 17,
+      "section": "1. Cieľ",
+      "line": 11,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Čo presne nefunguje?`, `Komu a odkedy?`, `Je problém trvalý alebo prerušovaný?`, `Čo sa zmenilo?`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testovať konkrétnu hypotézu;`, `rozlišovať aspoň dva možné failure modes;`, `používať autoritatívny observation point;`, `minimalizovať zmenu systému;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "2. Základný princíp",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "3. Scope",
-      "line": 43,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "3. Scope",
-      "line": 43,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "3. Scope",
-      "line": 43,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jedného klienta vs. všetkých klientov,`, `jednej IP family,`, `subnetu, zóny alebo regiónu,`, `jedného backendu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "3. Scope",
-      "line": 43,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "3. Scope",
-      "line": 43,
+      "section": "1. Cieľ",
+      "line": 11,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "4. End-to-end path",
-      "line": 58,
+      "section": "2. Základný metodický model",
+      "line": 24,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "3. Začni používateľským symptómom",
+      "line": 48,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34319,53 +34265,26 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "5. Vrstevná diagnostika",
-      "line": 81,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Application",
-      "line": 83,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Application",
-      "line": 83,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Application",
-      "line": 83,
+      "section": "3. Začni používateľským symptómom",
+      "line": 48,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Application",
-      "line": 83,
+      "section": "3. Začni používateľským symptómom",
+      "line": 48,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request/response semantics,`, `status codes,`, `authentication/authorization,`, `business result,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný hostname, IP alebo URL;`, `protocol a port;`, `method alebo aplikačnú operáciu;`, `source identity a location;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Application",
-      "line": 83,
+      "section": "3. Začni používateľským symptómom",
+      "line": 48,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34373,350 +34292,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "TLS",
-      "line": 91,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "TLS",
-      "line": 91,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "TLS",
-      "line": 91,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "TLS",
-      "line": 91,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SNI,`, `certificate chain,`, `hostname,`, `protocol/cipher,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "TLS",
-      "line": 91,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "TLS",
-      "line": 91,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNI`, `ALPN`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 100,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 100,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `listening socket,`, `handshake,`, `TCP states,`, `resets,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 100,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 100,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 109,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 109,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 109,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 109,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IP address,`, `route,`, `source selection,`, `MTU,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 109,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 109,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `MTU`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Link",
-      "line": 117,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Link",
-      "line": 117,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Link",
-      "line": 117,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interface/carrier,`, `VLAN,`, `ARP/NDP,`, `switch port.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Link",
-      "line": 117,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Link",
-      "line": 117,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `ARP`, `NDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "6. Minimálna klientská diagnostika",
-      "line": 126,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "6. Minimálna klientská diagnostika",
-      "line": 126,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "6. Minimálna klientská diagnostika",
-      "line": 126,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "6. Minimálna klientská diagnostika",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolved IPs a family,`, `zvolený source address a interface,`, `connection timing,`, `TLS certificate/SNI/ALPN,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "6. Minimálna klientská diagnostika",
-      "line": 126,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "6. Minimálna klientská diagnostika",
-      "line": 126,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `SNI`, `ALPN`, `HTTP`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "7. Server-side diagnostika",
-      "line": 146,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "7. Server-side diagnostika",
-      "line": 146,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "7. Server-side diagnostika",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "7. Server-side diagnostika",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces existuje,`, `počúva na správnej adrese a porte,`, `je v správnom namespace,`, `firewall rule sa zhoduje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "7. Server-side diagnostika",
-      "line": 146,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "8. DNS troubleshooting",
-      "line": 168,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "8. DNS troubleshooting",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "8. DNS troubleshooting",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over search domain a presný query name,`, `porovnaj A a AAAA,`, `testuj cez system resolver ( getent ),`, `testuj recursive resolver ( dig ),`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "8. DNS troubleshooting",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "8. DNS troubleshooting",
-      "line": 168,
+      "section": "3. Začni používateľským symptómom",
+      "line": 48,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34724,17 +34301,53 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "8. DNS troubleshooting",
-      "line": 168,
+      "section": "3. Začni používateľským symptómom",
+      "line": 48,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `URL`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "4. Scope ako prvý silný filter",
+      "line": 79,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "4. Scope ako prvý silný filter",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden client verzus všetci;`, `jeden subnet, VLAN, Availability Zone alebo región;`, `interný verzus externý prístup;`, `IPv4 verzus IPv6;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "4. Scope ako prvý silný filter",
+      "line": 79,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "4. Scope ako prvý silný filter",
+      "line": 79,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `TTL`, `DNSSEC`, `IP`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `DNS`, `IP`, `Availability`, `identity`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "9. Routing troubleshooting",
-      "line": 190,
+      "section": "6. End-to-end HTTPS path",
+      "line": 120,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34742,8 +34355,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "9. Routing troubleshooting",
-      "line": 190,
+      "section": "6. End-to-end HTTPS path",
+      "line": 120,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34751,26 +34364,26 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "9. Routing troubleshooting",
-      "line": 190,
+      "section": "7. Observation point musí zodpovedať otázke",
+      "line": 146,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "7. Observation point musí zodpovedať otázke",
+      "line": 146,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "9. Routing troubleshooting",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `longest-prefix match,`, `policy routing,`, `source address selection,`, `default gateway,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "9. Routing troubleshooting",
-      "line": 190,
+      "section": "7. Observation point musí zodpovedať otázke",
+      "line": 146,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34778,8 +34391,431 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "9. Routing troubleshooting",
-      "line": 190,
+      "section": "7. Observation point musí zodpovedať otázke",
+      "line": 146,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "7. Observation point musí zodpovedať otázke",
+      "line": 146,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "7. Observation point musí zodpovedať otázke",
+      "line": 146,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SYN`, `LB`, `ID`, `enforcement`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "8. Hypotéza a diskriminačný test",
+      "line": 160,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "8. Hypotéza a diskriminačný test",
+      "line": 160,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "8. Hypotéza a diskriminačný test",
+      "line": 160,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo očakávam, ak je hypotéza pravdivá;`, `čo očakávam, ak je nepravdivá;`, `ktorý výsledok zvolí ďalšiu vetvu;`, `či test mení systém;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "8. Hypotéza a diskriminačný test",
+      "line": 160,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "8. Hypotéza a diskriminačný test",
+      "line": 160,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "9. Bottom-up, top-down a divide-and-conquer",
+      "line": 188,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Divide-and-conquer",
+      "line": 206,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ak nie, pokračuj nižšie;`, `ak áno, pokračuj TLS/HTTP.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Divide-and-conquer",
+      "line": 206,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Divide-and-conquer",
+      "line": 206,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact command a environment;`, `timestamp;`, `DNS answers a TTL, ak relevantné;`, `selected IP family;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "10. Minimálny klientský snapshot",
+      "line": 215,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TTL`, `IP`, `TLS`, `SNI`, `ALPN`, `HTTP`, `ID`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "11. Minimálny server snapshot",
+      "line": 242,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "11. Minimálny server snapshot",
+      "line": 242,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "11. Minimálny server snapshot",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "11. Minimálny server snapshot",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces a unit lifecycle;`, `listener address, port a protocol;`, `network namespace;`, `route späť ku klientovi;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "11. Minimálny server snapshot",
+      "line": 242,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "12. DNS troubleshooting lifecycle",
+      "line": 268,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 2: klasifikuj výsledok",
+      "line": 281,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 2: klasifikuj výsledok",
+      "line": 281,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 2: klasifikuj výsledok",
+      "line": 281,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 2: klasifikuj výsledok",
+      "line": 281,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 2: klasifikuj výsledok",
+      "line": 281,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NXDOMAIN`, `NODATA`, `SERVFAIL`, `DNSSEC`, `IP`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 3: porovnaj vrstvy",
+      "line": 290,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 3: porovnaj vrstvy",
+      "line": 290,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 3: porovnaj vrstvy",
+      "line": 290,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 3: porovnaj vrstvy",
+      "line": 290,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local hosts/NSS;`, `stub/cache;`, `configured recursive resolver;`, `iný resolver iba ako comparison;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 3: porovnaj vrstvy",
+      "line": 290,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 3: porovnaj vrstvy",
+      "line": 290,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 4: cache a čas",
+      "line": 299,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Krok 5: transport a validation",
+      "line": 303,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "13. Address-family selection",
+      "line": 307,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "13. Address-family selection",
+      "line": 307,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `A a AAAA;`, `IPv6 default route;`, `firewall rules pre obe families;`, `listener bind;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "13. Address-family selection",
+      "line": 307,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "13. Address-family selection",
+      "line": 307,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `PMTUD`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "14. Routing a source selection",
+      "line": 331,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "14. Routing a source selection",
+      "line": 331,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "14. Routing a source selection",
+      "line": 331,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `longest-prefix match;`, `policy rules a priority;`, `routing table;`, `source-address selection;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "14. Routing a source selection",
+      "line": 331,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "14. Routing a source selection",
+      "line": 331,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "14. Routing a source selection",
+      "line": 331,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VRF`, `policy`",
@@ -34787,8 +34823,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "10. Transport troubleshooting",
-      "line": 211,
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34796,26 +34832,35 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "10. Transport troubleshooting",
-      "line": 211,
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "10. Transport troubleshooting",
-      "line": 211,
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN → RST: nič nepočúva alebo active reject,`, `handshake → immediate reset: application/proxy protocol failure,`, `retransmissions: loss, congestion alebo receiver behavior,`, `zero window: receiver backpressure.`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je interface administratívne up;`, `má carrier;`, `je správny VLAN context;`, `odchádza ARP/NDP request;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "10. Transport troubleshooting",
-      "line": 211,
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34823,8 +34868,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "10. Transport troubleshooting",
-      "line": 211,
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34832,413 +34877,62 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "10. Transport troubleshooting",
-      "line": 211,
-      "severity": "medium",
+      "section": "15. Neighbor a L2 troubleshooting",
+      "line": 356,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `RST`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `ARP`, `NDP`, `MAC`, `IP`, `RX`, `TX`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "16. Forward a return path",
+      "line": 381,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "16. Forward a return path",
+      "line": 381,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ísť cez inú stateful firewall;`, `obísť NAT mapping;`, `použiť nesprávny source IP;`, `naraziť na chýbajúcu route;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "16. Forward a return path",
+      "line": 381,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "11. TLS troubleshooting",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "16. Forward a return path",
+      "line": 381,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "11. TLS troubleshooting",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "11. TLS troubleshooting",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "11. TLS troubleshooting",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presented chain,`, `SAN,`, `validity,`, `issuer trust,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "11. TLS troubleshooting",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "11. TLS troubleshooting",
-      "line": 232,
+      "section": "16. Forward a return path",
+      "line": 381,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`, `SNI`, `ALPN`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `IP`, `VRF`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "12. HTTP a proxy troubleshooting",
-      "line": 252,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "12. HTTP a proxy troubleshooting",
-      "line": 252,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "12. HTTP a proxy troubleshooting",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "12. HTTP a proxy troubleshooting",
-      "line": 252,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redirect chain,`, `proxy-generated vs. origin status,`, `Host/path routing,`, `forwarding headers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "12. HTTP a proxy troubleshooting",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Packet capture",
-      "line": 274,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Packet capture",
-      "line": 274,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Packet capture",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Packet capture",
-      "line": 274,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prichádza SYN?`, `Odchádza SYN-ACK?`, `Kde vzniká RST?`, `Sú retransmissions?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Packet capture",
-      "line": 274,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Packet capture",
-      "line": 274,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `SYN-ACK`, `RST`, `MTU`, `DNS`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "15. MTU a PMTUD",
-      "line": 309,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "15. MTU a PMTUD",
-      "line": 309,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `malé requests fungujú,`, `TLS handshake alebo veľké responses timeoutujú,`, `VPN/overlay cesta je postihnutá.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "15. MTU a PMTUD",
-      "line": 309,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "15. MTU a PMTUD",
-      "line": 309,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `VPN`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "16. Firewall a NAT troubleshooting",
-      "line": 327,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "16. Firewall a NAT troubleshooting",
-      "line": 327,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "16. Firewall a NAT troubleshooting",
-      "line": 327,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route pred NAT,`, `translation rule,`, `conntrack entry,`, `filter rule a counter,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "16. Firewall a NAT troubleshooting",
-      "line": 327,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "17. Load balancer troubleshooting",
-      "line": 348,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "17. Load balancer troubleshooting",
-      "line": 348,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "17. Load balancer troubleshooting",
-      "line": 348,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj backend podľa logu/headera,`, `porovnaj health-check a reálny endpoint,`, `skontroluj weights a affinity,`, `over draining,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "17. Load balancer troubleshooting",
-      "line": 348,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "19. Healthy comparison",
-      "line": 376,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "19. Healthy comparison",
-      "line": 376,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "19. Healthy comparison",
-      "line": 376,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iný klient v rovnakom subnete,`, `rovnaký klient k inému endpointu,`, `iný backend,`, `IPv4 vs. IPv6,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "19. Healthy comparison",
-      "line": 376,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "19. Healthy comparison",
-      "line": 376,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "20. Change timeline",
-      "line": 390,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "20. Change timeline",
-      "line": 390,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "20. Change timeline",
-      "line": 390,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deploymentom,`, `DNS zmenou,`, `certificate rotation,`, `firewall policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "20. Change timeline",
-      "line": 390,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "20. Change timeline",
-      "line": 390,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `OS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "21. Bezpečné experimenty",
-      "line": 406,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "21. Bezpečné experimenty",
-      "line": 406,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "21. Bezpečné experimenty",
-      "line": 406,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný výsledok,`, `blast radius,`, `rollback,`, `časové okno,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "21. Bezpečné experimenty",
-      "line": 406,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "21. Bezpečné experimenty",
-      "line": 406,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `MTU`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "22. Typické failure patterns",
-      "line": 424,
+      "section": "17. TCP handshake klasifikácia",
+      "line": 401,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -35246,8 +34940,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Timeout",
-      "line": 426,
+      "section": "SYN bez odpovede",
+      "line": 403,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35255,8 +34949,44 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Connection refused",
-      "line": 430,
+      "section": "SYN bez odpovede",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN bez odpovede",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client packet neopustil host;`, `route/neighbor failure;`, `firewall drop;`, `remote path outage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN bez odpovede",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN bez odpovede",
+      "line": 403,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN-ACK`, `SYN`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN → RST",
+      "line": 415,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35264,8 +34994,44 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Name resolution failure",
-      "line": 434,
+      "section": "SYN → RST",
+      "line": 415,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN → RST",
+      "line": 415,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nič nepočúva;`, `listener je na inej adrese;`, `firewall reject;`, `proxy/LB nemá route/target;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN → RST",
+      "line": 415,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "SYN → RST",
+      "line": 415,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LB`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "18. TCP state a pressure",
+      "line": 433,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35273,8 +35039,53 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Certificate failure",
-      "line": 438,
+      "section": "18. TCP state a pressure",
+      "line": 433,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "18. TCP state a pressure",
+      "line": 433,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "18. TCP state a pressure",
+      "line": 433,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "18. TCP state a pressure",
+      "line": 433,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "18. TCP state a pressure",
+      "line": 433,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN-SENT`, `SYN-RECV`, `CLOSE-WAIT`, `FIN`, `TIME-WAIT`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "19. UDP troubleshooting",
+      "line": 454,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35282,8 +35093,1061 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "502/503/504",
-      "line": 442,
+      "section": "19. UDP troubleshooting",
+      "line": 454,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "17 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "19. UDP troubleshooting",
+      "line": 454,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request sa stratil;`, `server nepočúva;`, `firewall ho zahodil;`, `application ho odmietla bez odpovede;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "19. UDP troubleshooting",
+      "line": 454,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "19. UDP troubleshooting",
+      "line": 454,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "19. UDP troubleshooting",
+      "line": 454,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "19. UDP troubleshooting",
+      "line": 454,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `ID`, `ICMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý enforcement point;`, `packet direction;`, `hook/chain;`, `original alebo translated tuple;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "20. Firewall troubleshooting",
+      "line": 479,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INPUT`, `FORWARD`, `ACL`, `TCP`, `ESTABLISHED`, `enforcement`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "21. NAT troubleshooting",
+      "line": 510,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "21. NAT troubleshooting",
+      "line": 510,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "21. NAT troubleshooting",
+      "line": 510,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client route na NAT gateway;`, `packet na inside interface;`, `forwarding;`, `NAT rule match;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "21. NAT troubleshooting",
+      "line": 510,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "21. NAT troubleshooting",
+      "line": 510,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TCP handshake funguje;`, `malé TLS/HTTP messages fungujú;`, `veľký certificate chain, upload alebo response timeoutuje;`, `problém existuje iba cez VPN/overlay.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "22. MTU a Path MTU Discovery",
+      "line": 541,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `TLS`, `HTTP`, `VPN`, `ICMP`, `MSS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "23. TLS troubleshooting",
+      "line": 576,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "23. TLS troubleshooting",
+      "line": 576,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "23. TLS troubleshooting",
+      "line": 576,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination IP;`, `SNI;`, `selected TLS version;`, `cipher/group/signature;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "23. TLS troubleshooting",
+      "line": 576,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "23. TLS troubleshooting",
+      "line": 576,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "23. TLS troubleshooting",
+      "line": 576,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SNI`, `TLS`, `SAN`, `EKU`, `ALPN`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "24. HTTP a proxy troubleshooting",
+      "line": 604,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "24. HTTP a proxy troubleshooting",
+      "line": 604,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `method, host, path a query;`, `redirect chain;`, `protocol version;`, `proxy route;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "24. HTTP a proxy troubleshooting",
+      "line": 604,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "24. HTTP a proxy troubleshooting",
+      "line": 604,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "24. HTTP a proxy troubleshooting",
+      "line": 604,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "24. HTTP a proxy troubleshooting",
+      "line": 604,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "25. 502 , 503 a 504",
+      "line": 632,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "503 Service Unavailable",
+      "line": 638,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "26. Load balancer troubleshooting",
+      "line": 648,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "26. Load balancer troubleshooting",
+      "line": 648,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "26. Load balancer troubleshooting",
+      "line": 648,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti selected frontend IP a backend;`, `rozdeľ výsledky podľa backendu/zóny/version;`, `porovnaj health-check request s reálnym requestom;`, `over weights a selection algorithm;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "26. Load balancer troubleshooting",
+      "line": 648,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "26. Load balancer troubleshooting",
+      "line": 648,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "27. Long-lived connections",
+      "line": 665,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "27. Long-lived connections",
+      "line": 665,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idle timeout na každom middleboxe;`, `heartbeat;`, `maximum connection lifetime;`, `token expiry;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "27. Long-lived connections",
+      "line": 665,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "27. Long-lived connections",
+      "line": 665,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "27. Long-lived connections",
+      "line": 665,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "16 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odchádza DNS query;`, `prichádza reply;`, `odchádza SYN;`, `prichádza SYN-ACK alebo RST;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "28. Packet capture ako experiment",
+      "line": 684,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `SYN`, `SYN-ACK`, `RST`, `NAT`, `ICMP`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "29. Offloading a capture artefakty",
+      "line": 715,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "29. Offloading a capture artefakty",
+      "line": 715,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "29. Offloading a capture artefakty",
+      "line": 715,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké logical segments pre TSO/GSO;`, `checksum ako neplatný pred hardware offloadom;`, `spojené receive buffers pri GRO;`, `packet na virtual interface, nie fyzickom wire;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "29. Offloading a capture artefakty",
+      "line": 715,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "29. Offloading a capture artefakty",
+      "line": 715,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "29. Offloading a capture artefakty",
+      "line": 715,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TSO`, `GSO`, `GRO`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "30. Časová korelácia",
+      "line": 727,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "30. Časová korelácia",
+      "line": 727,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "30. Časová korelácia",
+      "line": 727,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synchronizované clocks;`, `timestamp s timezone;`, `request/trace ID;`, `client identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "30. Časová korelácia",
+      "line": 727,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "30. Časová korelácia",
+      "line": 727,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "31. Intermittent failures",
+      "line": 756,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "31. Intermittent failures",
+      "line": 756,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote IP;`, `protocol version;`, `backend/request ID, ak bezpečne dostupný;`, `connect/TLS/TTFB/total latency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "31. Intermittent failures",
+      "line": 756,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "31. Intermittent failures",
+      "line": 756,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`, `TLS`, `TTFB`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "32. Healthy comparison",
+      "line": 781,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "32. Healthy comparison",
+      "line": 781,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "32. Healthy comparison",
+      "line": 781,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký client, iný endpoint;`, `iný client v rovnakom subnete;`, `rovnaký request cez IPv4 a IPv6;`, `rovnaký hostname s konkrétnou IP;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "32. Healthy comparison",
+      "line": 781,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "32. Healthy comparison",
+      "line": 781,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "32. Healthy comparison",
+      "line": 781,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "33. Change timeline",
+      "line": 797,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "33. Change timeline",
+      "line": 797,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deploymentom;`, `DNS recordom alebo TTL;`, `certificate/CA rotation;`, `firewall/ACL/security group policy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "33. Change timeline",
+      "line": 797,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "33. Change timeline",
+      "line": 797,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "33. Change timeline",
+      "line": 797,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TTL`, `CA`, `ACL`, `NAT`, `LB`, `VPN`, `OS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "34. Bezpečný aktívny experiment",
+      "line": 817,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "34. Bezpečný aktívny experiment",
+      "line": 817,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "34. Bezpečný aktívny experiment",
+      "line": 817,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypnúť firewall;`, `flushnúť conntrack;`, `reštartovať celý proxy fleet;`, `vymazať DNS cache bez snapshotu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "34. Bezpečný aktívny experiment",
+      "line": 817,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "34. Bezpečný aktívny experiment",
+      "line": 817,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `MTU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "35. Root cause, contributing factors a trigger",
+      "line": 854,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Trigger",
+      "line": 856,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Root cause mechanism",
+      "line": 860,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Root cause mechanism",
+      "line": 860,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Root cause mechanism",
+      "line": 860,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `return route obchádzala stateful firewall;`, `certificate renewal nevykonal reload;`, `unbounded retries preťažili dependency;`, `MTU tunnelu bolo menšie a ICMP bolo blokované.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Root cause mechanism",
+      "line": 860,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Root cause mechanism",
+      "line": 860,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `ICMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Contributing factors",
+      "line": 870,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Contributing factors",
+      "line": 870,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Contributing factors",
+      "line": 870,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci canary;`, `slabá observability;`, `manual lifecycle;`, `single failure domain;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Contributing factors",
+      "line": 870,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "36. Mitigation verzus permanentná náprava",
+      "line": 882,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "36. Mitigation verzus permanentná náprava",
+      "line": 882,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "36. Mitigation verzus permanentná náprava",
+      "line": 882,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollback route;`, `odstránenie unhealthy backendu;`, `dočasné zníženie trafficu;`, `pridanie capacity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "36. Mitigation verzus permanentná náprava",
+      "line": 882,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "36. Mitigation verzus permanentná náprava",
+      "line": 882,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "36. Mitigation verzus permanentná náprava",
+      "line": 882,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `ICMP`, `HA`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "37. Overenie nápravy",
+      "line": 906,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "37. Overenie nápravy",
+      "line": 906,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "37. Overenie nápravy",
+      "line": 906,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pôvodný používateľský scenár;`, `všetky postihnuté source groups;`, `IPv4 aj IPv6, ak relevantné;`, `všetky regions/zones/backends;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "37. Overenie nápravy",
+      "line": 906,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "37. Overenie nápravy",
+      "line": 906,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "37. Overenie nápravy",
+      "line": 906,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "38. Typické symptom-to-hypothesis mapovanie",
+      "line": 924,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Timeout pred connection",
+      "line": 926,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Okamžité connection refused",
+      "line": 930,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Connection funguje, TLS zlyhá",
+      "line": 934,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "TLS funguje, HTTP 502",
+      "line": 938,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "503",
+      "line": 942,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "504",
+      "line": 946,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35292,7 +36156,16 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Existujúce connections fungujú, nové nie",
-      "line": 446,
+      "line": 950,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Malé funguje, veľké nie",
+      "line": 954,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35301,7 +36174,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Jeden región alebo subnet",
-      "line": 450,
+      "line": 958,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35309,35 +36182,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "23. Root cause vs. trigger",
-      "line": 454,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "23. Root cause vs. trigger",
-      "line": 454,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci timeout,`, `neobmedzený retry,`, `nedostatočná capacity,`, `nesprávny health check,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "23. Root cause vs. trigger",
-      "line": 454,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "24. Overenie nápravy",
-      "line": 468,
+      "section": "Pravidelný disconnect",
+      "line": 962,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35345,44 +36191,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "24. Overenie nápravy",
-      "line": 468,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "24. Overenie nápravy",
-      "line": 468,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pôvodný používateľský scenár,`, `všetky postihnuté IP families/zóny,`, `error rate a latency,`, `nové aj existujúce connections,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "24. Overenie nápravy",
-      "line": 468,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "24. Overenie nápravy",
-      "line": 468,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "25. Diagnostický checklist",
-      "line": 482,
+      "section": "39. Praktický incident checklist",
+      "line": 966,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -35391,7 +36201,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Identity a čas",
-      "line": 484,
+      "line": 968,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -35400,7 +36210,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Identity a čas",
-      "line": 484,
+      "line": 968,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -35409,106 +36219,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Identity a čas",
-      "line": 484,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `presný hostname, IP, port, protocol,`, `client identity a location,`, `timestamp a timezone.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Identity a čas",
-      "line": 484,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Identity a čas",
-      "line": 484,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "DNS",
-      "line": 490,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "DNS",
-      "line": 490,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "DNS",
-      "line": 490,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "DNS",
-      "line": 490,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `system resolver,`, `recursive response,`, `authoritative record,`, `TTL/cache/view.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "DNS",
-      "line": 490,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "DNS",
-      "line": 490,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 497,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 497,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 497,
+      "line": 968,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -35516,17 +36227,125 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Network",
-      "line": 497,
+      "section": "Identity a čas",
+      "line": 968,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/destination,`, `route a policy,`, `neighbor/gateway,`, `MTU,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact request;`, `source/client location;`, `protocol/hostname/IP/port;`, `timestamp/timezone;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Identity a čas",
+      "line": 968,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Identity a čas",
+      "line": 968,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "DNS",
+      "line": 976,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "DNS",
+      "line": 976,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "DNS",
+      "line": 976,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "DNS",
+      "line": 976,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/system resolver;`, `A/AAAA;`, `cache/TTL;`, `internal/external view;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "DNS",
+      "line": 976,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "DNS",
+      "line": 976,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `TTL`, `DNSSEC`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Network",
+      "line": 985,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Network",
-      "line": 497,
+      "line": 985,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Network",
+      "line": 985,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Network",
+      "line": 985,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source address;`, `route/policy table;`, `next hop a neighbor;`, `namespace/VRF;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Network",
+      "line": 985,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -35535,16 +36354,16 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Network",
-      "line": 497,
+      "line": 985,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VRF`, `MTU`, `policy`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Transport",
-      "line": 505,
+      "line": 994,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -35553,7 +36372,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Transport",
-      "line": 505,
+      "line": 994,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -35562,7 +36381,61 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Transport",
-      "line": 505,
+      "line": 994,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Transport",
+      "line": 994,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `listener/bind;`, `SYN/SYN-ACK/RST;`, `TCP states;`, `retransmissions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Transport",
+      "line": 994,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Transport",
+      "line": 994,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `SYN-ACK`, `RST`, `TCP`, `UDP`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Enforcement a translation",
+      "line": 1003,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Enforcement a translation",
+      "line": 1003,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Enforcement a translation",
+      "line": 1003,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -35570,17 +36443,17 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 505,
+      "section": "Enforcement a translation",
+      "line": 1003,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `listener,`, `handshake,`, `states,`, `loss/retransmissions,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `firewall hook/rule/counter;`, `ACL/security group;`, `original/translated tuple;`, `conntrack state;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Transport",
-      "line": 505,
+      "section": "Enforcement a translation",
+      "line": 1003,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -35588,8 +36461,17 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Security",
-      "line": 513,
+      "section": "Enforcement a translation",
+      "line": 1003,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "TLS",
+      "line": 1011,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -35597,8 +36479,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Security",
-      "line": 513,
+      "section": "TLS",
+      "line": 1011,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -35606,26 +36488,26 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Security",
-      "line": 513,
+      "section": "TLS",
+      "line": 1011,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Security",
-      "line": 513,
+      "section": "TLS",
+      "line": 1011,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `firewall/ACL/security group,`, `NAT/conntrack,`, `TLS identity/trust,`, `authentication/authorization.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SNI;`, `chain/SAN/time/trust;`, `TLS version/cipher;`, `ALPN;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Security",
-      "line": 513,
+      "section": "TLS",
+      "line": 1011,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -35633,17 +36515,62 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Security",
-      "line": 513,
+      "section": "TLS",
+      "line": 1011,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `NAT`, `TLS`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNI`, `SAN`, `TLS`, `ALPN`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Proxy/LB",
+      "line": 1019,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Proxy/LB",
+      "line": 1019,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Proxy/LB",
+      "line": 1019,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Proxy/LB",
+      "line": 1019,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selected frontend/backend;`, `route/weight/health;`, `retries/timeouts;`, `draining;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Proxy/LB",
+      "line": 1019,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Application",
-      "line": 520,
+      "line": 1027,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -35652,7 +36579,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Application",
-      "line": 520,
+      "line": 1027,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -35661,7 +36588,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Application",
-      "line": 520,
+      "line": 1027,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -35670,16 +36597,16 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Application",
-      "line": 520,
+      "line": 1027,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy route,`, `status/body,`, `dependency,`, `request ID/trace,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request log/trace;`, `authn/authz;`, `dependency;`, `business side effect;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Application",
-      "line": 520,
+      "line": 1027,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -35687,17 +36614,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "Application",
-      "line": 520,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "26. Časté omyly",
-      "line": 528,
+      "section": "40. Časté omyly",
+      "line": 1035,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -35705,35 +36623,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "„Ping funguje, sieť je v poriadku“",
-      "line": 530,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "„Traceroute ukázal problém na hop-e 5“",
-      "line": 534,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "„Tcpdump nič nevidí, packet neexistuje“",
-      "line": 538,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "„Reštart vyriešil root cause“",
-      "line": 542,
+      "section": "„Firewall rule vyzerá správne“",
+      "line": 1049,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35742,7 +36633,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "„HTTP 200 znamená, že incident skončil“",
-      "line": 546,
+      "line": 1057,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
