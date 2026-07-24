@@ -8,150 +8,127 @@
 - Predpoklady: [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md), [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md)
 - Súvisiace témy: repositories, dependency resolution, supply-chain security, immutable infrastructure
 
-## 1. Definícia
+## 1. Čo package management skutočne riadi
 
-Package management je systém na distribúciu, overovanie, inštaláciu, aktualizáciu a odstraňovanie softvéru spolu s jeho metadátami a závislosťami.
+Package management je systém, ktorý premieňa repository policy a požadovaný software stav na kontrolovanú transakciu nad lokálnym systémom. Nejde iba o rozbalenie archívu; package manager rozhoduje o verzii, architektúre, dependencies, conflicts, trust policy, lifecycle scripts a evidencii vlastníctva súborov.
 
-Balík nie je iba archív so súbormi. Typicky obsahuje:
+Balík preto obsahuje viac vrstiev:
 
-- payload súborov,
-- názov, verziu a architektúru,
-- zoznam dependencies a conflicts,
-- checksums a podpisové informácie,
-- lifecycle scripts,
-- ownership informáciu pre package database.
+- **payload súborov —** executable, knižnice, unit files, dokumentáciu a ďalšie dáta, ktoré sa majú umiestniť do filesystemu,
+- **identity balíka —** názov, verzia, release, architektúra a package format, podľa ktorých solver rozlišuje kandidátov,
+- **dependency metadata —** požadované capabilities, version constraints, conflicts, provides a obsoletes vzťahy,
+- **integrity metadata —** checksums a podpisové informácie, ktoré spájajú artifact s repository trust chain,
+- **lifecycle scripts —** kód spustený pred alebo po install, upgrade či remove, ktorý môže meniť aj runtime stav systému,
+- **local database records —** evidencia, ktoré súbory a metadata patria konkrétnej nainštalovanej verzii.
 
-## 2. Dve vrstvy package managementu
+## 2. High-level a low-level vrstva
 
-Na bežnej distribúcii existujú dve odlišné vrstvy:
+Bežná distribúcia oddeľuje orchestration od lokálnej package database.
 
 ```text
-High-level package manager
 APT / DNF / Zypper
-  ├── repositories
+  ├── repository policy
+  ├── metadata cache
+  ├── candidate selection
   ├── dependency solver
-  ├── download a policy
-  └── orchestration transakcie
-            ↓
-Low-level package database
-DPKG / RPM
-  ├── lokálna evidencia balíkov
-  ├── rozbalenie payloadu
-  ├── lifecycle scripts
-  └── vlastníctvo súborov
+  └── transaction orchestration
+              ↓
+DPKG / RPM database
+  ├── local package state
+  ├── file ownership
+  ├── unpack/configure phases
+  └── lifecycle scripts
 ```
 
-Príklady:
+`dpkg -i package.deb` alebo `rpm -i package.rpm` pracuje najmä s konkrétnym lokálnym artifactom. High-level manager navyše prehľadá repositories, vyberie kompatibilné verzie a zostaví konzistentný dependency graph.
 
-| Rodina | High-level nástroj | Low-level formát/nástroj |
-|---|---|---|
-| Debian/Ubuntu | `apt` | `.deb`, `dpkg` |
-| RHEL/Fedora | `dnf` | `.rpm`, RPM database |
-| SUSE | `zypper` | `.rpm`, RPM database |
+Toto rozlíšenie vysvetľuje, prečo lokálny install môže skončiť v stave „balík rozbalený, ale dependencies chýbajú“. Low-level nástroj pozná lokálnu transakciu, no nemusí mať policy ani vzdialené metadata potrebné na doplnenie celého graphu.
 
-`dpkg -i package.deb` alebo `rpm -i package.rpm` pracuje primárne s konkrétnym lokálnym balíkom. Nemusí automaticky vyriešiť všetky vzdialené dependencies. High-level nástroj rieši celý dependency graph a repositories.
+## 3. Repository je policy boundary
 
-## 3. Repository a metadata
-
-Repository obsahuje balíky a index metadát. Package manager najprv synchronizuje metadata a až potom podľa nich rozhoduje, ktorú verziu stiahne.
-
-Pri APT:
+Repository nie je iba webový adresár s balíkmi. Obsahuje indexy, verzie, architektúry, signatures a často aj distribution component alebo release channel, ktoré určujú, z akého trust a compatibility priestoru môže package manager vyberať.
 
 ```bash
 sudo apt update
 sudo apt install nginx
 ```
 
-`apt update` neaktualizuje nainštalované balíky. Aktualizuje lokálnu kópiu repository metadata.
+`apt update` obnoví lokálnu cache repository metadata. Nenainštaluje nové verzie; pripraví aktuálny pohľad, z ktorého ďalšia transakcia vyberá kandidátov.
 
-Pri DNF:
+Ak je cache stará, package manager môže rozhodovať podľa verzií, ktoré už repository neposkytuje, alebo nevidieť novú security opravu. Synchronizácia metadata je preto samostatná fáza od samotného installu či upgrade.
 
-```bash
-sudo dnf makecache
-sudo dnf install nginx
-```
-
-Typický tok:
+## 4. End-to-end tok transakcie
 
 ```text
-Konfigurácia repositories
-  ↓
-Stiahnutie podpísaných metadata
-  ↓
-Výber kandidátnej verzie
-  ↓
-Dependency resolution
-  ↓
-Stiahnutie packages
-  ↓
-Overenie checksum/podpisu
-  ↓
-Transakcia nad lokálnou package database
-  ↓
-Rozbalenie súborov a lifecycle scripts
+repository configuration
+      ↓
+metadata download a signature verification
+      ↓
+candidate version selection
+      ↓
+dependency solving
+      ↓
+transaction plan
+      ↓
+package download a checksum verification
+      ↓
+lock local database
+      ↓
+unpack / configure / scripts
+      ↓
+update local package state
+      ↓
+post-transaction runtime effects
 ```
 
-## 4. Dependency resolution
+Každá fáza má vlastný failure model. Metadata download môže zlyhať na trust alebo network vrstve, solver na nekompatibilnom grafe, unpack na nedostatku miesta a lifecycle script na aplikačnej alebo service chybe.
 
-Dependencies môžu obsahovať:
+Preto hlásenie „package install failed“ nestačí. Diagnostika musí identifikovať, v ktorej fáze transakcia skončila a aký čiastočný stav po nej zostal.
 
-- presný názov balíka,
-- minimálnu alebo maximálnu verziu,
-- virtuálnu capability,
-- conflict alebo obsoletes vzťah,
-- architektúru.
+## 5. Dependency solver hľadá konzistentný výsledný stav
 
-Solver hľadá konzistentný výsledný stav. Konflikt vznikne napríklad vtedy, keď dva balíky požadujú navzájom nezlučiteľné verzie jednej knižnice.
+Dependency nie je iba meno ďalšieho balíka. Môže požadovať minimálnu alebo maximálnu verziu, virtuálnu capability, konkrétnu architektúru alebo zároveň zakazovať konfliktujúci package.
 
-Dôležité rozlíšenie:
+Solver preto rieši constraint problem:
 
 ```text
-Package dependency
-  = vzťah evidovaný package managerom
-
-Runtime dependency
-  = čokoľvek, čo program reálne potrebuje pri behu
+požadovaný package
+  + dostupné candidates
+  + version policy
+  + dependencies
+  + conflicts
+  + installed state
+  = konzistentný transaction plan
 ```
 
-Program môže mať runtime dependency, ktorú maintainer balíka zabudol deklarovať. Package manager potom nemá informáciu potrebnú na jej automatické riešenie.
+Ak dva balíky vyžadujú navzájom nezlučiteľné verzie knižnice, nejde o „náhodnú chybu aptu“. Solver nedokáže nájsť výsledný stav spĺňajúci všetky constraints.
 
-## 5. Verzie, candidates a pinning
+## 6. Package dependency a runtime dependency nie sú totožné
 
-Nainštalovaná verzia nemusí byť rovnaká ako kandidátna verzia v repositories.
+Package dependency je vzťah deklarovaný maintainerom a viditeľný solveru. Runtime dependency je čokoľvek, čo program skutočne potrebuje na fungovanie: shared library, executable, kernel feature, service endpoint, locale data alebo konfiguráciu.
 
-Debian/Ubuntu:
+Maintainer môže runtime dependency zabudnúť deklarovať alebo ju package format nemusí vedieť presne vyjadriť. Package manager potom úspešne dokončí transakciu, ale aplikácia môže pri štarte zlyhať.
+
+Package installation teda preukazuje konzistenciu package graphu, nie funkčnosť celej služby.
+
+## 7. Candidate version vzniká z precedence policy
+
+Nainštalovaná verzia, najnovšia verzia v jednom repository a výsledná candidate verzia môžu byť tri odlišné hodnoty. Výber ovplyvňuje distribution release, repository priority, pinning, module stream, architecture a explicitný version request.
 
 ```bash
 apt-cache policy nginx
-apt list --upgradable
-```
-
-RHEL/Fedora:
-
-```bash
 dnf info nginx
-dnf check-update
 ```
 
-Výber verzie ovplyvňuje:
+Tieto príkazy pomáhajú vysvetliť, prečo solver vybral konkrétny artifact. Bez kontroly candidate policy môže administrátor omylom miešať packages z odlišných release channels alebo očakávať upstream verziu, ktorú distribúcia zámerne neponúka.
 
-- priorita repository,
-- distribution release,
-- module stream,
-- pinning alebo version lock,
-- architektúra,
-- explicitne zadaná verzia.
+## 8. Pinning a version lock sú stability policy
 
-Príklady explicitnej verzie:
+Pin alebo version lock obmedzí, ktoré candidates solver smie zvoliť. Používa sa pri reprodukovateľnosti, compatibility contracte alebo postupnom rolloute, no zároveň môže blokovať security update alebo vytvoriť neudržateľný dependency graph.
 
-```bash
-sudo apt install nginx=1.24.0-2ubuntu7
-sudo dnf install nginx-1.24.0
-```
+Každý lock má preto potrebovať ownera, dôvod a review condition. „Držať package navždy“ bez sledovania advisories je technický dlh, nie bezpečnostná stratégia.
 
-Presný syntax závisí od distribúcie a dostupných repository versions.
-
-## 6. Update, upgrade a distribution upgrade
+## 9. Update, upgrade a distribution upgrade riešia iné scope-y
 
 Pri APT:
 
@@ -161,132 +138,112 @@ sudo apt upgrade
 sudo apt full-upgrade
 ```
 
-- `update` obnoví metadata,
-- `upgrade` aktualizuje balíky bez niektorých deštruktívnejších zmien dependency graphu,
-- `full-upgrade` môže na vyriešenie graphu pridať alebo odstrániť balíky.
+`update` obnoví metadata cache. `upgrade` aktualizuje installed packages v konzervatívnejšom grafe. `full-upgrade` môže na vyriešenie dependencies packages aj pridať alebo odstrániť.
 
-Tieto operácie nie sú automaticky ekvivalentom upgrade celej distribúcie na nový major release. Distribution upgrade má vlastný proces, compatibility pravidlá a recovery plán.
+Major distribution upgrade je širšia migrácia repository sources, base packages, boot stacku a compatibility assumptions. Vyžaduje vlastný preflight, backup a recovery plán; nie je iba „väčší apt upgrade“.
 
-## 7. Package database ako zdroj pravdy
+## 10. Local package database je evidovaný installed state
 
-Package manager eviduje, ktorý balík vlastní konkrétny súbor.
-
-Debian/Ubuntu:
+Low-level database zaznamenáva, ktoré package versions sú installed, configured alebo v čiastočnom stave a ktoré paths vlastní každý package.
 
 ```bash
 dpkg -S /usr/bin/ssh
 dpkg -L openssh-client
-dpkg -s openssh-client
-```
-
-RHEL/Fedora:
-
-```bash
 rpm -qf /usr/bin/ssh
 rpm -ql openssh-clients
-rpm -qi openssh-clients
 ```
 
-To umožňuje odpovedať:
+Táto evidencia umožňuje odlíšiť package-managed súbor od manuálne pridaného artifactu. Ručná zmena package-owned súboru môže byť pri upgrade prepísaná, zachovaná ako konfiguračná výnimka alebo vyvolať conflict podľa pravidiel konkrétneho formátu.
 
-- odkiaľ súbor pochádza,
-- či je spravovaný balíkom,
-- ktorá verzia ho nainštalovala,
-- ktoré súbory do balíka patria.
+Local database je source of truth package managera, nie úplná source of truth celého filesystemu. Súbory môžu vzniknúť aj mimo nej cez aplikácie, administrátora alebo build tooling.
 
-Ručná úprava package-managed súboru môže byť pri upgrade prepísaná alebo vyriešená distribution-specific mechanizmom pre config files.
+## 11. Unpack a configure môžu byť oddelené fázy
 
-## 8. Lifecycle scripts a vedľajšie efekty
+Najmä v DPKG modeli môže byť package rozbalený, ale ešte nenakonfigurovaný. Payload už existuje na disku, no post-install script, dependency configuration alebo service integration neprebehli úspešne.
 
-Balíky môžu počas inštalácie alebo odstránenia spúšťať scripts. Tie môžu:
+To vytvára čiastočný stav, v ktorom súbory existujú, ale package manager transakciu nepovažuje za dokončenú. Recovery príkazy ako `dpkg --configure -a` preto nedownloadujú všetko odznova; pokúšajú sa dokončiť pending configuration fázu.
 
-- vytvoriť používateľa,
-- reloadnúť systemd,
-- migrovať databázu,
-- upraviť cache,
-- spustiť alebo reštartovať službu.
+## 12. Lifecycle scripts sú privilegované side effects
 
-Preto package installation nie je vždy iba kopírovanie súborov. Má potenciálne prevádzkové vedľajšie efekty.
+Package scripts môžu vytvoriť usera, rebuildnúť cache, reloadnúť systemd, migrovať dáta alebo reštartovať službu. Inštalácia teda môže meniť runtime stav aj vtedy, keď administrátor očakáva iba nové súbory.
 
-V automatizácii treba vedieť:
+Pred produkčným rolloutom treba vedieť:
 
-- či môže dôjsť k interaktívnej otázke,
-- či sa služba automaticky reštartuje,
-- či transakcia potrebuje network access,
-- či je operácia bezpečne opakovateľná,
-- čo sa stane pri prerušení procesu.
+- **či skript vyžaduje interakciu —** automatizácia musí nastaviť non-interactive policy alebo failnúť kontrolovane,
+- **či sa služba automaticky reštartuje —** update knižnice môže aktivovať nový runtime skôr, než je pripravené maintenance window,
+- **či skript mení dáta —** databázová migrácia môže byť nevratná aj pri downgrade package,
+- **či je operácia idempotentná —** recovery po prerušení môže script spustiť znova,
+- **aké externé dependencies používa —** DNS, network alebo service outage môže zablokovať konfiguráciu package.
 
-## 9. Podpisy a trust chain
+## 13. Package install a service activation sú rozdielne operácie
 
-Package manager overuje, že repository metadata alebo packages pochádzajú z dôveryhodného kľúča a neboli zmenené.
+Balík môže nainštalovať systemd unit, ale to neznamená, že služba je enabled, started alebo healthy. Naopak package script ju môže podľa distribution policy automaticky spustiť.
 
-Trust chain typicky vyzerá:
+Po transakcii treba explicitne overiť:
 
 ```text
-Dôveryhodný repository key
-  ↓ overí
-Repository metadata
-  ↓ obsahujú checksum
-Package artifact
-  ↓ nainštaluje
-Lokálna package database
+package state
+→ unit definition loaded
+→ service runtime state
+→ application readiness
 ```
 
-Podpis neznamená, že balík je bez zraniteľností. Znamená, že jeho pôvod a integrita zodpovedajú trust policy.
+Package manager potvrdí software state. `systemd` potvrdí unit lifecycle a aplikačný health check potvrdí funkčný outcome.
 
-Riziká:
+## 14. Trust chain overuje pôvod a integritu
 
-- pridanie neznámeho third-party repository,
-- použitie zastaraného alebo kompromitovaného signing key,
-- miešanie repositories pre inú distribution release,
-- vypnutie signature verification,
-- sťahovanie náhodných packages mimo package managera.
-
-## 10. Locks a súbežné operácie
-
-Package database sa počas zmeny zamyká. Dve súbežné transakcie by mohli poškodiť konzistenciu.
-
-Typický symptóm:
+Typická trust chain vyzerá takto:
 
 ```text
-Could not get lock ...
-Another app is currently holding the ... lock
+trusted repository key
+      ↓ verifies
+repository metadata
+      ↓ names checksum/version
+package artifact
+      ↓ installed into
+local package state
 ```
 
-Správny postup:
+Podpis preukazuje, že metadata alebo artifact zodpovedajú držiteľovi dôveryhodného kľúča a neboli zmenené mimo povoleného procesu. Nepreukazuje, že package nemá zraniteľnosť ani že dôveryhodný maintainer neurobil chybu.
 
-1. zisti, ktorý proces drží lock,
-2. over, či ide o aktívny package manager alebo automatický update,
-3. počkaj alebo kontrolovane ukonči chybný proces,
-4. až potom oprav prípadne nedokončenú transakciu.
+Pridanie third-party repository preto rozširuje execution trust na jeho maintainera a signing infrastructure. Package scripts typicky bežia s vysokými privileges, takže kompromitovaný repository key je priamy supply-chain risk.
 
-Neodstraňuj lock file naslepo. Lock file môže byť iba reprezentáciou aktívneho kernel locku a jeho zmazanie neopraví rozpracovanú databázu.
+## 15. Checksums a signatures riešia rozdielne otázky
 
-## 11. Diagnostika Debian/Ubuntu
+Checksum odpovedá, či bytes zodpovedajú očakávanej hodnote v metadata. Signature odpovedá, či metadata alebo artifact schválila identita dôveryhodná podľa lokálnej policy.
+
+Checksum bez dôveryhodne podpísaného source možno útočníkom nahradiť spolu s artifactom. Signature bez správnej key lifecycle policy môže dôverovať zastaranému alebo kompromitovanému kľúču.
+
+## 16. Lock chráni transakčnú konzistenciu
+
+Package database sa pri mutácii zamyká, aby dve súbežné transakcie nemenili rovnaké records a filesystem state v nekompatibilnom poradí.
+
+Ak sa zobrazí lock error, správny postup je identifikovať držiteľa a jeho stav. Automatický update môže legitímne pracovať; násilné zmazanie lock file neukončí proces ani neopraví rozpracovanú transakciu.
+
+```text
+lock conflict
+→ identifikuj owner process
+→ zisti, či transakcia napreduje
+→ počkaj alebo kontrolovane ukonči
+→ audituj partial state
+→ spusti recovery
+```
+
+## 17. Prerušená transakcia zanecháva vrstvený stav
+
+Failure môže nastať po download, počas unpacku alebo v lifecycle scripte. Recovery preto závisí od poslednej úspešnej fázy.
+
+Na Debian/Ubuntu:
 
 ```bash
-apt-cache policy
 dpkg --audit
 sudo dpkg --configure -a
 sudo apt --fix-broken install
-apt-mark showhold
 ```
 
-Význam:
+`dpkg --audit` hľadá nekonzistentné package states. `--configure -a` dokončuje pending configuration a `--fix-broken install` sa pokúša zostaviť konzistentný dependency graph.
 
-- `dpkg --audit` hľadá nekonzistentné alebo čiastočne nainštalované balíky,
-- `dpkg --configure -a` dokončí configuration fázu rozbalených balíkov,
-- `apt --fix-broken install` sa pokúsi opraviť dependency state,
-- `apt-mark showhold` ukáže balíky blokované pred upgrade.
-
-Logy bývajú napríklad v:
-
-```text
-/var/log/apt/
-/var/log/dpkg.log
-```
-
-## 12. Diagnostika RHEL/Fedora
+Na RPM/DNF systémoch:
 
 ```bash
 dnf check
@@ -295,58 +252,79 @@ dnf history info <ID>
 rpm -Va
 ```
 
-- `dnf check` kontroluje dependency problémy,
-- `dnf history` zobrazuje transakcie,
-- `rpm -Va` porovnáva nainštalované files s RPM metadata.
+`dnf history` poskytuje transakčný kontext a `rpm -Va` porovnáva filesystem attributes s package metadata. Verification difference však nemusí byť chyba; konfiguračný súbor mohol byť zámerne zmenený.
 
-Verification output treba interpretovať opatrne: config file môže byť legitímne zmenený administrátorom.
+## 18. Rollback package transakcie má limity
 
-## 13. Produkčný prístup
+Downgrade artifactu nemusí vrátiť celý systém. Lifecycle script mohol migrovať databázu, odstrániť starý formát konfigurácie alebo reštartovať service s novým state.
 
-V produkcii je dôležité:
+Skutočný recovery model preto musí rozlišovať:
 
-- používať schválené repositories,
-- pinovať alebo kontrolovať verzie tam, kde je potrebná reprodukovateľnosť,
-- testovať updates pred rolloutom,
-- evidovať reboot-required zmeny,
-- mať rollback alebo replacement stratégiu,
-- sledovať security advisories,
-- minimalizovať počet nainštalovaných balíkov.
+- **package rollback —** návrat binaries a package metadata,
+- **configuration rollback —** návrat kompatibilného config contractu,
+- **data rollback —** obnova alebo forward migration dát,
+- **service rollback —** kontrolovaný runtime transition a health verification.
 
-Pri immutable infrastructure sa server často neaktualizuje in-place. Vytvorí sa nový image s novými packages, otestuje sa a nahradí staré instances. Package manager je stále použitý pri image build-e, ale nie ako hlavný produkčný deployment mechanizmus.
+Immutable replacement často zjednoduší compute rollback, ale stateful dependencies zostávajú samostatným problémom.
 
-## 14. Časté omyly
+## 19. Security updates a upstream version numbers
+
+Distribúcie často backportujú security fix do staršej upstream verzie bez zmeny major version stringu. Porovnanie iba s posledným release na upstream webe preto môže nesprávne označiť patched distribution package za zastaraný.
+
+Autoritatívne sú distribution advisory, changelog a package release metadata. Security rozhodnutie musí vychádzať z konkrétneho build-u, nie iba z marketingového upstream čísla.
+
+## 20. Produkčný update workflow
+
+Bezpečný workflow spája package state s prevádzkovým outcome:
+
+1. **Definuj schválené repositories a versions.** Repository a pinning policy musia byť verzované a auditovateľné.
+2. **Vytvor transaction plan.** Zisti packages, removals, services a reboot-relevant components, ktoré sa zmenia.
+3. **Testuj reprezentatívny systém.** Over install scripts, service startup, data compatibility a smoke tests.
+4. **Rolloutni v malom batchi.** Canary host alebo nový image obmedzí blast radius.
+5. **Over runtime outcome.** Package transaction success nestačí; skontroluj service health a používateľské signály.
+6. **Zachovaj recovery path.** Cache artifactov, image replacement alebo snapshot musí zodpovedať aj configuration a data modelu.
+7. **Odstráň zastaraný state.** Staré images, nepodporované repositories a hold výnimky potrebujú lifecycle.
+
+## 21. Mutable a immutable model
+
+V mutable modeli package manager mení existujúci host in-place. Výsledok závisí od jeho histórie, partial updates a lokálnych výnimiek.
+
+V immutable modeli sa packages nainštalujú počas image build-u. Image sa otestuje a hosty sa nahradia, takže package transaction sa presunie z produkčného runtime do reprodukovateľnej build pipeline.
+
+Package manager zostáva rovnaký mechanizmus, ale mení sa failure boundary a rollback stratégia.
+
+## 22. Časté omyly
 
 ### „apt update aktualizuje systém“
 
-Nie. Aktualizuje repository metadata.
+Nie. Aktualizuje lokálnu repository metadata cache. Installed state sa zmení až samostatnou transaction operáciou.
 
-### „Najnovšia verzia je vždy najbezpečnejšia voľba“
+### „Najvyššie version number je vždy najbezpečnejšie“
 
-Nie nevyhnutne. Distribution môže backportovať security fixes bez zmeny upstream major version. Dôležitý je distribution package changelog a advisory.
+Nie. Distribution môže mať backportnutú opravu v nižšom upstream čísle. Rozhodujú konkrétne advisory a package release metadata.
 
-### „Podpísaný balík je bezpečný“
+### „Podpísaný package je bezpečný“
 
-Podpis overuje pôvod a integritu, nie absenciu chýb alebo škodlivého správania v dôveryhodnom zdroji.
+Podpis preukazuje pôvod a integritu podľa trust policy. Nehodnotí kvalitu kódu ani absenciu zraniteľností.
 
-### „Ručne zmazaný package file sa automaticky obnoví“
+### „Zmazanie lock file opraví package manager“
 
-Nie, kým nevykonáš reinstall alebo inú explicitnú transakciu.
+Nie. Lock chráni aktívnu transakciu a jeho file nemusí byť samotným kernel lockom. Najprv treba vyriešiť owner process a partial state.
 
-### „Odstránenie lock file opraví package manager“
+### „Úspešný install znamená funkčnú službu“
 
-Nie. Môže zhoršiť súbežnú alebo nedokončenú transakciu.
+Nie. Package state, systemd state a application readiness sú tri samostatné vrstvy, ktoré treba overiť.
 
-## 15. Kontrolné otázky
+## 23. Kontrolné otázky
 
-1. Aký je rozdiel medzi APT/DNF a DPKG/RPM?
-2. Prečo `apt update` neinštaluje nové verzie?
-3. Čo package manager potrebuje na vyriešenie dependency graphu?
-4. Aký je rozdiel medzi podpisom balíka a jeho bezpečnosťou?
-5. Prečo môže package installation reštartovať službu?
-6. Ako zistíš, ktorý package vlastní konkrétny súbor?
-7. Prečo sa package database zamyká?
-8. Ako sa package management mení pri immutable infrastructure?
+1. Aký je rozdiel medzi high-level package managerom a low-level package database?
+2. Prečo `apt update` nemení installed package versions?
+3. Čo presne rieši dependency solver?
+4. Ako sa líši package dependency od runtime dependency?
+5. Prečo môže package downgrade zlyhať ako úplný rollback?
+6. Čo podpis repository metadata preukazuje a čo nepreukazuje?
+7. Prečo sa lock file nemá mazať naslepo?
+8. Ako by si overil, že package update skutočne zlepšil produkčný systém?
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
