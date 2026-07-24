@@ -563,15 +563,15 @@
     {
       "path": "docs/02-networking-and-web/dns.md",
       "title": "DNS",
-      "words": 1210,
-      "headings": 31,
-      "sections": 31,
-      "findings": 51,
-      "critical": 13,
-      "high": 26,
-      "medium": 7,
-      "low": 5,
-      "score": 391,
+      "words": 2895,
+      "headings": 50,
+      "sections": 50,
+      "findings": 112,
+      "critical": 30,
+      "high": 39,
+      "medium": 16,
+      "low": 27,
+      "score": 754,
       "grade": "D"
     },
     {
@@ -23627,368 +23627,8 @@
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
-      "section": "3. Hlavné komponenty",
-      "line": 37,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "Recursive resolver",
-      "line": 43,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "Zone",
-      "line": 51,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "4. Resolution flow",
-      "line": 55,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "5. Resource records",
-      "line": 77,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "5. Resource records",
-      "line": 77,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "5. Resource records",
-      "line": 77,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `A : IPv4 adresa,`, `AAAA : IPv6 adresa,`, `MX : mail exchanger,`, `SOA : základné zone metadata,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "5. Resource records",
-      "line": 77,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "5. Resource records",
-      "line": 77,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "5. Resource records",
-      "line": 77,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `CNAME`, `MX`, `NS`, `SOA`, `TXT`, `SRV`, `PTR`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "6. CNAME a aliasing",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "6. CNAME a aliasing",
-      "line": 99,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CNAME node typicky nemá zároveň iné bežné records,`, `dlhé CNAME chains zvyšujú latency a failure surface.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "6. CNAME a aliasing",
-      "line": 99,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "6. CNAME a aliasing",
-      "line": 99,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALIAS`, `ANAME`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "7. TTL a caching",
-      "line": 115,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "7. TTL a caching",
-      "line": 115,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "10. UDP, TCP a transport",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `truncated odpovedi,`, `zone transfers,`, `väčších odpovediach,`, `explicitnej policy.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "10. UDP, TCP a transport",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "11. DNSSEC",
-      "line": 167,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNSKEY ,`, `DS ,`, `RRSIG ,`, `NSEC alebo NSEC3 .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "11. DNSSEC",
-      "line": 167,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "11. DNSSEC",
-      "line": 167,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "11. DNSSEC",
-      "line": 167,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNSKEY`, `RRSIG`, `NSEC`, `NSEC3`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "12. Split-horizon DNS",
-      "line": 182,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "12. Split-horizon DNS",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "12. Split-horizon DNS",
-      "line": 182,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interné a externé endpointy,`, `private cloud zones,`, `geografické alebo policy-based odpovede.`, `nejednotný troubleshooting,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "12. Split-horizon DNS",
-      "line": 182,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "12. Split-horizon DNS",
-      "line": 182,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "15. Load balancing cez DNS",
-      "line": 255,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `geo routing,`, `weighted odpovede,`, `failover,`, `multi-region entry points.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "15. Load balancing cez DNS",
-      "line": 255,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "18. Typické response codes",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "18. Typické response codes",
-      "line": 295,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "18. Typické response codes",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "18. Typické response codes",
-      "line": 295,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `NXDOMAIN : meno neexistuje,`, `REFUSED : server query odmietol,`, `FORMERR : neplatná query.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "18. Typické response codes",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "18. Typické response codes",
-      "line": 295,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SERVFAIL`, `REFUSED`, `FORMERR`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukuj problém rovnakou cestou ako aplikácia,`, `zisti použitý resolver,`, `odlíš timeout, NXDOMAIN , SERVFAIL a prázdnu odpoveď,`, `over search suffix a absolute meno,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
+      "section": "1. DNS nie je iba preklad mena na IP",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23996,26 +23636,260 @@
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
-      "section": "19. Diagnostický postup",
-      "line": 305,
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NXDOMAIN`, `SERVFAIL`, `TTL`, `UDP`, `TCP`, `DNSSEC`, `delegation`",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
-      "section": "20. Časté omyly",
-      "line": 331,
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
-      "section": "„DNS funguje, lebo ping našiel IP“",
-      "line": 333,
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "4. Hlavné komponenty resolution pathu",
+      "line": 52,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `TLD`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "7. Referral a delegation",
+      "line": 96,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "9. Resource record model",
+      "line": 120,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "9. Resource record model",
+      "line": 120,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "9. Resource record model",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "9. Resource record model",
+      "line": 120,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "9. Resource record model",
+      "line": 120,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNAME`, `SOA`, `MX`, `TXT`, `SRV`, `PTR`, `CAA`, `HTTPS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "10. Answer, authority a additional sections",
+      "line": 138,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "10. Answer, authority a additional sections",
+      "line": 138,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "12. CNAME resolution",
+      "line": 162,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "12. CNAME resolution",
+      "line": 162,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CNAME node typicky nemá súčasne iné bežné records.`, `CNAME nemení HTTP URL ani neposiela redirect browseru.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "12. CNAME resolution",
+      "line": 162,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "12. CNAME resolution",
+      "line": 162,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "12. CNAME resolution",
+      "line": 162,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "12. CNAME resolution",
+      "line": 162,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALIAS`, `ANAME`, `HTTP`, `URL`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "14. TTL a cache lifetime",
+      "line": 191,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "14. TTL a cache lifetime",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "14. TTL a cache lifetime",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "15. Prečo zníženie TTL nefunguje spätne",
+      "line": 206,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "15. Prečo zníženie TTL nefunguje spätne",
+      "line": 206,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zníž TTL dostatočne vopred.`, `Zmeň record data.`, `Sleduj obe staré aj nové destinations počas prechodu.`, `Po stabilizácii TTL znovu zvýš.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "15. Prečo zníženie TTL nefunguje spätne",
+      "line": 206,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "18. Response codes",
+      "line": 245,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -24023,12 +23897,687 @@
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
-      "section": "„Nízky TTL znamená okamžitú zmenu“",
-      "line": 341,
+      "section": "18. Response codes",
+      "line": 245,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "18. Response codes",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "18. Response codes",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "18. Response codes",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "18. Response codes",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "18. Response codes",
+      "line": 245,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NOERROR`, `NXDOMAIN`, `SERVFAIL`, `DNSSEC`, `REFUSED`, `FORMERR`, `NOTIMP`, `delegation`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "19. UDP transport",
+      "line": 256,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "19. UDP transport",
+      "line": 256,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bez TCP handshakeu,`, `malý per-query transportný overhead,`, `jednoduchý request/response model.`, `loss a retries,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "19. UDP transport",
+      "line": 256,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "19. UDP transport",
+      "line": 256,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "19. UDP transport",
+      "line": 256,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "22. DNS over TLS a DNS over HTTPS",
+      "line": 291,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `observation points,`, `firewall a proxy policy,`, `resolver selection,`, `enterprise split-DNS integráciu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "22. DNS over TLS a DNS over HTTPS",
+      "line": 291,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "22. DNS over TLS a DNS over HTTPS",
+      "line": 291,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "27. Split-horizon DNS",
+      "line": 366,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "27. Split-horizon DNS",
+      "line": 366,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "27. Split-horizon DNS",
+      "line": 366,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private endpoints,`, `interné service names,`, `region alebo geography steering,`, `odlišné security boundaries.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "27. Split-horizon DNS",
+      "line": 366,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "27. Split-horizon DNS",
+      "line": 366,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "27. Split-horizon DNS",
+      "line": 366,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `IP`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "30. Lame delegation",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "30. Lame delegation",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `niektoré resolvery fungujú z cache,`, `cold queries timeoutujú,`, `odpovede závisia od vybraného NS,`, `SERVFAIL sa objavuje prerušovane.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "30. Lame delegation",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "30. Lame delegation",
+      "line": 419,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NS`, `SERVFAIL`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "31. DNSSEC chain of trust",
+      "line": 432,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "31. DNSSEC chain of trust",
+      "line": 432,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `RRSIG — podpis record setu.`, `NSEC/NSEC3 — kryptografický dôkaz neexistencie.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "31. DNSSEC chain of trust",
+      "line": 432,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "31. DNSSEC chain of trust",
+      "line": 432,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNSKEY`, `DS`, `RRSIG`, `NSEC`, `NSEC3`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "32. DNSSEC failure semantics",
+      "line": 455,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DS v parent zone nezodpovedá aktívnemu child key,`, `podpis expiroval,`, `clock skew,`, `key rotation nebola dokončená,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "32. DNSSEC failure semantics",
+      "line": 455,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "32. DNSSEC failure semantics",
+      "line": 455,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "32. DNSSEC failure semantics",
+      "line": 455,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`, `TCP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "33. Reverse DNS",
+      "line": 469,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "34. DNS-based traffic steering",
+      "line": 481,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "34. DNS-based traffic steering",
+      "line": 481,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient môže record cacheovať dlhšie než očakávaš,`, `existujúce connections DNS zmena nepresunie,`, `resolver locality nemusí zodpovedať client locality,`, `failover je viazaný na TTL a client behavior,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "34. DNS-based traffic steering",
+      "line": 481,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "34. DNS-based traffic steering",
+      "line": 481,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "34. DNS-based traffic steering",
+      "line": 481,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "34. DNS-based traffic steering",
+      "line": 481,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "35. Application DNS cache",
+      "line": 500,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "35. Application DNS cache",
+      "line": 500,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "35. Application DNS cache",
+      "line": 500,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "35. Application DNS cache",
+      "line": 500,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `DNS`, `JVM`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "36. Diagnostické nástroje a ich observation point",
+      "line": 513,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "36. Diagnostické nástroje a ich observation point",
+      "line": 513,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "36. Diagnostické nástroje a ich observation point",
+      "line": 513,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "36. Diagnostické nástroje a ich observation point",
+      "line": 513,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "36. Diagnostické nástroje a ich observation point",
+      "line": 513,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`, `DNS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over absolute meno a search-domain expansion.`, `Porovnaj A a AAAA queries.`, `Query pošli priamo nakonfigurovanému recursive resolveru.`, `Skontroluj TTL, positive a negative cache.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "37. Diagnostický postup: aplikácia nevyrieši meno",
+      "line": 532,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `NSS`, `NXDOMAIN`, `NODATA`, `SERVFAIL`, `REFUSED`, `AAAA`, `TTL`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zisti, ktorý resolver používa každý klient.`, `Porovnaj source network, VPN a split-horizon view.`, `Zaznamenaj record set a zostávajúci TTL.`, `Skontroluj application a browser cache.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "38. Diagnostický postup: odpoveď sa líši medzi klientmi",
+      "line": 547,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `TTL`, `AAAA`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú",
+      "line": 558,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú",
+      "line": 558,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú",
+      "line": 558,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú",
+      "line": 558,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over EDNS payload a fragmentation,`, `skontroluj firewall pre TCP/53,`, `pozri Path MTU a ICMP policy,`, `zachyť query aj response,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú",
+      "line": 558,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú",
+      "line": 558,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EDNS`, `TCP`, `MTU`, `ICMP`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "40. Bezpečnostné hranice",
+      "line": 575,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "40. Bezpečnostné hranice",
+      "line": 575,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "40. Bezpečnostné hranice",
+      "line": 575,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "40. Bezpečnostné hranice",
+      "line": 575,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "40. Bezpečnostné hranice",
+      "line": 575,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `SSH`, `DNSSEC`, `API`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "41. Časté omyly",
+      "line": 587,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",

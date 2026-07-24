@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10708**
-- Total words: **484,231**
-- Findings: **23572** (critical 8046, high 9158, medium 3116, low 3252)
+- Audited conceptual sections: **10727**
+- Total words: **485,916**
+- Findings: **23633** (critical 8063, high 9171, medium 3125, low 3274)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -123,6 +123,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 762 | 32 | 43 | 11 | 3 | 1302 | `docs/02-networking-and-web/load-balancing.md` |
 | D | 761 | 41 | 29 | 11 | 5 | 1364 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
 | D | 756 | 23 | 56 | 11 | 1 | 1475 | `docs/09-kubernetes/rbac.md` |
+| D | 754 | 30 | 39 | 16 | 27 | 2895 | `docs/02-networking-and-web/dns.md` |
 | D | 754 | 38 | 30 | 15 | 9 | 1354 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | D | 748 | 36 | 36 | 10 | 4 | 1078 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 747 | 34 | 40 | 7 | 4 | 1104 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
@@ -224,7 +225,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
-| D | 391 | 13 | 26 | 7 | 5 | 1210 | `docs/02-networking-and-web/dns.md` |
 | D | 388 | 12 | 30 | 3 | 0 | 1027 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
@@ -1151,43 +1151,73 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 37, `empty-section` — **3. Hlavné komponenty**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 77, `outline-instead-of-explanation` — **5. Resource records**: 10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 152, `bare-bullet-items` — **10. UDP, TCP a transport**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `truncated odpovedi,`, `zone transfers,`, `väčších odpovediach,`, `explicitnej policy.`.
-- **CRITICAL** line 167, `bare-bullet-items` — **11. DNSSEC**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNSKEY ,`, `DS ,`, `RRSIG ,`, `NSEC alebo NSEC3 .`.
-- **CRITICAL** line 182, `bare-bullet-items` — **12. Split-horizon DNS**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interné a externé endpointy,`, `private cloud zones,`, `geografické alebo policy-based odpovede.`, `nejednotný troubleshooting,`.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **12. Split-horizon DNS**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `bare-bullet-items` — **15. Load balancing cez DNS**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `geo routing,`, `weighted odpovede,`, `failover,`, `multi-region entry points.`.
-- **CRITICAL** line 295, `outline-instead-of-explanation` — **18. Typické response codes**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 305, `bare-bullet-items` — **19. Diagnostický postup**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukuj problém rovnakou cestou ako aplikácia,`, `zisti použitý resolver,`, `odlíš timeout, NXDOMAIN , SERVFAIL a prázdnu odpoveď,`, `over search suffix a absolute meno,`.
-- **CRITICAL** line 305, `outline-instead-of-explanation` — **19. Diagnostický postup**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 331, `empty-section` — **20. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 52, `outline-instead-of-explanation` — **4. Hlavné komponenty resolution pathu**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 120, `outline-instead-of-explanation` — **9. Resource record model**: 11 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 162, `outline-instead-of-explanation` — **12. CNAME resolution**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 206, `bare-bullet-items` — **15. Prečo zníženie TTL nefunguje spätne**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zníž TTL dostatočne vopred.`, `Zmeň record data.`, `Sleduj obe staré aj nové destinations počas prechodu.`, `Po stabilizácii TTL znovu zvýš.`.
+- **CRITICAL** line 206, `outline-instead-of-explanation` — **15. Prečo zníženie TTL nefunguje spätne**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **18. Response codes**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 256, `bare-bullet-items` — **19. UDP transport**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bez TCP handshakeu,`, `malý per-query transportný overhead,`, `jednoduchý request/response model.`, `loss a retries,`.
+- **CRITICAL** line 291, `bare-bullet-items` — **22. DNS over TLS a DNS over HTTPS**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `observation points,`, `firewall a proxy policy,`, `resolver selection,`, `enterprise split-DNS integráciu,`.
+- **CRITICAL** line 366, `bare-bullet-items` — **27. Split-horizon DNS**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private endpoints,`, `interné service names,`, `region alebo geography steering,`, `odlišné security boundaries.`.
+- **CRITICAL** line 366, `outline-instead-of-explanation` — **27. Split-horizon DNS**: 9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 419, `bare-bullet-items` — **30. Lame delegation**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `niektoré resolvery fungujú z cache,`, `cold queries timeoutujú,`, `odpovede závisia od vybraného NS,`, `SERVFAIL sa objavuje prerušovane.`.
+- **CRITICAL** line 419, `outline-instead-of-explanation` — **30. Lame delegation**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 432, `outline-instead-of-explanation` — **31. DNSSEC chain of trust**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 455, `bare-bullet-items` — **32. DNSSEC failure semantics**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DS v parent zone nezodpovedá aktívnemu child key,`, `podpis expiroval,`, `clock skew,`, `key rotation nebola dokončená,`.
+- **CRITICAL** line 481, `bare-bullet-items` — **34. DNS-based traffic steering**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient môže record cacheovať dlhšie než očakávaš,`, `existujúce connections DNS zmena nepresunie,`, `resolver locality nemusí zodpovedať client locality,`, `failover je viazaný na TTL a client behavior,`.
+- **CRITICAL** line 481, `outline-instead-of-explanation` — **34. DNS-based traffic steering**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 500, `outline-instead-of-explanation` — **35. Application DNS cache**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 513, `no-prose-concept` — **36. Diagnostické nástroje a ich observation point**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 513, `outline-instead-of-explanation` — **36. Diagnostické nástroje a ich observation point**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 532, `no-prose-concept` — **37. Diagnostický postup: aplikácia nevyrieši meno**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 532, `outline-instead-of-explanation` — **37. Diagnostický postup: aplikácia nevyrieši meno**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 547, `bare-bullet-items` — **38. Diagnostický postup: odpoveď sa líši medzi klientmi**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zisti, ktorý resolver používa každý klient.`, `Porovnaj source network, VPN a split-horizon view.`, `Zaznamenaj record set a zostávajúci TTL.`, `Skontroluj application a browser cache.`.
+- **CRITICAL** line 547, `no-prose-concept` — **38. Diagnostický postup: odpoveď sa líši medzi klientmi**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 547, `outline-instead-of-explanation` — **38. Diagnostický postup: odpoveď sa líši medzi klientmi**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 558, `bare-bullet-items` — **39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over EDNS payload a fragmentation,`, `skontroluj firewall pre TCP/53,`, `pozri Path MTU a ICMP policy,`, `zachyť query aj response,`.
+- **CRITICAL** line 558, `outline-instead-of-explanation` — **39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 575, `outline-instead-of-explanation` — **40. Bezpečnostné hranice**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 587, `empty-section` — **41. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 43, `single-sentence-concept` — **Recursive resolver**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 51, `single-sentence-concept` — **Zone**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 55, `single-sentence-concept` — **4. Resolution flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 77, `bare-bullet-items` — **5. Resource records**: 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `A : IPv4 adresa,`, `AAAA : IPv6 adresa,`, `MX : mail exchanger,`, `SOA : základné zone metadata,`.
-- **HIGH** line 77, `single-sentence-concept` — **5. Resource records**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 99, `bare-bullet-items` — **6. CNAME a aliasing**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CNAME node typicky nemá zároveň iné bežné records,`, `dlhé CNAME chains zvyšujú latency a failure surface.`.
-- **HIGH** line 99, `single-sentence-concept` — **6. CNAME a aliasing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 182, `single-sentence-concept` — **12. Split-horizon DNS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 295, `bare-bullet-items` — **18. Typické response codes**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `NXDOMAIN : meno neexistuje,`, `REFUSED : server query odmietol,`, `FORMERR : neplatná query.`.
-- **HIGH** line 295, `list-first-introduction` — **18. Typické response codes**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 295, `single-sentence-concept` — **18. Typické response codes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `single-sentence-concept` — **19. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 333, `single-sentence-concept` — **„DNS funguje, lebo ping našiel IP“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 341, `single-sentence-concept` — **„Nízky TTL znamená okamžitú zmenu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 52, `list-first-introduction` — **4. Hlavné komponenty resolution pathu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 52, `single-sentence-concept` — **4. Hlavné komponenty resolution pathu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 162, `bare-bullet-items` — **12. CNAME resolution**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CNAME node typicky nemá súčasne iné bežné records.`, `CNAME nemení HTTP URL ani neposiela redirect browseru.`.
+- **HIGH** line 245, `list-first-introduction` — **18. Response codes**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 245, `single-sentence-concept` — **18. Response codes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 256, `list-heavy-section` — **19. UDP transport**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 366, `single-sentence-concept` — **27. Split-horizon DNS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 432, `bare-bullet-items` — **31. DNSSEC chain of trust**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `RRSIG — podpis record setu.`, `NSEC/NSEC3 — kryptografický dôkaz neexistencie.`.
+- **HIGH** line 513, `list-first-introduction` — **36. Diagnostické nástroje a ich observation point**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 532, `bare-bullet-items` — **37. Diagnostický postup: aplikácia nevyrieši meno**: 8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over absolute meno a search-domain expansion.`, `Porovnaj A a AAAA queries.`, `Query pošli priamo nakonfigurovanému recursive resolveru.`, `Skontroluj TTL, positive a negative cache.`.
+- **HIGH** line 532, `list-first-introduction` — **37. Diagnostický postup: aplikácia nevyrieši meno**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 547, `list-first-introduction` — **38. Diagnostický postup: odpoveď sa líši medzi klientmi**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 558, `list-first-introduction` — **39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 558, `single-sentence-concept` — **39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `TCP`, `UDP`, `DHCP`, `HTTP`, `TLS`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 77, `term-before-explanation` — **5. Resource records**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAAA`, `CNAME`, `MX`, `NS`, `SOA`, `TXT`, `SRV`, `PTR`
-- **HIGH** line 77, `thin-concept-section` — **5. Resource records**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 99, `thin-concept-section` — **6. CNAME a aliasing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 167, `term-before-explanation` — **11. DNSSEC**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNSKEY`, `RRSIG`, `NSEC`, `NSEC3`
-- **HIGH** line 182, `thin-concept-section` — **12. Split-horizon DNS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 295, `thin-concept-section` — **18. Typické response codes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 305, `term-before-explanation` — **19. Diagnostický postup**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NXDOMAIN`, `SERVFAIL`, `TTL`, `UDP`, `TCP`, `DNSSEC`, `delegation`
-- **HIGH** line 305, `thin-concept-section` — **19. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 52, `thin-concept-section` — **4. Hlavné komponenty resolution pathu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 120, `term-before-explanation` — **9. Resource record model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNAME`, `SOA`, `MX`, `TXT`, `SRV`, `PTR`, `CAA`, `HTTPS`
+- **HIGH** line 162, `term-before-explanation` — **12. CNAME resolution**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALIAS`, `ANAME`, `HTTP`, `URL`
+- **HIGH** line 206, `thin-concept-section` — **15. Prečo zníženie TTL nefunguje spätne**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `term-before-explanation` — **18. Response codes**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NOERROR`, `NXDOMAIN`, `SERVFAIL`, `DNSSEC`, `REFUSED`, `FORMERR`, `NOTIMP`, `delegation`
+- **HIGH** line 245, `thin-concept-section` — **18. Response codes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 366, `thin-concept-section` — **27. Split-horizon DNS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 419, `thin-concept-section` — **30. Lame delegation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 432, `term-before-explanation` — **31. DNSSEC chain of trust**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNSKEY`, `DS`, `RRSIG`, `NSEC`, `NSEC3`
+- **HIGH** line 432, `thin-concept-section` — **31. DNSSEC chain of trust**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 481, `thin-concept-section` — **34. DNS-based traffic steering**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 500, `term-before-explanation` — **35. Application DNS cache**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `DNS`, `JVM`, `policy`
+- **HIGH** line 513, `thin-concept-section` — **36. Diagnostické nástroje a ich observation point**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 532, `term-before-explanation` — **37. Diagnostický postup: aplikácia nevyrieši meno**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `NSS`, `NXDOMAIN`, `NODATA`, `SERVFAIL`, `REFUSED`, `AAAA`, `TTL`
+- **HIGH** line 532, `thin-concept-section` — **37. Diagnostický postup: aplikácia nevyrieši meno**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 547, `term-before-explanation` — **38. Diagnostický postup: odpoveď sa líši medzi klientmi**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `TTL`, `AAAA`, `policy`
+- **HIGH** line 547, `thin-concept-section` — **38. Diagnostický postup: odpoveď sa líši medzi klientmi**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 558, `term-before-explanation` — **39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EDNS`, `TCP`, `MTU`, `ICMP`, `policy`
+- **HIGH** line 558, `thin-concept-section` — **39. Diagnostický postup: iba niektoré DNS odpovede timeoutujú**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 575, `term-before-explanation` — **40. Bezpečnostné hranice**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `SSH`, `DNSSEC`, `API`, `identity`
+- **HIGH** line 575, `thin-concept-section` — **40. Bezpečnostné hranice**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/ethernet-mac-arp.md`
 
@@ -18254,19 +18284,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4031 | 0 | 0 | 4031 |
-| `bare-bullet-items` | 3675 | 327 | 0 | 0 | 4002 |
-| `outline-instead-of-explanation` | 3605 | 0 | 0 | 0 | 3605 |
-| `thin-concept-section` | 0 | 3291 | 0 | 0 | 3291 |
-| `term-before-explanation` | 0 | 366 | 2233 | 0 | 2599 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1371 | 1371 |
-| `example-not-explicit` | 0 | 0 | 0 | 1241 | 1241 |
-| `list-first-introduction` | 0 | 901 | 0 | 0 | 901 |
-| `short-concept-section` | 0 | 0 | 883 | 0 | 883 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 640 | 640 |
-| `empty-section` | 471 | 0 | 0 | 0 | 471 |
-| `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
-| `list-heavy-section` | 0 | 242 | 0 | 0 | 242 |
+| `single-sentence-concept` | 0 | 4025 | 0 | 0 | 4025 |
+| `bare-bullet-items` | 3679 | 327 | 0 | 0 | 4006 |
+| `outline-instead-of-explanation` | 3616 | 0 | 0 | 0 | 3616 |
+| `thin-concept-section` | 0 | 3298 | 0 | 0 | 3298 |
+| `term-before-explanation` | 0 | 372 | 2237 | 0 | 2609 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1381 | 1381 |
+| `example-not-explicit` | 0 | 0 | 0 | 1250 | 1250 |
+| `list-first-introduction` | 0 | 906 | 0 | 0 | 906 |
+| `short-concept-section` | 0 | 0 | 888 | 0 | 888 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 643 | 643 |
+| `empty-section` | 470 | 0 | 0 | 0 | 470 |
+| `no-prose-concept` | 298 | 0 | 0 | 0 | 298 |
+| `list-heavy-section` | 0 | 243 | 0 | 0 | 243 |
 
 ## Required remediation pattern
 
