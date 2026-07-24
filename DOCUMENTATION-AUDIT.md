@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10595**
-- Total words: **460,808**
-- Findings: **23377** (critical 8169, high 9263, medium 3102, low 2843)
+- Audited conceptual sections: **10603**
+- Total words: **462,074**
+- Findings: **23380** (critical 8153, high 9259, medium 3099, low 2869)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -227,7 +227,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
-| D | 392 | 20 | 15 | 9 | 2 | 1159 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 391 | 13 | 26 | 7 | 5 | 1210 | `docs/02-networking-and-web/dns.md` |
 | D | 388 | 12 | 30 | 3 | 0 | 1027 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
@@ -253,6 +252,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 209 | 7 | 6 | 12 | 27 | 3036 | `docs/00-foundations/feedback-loops.md` |
 | D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
+| D | 192 | 4 | 11 | 6 | 28 | 2425 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 192 | 6 | 8 | 5 | 28 | 3160 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
@@ -833,39 +833,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 39, `bare-bullet-items` — **3. Interfaces**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fyzický NIC,`, `loopback,`, `bridge,`, `VLAN,`.
-- **CRITICAL** line 39, `outline-instead-of-explanation` — **3. Interfaces**: 12 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 130, `bare-bullet-items` — **7. Sockets a ports**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-l listening,`, `-n bez name resolution,`, `-t TCP,`, `-u UDP,`.
-- **CRITICAL** line 130, `outline-instead-of-explanation` — **7. Sockets a ports**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 157, `bare-bullet-items` — **8. TCP state**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LISTEN ,`, `SYN-SENT ,`, `SYN-RECV ,`, `ESTAB ,`.
-- **CRITICAL** line 157, `outline-instead-of-explanation` — **8. TCP state**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 196, `bare-bullet-items` — **10. Network configuration managers**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NetworkManager,`, `systemd-networkd,`, `netplan ako generačná vrstva,`, `distribution-specific scripts,`.
-- **CRITICAL** line 196, `outline-instead-of-explanation` — **10. Network configuration managers**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 209, `bare-bullet-items` — **11. Netfilter a firewall**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direction a hook,`, `source/destination,`, `protocol a port,`, `connection tracking state,`.
-- **CRITICAL** line 274, `bare-bullet-items` — **14. MTU**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPN,`, `tunnels,`, `overlays,`, `cloud networking,`.
-- **CRITICAL** line 274, `outline-instead-of-explanation` — **14. MTU**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 293, `bare-bullet-items` — **15. Forwarding a NAT**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `forwarding route nestačí bez povoleného kernel forwarding,`, `firewall forward chain môže traffic blokovať,`, `return path musí byť routovateľná,`, `connection tracking drží state NAT mappingu.`.
-- **CRITICAL** line 293, `outline-instead-of-explanation` — **15. Forwarding a NAT**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 310, `bare-bullet-items` — **16. Network namespaces**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interfaces,`, `addresses,`, `routes,`, `neighbor table,`.
-- **CRITICAL** line 310, `outline-instead-of-explanation` — **16. Network namespaces**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **17. Diagnostický postup**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name resolution,`, `zvolená IP a address family,`, `route a source address,`, `local firewall,`.
-- **CRITICAL** line 330, `outline-instead-of-explanation` — **17. Diagnostický postup**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 354, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 341, `bare-bullet-items` — **23. Firewall nie je jediná policy vrstva**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination address po prípadnom NAT-e,`, `protocol a port,`, `direction,`, `namespace a interface,`.
+- **CRITICAL** line 381, `outline-instead-of-explanation` — **26. Diagnostika spojenia na databázu**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Packet path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 39, `single-sentence-concept` — **3. Interfaces**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 209, `list-heavy-section` — **11. Netfilter a firewall**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 232, `list-first-introduction` — **12. Packet capture**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 330, `single-sentence-concept` — **17. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 341, `list-heavy-section` — **23. Firewall nie je jediná policy vrstva**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 381, `single-sentence-concept` — **26. Diagnostika spojenia na databázu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `TCP`, `IP`, `DNS`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 39, `thin-concept-section` — **3. Interfaces**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 157, `term-before-explanation` — **8. TCP state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`, `SYN-SENT`, `SYN-RECV`, `ESTAB`, `FIN-WAIT-1`
-- **HIGH** line 232, `thin-concept-section` — **12. Packet capture**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 293, `thin-concept-section` — **15. Forwarding a NAT**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 310, `thin-concept-section` — **16. Network namespaces**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 330, `thin-concept-section` — **17. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 150, `term-before-explanation` — **10. TCP handshake**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN-SENT`, `SYN-RECV`, `ACK`, `ESTABLISHED`
+- **HIGH** line 233, `term-before-explanation` — **16. Netfilter hooks**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OUTPUT`, `PREROUTING`, `POSTROUTING`, `DNAT`, `SNAT`
+- **HIGH** line 308, `term-before-explanation` — **21. Packet capture**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `DNS`, `RST`, `TLS`, `policy`
+- **HIGH** line 381, `term-before-explanation` — **26. Diagnostika spojenia na databázu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`, `IP`, `SYN-SENT`, `OUTPUT`, `SYN`, `TCP`, `TLS`, `policy`
+- **HIGH** line 381, `thin-concept-section` — **26. Diagnostika spojenia na databázu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/namespaces.md`
 
@@ -18482,17 +18462,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4110 | 0 | 0 | 4110 |
-| `bare-bullet-items` | 3729 | 331 | 0 | 0 | 4060 |
-| `outline-instead-of-explanation` | 3649 | 0 | 0 | 0 | 3649 |
-| `thin-concept-section` | 0 | 3340 | 0 | 0 | 3340 |
-| `term-before-explanation` | 0 | 347 | 2230 | 0 | 2577 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1254 | 1254 |
-| `example-not-explicit` | 0 | 0 | 0 | 1077 | 1077 |
-| `list-first-introduction` | 0 | 921 | 0 | 0 | 921 |
-| `short-concept-section` | 0 | 0 | 872 | 0 | 872 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 512 | 512 |
-| `empty-section` | 498 | 0 | 0 | 0 | 498 |
+| `single-sentence-concept` | 0 | 4108 | 0 | 0 | 4108 |
+| `bare-bullet-items` | 3721 | 331 | 0 | 0 | 4052 |
+| `outline-instead-of-explanation` | 3642 | 0 | 0 | 0 | 3642 |
+| `thin-concept-section` | 0 | 3336 | 0 | 0 | 3336 |
+| `term-before-explanation` | 0 | 350 | 2228 | 0 | 2578 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1263 | 1263 |
+| `example-not-explicit` | 0 | 0 | 0 | 1087 | 1087 |
+| `list-first-introduction` | 0 | 920 | 0 | 0 | 920 |
+| `short-concept-section` | 0 | 0 | 871 | 0 | 871 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 519 | 519 |
+| `empty-section` | 497 | 0 | 0 | 0 | 497 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 214 | 0 | 0 | 214 |
 

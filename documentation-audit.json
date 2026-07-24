@@ -394,16 +394,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "title": "Linux Networking",
-      "words": 1159,
-      "headings": 25,
-      "sections": 25,
-      "findings": 46,
-      "critical": 20,
-      "high": 15,
-      "medium": 9,
-      "low": 2,
-      "score": 392,
+      "title": "Linux networking",
+      "words": 2425,
+      "headings": 33,
+      "sections": 33,
+      "findings": 49,
+      "critical": 4,
+      "high": 11,
+      "medium": 6,
+      "low": 28,
+      "score": 192,
       "grade": "D"
     },
     {
@@ -16022,89 +16022,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "2. Packet path",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "3. Interfaces",
-      "line": 39,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "3. Interfaces",
-      "line": 39,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "3. Interfaces",
-      "line": 39,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fyzický NIC,`, `loopback,`, `bridge,`, `VLAN,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "3. Interfaces",
-      "line": 39,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "3. Interfaces",
-      "line": 39,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NIC`, `VLAN`, `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "7. Sockets a ports",
-      "line": 130,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "7. Sockets a ports",
-      "line": 130,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-l listening,`, `-n bez name resolution,`, `-t TCP,`, `-u UDP,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "7. Sockets a ports",
-      "line": 130,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "7. Sockets a ports",
-      "line": 130,
+      "section": "2. Network namespace",
+      "line": 31,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16112,35 +16031,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "7. Sockets a ports",
-      "line": 130,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "8. TCP state",
-      "line": 157,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "8. TCP state",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LISTEN ,`, `SYN-SENT ,`, `SYN-RECV ,`, `ESTAB ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "8. TCP state",
-      "line": 157,
+      "section": "3. Interfaces",
+      "line": 43,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -16148,35 +16040,233 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "8. TCP state",
-      "line": 157,
+      "section": "3. Interfaces",
+      "line": 43,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "3. Interfaces",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "3. Interfaces",
+      "line": 43,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L1`, `L2`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "4. IP addresses a prefixes",
+      "line": 63,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "4. IP addresses a prefixes",
+      "line": 63,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "5. Loopback a wildcard bind",
+      "line": 80,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "6. Routing decision",
+      "line": 92,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "6. Routing decision",
+      "line": 92,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `NDP`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "9. Sockets",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "10. TCP handshake",
+      "line": 150,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "10. TCP handshake",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "10. TCP handshake",
+      "line": 150,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`, `SYN-SENT`, `SYN-RECV`, `ESTAB`, `FIN-WAIT-1`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN-SENT`, `SYN-RECV`, `ACK`, `ESTABLISHED`",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "10. Network configuration managers",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "11. TCP close states",
+      "line": 166,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "10. Network configuration managers",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NetworkManager,`, `systemd-networkd,`, `netplan ako generačná vrstva,`, `distribution-specific scripts,`.",
-      "score": 12
+      "section": "13. DNS a NSS",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "10. Network configuration managers",
-      "line": 196,
+      "section": "13. DNS a NSS",
+      "line": 190,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "15. Persistent network configuration",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "16. Netfilter hooks",
+      "line": 233,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "16. Netfilter hooks",
+      "line": 233,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "16. Netfilter hooks",
+      "line": 233,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "16. Netfilter hooks",
+      "line": 233,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OUTPUT`, `PREROUTING`, `POSTROUTING`, `DNAT`, `SNAT`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "17. Connection tracking",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "18. NAT",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "19. IP forwarding",
+      "line": 281,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "20. MTU a Path MTU Discovery",
+      "line": 294,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "20. MTU a Path MTU Discovery",
+      "line": 294,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "21. Packet capture",
+      "line": 308,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -16184,152 +16274,80 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "11. Netfilter a firewall",
-      "line": 209,
+      "section": "21. Packet capture",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "21. Packet capture",
+      "line": 308,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "21. Packet capture",
+      "line": 308,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "21. Packet capture",
+      "line": 308,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `DNS`, `RST`, `TLS`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "22. ICMP, ping a path tools",
+      "line": 326,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "23. Firewall nie je jediná policy vrstva",
+      "line": 341,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "11. Netfilter a firewall",
-      "line": 209,
+      "section": "23. Firewall nie je jediná policy vrstva",
+      "line": 341,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direction a hook,`, `source/destination,`, `protocol a port,`, `connection tracking state,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination address po prípadnom NAT-e,`, `protocol a port,`, `direction,`, `namespace a interface,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "12. Packet capture",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "12. Packet capture",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "12. Packet capture",
-      "line": 232,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "12. Packet capture",
-      "line": 232,
+      "section": "23. Firewall nie je jediná policy vrstva",
+      "line": 341,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `RST`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT-`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "14. MTU",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "14. MTU",
-      "line": 274,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPN,`, `tunnels,`, `overlays,`, `cloud networking,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "14. MTU",
-      "line": 274,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "14. MTU",
-      "line": 274,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "15. Forwarding a NAT",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "15. Forwarding a NAT",
-      "line": 293,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `forwarding route nestačí bez povoleného kernel forwarding,`, `firewall forward chain môže traffic blokovať,`, `return path musí byť routovateľná,`, `connection tracking drží state NAT mappingu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "15. Forwarding a NAT",
-      "line": 293,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "16. Network namespaces",
-      "line": 310,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "16. Network namespaces",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interfaces,`, `addresses,`, `routes,`, `neighbor table,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "16. Network namespaces",
-      "line": 310,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "17. Diagnostický postup",
-      "line": 330,
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -16337,26 +16355,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "17. Diagnostický postup",
-      "line": 330,
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "17. Diagnostický postup",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name resolution,`, `zvolená IP a address family,`, `route a source address,`, `local firewall,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "17. Diagnostický postup",
-      "line": 330,
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -16364,21 +16373,39 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "17. Diagnostický postup",
-      "line": 330,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `TLS`",
-      "score": 4
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",
-      "section": "18. Časté omyly",
-      "line": 354,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-networking.md",
+      "section": "26. Diagnostika spojenia na databázu",
+      "line": 381,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`, `IP`, `SYN-SENT`, `OUTPUT`, `SYN`, `TCP`, `TLS`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/namespaces.md",
