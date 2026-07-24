@@ -955,15 +955,15 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "title": "YAML, JSON a regular expressions",
-      "words": 1999,
-      "headings": 58,
-      "sections": 58,
-      "findings": 78,
-      "critical": 28,
-      "high": 44,
-      "medium": 4,
-      "low": 2,
-      "score": 696,
+      "words": 3731,
+      "headings": 76,
+      "sections": 76,
+      "findings": 179,
+      "critical": 72,
+      "high": 69,
+      "medium": 20,
+      "low": 18,
+      "score": 1492,
       "grade": "D"
     },
     {
@@ -58412,8 +58412,8 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "1. Základný princíp",
-      "line": 5,
+      "section": "2. Parser nie je validator",
+      "line": 41,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58421,62 +58421,26 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "2. JSON data model",
-      "line": 17,
+      "section": "3. JSON data model",
+      "line": 71,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "2. JSON data model",
-      "line": 17,
-      "severity": "critical",
+      "section": "3. JSON data model",
+      "line": 71,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object,`, `array,`, `string,`, `number,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "2. JSON data model",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "3. JSON syntax",
-      "line": 42,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `array — usporiadaná sekvencia hodnôt,`, `boolean — true alebo false ,`, `null — explicitná nulová hodnota.`.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "3. JSON syntax",
-      "line": 42,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "3. JSON syntax",
-      "line": 42,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `double quotes pre keys a strings,`, `žiadne trailing commas,`, `žiadne comments,`, `presné lowercase literals true , false , null .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "3. JSON syntax",
-      "line": 42,
+      "section": "3. JSON data model",
+      "line": 71,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58484,26 +58448,8 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "4. JSON numbers",
-      "line": 60,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strata presnosti veľkých integerov v JavaScript-like prostredí,`, `decimal rounding,`, `timestamps uložené ako nejasné číslo,`, `IDs nesprávne reprezentované numericky.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "4. JSON numbers",
-      "line": 60,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "4. JSON numbers",
-      "line": 60,
+      "section": "3. JSON data model",
+      "line": 71,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -58511,44 +58457,62 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "5. JSON null, absent a empty",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. JSON data model",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "7. JSON parsing a serialization",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "8. Canonicalization a diff",
-      "line": 127,
+      "section": "4. JSON syntax",
+      "line": 94,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "8. Canonicalization a diff",
-      "line": 127,
+      "section": "4. JSON syntax",
+      "line": 94,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indentation,`, `newline policy,`, `key ordering, ak to organizácia vedome používa,`, `number representation,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `double quotes pre strings a object keys,`, `presné literals true , false , null ,`, `žiadne comments,`, `žiadne trailing commas,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "8. Canonicalization a diff",
-      "line": 127,
+      "section": "4. JSON syntax",
+      "line": 94,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "5. JSON encoding a Unicode",
+      "line": 116,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "5. JSON encoding a Unicode",
+      "line": 116,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neplatné UTF-8 bytes,`, `neočakávaný BOM,`, `rozdielne Unicode normalization forms,`, `escaped surrogate pairs,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "5. JSON encoding a Unicode",
+      "line": 116,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -58556,8 +58520,161 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "8. Canonicalization a diff",
-      "line": 127,
+      "section": "5. JSON encoding a Unicode",
+      "line": 116,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BOM`, `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "6. JSON numbers",
+      "line": 131,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "6. JSON numbers",
+      "line": 131,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "6. JSON numbers",
+      "line": 131,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "6. JSON numbers",
+      "line": 131,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IEEE-754`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "7. Absent, null a empty hodnoty",
+      "line": 145,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "7. Absent, null a empty hodnoty",
+      "line": 145,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "7. Absent, null a empty hodnoty",
+      "line": 145,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či absent field aktivuje default,`, `či null znamená odstrániť, zdediť alebo neznámu hodnotu,`, `či empty collection je validná,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "7. Absent, null a empty hodnoty",
+      "line": 145,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "8. Duplicate JSON object keys",
+      "line": 176,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ponechať poslednú hodnotu,`, `ponechať prvú hodnotu,`, `zachovať všetky páry v špeciálnej štruktúre,`, `zlyhať.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "10. JSON serialization",
+      "line": 224,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "10. JSON serialization",
+      "line": 224,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encoding,`, `newline na konci súboru,`, `indentation,`, `key ordering, ak sa používa,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "10. JSON serialization",
+      "line": 224,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "10. JSON serialization",
+      "line": 224,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "11. Deterministic serialization verzus canonicalization",
+      "line": 256,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "11. Deterministic serialization verzus canonicalization",
+      "line": 256,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `property ordering,`, `number normalization,`, `Unicode escaping,`, `whitespace,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "11. Deterministic serialization verzus canonicalization",
+      "line": 256,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "11. Deterministic serialization verzus canonicalization",
+      "line": 256,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -58565,62 +58682,35 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "13. Quoting v YAML",
-      "line": 208,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "12. JSON Schema",
+      "line": 276,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "14. Multiline strings",
-      "line": 230,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "12. JSON Schema",
+      "line": 276,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či service existuje,`, `či je port dostupný,`, `či má používateľ oprávnenie,`, `či capacity stačí,`.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "15. Anchors, aliases a merge keys",
-      "line": 252,
+      "section": "12. JSON Schema",
+      "line": 276,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "17. YAML nie je templating language",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "18. YAML duplicate keys",
-      "line": 307,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "20. JSON vs. YAML",
-      "line": 335,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "20. JSON vs. YAML",
-      "line": 335,
+      "section": "12. JSON Schema",
+      "line": 276,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -58628,44 +58718,26 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "21. Configuration precedence",
-      "line": 349,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "22. Schema evolution",
-      "line": 362,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "22. Schema evolution",
-      "line": 362,
+      "section": "13. Unknown fields a compatibility",
+      "line": 311,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "22. Schema evolution",
-      "line": 362,
+      "section": "13. Unknown fields a compatibility",
+      "line": 311,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward compatibility,`, `unknown fields,`, `defaults,`, `deprecated fields,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré objekty sú strict,`, `ktoré tolerujú unknown fields,`, `či sa unknown fields zachovajú pri read-modify-write,`, `ako sa označujú deprecated fields,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "22. Schema evolution",
-      "line": 362,
+      "section": "13. Unknown fields a compatibility",
+      "line": 311,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58673,8 +58745,107 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "24. Základné prvky regexu",
-      "line": 388,
+      "section": "13. Unknown fields a compatibility",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "14. YAML data model",
+      "line": 325,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `mapping — key/value kolekcia,`, `sequence — usporiadaný zoznam,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "14. YAML data model",
+      "line": 325,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "15. YAML stream a documents",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "15. YAML stream a documents",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "15. YAML stream a documents",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presne jeden dokument,`, `zero alebo jeden,`, `viac dokumentov,`, `stream spracovaný postupne.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "15. YAML stream a documents",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "16. YAML 1.1 a YAML 1.2",
+      "line": 365,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "18. Block scalars",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "18. Block scalars",
+      "line": 411,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `- — odstráni trailing newline,`, `— ponechá jeden trailing newline,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "18. Block scalars",
+      "line": 411,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "19. Anchors a aliases",
+      "line": 439,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -58682,17 +58853,116 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "26. Capturing groups",
-      "line": 422,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "19. Anchors a aliases",
+      "line": 439,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "30. Escaping vrstvy",
+      "section": "19. Anchors a aliases",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znížená lokálna čitateľnosť,`, `zložité override semantics,`, `tooling bez plnej podpory,`, `prekvapenie pri mutation parsed objectu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "19. Anchors a aliases",
+      "line": 439,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "20. Merge key portability",
+      "line": 461,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "20. Merge key portability",
+      "line": 461,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser implementation,`, `platform schema pipeline,`, `duplicate/override precedence,`, `serializer round-trip behavior.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "20. Merge key portability",
+      "line": 461,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "21. Alias expansion a resource exhaustion",
       "line": 474,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "21. Alias expansion a resource exhaustion",
+      "line": 474,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input bytes,`, `document count,`, `nesting depth,`, `alias count,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "21. Alias expansion a resource exhaustion",
+      "line": 474,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "23. Duplicate YAML keys",
+      "line": 501,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `security policy,`, `Kubernetes a IaC manifests,`, `CI configuration,`, `signed config,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "23. Duplicate YAML keys",
+      "line": 501,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "23. Duplicate YAML keys",
+      "line": 501,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "25. Templating security",
+      "line": 547,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58700,17 +58970,8 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "31. Catastrophic backtracking",
-      "line": 511,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "31. Catastrophic backtracking",
-      "line": 511,
+      "section": "25. Templating security",
+      "line": 547,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
@@ -58718,17 +58979,17 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "31. Catastrophic backtracking",
-      "line": 511,
+      "section": "25. Templating security",
+      "line": 547,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšie patterny,`, `limit dĺžky vstupu,`, `linear-time engine,`, `timeout,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `string injection naruší YAML štruktúru,`, `nesprávne quoting zmení typ,`, `secret sa objaví v rendered artifacte alebo logu,`, `template function vykonáva nečakané I/O,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "31. Catastrophic backtracking",
-      "line": 511,
+      "section": "25. Templating security",
+      "line": 547,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58736,8 +58997,17 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "33. Regex nie je univerzálny parser",
-      "line": 536,
+      "section": "25. Templating security",
+      "line": 547,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "26. YAML parsing a round-trip",
+      "line": 560,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58745,26 +59015,26 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "33. Regex nie je univerzálny parser",
-      "line": 536,
+      "section": "26. YAML parsing a round-trip",
+      "line": 560,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "33. Regex nie je univerzálny parser",
-      "line": 536,
+      "section": "26. YAML parsing a round-trip",
+      "line": 560,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested JSON,`, `YAML indentation model,`, `HTML/DOM,`, `programovací jazyk,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `comments,`, `pôvodné quoting,`, `anchor names,`, `key ordering,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "33. Regex nie je univerzálny parser",
-      "line": 536,
+      "section": "26. YAML parsing a round-trip",
+      "line": 560,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58772,17 +59042,8 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "33. Regex nie je univerzálny parser",
-      "line": 536,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `YAML`, `HTML`, `DOM`, `CSV`",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "34. Python regex",
-      "line": 549,
+      "section": "27. YAML schema a platform validation",
+      "line": 580,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58790,35 +59051,26 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "34. Python regex",
-      "line": 549,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "28. JSON verzus YAML",
+      "line": 608,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "35. PowerShell regex",
-      "line": 563,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "28. JSON verzus YAML",
+      "line": 608,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "36. Bash regex",
-      "line": 575,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "37. grep, sed a awk",
-      "line": 590,
+      "section": "29. Configuration merge a precedence",
+      "line": 623,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58826,35 +59078,26 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "37. grep, sed a awk",
-      "line": 590,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "37. grep, sed a awk",
-      "line": 590,
+      "section": "29. Configuration merge a precedence",
+      "line": 623,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "37. grep, sed a awk",
-      "line": 590,
+      "section": "29. Configuration merge a precedence",
+      "line": 623,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `POSIX basic regex,`, `POSIX extended regex,`, `PCRE mode,`, `platform-specific tool variant.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deep merge verzus whole-value replacement,`, `array append verzus replacement,`, `semantics null ,`, `delete/unset marker,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "37. grep, sed a awk",
-      "line": 590,
+      "section": "29. Configuration merge a precedence",
+      "line": 623,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58862,35 +59105,80 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "37. grep, sed a awk",
-      "line": 590,
+      "section": "30. Schema evolution",
+      "line": 647,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "30. Schema evolution",
+      "line": 647,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "30. Schema evolution",
+      "line": 647,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnú schema/version identity,`, `backward a forward compatibility,`, `unknown fields,`, `default values,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "30. Schema evolution",
+      "line": 647,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "30. Schema evolution",
+      "line": 647,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "30. Schema evolution",
+      "line": 647,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POSIX`, `PCRE`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "39. Normalizácia pred validáciou",
-      "line": 623,
+      "section": "31. Regex ako jazyk patternov",
+      "line": 665,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "39. Normalizácia pred validáciou",
-      "line": 623,
+      "section": "31. Regex ako jazyk patternov",
+      "line": 665,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trimuješ whitespace,`, `normalizuješ Unicode,`, `meníš case,`, `dekóduješ percent encoding,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation tvaru,`, `extraction hodnôt,`, `search,`, `replace,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "39. Normalizácia pred validáciou",
-      "line": 623,
+      "section": "31. Regex ako jazyk patternov",
+      "line": 665,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58898,26 +59186,35 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "40. Secret a config handling",
-      "line": 635,
+      "section": "32. Regex dialect je súčasť kontraktu",
+      "line": 683,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "32. Regex dialect je súčasť kontraktu",
+      "line": 683,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "17 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "40. Secret a config handling",
-      "line": 635,
+      "section": "32. Regex dialect je súčasť kontraktu",
+      "line": 683,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `necommitovať reálne secrets,`, `používať placeholders alebo secret references,`, `neprintovať celý config do logu,`, `chrániť temp files a backups,`.",
+      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `POSIX BRE,`, `POSIX ERE,`, `Python re ,`, `.NET regex,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "40. Secret a config handling",
-      "line": 635,
+      "section": "32. Regex dialect je súčasť kontraktu",
+      "line": 683,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58925,169 +59222,25 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "41. Safe processing pipeline",
-      "line": 649,
+      "section": "32. Regex dialect je súčasť kontraktu",
+      "line": 683,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "32. Regex dialect je súčasť kontraktu",
+      "line": 683,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "41. Safe processing pipeline",
-      "line": 649,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "42. Troubleshooting YAML/JSON",
-      "line": 666,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Parser hlási chybu na inom riadku",
-      "line": 668,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Parser hlási chybu na inom riadku",
-      "line": 668,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Parser hlási chybu na inom riadku",
-      "line": 668,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúca closing quote,`, `nesprávna indentation,`, `neuzavretá flow collection,`, `tab,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Parser hlási chybu na inom riadku",
-      "line": 668,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POSIX`, `BRE`, `ERE`, `NET`, `PCRE`, `PCRE2`, `RE2-`",
       "score": 7
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Hodnota zmenila typ",
-      "line": 678,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Tool ignoruje field",
-      "line": 682,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Tool ignoruje field",
-      "line": 682,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Tool ignoruje field",
-      "line": 682,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typo a permissive unknown fields,`, `nesprávna schema version,`, `field je na nesprávnej úrovni,`, `templating ho odstránil,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Tool ignoruje field",
-      "line": 682,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "JSON diff je celý zmenený",
-      "line": 692,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "43. Troubleshooting regexu",
-      "line": 696,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Pattern nič nenájde",
-      "line": 698,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Pattern nič nenájde",
-      "line": 698,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Pattern nič nenájde",
-      "line": 698,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anchors,`, `flags,`, `escaping layers,`, `newline mode,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Pattern nič nenájde",
-      "line": 698,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Pattern nájde príliš veľa",
+      "section": "33. Základné prvky",
       "line": 710,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -59096,8 +59249,116 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "Pattern je pomalý",
-      "line": 714,
+      "section": "33. Základné prvky",
+      "line": 710,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "34. Search, match a full match",
+      "line": 732,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "36. Flags menia jazyk patternu",
+      "line": 766,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "36. Flags menia jazyk patternu",
+      "line": 766,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `case-insensitive,`, `multiline,`, `dot-all/singleline,`, `verbose/free-spacing,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "36. Flags menia jazyk patternu",
+      "line": 766,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "36. Flags menia jazyk patternu",
+      "line": 766,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASCII`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "37. Character classes a ranges",
+      "line": 779,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ASCII letters, digits a underscore,`, `širšie Unicode letters a digits,`, `culture-specific kategórie.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "37. Character classes a ranges",
+      "line": 779,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "43. Unicode a normalization",
+      "line": 883,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "43. Unicode a normalization",
+      "line": 883,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či akceptuješ iba ASCII,`, `či normalizuješ NFC/NFKC alebo inú formu,`, `či case folding používa locale alebo invariant model,`, `či povoľuješ combining marks,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "43. Unicode a normalization",
+      "line": 883,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "43. Unicode a normalization",
+      "line": 883,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASCII`, `NFC`, `NFKC`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "44. Escaping vrstvy",
+      "line": 896,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -59105,12 +59366,660 @@
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
-      "section": "44. Časté omyly",
-      "line": 718,
+      "section": "48. grep , sed a awk",
+      "line": 977,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "48. grep , sed a awk",
+      "line": 977,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "48. grep , sed a awk",
+      "line": 977,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "48. grep , sed a awk",
+      "line": 977,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `POSIX basic regex,`, `POSIX extended regex,`, `PCRE mode,`, `GNU/BSD/BusyBox implementáciu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "48. grep , sed a awk",
+      "line": 977,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "48. grep , sed a awk",
+      "line": 977,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POSIX`, `PCRE`, `GNU`, `BSD`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "50. Catastrophic backtracking",
+      "line": 1019,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "50. Catastrophic backtracking",
+      "line": 1019,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "50. Catastrophic backtracking",
+      "line": 1019,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested quantifiers,`, `ambiguous alternation,`, `opakované groups s prekrývajúcimi sa matches,`, `veľké . okolo ďalších constraints,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "50. Catastrophic backtracking",
+      "line": 1019,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "51. ReDoS",
+      "line": 1037,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "51. ReDoS",
+      "line": 1037,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limit input length pred regexom,`, `jednoduchší jednoznačný pattern,`, `linear-time engine,`, `match timeout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "51. ReDoS",
+      "line": 1037,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "51. ReDoS",
+      "line": 1037,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "52. Regex nie je univerzálny parser",
+      "line": 1053,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "52. Regex nie je univerzálny parser",
+      "line": 1053,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "52. Regex nie je univerzálny parser",
+      "line": 1053,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested JSON alebo YAML,`, `HTML/DOM,`, `programovací jazyk,`, `komplexné CSV quoting,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "52. Regex nie je univerzálny parser",
+      "line": 1053,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "52. Regex nie je univerzálny parser",
+      "line": 1053,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `YAML`, `HTML`, `DOM`, `CSV`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "53. Secrets a citlivá konfigurácia",
+      "line": 1066,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "53. Secrets a citlivá konfigurácia",
+      "line": 1066,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `necommitovať reálne secrets,`, `používať secret references alebo sealed/encrypted workflow podľa platf`, `neprintovať celý config do logu,`, `redigovať rendered output,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "53. Secrets a citlivá konfigurácia",
+      "line": 1066,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "53. Secrets a citlivá konfigurácia",
+      "line": 1066,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "54. Bezpečný write lifecycle",
+      "line": 1083,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "54. Bezpečný write lifecycle",
+      "line": 1083,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "54. Bezpečný write lifecycle",
+      "line": 1083,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor doménový object,`, `validuj business pravidlá,`, `serializuj cez knižnicu,`, `zapíš temporary file v cieľovom filesysteme,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "54. Bezpečný write lifecycle",
+      "line": 1083,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "54. Bezpečný write lifecycle",
+      "line": 1083,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "55. Diagnostika JSON/YAML",
+      "line": 1100,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Parser hlási chybu na neskoršom riadku",
+      "line": 1102,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Parser hlási chybu na neskoršom riadku",
+      "line": 1102,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Parser hlási chybu na neskoršom riadku",
+      "line": 1102,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neuzavretý string,`, `neplatný escape,`, `chýbajúca closing collection,`, `nesprávna indentation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Parser hlási chybu na neskoršom riadku",
+      "line": 1102,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Parser hlási chybu na neskoršom riadku",
+      "line": 1102,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Hodnota zmenila typ",
+      "line": 1113,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Hodnota zmenila typ",
+      "line": 1113,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Hodnota zmenila typ",
+      "line": 1113,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML version/schema,`, `quoting,`, `template render,`, `environment override parser,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Hodnota zmenila typ",
+      "line": 1113,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Hodnota zmenila typ",
+      "line": 1113,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Tool ignoruje field",
+      "line": 1124,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Tool ignoruje field",
+      "line": 1124,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Tool ignoruje field",
+      "line": 1124,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preklep a permissive unknown fields,`, `nesprávna schema/API version,`, `field na nesprávnej úrovni,`, `deprecated alebo nepodporovaný field,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Tool ignoruje field",
+      "line": 1124,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Tool ignoruje field",
+      "line": 1124,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Diff zmenil celý dokument",
+      "line": 1136,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Diff zmenil celý dokument",
+      "line": 1136,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Diff zmenil celý dokument",
+      "line": 1136,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `serializer a parser version,`, `key ordering,`, `line endings,`, `indentation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Diff zmenil celý dokument",
+      "line": 1136,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "56. Diagnostika regexu",
+      "line": 1147,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nič nenájde",
+      "line": 1149,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nič nenájde",
+      "line": 1149,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nič nenájde",
+      "line": 1149,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search verzus full-match API,`, `anchors,`, `multiline a dot-all flags,`, `case sensitivity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nič nenájde",
+      "line": 1149,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nič nenájde",
+      "line": 1149,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ASCII`, `CRLF`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nájde príliš veľa",
+      "line": 1162,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nájde príliš veľa",
+      "line": 1162,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nájde príliš veľa",
+      "line": 1162,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `greedy quantifier,`, `chýbajúce grouping pri alternation,`, `príliš širokú character class,`, `chýbajúci full-match,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern nájde príliš veľa",
+      "line": 1162,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern je pomalý",
+      "line": 1172,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern je pomalý",
+      "line": 1172,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern je pomalý",
+      "line": 1172,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dlhý non-matching input,`, `nested quantifiers,`, `ambiguous alternation,`, `backreferences,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "Pattern je pomalý",
+      "line": 1172,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný formát, parser a version sú deklarované,`, `input bytes a nesting majú limity,`, `duplicate keys sa odmietajú,`, `YAML loader je safe a má alias limits,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "57. Prevádzkový checklist",
+      "line": 1183,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `ASCII`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "58. Časté omyly",
+      "line": 1203,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "„JSON object nemôže mať duplicate keys“",
+      "line": 1217,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
+      "section": "„Sorted JSON je canonical JSON“",
+      "line": 1221,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
