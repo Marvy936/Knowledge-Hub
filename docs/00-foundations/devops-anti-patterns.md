@@ -187,5 +187,5 @@ DevOps anti-patterny nevznikajú iba zo zlých nástrojov alebo jednotlivých ch
 
 **Navigácia**
 
-[← Predchádzajúca: DORA metrics](dora-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca sekcia: Linux and Systems →](../01-linux-and-systems/README.md)
+[← Predchádzajúca: DORA metrics](dora-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kernel a user space →](../01-linux-and-systems/kernel-and-user-space.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

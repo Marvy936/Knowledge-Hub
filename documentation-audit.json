@@ -73,15 +73,15 @@
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
       "title": "DevOps Anti-patterns",
-      "words": 1245,
-      "headings": 32,
-      "sections": 32,
-      "findings": 95,
-      "critical": 47,
-      "high": 32,
-      "medium": 11,
-      "low": 5,
-      "score": 856,
+      "words": 1614,
+      "headings": 27,
+      "sections": 27,
+      "findings": 22,
+      "critical": 3,
+      "high": 3,
+      "medium": 0,
+      "low": 16,
+      "score": 82,
       "grade": "D"
     },
     {
@@ -6266,422 +6266,26 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "2. Tool-first transformation",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Čo je anti-pattern",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 33,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "3. Tool-first transformation",
+      "line": 28,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 33,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 33,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úspech sa meria počtom migrovaných pipeline,`, `nástroje nemajú jasný problém, ktorý riešia,`, `tímy používajú platformu iba cez centrálnych administrátorov,`, `automatizuje sa existujúci proces bez jeho zjednodušenia.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 54,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 54,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 54,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 54,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centrálny tím sa stane bottleneckom,`, `vývoj nemá produkčný feedback,`, `platform knowledge sa koncentruje u malej skupiny.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 54,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. You build it, you run it bez podpory",
-      "line": 65,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. You build it, you run it bez podpory",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `observability,`, `runbookov,`, `školenia,`, `bezpečných deployment mechanizmov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. You build it, you run it bez podpory",
-      "line": 65,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. You build it, you run it bez podpory",
-      "line": 65,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "5. Ticket-driven operations",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "5. Ticket-driven operations",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor namespace,`, `pridaj DNS,`, `vytvor databázu,`, `zmeň limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "5. Ticket-driven operations",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "5. Ticket-driven operations",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Náprava",
-      "line": 93,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Náprava",
-      "line": 93,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Náprava",
-      "line": 93,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version-controlled konfigurácie,`, `self-service portálu alebo API,`, `automatizovaných workflow,`, `policy-as-code,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Náprava",
-      "line": 93,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Náprava",
-      "line": 93,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "6. Pipeline ako cieľ",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 107,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 107,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 107,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline je pomalšia než pôvodný proces,`, `joby existujú bez jasnej failure policy,`, `nikto nevie, ktoré kontroly poskytujú hodnotu,`, `retry je štandardný spôsob úspechu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 107,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 107,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "7. Automate everything",
-      "line": 117,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "7. Automate everything",
-      "line": 117,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatizuje sa nestabilný proces,`, `jednorazová úloha dostane zložitý framework,`, `údržba automatizácie je drahšia než ušetrená práca,`, `zlyhanie skriptu nemá ownera ani monitoring,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "7. Automate everything",
-      "line": 117,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 137,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 137,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 137,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 137,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bus factor je nízky,`, `dokumentácia je v hlavách ľudí,`, `incidenty sa riešia cez súkromné správy,`, `opakované zásahy sa nepremenia na runbook alebo automatizáciu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Symptómy",
-      "line": 137,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "9. Shared responsibility bez jasného ownershipu",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "9. Shared responsibility bez jasného ownershipu",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera služby,`, `ownera platform capability,`, `escalation path,`, `hranice supportu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "9. Shared responsibility bez jasného ownershipu",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "9. Shared responsibility bez jasného ownershipu",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "10. DevSecOps ako finálna security gate",
-      "line": 160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "10. DevSecOps ako finálna security gate",
-      "line": 160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `feedback prichádza neskoro,`, `oprava je drahá,`, `security je vnímaná ako blokátor,`, `tímy obchádzajú proces pri urgentných zmenách.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "10. DevSecOps ako finálna security gate",
-      "line": 160,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "10. DevSecOps ako finálna security gate",
-      "line": 160,
+      "section": "4. DevOps ako premenovaný Ops tím",
+      "line": 36,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -6689,35 +6293,26 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "11. One-size-fits-all platform",
-      "line": 173,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. DevOps ako premenovaný Ops tím",
+      "line": 36,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "11. One-size-fits-all platform",
-      "line": 173,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché služby nesú zbytočnú komplexitu,`, `špecifické workloads platformu obchádzajú,`, `paved road sa stane povinnou diaľnicou bez výjazdu,`, `centrálna platforma spomaľuje experimenty.`.",
-      "score": 12
+      "section": "4. DevOps ako premenovaný Ops tím",
+      "line": 36,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "11. One-size-fits-all platform",
-      "line": 173,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "11. One-size-fits-all platform",
-      "line": 173,
+      "section": "5. You build it, you run it bez podpory",
+      "line": 44,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -6725,152 +6320,26 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "12. Copy-paste Infrastructure as Code",
-      "line": 186,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. You build it, you run it bez podpory",
+      "line": 44,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 190,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "6. Ticket-driven operations",
+      "line": 50,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 190,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 190,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opravy sa nedajú distribuovať,`, `verzie sa nekontrolovane rozchádzajú,`, `rovnaká chyba existuje v mnohých kópiách,`, `vlastníctvo template nie je jasné.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Dôsledky",
-      "line": 190,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "13. Environment snowflakes",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "13. Environment snowflakes",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaké artifacts,`, `Infrastructure as Code,`, `environment-specific dáta oddelené od spoločnej definície,`, `automatizované parity kontroly,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "13. Environment snowflakes",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "14. Big-bang releases",
-      "line": 221,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "14. Big-bang releases",
-      "line": 221,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľký blast radius,`, `komplikovaný rollback,`, `dlhý feedback loop,`, `náročné hľadanie príčiny,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "14. Big-bang releases",
-      "line": 221,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "14. Big-bang releases",
-      "line": 221,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "15. Change approval theater",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "15. Change approval theater",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatizované dôkazy z pipeline,`, `preddefinované risk classes,`, `policy-based approval,`, `manuálny review pri vysokorizikových výnimkách,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "15. Change approval theater",
-      "line": 236,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "15. Change approval theater",
-      "line": 236,
+      "section": "9. Hero culture",
+      "line": 68,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -6878,80 +6347,8 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "15. Change approval theater",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "16. Vanity metrics",
-      "line": 250,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "16. Vanity metrics",
-      "line": 250,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "16. Vanity metrics",
-      "line": 250,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet commitov na developera,`, `počet pipeline jobov,`, `počet vytvorených automatizácií,`, `percento využitia všetkých ľudí,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "16. Vanity metrics",
-      "line": 250,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "17. DORA metrics ako leaderboard",
-      "line": 262,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "17. DORA metrics ako leaderboard",
-      "line": 262,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `umelé deploymenty,`, `rozdelenie zmien bez hodnoty,`, `nepriznané incidenty,`, `zmena definície úspechu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "17. DORA metrics ako leaderboard",
-      "line": 262,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "17. DORA metrics ako leaderboard",
-      "line": 262,
+      "section": "10. Shared responsibility bez accountability",
+      "line": 76,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -6959,107 +6356,53 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "18. No-blame ako no-accountability",
-      "line": 276,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "10. Shared responsibility bez accountability",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "18. No-blame ako no-accountability",
-      "line": 276,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nehľadá vinníka ako jednoduché vysvetlenie,`, `skúma podmienky, ktoré robili rozhodnutie rozumným,`, `pomenúva chybné procesy a technické mechanizmy,`, `prideľuje konkrétne nápravné actions a ownerov.`.",
-      "score": 12
+      "section": "11. DevSecOps ako finálna security gate",
+      "line": 82,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "18. No-blame ako no-accountability",
-      "line": 276,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "12. One-size-fits-all platform",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "19. Permanent emergency mode",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "14. Environment snowflakes",
+      "line": 100,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "19. Permanent emergency mode",
-      "line": 289,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "19. No-blame ako no-accountability",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "19. Permanent emergency mode",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priame zmeny v produkcii,`, `vypnuté testy,`, `zdieľané admin účty,`, `ručné hotfixy bez spätného zápisu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "19. Permanent emergency mode",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "20. Ako anti-pattern analyzovať",
-      "line": 301,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "20. Ako anti-pattern analyzovať",
-      "line": 301,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "20. Ako anti-pattern analyzovať",
-      "line": 301,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký lokálny problém riešenie pôvodne riešilo?`, `Aké správanie motivuje?`, `Kde vytvára queue alebo handoff?`, `Kto nesie zodpovednosť bez právomoci?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "20. Ako anti-pattern analyzovať",
-      "line": 301,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "20. Ako anti-pattern analyzovať",
-      "line": 301,
+      "section": "24. Troubleshooting organizačnej zmeny",
+      "line": 160,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

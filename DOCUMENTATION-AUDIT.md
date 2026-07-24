@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10501**
-- Total words: **443,163**
-- Findings: **23377** (critical 8303, high 9387, medium 3120, low 2567)
+- Audited conceptual sections: **10496**
+- Total words: **443,532**
+- Findings: **23304** (critical 8259, high 9358, medium 3109, low 2578)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -103,7 +103,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 863 | 38 | 45 | 15 | 4 | 1491 | `docs/13-security-and-identity/ldap.md` |
 | D | 862 | 42 | 40 | 10 | 9 | 1354 | `docs/12-observability/red-method.md` |
 | D | 859 | 39 | 41 | 18 | 5 | 1478 | `docs/12-observability/monitoring-vs-observability.md` |
-| D | 856 | 47 | 32 | 11 | 5 | 1245 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 854 | 43 | 39 | 11 | 1 | 1325 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 853 | 40 | 41 | 11 | 14 | 1328 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
 | D | 849 | 41 | 38 | 14 | 8 | 1770 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
@@ -275,6 +274,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
+| D | 82 | 3 | 3 | 0 | 16 | 1614 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
@@ -397,82 +397,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps, Systems Thinking, Ownership Mindset`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 33, `bare-bullet-items` — **Symptómy**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úspech sa meria počtom migrovaných pipeline,`, `nástroje nemajú jasný problém, ktorý riešia,`, `tímy používajú platformu iba cez centrálnych administrátorov,`, `automatizuje sa existujúci proces bez jeho zjednodušenia.`.
-- **CRITICAL** line 33, `no-prose-concept` — **Symptómy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 33, `outline-instead-of-explanation` — **Symptómy**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 54, `bare-bullet-items` — **Dôsledky**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centrálny tím sa stane bottleneckom,`, `vývoj nemá produkčný feedback,`, `platform knowledge sa koncentruje u malej skupiny.`.
-- **CRITICAL** line 54, `no-prose-concept` — **Dôsledky**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 54, `outline-instead-of-explanation` — **Dôsledky**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 65, `bare-bullet-items` — **4. You build it, you run it bez podpory**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `observability,`, `runbookov,`, `školenia,`, `bezpečných deployment mechanizmov,`.
-- **CRITICAL** line 65, `outline-instead-of-explanation` — **4. You build it, you run it bez podpory**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 81, `bare-bullet-items` — **5. Ticket-driven operations**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor namespace,`, `pridaj DNS,`, `vytvor databázu,`, `zmeň limit,`.
-- **CRITICAL** line 81, `outline-instead-of-explanation` — **5. Ticket-driven operations**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 93, `bare-bullet-items` — **Náprava**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version-controlled konfigurácie,`, `self-service portálu alebo API,`, `automatizovaných workflow,`, `policy-as-code,`.
-- **CRITICAL** line 93, `outline-instead-of-explanation` — **Náprava**: 5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 107, `bare-bullet-items` — **Symptómy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline je pomalšia než pôvodný proces,`, `joby existujú bez jasnej failure policy,`, `nikto nevie, ktoré kontroly poskytujú hodnotu,`, `retry je štandardný spôsob úspechu,`.
-- **CRITICAL** line 107, `outline-instead-of-explanation` — **Symptómy**: 5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `bare-bullet-items` — **7. Automate everything**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatizuje sa nestabilný proces,`, `jednorazová úloha dostane zložitý framework,`, `údržba automatizácie je drahšia než ušetrená práca,`, `zlyhanie skriptu nemá ownera ani monitoring,`.
-- **CRITICAL** line 117, `outline-instead-of-explanation` — **7. Automate everything**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 137, `bare-bullet-items` — **Symptómy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bus factor je nízky,`, `dokumentácia je v hlavách ľudí,`, `incidenty sa riešia cez súkromné správy,`, `opakované zásahy sa nepremenia na runbook alebo automatizáciu,`.
-- **CRITICAL** line 137, `no-prose-concept` — **Symptómy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 137, `outline-instead-of-explanation` — **Symptómy**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 145, `bare-bullet-items` — **9. Shared responsibility bez jasného ownershipu**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera služby,`, `ownera platform capability,`, `escalation path,`, `hranice supportu,`.
-- **CRITICAL** line 145, `outline-instead-of-explanation` — **9. Shared responsibility bez jasného ownershipu**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 160, `bare-bullet-items` — **10. DevSecOps ako finálna security gate**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `feedback prichádza neskoro,`, `oprava je drahá,`, `security je vnímaná ako blokátor,`, `tímy obchádzajú proces pri urgentných zmenách.`.
-- **CRITICAL** line 160, `outline-instead-of-explanation` — **10. DevSecOps ako finálna security gate**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 173, `bare-bullet-items` — **11. One-size-fits-all platform**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché služby nesú zbytočnú komplexitu,`, `špecifické workloads platformu obchádzajú,`, `paved road sa stane povinnou diaľnicou bez výjazdu,`, `centrálna platforma spomaľuje experimenty.`.
-- **CRITICAL** line 173, `outline-instead-of-explanation` — **11. One-size-fits-all platform**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 190, `bare-bullet-items` — **Dôsledky**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opravy sa nedajú distribuovať,`, `verzie sa nekontrolovane rozchádzajú,`, `rovnaká chyba existuje v mnohých kópiách,`, `vlastníctvo template nie je jasné.`.
-- **CRITICAL** line 190, `no-prose-concept` — **Dôsledky**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 190, `outline-instead-of-explanation` — **Dôsledky**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 201, `bare-bullet-items` — **13. Environment snowflakes**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaké artifacts,`, `Infrastructure as Code,`, `environment-specific dáta oddelené od spoločnej definície,`, `automatizované parity kontroly,`.
-- **CRITICAL** line 201, `outline-instead-of-explanation` — **13. Environment snowflakes**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 221, `bare-bullet-items` — **14. Big-bang releases**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľký blast radius,`, `komplikovaný rollback,`, `dlhý feedback loop,`, `náročné hľadanie príčiny,`.
-- **CRITICAL** line 221, `outline-instead-of-explanation` — **14. Big-bang releases**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `bare-bullet-items` — **15. Change approval theater**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatizované dôkazy z pipeline,`, `preddefinované risk classes,`, `policy-based approval,`, `manuálny review pri vysokorizikových výnimkách,`.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **15. Change approval theater**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 250, `bare-bullet-items` — **16. Vanity metrics**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet commitov na developera,`, `počet pipeline jobov,`, `počet vytvorených automatizácií,`, `percento využitia všetkých ľudí,`.
-- **CRITICAL** line 250, `outline-instead-of-explanation` — **16. Vanity metrics**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 262, `bare-bullet-items` — **17. DORA metrics ako leaderboard**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `umelé deploymenty,`, `rozdelenie zmien bez hodnoty,`, `nepriznané incidenty,`, `zmena definície úspechu,`.
-- **CRITICAL** line 262, `outline-instead-of-explanation` — **17. DORA metrics ako leaderboard**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 276, `bare-bullet-items` — **18. No-blame ako no-accountability**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nehľadá vinníka ako jednoduché vysvetlenie,`, `skúma podmienky, ktoré robili rozhodnutie rozumným,`, `pomenúva chybné procesy a technické mechanizmy,`, `prideľuje konkrétne nápravné actions a ownerov.`.
-- **CRITICAL** line 276, `outline-instead-of-explanation` — **18. No-blame ako no-accountability**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 289, `bare-bullet-items` — **19. Permanent emergency mode**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priame zmeny v produkcii,`, `vypnuté testy,`, `zdieľané admin účty,`, `ručné hotfixy bez spätného zápisu,`.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **19. Permanent emergency mode**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 301, `bare-bullet-items` — **20. Ako anti-pattern analyzovať**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký lokálny problém riešenie pôvodne riešilo?`, `Aké správanie motivuje?`, `Kde vytvára queue alebo handoff?`, `Kto nesie zodpovednosť bez právomoci?`.
-- **CRITICAL** line 301, `outline-instead-of-explanation` — **20. Ako anti-pattern analyzovať**: 8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Tool-first transformation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 33, `list-first-introduction` — **Symptómy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 54, `list-first-introduction` — **Dôsledky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 93, `single-sentence-concept` — **Náprava**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `single-sentence-concept` — **6. Pipeline ako cieľ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 107, `list-first-introduction` — **Symptómy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 107, `single-sentence-concept` — **Symptómy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 137, `list-first-introduction` — **Symptómy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 186, `single-sentence-concept` — **12. Copy-paste Infrastructure as Code**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 190, `list-first-introduction` — **Dôsledky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 250, `single-sentence-concept` — **16. Vanity metrics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 289, `single-sentence-concept` — **19. Permanent emergency mode**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `single-sentence-concept` — **20. Ako anti-pattern analyzovať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`, `SRE`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 33, `thin-concept-section` — **Symptómy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 54, `thin-concept-section` — **Dôsledky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 65, `thin-concept-section` — **4. You build it, you run it bez podpory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 81, `thin-concept-section` — **5. Ticket-driven operations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 93, `thin-concept-section` — **Náprava**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 107, `thin-concept-section` — **Symptómy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 117, `thin-concept-section` — **7. Automate everything**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 137, `thin-concept-section` — **Symptómy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 145, `thin-concept-section` — **9. Shared responsibility bez jasného ownershipu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 190, `thin-concept-section` — **Dôsledky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 201, `thin-concept-section` — **13. Environment snowflakes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 221, `thin-concept-section` — **14. Big-bang releases**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 250, `thin-concept-section` — **16. Vanity metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 276, `thin-concept-section` — **18. No-blame ako no-accountability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **19. Permanent emergency mode**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 301, `thin-concept-section` — **20. Ako anti-pattern analyzovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/devops-lifecycle.md`
 
@@ -18740,18 +18667,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4160 | 0 | 0 | 4160 |
-| `bare-bullet-items` | 3805 | 345 | 0 | 0 | 4150 |
-| `outline-instead-of-explanation` | 3699 | 0 | 0 | 0 | 3699 |
-| `thin-concept-section` | 0 | 3379 | 0 | 0 | 3379 |
-| `term-before-explanation` | 0 | 341 | 2230 | 0 | 2571 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1189 | 1189 |
-| `example-not-explicit` | 0 | 0 | 0 | 971 | 971 |
-| `list-first-introduction` | 0 | 950 | 0 | 0 | 950 |
-| `short-concept-section` | 0 | 0 | 890 | 0 | 890 |
+| `single-sentence-concept` | 0 | 4152 | 0 | 0 | 4152 |
+| `bare-bullet-items` | 3785 | 345 | 0 | 0 | 4130 |
+| `outline-instead-of-explanation` | 3679 | 0 | 0 | 0 | 3679 |
+| `thin-concept-section` | 0 | 3363 | 0 | 0 | 3363 |
+| `term-before-explanation` | 0 | 341 | 2223 | 0 | 2564 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1192 | 1192 |
+| `example-not-explicit` | 0 | 0 | 0 | 977 | 977 |
+| `list-first-introduction` | 0 | 945 | 0 | 0 | 945 |
+| `short-concept-section` | 0 | 0 | 886 | 0 | 886 |
 | `empty-section` | 507 | 0 | 0 | 0 | 507 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 407 | 407 |
-| `no-prose-concept` | 292 | 0 | 0 | 0 | 292 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 409 | 409 |
+| `no-prose-concept` | 288 | 0 | 0 | 0 | 288 |
 | `list-heavy-section` | 0 | 212 | 0 | 0 | 212 |
 
 ## Required remediation pattern
