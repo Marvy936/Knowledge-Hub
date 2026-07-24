@@ -1,473 +1,550 @@
 # Blue-green deployment
 
-Blue-green deployment udržiava dve oddelené, produkčne relevantné prostredia alebo fleet-y: aktuálne aktívne prostredie a kandidátske prostredie s novou verziou. Traffic sa po overení presmeruje zo starej farby na novú.
+## Metadata
 
-Názvy `blue` a `green` sú iba labels. Dôležitý je model dvoch oddelených deployment targets a riadeného traffic cutoveru.
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-## 1. Základný mechanizmus
+## 1. Definícia
 
-```text
-blue  = current production
- green = new candidate
-```
-
-Flow:
+Blue-green deployment udržiava dva oddelené produkčne relevantné deployment targets. Jeden je aktívny a obsluhuje používateľský traffic; druhý obsahuje kandidátsku verziu a pripravuje sa na prevzatie trafficu. Po overení sa routing presunie z aktívneho targetu na kandidátsky.
 
 ```text
-deploy green
-→ verify green bez production trafficu alebo s test trafficom
-→ switch routing blue → green
+blue  = active
+ green = candidate
+
+prepare green
+→ verify green
+→ cut over traffic
 → observe
-→ ponechaj blue ako recovery candidate
-→ neskôr retire blue
+→ keep blue as recovery candidate
+→ retire or rotate
 ```
 
-Pri ďalšom release sa roly môžu otočiť.
+Farby sú iba labels. Podstatné sú dve oddelené application generations, jednoznačný routing state a explicitná shared-state stratégia.
 
-## 2. Traffic switch
+## 2. Mental model: dvojica targetov a jeden aktívny routing pointer
 
-Cutover môže byť realizovaný cez:
+```text
+routing pointer
+→ blue alebo green
+```
 
-- load balancer target groups,
-- reverse proxy configuration,
+Každý target má vlastnú:
+
+- application capacity,
+- artifact a config identity,
+- network a service registration,
+- telemetry dimensions,
+- readiness stav.
+
+Shared dependencies, databáza, queues, caches alebo externé služby môžu zostať spoločné. Preto blue-green oddeľuje application runtime, nie automaticky celý systémový state.
+
+## 3. Hlavný trade-off
+
+Výhody:
+
+- novú verziu možno pripraviť mimo hlavného trafficu,
+- cutover môže byť rýchly,
+- routing rollback môže byť rýchly,
+- application mixed-version okno môže byť krátke.
+
+Cena:
+
+- dočasne takmer dvojnásobná capacity,
+- komplikovaná data a worker koordinácia,
+- ostrý cutover môže zasiahnuť veľkú časť používateľov,
+- starý target sa môže počas rollback window driftovať alebo degradovať.
+
+## 4. Deployment subject a color record
+
+Pre oba targety uchovaj:
+
+```text
+color
+artifact digest
+config revision
+infrastructure revision
+capacity
+readiness
+traffic weight
+worker/scheduler state
+database compatibility phase
+```
+
+Deployment record musí obsahovať aj routing revision, cutover timestamp a rollback relation. Mutable tag nestačí na určenie, čo v každej farbe beží.
+
+## 5. Blue-green state machine
+
+```text
+active blue / green absent
+→ green provisioning
+→ green ready, no production traffic
+→ pre-cutover verification
+→ cutover armed
+→ traffic switching
+→ green active / blue draining
+→ observation
+→ release accepted
+→ blue retired or retained
+```
+
+Alternatívne výsledky:
+
+- cutover aborted,
+- routing rollback,
+- roll-forward,
+- inconclusive validation,
+- dual-active degraded state,
+- cleanup failure.
+
+## 6. Preconditions
+
+Pred vytvorením kandidáta over:
+
+- immutable release candidate,
+- kapacitu a quotas pre druhý target,
+- config a secret-reference compatibility,
+- databázový expand-contract stav,
+- worker a scheduler activation policy,
+- routing a rollback control path,
+- telemetry podľa farby a digestu,
+- previous target health,
+- žiadny konfliktujúci deployment.
+
+## 7. Behaviorálna ekvivalencia
+
+Green nemusí byť fyzicky identický s blue, ale musí byť ekvivalentný v oblastiach relevantných pre release:
+
+- rovnaká architecture a runtime class,
+- rovnaký network a auth path,
+- porovnateľné resource limits,
+- rovnaké deployment templates a policies,
+- production-relevantné dependencies,
+- kompatibilná data schema,
+- rovnaké observability contracts.
+
+Testovanie green cez internú skratku, ktorá obchádza DNS, ingress, TLS alebo auth, poskytuje slabší dôkaz než skutočný produkčný path.
+
+## 8. Configuration a secret identity
+
+Green musí byť validovaný s konfiguráciou, ktorú bude používať po cutover-e. Ak sa pri switchi zároveň mení config, pre-cutover test neoveril finálny stav.
+
+Zachovaj:
+
+- rendered config digest,
+- secret reference versions,
+- feature-flag snapshot alebo policy,
+- routing configuration,
+- environment-specific identity.
+
+Secret values nekopíruj medzi targetmi ručne; používaj scoped references a short-lived workload identity.
+
+## 9. Capacity model
+
+Typicky:
+
+```text
+peak application capacity
+≈ blue + green
+```
+
+Treba však rátať aj shared limits:
+
+- database connection pools,
+- message broker consumers,
+- external API quotas,
+- licenses,
+- load-balancer targets,
+- IP addresses,
+- storage throughput,
+- monitoring cardinality.
+
+Green môže začať menší, ale pred cutoverom musí preukázať schopnosť niesť plánovaný traffic.
+
+## 10. Pre-cutover verification
+
+Pred routing switchom over:
+
+- artifact/config identity,
+- startup a functional readiness,
+- dependency a identity access,
+- critical synthetic journeys,
+- authorization a negative paths,
+- database migration status,
+- capacity a warm-up,
+- logs/metrics/traces,
+- workers a schedulers,
+- data integrity,
+- rollback target health.
+
+Výsledok musí byť `ready`, `not ready` alebo `inconclusive`. Chýbajúca telemetry nie je pass.
+
+## 11. Synthetic, replay a shadow traffic
+
+Green možno overiť cez:
+
+- synthetics s dedikovanými identitami,
+- interný cohort,
+- read-only produkčné requests,
+- anonymizovaný replay,
+- shadow traffic bez účinku na používateľa.
+
+Pri shadow trafficu:
+
+- zakáž alebo izoluj writes,
+- zabráň duplicitným external side effects,
+- kontroluj downstream load,
+- rediguj citlivé dáta,
+- normalizuj nondeterministické response polia.
+
+## 12. Traffic cutover mechanizmy
+
+Možnosti:
+
+- load-balancer target group,
+- reverse proxy alebo service mesh route,
 - service selector,
-- DNS,
-- routing table,
 - virtual IP,
 - platform deployment slot,
-- service mesh route.
+- region traffic manager,
+- DNS.
 
-Najrýchlejší a najdeterministickejší je typicky L4/L7 routing switch. DNS má cache a TTL propagation, preto nie je okamžitý globálny prepínač.
+L4/L7 routing zvyčajne poskytuje presnejší a rýchlejší cutover než DNS. DNS TTL, resolver cache a persistent connections bránia okamžitému globálnemu switchu.
 
-## 3. Hlavné vlastnosti
+## 13. Cutover ako transakcia
 
-Blue-green poskytuje:
-
-- oddelenú prípravu novej verzie,
-- rýchly traffic cutover,
-- jednoduché vrátenie routingu,
-- možnosť smoke a acceptance testov pred release,
-- minimálne mixed-version obdobie pri ostrých requestoch,
-- jasnú environment-level identity.
-
-Cena je vysoká dočasná resource spotreba a potreba koordinovať shared state.
-
-## 4. Environment parity
-
-Green má byť behaviorálne ekvivalentný blue v relevantných oblastiach:
-
-- compute a architecture,
-- network topology,
-- identity a permissions,
-- configuration,
-- dependencies,
-- TLS a routing,
-- resource limits,
-- observability,
-- data schema.
-
-Úplná fyzická identita nie je vždy potrebná, ale rozdiely musia byť známe a kontrolované.
-
-## 5. Immutable artifact
-
-Green musí dostať presne identifikovaný artifact digest, ktorý prešiel predchádzajúcimi gates.
-
-Nie:
+Cutover má mať explicitný intended state a compare-and-swap ochranu:
 
 ```text
-blue: image:stable
-green: image:stable
+expected active = blue
+new active = green
+routing revision = R42
 ```
 
-ak `stable` môže ukazovať na rozdielne bytes v čase.
+Tým sa zabráni, aby súbežný deployment alebo manuálna zmena prepísala routing nečakane.
 
-Deployment record má zachytiť:
+Zachovaj pre/post routing snapshot a možnosť idempotentného zopakovania.
 
-```text
-blue_digest
-green_digest
-config revisions
-routing state
-cutover time
-```
+## 14. Instant verzus weighted cutover
 
-## 6. Pre-cutover verification
-
-Pred switchom over:
-
-- startup a readiness,
-- critical request paths,
-- dependency connectivity,
-- authorization,
-- migrations a schema compatibility,
-- logs/metrics/traces,
-- background jobs,
-- capacity,
-- security policy,
-- configuration a secrets references.
-
-Test traffic nemá poškodiť production data alebo externé systémy.
-
-## 7. Shadow a synthetic traffic
-
-Green možno overiť pomocou:
-
-- synthetic requests,
-- replay anonymizovaného trafficu,
-- shadow trafficu bez side effects,
-- interných test users,
-- read-only production queries.
-
-Shadow response sa typicky nevracia používateľovi. Write operácie musia byť blokované alebo idempotentne izolované.
-
-## 8. Cutover modely
-
-### Instant cutover
+### Instant
 
 ```text
 100 % blue → 100 % green
 ```
 
-Jednoduché, ale prvý production traffic zasiahne green naraz.
+Rýchly a jednoduchý, ale prvý produkčný load zasiahne kandidáta naraz.
 
-### Weighted transition
+### Weighted
 
 ```text
 99/1 → 90/10 → 50/50 → 0/100
 ```
 
-Technicky sa približuje canary deploymentu, ale stále využíva dve celé environment-y.
+Znižuje blast radius a približuje stratégiu canary modelu. Potrebuje cohort, metrics a promotion policy.
 
-### Tenant alebo region cutover
+### Segmentový
 
-Vybrané tenants, regions alebo rings sa presmerujú postupne.
+Traffic sa presúva podľa regionu, tenanta, ring-u alebo identity. Musí byť reprezentatívny a auditovateľný.
 
-## 9. Connection draining
+## 15. Connection draining
 
-Pri cutover-e môže blue stále obsluhovať existujúce connections.
+Po odobratí nového trafficu môže blue stále obsluhovať:
+
+- keep-alive requests,
+- WebSockets,
+- streams,
+- uploads,
+- dlhé transactions,
+- async work.
 
 Flow:
 
 ```text
-stop new traffic to blue
-→ drain active requests/connections
-→ terminate alebo ponechaj warm
+stop new routing
+→ wait propagation
+→ drain
+→ confirm no critical active work
+→ mark standby
 ```
 
-Osobitne rieš:
+Cutover completion musí odlišovať new-request switch od úplného ukončenia old connections.
 
-- WebSockets,
-- streaming,
-- long polling,
-- large uploads,
-- database transactions,
-- background workers.
+## 16. Database ako shared mutable state
 
-## 10. DNS cutover
-
-DNS-based switch má obmedzenia:
-
-- resolver a client caching,
-- TTL,
-- stale records,
-- connection reuse,
-- negatívnu cache,
-- rozdielne propagation časy.
-
-DNS môže byť súčasťou regionálneho traffic managementu, ale nie je vhodný na presný sekundový rollback bez ďalšej routing vrstvy.
-
-## 11. Database ako shared state
-
-Najväčší problém blue-green je databáza.
-
-Obe verzie často používajú rovnaký database cluster. Potom musia byť schema a data behavior kompatibilné.
-
-Bezpečný flow:
+Najčastejší model používa jednu spoločnú databázu. Potom musí platiť:
 
 ```text
 expand schema
-→ deploy green kompatibilne s old/new schema
-→ cutover traffic
-→ observe
-→ drain blue
-→ migrate/backfill
-→ contract schema neskôr
+→ green kompatibilný s old aj new state
+→ cutover
+→ observation
+→ blue drain
+→ backfill/migrate
+→ contract až po skončení rollback window
 ```
 
-Ak green vykoná nevratné data changes, routing rollback na blue nemusí byť bezpečný.
+Ak green vykoná nekompatibilné writes, routing rollback na blue nemusí byť bezpečný.
 
-## 12. Separate databases
+## 17. Oddelené databázy
 
-Samostatná blue a green databáza komplikuje:
+Separate blue/green databázy vyžadujú riešiť:
 
 - synchronizáciu writes,
-- cutover consistency,
 - replication lag,
+- cutover consistency point,
 - identity sequences,
-- rollback po nových writes,
-- external integrations.
+- external consumers,
+- rollback nových writes,
+- failback.
 
-Je vhodná iba s jasnou data migration a ownership stratégiou.
+Je to data migration stratégia, nie iba jednoduché rozšírenie application blue-green.
 
-## 13. Background workers
+## 18. Workers, consumers a schedulers
 
-Ak sú blue aj green workers aktívne, môžu:
+Obe farby nemajú automaticky bezpečne vykonávať mutácie.
 
-- spracovať message dvakrát,
-- súťažiť o partitions,
-- spustiť scheduled job dvakrát,
-- používať rozdielnu event semantics.
+Použi podľa systému:
 
-Možnosti:
+- single active consumer group,
+- leader election,
+- active-color flag mimo application artifactu,
+- oddelené queues,
+- idempotency a deduplication,
+- samostatný worker rollout,
+- external scheduler.
 
-- workers aktivovať až pri cutover-e,
-- používať leader election,
-- oddeliť queue/consumer group,
-- zabezpečiť idempotency,
-- rolloutovať workers samostatnou stratégiou.
+Pred cutoverom presne definuj, kedy green preberá producers, consumers a cron jobs.
 
-## 14. Cron a scheduled jobs
+## 19. Cache a sessions
 
-Pred cutoverom definuj, ktorá farba smie vykonávať scheduled mutations.
-
-Environment label sám nezabráni dvojitému spusteniu.
-
-Použi:
-
-- distributed lock,
-- active-color configuration,
-- single scheduler,
-- external orchestration,
-- idempotent job semantics.
-
-## 15. Cache a session state
-
-Shared cache musí byť compatible s oboma verziami.
+Shared cache/session store musí podporovať obe verzie počas prechodu a rollback window.
 
 Riziká:
 
-- serialization changes,
-- cache poisoning medzi verziami,
+- serialization incompatibility,
+- cache key semantic change,
 - session schema drift,
-- stale data,
-- invalidation storm.
+- invalidation storm,
+- green warm-up znečistí blue cache.
 
-Možnosti:
+Použi versioned keys, backward-compatible readers, stateless tokens alebo kontrolované namespace prepnutie.
 
-- versioned cache namespace,
-- backward-compatible serialization,
-- stateless sessions,
-- external session store,
-- controlled invalidation.
+## 20. Warm-up
 
-## 16. Capacity
+Green môže potrebovať:
 
-Blue-green typicky potrebuje približne dvojnásobnú application capacity počas prípravy:
-
-```text
-peak ≈ blue fleet + green fleet
-```
-
-Treba zohľadniť:
-
-- compute,
-- memory,
-- load-balancer targets,
-- IP addresses,
-- quotas,
-- database connections,
-- external API limits,
-- licenses.
-
-Green nemusí byť od začiatku na 100 % veľkosti, ale pred cutoverom musí zvládnuť očakávaný traffic.
-
-## 17. Warm-up
-
-Pred trafficom môže green potrebovať:
-
+- JIT alebo model loading,
 - cache prewarming,
-- JIT compilation,
-- connection pool initialization,
-- model/data loading,
-- service discovery propagation,
-- lazy dependency setup.
+- connection pools,
+- discovery propagation,
+- lazy initialization,
+- autoscaler stabilization.
 
-Warm-up requests musia byť odlíšené od reálneho business trafficu a nesmú vytvárať neželané side effects.
+Warm-up requesty označ a chráň pred side effects. Readiness bez realistického warm-up loadu môže byť false positive.
 
-## 18. Rollback routingom
+## 21. Post-cutover validation
 
-Najväčšia výhoda:
+Po switchi vyhodnoť:
 
-```text
-green failure
-→ route traffic back to blue
-```
+- version/color-specific error rate a latency,
+- saturation a capacity,
+- business success,
+- authorization anomalies,
+- queue lag a workers,
+- cache/session behavior,
+- data invariants,
+- support/user signal.
 
-Rýchlosť rollbacku však závisí od:
+Definuj observation window aj delayed signals. Cutover nemusí byť accepted okamžite.
 
-- routing propagation,
-- blue readiness,
-- connection draining,
-- state compatibility,
-- data mutations vykonaných green,
-- feature flags a configuration.
+## 22. Routing rollback eligibility
 
-Blue musí zostať warm a overiteľný dostatočne dlho.
+Rýchly routing rollback je bezpečný iba ak:
 
-## 19. Retention starej farby
+- blue zostal healthy a warm,
+- schema a data sú backward compatible,
+- config a flags sú pre blue platné,
+- workers/schedulers možno vrátiť,
+- connections a routing sa dajú prepnúť,
+- green nevytvoril nekompatibilné side effects.
 
-Po úspešnom cutover-e blue možno:
+Routing rollback nie je data rollback.
 
-- ponechať warm na krátke rollback window,
-- scale-downovať, ale zachovať deklaráciu,
-- úplne odstrániť po observation window.
+## 23. Standby retention
 
-Dlhodobé držanie dvoch plných prostredí zvyšuje náklady a drift.
+Po cutover-e možno old target:
 
-## 20. Environment drift
+- ponechať warm počas rollback window,
+- scale-downovať s rýchlou reaktiváciou,
+- zachovať iba immutable deklaráciu a artifact,
+- odstrániť po prijatí release.
 
-Ak blue a green existujú dlhodobo, môžu sa odlišovať manuálnymi zmenami.
+Rollback candidate musí byť počas retention health-checkovaný. Neaktívny target môže stratiť credentials, dependencies alebo capacity.
+
+## 24. Environment drift
+
+Dlhodobo existujúce farby môžu driftovať cez:
+
+- manuálne config zmeny,
+- rozdielne patches,
+- tajomstvá alebo certifikáty,
+- odlišné network rules,
+- neaktívne monitoring targets.
 
 Ochrany:
 
-- Infrastructure as Code,
-- immutable infrastructure,
-- rovnaké deployment templates,
+- IaC a immutable infrastructure,
+- rovnaký template,
 - drift detection,
 - pravidelná rotácia farieb,
-- zákaz manuálnych mutations.
+- zákaz neauditovaných mutations.
 
-## 21. Secrets a identity
+## 25. Concurrency a routing lock
 
-Green potrebuje production-relevantné permissions, čo rozširuje citlivý footprint.
+Jeden environment môže mať iba jednu autoritatívnu cutover operáciu. Použi routing lock/lease a generation check.
 
-Použi:
+Superseded deployment musí:
 
-- environment-scoped identity,
-- short-lived credentials,
-- least privilege,
-- oddelené write permissions pred cutoverom,
-- audit accessu,
-- bezpečnú secret rotation.
+- zrušiť pending cutover,
+- odstrániť candidate bezpečne,
+- zachovať current active state,
+- auditovať dôvod.
 
-## 22. Observability
+## 26. Failure taxonomy
 
-Metriky musia byť rozlíšiteľné podľa farby a version digestu:
+- provisioning failure,
+- pre-cutover verification failure,
+- capacity/warm-up failure,
+- routing switch failure,
+- partial propagation,
+- runtime regression po trafficu,
+- shared-state compatibility failure,
+- worker/scheduler duplication,
+- rollback-ineligible state,
+- old-target degradation.
 
-- request rate,
-- error rate,
-- latency,
-- saturation,
-- dependency errors,
-- business KPIs,
-- restarts,
-- queue lag,
-- cache behavior.
+## 27. Observability a evidence
 
-Bez labelov `environment_color` a `version` je cutover diagnostika slabá.
+Uchovaj:
 
-## 23. Cutover checklist
+- blue/green artifact a config identities,
+- readiness a capacity evidence,
+- routing revision a weights,
+- cutover timeline,
+- connection-drain stav,
+- version/color SLIs,
+- worker/scheduler ownership,
+- data migration phase,
+- rollback alebo retirement verdict.
 
-Pred switchom:
+## 28. Metriky stratégie
 
-1. green artifact digest potvrdený,
-2. configuration a migrations overené,
-3. capacity pripravená,
-4. synthetic/smoke tests úspešné,
-5. background jobs koordinované,
-6. routing change pripravený,
-7. promotion a abort criteria definované,
-8. blue dostupný pre rollback,
-9. on-call a communication pripravené,
-10. dashboards rozlišujú blue/green.
+- candidate provisioning time,
+- pre-cutover failure rate,
+- cutover propagation time,
+- old connection drain time,
+- routing rollback time a success,
+- standby drift rate,
+- duplicate-worker incidents,
+- capacity overprovisioning cost,
+- post-cutover change fail rate,
+- rollback-ineligible releases.
 
-## 24. Výhody
+## 29. Typické anti-patterny
 
-- rýchly traffic cutover,
-- rýchly routing rollback,
-- testovanie novej verzie v oddelenom targete,
-- minimálne application mixed-version obdobie,
-- jednoduché porovnanie environmentov,
-- nižšie riziko in-place mutation.
+### Oba targety používajú mutable tag
 
-## 25. Nevýhody
+Color label neidentifikuje konkrétne bytes.
 
-- približne dvojnásobná capacity,
-- shared-state compatibility zostáva,
-- zložitá koordinácia workers a scheduled jobs,
-- environment drift,
-- DNS a connection propagation,
-- rollback nemusí vrátiť data state,
-- cutover môže zasiahnuť všetkých používateľov naraz.
+### Green sa overí s inou config než po cutover-e
 
-## 26. Anti-patterny
+Evidence sa nevzťahuje na finálny runtime state.
 
-### Blue a green používajú mutable tag
+### Routing switch bez concurrency ochrany
 
-Nie je isté, ktoré bytes sú v jednotlivých farbách.
+Súbežný deployment môže prepísať aktívnu farbu.
 
-### Green sa testuje s inou konfiguráciou než po cutover-e
+### Oba schedulery sú aktívne
 
-Pre-release evidence nie je relevantná.
+Vznikajú duplicate mutations.
 
-### Oba schedulery vykonávajú mutations
+### Routing rollback sa zamieňa s data rollbackom
 
-Vznikajú duplicate side effects.
+Green writes môžu byť pre blue nečitateľné.
 
-### Routing rollback sa považuje za data rollback
+### Old target sa okamžite odstráni
 
-Green writes môžu byť pre blue nekompatibilné.
+Hlavná recovery výhoda zmizne.
 
-### Stará farba sa okamžite odstráni
-
-Recovery výhoda zmizne.
-
-### Dve environment-y sa manuálne udržiavajú mesiace
+### Farby sa manuálne udržiavajú mesiace
 
 Drift a náklady rastú.
 
-## 27. Troubleshooting
+## 30. Diagnostický postup
 
-### Green je healthy bez trafficu, po cutover-e zlyháva
+1. Urči aktívny routing revision a skutočné weights.
+2. Over digest/config oboch farieb.
+3. Skontroluj propagation, persistent connections a DNS, ak sa používa.
+4. Porovnaj color-specific telemetry a requests per target.
+5. Over shared database/cache/session compatibility.
+6. Skontroluj worker a scheduler ownership.
+7. Pri green failure posúď rollback eligibility.
+8. Pri blue rollback failure over jeho aktuálnu readiness a dependencies.
+9. Po recovery over data/business invariants.
+10. Zachovaj cutover timeline a final state.
 
-Over capacity, cold caches, production-only dependencies, permissions, rate limits a reálny workload mix.
+## 31. Rozhodovací rámec
 
-### Časť klientov stále používa blue
+1. Máme capacity pre dva produkčne relevantné targety?
+2. Ktoré dependencies a state zostávajú shared?
+3. Ako sa green testuje cez reálny path?
+4. Je finálna config známa pred cutoverom?
+5. Aký routing mechanizmus a propagation používame?
+6. Ako sa koordinujú connections, workers a schedulers?
+7. Aké data writes môžu zneplatniť rollback?
+8. Ako dlho zostáva old target recovery candidate?
+9. Ako sa chráni routing pred súbežnými zmenami?
+10. Aké metrics a verdicty rozhodnú acceptance?
 
-Skontroluj DNS cache, persistent connections, service discovery propagation a sticky routing.
+## 32. Kontrolný checklist
 
-### Rollback na blue spôsobuje chyby dát
+- oba targety majú immutable identities,
+- config a secret references sú známe,
+- green je behaviorálne ekvivalentný,
+- capacity a shared quotas sú pripravené,
+- pre-cutover smoke používa relevantný path,
+- routing switch je idempotentný a locked,
+- drain a long-lived connections sú riešené,
+- DB/cache/session/events sú compatible,
+- workers a schedulers majú single ownership,
+- telemetry obsahuje color a version,
+- rollback eligibility je potvrdená,
+- old target sa health-checkuje počas retention,
+- teardown je bezpečný a auditovateľný.
 
-Green vykonal incompatible writes alebo migration. Použi roll-forward/restore podľa recovery plánu.
+## 33. Kontrolné otázky
 
-### Scheduled job sa spustil dvakrát
+1. Čo je skutočným predmetom blue-green stratégie?
+2. Prečo dve application fleets neznamenajú dva úplne oddelené systémy?
+3. Prečo DNS neposkytuje presný okamžitý cutover?
+4. Čo musí obsahovať pre-cutover verification?
+5. Ako sa chráni routing transition pred race condition?
+6. Prečo connection draining pokračuje po switchi nových requests?
+7. Ako databáza obmedzuje routing rollback?
+8. Ako koordinovať schedulers a workers?
+9. Prečo old target potrebuje kontinuálny health check?
+10. Ako environment drift znižuje recovery hodnotu?
 
-Obe farby mali active scheduler. Zaveď leader/lock alebo explicitnú active-color policy.
+## Summary
 
-### Green nemá dostatok capacity
-
-Over quotas, autoscaling warm-up, DB connection limit, IPs, licenses a external dependencies.
-
-### Blue po observation window už nie je ready
-
-Ponechaná farba degradovala alebo stratila dependencies. Rollback candidate musí byť kontinuálne health-checkovaný.
-
-## 28. Kontrolné otázky
-
-1. Ako funguje blue-green deployment?
-2. Aký je rozdiel medzi deployment targetom a environment labelom?
-3. Prečo DNS nie je okamžitý cutover mechanizmus?
-4. Ako sa overuje green pred produkčným trafficom?
-5. Prečo shared databáza vyžaduje compatibility?
-6. Ako koordinovať background workers a schedulery?
-7. Čo musí zostať zachované pre rýchly rollback?
-8. Prečo routing rollback nie je data rollback?
-9. Ako environment drift oslabuje stratégiu?
-10. Ktoré metriky musia byť rozlíšené podľa farby a verzie?
+Blue-green deployment pripravuje novú application generation v oddelenom targete a následne mení autoritatívny routing pointer. Poskytuje silnú pre-cutover verification a potenciálne rýchly routing rollback, ale potrebuje takmer dvojnásobnú capacity, presnú configuration identity, riadený cutover, connection drain a koordináciu shared databázy, cache, sessions, workers a schedulers. Najdôležitejšie obmedzenie je, že routing rollback nevracia mutable data state; recovery candidate musí zostať kompatibilný, healthy a auditovateľný.
 
 ## Glossary impact
 
-Relevantné pojmy: blue-green deployment, blue environment, green environment, traffic cutover, deployment slot, active color, warm standby, routing rollback, environment parity, color-specific telemetry a cutover window.
+Relevantné pojmy: blue-green deployment, deployment target, active color, candidate color, routing pointer, traffic cutover, routing revision, behavioral equivalence, warm standby, color-specific telemetry, routing rollback a standby retention.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
