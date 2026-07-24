@@ -1137,15 +1137,15 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "title": "Test pyramid",
-      "words": 1063,
-      "headings": 25,
-      "sections": 25,
-      "findings": 63,
-      "critical": 25,
-      "high": 23,
-      "medium": 8,
-      "low": 7,
-      "score": 515,
+      "words": 2923,
+      "headings": 41,
+      "sections": 41,
+      "findings": 81,
+      "critical": 18,
+      "high": 16,
+      "medium": 12,
+      "low": 35,
+      "score": 430,
       "grade": "D"
     },
     {
@@ -69464,71 +69464,44 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "1. Prečo pyramída vznikla",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "1. Prečo pyramída vznikla",
-      "line": 15,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálnu logiku,`, `spoluprácu komponentov,`, `externé kontrakty,`, `reálny používateľský workflow.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "1. Prečo pyramída vznikla",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "1. Prečo pyramída vznikla",
-      "line": 15,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "2. Spodná vrstva: unit tests",
-      "line": 35,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "2. Spodná vrstva: unit tests",
-      "line": 35,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "2. Spodná vrstva: unit tests",
-      "line": 35,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `milisekundový až sekundový feedback,`, `presná lokalizácia chyby,`, `jednoduché edge cases,`, `lacný paralelný beh,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: Verification vs. validation`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "2. Spodná vrstva: unit tests",
-      "line": 35,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -69536,89 +69509,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "3. Stredná vrstva: integration a component tests",
-      "line": 54,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "3. Stredná vrstva: integration a component tests",
-      "line": 54,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "3. Stredná vrstva: integration a component tests",
-      "line": 54,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikácia a databáza,`, `service a message broker,`, `repository a filesystem,`, `API adapter a reálny serializer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "3. Stredná vrstva: integration a component tests",
-      "line": 54,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "3. Stredná vrstva: integration a component tests",
-      "line": 54,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `scope`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "4. Vrchná vrstva: end-to-end tests",
-      "line": 74,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "4. Vrchná vrstva: end-to-end tests",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "4. Vrchná vrstva: end-to-end tests",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká fidelity,`, `kontrola kritických používateľských ciest,`, `overenie deployment wiring-u.`, `pomalé,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "4. Vrchná vrstva: end-to-end tests",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "5. Test trophy",
-      "line": 104,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69626,71 +69527,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "6. Test diamond a ice cream cone",
-      "line": 119,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Ice cream cone",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Ice cream cone",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomalý feedback,`, `dlhé regresné cykly,`, `vysoká cena údržby,`, `časté flaky failures,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Ice cream cone",
-      "line": 125,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "8. Fidelity vs. determinism",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "8. Fidelity vs. determinism",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministické unit tests pre logiku,`, `reálne integration tests pre hranice,`, `contract tests pre distribuované rozhrania,`, `malý počet E2E tests pre kritické journeys,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "8. Fidelity vs. determinism",
-      "line": 147,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "8. Fidelity vs. determinism",
-      "line": 147,
+      "section": "2. Mentálny model: riziko, scope a cena dôkazu",
+      "line": 25,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69698,80 +69545,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "8. Fidelity vs. determinism",
-      "line": 147,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`, `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "9. Rýchlosť feedbacku",
-      "line": 161,
+      "section": "3. Prečo jeden typ testu nestačí",
+      "line": 40,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "9. Rýchlosť feedbacku",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invalid enum: unit alebo schema test,`, `SQL constraint: database integration test,`, `consumer/provider mismatch: contract test,`, `nesprávny reverse-proxy route: deployment smoke alebo E2E,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "9. Rýchlosť feedbacku",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "9. Rýchlosť feedbacku",
-      "line": 161,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "9. Rýchlosť feedbacku",
-      "line": 161,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `E2E`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "10. Redundancia nie je automaticky zlá",
-      "line": 175,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "10. Redundancia nie je automaticky zlá",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit test policy logiky,`, `integration test repository scope,`, `API test forbidden response,`, `E2E test tenant isolation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "10. Redundancia nie je automaticky zlá",
-      "line": 175,
+      "section": "3. Prečo jeden typ testu nestačí",
+      "line": 40,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -69779,242 +69563,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "10. Redundancia nie je automaticky zlá",
-      "line": 175,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "10. Redundancia nie je automaticky zlá",
-      "line": 175,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `E2E`, `policy`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "11. Test suite ako portfolio rizík",
-      "line": 188,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "11. Test suite ako portfolio rizík",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "11. Test suite ako portfolio rizík",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `pravdepodobnosť chyby,`, `blast radius,`, `frekvencia zmeny,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "11. Test suite ako portfolio rizík",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "11. Test suite ako portfolio rizík",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "13. Quarantine a flaky tests",
-      "line": 217,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "13. Quarantine a flaky tests",
-      "line": 217,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `okamžitá oprava,`, `dočasná quarantine s issue a deadline,`, `stabilizácia test data a clocku,`, `odstránenie sleep-based synchronizácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "13. Quarantine a flaky tests",
-      "line": 217,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "13. Quarantine a flaky tests",
-      "line": 217,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "14. Infrastructure testing pyramid",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "14. Infrastructure testing pyramid",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "14. Infrastructure testing pyramid",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `terraform validate a policy checks,`, `testovanie modul outputs,`, `apply do ephemeral accountu,`, `network connectivity probe,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "14. Infrastructure testing pyramid",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "14. Infrastructure testing pyramid",
-      "line": 232,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Pyramída ako kvóta",
-      "line": 254,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Všetko cez browser",
-      "line": 258,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Všetko mockované",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Duplicitné assertiony bez novej hodnoty",
-      "line": 266,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Pomalá suite bez segmentácie",
-      "line": 270,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké riziko test pokrýva?`, `Aký najmenší scope ho spoľahlivo odhalí?`, `Potrebuje reálnu databázu, sieť alebo externú službu?`, `Aký je test oracle?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
+      "section": "3. Prečo jeden typ testu nestačí",
+      "line": 40,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70022,12 +69572,624 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "16. Rozhodovací rámec",
-      "line": 274,
+      "section": "3. Prečo jeden typ testu nestačí",
+      "line": 40,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "3. Prečo jeden typ testu nestačí",
+      "line": 40,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "4. Spodná vrstva: unit tests",
+      "line": 52,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "4. Spodná vrstva: unit tests",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "4. Spodná vrstva: unit tests",
+      "line": 52,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "5. Stredná vrstva: integration tests",
+      "line": 73,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `repository vrstva proti skutočnému PostgreSQL serveru;`, `producer a consumer proti reálnemu message brokeru;`, `migrácia databázy na reprezentatívnej predchádzajúcej schéme;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "7. Vrchná vrstva: end-to-end tests",
+      "line": 93,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 51 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "7. Vrchná vrstva: end-to-end tests",
+      "line": 93,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overujú reálne wiring, routing a konfiguráciu;`, `zachytávajú chyby vznikajúce kombináciou viacerých komponentov;`, `poskytujú dôkaz pre kritické používateľské alebo prevádzkové journeys;`, `pomalší setup a vykonanie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "7. Vrchná vrstva: end-to-end tests",
+      "line": 93,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "7. Vrchná vrstva: end-to-end tests",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "9. Fidelity, determinism a diagnosability",
+      "line": 140,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "9. Fidelity, determinism a diagnosability",
+      "line": 140,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "10. Test trophy",
+      "line": 153,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "11. Test diamond a honeycomb",
+      "line": 168,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "12. Ice cream cone anti-pattern",
+      "line": 176,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "12. Ice cream cone anti-pattern",
+      "line": 176,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chyby sa odhaľujú neskoro po dokončení veľkého batchu;`, `test cycle je pomalý a blokuje paralelnú prácu;`, `failure localization je náročná;`, `test data a prostredie sa stávajú zdieľaným bottleneckom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "12. Ice cream cone anti-pattern",
+      "line": 176,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "13. Test patrí do najnižšieho spoľahlivého scope",
+      "line": 197,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "13. Test patrí do najnižšieho spoľahlivého scope",
+      "line": 197,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "13. Test patrí do najnižšieho spoľahlivého scope",
+      "line": 197,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `E2E`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "14. Redundancia podľa failure mode",
+      "line": 217,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `API`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "15. Test suite ako portfólio rizík",
+      "line": 231,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "15. Test suite ako portfólio rizík",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "15. Test suite ako portfólio rizík",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "15. Test suite ako portfólio rizík",
+      "line": 231,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "16. Ekonomika feedbacku",
+      "line": 246,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "17. Change amplification a maintenance cost",
+      "line": 263,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet testov menených pri jednej produktovej zmene;`, `podiel failure spôsobených fixture alebo environmentom;`, `čas od failure po root cause;`, `priemernú dĺžku a ownership testov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "17. Change amplification a maintenance cost",
+      "line": 263,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "17. Change amplification a maintenance cost",
+      "line": 263,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "17. Change amplification a maintenance cost",
+      "line": 263,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "17. Change amplification a maintenance cost",
+      "line": 263,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "18. Test environment ako produkt",
+      "line": 277,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "18. Test environment ako produkt",
+      "line": 277,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versioned a reprodukovateľný setup;`, `namespacing alebo izoláciu paralelných behov;`, `kontrolovaný seed dát a deterministic cleanup;`, `dostupné logs, traces, screenshots a network evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "19. Selection a affected tests",
+      "line": 293,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný affected run pri každom PR;`, `širší periodic run;`, `full suite pred kritickým release;`, `telemetry selection misses a post-merge failures.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "19. Selection a affected tests",
+      "line": 293,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "19. Selection a affected tests",
+      "line": 293,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "19. Selection a affected tests",
+      "line": 293,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "20. Flaky tests a quarantine",
+      "line": 306,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "20. Flaky tests a quarantine",
+      "line": 306,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared test data alebo order dependency;`, `fixed sleeps namiesto condition-based wait;`, `reálny wall clock, random alebo timezone bez kontroly;`, `resource saturation a paralelná contention;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "20. Flaky tests a quarantine",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "20. Flaky tests a quarantine",
+      "line": 306,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "20. Flaky tests a quarantine",
+      "line": 306,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "20. Flaky tests a quarantine",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "21. Infrastructure testing pyramid",
+      "line": 321,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "22. Príklad: objednávkový systém",
+      "line": 338,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "23. Suite health metrics",
+      "line": 353,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "23. Suite health metrics",
+      "line": 353,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "23. Suite health metrics",
+      "line": 353,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "23. Suite health metrics",
+      "line": 353,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "23. Suite health metrics",
+      "line": 353,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký failure mode a dopad test pokrýva?`, `Aký najnižší scope ho spoľahlivo odhalí?`, `Ktoré boundaries musia byť reálne?`, `Aký oracle potvrdí význam výsledku?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "25. Rozhodovací rámec pre nový test",
+      "line": 390,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritické failure modes majú identifikovateľný dôkaz;`, `reálne boundaries majú integration alebo contract testy;`, `E2E suite je malá, kritická a diagnostikovateľná;`, `test data sú izolované a cleanup je spoľahlivý;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "26. Kontrolný checklist portfólia",
+      "line": 407,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "27. Časté omyly",
+      "line": 420,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/test-pyramid.md",
+      "section": "29. Zhrnutie",
+      "line": 457,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11417**
-- Total words: **535,902**
-- Findings: **25658** (critical 8673, high 9719, medium 3465, low 3801)
+- Audited conceptual sections: **11433**
+- Total words: **537,762**
+- Findings: **25676** (critical 8666, high 9712, medium 3469, low 3829)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -213,7 +213,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 525 | 22 | 14 | 19 | 57 | 4060 | `docs/13-security-and-identity/vulnerability-and-patch-management.md` |
 | D | 521 | 17 | 38 | 4 | 4 | 1898 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 520 | 20 | 32 | 7 | 2 | 1216 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
-| D | 515 | 25 | 23 | 8 | 7 | 1063 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 513 | 25 | 23 | 9 | 2 | 1008 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -226,6 +225,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
+| D | 430 | 18 | 16 | 12 | 35 | 2923 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
@@ -4889,54 +4889,40 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/test-pyramid.md`
 
-- **CRITICAL** line 15, `bare-bullet-items` — **1. Prečo pyramída vznikla**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálnu logiku,`, `spoluprácu komponentov,`, `externé kontrakty,`, `reálny používateľský workflow.`.
-- **CRITICAL** line 15, `outline-instead-of-explanation` — **1. Prečo pyramída vznikla**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 35, `bare-bullet-items` — **2. Spodná vrstva: unit tests**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `milisekundový až sekundový feedback,`, `presná lokalizácia chyby,`, `jednoduché edge cases,`, `lacný paralelný beh,`.
-- **CRITICAL** line 35, `outline-instead-of-explanation` — **2. Spodná vrstva: unit tests**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 54, `bare-bullet-items` — **3. Stredná vrstva: integration a component tests**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikácia a databáza,`, `service a message broker,`, `repository a filesystem,`, `API adapter a reálny serializer,`.
-- **CRITICAL** line 54, `outline-instead-of-explanation` — **3. Stredná vrstva: integration a component tests**: 12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 74, `bare-bullet-items` — **4. Vrchná vrstva: end-to-end tests**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká fidelity,`, `kontrola kritických používateľských ciest,`, `overenie deployment wiring-u.`, `pomalé,`.
-- **CRITICAL** line 74, `outline-instead-of-explanation` — **4. Vrchná vrstva: end-to-end tests**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 119, `empty-section` — **6. Test diamond a ice cream cone**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 125, `bare-bullet-items` — **Ice cream cone**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomalý feedback,`, `dlhé regresné cykly,`, `vysoká cena údržby,`, `časté flaky failures,`.
-- **CRITICAL** line 125, `outline-instead-of-explanation` — **Ice cream cone**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 147, `bare-bullet-items` — **8. Fidelity vs. determinism**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministické unit tests pre logiku,`, `reálne integration tests pre hranice,`, `contract tests pre distribuované rozhrania,`, `malý počet E2E tests pre kritické journeys,`.
-- **CRITICAL** line 147, `outline-instead-of-explanation` — **8. Fidelity vs. determinism**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **9. Rýchlosť feedbacku**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invalid enum: unit alebo schema test,`, `SQL constraint: database integration test,`, `consumer/provider mismatch: contract test,`, `nesprávny reverse-proxy route: deployment smoke alebo E2E,`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **9. Rýchlosť feedbacku**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 175, `bare-bullet-items` — **10. Redundancia nie je automaticky zlá**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit test policy logiky,`, `integration test repository scope,`, `API test forbidden response,`, `E2E test tenant isolation.`.
-- **CRITICAL** line 175, `outline-instead-of-explanation` — **10. Redundancia nie je automaticky zlá**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `bare-bullet-items` — **11. Test suite ako portfolio rizík**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `pravdepodobnosť chyby,`, `blast radius,`, `frekvencia zmeny,`.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **11. Test suite ako portfolio rizík**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 217, `bare-bullet-items` — **13. Quarantine a flaky tests**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `okamžitá oprava,`, `dočasná quarantine s issue a deadline,`, `stabilizácia test data a clocku,`, `odstránenie sleep-based synchronizácie,`.
-- **CRITICAL** line 217, `outline-instead-of-explanation` — **13. Quarantine a flaky tests**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 232, `bare-bullet-items` — **14. Infrastructure testing pyramid**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `terraform validate a policy checks,`, `testovanie modul outputs,`, `apply do ephemeral accountu,`, `network connectivity probe,`.
-- **CRITICAL** line 232, `outline-instead-of-explanation` — **14. Infrastructure testing pyramid**: 5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 274, `bare-bullet-items` — **16. Rozhodovací rámec**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké riziko test pokrýva?`, `Aký najmenší scope ho spoľahlivo odhalí?`, `Potrebuje reálnu databázu, sieť alebo externú službu?`, `Aký je test oracle?`.
-- **CRITICAL** line 274, `outline-instead-of-explanation` — **16. Rozhodovací rámec**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **HIGH** line 35, `single-sentence-concept` — **2. Spodná vrstva: unit tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 54, `single-sentence-concept` — **3. Stredná vrstva: integration a component tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 74, `single-sentence-concept` — **4. Vrchná vrstva: end-to-end tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 188, `single-sentence-concept` — **11. Test suite ako portfolio rizík**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 232, `single-sentence-concept` — **14. Infrastructure testing pyramid**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 254, `single-sentence-concept` — **Pyramída ako kvóta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 258, `single-sentence-concept` — **Všetko cez browser**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 262, `single-sentence-concept` — **Všetko mockované**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 266, `single-sentence-concept` — **Duplicitné assertiony bez novej hodnoty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 270, `single-sentence-concept` — **Pomalá suite bez segmentácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 274, `single-sentence-concept` — **16. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 15, `thin-concept-section` — **1. Prečo pyramída vznikla**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 35, `thin-concept-section` — **2. Spodná vrstva: unit tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 54, `thin-concept-section` — **3. Stredná vrstva: integration a component tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 74, `thin-concept-section` — **4. Vrchná vrstva: end-to-end tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 125, `thin-concept-section` — **Ice cream cone**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 147, `thin-concept-section` — **8. Fidelity vs. determinism**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **9. Rýchlosť feedbacku**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 175, `term-before-explanation` — **10. Redundancia nie je automaticky zlá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `E2E`, `policy`, `scope`
-- **HIGH** line 188, `thin-concept-section` — **11. Test suite ako portfolio rizík**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 217, `thin-concept-section` — **13. Quarantine a flaky tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 232, `thin-concept-section` — **14. Infrastructure testing pyramid**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 274, `thin-concept-section` — **16. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: Verification vs. validation`.
+- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 40, `outline-instead-of-explanation` — **3. Prečo jeden typ testu nestačí**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 93, `bare-bullet-items` — **7. Vrchná vrstva: end-to-end tests**: 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overujú reálne wiring, routing a konfiguráciu;`, `zachytávajú chyby vznikajúce kombináciou viacerých komponentov;`, `poskytujú dôkaz pre kritické používateľské alebo prevádzkové journeys;`, `pomalší setup a vykonanie;`.
+- **CRITICAL** line 176, `bare-bullet-items` — **12. Ice cream cone anti-pattern**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chyby sa odhaľujú neskoro po dokončení veľkého batchu;`, `test cycle je pomalý a blokuje paralelnú prácu;`, `failure localization je náročná;`, `test data a prostredie sa stávajú zdieľaným bottleneckom;`.
+- **CRITICAL** line 197, `outline-instead-of-explanation` — **13. Test patrí do najnižšieho spoľahlivého scope**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 263, `bare-bullet-items` — **17. Change amplification a maintenance cost**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet testov menených pri jednej produktovej zmene;`, `podiel failure spôsobených fixture alebo environmentom;`, `čas od failure po root cause;`, `priemernú dĺžku a ownership testov;`.
+- **CRITICAL** line 277, `bare-bullet-items` — **18. Test environment ako produkt**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versioned a reprodukovateľný setup;`, `namespacing alebo izoláciu paralelných behov;`, `kontrolovaný seed dát a deterministic cleanup;`, `dostupné logs, traces, screenshots a network evidence;`.
+- **CRITICAL** line 293, `bare-bullet-items` — **19. Selection a affected tests**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný affected run pri každom PR;`, `širší periodic run;`, `full suite pred kritickým release;`, `telemetry selection misses a post-merge failures.`.
+- **CRITICAL** line 306, `bare-bullet-items` — **20. Flaky tests a quarantine**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared test data alebo order dependency;`, `fixed sleeps namiesto condition-based wait;`, `reálny wall clock, random alebo timezone bez kontroly;`, `resource saturation a paralelná contention;`.
+- **CRITICAL** line 353, `outline-instead-of-explanation` — **23. Suite health metrics**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 390, `bare-bullet-items` — **25. Rozhodovací rámec pre nový test**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký failure mode a dopad test pokrýva?`, `Aký najnižší scope ho spoľahlivo odhalí?`, `Ktoré boundaries musia byť reálne?`, `Aký oracle potvrdí význam výsledku?`.
+- **CRITICAL** line 390, `outline-instead-of-explanation` — **25. Rozhodovací rámec pre nový test**: 12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 407, `bare-bullet-items` — **26. Kontrolný checklist portfólia**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritické failure modes majú identifikovateľný dôkaz;`, `reálne boundaries majú integration alebo contract testy;`, `E2E suite je malá, kritická a diagnostikovateľná;`, `test data sú izolované a cleanup je spoľahlivý;`.
+- **CRITICAL** line 407, `no-prose-concept` — **26. Kontrolný checklist portfólia**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 407, `outline-instead-of-explanation` — **26. Kontrolný checklist portfólia**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 420, `empty-section` — **27. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 52, `list-heavy-section` — **4. Spodná vrstva: unit tests**: 9 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 73, `bare-bullet-items` — **5. Stredná vrstva: integration tests**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `repository vrstva proti skutočnému PostgreSQL serveru;`, `producer a consumer proti reálnemu message brokeru;`, `migrácia databázy na reprezentatívnej predchádzajúcej schéme;`.
+- **HIGH** line 93, `list-heavy-section` — **7. Vrchná vrstva: end-to-end tests**: 9 odrážok a iba 51 slov súvislého vysvetlenia.
+- **HIGH** line 176, `list-heavy-section` — **12. Ice cream cone anti-pattern**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 231, `list-heavy-section` — **15. Test suite ako portfólio rizík**: 6 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 277, `list-heavy-section` — **18. Test environment ako produkt**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 306, `list-heavy-section` — **20. Flaky tests a quarantine**: 6 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 390, `single-sentence-concept` — **25. Rozhodovací rámec pre nový test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 407, `list-first-introduction` — **26. Kontrolný checklist portfólia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 197, `thin-concept-section` — **13. Test patrí do najnižšieho spoľahlivého scope**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 217, `term-before-explanation` — **14. Redundancia podľa failure mode**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `API`, `policy`, `identity`
+- **HIGH** line 353, `thin-concept-section` — **23. Suite health metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 390, `thin-concept-section` — **25. Rozhodovací rámec pre nový test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 407, `thin-concept-section` — **26. Kontrolný checklist portfólia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/unit-integration-component-tests.md`
 
@@ -19442,19 +19428,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3991 | 383 | 0 | 0 | 4374 |
-| `single-sentence-concept` | 0 | 4137 | 0 | 0 | 4137 |
-| `outline-instead-of-explanation` | 3879 | 0 | 0 | 0 | 3879 |
-| `thin-concept-section` | 0 | 3508 | 0 | 0 | 3508 |
-| `term-before-explanation` | 0 | 421 | 2411 | 0 | 2832 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1589 | 1589 |
-| `example-not-explicit` | 0 | 0 | 0 | 1447 | 1447 |
+| `bare-bullet-items` | 3988 | 384 | 0 | 0 | 4372 |
+| `single-sentence-concept` | 0 | 4127 | 0 | 0 | 4127 |
+| `outline-instead-of-explanation` | 3873 | 0 | 0 | 0 | 3873 |
+| `thin-concept-section` | 0 | 3502 | 0 | 0 | 3502 |
+| `term-before-explanation` | 0 | 421 | 2415 | 0 | 2836 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1594 | 1594 |
+| `example-not-explicit` | 0 | 0 | 0 | 1462 | 1462 |
 | `short-concept-section` | 0 | 0 | 1054 | 0 | 1054 |
-| `list-first-introduction` | 0 | 957 | 0 | 0 | 957 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 765 | 765 |
+| `list-first-introduction` | 0 | 959 | 0 | 0 | 959 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 773 | 773 |
 | `empty-section` | 482 | 0 | 0 | 0 | 482 |
-| `no-prose-concept` | 321 | 0 | 0 | 0 | 321 |
-| `list-heavy-section` | 0 | 313 | 0 | 0 | 313 |
+| `no-prose-concept` | 323 | 0 | 0 | 0 | 323 |
+| `list-heavy-section` | 0 | 319 | 0 | 0 | 319 |
 
 ## Required remediation pattern
 
