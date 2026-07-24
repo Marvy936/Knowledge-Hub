@@ -1375,15 +1375,15 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "title": "Recreate deployment",
-      "words": 1109,
-      "headings": 35,
-      "sections": 35,
-      "findings": 78,
-      "critical": 32,
-      "high": 39,
-      "medium": 5,
-      "low": 2,
-      "score": 706,
+      "words": 1830,
+      "headings": 38,
+      "sections": 38,
+      "findings": 134,
+      "critical": 46,
+      "high": 47,
+      "medium": 16,
+      "low": 25,
+      "score": 1010,
       "grade": "D"
     },
     {
@@ -93134,17 +93134,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "1. Základný mechanizmus",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Metadata",
+      "line": 3,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "1. Základný mechanizmus",
-      "line": 7,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -93152,35 +93152,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "2. Kedy je recreate vhodný",
-      "line": 26,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "2. Kedy je recreate vhodný",
-      "line": 26,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "2. Kedy je recreate vhodný",
-      "line": 26,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downtime je akceptovateľný,`, `aplikácia je interná alebo má maintenance window,`, `nie je možné súčasne spustiť dve verzie,`, `resource capacity je obmedzená,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "2. Kedy je recreate vhodný",
-      "line": 26,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93188,8 +93170,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "2. Kedy je recreate vhodný",
-      "line": 26,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "1. Definícia",
+      "line": 9,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93197,17 +93188,71 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "2. Kedy je recreate vhodný",
-      "line": 26,
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "3. Kedy je stratégia vhodná",
+      "line": 43,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Workload`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "3. Downtime budget",
-      "line": 40,
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93215,26 +93260,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "3. Downtime budget",
-      "line": 40,
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "15 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "3. Downtime budget",
-      "line": 40,
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálny akceptovaný downtime,`, `očakávaný startup time,`, `migration duration,`, `readiness verification time,`.",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest a release ID,`, `config revision a secret references,`, `infrastructure a database state,`, `previous rollback candidate,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "3. Downtime budget",
-      "line": 40,
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93242,8 +93287,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "4. Graceful shutdown",
-      "line": 58,
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "4. Deployment subject a preconditions",
+      "line": 55,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "5. Downtime contract",
+      "line": 78,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93251,26 +93332,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "4. Graceful shutdown",
-      "line": 58,
+      "section": "5. Downtime contract",
+      "line": 78,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "4. Graceful shutdown",
-      "line": 58,
+      "section": "5. Downtime contract",
+      "line": 78,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `termination grace period,`, `connection draining,`, `message-consumer shutdown,`, `job checkpointing,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný čas,`, `hard timeout,`, `ownera,`, `failure action,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "4. Graceful shutdown",
-      "line": 58,
+      "section": "5. Downtime contract",
+      "line": 78,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93278,35 +93359,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "5. Readiness novej verzie",
-      "line": 82,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "5. Readiness novej verzie",
-      "line": 82,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načítať configuration,`, `pripojiť dependencies,`, `warmnúť cache,`, `aplikovať migrations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "5. Readiness novej verzie",
-      "line": 82,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "6. Maintenance mode",
-      "line": 98,
+      "section": "6. Recreate state machine",
+      "line": 105,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93314,26 +93368,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "6. Maintenance mode",
-      "line": 98,
+      "section": "7. Maintenance mode",
+      "line": 135,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "6. Maintenance mode",
-      "line": 98,
+      "section": "7. Maintenance mode",
+      "line": 135,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vracať kontrolovanú response,`, `zablokovať write operácie,`, `povoliť read-only režim,`, `komunikovať expected duration,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vracia kontrolovaný status a retry guidance,`, `môže povoliť read-only operácie,`, `blokuje nové writes a background work,`, `poskytuje status page alebo maintenance page,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "6. Maintenance mode",
-      "line": 98,
+      "section": "7. Maintenance mode",
+      "line": 135,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93341,26 +93395,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "8. Databázové migrácie",
-      "line": 125,
+      "section": "7. Maintenance mode",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "8. Traffic withdrawal a graceful drain",
+      "line": 147,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "8. Traffic withdrawal a graceful drain",
+      "line": 147,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "8. Databázové migrácie",
-      "line": 125,
+      "section": "8. Traffic withdrawal a graceful drain",
+      "line": 147,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dlhý migration time,`, `locky,`, `failure uprostred migrácie,`, `nedostatok disk capacity,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keep-alive a HTTP/2 connections,`, `WebSockets a streaming,`, `dlhé requests a uploads,`, `queue acknowledgements,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "8. Databázové migrácie",
-      "line": 125,
+      "section": "8. Traffic withdrawal a graceful drain",
+      "line": 147,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "8. Traffic withdrawal a graceful drain",
+      "line": 147,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "9. Write freeze a background work",
+      "line": 175,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "9. Write freeze a background work",
+      "line": 175,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled jobs,`, `queue consumers,`, `webhook workers,`, `batch a reconciliation jobs,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "9. Write freeze a background work",
+      "line": 175,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -93368,8 +93476,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "8. Databázové migrácie",
-      "line": 125,
+      "section": "10. Databázové migrácie",
+      "line": 188,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "10. Databázové migrácie",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lock duration a blocking,`, `migration runtime pri reálnom objeme,`, `disk a log growth,`, `partial execution,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "10. Databázové migrácie",
+      "line": 188,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "10. Databázové migrácie",
+      "line": 188,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93377,8 +93512,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "9. Stateful applications",
-      "line": 140,
+      "section": "10. Databázové migrácie",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "11. Stateful workloads",
+      "line": 205,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93386,26 +93530,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "9. Stateful applications",
-      "line": 140,
+      "section": "11. Stateful workloads",
+      "line": 205,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "9. Stateful applications",
-      "line": 140,
+      "section": "11. Stateful workloads",
+      "line": 205,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `persistent storage attachment,`, `exclusive locks,`, `leader election,`, `unclean shutdown recovery,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `persistent volume attachment a ownership,`, `fencing pred novým leaderom,`, `WAL alebo journal recovery,`, `unclean shutdown behavior,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "9. Stateful applications",
-      "line": 140,
+      "section": "11. Stateful workloads",
+      "line": 205,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93413,8 +93557,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "9. Stateful applications",
-      "line": 140,
+      "section": "11. Stateful workloads",
+      "line": 205,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "11. Stateful workloads",
+      "line": 205,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "12. Artifact a configuration deployment",
+      "line": 220,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "12. Artifact a configuration deployment",
+      "line": 220,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `config revision,`, `migration bundle version,`, `deployment tool revision,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "12. Artifact a configuration deployment",
+      "line": 220,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "12. Artifact a configuration deployment",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "12. Artifact a configuration deployment",
+      "line": 220,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -93422,35 +93620,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "10. Background jobs a consumers",
-      "line": 154,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "10. Background jobs a consumers",
-      "line": 154,
+      "section": "13. Startup a readiness",
+      "line": 235,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "10. Background jobs a consumers",
-      "line": 154,
+      "section": "13. Startup a readiness",
+      "line": 235,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav scheduling novej práce,`, `drainuj queue alebo bezpečne vráť messages,`, `zachovaj checkpoint,`, `uvoľni distributed locks,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načítať config a secrets,`, `overiť schema compatibility,`, `pripojiť dependencies,`, `obnoviť local state,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "10. Background jobs a consumers",
-      "line": 154,
+      "section": "13. Startup a readiness",
+      "line": 235,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93458,8 +93647,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "11. Sessions",
-      "line": 166,
+      "section": "13. Startup a readiness",
+      "line": 235,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "13. Startup a readiness",
+      "line": 235,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "14. Pre-traffic validation",
+      "line": 249,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93467,26 +93674,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "11. Sessions",
-      "line": 166,
+      "section": "14. Pre-traffic validation",
+      "line": 249,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "11. Sessions",
-      "line": 166,
+      "section": "14. Pre-traffic validation",
+      "line": 249,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external session store,`, `stateless tokens,`, `kontrolované session invalidation,`, `maintenance komunikácia,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a version verification,`, `startup/readiness checks,`, `dependency connectivity,`, `authorization a secret access,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "11. Sessions",
-      "line": 166,
+      "section": "14. Pre-traffic validation",
+      "line": 249,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93494,53 +93701,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "12. Deployment workflow",
-      "line": 178,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "14. Pre-traffic validation",
+      "line": 249,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "14. Roll-forward",
-      "line": 213,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "15. Capacity a resource model",
-      "line": 225,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "15. Capacity a resource model",
-      "line": 225,
+      "section": "15. Traffic restoration",
+      "line": 265,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "15. Capacity a resource model",
-      "line": 225,
+      "section": "15. Traffic restoration",
+      "line": 265,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nulová alebo znížená dostupnosť počas replacementu,`, `startup spike,`, `cold caches,`, `connection storm po obnovení trafficu.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rate limiting,`, `connection admission,`, `retry jitter,`, `cache prewarming,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "15. Capacity a resource model",
-      "line": 225,
+      "section": "15. Traffic restoration",
+      "line": 265,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93548,35 +93737,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "16. Cold start a thundering herd",
-      "line": 242,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "16. Cold start a thundering herd",
-      "line": 242,
+      "section": "16. Post-deploy validation",
+      "line": 288,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "16. Cold start a thundering herd",
-      "line": 242,
+      "section": "16. Post-deploy validation",
+      "line": 288,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `warm-up pred routingom,`, `gradual traffic restoration,`, `connection limits,`, `cache prewarming,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request success a tail latency,`, `business completion,`, `authentication/session errors,`, `dependency connections,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "16. Cold start a thundering herd",
-      "line": 242,
+      "section": "16. Post-deploy validation",
+      "line": 288,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93584,116 +93764,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "17. Monitoring",
-      "line": 255,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "17. Monitoring",
-      "line": 255,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "17. Monitoring",
-      "line": 255,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downtime duration,`, `shutdown/drain duration,`, `startup time,`, `readiness latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "17. Monitoring",
-      "line": 255,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "18. Recreate v orchestrátoroch",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "18. Recreate v orchestrátoroch",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poradiu termination/start,`, `scheduler timing,`, `storage reattachment,`, `readiness gates,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "18. Recreate v orchestrátoroch",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "19. Výhody",
-      "line": 284,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "19. Výhody",
-      "line": 284,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "19. Výhody",
-      "line": 284,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "19. Výhody",
-      "line": 284,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý mental model,`, `nízka peak resource spotreba,`, `žiadne mixed-version traffic obdobie,`, `jednoduchšia compatibility matica,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "19. Výhody",
-      "line": 284,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "19. Výhody",
-      "line": 284,
+      "section": "16. Post-deploy validation",
+      "line": 288,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
@@ -93701,44 +93773,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "20. Nevýhody",
-      "line": 293,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "20. Nevýhody",
-      "line": 293,
+      "section": "17. Rollback eligibility",
+      "line": 304,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "20. Nevýhody",
-      "line": 293,
+      "section": "17. Rollback eligibility",
+      "line": 304,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "20. Nevýhody",
-      "line": 293,
+      "section": "17. Rollback eligibility",
+      "line": 304,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downtime,`, `tvrdý capacity cutover,`, `cold-start riziko,`, `pomalší rollback,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `previous artifact a config existujú,`, `stará verzia rozumie aktuálnej schema a dátam,`, `nové writes neporušili staré invariants,`, `external contracts zostali kompatibilné,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "20. Nevýhody",
-      "line": 293,
+      "section": "17. Rollback eligibility",
+      "line": 304,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93746,17 +93809,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "20. Nevýhody",
-      "line": 293,
+      "section": "18. Rollback workflow",
+      "line": 317,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "19. Roll-forward",
+      "line": 332,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "19. Roll-forward",
+      "line": 332,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "19. Roll-forward",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration je nevratná,`, `nová verzia už vytvorila external side effects,`, `starý artifact nevie čítať nový state,`, `oprava je malá a rýchlo overiteľná,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "19. Roll-forward",
+      "line": 332,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "19. Roll-forward",
+      "line": 332,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Recreate prezentovaný ako zero-downtime",
-      "line": 305,
+      "section": "20. Failure taxonomy",
+      "line": 344,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93764,8 +93872,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Stop process bez drainu",
-      "line": 309,
+      "section": "20. Failure taxonomy",
+      "line": 344,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "20. Failure taxonomy",
+      "line": 344,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "20. Failure taxonomy",
+      "line": 344,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "20. Failure taxonomy",
+      "line": 344,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "20. Failure taxonomy",
+      "line": 344,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "21. Capacity a dependency shock",
+      "line": 359,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93773,8 +93926,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Migration bez odhadu času",
-      "line": 313,
+      "section": "21. Capacity a dependency shock",
+      "line": 359,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "21. Capacity a dependency shock",
+      "line": 359,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky connection pools sa otvoria naraz,`, `cache je cold,`, `clients retryujú,`, `queues začnú rýchlo drainovať,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "21. Capacity a dependency shock",
+      "line": 359,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "21. Capacity a dependency shock",
+      "line": 359,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "21. Capacity a dependency shock",
+      "line": 359,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "22. Observability a evidence",
+      "line": 372,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93782,8 +93980,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Traffic obnovený pri process start",
-      "line": 317,
+      "section": "22. Observability a evidence",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "22. Observability a evidence",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maintenance enabled,`, `traffic withdrawn,`, `last old request/work item,`, `old termination,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "22. Observability a evidence",
+      "line": 372,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "23. Metriky stratégie",
+      "line": 389,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93791,8 +94016,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Rollback artifact už nie je dostupný",
-      "line": 321,
+      "section": "23. Metriky stratégie",
+      "line": 389,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "23. Metriky stratégie",
+      "line": 389,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `planned verzus actual downtime,`, `čas každej state-machine fázy,`, `drain timeout rate,`, `migration failure rate,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "23. Metriky stratégie",
+      "line": 389,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "24. Typické anti-patterny",
+      "line": 404,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "Recreate prezentovaný ako zero downtime",
+      "line": 406,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93800,8 +94061,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Maintenance page beží v rovnakej aplikácii",
-      "line": 325,
+      "section": "Maintenance mode bez write freeze",
+      "line": 410,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93809,8 +94070,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Stará verzia sa nevie ukončiť",
-      "line": 335,
+      "section": "Process kill bez drainu",
+      "line": 414,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93818,8 +94079,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Nová verzia je ready, ale traffic zlyháva",
-      "line": 339,
+      "section": "Migration bez partial-failure plánu",
+      "line": 418,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93827,12 +94088,255 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
-      "section": "Po obnovení rastie latency",
-      "line": 343,
+      "section": "Traffic pri process start",
+      "line": 422,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "Rollback podľa verzie, nie podľa eligibility",
+      "line": 426,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "Maintenance komponent v rovnakom failure domaine",
+      "line": 430,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči aktuálny state machine stav.`, `Over artifact, config, migration a environment identity.`, `Rozlož elapsed time podľa fáz.`, `Skontroluj routing a skutočný traffic withdrawal.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "25. Diagnostický postup",
+      "line": 434,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký downtime je businessovo prijateľný?`, `Aká je horná hranica každej fázy?`, `Prečo verzie nemôžu alebo nemusia koexistovať?`, `Ktoré writes a background work treba zastaviť?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "26. Rozhodovací rámec",
+      "line": 447,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release identity je immutable,`, `downtime budget je schválený,`, `maintenance komponent je nezávislý,`, `traffic a work intake možno zastaviť,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "27. Kontrolný checklist",
+      "line": 462,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
+      "section": "Summary",
+      "line": 491,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
