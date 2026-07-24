@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10497**
-- Total words: **440,683**
-- Findings: **23438** (critical 8351, high 9443, medium 3121, low 2523)
+- Audited conceptual sections: **10501**
+- Total words: **442,051**
+- Findings: **23441** (critical 8339, high 9426, medium 3129, low 2547)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -212,7 +212,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 477 | 22 | 23 | 8 | 4 | 877 | `docs/03-git-and-automation/branching-strategies.md` |
-| D | 468 | 20 | 27 | 2 | 6 | 878 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 465 | 26 | 15 | 10 | 1 | 1343 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 462 | 18 | 26 | 9 | 5 | 1127 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
@@ -258,6 +257,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 278 | 12 | 14 | 5 | 3 | 904 | `docs/03-git-and-automation/git-object-model.md` |
 | D | 266 | 12 | 11 | 8 | 3 | 1053 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
+| D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 234 | 10 | 11 | 4 | 8 | 876 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 232 | 11 | 10 | 4 | 4 | 707 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
@@ -702,50 +702,21 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Automation Mindset, Continuous Improvement`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 38, `bare-bullet-items` — **3. Typické vlastnosti toil-u**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je manuálna,`, `opakuje sa,`, `dá sa automatizovať,`, `je reaktívna namiesto strategickej,`.
-- **CRITICAL** line 38, `outline-instead-of-explanation` — **3. Typické vlastnosti toil-u**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 52, `bare-bullet-items` — **4. Príklady toil-u**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ručné vytváranie rovnakých používateľských účtov,`, `opakované obnovovanie expirovaných certifikátov,`, `manuálny deployment podľa checklistu,`, `pravidelné čistenie diskov bez odstránenia príčiny rastu,`.
-- **CRITICAL** line 52, `no-prose-concept` — **4. Príklady toil-u**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 52, `outline-instead-of-explanation` — **4. Príklady toil-u**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 63, `bare-bullet-items` — **5. Príklady práce, ktorá nie je automaticky toil**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prvé vyšetrovanie neznámeho incidentu,`, `návrh disaster recovery stratégie,`, `bezpečnostné threat modeling stretnutie,`, `refactoring zložitého modulu,`.
-- **CRITICAL** line 63, `outline-instead-of-explanation` — **5. Príklady práce, ktorá nie je automaticky toil**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **7. Typy technického dlhu**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architektonický dlh,`, `nekvalitné alebo duplicitné implementácie,`, `chýbajúce testy,`, `zastarané dependencies,`.
-- **CRITICAL** line 90, `outline-instead-of-explanation` — **7. Typy technického dlhu**: 11 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 122, `bare-bullet-items` — **9. Automatizácia toil-u**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces je dostatočne stabilný,`, `opakuje sa často,`, `riziko ľudskej chyby je významné,`, `výsledok je merateľný,`.
-- **CRITICAL** line 122, `outline-instead-of-explanation` — **9. Automatizácia toil-u**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 148, `bare-bullet-items` — **11. Meranie toil-u**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hodiny manuálnej opakovanej práce za obdobie,`, `počet opakujúcich sa ticketov,`, `počet manuálnych krokov na deployment,`, `počet stránkovaní spôsobených známou príčinou,`.
-- **CRITICAL** line 148, `outline-instead-of-explanation` — **11. Meranie toil-u**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **12. Evidencia technického dlhu**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny problém,`, `aktuálny dopad,`, `riziko ďalšieho odkladu,`, `systémy a tímy, ktorých sa týka,`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **12. Evidencia technického dlhu**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `bare-bullet-items` — **14. Príklad z CI/CD**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline trvá 70 minút,`, `testy sú flaky,`, `vývojári retryujú joby,`, `deployment musí niekto manuálne potvrdiť a doplniť parametre.`.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **14. Príklad z CI/CD**: 12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 42, `outline-instead-of-explanation` — **4. Typické zdroje toil-u**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 53, `outline-instead-of-explanation` — **5. Práca, ktorá nie je automaticky toil**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 77, `outline-instead-of-explanation` — **8. Typy technického dlhu**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 104, `outline-instead-of-explanation` — **10. Automatizovať, odstrániť alebo prijať**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 138, `outline-instead-of-explanation` — **13. Evidencia technického dlhu**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 19, `list-first-introduction` — **2. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 52, `list-first-introduction` — **4. Príklady toil-u**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 63, `list-first-introduction` — **5. Príklady práce, ktorá nie je automaticky toil**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 63, `single-sentence-concept` — **5. Príklady práce, ktorá nie je automaticky toil**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 74, `single-sentence-concept` — **6. Technical debt**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 78, `single-sentence-concept` — **Vedome prijatý dlh**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 82, `single-sentence-concept` — **Nevedomý dlh**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 86, `single-sentence-concept` — **Zanedbaný dlh**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 90, `list-first-introduction` — **7. Typy technického dlhu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 106, `list-first-introduction` — **8. Spätná väzba medzi toil-om a dlhom**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 106, `single-sentence-concept` — **8. Spätná väzba medzi toil-om a dlhom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 135, `single-sentence-concept` — **10. Odstránenie príčiny vs. automatizácia symptómu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 148, `single-sentence-concept` — **11. Meranie toil-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 161, `single-sentence-concept` — **12. Evidencia technického dlhu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 188, `single-sentence-concept` — **14. Príklad z CI/CD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 217, `single-sentence-concept` — **Automatizácia bez ownershipu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 221, `single-sentence-concept` — **Nekonečný backlog dlhu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 225, `single-sentence-concept` — **Premenovanie toil-u na „operational excellence“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 29, `list-heavy-section` — **3. Ako rozpoznať toil**: 6 odrážok a iba 62 slov súvislého vysvetlenia.
+- **HIGH** line 42, `single-sentence-concept` — **4. Typické zdroje toil-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 125, `list-heavy-section` — **12. Meranie toil-u**: 6 odrážok a iba 52 slov súvislého vysvetlenia.
+- **HIGH** line 152, `list-heavy-section` — **14. Prioritizácia**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 52, `thin-concept-section` — **4. Príklady toil-u**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 63, `thin-concept-section` — **5. Príklady práce, ktorá nie je automaticky toil**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 90, `thin-concept-section` — **7. Typy technického dlhu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 122, `thin-concept-section` — **9. Automatizácia toil-u**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 148, `thin-concept-section` — **11. Meranie toil-u**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **12. Evidencia technického dlhu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 188, `thin-concept-section` — **14. Príklad z CI/CD**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 42, `thin-concept-section` — **4. Typické zdroje toil-u**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 69, `thin-concept-section` — **7. Vedome prijatý, nevedomý a zanedbaný dlh**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 77, `thin-concept-section` — **8. Typy technického dlhu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 138, `thin-concept-section` — **13. Evidencia technického dlhu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/value-stream-mapping.md`
 
@@ -18844,19 +18815,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4195 | 0 | 0 | 4195 |
-| `bare-bullet-items` | 3830 | 346 | 0 | 0 | 4176 |
-| `outline-instead-of-explanation` | 3720 | 0 | 0 | 0 | 3720 |
-| `thin-concept-section` | 0 | 3396 | 0 | 0 | 3396 |
-| `term-before-explanation` | 0 | 342 | 2229 | 0 | 2571 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1174 | 1174 |
-| `list-first-introduction` | 0 | 955 | 0 | 0 | 955 |
-| `example-not-explicit` | 0 | 0 | 0 | 950 | 950 |
-| `short-concept-section` | 0 | 0 | 892 | 0 | 892 |
+| `single-sentence-concept` | 0 | 4183 | 0 | 0 | 4183 |
+| `bare-bullet-items` | 3822 | 346 | 0 | 0 | 4168 |
+| `outline-instead-of-explanation` | 3717 | 0 | 0 | 0 | 3717 |
+| `thin-concept-section` | 0 | 3393 | 0 | 0 | 3393 |
+| `term-before-explanation` | 0 | 342 | 2235 | 0 | 2577 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1177 | 1177 |
+| `example-not-explicit` | 0 | 0 | 0 | 963 | 963 |
+| `list-first-introduction` | 0 | 950 | 0 | 0 | 950 |
+| `short-concept-section` | 0 | 0 | 894 | 0 | 894 |
 | `empty-section` | 508 | 0 | 0 | 0 | 508 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 399 | 399 |
-| `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 209 | 0 | 0 | 209 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 407 | 407 |
+| `no-prose-concept` | 292 | 0 | 0 | 0 | 292 |
+| `list-heavy-section` | 0 | 212 | 0 | 0 | 212 |
 
 ## Required remediation pattern
 

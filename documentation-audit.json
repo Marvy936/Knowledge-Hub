@@ -241,15 +241,15 @@
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
       "title": "Toil and Technical Debt",
-      "words": 878,
-      "headings": 25,
-      "sections": 25,
-      "findings": 55,
-      "critical": 20,
-      "high": 27,
-      "medium": 2,
-      "low": 6,
-      "score": 468,
+      "words": 2246,
+      "headings": 29,
+      "sections": 29,
+      "findings": 58,
+      "critical": 8,
+      "high": 10,
+      "medium": 10,
+      "low": 30,
+      "score": 250,
       "grade": "D"
     },
     {
@@ -12224,35 +12224,89 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "2. Mentálny model",
-      "line": 19,
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "3. Ako rozpoznať toil",
+      "line": 29,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 62 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "3. Typické vlastnosti toil-u",
-      "line": 38,
+      "section": "4. Typické zdroje toil-u",
+      "line": 42,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "4. Typické zdroje toil-u",
+      "line": 42,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "3. Typické vlastnosti toil-u",
-      "line": 38,
+      "section": "4. Typické zdroje toil-u",
+      "line": 42,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "4. Typické zdroje toil-u",
+      "line": 42,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "4. Typické zdroje toil-u",
+      "line": 42,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "4. Typické zdroje toil-u",
+      "line": 42,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "5. Práca, ktorá nie je automaticky toil",
+      "line": 53,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je manuálna,`, `opakuje sa,`, `dá sa automatizovať,`, `je reaktívna namiesto strategickej,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "3. Typické vlastnosti toil-u",
-      "line": 38,
+      "section": "5. Práca, ktorá nie je automaticky toil",
+      "line": 53,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -12260,8 +12314,8 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "3. Typické vlastnosti toil-u",
-      "line": 38,
+      "section": "5. Práca, ktorá nie je automaticky toil",
+      "line": 53,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -12269,170 +12323,26 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "4. Príklady toil-u",
-      "line": 52,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "5. Práca, ktorá nie je automaticky toil",
+      "line": 53,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "4. Príklady toil-u",
-      "line": 52,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "5. Práca, ktorá nie je automaticky toil",
+      "line": 53,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "4. Príklady toil-u",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "4. Príklady toil-u",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ručné vytváranie rovnakých používateľských účtov,`, `opakované obnovovanie expirovaných certifikátov,`, `manuálny deployment podľa checklistu,`, `pravidelné čistenie diskov bez odstránenia príčiny rastu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "4. Príklady toil-u",
-      "line": 52,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "5. Príklady práce, ktorá nie je automaticky toil",
+      "section": "6. Technical debt ako ekonomický záväzok",
       "line": 63,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "5. Príklady práce, ktorá nie je automaticky toil",
-      "line": 63,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "5. Príklady práce, ktorá nie je automaticky toil",
-      "line": 63,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "5. Príklady práce, ktorá nie je automaticky toil",
-      "line": 63,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prvé vyšetrovanie neznámeho incidentu,`, `návrh disaster recovery stratégie,`, `bezpečnostné threat modeling stretnutie,`, `refactoring zložitého modulu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "5. Príklady práce, ktorá nie je automaticky toil",
-      "line": 63,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "6. Technical debt",
-      "line": 74,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "Vedome prijatý dlh",
-      "line": 78,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "Nevedomý dlh",
-      "line": 82,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "Zanedbaný dlh",
-      "line": 86,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "7. Typy technického dlhu",
-      "line": 90,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "7. Typy technického dlhu",
-      "line": 90,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "7. Typy technického dlhu",
-      "line": 90,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architektonický dlh,`, `nekvalitné alebo duplicitné implementácie,`, `chýbajúce testy,`, `zastarané dependencies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "7. Typy technického dlhu",
-      "line": 90,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "7. Typy technického dlhu",
-      "line": 90,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -12440,44 +12350,8 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "8. Spätná väzba medzi toil-om a dlhom",
-      "line": 106,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "8. Spätná väzba medzi toil-om a dlhom",
-      "line": 106,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "9. Automatizácia toil-u",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "9. Automatizácia toil-u",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces je dostatočne stabilný,`, `opakuje sa často,`, `riziko ľudskej chyby je významné,`, `výsledok je merateľný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "9. Automatizácia toil-u",
-      "line": 122,
+      "section": "7. Vedome prijatý, nevedomý a zanedbaný dlh",
+      "line": 69,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -12485,8 +12359,8 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "9. Automatizácia toil-u",
-      "line": 122,
+      "section": "7. Vedome prijatý, nevedomý a zanedbaný dlh",
+      "line": 69,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -12494,44 +12368,44 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "10. Odstránenie príčiny vs. automatizácia symptómu",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "7. Vedome prijatý, nevedomý a zanedbaný dlh",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "11. Meranie toil-u",
-      "line": 148,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "7. Vedome prijatý, nevedomý a zanedbaný dlh",
+      "line": 69,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "11. Meranie toil-u",
-      "line": 148,
+      "section": "7. Vedome prijatý, nevedomý a zanedbaný dlh",
+      "line": 69,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "8. Typy technického dlhu",
+      "line": 77,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "11. Meranie toil-u",
-      "line": 148,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hodiny manuálnej opakovanej práce za obdobie,`, `počet opakujúcich sa ticketov,`, `počet manuálnych krokov na deployment,`, `počet stránkovaní spôsobených známou príčinou,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "11. Meranie toil-u",
-      "line": 148,
+      "section": "8. Typy technického dlhu",
+      "line": 77,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -12539,8 +12413,8 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "11. Meranie toil-u",
-      "line": 148,
+      "section": "8. Typy technického dlhu",
+      "line": 77,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -12548,80 +12422,53 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "12. Evidencia technického dlhu",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Typy technického dlhu",
+      "line": 77,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "12. Evidencia technického dlhu",
-      "line": 161,
+      "section": "8. Typy technického dlhu",
+      "line": 77,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "8. Typy technického dlhu",
+      "line": 77,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "10. Automatizovať, odstrániť alebo prijať",
+      "line": 104,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "12. Evidencia technického dlhu",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny problém,`, `aktuálny dopad,`, `riziko ďalšieho odkladu,`, `systémy a tímy, ktorých sa týka,`.",
-      "score": 12
+      "section": "10. Automatizovať, odstrániť alebo prijať",
+      "line": 104,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "12. Evidencia technického dlhu",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "14. Príklad z CI/CD",
-      "line": 188,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "14. Príklad z CI/CD",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "14. Príklad z CI/CD",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline trvá 70 minút,`, `testy sú flaky,`, `vývojári retryujú joby,`, `deployment musí niekto manuálne potvrdiť a doplniť parametre.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "14. Príklad z CI/CD",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "14. Príklad z CI/CD",
-      "line": 188,
+      "section": "10. Automatizovať, odstrániť alebo prijať",
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -12629,39 +12476,219 @@
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "Automatizácia bez ownershipu",
-      "line": 217,
+      "section": "10. Automatizovať, odstrániť alebo prijať",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "10. Automatizovať, odstrániť alebo prijať",
+      "line": 104,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "10. Automatizovať, odstrániť alebo prijať",
+      "line": 104,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "11. Symptóm verzus root cause",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "12. Meranie toil-u",
+      "line": 125,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "Nekonečný backlog dlhu",
-      "line": 221,
+      "section": "12. Meranie toil-u",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "13. Evidencia technického dlhu",
+      "line": 138,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "13. Evidencia technického dlhu",
+      "line": 138,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "13. Evidencia technického dlhu",
+      "line": 138,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "13. Evidencia technického dlhu",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "13. Evidencia technického dlhu",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "13. Evidencia technického dlhu",
+      "line": 138,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "14. Prioritizácia",
+      "line": 152,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "Premenovanie toil-u na „operational excellence“",
-      "line": 225,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "14. Prioritizácia",
+      "line": 152,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/toil-and-technical-debt.md",
-      "section": "17. Zhrnutie",
+      "section": "14. Prioritizácia",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "14. Prioritizácia",
+      "line": 152,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `blast radius`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "16. Ownership dlhu",
+      "line": 171,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "16. Ownership dlhu",
+      "line": 171,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "17. End-to-end príklad CI/CD",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "17. End-to-end príklad CI/CD",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "17. End-to-end príklad CI/CD",
+      "line": 177,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "19. Observability a reporting",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "19. Observability a reporting",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/toil-and-technical-debt.md",
+      "section": "22. Zhrnutie",
       "line": 238,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
