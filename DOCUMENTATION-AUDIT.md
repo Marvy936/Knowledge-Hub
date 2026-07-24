@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10912**
-- Total words: **500,533**
-- Findings: **24264** (critical 8229, high 9311, medium 3248, low 3476)
+- Audited conceptual sections: **10963**
+- Total words: **503,106**
+- Findings: **24402** (critical 8272, high 9351, medium 3269, low 3510)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -32,6 +32,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1785 | 79 | 86 | 38 | 24 | 2683 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | D | 1711 | 78 | 79 | 34 | 30 | 3314 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 1678 | 80 | 74 | 33 | 19 | 2522 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
+| D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | D | 1644 | 78 | 73 | 32 | 18 | 2595 | `docs/12-observability/jaeger-tempo.md` |
 | D | 1633 | 86 | 70 | 18 | 0 | 960 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | D | 1574 | 71 | 85 | 18 | 2 | 1449 | `docs/02-networking-and-web/network-troubleshooting.md` |
@@ -143,7 +144,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 728 | 34 | 37 | 10 | 0 | 1010 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 728 | 30 | 44 | 6 | 3 | 1264 | `docs/09-kubernetes/statefulset.md` |
 | D | 720 | 34 | 35 | 12 | 0 | 1228 | `docs/06-gitlab/environments-deployments-releases.md` |
-| D | 719 | 31 | 39 | 10 | 5 | 1320 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | D | 718 | 32 | 36 | 13 | 4 | 1390 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | D | 718 | 33 | 35 | 12 | 4 | 1650 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | D | 717 | 26 | 40 | 18 | 16 | 1682 | `docs/09-kubernetes/configmap-secret.md` |
@@ -2266,74 +2266,157 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. REST constraints**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-server separation,`, `stateless communication,`, `cacheability,`, `uniform interface,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. REST constraints**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 74, `outline-instead-of-explanation` — **6. Status codes a API semantics**: 12 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 93, `bare-bullet-items` — **7. Idempotency**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definovaný scope,`, `retention period,`, `ochranu pred reuse s iným payloadom,`, `concurrency-safe zápis.`.
-- **CRITICAL** line 129, `empty-section` — **9. Pagination**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 149, `bare-bullet-items` — **10. Filtering, sorting a field selection**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlist polí,`, `input validation,`, `query cost limits,`, `bezpečné mapovanie na databázu,`.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **10. Filtering, sorting a field selection**: 5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 185, `bare-bullet-items` — **12. API versioning**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `URI versioning: /v1/orders ,`, `header/media type versioning,`, `backward-compatible evolution bez explicitnej version pri aditívnych z`, `deprecation notice,`.
-- **CRITICAL** line 185, `outline-instead-of-explanation` — **12. API versioning**: 8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 201, `bare-bullet-items` — **13. Backward compatibility**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať optional response field,`, `pridať nový endpoint,`, `rozšíriť enum iba ak klienti tolerujú neznáme hodnoty.`, `premenovať/odstrániť field,`.
-- **CRITICAL** line 201, `outline-instead-of-explanation` — **13. Backward compatibility**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `bare-bullet-items` — **14. Authentication a authorization**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session cookies,`, `bearer tokens,`, `OAuth 2.x/OIDC flows,`, `mTLS identities,`.
-- **CRITICAL** line 219, `outline-instead-of-explanation` — **14. Authentication a authorization**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 233, `bare-bullet-items` — **15. Rate limiting a quotas**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity,`, `API key,`, `tenant,`, `source IP,`.
-- **CRITICAL** line 233, `outline-instead-of-explanation` — **15. Rate limiting a quotas**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 294, `bare-bullet-items` — **18. WebSocket message model**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `text a binary messages,`, `fragmentation,`, `ping/pong control frames,`, `close handshake,`.
-- **CRITICAL** line 294, `outline-instead-of-explanation` — **18. WebSocket message model**: 12 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 314, `bare-bullet-items` — **19. WebSocket connection lifecycle**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prihlásená identity,`, `subscriptions,`, `server-side buffers,`, `presence,`.
-- **CRITICAL** line 314, `outline-instead-of-explanation` — **19. WebSocket connection lifecycle**: 10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 340, `bare-bullet-items` — **21. Backpressure**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded queue,`, `drop policy,`, `sampling/coalescing,`, `per-client rate limit,`.
-- **CRITICAL** line 340, `outline-instead-of-explanation` — **21. Backpressure**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 360, `bare-bullet-items` — **22. WebSocket cez proxy a load balancer**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idle timeout,`, `connection duration limit,`, `buffering,`, `sticky routing alebo shared subscription state,`.
-- **CRITICAL** line 360, `outline-instead-of-explanation` — **22. WebSocket cez proxy a load balancer**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 376, `empty-section` — **23. WebSocket vs. SSE vs. polling**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 392, `bare-bullet-items` — **24. Observability**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate, latency a status,`, `operation cost,`, `auth failures,`, `rate-limit decisions,`.
-- **CRITICAL** line 392, `outline-instead-of-explanation` — **24. Observability**: 15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 415, `bare-bullet-items` — **25. Diagnostický postup**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `koreluj idempotency/request ID,`, `zisti, či server operáciu spracoval,`, `skontroluj proxy timeout a retry,`, `over downstream dependencies,`.
-- **CRITICAL** line 415, `outline-instead-of-explanation` — **25. Diagnostický postup**: 12 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 435, `empty-section` — **26. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 24, `empty-section` — **2. Dva odlišné lifecycle modely**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 26, `empty-section` — **Request-response API**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 88, `bare-bullet-items` — **4. Resource-oriented model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business objekt;`, `výsledok výpočtu;`, `workflow;`, `report;`.
+- **CRITICAL** line 88, `outline-instead-of-explanation` — **4. Resource-oriented model**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 123, `bare-bullet-items` — **5. Business actions ako resources**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operácia má vlastnú identity a stav;`, `možno ju idempotentne opakovať;`, `vzniká audit trail;`, `možno vrátiť 201 alebo 202 a operation resource;`.
+- **CRITICAL** line 176, `empty-section` — **7. Method a status contract**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 194, `bare-bullet-items` — **Read**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s representation;`, `304 pri cache revalidation;`, `404 , ak resource nie je dostupný;`, `410 , ak contract explicitne rozlišuje permanentne odstránený resource`.
+- **CRITICAL** line 194, `no-prose-concept` — **Read**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 194, `outline-instead-of-explanation` — **Read**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 231, `bare-bullet-items` — **8. Idempotencia transportu verzus business operácie**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operácia je prirodzene idempotentná;`, `server poskytuje deduplication;`, `client vie zistiť výsledok podľa operation identity;`, `alebo existuje dôkaz, že request nebol spracovaný.`.
+- **CRITICAL** line 231, `outline-instead-of-explanation` — **8. Idempotencia transportu verzus business operácie**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 315, `bare-bullet-items` — **11. Partial updates a patch semantics**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdiel medzi absent, null a empty;`, `povolené fields;`, `atomicitu viacerých zmien;`, `validation order;`.
+- **CRITICAL** line 315, `outline-instead-of-explanation` — **11. Partial updates a patch semantics**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 353, `bare-bullet-items` — **Offset pagination**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchá implementácia a navigácia na konkrétnu stranu;`, `vhodná pre malé alebo stabilné datasety.`, `insert/delete pred offsetom spôsobí duplicate alebo missing records;`, `veľký offset môže byť databázovo drahý;`.
+- **CRITICAL** line 353, `outline-instead-of-explanation` — **Offset pagination**: 5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 370, `bare-bullet-items` — **Cursor pagination**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opaque pre clienta;`, `podpísaný alebo validovaný proti manipulácii;`, `viazaný na filter/sort context;`, `časovo alebo version-aware podľa potreby.`.
+- **CRITICAL** line 370, `outline-instead-of-explanation` — **Cursor pagination**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 403, `bare-bullet-items` — **14. Filtering, sorting a field selection**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlist fields a operators;`, `type validation;`, `cost limit;`, `bezpečné mapovanie na query engine;`.
+- **CRITICAL** line 403, `outline-instead-of-explanation` — **14. Filtering, sorting a field selection**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 422, `bare-bullet-items` — **15. Error contract**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `machine-readable stable code;`, `user-safe message;`, `correlation ID;`, `field-level details;`.
+- **CRITICAL** line 422, `outline-instead-of-explanation` — **15. Error contract**: 12 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 457, `bare-bullet-items` — **16. Authentication, authorization a tenancy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint-level permission;`, `object-level permission;`, `field-level permission;`, `tenant isolation;`.
+- **CRITICAL** line 475, `bare-bullet-items` — **17. Rate limits, quotas a load shedding**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity;`, `tenant;`, `API key;`, `source IP;`.
+- **CRITICAL** line 509, `bare-bullet-items` — **18. Asynchronous operations**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status transitions;`, `cancellation semantics;`, `progress accuracy;`, `result location;`.
+- **CRITICAL** line 509, `outline-instead-of-explanation` — **18. Asynchronous operations**: 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 562, `bare-bullet-items` — **19. API versioning**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `URI: /v1/orders ;`, `media type alebo Accept parameter;`, `custom header;`, `postupná backward-compatible evolution bez explicitnej major version.`.
+- **CRITICAL** line 562, `outline-instead-of-explanation` — **19. API versioning**: 11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 585, `bare-bullet-items` — **20. Backward-compatible evolution**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional response field;`, `nový endpoint;`, `nový optional request parameter;`, `rozšírenie capability s explicitným defaultom.`.
+- **CRITICAL** line 585, `outline-instead-of-explanation` — **20. Backward-compatible evolution**: 12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 607, `bare-bullet-items` — **21. Schema a contract testing**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer tests;`, `consumer-driven contract tests;`, `backward-compatibility diff;`, `example validation;`.
+- **CRITICAL** line 607, `outline-instead-of-explanation` — **21. Schema a contract testing**: 9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 652, `bare-bullet-items` — **23. WebSocket origin a authentication**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session cookie;`, `bearer token v podporovanom handshake mechanizme;`, `short-lived connection ticket získaný cez HTTPS API;`, `mTLS;`.
+- **CRITICAL** line 675, `bare-bullet-items` — **24. WebSocket framing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `text frames s UTF-8 payloadom;`, `binary frames;`, `continuation frames;`, `ping;`.
+- **CRITICAL** line 692, `bare-bullet-items` — **25. Aplikačný message protocol**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a versioning;`, `message type registry;`, `correlation IDs;`, `request-response alebo event semantics;`.
+- **CRITICAL** line 692, `outline-instead-of-explanation` — **25. Aplikačný message protocol**: 13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 726, `bare-bullet-items` — **26. Delivery semantics**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že server business message spracoval;`, `že response bola persistovaná;`, `že event prežije reconnect;`, `exactly-once delivery;`.
+- **CRITICAL** line 726, `outline-instead-of-explanation` — **26. Delivery semantics**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 751, `bare-bullet-items` — **27. Ordering**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac server instances publishuje events;`, `backend používa partitioned broker;`, `client reconnectne na inú instance;`, `subscriptions sa obnovujú paralelne;`.
+- **CRITICAL** line 751, `outline-instead-of-explanation` — **27. Ordering**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 773, `bare-bullet-items` — **28. Connection state a server architecture**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authenticated identity;`, `subscriptions;`, `last acknowledged sequence;`, `outbound queue;`.
+- **CRITICAL** line 789, `bare-bullet-items` — **29. Heartbeats a dead-peer detection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interval;`, `timeout;`, `počet missed replies;`, `kto iniciuje ping;`.
+- **CRITICAL** line 809, `bare-bullet-items` — **30. Backpressure**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded per-connection queue;`, `bounded per-tenant aggregate;`, `drop newest;`, `drop oldest;`.
+- **CRITICAL** line 809, `outline-instead-of-explanation` — **30. Backpressure**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 838, `bare-bullet-items` — **31. Inbound pressure a abuse**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum frame a message size;`, `maximum decompressed size;`, `message rate limit;`, `concurrent subscriptions;`.
+- **CRITICAL** line 838, `outline-instead-of-explanation` — **31. Inbound pressure a abuse**: 10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 857, `bare-bullet-items` — **32. Reconnect lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient network failure;`, `authentication failure;`, `incompatible protocol version;`, `server overload;`.
+- **CRITICAL** line 918, `bare-bullet-items` — **34. Close handshake a close codes**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normal shutdown;`, `protocol error;`, `invalid payload;`, `policy violation;`.
+- **CRITICAL** line 934, `bare-bullet-items` — **35. Deployment a draining**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance prestane byť ready pre nové connections;`, `load balancer ju odstráni z nového trafficu;`, `server môže poslať migration/reconnect signal;`, `existujúce connections dostanú grace period;`.
+- **CRITICAL** line 950, `bare-bullet-items` — **36. WebSocket cez proxy a load balancer**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upgrade alebo extended CONNECT podporu;`, `HTTP version conversion;`, `TLS termination;`, `idle timeout;`.
+- **CRITICAL** line 950, `outline-instead-of-explanation` — **36. WebSocket cez proxy a load balancer**: 12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 971, `bare-bullet-items` — **37. WebSocket compression**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU overhead;`, `memory per connection;`, `context takeover state;`, `compression bomb risk;`.
+- **CRITICAL** line 971, `outline-instead-of-explanation` — **37. WebSocket compression**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 984, `empty-section` — **38. WebSocket verzus SSE verzus polling**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 986, `bare-bullet-items` — **WebSocket**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `full-duplex;`, `binary aj text;`, `vlastný message protocol;`, `dlhodobý state a reconnect complexity.`.
+- **CRITICAL** line 986, `outline-instead-of-explanation` — **WebSocket**: 4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 995, `bare-bullet-items` — **Server-Sent Events**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `server → browser stream;`, `text event model;`, `beží nad HTTP;`, `browser podporuje automatic reconnect a last event ID;`.
+- **CRITICAL** line 995, `outline-instead-of-explanation` — **Server-Sent Events**: 5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1039, `bare-bullet-items` — **40. Observability REST API**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate podľa normalized route a method;`, `latency percentily a queue time;`, `status podľa originu;`, `payload sizes;`.
+- **CRITICAL** line 1039, `outline-instead-of-explanation` — **40. Observability REST API**: 13 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1057, `bare-bullet-items` — **41. Observability WebSocket**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `handshake attempts a failures;`, `active connections podľa instance/tenant/version;`, `connection duration;`, `clean versus abnormal close;`.
+- **CRITICAL** line 1057, `outline-instead-of-explanation` — **41. Observability WebSocket**: 15 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1079, `bare-bullet-items` — **42. Diagnostika REST timeoutu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nájdi request ID a idempotency key;`, `zisti, či edge/proxy request prijali;`, `over, či origin začal spracovanie;`, `skontroluj database/event side effect;`.
+- **CRITICAL** line 1079, `outline-instead-of-explanation` — **42. Diagnostika REST timeoutu**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1094, `bare-bullet-items` — **43. Diagnostika inconsistent pagination**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj filter, sort a cursor/offset;`, `over deterministic ordering;`, `zisti, či dataset sa medzi pages menil;`, `dekóduj cursor iba v kontrolovanom debug nástroji;`.
+- **CRITICAL** line 1094, `outline-instead-of-explanation` — **43. Diagnostika inconsistent pagination**: 8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1107, `bare-bullet-items` — **44. Diagnostika WebSocket disconnectu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj timestamp, connection ID a close code;`, `urč initiator: client, proxy, server alebo network timeout;`, `porovnaj interval s LB/proxy idle timeoutom;`, `over ping/pong a event-loop latency;`.
+- **CRITICAL** line 1107, `no-prose-concept` — **44. Diagnostika WebSocket disconnectu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 1107, `outline-instead-of-explanation` — **44. Diagnostika WebSocket disconnectu**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1120, `empty-section` — **45. Typické failure patterns**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 1154, `empty-section` — **46. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 1184, `bare-bullet-items` — **47. Praktický checklist**: 22 z 22 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource model a method semantics;`, `explicitné status codes;`, `idempotency a duplicate concurrency;`, `optimistic concurrency;`.
+- **CRITICAL** line 1184, `outline-instead-of-explanation` — **47. Praktický checklist**: 22 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. REST constraints**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 74, `bare-bullet-items` — **6. Status codes a API semantics**: 6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `204 No Content — úspech bez body,`, `401 Unauthorized — chýbajúca/neplatná authentication,`, `404 Not Found ,`, `409 Conflict ,`.
-- **HIGH** line 74, `single-sentence-concept` — **6. Status codes a API semantics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 112, `single-sentence-concept` — **8. Optimistic concurrency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 131, `list-first-introduction` — **Offset pagination**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 131, `single-sentence-concept` — **Offset pagination**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 139, `list-first-introduction` — **Cursor pagination**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 149, `single-sentence-concept` — **10. Filtering, sorting a field selection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 166, `single-sentence-concept` — **11. Error model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 185, `single-sentence-concept` — **12. API versioning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 201, `single-sentence-concept` — **13. Backward compatibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 253, `single-sentence-concept` — **16. Async operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 270, `single-sentence-concept` — **17. WebSocket handshake**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 294, `single-sentence-concept` — **18. WebSocket message model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 314, `single-sentence-concept` — **19. WebSocket connection lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `single-sentence-concept` — **21. Backpressure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 378, `single-sentence-concept` — **WebSocket**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 382, `single-sentence-concept` — **Server-Sent Events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 392, `single-sentence-concept` — **24. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 415, `single-sentence-concept` — **25. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 445, `single-sentence-concept` — **„POST sa po timeout-e môže bezpečne zopakovať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 449, `single-sentence-concept` — **„WebSocket garantuje doručenie business message“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 453, `single-sentence-concept` — **„Dlhý connection nepotrebuje deployment lifecycle“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 42, `list-first-introduction` — **WebSocket**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 58, `single-sentence-concept` — **3. REST constraints**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 178, `list-first-introduction` — **Create**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 194, `list-first-introduction` — **Read**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 209, `bare-bullet-items` — **Delete**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `204 po synchronickom odstránení;`, `202 , ak cleanup pokračuje asynchrónne;`, `404 , ak resource neexistuje podľa zvolenej semantics.`.
+- **HIGH** line 209, `single-sentence-concept` — **Delete**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 217, `single-sentence-concept` — **Business conflict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 221, `single-sentence-concept` — **Failed precondition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 231, `single-sentence-concept` — **8. Idempotencia transportu verzus business operácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 254, `bare-bullet-items` — **9. Idempotency keys**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prvý request rezervuje key;`, `server vykoná business operáciu;`, `uloží canonical výsledok;`, `rovnaký key s iným payloadom dostane conflict.`.
+- **HIGH** line 254, `list-heavy-section` — **9. Idempotency keys**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 353, `list-first-introduction` — **Offset pagination**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 353, `single-sentence-concept` — **Offset pagination**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 370, `list-first-introduction` — **Cursor pagination**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 370, `single-sentence-concept` — **Cursor pagination**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 403, `list-first-introduction` — **14. Filtering, sorting a field selection**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 403, `single-sentence-concept` — **14. Filtering, sorting a field selection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 422, `single-sentence-concept` — **15. Error contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 457, `list-heavy-section` — **16. Authentication, authorization a tenancy**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 475, `list-heavy-section` — **17. Rate limits, quotas a load shedding**: 15 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 652, `list-heavy-section` — **23. WebSocket origin a authentication**: 11 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 675, `list-heavy-section` — **24. WebSocket framing**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 726, `single-sentence-concept` — **26. Delivery semantics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 773, `list-heavy-section` — **28. Connection state a server architecture**: 9 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 789, `list-heavy-section` — **29. Heartbeats a dead-peer detection**: 7 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 857, `list-heavy-section` — **32. Reconnect lifecycle**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 918, `list-heavy-section` — **34. Close handshake a close codes**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 934, `list-heavy-section` — **35. Deployment a draining**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 971, `single-sentence-concept` — **37. WebSocket compression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 986, `list-first-introduction` — **WebSocket**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 986, `single-sentence-concept` — **WebSocket**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 995, `list-first-introduction` — **Server-Sent Events**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 995, `single-sentence-concept` — **Server-Sent Events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1039, `single-sentence-concept` — **40. Observability REST API**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1057, `single-sentence-concept` — **41. Observability WebSocket**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1079, `single-sentence-concept` — **42. Diagnostika REST timeoutu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1094, `single-sentence-concept` — **43. Diagnostika inconsistent pagination**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1107, `list-first-introduction` — **44. Diagnostika WebSocket disconnectu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1122, `single-sentence-concept` — **Duplicate create po timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1130, `single-sentence-concept` — **Cursor prestane fungovať po zmene filtra**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1134, `single-sentence-concept` — **Každý client môže čítať cudzie resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1142, `single-sentence-concept` — **Memory rastie s počtom pomalých clients**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1146, `single-sentence-concept` — **Po deploymente vznikne reconnect storm**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1150, `single-sentence-concept` — **Client po reconnecte vidí neaktuálny stav**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1164, `single-sentence-concept` — **„POST sa po timeout-e môže bezpečne zopakovať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1176, `single-sentence-concept` — **„Jedna WebSocket connection znamená globálne ordering“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1180, `single-sentence-concept` — **„Dlhá connection nepotrebuje deployment lifecycle“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1184, `single-sentence-concept` — **47. Praktický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `HTTP`, `HTTPS`, `TLS`, `PKI`, `API`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. REST constraints**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 74, `thin-concept-section` — **6. Status codes a API semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `thin-concept-section` — **10. Filtering, sorting a field selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 185, `thin-concept-section` — **12. API versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 201, `thin-concept-section` — **13. Backward compatibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 233, `thin-concept-section` — **15. Rate limiting a quotas**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 294, `thin-concept-section` — **18. WebSocket message model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 314, `thin-concept-section` — **19. WebSocket connection lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 340, `thin-concept-section` — **21. Backpressure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 360, `thin-concept-section` — **22. WebSocket cez proxy a load balancer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 392, `thin-concept-section` — **24. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 415, `thin-concept-section` — **25. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 88, `thin-concept-section` — **4. Resource-oriented model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 194, `thin-concept-section` — **Read**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 209, `thin-concept-section` — **Delete**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 231, `thin-concept-section` — **8. Idempotencia transportu verzus business operácie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 315, `thin-concept-section` — **11. Partial updates a patch semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 353, `thin-concept-section` — **Offset pagination**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 370, `thin-concept-section` — **Cursor pagination**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 403, `thin-concept-section` — **14. Filtering, sorting a field selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 422, `thin-concept-section` — **15. Error contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 509, `thin-concept-section` — **18. Asynchronous operations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 562, `thin-concept-section` — **19. API versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 585, `thin-concept-section` — **20. Backward-compatible evolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 692, `thin-concept-section` — **25. Aplikačný message protocol**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 726, `thin-concept-section` — **26. Delivery semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 809, `thin-concept-section` — **30. Backpressure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 838, `thin-concept-section` — **31. Inbound pressure a abuse**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 950, `thin-concept-section` — **36. WebSocket cez proxy a load balancer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 971, `thin-concept-section` — **37. WebSocket compression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 986, `thin-concept-section` — **WebSocket**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 995, `thin-concept-section` — **Server-Sent Events**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1039, `thin-concept-section` — **40. Observability REST API**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1057, `thin-concept-section` — **41. Observability WebSocket**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1079, `thin-concept-section` — **42. Diagnostika REST timeoutu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1094, `thin-concept-section` — **43. Diagnostika inconsistent pagination**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1107, `thin-concept-section` — **44. Diagnostika WebSocket disconnectu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1184, `term-before-explanation` — **47. Praktický checklist**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LB`, `resource`, `policy`, `scope`
+- **HIGH** line 1184, `thin-concept-section` — **47. Praktický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/routing-and-default-gateway.md`
 
@@ -18590,19 +18673,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3764 | 340 | 0 | 0 | 4104 |
-| `single-sentence-concept` | 0 | 4034 | 0 | 0 | 4034 |
-| `outline-instead-of-explanation` | 3685 | 0 | 0 | 0 | 3685 |
-| `thin-concept-section` | 0 | 3332 | 0 | 0 | 3332 |
-| `term-before-explanation` | 0 | 396 | 2299 | 0 | 2695 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1439 | 1439 |
-| `example-not-explicit` | 0 | 0 | 0 | 1332 | 1332 |
-| `short-concept-section` | 0 | 0 | 949 | 0 | 949 |
-| `list-first-introduction` | 0 | 932 | 0 | 0 | 932 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 705 | 705 |
-| `empty-section` | 468 | 0 | 0 | 0 | 468 |
-| `no-prose-concept` | 312 | 0 | 0 | 0 | 312 |
-| `list-heavy-section` | 0 | 277 | 0 | 0 | 277 |
+| `bare-bullet-items` | 3788 | 341 | 0 | 0 | 4129 |
+| `single-sentence-concept` | 0 | 4041 | 0 | 0 | 4041 |
+| `outline-instead-of-explanation` | 3699 | 0 | 0 | 0 | 3699 |
+| `thin-concept-section` | 0 | 3346 | 0 | 0 | 3346 |
+| `term-before-explanation` | 0 | 397 | 2311 | 0 | 2708 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1455 | 1455 |
+| `example-not-explicit` | 0 | 0 | 0 | 1344 | 1344 |
+| `short-concept-section` | 0 | 0 | 958 | 0 | 958 |
+| `list-first-introduction` | 0 | 939 | 0 | 0 | 939 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 711 | 711 |
+| `empty-section` | 471 | 0 | 0 | 0 | 471 |
+| `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
+| `list-heavy-section` | 0 | 287 | 0 | 0 | 287 |
 
 ## Required remediation pattern
 

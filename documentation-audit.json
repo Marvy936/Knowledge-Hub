@@ -731,15 +731,15 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "title": "REST APIs a WebSockets",
-      "words": 1320,
-      "headings": 38,
-      "sections": 38,
-      "findings": 85,
-      "critical": 31,
-      "high": 39,
-      "medium": 10,
-      "low": 5,
-      "score": 719,
+      "words": 3893,
+      "headings": 89,
+      "sections": 89,
+      "findings": 223,
+      "critical": 74,
+      "high": 79,
+      "medium": 31,
+      "low": 39,
+      "score": 1674,
       "grade": "D"
     },
     {
@@ -38810,89 +38810,8 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "2. REST constraints",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "2. REST constraints",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "2. REST constraints",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-server separation,`, `stateless communication,`, `cacheability,`, `uniform interface,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "2. REST constraints",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `204 No Content — úspech bez body,`, `401 Unauthorized — chýbajúca/neplatná authentication,`, `404 Not Found ,`, `409 Conflict ,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -38900,53 +38819,8 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "6. Status codes a API semantics",
-      "line": 74,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "7. Idempotency",
-      "line": 93,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definovaný scope,`, `retention period,`, `ochranu pred reuse s iným payloadom,`, `concurrency-safe zápis.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "7. Idempotency",
-      "line": 93,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "7. Idempotency",
-      "line": 93,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "8. Optimistic concurrency",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "9. Pagination",
-      "line": 129,
+      "section": "2. Dva odlišné lifecycle modely",
+      "line": 24,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -38954,422 +38828,8 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "Offset pagination",
-      "line": 131,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "Offset pagination",
-      "line": 131,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "Cursor pagination",
-      "line": 139,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "10. Filtering, sorting a field selection",
-      "line": 149,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "10. Filtering, sorting a field selection",
-      "line": 149,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "10. Filtering, sorting a field selection",
-      "line": 149,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlist polí,`, `input validation,`, `query cost limits,`, `bezpečné mapovanie na databázu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "10. Filtering, sorting a field selection",
-      "line": 149,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "11. Error model",
-      "line": 166,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "12. API versioning",
-      "line": 185,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "12. API versioning",
-      "line": 185,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "12. API versioning",
-      "line": 185,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `URI versioning: /v1/orders ,`, `header/media type versioning,`, `backward-compatible evolution bez explicitnej version pri aditívnych z`, `deprecation notice,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "12. API versioning",
-      "line": 185,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "12. API versioning",
-      "line": 185,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URI`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "13. Backward compatibility",
-      "line": 201,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "13. Backward compatibility",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "13. Backward compatibility",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať optional response field,`, `pridať nový endpoint,`, `rozšíriť enum iba ak klienti tolerujú neznáme hodnoty.`, `premenovať/odstrániť field,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "13. Backward compatibility",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "13. Backward compatibility",
-      "line": 201,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "14. Authentication a authorization",
-      "line": 219,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "14. Authentication a authorization",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session cookies,`, `bearer tokens,`, `OAuth 2.x/OIDC flows,`, `mTLS identities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "14. Authentication a authorization",
-      "line": 219,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "14. Authentication a authorization",
-      "line": 219,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "15. Rate limiting a quotas",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "15. Rate limiting a quotas",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity,`, `API key,`, `tenant,`, `source IP,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "15. Rate limiting a quotas",
-      "line": 233,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "15. Rate limiting a quotas",
-      "line": 233,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IP`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "16. Async operations",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "17. WebSocket handshake",
-      "line": 270,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "18. WebSocket message model",
-      "line": 294,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "18. WebSocket message model",
-      "line": 294,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "18. WebSocket message model",
-      "line": 294,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `text a binary messages,`, `fragmentation,`, `ping/pong control frames,`, `close handshake,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "18. WebSocket message model",
-      "line": 294,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "19. WebSocket connection lifecycle",
-      "line": 314,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "19. WebSocket connection lifecycle",
-      "line": 314,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "19. WebSocket connection lifecycle",
-      "line": 314,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prihlásená identity,`, `subscriptions,`, `server-side buffers,`, `presence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "19. WebSocket connection lifecycle",
-      "line": 314,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "19. WebSocket connection lifecycle",
-      "line": 314,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "21. Backpressure",
-      "line": 340,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "21. Backpressure",
-      "line": 340,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "21. Backpressure",
-      "line": 340,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded queue,`, `drop policy,`, `sampling/coalescing,`, `per-client rate limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "21. Backpressure",
-      "line": 340,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "21. Backpressure",
-      "line": 340,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "22. WebSocket cez proxy a load balancer",
-      "line": 360,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "22. WebSocket cez proxy a load balancer",
-      "line": 360,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idle timeout,`, `connection duration limit,`, `buffering,`, `sticky routing alebo shared subscription state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "22. WebSocket cez proxy a load balancer",
-      "line": 360,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "22. WebSocket cez proxy a load balancer",
-      "line": 360,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "23. WebSocket vs. SSE vs. polling",
-      "line": 376,
+      "section": "Request-response API",
+      "line": 26,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -39378,7 +38838,1447 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "WebSocket",
-      "line": 378,
+      "line": 42,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "3. REST constraints",
+      "line": 58,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "4. Resource-oriented model",
+      "line": 88,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "4. Resource-oriented model",
+      "line": 88,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business objekt;`, `výsledok výpočtu;`, `workflow;`, `report;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "4. Resource-oriented model",
+      "line": 88,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "5. Business actions ako resources",
+      "line": 123,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operácia má vlastnú identity a stav;`, `možno ju idempotentne opakovať;`, `vzniká audit trail;`, `možno vrátiť 201 alebo 202 a operation resource;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "5. Business actions ako resources",
+      "line": 123,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "5. Business actions ako resources",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "5. Business actions ako resources",
+      "line": 123,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "6. Representations a media types",
+      "line": 149,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "6. Representations a media types",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "7. Method a status contract",
+      "line": 176,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Create",
+      "line": 178,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Read",
+      "line": 194,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Read",
+      "line": 194,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Read",
+      "line": 194,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Read",
+      "line": 194,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s representation;`, `304 pri cache revalidation;`, `404 , ak resource nie je dostupný;`, `410 , ak contract explicitne rozlišuje permanentne odstránený resource`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Read",
+      "line": 194,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Read",
+      "line": 194,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Delete",
+      "line": 209,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Delete",
+      "line": 209,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `204 po synchronickom odstránení;`, `202 , ak cleanup pokračuje asynchrónne;`, `404 , ak resource neexistuje podľa zvolenej semantics.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Delete",
+      "line": 209,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Delete",
+      "line": 209,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Business conflict",
+      "line": 217,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Failed precondition",
+      "line": 221,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "8. Idempotencia transportu verzus business operácie",
+      "line": 231,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "8. Idempotencia transportu verzus business operácie",
+      "line": 231,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "8. Idempotencia transportu verzus business operácie",
+      "line": 231,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operácia je prirodzene idempotentná;`, `server poskytuje deduplication;`, `client vie zistiť výsledok podľa operation identity;`, `alebo existuje dôkaz, že request nebol spracovaný.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "8. Idempotencia transportu verzus business operácie",
+      "line": 231,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "8. Idempotencia transportu verzus business operácie",
+      "line": 231,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "9. Idempotency keys",
+      "line": 254,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "9. Idempotency keys",
+      "line": 254,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prvý request rezervuje key;`, `server vykoná business operáciu;`, `uloží canonical výsledok;`, `rovnaký key s iným payloadom dostane conflict.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "9. Idempotency keys",
+      "line": 254,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "9. Idempotency keys",
+      "line": 254,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "9. Idempotency keys",
+      "line": 254,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "11. Partial updates a patch semantics",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "11. Partial updates a patch semantics",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdiel medzi absent, null a empty;`, `povolené fields;`, `atomicitu viacerých zmien;`, `validation order;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "11. Partial updates a patch semantics",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Offset pagination",
+      "line": 353,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Offset pagination",
+      "line": 353,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Offset pagination",
+      "line": 353,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Offset pagination",
+      "line": 353,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchá implementácia a navigácia na konkrétnu stranu;`, `vhodná pre malé alebo stabilné datasety.`, `insert/delete pred offsetom spôsobí duplicate alebo missing records;`, `veľký offset môže byť databázovo drahý;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Offset pagination",
+      "line": 353,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Cursor pagination",
+      "line": 370,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Cursor pagination",
+      "line": 370,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Cursor pagination",
+      "line": 370,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Cursor pagination",
+      "line": 370,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opaque pre clienta;`, `podpísaný alebo validovaný proti manipulácii;`, `viazaný na filter/sort context;`, `časovo alebo version-aware podľa potreby.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Cursor pagination",
+      "line": 370,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "14. Filtering, sorting a field selection",
+      "line": 403,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "14. Filtering, sorting a field selection",
+      "line": 403,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "14. Filtering, sorting a field selection",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "14. Filtering, sorting a field selection",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlist fields a operators;`, `type validation;`, `cost limit;`, `bezpečné mapovanie na query engine;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "14. Filtering, sorting a field selection",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "14. Filtering, sorting a field selection",
+      "line": 403,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "15. Error contract",
+      "line": 422,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "15. Error contract",
+      "line": 422,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "15. Error contract",
+      "line": 422,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `machine-readable stable code;`, `user-safe message;`, `correlation ID;`, `field-level details;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "15. Error contract",
+      "line": 422,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "15. Error contract",
+      "line": 422,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SQL`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "16. Authentication, authorization a tenancy",
+      "line": 457,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "16. Authentication, authorization a tenancy",
+      "line": 457,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint-level permission;`, `object-level permission;`, `field-level permission;`, `tenant isolation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "16. Authentication, authorization a tenancy",
+      "line": 457,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "16. Authentication, authorization a tenancy",
+      "line": 457,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "17. Rate limits, quotas a load shedding",
+      "line": 475,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "15 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "17. Rate limits, quotas a load shedding",
+      "line": 475,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity;`, `tenant;`, `API key;`, `source IP;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "17. Rate limits, quotas a load shedding",
+      "line": 475,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "17. Rate limits, quotas a load shedding",
+      "line": 475,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "17. Rate limits, quotas a load shedding",
+      "line": 475,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "17. Rate limits, quotas a load shedding",
+      "line": 475,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IP`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "18. Asynchronous operations",
+      "line": 509,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "18. Asynchronous operations",
+      "line": 509,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status transitions;`, `cancellation semantics;`, `progress accuracy;`, `result location;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "18. Asynchronous operations",
+      "line": 509,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "19. API versioning",
+      "line": 562,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "19. API versioning",
+      "line": 562,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `URI: /v1/orders ;`, `media type alebo Accept parameter;`, `custom header;`, `postupná backward-compatible evolution bez explicitnej major version.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "19. API versioning",
+      "line": 562,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "19. API versioning",
+      "line": 562,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "19. API versioning",
+      "line": 562,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "19. API versioning",
+      "line": 562,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URI`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "20. Backward-compatible evolution",
+      "line": 585,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "20. Backward-compatible evolution",
+      "line": 585,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional response field;`, `nový endpoint;`, `nový optional request parameter;`, `rozšírenie capability s explicitným defaultom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "20. Backward-compatible evolution",
+      "line": 585,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "20. Backward-compatible evolution",
+      "line": 585,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "20. Backward-compatible evolution",
+      "line": 585,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "21. Schema a contract testing",
+      "line": 607,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "21. Schema a contract testing",
+      "line": 607,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer tests;`, `consumer-driven contract tests;`, `backward-compatibility diff;`, `example validation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "21. Schema a contract testing",
+      "line": 607,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "21. Schema a contract testing",
+      "line": 607,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "23. WebSocket origin a authentication",
+      "line": 652,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "23. WebSocket origin a authentication",
+      "line": 652,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session cookie;`, `bearer token v podporovanom handshake mechanizme;`, `short-lived connection ticket získaný cez HTTPS API;`, `mTLS;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "23. WebSocket origin a authentication",
+      "line": 652,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "23. WebSocket origin a authentication",
+      "line": 652,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "24. WebSocket framing",
+      "line": 675,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "24. WebSocket framing",
+      "line": 675,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `text frames s UTF-8 payloadom;`, `binary frames;`, `continuation frames;`, `ping;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "24. WebSocket framing",
+      "line": 675,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "24. WebSocket framing",
+      "line": 675,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTF-8`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "25. Aplikačný message protocol",
+      "line": 692,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "25. Aplikačný message protocol",
+      "line": 692,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a versioning;`, `message type registry;`, `correlation IDs;`, `request-response alebo event semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "25. Aplikačný message protocol",
+      "line": 692,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "25. Aplikačný message protocol",
+      "line": 692,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "25. Aplikačný message protocol",
+      "line": 692,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "26. Delivery semantics",
+      "line": 726,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "26. Delivery semantics",
+      "line": 726,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "26. Delivery semantics",
+      "line": 726,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že server business message spracoval;`, `že response bola persistovaná;`, `že event prežije reconnect;`, `exactly-once delivery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "26. Delivery semantics",
+      "line": 726,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "27. Ordering",
+      "line": 751,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "27. Ordering",
+      "line": 751,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac server instances publishuje events;`, `backend používa partitioned broker;`, `client reconnectne na inú instance;`, `subscriptions sa obnovujú paralelne;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "27. Ordering",
+      "line": 751,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "27. Ordering",
+      "line": 751,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "28. Connection state a server architecture",
+      "line": 773,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "28. Connection state a server architecture",
+      "line": 773,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authenticated identity;`, `subscriptions;`, `last acknowledged sequence;`, `outbound queue;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "28. Connection state a server architecture",
+      "line": 773,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "28. Connection state a server architecture",
+      "line": 773,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "28. Connection state a server architecture",
+      "line": 773,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "29. Heartbeats a dead-peer detection",
+      "line": 789,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 64 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "29. Heartbeats a dead-peer detection",
+      "line": 789,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interval;`, `timeout;`, `počet missed replies;`, `kto iniciuje ping;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "29. Heartbeats a dead-peer detection",
+      "line": 789,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "29. Heartbeats a dead-peer detection",
+      "line": 789,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "30. Backpressure",
+      "line": 809,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "30. Backpressure",
+      "line": 809,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded per-connection queue;`, `bounded per-tenant aggregate;`, `drop newest;`, `drop oldest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "30. Backpressure",
+      "line": 809,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "30. Backpressure",
+      "line": 809,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "31. Inbound pressure a abuse",
+      "line": 838,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "31. Inbound pressure a abuse",
+      "line": 838,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum frame a message size;`, `maximum decompressed size;`, `message rate limit;`, `concurrent subscriptions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "31. Inbound pressure a abuse",
+      "line": 838,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "31. Inbound pressure a abuse",
+      "line": 838,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "31. Inbound pressure a abuse",
+      "line": 838,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `JSON`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "32. Reconnect lifecycle",
+      "line": 857,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "32. Reconnect lifecycle",
+      "line": 857,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient network failure;`, `authentication failure;`, `incompatible protocol version;`, `server overload;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "32. Reconnect lifecycle",
+      "line": 857,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "32. Reconnect lifecycle",
+      "line": 857,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "33. Resume a gap recovery",
+      "line": 890,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "33. Resume a gap recovery",
+      "line": 890,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "33. Resume a gap recovery",
+      "line": 890,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `REST`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "34. Close handshake a close codes",
+      "line": 918,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "34. Close handshake a close codes",
+      "line": 918,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normal shutdown;`, `protocol error;`, `invalid payload;`, `policy violation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "34. Close handshake a close codes",
+      "line": 918,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "34. Close handshake a close codes",
+      "line": 918,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "34. Close handshake a close codes",
+      "line": 918,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "35. Deployment a draining",
+      "line": 934,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "35. Deployment a draining",
+      "line": 934,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance prestane byť ready pre nové connections;`, `load balancer ju odstráni z nového trafficu;`, `server môže poslať migration/reconnect signal;`, `existujúce connections dostanú grace period;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "35. Deployment a draining",
+      "line": 934,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "35. Deployment a draining",
+      "line": 934,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "35. Deployment a draining",
+      "line": 934,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "36. WebSocket cez proxy a load balancer",
+      "line": 950,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "36. WebSocket cez proxy a load balancer",
+      "line": 950,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upgrade alebo extended CONNECT podporu;`, `HTTP version conversion;`, `TLS termination;`, `idle timeout;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "36. WebSocket cez proxy a load balancer",
+      "line": 950,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "36. WebSocket cez proxy a load balancer",
+      "line": 950,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "36. WebSocket cez proxy a load balancer",
+      "line": 950,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "36. WebSocket cez proxy a load balancer",
+      "line": 950,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CONNECT`, `TLS`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "37. WebSocket compression",
+      "line": 971,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "37. WebSocket compression",
+      "line": 971,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "37. WebSocket compression",
+      "line": 971,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU overhead;`, `memory per connection;`, `context takeover state;`, `compression bomb risk;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "37. WebSocket compression",
+      "line": 971,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "37. WebSocket compression",
+      "line": 971,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "38. WebSocket verzus SSE verzus polling",
+      "line": 984,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "WebSocket",
+      "line": 986,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "WebSocket",
+      "line": 986,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "WebSocket",
+      "line": 986,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "WebSocket",
+      "line": 986,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `full-duplex;`, `binary aj text;`, `vlastný message protocol;`, `dlhodobý state a reconnect complexity.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "WebSocket",
+      "line": 986,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Server-Sent Events",
+      "line": 995,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39387,43 +40287,34 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Server-Sent Events",
-      "line": 382,
+      "line": 995,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "24. Observability",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "24. Observability",
-      "line": 392,
+      "section": "Server-Sent Events",
+      "line": 995,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "24. Observability",
-      "line": 392,
+      "section": "Server-Sent Events",
+      "line": 995,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate, latency a status,`, `operation cost,`, `auth failures,`, `rate-limit decisions,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `server → browser stream;`, `text event model;`, `beží nad HTTP;`, `browser podporuje automatic reconnect a last event ID;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "24. Observability",
-      "line": 392,
+      "section": "Server-Sent Events",
+      "line": 995,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -39431,8 +40322,17 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "25. Diagnostický postup",
-      "line": 415,
+      "section": "Server-Sent Events",
+      "line": 995,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "40. Observability REST API",
+      "line": 1039,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39440,26 +40340,26 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "25. Diagnostický postup",
-      "line": 415,
+      "section": "40. Observability REST API",
+      "line": 1039,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "25. Diagnostický postup",
-      "line": 415,
+      "section": "40. Observability REST API",
+      "line": 1039,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `koreluj idempotency/request ID,`, `zisti, či server operáciu spracoval,`, `skontroluj proxy timeout a retry,`, `over downstream dependencies,`.",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate podľa normalized route a method;`, `latency percentily a queue time;`, `status podľa originu;`, `payload sizes;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "25. Diagnostický postup",
-      "line": 415,
+      "section": "40. Observability REST API",
+      "line": 1039,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -39467,8 +40367,8 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "25. Diagnostický postup",
-      "line": 415,
+      "section": "40. Observability REST API",
+      "line": 1039,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39476,8 +40376,215 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "25. Diagnostický postup",
-      "line": 415,
+      "section": "41. Observability WebSocket",
+      "line": 1057,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "41. Observability WebSocket",
+      "line": 1057,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "41. Observability WebSocket",
+      "line": 1057,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `handshake attempts a failures;`, `active connections podľa instance/tenant/version;`, `connection duration;`, `clean versus abnormal close;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "41. Observability WebSocket",
+      "line": 1057,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "41. Observability WebSocket",
+      "line": 1057,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "41. Observability WebSocket",
+      "line": 1057,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "42. Diagnostika REST timeoutu",
+      "line": 1079,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "42. Diagnostika REST timeoutu",
+      "line": 1079,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "42. Diagnostika REST timeoutu",
+      "line": 1079,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nájdi request ID a idempotency key;`, `zisti, či edge/proxy request prijali;`, `over, či origin začal spracovanie;`, `skontroluj database/event side effect;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "42. Diagnostika REST timeoutu",
+      "line": 1079,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "42. Diagnostika REST timeoutu",
+      "line": 1079,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "42. Diagnostika REST timeoutu",
+      "line": 1079,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "43. Diagnostika inconsistent pagination",
+      "line": 1094,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "43. Diagnostika inconsistent pagination",
+      "line": 1094,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "43. Diagnostika inconsistent pagination",
+      "line": 1094,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj filter, sort a cursor/offset;`, `over deterministic ordering;`, `zisti, či dataset sa medzi pages menil;`, `dekóduj cursor iba v kontrolovanom debug nástroji;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "43. Diagnostika inconsistent pagination",
+      "line": 1094,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj timestamp, connection ID a close code;`, `urč initiator: client, proxy, server alebo network timeout;`, `porovnaj interval s LB/proxy idle timeoutom;`, `over ping/pong a event-loop latency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "44. Diagnostika WebSocket disconnectu",
+      "line": 1107,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `LB`",
@@ -39485,8 +40592,71 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "26. Časté omyly",
-      "line": 435,
+      "section": "45. Typické failure patterns",
+      "line": 1120,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Duplicate create po timeout-e",
+      "line": 1122,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Cursor prestane fungovať po zmene filtra",
+      "line": 1130,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Každý client môže čítať cudzie resources",
+      "line": 1134,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Memory rastie s počtom pomalých clients",
+      "line": 1142,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Po deploymente vznikne reconnect storm",
+      "line": 1146,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Client po reconnecte vidí neaktuálny stav",
+      "line": 1150,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "46. Časté omyly",
+      "line": 1154,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -39495,7 +40665,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "„POST sa po timeout-e môže bezpečne zopakovať“",
-      "line": 445,
+      "line": 1164,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39503,8 +40673,8 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "„WebSocket garantuje doručenie business message“",
-      "line": 449,
+      "section": "„Jedna WebSocket connection znamená globálne ordering“",
+      "line": 1176,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39512,12 +40682,84 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "„Dlhý connection nepotrebuje deployment lifecycle“",
-      "line": 453,
+      "section": "„Dlhá connection nepotrebuje deployment lifecycle“",
+      "line": 1180,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "22 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "22 z 22 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource model a method semantics;`, `explicitné status codes;`, `idempotency a duplicate concurrency;`, `optimistic concurrency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "47. Praktický checklist",
+      "line": 1184,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LB`, `resource`, `policy`, `scope`",
+      "score": 7
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
