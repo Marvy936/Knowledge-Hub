@@ -10,288 +10,829 @@
 
 ## 1. Definícia
 
-Monorepo ukladá viac projektov, služieb alebo knižníc do jedného repository. Multirepo ich rozdeľuje medzi viac repositories.
+Monorepo ukladá viac projektov, služieb, knižníc alebo nástrojov do jedného Git repository. Multirepo ich rozdeľuje medzi viac samostatných repositories.
 
-Rozhodnutie nie je iba o počte Git repozitárov. Určuje:
+Repository topology určuje fyzickú hranicu verziovania a zmeny. Neurčuje automaticky:
 
-- hranice zmien,
-- ownership,
-- dependency workflow,
-- CI/CD topology,
-- access control,
-- release coordination,
-- developer experience.
+- počet deployable services,
+- runtime architektúru,
+- počet tímov,
+- počet release trains,
+- jeden alebo viac programovacích jazykov,
+- monolit verzus microservices.
 
-## 2. Monorepo
+Monorepo môže obsahovať stovky nezávisle deployovaných služieb. Multirepo môže obsahovať jeden silne previazaný produkt rozdelený do desiatok repositories.
+
+Rozhodnutie preto musí vychádzať z change coupling, ownershipu, security boundaries, dependency modelu a delivery topology, nie zo sloganu „jeden repo je jednoduchší“ alebo „jedna služba = jedno repo“.
+
+## 2. Mentálny model: repository ako hranica zmeny
+
+Repository definuje spoločný priestor pre:
+
+```text
+commit graph
+refs a branching policy
+review a approvals
+CI entry point
+permissions
+hooks a server-side policy
+history retention
+```
+
+Otázka nie je iba „koľko súborov je spolu“. Dôležitejšie je:
+
+```text
+ktoré zmeny musia byť koordinované
+ktoré zmeny majú byť atomické
+ktoré dependencies majú byť viditeľné
+ktoré hranice musia byť bezpečnostne oddelené
+```
+
+Dobrá repository boundary znižuje celkový coordination cost. Nevhodná boundary iba presunie komplexitu:
+
+- z Git merge do package versioningu,
+- z jednej CI pipeline do cross-repo orchestration,
+- z path ownershipu do repository permissions,
+- z atomic commitu do backward-compatible rolloutov.
+
+## 3. Štyri hranice, ktoré sa nesmú zamieňať
+
+### Repository boundary
+
+Určuje, čo môže byť súčasťou jedného Git commitu a jednej ref policy.
+
+### Build boundary
+
+Určuje, čo sa kompiluje, testuje alebo balí ako jeden target. Jedno repo môže mať tisíce build targets.
+
+### Deployment boundary
+
+Určuje, čo možno nasadiť nezávisle. Monorepo nemusí znamenať jeden deployment.
+
+### Ownership a security boundary
+
+Určuje, kto môže čítať, meniť, schvaľovať alebo prevádzkovať konkrétnu oblasť. Path-based review nie je to isté ako repository-level confidentiality.
+
+Architektúra má tieto hranice navrhovať vedome. Ich automatické zrovnanie môže byť jednoduché pre malý projekt, ale vo väčšom systéme často vytvára zbytočné coupling.
+
+## 4. Monorepo model
 
 Príklad:
 
 ```text
 repo/
-├── services/api
-├── services/worker
-├── libs/auth
-├── infrastructure
-└── tools
+├── services/
+│   ├── api/
+│   ├── worker/
+│   └── billing/
+├── libraries/
+│   ├── auth/
+│   └── observability/
+├── infrastructure/
+├── tools/
+└── docs/
 ```
 
-Výhody:
+Jeden commit môže meniť viac častí systému:
 
-- atomické cross-project changes,
-- jednotné tooling a policy,
-- jednoduchšie refactoringy,
-- centrálna code search,
-- konzistentné dependency upgrades,
-- jeden review context.
+```text
+API contract
++ producer implementation
++ consumer implementation
++ tests
++ deployment config
+```
 
-Riziká:
+To umožňuje atomickú source zmenu. Neznamená to však, že všetky komponenty budú naraz buildnuté, versionované alebo nasadené.
 
-- veľký clone/index,
-- zložitejší selective CI,
-- široký blast radius tooling zmeny,
-- jemnejšia access control je náročná,
-- central build system môže byť kritická dependency.
-
-## 3. Multirepo
+## 5. Multirepo model
 
 Príklad:
 
 ```text
 api-repo
 worker-repo
+billing-repo
 auth-library-repo
 infrastructure-repo
+platform-tools-repo
 ```
+
+Každé repo má vlastný:
+
+- commit graph,
+- branch policy,
+- permissions,
+- CI/CD lifecycle,
+- version a release history,
+- issue a review context.
+
+Cross-repo zmena nemôže byť jeden Git commit. Musí byť rozdelená na kompatibilnú sekvenciu alebo koordinovanú release transakciu.
+
+## 6. Atomická zmena
+
+Atomická repository zmena znamená, že jeden commit reprezentuje konzistentný source snapshot viacerých komponentov.
+
+Monorepo:
+
+```text
+commit X:
+- provider pridá nový field
+- consumer začne field používať
+- tests pokrývajú obidve strany
+```
+
+Výhoda:
+
+- review vidí celý intent,
+- bisect nájde jeden prechodový bod,
+- CI môže testovať presnú kombináciu,
+- refactoring nemusí dočasne publikovať intermediary package.
+
+Riziko:
+
+- ak komponenty deployujeme nezávisle, source atomicity nezaručuje deployment atomicity,
+- provider a consumer sa môžu v produkcii aktualizovať v opačnom poradí,
+- jeden commit môže obsahovať príliš široký blast radius.
+
+Preto aj monorepo potrebuje backward-compatible deployment design.
+
+## 7. Kompatibilná cross-repo zmena
+
+Multirepo typicky používa expand-and-contract postup:
+
+```text
+1. provider pridá backward-compatible contract
+2. provider publikuje nový immutable artifact
+3. consumers adoptujú novú version
+4. telemetry potvrdí nepoužívanie starého contractu
+5. provider odstráni starý contract
+```
+
+Tento proces má vyšší coordination overhead, ale podporuje nezávislé release lifecycles a núti explicitné rozhrania.
+
+Cross-repo zmenu možno koordinovať cez:
+
+- issue alebo change plan s dependency graphom,
+- release manifest,
+- package registry,
+- contract tests,
+- automated dependency update pull requests,
+- environment integration tests,
+- orchestration pipeline.
+
+„Nie je atomická“ neznamená „nedá sa spraviť bezpečne“. Znamená to, že atomicitu musí nahradiť compatibility a orchestration model.
+
+## 8. Change coupling ako hlavný signál
+
+Change coupling meria, ako často sa komponenty menia spolu pre jeden business intent.
+
+Silné signály pre spoločnú repository boundary:
+
+- rovnaké pull requests často menia oba komponenty,
+- interfaces sa vyvíjajú koordinovane,
+- refactoring pravidelne prekračuje hranice,
+- komponenty používajú spoločné tooling a test fixtures,
+- oddelené releases neprinášajú hodnotu.
+
+Silné signály pre oddelenie:
+
+- komponenty majú stabilný versioned contract,
+- releases sú nezávislé,
+- read access musí byť oddelený,
+- zmeny sa koordinujú zriedka,
+- lifecycle alebo compliance je zásadne odlišný.
+
+Organizačný diagram je slabší signál než dlhodobý change coupling. Tímy sa reorganizujú; dependency a domain boundaries bývajú stabilnejšie.
+
+## 9. Dependency model v monorepe
+
+Monorepo môže používať source-level dependencies:
+
+```text
+service A target
+→ library B target
+→ generated schema C
+```
+
+Potrebný je autoritatívny dependency graph, ktorý odpovedá:
+
+- ktorý target závisí od ktorých vstupov,
+- ktoré tests validujú daný target,
+- ktoré runtime artifacts vznikajú,
+- ktoré environment/config dependencies existujú,
+- čo ovplyvní zmena spoločného tooling.
+
+Graph môže byť deklarovaný build systémom alebo odvodený, ale musí byť overiteľný. Chybný graph vytvorí false green pipeline, pretože affected-change detection vynechá potrebný build alebo test.
+
+## 10. Dependency model v multirepe
+
+Multirepo potrebuje explicitný artifact contract:
+
+```text
+source repo
+→ build
+→ immutable package/image/schema
+→ registry
+→ consumer dependency declaration
+```
+
+Dôležité mechanizmy:
+
+- immutable versions alebo digests,
+- semantic versioning iba tam, kde contract semantics skutočne zodpovedajú SemVer,
+- lockfiles a dependency pinning,
+- deprecation windows,
+- compatibility matrix,
+- provenance a signature verification,
+- update automation.
+
+Anti-pattern:
+
+```text
+consumer build vždy stiahne latest z main iného repo
+```
+
+Taký build nie je reprodukovateľný a jeho výsledok závisí od času.
+
+## 11. CI topology v monorepe
+
+Naivný model:
+
+```text
+každý commit → build a test všetkého
+```
+
+je jednoduchý, ale pri raste vedie k dlhému feedbacku a vysokej spotrebe compute.
+
+Škálovateľný model:
+
+```text
+changed paths
+→ dependency graph
+→ affected targets
+→ cache lookup
+→ parallel build/test
+→ required global checks
+```
+
+Potrebné vlastnosti:
+
+- hermetic alebo dostatočne deterministické targets,
+- presné cache keys,
+- remote cache a execution podľa potreby,
+- test sharding,
+- cancellation zastaraných behov,
+- merge queue,
+- pravidelné širšie validation runs.
+
+Selective CI je optimalizácia correctness systému, nie iba výkonová funkcia. Musí sa testovať, že pri zmene dependency sa spustia všetci consumers.
+
+## 12. False green riziko v affected detection
+
+Príklad:
+
+```text
+shared config generator sa zmení
+ale dependency graph ho neeviduje ako input služby A
+→ služba A sa netestuje
+→ pipeline green
+→ produkčný artifact je chybný
+```
+
+Ochrany:
+
+- graph conformance tests,
+- periodic full builds,
+- shadow comparison selective verzus full run,
+- explicitné owners spoločných rules,
+- conservative fallback pri neznámej zmene,
+- telemetry cache hitov a skipped targets.
+
+Optimalizácia nesmie potichu meniť required validation contract.
+
+## 13. CI topology v multirepe
+
+Každé repo má lokálnu pipeline, ale systémová kompatibilita vzniká až medzi artifacts.
+
+Potrebné vrstvy:
+
+- unit a component tests v source repo,
+- contract tests producer/consumer,
+- package publishing pipeline,
+- dependency update automation,
+- integration environment alebo ephemeral test environment,
+- cross-repo release manifest,
+- end-to-end validation kritických flows.
+
+Cross-repo trigger bez jasného artifactu môže vytvoriť retry loops a nejasný provenance chain. Lepší trigger nesie konkrétnu version alebo digest.
+
+## 14. Ownership
+
+Monorepo používa path-based ownership:
+
+```text
+/services/api/       @api-team
+/libraries/auth/      @identity-team
+/infrastructure/      @platform-team
+/build-rules/         @developer-platform
+```
+
+Ownership môže riadiť:
+
+- required reviews,
+- triage,
+- documentation responsibility,
+- on-call mapping,
+- deprecation approvals.
+
+CODEOWNERS však typicky nie je read-access boundary. Používateľ s prístupom do private monorepa môže vidieť všetky paths.
+
+Multirepo prirodzene poskytuje repository-level permissions, ale cross-repo maintainers a shared tooling môžu vyžadovať široký access.
+
+## 15. Security a confidentiality boundary
+
+Silný dôvod na oddelené repo:
+
+- rozdielne právne entity alebo externí partneri,
+- export-control alebo customer-specific source,
+- vysoko citlivé security components,
+- need-to-know read access,
+- odlišná retention alebo compliance policy.
+
+Path review rules nie sú náhradou za repository-level confidentiality, pokiaľ platforma neposkytuje skutočné path-level read isolation.
+
+Naopak, nadmerné rozdelenie pre domnelú bezpečnosť môže vytvoriť token sprawl, duplicate pipelines a neprehľadné dependencies. Boundary má zodpovedať konkrétnemu threat modelu.
+
+## 16. Branching a merge queue v monorepe
+
+Monorepo typicky používa jednu hlavnú integračnú branch, ale zmeny môžu ovplyvňovať rôzne subsets systému.
+
+Potrebné sú:
+
+- short-lived branches,
+- path-aware required reviews,
+- affected checks,
+- merge queue testujúca kombináciu paralelných changes,
+- kontrola spoločných root files,
+- limit veľkých mechanických refactorov.
+
+Zmena centrálneho build rule môže mať väčší blast radius než zmena jednej služby, aj keď diff obsahuje menej riadkov. Risk-based CI nemá hodnotiť iba počet zmenených files.
+
+## 17. Versioning v monorepe
+
+Monorepo nemusí používať jednu version pre všetko.
+
+### Unified versioning
+
+Všetky komponenty zdieľajú release version.
+
+Vhodné pre jeden produkt alebo SDK balík, ktorý sa vydáva spolu.
+
+### Independent versioning
+
+Každý package alebo service má vlastnú version a release lifecycle.
+
+Vyžaduje:
+
+- affected package detection,
+- changelog/version metadata,
+- dependency version updates,
+- release automation.
+
+### Commit-based identity
+
+Internal artifacts môžu používať commit SHA plus build metadata alebo immutable digest.
+
+### Release manifest
+
+```yaml
+source_commit: abc123
+artifacts:
+  api: sha256:...
+  worker: sha256:...
+  web: sha256:...
+```
+
+Manifest oddeľuje spoločný source snapshot od nezávislých runtime artifacts.
+
+## 18. Versioning v multirepe
+
+Každé repo má vlastnú history a versions. Systémový release preto potrebuje bill of materials:
+
+```yaml
+release: 2026.07.24
+components:
+  api: 3.8.1
+  worker: 2.4.0
+  web: 5.12.3
+```
+
+Bez manifestu je ťažké presne reprodukovať environment alebo incident state.
+
+Version string sama nestačí. Potrebné sú:
+
+- artifact digest,
+- source commit,
+- build provenance,
+- dependency lock state,
+- deployment record.
+
+## 19. Release coupling
+
+Dva komponenty môžu byť v rovnakom repo, ale release-núť sa nezávisle. Dva komponenty v rôznych repos môžu byť prakticky viazané na jeden release train.
+
+Sleduj:
+
+- ako často musia byť nasadené spolu,
+- či majú backward-compatible contract,
+- či rollback jedného vyžaduje rollback druhého,
+- či jeden deployment blokuje druhý,
+- či environment manifest povoľuje ľubovoľné kombinácie.
+
+Repository topology nemá zakrývať skutočný release coupling.
+
+## 20. Developer experience v monorepe
 
 Výhody:
 
-- jasné ownership a permissions boundaries,
-- menšie repositories,
-- nezávislý lifecycle a tooling,
-- izolované CI/CD,
-- jednoduchšie oddelenie externých a interných projektov.
+- jeden clone a search scope,
+- jednotný onboarding,
+- lokálne cross-component refactoringy,
+- spoločné tooling,
+- jednoduchšia navigácia medzi producerom a consumerom.
 
-Riziká:
+Náklady:
 
-- koordinované zmeny nie sú atomické,
-- dependency version drift,
-- opakované konfigurácie,
-- cross-repo discovery a refactoring sú náročnejšie,
-- release orchestration potrebuje explicitné contracts.
+- veľký checkout,
+- pomalý `status` alebo IDE indexing,
+- zložitý local environment,
+- preťaženie informáciami,
+- central tooling ako kritická dependency.
 
-## 4. Atomická zmena
+Riešenia:
 
-V monorepe môže jeden commit zmeniť producer, consumer, tests aj deployment config.
+- sparse checkout,
+- partial clone,
+- workspace/project views,
+- target-oriented commands,
+- local/remote cache,
+- developer portal a ownership metadata.
 
-V multirepe potrebuješ sekvenciu kompatibilných zmien:
+## 21. Developer experience v multirepe
 
-```text
-1. producer pridá backward-compatible contract
-2. publish version
-3. consumers adoptujú
-4. odstráni sa starý contract
-```
+Výhody:
 
-To nie je automaticky nevýhoda. Núti explicitne riešiť compatibility a rollout.
+- menší checkout a jasný scope,
+- jednoduchší lokálny build jedného componentu,
+- prirodzený repository ownership.
 
-## 5. Dependency management
+Náklady:
 
-Monorepo môže používať source dependencies alebo central lock graph. Potrebuje jasné pravidlá:
+- viac clones a credential contexts,
+- zložitejšie code search,
+- rozdielne commands a conventions,
+- dependency updates cez viac pull requests,
+- ťažší cross-repo refactoring.
 
-- visibility,
-- ownership,
-- versioning interných modules,
-- hermetic builds,
-- cache keys,
-- affected-project detection.
+Platform engineering môže znížiť drift cez:
 
-Multirepo typicky potrebuje:
+- reusable CI workflows,
+- repository templates,
+- centralized policy,
+- dependency bots,
+- organization-wide code search,
+- bootstrap CLI.
 
-- artifact registry,
-- semantic versioning alebo iný contract,
-- dependency update automation,
-- compatibility testing,
-- deprecation policy.
+## 22. Shared tooling
 
-## 6. CI v monorepe
+Monorepo podporuje centralizované:
 
-Naivné „testuj všetko pri každej zmene“ sa pri veľkom monorepe neškáluje.
+- linting a formatting rules,
+- build macros,
+- test harnesses,
+- code generation,
+- dependency policy,
+- security scanning.
 
-Potrebné mechanizmy:
-
-```text
-change detection
-→ dependency graph
-→ affected targets
-→ remote/local cache
-→ parallel execution
-```
-
-Riziko: chybný dependency graph vynechá test a vytvorí false green pipeline.
-
-Pre kritické zmeny môže byť potrebný širší periodic alebo pre-release validation run.
-
-## 7. CI v multirepe
-
-Každý repository má samostatnú pipeline, ale cross-repo integrácia vyžaduje:
-
-- contract tests,
-- versioned artifacts,
-- integration environment,
-- downstream triggers alebo dependency updates,
-- release metadata.
-
-Anti-pattern je buildovať consumer vždy z náhodného latest commitu dependency bez immutable version.
-
-## 8. Ownership a CODEOWNERS
-
-Monorepo potrebuje path-based ownership:
+Riziko:
 
 ```text
-/services/api/      @api-team
-/libs/auth/         @security-team
-/infrastructure/    @platform-team
+jedna zmena root toolchainu
+→ ovplyvní celý repository
 ```
 
-Path ownership však nie je plná security boundary. Používateľ s repository read accessom typicky vidí celý obsah.
+Potrebné sú staged migrations, compatibility obdobie, owner a rollback.
 
-Multirepo poskytuje prirodzenejšiu repository-level access boundary.
+Multirepo môže používať:
 
-## 9. Release model
+- versioned reusable workflows,
+- shared packages,
+- central runner images,
+- policy-as-code service.
 
-Monorepo nemusí znamenať jeden release train. Možnosti:
+Ak sa shared config kopíruje, vzniká verzionovaný drift bez viditeľnej dependency.
 
-- unified versioning,
-- independent versions per project,
-- commit-SHA based artifacts,
-- release manifest mapujúci commit na artifacts.
+## 23. Git performance
 
-Multirepo prirodzene podporuje nezávislé versions, ale cross-product release potrebuje explicitnú bill of materials alebo environment manifest.
+Veľký repository môže mať problém s:
 
-## 10. Repository size a Git performance
-
-Problémy veľkého repository:
-
-- veľký object graph,
-- veľký index,
-- množstvo files vo working tree,
-- pomalý status/checkout,
-- veľké binary artifacts.
+- počtom objects,
+- veľkosťou packfiles,
+- počtom paths v indexe,
+- checkout a status časom,
+- history traversal,
+- veľkými binaries,
+- server-side fetch negotiation.
 
 Mechanizmy:
 
 ```bash
-git clone --filter=blob:none
+git clone --filter=blob:none <url>
 git sparse-checkout init --cone
-git sparse-checkout set services/api libs/auth
+git sparse-checkout set services/api libraries/auth
 ```
 
-Ďalšie nástroje: filesystem monitor, commit graph, multi-pack-index, LFS. Architektúra však nemá spoliehať iba na klientské optimalizácie.
+Ďalšie optimalizácie:
 
-## 11. Binary a generated artifacts
+- commit-graph,
+- multi-pack-index,
+- filesystem monitor,
+- scalar alebo platform-specific large-repo tooling,
+- Git LFS pre vhodné binaries.
 
-Veľké binaries nezaraďuj automaticky do monorepa. Použi:
+Technická optimalizácia však nemá ospravedlniť bezhraničné ukladanie generated artifacts a build outputs do Git history.
 
-- artifact registry,
-- object storage,
-- Git LFS, ak je vhodný,
-- reprodukovateľný build zo source.
+## 24. Binaries a generated artifacts
 
 Repository nie je všeobecný package registry.
 
-## 12. Shared tooling
+Preferuj:
 
-Monorepo uľahčuje centralizáciu:
+- reprodukovateľný build zo source,
+- artifact registry,
+- object storage,
+- package registry,
+- Git LFS iba pri jasnom ownership a lifecycle.
 
-- linters,
-- formatters,
-- build rules,
-- CI templates,
-- dependency policy.
+Riziká veľkých binaries v Git:
 
-Riziko je „global breaking change“ v tooling. Preto treba versioned rules, migration tooling a staged rollout.
+- history rastie aj po zmazaní súčasnej verzie,
+- clone a backup sa predražujú,
+- diff/review má malú hodnotu,
+- cleanup vyžaduje history rewrite.
 
-Multirepo potrebuje reusable templates alebo platform service, inak vzniká copy-paste drift.
+Generated file môže byť commitovaný, ak je potrebný pre consumers alebo bootstrap, ale musí mať deterministický generator a validation, že je synchronizovaný so source.
 
-## 13. Kedy preferovať monorepo
+## 25. Submodules, subtrees a vendoring
 
-Silné signály:
+Tieto mechanizmy nerobia z viacerých repositories monorepo.
 
-- časté atomické cross-component changes,
-- úzko previazaný product,
-- spoločné tooling a jazykový ekosystém,
-- schopnosť investovať do build graphu a cache,
-- široko zdieľaný code access je prijateľný.
+### Submodule
 
-## 14. Kedy preferovať multirepo
+Superproject uchováva gitlink na konkrétny commit iného repo. Poskytuje explicitné pinning, ale samostatný lifecycle, permissions a clone/update workflow zostáva.
 
-Silné signály:
+### Subtree
 
-- nezávislé products a release lifecycles,
-- rozdielne access/compliance boundaries,
-- externí partneri,
-- výrazne rozdielne technologické stacky,
-- stabilné versioned contracts medzi systémami.
+Kopíruje history alebo obsah iného projektu do podadresára a synchronizuje ho explicitnými operáciami.
 
-## 15. Hybridný model
+### Vendoring
 
-Praktické organizácie často používajú viac domain monorepos:
+Uloží dependency source alebo artifact do repository podľa vlastného update procesu.
+
+Každý model má trade-off medzi reprodukovateľnosťou, update friction a ownershipom.
+
+## 26. Hybridný model
+
+Veľká organizácia často používa viac domain monorepos:
 
 ```text
-product-platform-monorepo
+commerce-platform-monorepo
+identity-platform-monorepo
 mobile-monorepo
 infrastructure-config-repo
-shared-open-source-repos
+public-sdk-repos
 ```
 
-Cieľom nie je maximalizovať alebo minimalizovať počet repositories, ale zvoliť hranice zodpovedajúce ownership a change coupling.
+Hybridný model môže:
 
-## 16. Rozhodovací rámec
+- zoskupiť silne coupled komponenty,
+- zachovať security boundaries,
+- oddeliť open-source a interný kód,
+- obmedziť blast radius tooling,
+- znížiť počet cross-repo transakcií v rámci domény.
 
-Posúď:
+Cieľom nie je minimalizovať počet repositories. Cieľom je minimalizovať náklady hraníc bez straty potrebnej izolácie.
 
-1. Ako často sa komponenty menia spolu?
-2. Potrebujú atomický commit?
-3. Aké sú security boundaries?
-4. Ako sa versions a artifacts publikujú?
-5. Aká je veľkosť source a history?
-6. Máme build graph a cache?
-7. Kto vlastní shared tooling?
-8. Ako prebieha cross-repo refactoring?
-9. Ako meriame lead time a failure rate?
-10. Aký migration cost rozhodnutie vytvorí?
+## 27. Kedy preferovať monorepo
 
-## 17. Anti-patterny
+Silné signály:
+
+- časté cross-component changes,
+- veľké interné refactoringy,
+- spoločné language/toolchain ekosystémy,
+- potreba jedného review contextu,
+- prijateľný spoločný read access,
+- ochota investovať do build graphu, cache a platform tooling,
+- produkt sa vyvíja ako koordinovaný celok.
+
+Monorepo nie je vhodné iba preto, že „všetko je jednoduchšie nájsť“. Bez tooling investície sa jednoduchosť rýchlo stratí.
+
+## 28. Kedy preferovať multirepo
+
+Silné signály:
+
+- stabilné versioned contracts,
+- nezávislé product a release lifecycles,
+- rozdielne confidentiality alebo compliance boundaries,
+- externí contributors alebo partneri,
+- výrazne odlišné technologické stacky a tooling,
+- veľmi nízky change coupling,
+- samostatné open-source projekty.
+
+Multirepo nie je vhodné iba preto, že systémy sú microservices. Silne coupled microservices v oddelených repos môžu vytvoriť distribuovaný monolit s vysokým coordination cost.
+
+## 29. Rozhodovací rámec
+
+Pre každý kandidátny boundary zodpovedz:
+
+1. Ako často sa komponenty menia v jednom business change?
+2. Potrebujú source-atomickú zmenu?
+3. Môžu sa nasadzovať v ľubovoľnom poradí?
+4. Majú stabilný backward-compatible contract?
+5. Kto potrebuje read a write access?
+6. Aké approvals alebo retention policy sa líšia?
+7. Ako vznikajú a publikujú artifacts?
+8. Ako sa vypočíta affected test/build set?
+9. Ako sa vykoná cross-boundary refactoring?
+10. Aký je incident a rollback model?
+11. Kto vlastní shared tooling?
+12. Aký je očakávaný rast source, history a tímov?
+
+Rozhodnutie zdokumentuj ako architecture decision so signálmi, trade-offmi a podmienkami pre budúce prehodnotenie.
+
+## 30. Metriky po rozhodnutí
+
+Sleduj:
+
+- cross-repo pull requests na jednu business zmenu,
+- čas od producer change po adoption consumers,
+- dependency version drift,
+- CI feedback time,
+- cache hit rate,
+- percento full verzus selective builds,
+- false-green incidents spôsobené dependency graphom,
+- branch a pull-request cycle time,
+- počet duplicate CI/tooling configs,
+- čas cross-component refactoringu,
+- počet emergency coordination releases,
+- clone/status/build performance,
+- ownership a approval wait time.
+
+Metrika nehovorí automaticky, že treba migrovať. Ukazuje, kde repository boundary vytvára náklady.
+
+## 31. Migrácia multirepo → monorepo
+
+Potrebný plán:
+
+1. Definovať scope a canonical histories.
+2. Rozhodnúť, či zachovať úplnú history alebo importovaný snapshot.
+3. Vytvoriť directory a ownership taxonomy.
+4. Zjednotiť build a dependency graph.
+5. Zachovať attribution, tags a release provenance.
+6. Migrovať CI po komponentoch.
+7. Zaviesť affected detection a full-validation fallback.
+8. Presmerovať issues, docs a automation.
+9. Archivovať staré repos ako read-only.
+10. Monitorovať performance a developer flow.
+
+Riziká:
+
+- history collisions,
+- nejasné tags,
+- broken tooling assumptions,
+- masívny first clone,
+- neúplné permissions mapping.
+
+## 32. Migrácia monorepo → multirepo
+
+Potrebný plán:
+
+1. Určiť stabilné domain a contract boundaries.
+2. Extrahovať history relevantných paths.
+3. Vytvoriť package/artifact publishing.
+4. Nahradiť source dependencies immutable versions.
+5. Zaviesť compatibility a contract tests.
+6. Definovať cross-repo release manifest.
+7. Migrovať permissions a ownership.
+8. Nahradiť atomic changes expand-and-contract workflowom.
+9. Aktualizovať developer tooling a code search.
+10. Overiť hotfix, rollback a incident workflow.
+
+Rozdelenie bez dependency discipline iba presunie implicitný coupling do neviditeľných runtime kombinácií.
+
+## 33. Anti-patterny
 
 ### Monorepo bez build-system investície
 
-Vedie k pipeline „test everything“ a rastúcemu feedback time.
+Každá zmena spúšťa všetko, feedback rastie a tím začne CI obchádzať.
 
-### Multirepo bez contract/version discipline
+### Multirepo bez artifact contractu
 
-Vedie k `latest` dependencies a nepredvídateľným integráciám.
+Consumers používajú mutable `latest`, branch snapshots alebo ručné kopírovanie.
 
-### Repository boundary podľa organizačného diagramu
+### Repo per microservice ako dogma
 
-Tímy sa menia. Boundary má odrážať dlhodobejší domain a change coupling.
+Ignoruje change coupling a vytvára veľa koordinovaných releases.
+
+### Monorepo ako náhrada architektúry
+
+Spoločný Git repository nevyrieši nejasné module boundaries alebo runtime coupling.
+
+### CODEOWNERS ako security boundary
+
+Review routing neobmedzuje automaticky čítanie source.
+
+### Central tooling bez ownershipu
+
+Jedna root zmena má organization-wide blast radius bez rollout a rollback plánu.
 
 ### Shared config copy-paste
 
-Vytvára drift. Použi reusable automation alebo central platform capability.
+Vytvára skrytú dependency a drift.
 
-## 18. Kontrolné otázky
+### Generated artifacts bez reprodukovateľného source
 
-1. Aké problémy rieši atomická cross-project zmena?
-2. Prečo monorepo potrebuje dependency graph?
-3. Aké mechanizmy nahrádzajú atomický commit v multirepe?
-4. Prečo CODEOWNERS nie je plná security boundary?
-5. Ako môže monorepo podporovať independent releases?
-6. Kedy je hybridný model vhodnejší?
-7. Aké metriky by si sledoval po zmene repository stratégie?
+Repository sa stane manuálne udržiavaným binary store.
+
+## 34. Diagnostický scenár: monorepo CI je príliš pomalé
+
+1. Zmeraj queue, setup, build, test a upload fázy oddelene.
+2. Over, či affected graph zodpovedá skutočným dependencies.
+3. Zisti cache hit/miss dôvody.
+4. Skontroluj nestabilné cache keys a environment inputs.
+5. Rozlíš CPU-bound, I/O-bound a runner-capacity problém.
+6. Zaveď sharding alebo parallel targets podľa graphu.
+7. Použi conservative selective CI a periodic full runs.
+8. Odstráň generated/binary inputs, ktoré invalidujú veľkú časť graphu.
+9. Meraj feedback po zmene.
+10. Nerozdeľuj repo automaticky, kým nie je potvrdené, že problém je boundary a nie build design.
+
+## 35. Diagnostický scenár: multirepo release drift
+
+1. Vytvor manifest reálne nasadených component versions.
+2. Porovnaj deklarované a runtime dependencies.
+3. Identifikuj consumers na zastaraných alebo nepodporovaných versions.
+4. Over deprecation a compatibility policy.
+5. Zaveď automated dependency updates.
+6. Pridaj contract tests a integration matrix.
+7. Zakáž mutable `latest` v release pipeline.
+8. Eviduj source commit a artifact digest.
+9. Definuj ownership cross-repo upgradeov.
+10. Sleduj adoption lead time a failure rate.
+
+## 36. Časté omyly
+
+### „Monorepo znamená jeden release“
+
+Nie. Komponenty môžu mať nezávislé artifacts, versions a deployments.
+
+### „Multirepo znamená loose coupling“
+
+Nie. Coupling môže zostať, iba sa presunie do package, API a deployment koordinácie.
+
+### „Jedna služba má mať jedno repo“
+
+Je to možná konvencia, nie architektonický zákon.
+
+### „Atomický commit znamená atomický deployment“
+
+Nie. Nezávislé runtime komponenty stále potrebujú kompatibilný rollout.
+
+### „Monorepo je lacnejšie, lebo netreba versionovať interné dependencies“
+
+Aj source dependency potrebuje stabilný contract, ownership a build graph.
+
+### „Rozdelením veľkého repo sa automaticky zrýchli CI“
+
+Lokálne pipelines môžu byť menšie, ale cross-repo integration a duplicate setup môžu celkový feedback zhoršiť.
+
+## 37. Kontrolné otázky
+
+1. Aký je rozdiel medzi repository, build, deployment a security boundary?
+2. Čo poskytuje atomická source zmena a čo neposkytuje?
+3. Ako multirepo nahrádza atomický commit kompatibilným rolloutom?
+4. Prečo je change coupling dôležitejší než organizačný diagram?
+5. Ako vzniká false green pri chybnom dependency graphe?
+6. Prečo CODEOWNERS nie je plná confidentiality boundary?
+7. Ako môže monorepo podporovať independent versioning a releases?
+8. Načo slúži release manifest v monorepe aj multirepe?
+9. Kedy je hybridný domain-monorepo model vhodný?
+10. Aké signály odôvodňujú migráciu repository topology?
 
 ## Glossary impact
 
-Relevantné pojmy: monorepo, multirepo, atomic change, affected-project detection, dependency graph, path ownership, artifact registry, hybrid repository model.
+Relevantné pojmy: monorepo, multirepo, repository boundary, atomic change, change coupling, affected-project detection, dependency graph, path ownership, artifact registry, release manifest, hybrid repository model.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
