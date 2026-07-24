@@ -745,15 +745,15 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "title": "Routing a default gateway",
-      "words": 1438,
-      "headings": 34,
-      "sections": 34,
-      "findings": 84,
-      "critical": 33,
-      "high": 29,
-      "medium": 18,
-      "low": 4,
-      "score": 691,
+      "words": 2970,
+      "headings": 40,
+      "sections": 40,
+      "findings": 103,
+      "critical": 26,
+      "high": 25,
+      "medium": 21,
+      "low": 31,
+      "score": 633,
       "grade": "D"
     },
     {
@@ -33117,130 +33117,13 @@
       "line": 3,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `MAC`, `ARP`, `NAT`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `MAC`, `ARP`, `ECMP`, `NAT`, `policy`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "2. Routing table",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "2. Routing table",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "2. Routing table",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination prefix,`, `next hop/gateway,`, `outgoing interface,`, `metric alebo preference,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "2. Routing table",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "2. Routing table",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "6. Next hop musí byť dosiahnuteľný",
-      "line": 95,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "6. Next hop musí byť dosiahnuteľný",
-      "line": 95,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARP/NDP úspech,`, `funkčný link,`, `dostupnosť gateway,`, `správny return path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "6. Next hop musí byť dosiahnuteľný",
-      "line": 95,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "6. Next hop musí byť dosiahnuteľný",
-      "line": 95,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `NDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "7. Packet forwarding na routeri",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "7. Packet forwarding na routeri",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má viac relevantných interfaces alebo paths,`, `kernel forwarding je povolený,`, `routing table pozná destination,`, `firewall forwarding policy traffic povoľuje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "7. Packet forwarding na routeri",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "7. Packet forwarding na routeri",
-      "line": 113,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "8. TTL a hop limit",
-      "line": 132,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -33248,386 +33131,8 @@
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "9. Route types v Linuxe",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "9. Route types v Linuxe",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broadcast ,`, `unreachable ,`, `blackhole ,`, `prohibit ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "9. Route types v Linuxe",
-      "line": 147,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "10. Source address selection",
-      "line": 166,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "10. Source address selection",
-      "line": 166,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route src hint,`, `address scope,`, `IPv6 source selection rules,`, `policy routing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "10. Source address selection",
-      "line": 166,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "10. Source address selection",
-      "line": 166,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "11. Multiple default routes",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route tracking,`, `dynamic routing,`, `health-check automation,`, `policy routing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "11. Multiple default routes",
-      "line": 190,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "11. Multiple default routes",
-      "line": 190,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "12. Asymmetric routing",
-      "line": 209,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "12. Asymmetric routing",
-      "line": 209,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN prichádza, SYN-ACK odchádza inou cestou,`, `connection timeout,`, `firewall state missing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "12. Asymmetric routing",
-      "line": 209,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "12. Asymmetric routing",
-      "line": 209,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `SYN-ACK`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "14. Policy routing",
-      "line": 240,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "14. Policy routing",
-      "line": 240,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source prefix,`, `packet mark,`, `ingress interface,`, `TOS/DSCP,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "14. Policy routing",
-      "line": 240,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "14. Policy routing",
-      "line": 240,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TOS`, `DSCP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "15. Routing tables a rules",
-      "line": 266,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "15. Routing tables a rules",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local ,`, `main ,`, `default ,`, `custom tables.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "15. Routing tables a rules",
-      "line": 266,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "16. Static a dynamic routing",
-      "line": 289,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "Static route",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "Static route",
-      "line": 291,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "Static route",
-      "line": 291,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchá,`, `predvídateľná,`, `nízka protocol complexity.`, `manuálna správa,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "Static route",
-      "line": 291,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "Dynamic routing",
-      "line": 307,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "Dynamic routing",
-      "line": 307,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OSPF`, `IS-IS`, `BGP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "17. Administrative distance a metrics",
-      "line": 318,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prefix specificity,`, `route source preference,`, `protocol metric,`, `ECMP selection.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "17. Administrative distance a metrics",
-      "line": 318,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "17. Administrative distance a metrics",
-      "line": 318,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECMP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "18. ECMP",
-      "line": 331,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "18. ECMP",
-      "line": 331,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nerovnomerné flow sizes,`, `zmena hash mappingu pri failure,`, `stateful middleboxes,`, `asymmetry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "18. ECMP",
-      "line": 331,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "19. Route summarization",
-      "line": 351,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `menšie routing tables,`, `stabilnejší control plane,`, `skrytie detailnej topológie.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "19. Route summarization",
-      "line": 351,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "19. Route summarization",
-      "line": 351,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Internet gateway,`, `NAT gateway,`, `virtual appliance,`, `peering/transit gateway,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -33635,143 +33140,35 @@
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "20. Cloud route tables",
-      "line": 370,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `VPN`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "21. Kubernetes a container routing",
-      "line": 391,
+      "section": "2. Route ako rozhodovací objekt",
+      "line": 31,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "21. Kubernetes a container routing",
-      "line": 391,
+      "section": "2. Route ako rozhodovací objekt",
+      "line": 31,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct routes,`, `overlays/tunnels,`, `eBPF dataplane,`, `host routing a policy rules,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination prefix,`, `route type,`, `next hop alebo priamy egress interface,`, `metric alebo preference,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "21. Kubernetes a container routing",
-      "line": 391,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "21. Kubernetes a container routing",
-      "line": 391,
+      "section": "2. Route ako rozhodovací objekt",
+      "line": 31,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "22. Troubleshooting scenár: destination unreachable",
-      "line": 413,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "22. Troubleshooting scenár: destination unreachable",
-      "line": 413,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "22. Troubleshooting scenár: destination unreachable",
-      "line": 413,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "22. Troubleshooting scenár: destination unreachable",
-      "line": 413,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "22. Troubleshooting scenár: destination unreachable",
-      "line": 413,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `NDP`, `ICMP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over source address cez ip route get .`, `Zachyť outbound packet.`, `Over return routing k source.`, `Skontroluj stateful firewall/NAT symmetry.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
+      "section": "2. Route ako rozhodovací objekt",
+      "line": 31,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -33779,8 +33176,647 @@
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "23. Troubleshooting scenár: request odchádza, odpoveď neprichádza",
-      "line": 433,
+      "section": "2. Route ako rozhodovací objekt",
+      "line": 31,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "5. Local route",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "5. Local route",
+      "line": 91,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "8. Next-hop reachability",
+      "line": 153,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 62 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "8. Next-hop reachability",
+      "line": 153,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že interface má carrier,`, `že host je v správnej VLAN,`, `že neighbor odpovie,`, `že gateway routuje ďalej,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "8. Next-hop reachability",
+      "line": 153,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "10. Source-address selection",
+      "line": 187,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "10. Source-address selection",
+      "line": 187,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route src alebo prefsrc hint,`, `destination scope,`, `prefix similarity,`, `IPv6 source-selection pravidlá,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "10. Source-address selection",
+      "line": 187,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "10. Source-address selection",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "10. Source-address selection",
+      "line": 187,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "10. Source-address selection",
+      "line": 187,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "11. Forward path a return path",
+      "line": 212,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `forward path,`, `destination processing,`, `return route,`, `stateful firewall alebo NAT state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "11. Forward path a return path",
+      "line": 212,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "11. Forward path a return path",
+      "line": 212,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "12. Asymmetric routing",
+      "line": 233,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stateful firewall B nepozná pôvodný SYN,`, `NAT mapping existuje iba na jednej appliance,`, `packet capture na jednej ceste ukazuje polovicu flow-u,`, `failover zmení path existujúceho spojenia.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "12. Asymmetric routing",
+      "line": 233,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "12. Asymmetric routing",
+      "line": 233,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "12. Asymmetric routing",
+      "line": 233,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `SYN-ACK`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "13. Reverse path filtering",
+      "line": 254,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "14. Viac default routes",
+      "line": 269,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "14. Viac default routes",
+      "line": 269,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trackovanie vzdialenejšieho health signálu,`, `odstránenie alebo zmenu route pri failure,`, `dynamic routing,`, `policy routing podľa source,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "14. Viac default routes",
+      "line": 269,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "14. Viac default routes",
+      "line": 269,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "14. Viac default routes",
+      "line": 269,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "15. Metrics, preference a route origin",
+      "line": 291,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "15. Metrics, preference a route origin",
+      "line": 291,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "15. Metrics, preference a route origin",
+      "line": 291,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "16. Linux routing policy database",
+      "line": 303,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "16. Linux routing policy database",
+      "line": 303,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "17. Policy routing",
+      "line": 323,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "17. Policy routing",
+      "line": 323,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source prefix,`, `ingress interface,`, `firewall mark,`, `TOS/DSCP,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "17. Policy routing",
+      "line": 323,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "17. Policy routing",
+      "line": 323,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TOS`, `DSCP`, `UID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "18. Route types",
+      "line": 360,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "18. Route types",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local — destination patrí hostu,`, `broadcast — lokálny broadcast,`, `unreachable — explicitná nedostupnosť,`, `prohibit — administratívne zakázaná cesta,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "18. Route types",
+      "line": 360,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "19. Packet forwarding na Linuxe",
+      "line": 379,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "19. Packet forwarding na Linuxe",
+      "line": 379,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet nie je lokálne terminovaný,`, `kernel forwarding je povolený,`, `existuje route k destination,`, `forwarding policy traffic povolí,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "19. Packet forwarding na Linuxe",
+      "line": 379,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "19. Packet forwarding na Linuxe",
+      "line": 379,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "21. Static routing",
+      "line": 414,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "21. Static routing",
+      "line": 414,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "21. Static routing",
+      "line": 414,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý mentálny model,`, `predvídateľné správanie,`, `žiadna routing-protocol komunikácia,`, `vhodné pre malé alebo stabilné topológie.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "21. Static routing",
+      "line": 414,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "21. Static routing",
+      "line": 414,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "21. Static routing",
+      "line": 414,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "22. Dynamic routing",
+      "line": 439,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "22. Dynamic routing",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OSPF alebo IS-IS v interných sieťach,`, `explicitné import/export policy,`, `prefix filters,`, `maximum-prefix limity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "22. Dynamic routing",
+      "line": 439,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OSPF`, `IS-IS`, `BGP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "23. ECMP",
+      "line": 460,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "23. ECMP",
+      "line": 460,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké flows môžu vytvoriť nerovnomerné využitie,`, `pri failure sa flow hash mapping zmení,`, `stateful middleboxes musia byť v path-e konzistentne,`, `asymetria môže byť prirodzená,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "23. ECMP",
+      "line": 460,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "23. ECMP",
+      "line": 460,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "24. Route summarization",
+      "line": 483,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local virtual network,`, `Internet gateway,`, `NAT gateway,`, `virtual appliance,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "25. Cloud route tables",
+      "line": 499,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `VPN`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "26. Kubernetes a container routing",
+      "line": 524,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "26. Kubernetes a container routing",
+      "line": 524,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source namespace,`, `Pod a node addresses,`, `CNI implementation,`, `service translation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "26. Kubernetes a container routing",
+      "line": 524,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "26. Kubernetes a container routing",
+      "line": 524,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "27. Diagnostika route decision",
+      "line": 552,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "27. Diagnostika route decision",
+      "line": 552,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "27. Diagnostika route decision",
+      "line": 552,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je destination lokálna, connected alebo remote?`, `Ktoré rule vybralo table?`, `Ktorý prefix vyhral longest-prefix match?`, `Aký source address bol vybraný?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "27. Diagnostika route decision",
+      "line": 552,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "27. Diagnostika route decision",
+      "line": 552,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "27. Diagnostika route decision",
+      "line": 552,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `policy`",
@@ -33788,17 +33824,107 @@
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "24. Časté omyly",
-      "line": 445,
+      "section": "28. Chybové signály",
+      "line": 581,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "29. Troubleshooting: destination je nedostupná",
+      "line": 593,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "29. Troubleshooting: destination je nedostupná",
+      "line": 593,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "„Nižšia metric vždy vyhrá“",
-      "line": 451,
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť outbound packet na source hoste.`, `Na destination over lokálne doručenie a odpoveď.`, `Vypočítaj return route k selected source.`, `Skontroluj NAT a conntrack state.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "30. Troubleshooting: request odchádza, odpoveď neprichádza",
+      "line": 621,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "Metric sa používa ako univerzálny failover",
+      "line": 641,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -33806,8 +33932,8 @@
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "„Asymmetric routing je vždy chyba“",
-      "line": 463,
+      "section": "Static route sa pridá ručne a nezapíše do desired state",
+      "line": 645,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -33815,12 +33941,57 @@
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
-      "section": "„Traceroute ukazuje presnú cestu každého application packetu“",
-      "line": 467,
+      "section": "rp filter sa vypne globálne pri prvom asymetrickom symptóme",
+      "line": 649,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "Traceroute sa považuje za presnú mapu aplikačného flow-u",
+      "line": 653,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "32. Praktický mini-lab",
+      "line": 657,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "32. Praktický mini-lab",
+      "line": 657,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `10.10.20.5 ,`, `10.10.30.5 ,`, `10.20.1.5 ,`, `203.0.113.10 .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "32. Praktický mini-lab",
+      "line": 657,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "34. Zhrnutie",
+      "line": 709,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",

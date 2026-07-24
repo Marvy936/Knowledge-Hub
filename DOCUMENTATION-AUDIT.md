@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10687**
-- Total words: **479,697**
-- Findings: **23530** (critical 8075, high 9176, medium 3112, low 3167)
+- Audited conceptual sections: **10693**
+- Total words: **481,229**
+- Findings: **23549** (critical 8068, high 9172, medium 3115, low 3194)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -152,7 +152,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 696 | 35 | 30 | 13 | 0 | 1145 | `docs/06-gitlab/variables-and-secrets.md` |
 | D | 695 | 28 | 40 | 13 | 1 | 1252 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | D | 694 | 35 | 33 | 6 | 2 | 1064 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
-| D | 691 | 33 | 29 | 18 | 4 | 1438 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | D | 690 | 36 | 29 | 11 | 0 | 1123 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 684 | 34 | 32 | 8 | 2 | 1006 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | D | 684 | 28 | 37 | 14 | 6 | 1530 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
@@ -177,6 +176,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 642 | 30 | 31 | 9 | 8 | 1209 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 639 | 29 | 35 | 6 | 0 | 1038 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | D | 638 | 30 | 32 | 7 | 5 | 1368 | `docs/02-networking-and-web/firewalls.md` |
+| D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | D | 629 | 29 | 33 | 7 | 2 | 1060 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 628 | 28 | 33 | 8 | 6 | 1167 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 622 | 28 | 35 | 5 | 0 | 984 | `docs/05-ci-cd-and-release/feature-flags.md` |
@@ -1998,66 +1998,55 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Routing table**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination prefix,`, `next hop/gateway,`, `outgoing interface,`, `metric alebo preference,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Routing table**: 8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 95, `bare-bullet-items` — **6. Next hop musí byť dosiahnuteľný**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARP/NDP úspech,`, `funkčný link,`, `dostupnosť gateway,`, `správny return path,`.
-- **CRITICAL** line 95, `outline-instead-of-explanation` — **6. Next hop musí byť dosiahnuteľný**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 113, `bare-bullet-items` — **7. Packet forwarding na routeri**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má viac relevantných interfaces alebo paths,`, `kernel forwarding je povolený,`, `routing table pozná destination,`, `firewall forwarding policy traffic povoľuje,`.
-- **CRITICAL** line 113, `outline-instead-of-explanation` — **7. Packet forwarding na routeri**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 147, `bare-bullet-items` — **9. Route types v Linuxe**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broadcast ,`, `unreachable ,`, `blackhole ,`, `prohibit ,`.
-- **CRITICAL** line 147, `outline-instead-of-explanation` — **9. Route types v Linuxe**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 166, `bare-bullet-items` — **10. Source address selection**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route src hint,`, `address scope,`, `IPv6 source selection rules,`, `policy routing,`.
-- **CRITICAL** line 166, `outline-instead-of-explanation` — **10. Source address selection**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 190, `bare-bullet-items` — **11. Multiple default routes**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route tracking,`, `dynamic routing,`, `health-check automation,`, `policy routing,`.
-- **CRITICAL** line 209, `bare-bullet-items` — **12. Asymmetric routing**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SYN prichádza, SYN-ACK odchádza inou cestou,`, `connection timeout,`, `firewall state missing,`.
-- **CRITICAL** line 209, `outline-instead-of-explanation` — **12. Asymmetric routing**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 240, `bare-bullet-items` — **14. Policy routing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source prefix,`, `packet mark,`, `ingress interface,`, `TOS/DSCP,`.
-- **CRITICAL** line 240, `outline-instead-of-explanation` — **14. Policy routing**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 266, `bare-bullet-items` — **15. Routing tables a rules**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local ,`, `main ,`, `default ,`, `custom tables.`.
-- **CRITICAL** line 266, `outline-instead-of-explanation` — **15. Routing tables a rules**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 289, `empty-section` — **16. Static a dynamic routing**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 291, `bare-bullet-items` — **Static route**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchá,`, `predvídateľná,`, `nízka protocol complexity.`, `manuálna správa,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **Static route**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 318, `bare-bullet-items` — **17. Administrative distance a metrics**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prefix specificity,`, `route source preference,`, `protocol metric,`, `ECMP selection.`.
-- **CRITICAL** line 331, `bare-bullet-items` — **18. ECMP**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nerovnomerné flow sizes,`, `zmena hash mappingu pri failure,`, `stateful middleboxes,`, `asymmetry,`.
-- **CRITICAL** line 331, `outline-instead-of-explanation` — **18. ECMP**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 370, `bare-bullet-items` — **20. Cloud route tables**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Internet gateway,`, `NAT gateway,`, `virtual appliance,`, `peering/transit gateway,`.
-- **CRITICAL** line 370, `outline-instead-of-explanation` — **20. Cloud route tables**: 11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 391, `bare-bullet-items` — **21. Kubernetes a container routing**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct routes,`, `overlays/tunnels,`, `eBPF dataplane,`, `host routing a policy rules,`.
-- **CRITICAL** line 391, `outline-instead-of-explanation` — **21. Kubernetes a container routing**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 413, `outline-instead-of-explanation` — **22. Troubleshooting scenár: destination unreachable**: 4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 433, `bare-bullet-items` — **23. Troubleshooting scenár: request odchádza, odpoveď neprichádza**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over source address cez ip route get .`, `Zachyť outbound packet.`, `Over return routing k source.`, `Skontroluj stateful firewall/NAT symmetry.`.
-- **CRITICAL** line 433, `outline-instead-of-explanation` — **23. Troubleshooting scenár: request odchádza, odpoveď neprichádza**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 445, `empty-section` — **24. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 31, `bare-bullet-items` — **2. Route ako rozhodovací objekt**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination prefix,`, `route type,`, `next hop alebo priamy egress interface,`, `metric alebo preference,`.
+- **CRITICAL** line 31, `outline-instead-of-explanation` — **2. Route ako rozhodovací objekt**: 9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 153, `bare-bullet-items` — **8. Next-hop reachability**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že interface má carrier,`, `že host je v správnej VLAN,`, `že neighbor odpovie,`, `že gateway routuje ďalej,`.
+- **CRITICAL** line 187, `bare-bullet-items` — **10. Source-address selection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route src alebo prefsrc hint,`, `destination scope,`, `prefix similarity,`, `IPv6 source-selection pravidlá,`.
+- **CRITICAL** line 212, `bare-bullet-items` — **11. Forward path a return path**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `forward path,`, `destination processing,`, `return route,`, `stateful firewall alebo NAT state,`.
+- **CRITICAL** line 233, `bare-bullet-items` — **12. Asymmetric routing**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stateful firewall B nepozná pôvodný SYN,`, `NAT mapping existuje iba na jednej appliance,`, `packet capture na jednej ceste ukazuje polovicu flow-u,`, `failover zmení path existujúceho spojenia.`.
+- **CRITICAL** line 269, `bare-bullet-items` — **14. Viac default routes**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trackovanie vzdialenejšieho health signálu,`, `odstránenie alebo zmenu route pri failure,`, `dynamic routing,`, `policy routing podľa source,`.
+- **CRITICAL** line 291, `outline-instead-of-explanation` — **15. Metrics, preference a route origin**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 323, `bare-bullet-items` — **17. Policy routing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source prefix,`, `ingress interface,`, `firewall mark,`, `TOS/DSCP,`.
+- **CRITICAL** line 360, `bare-bullet-items` — **18. Route types**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local — destination patrí hostu,`, `broadcast — lokálny broadcast,`, `unreachable — explicitná nedostupnosť,`, `prohibit — administratívne zakázaná cesta,`.
+- **CRITICAL** line 379, `bare-bullet-items` — **19. Packet forwarding na Linuxe**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet nie je lokálne terminovaný,`, `kernel forwarding je povolený,`, `existuje route k destination,`, `forwarding policy traffic povolí,`.
+- **CRITICAL** line 414, `bare-bullet-items` — **21. Static routing**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý mentálny model,`, `predvídateľné správanie,`, `žiadna routing-protocol komunikácia,`, `vhodné pre malé alebo stabilné topológie.`.
+- **CRITICAL** line 414, `outline-instead-of-explanation` — **21. Static routing**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 439, `bare-bullet-items` — **22. Dynamic routing**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OSPF alebo IS-IS v interných sieťach,`, `explicitné import/export policy,`, `prefix filters,`, `maximum-prefix limity,`.
+- **CRITICAL** line 460, `bare-bullet-items` — **23. ECMP**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké flows môžu vytvoriť nerovnomerné využitie,`, `pri failure sa flow hash mapping zmení,`, `stateful middleboxes musia byť v path-e konzistentne,`, `asymetria môže byť prirodzená,`.
+- **CRITICAL** line 499, `bare-bullet-items` — **25. Cloud route tables**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local virtual network,`, `Internet gateway,`, `NAT gateway,`, `virtual appliance,`.
+- **CRITICAL** line 499, `outline-instead-of-explanation` — **25. Cloud route tables**: 15 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 524, `bare-bullet-items` — **26. Kubernetes a container routing**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source namespace,`, `Pod a node addresses,`, `CNI implementation,`, `service translation,`.
+- **CRITICAL** line 552, `bare-bullet-items` — **27. Diagnostika route decision**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je destination lokálna, connected alebo remote?`, `Ktoré rule vybralo table?`, `Ktorý prefix vyhral longest-prefix match?`, `Aký source address bol vybraný?`.
+- **CRITICAL** line 552, `outline-instead-of-explanation` — **27. Diagnostika route decision**: 8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 621, `bare-bullet-items` — **30. Troubleshooting: request odchádza, odpoveď neprichádza**: 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť outbound packet na source hoste.`, `Na destination over lokálne doručenie a odpoveď.`, `Vypočítaj return route k selected source.`, `Skontroluj NAT a conntrack state.`.
+- **CRITICAL** line 621, `outline-instead-of-explanation` — **30. Troubleshooting: request odchádza, odpoveď neprichádza**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 657, `bare-bullet-items` — **32. Praktický mini-lab**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `10.10.20.5 ,`, `10.10.30.5 ,`, `10.20.1.5 ,`, `203.0.113.10 .`.
+- **CRITICAL** line 657, `outline-instead-of-explanation` — **32. Praktický mini-lab**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Routing table**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 291, `single-sentence-concept` — **Static route**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 351, `bare-bullet-items` — **19. Route summarization**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `menšie routing tables,`, `stabilnejší control plane,`, `skrytie detailnej topológie.`.
-- **HIGH** line 370, `single-sentence-concept` — **20. Cloud route tables**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 413, `list-first-introduction` — **22. Troubleshooting scenár: destination unreachable**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 413, `single-sentence-concept` — **22. Troubleshooting scenár: destination unreachable**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 433, `list-first-introduction` — **23. Troubleshooting scenár: request odchádza, odpoveď neprichádza**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 433, `single-sentence-concept` — **23. Troubleshooting scenár: request odchádza, odpoveď neprichádza**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 451, `single-sentence-concept` — **„Nižšia metric vždy vyhrá“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 463, `single-sentence-concept` — **„Asymmetric routing je vždy chyba“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 467, `single-sentence-concept` — **„Traceroute ukazuje presnú cestu každého application packetu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `MAC`, `ARP`, `NAT`, `policy`
+- **HIGH** line 153, `list-heavy-section` — **8. Next-hop reachability**: 6 odrážok a iba 62 slov súvislého vysvetlenia.
+- **HIGH** line 187, `list-heavy-section` — **10. Source-address selection**: 7 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 269, `list-heavy-section` — **14. Viac default routes**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 323, `list-heavy-section` — **17. Policy routing**: 6 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 360, `list-heavy-section` — **18. Route types**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 379, `list-heavy-section` — **19. Packet forwarding na Linuxe**: 6 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 414, `single-sentence-concept` — **21. Static routing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 439, `list-heavy-section` — **22. Dynamic routing**: 9 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 460, `list-heavy-section` — **23. ECMP**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 524, `list-heavy-section` — **26. Kubernetes a container routing**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 552, `single-sentence-concept` — **27. Diagnostika route decision**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 593, `list-first-introduction` — **29. Troubleshooting: destination je nedostupná**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 593, `single-sentence-concept` — **29. Troubleshooting: destination je nedostupná**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 621, `list-first-introduction` — **30. Troubleshooting: request odchádza, odpoveď neprichádza**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 641, `single-sentence-concept` — **Metric sa používa ako univerzálny failover**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 645, `single-sentence-concept` — **Static route sa pridá ručne a nezapíše do desired state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 649, `single-sentence-concept` — **rp filter sa vypne globálne pri prvom asymetrickom symptóme**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 653, `single-sentence-concept` — **Traceroute sa považuje za presnú mapu aplikačného flow-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `MAC`, `ARP`, `ECMP`, `NAT`, `policy`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. Routing table**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 95, `thin-concept-section` — **6. Next hop musí byť dosiahnuteľný**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 113, `thin-concept-section` — **7. Packet forwarding na routeri**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 147, `thin-concept-section` — **9. Route types v Linuxe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 166, `thin-concept-section` — **10. Source address selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 209, `thin-concept-section` — **12. Asymmetric routing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 240, `thin-concept-section` — **14. Policy routing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `thin-concept-section` — **Static route**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 307, `thin-concept-section` — **Dynamic routing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 331, `thin-concept-section` — **18. ECMP**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 370, `thin-concept-section` — **20. Cloud route tables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 391, `thin-concept-section` — **21. Kubernetes a container routing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 413, `thin-concept-section` — **22. Troubleshooting scenár: destination unreachable**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 433, `thin-concept-section` — **23. Troubleshooting scenár: request odchádza, odpoveď neprichádza**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 414, `thin-concept-section` — **21. Static routing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 552, `thin-concept-section` — **27. Diagnostika route decision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 621, `thin-concept-section` — **30. Troubleshooting: request odchádza, odpoveď neprichádza**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/tcp-and-udp.md`
 
@@ -18301,19 +18290,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4043 | 0 | 0 | 4043 |
-| `bare-bullet-items` | 3687 | 334 | 0 | 0 | 4021 |
-| `outline-instead-of-explanation` | 3617 | 0 | 0 | 0 | 3617 |
-| `thin-concept-section` | 0 | 3307 | 0 | 0 | 3307 |
-| `term-before-explanation` | 0 | 361 | 2237 | 0 | 2598 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1350 | 1350 |
-| `example-not-explicit` | 0 | 0 | 0 | 1205 | 1205 |
+| `single-sentence-concept` | 0 | 4042 | 0 | 0 | 4042 |
+| `bare-bullet-items` | 3689 | 333 | 0 | 0 | 4022 |
+| `outline-instead-of-explanation` | 3610 | 0 | 0 | 0 | 3610 |
+| `thin-concept-section` | 0 | 3296 | 0 | 0 | 3296 |
+| `term-before-explanation` | 0 | 361 | 2234 | 0 | 2595 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1358 | 1358 |
+| `example-not-explicit` | 0 | 0 | 0 | 1215 | 1215 |
 | `list-first-introduction` | 0 | 900 | 0 | 0 | 900 |
-| `short-concept-section` | 0 | 0 | 875 | 0 | 875 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 612 | 612 |
-| `empty-section` | 476 | 0 | 0 | 0 | 476 |
+| `short-concept-section` | 0 | 0 | 881 | 0 | 881 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 621 | 621 |
+| `empty-section` | 474 | 0 | 0 | 0 | 474 |
 | `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
-| `list-heavy-section` | 0 | 231 | 0 | 0 | 231 |
+| `list-heavy-section` | 0 | 240 | 0 | 0 | 240 |
 
 ## Required remediation pattern
 
