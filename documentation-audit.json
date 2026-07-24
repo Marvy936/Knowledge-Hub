@@ -983,15 +983,15 @@
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
       "title": "Code coverage a quality gates",
-      "words": 1005,
-      "headings": 36,
-      "sections": 36,
-      "findings": 73,
-      "critical": 32,
-      "high": 36,
-      "medium": 5,
-      "low": 0,
-      "score": 678,
+      "words": 2764,
+      "headings": 41,
+      "sections": 41,
+      "findings": 115,
+      "critical": 31,
+      "high": 24,
+      "medium": 20,
+      "low": 40,
+      "score": 696,
       "grade": "D"
     },
     {
@@ -61024,9 +61024,18 @@
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
       "section": "Metadata",
       "line": 3,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.",
       "score": 8
     },
     {
@@ -61049,179 +61058,89 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "2. Základné coverage metriky",
-      "line": 15,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "2. Coverage je negatívny signál",
+      "line": 28,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Line coverage",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Line a statement coverage",
+      "line": 51,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Statement coverage",
-      "line": 21,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. Function alebo method coverage",
+      "line": 63,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Function alebo method coverage",
-      "line": 25,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Branch coverage",
+      "line": 69,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Branch coverage",
-      "line": 29,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Condition coverage",
-      "line": 33,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "3. Prečo 100 % coverage nestačí",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "3. Prečo 100 % coverage nestačí",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "3. Prečo 100 % coverage nestačí",
-      "line": 41,
+      "section": "6. Condition a decision coverage",
+      "line": 82,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či assertions kontrolujú správne správanie,`, `či existujú negatívne scenáre,`, `či sú testované boundaries,`, `či kontrakt zodpovedá používateľskej potrebe,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každá condition bola true aj false;`, `výsledné rozhodnutie bolo allow aj deny;`, `short-circuit nezakryl významný operand;`, `kombinácie chránia bezpečnostný alebo business invariant.`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "3. Prečo 100 % coverage nestačí",
-      "line": 41,
+      "section": "7. Path coverage a kombinatorický rast",
+      "line": 93,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "7. Path coverage a kombinatorický rast",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "8. Instrumentation lifecycle",
+      "line": 101,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "4. Branch coverage vs. line coverage",
-      "line": 60,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "4. Branch coverage vs. line coverage",
-      "line": 60,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `admin true,`, `owner true,`, `obe false,`, `prípadne obe true.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "4. Branch coverage vs. line coverage",
-      "line": 60,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "5. Instrumentation",
-      "line": 78,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "5. Instrumentation",
-      "line": 78,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "5. Instrumentation",
-      "line": 78,
+      "section": "8. Instrumentation lifecycle",
+      "line": 101,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instrumentuje source alebo bytecode,`, `zaznamenáva executed probes,`, `mapuje výsledky späť na source lines/branches,`, `agreguje report.`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compiler optimization a inlining;`, `transpilation a source maps;`, `generated code;`, `subprocessy a child runtimes;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "5. Instrumentation",
-      "line": 78,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "6. Unit vs. aggregate coverage",
-      "line": 97,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "6. Unit vs. aggregate coverage",
-      "line": 97,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit tests,`, `integration tests,`, `component tests,`, `E2E tests.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "6. Unit vs. aggregate coverage",
-      "line": 97,
+      "section": "8. Instrumentation lifecycle",
+      "line": 101,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -61229,26 +61148,89 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "8. Risk-based coverage",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "8. Instrumentation lifecycle",
+      "line": 101,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "8. Risk-based coverage",
-      "line": 122,
+      "section": "8. Instrumentation lifecycle",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "8. Instrumentation lifecycle",
+      "line": 101,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "10. Parallel tests a report merge",
+      "line": 143,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "10. Parallel tests a report merge",
+      "line": 143,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization,`, `billing,`, `migration logic,`, `parsers,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký source revision a build artifact;`, `rovnakú instrumentačnú konfiguráciu;`, `unikátne output files pre workers;`, `dokončenie všetkých shardov;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "8. Risk-based coverage",
-      "line": 122,
+      "section": "11. Coverage podľa test layeru",
+      "line": 159,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit-only coverage pre lokálnu logiku;`, `integration coverage pre adapters a storage boundaries;`, `aggregate coverage pre celkový runtime reach;`, `coverage kritických modulov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "11. Coverage podľa test layeru",
+      "line": 159,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "11. Coverage podľa test layeru",
+      "line": 159,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "12. Generated code",
+      "line": 175,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "12. Generated code",
+      "line": 175,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61256,35 +61238,107 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "10. Exclusions",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "12. Generated code",
+      "line": 175,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "10. Exclusions",
-      "line": 152,
+      "section": "12. Generated code",
+      "line": 175,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "12. Generated code",
+      "line": 175,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "13. Exclusions",
+      "line": 186,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "13. Exclusions",
+      "line": 186,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generated code,`, `platform-specific unreachable branch v danom rune,`, `defensive code, ktorý sa testuje iným mechanizmom,`, `trivial bootstrap glue.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny scope;`, `vysvetlenie;`, `ownera;`, `dôkaz alternatívneho testu, ak behavior ostáva kritický;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "10. Exclusions",
-      "line": 152,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "13. Exclusions",
+      "line": 186,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "11. Quality gate",
-      "line": 163,
+      "section": "13. Exclusions",
+      "line": 186,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "13. Exclusions",
+      "line": 186,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "13. Exclusions",
+      "line": 186,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "14. New-code a diff coverage",
+      "line": 201,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 58 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "14. New-code a diff coverage",
+      "line": 201,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `renames a moves;`, `generated files;`, `deleted lines;`, `formatting-only zmeny;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "15. Diff coverage limity",
+      "line": 227,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61292,35 +61346,107 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "11. Quality gate",
-      "line": 163,
+      "section": "15. Diff coverage limity",
+      "line": 227,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "11. Quality gate",
-      "line": 163,
+      "section": "15. Diff coverage limity",
+      "line": 227,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build success,`, `tests,`, `coverage,`, `static analysis,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena shared configu aktivuje starú vetvu;`, `zmena dependency mení behavior nezmeneného adaptera;`, `nový caller používa starú function s neotestovaným inputom;`, `schema migration mení interpretáciu existujúceho kódu.`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "11. Quality gate",
-      "line": 163,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "15. Diff coverage limity",
+      "line": 227,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "11. Quality gate",
-      "line": 163,
+      "section": "15. Diff coverage limity",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "15. Diff coverage limity",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization a tenant isolation;`, `billing a financial calculations;`, `migrations a destructive automation;`, `parsers a protocol handling;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "16. Risk-weighted coverage",
+      "line": 239,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -61328,17 +61454,242 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "12. Blocking vs. advisory gate",
-      "line": 179,
+      "section": "17. Mutation testing",
+      "line": 254,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritické domain moduly;`, `changed code v pull requeste;`, `periodický job;`, `investigation po vysokej coverage a defect escape;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Blocking",
-      "line": 181,
+      "section": "18. Coverage a assertions",
+      "line": 278,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "18. Coverage a assertions",
+      "line": 278,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutation testing;`, `property-based assertions;`, `negative tests;`, `invariant checks;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "18. Coverage a assertions",
+      "line": 278,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "18. Coverage a assertions",
+      "line": 278,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "19. Quality gate ako risk contract",
+      "line": 294,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "19. Quality gate ako risk contract",
+      "line": 294,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build a package integrity;`, `tests podľa vrstvy;`, `coverage a mutation score;`, `static analysis;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "19. Quality gate ako risk contract",
+      "line": 294,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "19. Quality gate ako risk contract",
+      "line": 294,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "20. Blocking a advisory kontroly",
+      "line": 320,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "22. Threshold design",
+      "line": 362,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "23. Ratcheting",
+      "line": 378,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znižovanie uncovered critical branches;`, `znižovanie suppression count;`, `rast mutation score;`, `znižovanie flaky gate rate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "23. Ratcheting",
+      "line": 378,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "23. Ratcheting",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `volaním functions bez meaningful assertions;`, `trivial tests nad getters;`, `broad exclusions;`, `generovaním low-value files;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "24. Anti-gaming design",
+      "line": 397,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "25. Tool failure a incomplete evidence",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "25. Tool failure a incomplete evidence",
+      "line": 413,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instrumentácia sa neaktivovala;`, `raw report chýba;`, `jeden shard neodoslal dáta;`, `source mapping zlyhal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "25. Tool failure a incomplete evidence",
+      "line": 413,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "25. Tool failure a incomplete evidence",
+      "line": 413,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "25. Tool failure a incomplete evidence",
+      "line": 413,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61346,26 +61697,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Blocking",
-      "line": 181,
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Blocking",
-      "line": 181,
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné a kritické kontroly,`, `reprodukovateľný failure,`, `jasnú remediation,`, `nízku flaky rate.`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo synthetic merge commit;`, `build artifact alebo compilation output;`, `test suite a shard list;`, `instrumentačný tool a config version;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Blocking",
-      "line": 181,
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61373,80 +61724,80 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Advisory",
-      "line": 192,
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "26. Provenance aggregate reportu",
+      "line": 436,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "27. Waiver a exception lifecycle",
+      "line": 451,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Advisory",
-      "line": 192,
+      "section": "27. Waiver a exception lifecycle",
+      "line": 451,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zavádzaní novej kontroly,`, `baseline zbere,`, `menej presnom signále,`, `trendoch a odporúčaniach.`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný gate a scope;`, `dôvod failure alebo nemožnosti opravy;`, `impact a risk ownera;`, `compensating control;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Advisory",
-      "line": 192,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "27. Waiver a exception lifecycle",
+      "line": 451,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "13. Gate placement",
-      "line": 205,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "27. Waiver a exception lifecycle",
+      "line": 451,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "14. Threshold dizajn",
-      "line": 228,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "27. Waiver a exception lifecycle",
+      "line": 451,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "14. Threshold dizajn",
-      "line": 228,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "14. Threshold dizajn",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysvetlený rizikom,`, `stabilný,`, `versioned,`, `lokálne reprodukovateľný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "14. Threshold dizajn",
-      "line": 228,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "14. Threshold dizajn",
-      "line": 228,
+      "section": "27. Waiver a exception lifecycle",
+      "line": 451,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -61454,89 +61805,62 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "15. Ratcheting",
-      "line": 249,
+      "section": "28. Flaky gate",
+      "line": 467,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "16. Exceptions a waivers",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "16. Exceptions a waivers",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "16. Exceptions a waivers",
-      "line": 259,
+      "section": "28. Flaky gate",
+      "line": 467,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny gate a scope,`, `dôvod,`, `risk ownera,`, `compensating control,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate;`, `false-positive rate;`, `tool a infrastructure failure rate;`, `duration a queue time;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "16. Exceptions a waivers",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "16. Exceptions a waivers",
-      "line": 259,
+      "section": "28. Flaky gate",
+      "line": 467,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "17. Flaky gates",
-      "line": 273,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "28. Flaky gate",
+      "line": 467,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "17. Flaky gates",
-      "line": 273,
+      "section": "29. Trend a ownership",
+      "line": 483,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "17. Flaky gates",
-      "line": 273,
+      "section": "29. Trend a ownership",
+      "line": 483,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rerun-until-green,`, `ignorovaniu failures,`, `dlhšiemu lead time,`, `bypassom,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `global a diff coverage trend;`, `uncovered critical branches;`, `mutation score;`, `exclusions a uncovered generated-owned code;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "17. Flaky gates",
-      "line": 273,
+      "section": "29. Trend a ownership",
+      "line": 483,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61544,8 +61868,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "18. Trendy a dashboards",
-      "line": 285,
+      "section": "29. Trend a ownership",
+      "line": 483,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "29. Trend a ownership",
+      "line": 483,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "30. Diagnostický workflow",
+      "line": 500,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61553,26 +61895,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "18. Trendy a dashboards",
-      "line": 285,
+      "section": "30. Diagnostický workflow",
+      "line": 500,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "18. Trendy a dashboards",
-      "line": 285,
+      "section": "30. Diagnostický workflow",
+      "line": 500,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `coverage trend,`, `changed-code coverage,`, `untested critical paths,`, `mutation score,`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď source commit, target branch a merge base;`, `skontroluj instrumentation a source-map logy;`, `porovnaj tool, config a exclusion versions;`, `over repository-relative paths po merge;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "18. Trendy a dashboards",
-      "line": 285,
+      "section": "30. Diagnostický workflow",
+      "line": 500,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61580,44 +61922,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "19. Anti-gaming dizajn",
-      "line": 300,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "30. Diagnostický workflow",
+      "line": 500,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "19. Anti-gaming dizajn",
-      "line": 300,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "19. Anti-gaming dizajn",
-      "line": 300,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testami bez assertions,`, `trivial tests,`, `exclusions,`, `volaním kódu bez overenia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "19. Anti-gaming dizajn",
-      "line": 300,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "20. Typické omyly",
-      "line": 319,
+      "section": "31. Časté omyly",
+      "line": 517,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -61625,8 +61940,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "„80 % coverage znamená 80 % kvalitu“",
-      "line": 321,
+      "section": "„100 % coverage znamená bezchybný systém“",
+      "line": 523,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61634,8 +61949,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "„Každý repository potrebuje rovnaký threshold“",
-      "line": 329,
+      "section": "„Diff coverage chráni všetky dopady zmeny“",
+      "line": 527,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61643,21 +61958,84 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "„Viac blocking gates vždy zvyšuje bezpečnosť“",
-      "line": 333,
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "„Exception je iba kliknutie na override“",
-      "line": 337,
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Je jasné, ktorú coverage metriku nástroj reportuje?`, `Sú instrumentované všetky relevantné processes a shards?`, `Je report viazaný na presný commit a artifact?`, `Používa diff coverage správny merge base?`.",
       "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "32. Prevádzkový checklist",
+      "line": 543,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
