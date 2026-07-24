@@ -464,16 +464,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "title": "SELinux and AppArmor",
-      "words": 1489,
-      "headings": 32,
-      "sections": 32,
-      "findings": 63,
-      "critical": 23,
-      "high": 27,
+      "title": "SELinux a AppArmor",
+      "words": 3195,
+      "headings": 45,
+      "sections": 45,
+      "findings": 102,
+      "critical": 19,
+      "high": 28,
       "medium": 9,
-      "low": 4,
-      "score": 524,
+      "low": 46,
+      "score": 541,
       "grade": "D"
     },
     {
@@ -19874,179 +19874,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `web server beží ako www-data ,`, `vlastní alebo vie čítať niektoré súbory,`, `DAC by prístup povolil,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "2. Problém, ktorý riešia",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `SSH`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "3. Vrstvený permission model",
-      "line": 34,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "4. SELinux mentálny model",
-      "line": 54,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user,`, `role,`, `type,`, `level/range pri MLS/MCS.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "4. SELinux mentálny model",
-      "line": 54,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "4. SELinux mentálny model",
-      "line": 54,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MLS`, `MCS`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "5. SELinux režimy",
-      "line": 82,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "5. SELinux režimy",
-      "line": 82,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "6. SELinux contexts a labels",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "7. SELinux policy decisions",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "7. SELinux policy decisions",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `súbor má správny label,`, `proces beží v očakávanom domain,`, `existuje určený boolean,`, `path nie je netypický bez fcontext mappingu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "7. SELinux policy decisions",
-      "line": 133,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "9. SELinux audit a diagnostika",
-      "line": 170,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "9. SELinux audit a diagnostika",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "9. SELinux audit a diagnostika",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scontext — source process context,`, `tcontext — target object context,`, `tclass — object class,`, `denied permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "9. SELinux audit a diagnostika",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "9. SELinux audit a diagnostika",
-      "line": 170,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "11. AppArmor mentálny model",
-      "line": 221,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -20054,125 +19883,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "12. AppArmor režimy",
-      "line": 233,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `enforce — porušenia sa blokujú,`, `unloaded — profil sa neuplatňuje.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "12. AppArmor režimy",
-      "line": 233,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "13. AppArmor profil",
-      "line": 256,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "13. AppArmor profil",
-      "line": 256,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "13. AppArmor profil",
-      "line": 256,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read,`, `write,`, `memory map,`, `execute transition,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "13. AppArmor profil",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "14. AppArmor tools a logs",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "14. AppArmor tools a logs",
-      "line": 289,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "14. AppArmor tools a logs",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `profile,`, `operation,`, `requested mask,`, `denied mask,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "14. AppArmor tools a logs",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "14. AppArmor tools a logs",
-      "line": 289,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "15. SELinux vs. AppArmor",
-      "line": 318,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "16. Containers",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host DAC,`, `user namespace,`, `capabilities,`, `seccomp,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "16. Containers",
-      "line": 330,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -20180,8 +19892,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "16. Containers",
-      "line": 330,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -20189,26 +19901,215 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "18. Troubleshooting scenár: správne UNIX permissions, stále denied",
-      "line": 365,
+      "section": "2. Threat model",
+      "line": 35,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "4. Linux Security Modules",
+      "line": 63,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "5. SELinux security context",
+      "line": 71,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "5. SELinux security context",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "5. SELinux security context",
+      "line": 71,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "5. SELinux security context",
+      "line": 71,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MLS`, `MCS`, `identity`, `Enforcement`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "6. SELinux Type Enforcement",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "7. SELinux režimy",
+      "line": 109,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "12. SELinux object classes",
+      "line": 206,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "Krok 1: DAC",
-      "line": 369,
+      "section": "12. SELinux object classes",
+      "line": 206,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file, dir, symlink a filesystem,`, `process a capability,`, `TCP/UDP socket a node,`, `network port,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "Krok 2: process a MAC stav",
-      "line": 377,
+      "section": "12. SELinux object classes",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "12. SELinux object classes",
+      "line": 206,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "14. SELinux booleans",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítať význam booleanu,`, `potvrdiť legitímnu aplikačnú potrebu,`, `porovnať užšiu alternatívu,`, `zapísať rozhodnutie do source of truth.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "14. SELinux booleans",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "14. SELinux booleans",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "15. SELinux policy modules",
+      "line": 257,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "15. SELinux policy modules",
+      "line": 257,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétna source domain,`, `konkrétny target type,`, `konkrétna object class,`, `minimálne permissions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "15. SELinux policy modules",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "16. AVC audit evidence",
+      "line": 272,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "16. AVC audit evidence",
+      "line": 272,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `scontext — source process context.`, `tcontext — target object context.`, `tclass — object class.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "16. AVC audit evidence",
+      "line": 272,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "16. AVC audit evidence",
+      "line": 272,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "16. AVC audit evidence",
+      "line": 272,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -20216,8 +20117,188 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "Krok 3: oprava",
-      "line": 394,
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "17. Bezpečný SELinux troubleshooting",
+      "line": 292,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `AVC`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "19. AppArmor mentálny model",
+      "line": 324,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "20. AppArmor profile modes",
+      "line": 342,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "20. AppArmor profile modes",
+      "line": 342,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "21. AppArmor profile anatomy",
+      "line": 356,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "21. AppArmor profile anatomy",
+      "line": 356,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "21. AppArmor profile anatomy",
+      "line": 356,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `w — zápis.`, `k — file locking.`, `l — link operation.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "21. AppArmor profile anatomy",
+      "line": 356,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "21. AppArmor profile anatomy",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "22. AppArmor execute transitions",
+      "line": 389,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zostať v current profile,`, `prejsť do named child profile,`, `použiť profile attached k executable,`, `bežať unconfined podľa konkrétneho execute rule.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "22. AppArmor execute transitions",
+      "line": 389,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "22. AppArmor execute transitions",
+      "line": 389,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "22. AppArmor execute transitions",
+      "line": 389,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "23. AppArmor abstractions a tunables",
+      "line": 412,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "24. AppArmor tooling a logs",
+      "line": 420,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "24. AppArmor tooling a logs",
+      "line": 420,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -20225,26 +20306,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "Krok 3: oprava",
-      "line": 394,
+      "section": "24. AppArmor tooling a logs",
+      "line": 420,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "Krok 3: oprava",
-      "line": 394,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávny SELinux label → semanage fcontext + restorecon ,`, `podporovaný variant → vhodný boolean,`, `AppArmor profil chýba path rule → úzka oprava profilu,`, `aplikácia číta neočakávaný path → oprava konfigurácie alebo designu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "Krok 3: oprava",
-      "line": 394,
+      "section": "24. AppArmor tooling a logs",
+      "line": 420,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -20252,44 +20324,26 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "19. Troubleshooting scenár: služba funguje ručne, nie cez systemd",
-      "line": 403,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "24. AppArmor tooling a logs",
+      "line": 420,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "19. Troubleshooting scenár: služba funguje ručne, nie cez systemd",
-      "line": 403,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "24. AppArmor tooling a logs",
+      "line": 420,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "19. Troubleshooting scenár: služba funguje ručne, nie cez systemd",
-      "line": 403,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iný SELinux domain pri systemd transition,`, `AppArmor profil viazaný na executable,`, `iný path alebo symlink resolution,`, `systemd sandboxing navyše,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "19. Troubleshooting scenár: služba funguje ručne, nie cez systemd",
-      "line": 403,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "20. Bezpečná práca s policy",
-      "line": 423,
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -20297,8 +20351,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "20. Bezpečná práca s policy",
-      "line": 423,
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -20306,8 +20360,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "20. Bezpečná práca s policy",
-      "line": 423,
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -20315,17 +20369,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "20. Bezpečná práca s policy",
-      "line": 423,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj presný use case.`, `Identifikuj subject, object a operation.`, `Over, či je súčasný access legitímny.`, `Preferuj distribučný label, boolean alebo abstraction.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "20. Bezpečná práca s policy",
-      "line": 423,
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -20333,17 +20378,170 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "20. Bezpečná práca s policy",
-      "line": 423,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
-      "score": 4
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "21. Časté omyly",
-      "line": 434,
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "25. Bezpečný AppArmor troubleshooting",
+      "line": 446,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "26. SELinux verzus AppArmor",
+      "line": 457,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "26. SELinux verzus AppArmor",
+      "line": 457,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "27. Kontajnery a SELinux",
+      "line": 471,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "27. Kontajnery a SELinux",
+      "line": 471,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "28. Kontajnery a AppArmor",
+      "line": 487,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "28. Kontajnery a AppArmor",
+      "line": 487,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "29. Kubernetes integration",
+      "line": 495,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod security context,`, `node runtime config,`, `process context/profile na konkrétnom node,`, `volume labels a mount options,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "29. Kubernetes integration",
+      "line": 495,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "29. Kubernetes integration",
+      "line": 495,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "30. Systemd a MAC",
+      "line": 511,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "31. Policy maintenance lifecycle",
+      "line": 527,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "31. Policy maintenance lifecycle",
+      "line": 527,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "31. Policy maintenance lifecycle",
+      "line": 527,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "31. Policy maintenance lifecycle",
+      "line": 527,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "31. Policy maintenance lifecycle",
+      "line": 527,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "32. Časté omyly",
+      "line": 541,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -20351,8 +20549,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "„SELinux/AppArmor stačí vypnúť“",
-      "line": 440,
+      "section": "„Keď mode bits povoľujú prístup, kernel ho musí povoliť“",
+      "line": 543,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -20360,8 +20558,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "„audit2allow alebo aa-logprof vie rozhodnúť, čo je bezpečné“",
-      "line": 448,
+      "section": "„Root obíde SELinux alebo AppArmor“",
+      "line": 547,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -20369,8 +20567,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "„SELinux rozhoduje podľa pathname“",
-      "line": 452,
+      "section": "„Každý AVC denial treba povoliť“",
+      "line": 559,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -20378,12 +20576,165 @@
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
-      "section": "„AppArmor je iba jednoduchý file allowlist“",
-      "line": 456,
+      "section": "„AppArmor profil je iba zoznam paths“",
+      "line": 567,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "„Container label/profile nahrádza ostatné kontroly“",
+      "line": 571,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "33. Troubleshooting: služba nevie čítať nový data path",
+      "line": 575,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `MAC`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "34. Troubleshooting: aplikácia funguje iba po vypnutí MAC",
+      "line": 586,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "34. Troubleshooting: aplikácia funguje iba po vypnutí MAC",
+      "line": 586,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "34. Troubleshooting: aplikácia funguje iba po vypnutí MAC",
+      "line": 586,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj denial s enforcementom zapnutým.`, `Získaj presný audit record.`, `Over, či aplikácia beží v správnej domain/profile.`, `Skontroluj podporovaný boolean, port type alebo abstraction.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "34. Troubleshooting: aplikácia funguje iba po vypnutí MAC",
+      "line": 586,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "34. Troubleshooting: aplikácia funguje iba po vypnutí MAC",
+      "line": 586,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "34. Troubleshooting: aplikácia funguje iba po vypnutí MAC",
+      "line": 586,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "36. Zhrnutie",
+      "line": 614,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
+      "section": "36. Zhrnutie",
+      "line": 614,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",

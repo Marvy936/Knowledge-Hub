@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10645**
-- Total words: **471,474**
-- Findings: **23469** (critical 8115, high 9223, medium 3098, low 3033)
+- Audited conceptual sections: **10658**
+- Total words: **473,180**
+- Findings: **23508** (critical 8111, high 9224, medium 3098, low 3075)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -196,11 +196,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 551 | 18 | 37 | 10 | 4 | 1166 | `docs/09-kubernetes/deployment.md` |
 | D | 546 | 21 | 35 | 5 | 2 | 1011 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | D | 544 | 31 | 15 | 13 | 5 | 1262 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
+| D | 541 | 19 | 28 | 9 | 46 | 3195 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 534 | 27 | 23 | 9 | 1 | 852 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
 | D | 533 | 21 | 29 | 12 | 4 | 1548 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 533 | 17 | 36 | 11 | 4 | 1432 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | D | 525 | 22 | 14 | 19 | 57 | 4060 | `docs/13-security-and-identity/vulnerability-and-patch-management.md` |
-| D | 524 | 23 | 27 | 9 | 4 | 1489 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 521 | 17 | 38 | 4 | 4 | 1898 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 520 | 20 | 32 | 7 | 2 | 1216 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | D | 515 | 25 | 23 | 8 | 7 | 1063 | `docs/04-testing-and-quality/test-pyramid.md` |
@@ -987,54 +987,51 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý riešia**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `web server beží ako www-data ,`, `vlastní alebo vie čítať niektoré súbory,`, `DAC by prístup povolil,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý riešia**: 4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 54, `bare-bullet-items` — **4. SELinux mentálny model**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user,`, `role,`, `type,`, `level/range pri MLS/MCS.`.
-- **CRITICAL** line 133, `bare-bullet-items` — **7. SELinux policy decisions**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `súbor má správny label,`, `proces beží v očakávanom domain,`, `existuje určený boolean,`, `path nie je netypický bez fcontext mappingu,`.
-- **CRITICAL** line 133, `outline-instead-of-explanation` — **7. SELinux policy decisions**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **9. SELinux audit a diagnostika**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scontext — source process context,`, `tcontext — target object context,`, `tclass — object class,`, `denied permissions,`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **9. SELinux audit a diagnostika**: 12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 256, `bare-bullet-items` — **13. AppArmor profil**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read,`, `write,`, `memory map,`, `execute transition,`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **13. AppArmor profil**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 289, `bare-bullet-items` — **14. AppArmor tools a logs**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `profile,`, `operation,`, `requested mask,`, `denied mask,`.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **14. AppArmor tools a logs**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **16. Containers**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host DAC,`, `user namespace,`, `capabilities,`, `seccomp,`.
-- **CRITICAL** line 369, `empty-section` — **Krok 1: DAC**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 394, `bare-bullet-items` — **Krok 3: oprava**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávny SELinux label → semanage fcontext + restorecon ,`, `podporovaný variant → vhodný boolean,`, `AppArmor profil chýba path rule → úzka oprava profilu,`, `aplikácia číta neočakávaný path → oprava konfigurácie alebo designu.`.
-- **CRITICAL** line 394, `outline-instead-of-explanation` — **Krok 3: oprava**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 403, `bare-bullet-items` — **19. Troubleshooting scenár: služba funguje ručne, nie cez systemd**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iný SELinux domain pri systemd transition,`, `AppArmor profil viazaný na executable,`, `iný path alebo symlink resolution,`, `systemd sandboxing navyše,`.
-- **CRITICAL** line 403, `outline-instead-of-explanation` — **19. Troubleshooting scenár: služba funguje ručne, nie cez systemd**: 5 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 423, `bare-bullet-items` — **20. Bezpečná práca s policy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj presný use case.`, `Identifikuj subject, object a operation.`, `Over, či je súčasný access legitímny.`, `Preferuj distribučný label, boolean alebo abstraction.`.
-- **CRITICAL** line 423, `no-prose-concept` — **20. Bezpečná práca s policy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 423, `outline-instead-of-explanation` — **20. Bezpečná práca s policy**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 434, `empty-section` — **21. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 206, `bare-bullet-items` — **12. SELinux object classes**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file, dir, symlink a filesystem,`, `process a capability,`, `TCP/UDP socket a node,`, `network port,`.
+- **CRITICAL** line 237, `bare-bullet-items` — **14. SELinux booleans**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítať význam booleanu,`, `potvrdiť legitímnu aplikačnú potrebu,`, `porovnať užšiu alternatívu,`, `zapísať rozhodnutie do source of truth.`.
+- **CRITICAL** line 257, `bare-bullet-items` — **15. SELinux policy modules**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétna source domain,`, `konkrétny target type,`, `konkrétna object class,`, `minimálne permissions,`.
+- **CRITICAL** line 272, `outline-instead-of-explanation` — **16. AVC audit evidence**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 292, `outline-instead-of-explanation` — **17. Bezpečný SELinux troubleshooting**: 9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 356, `outline-instead-of-explanation` — **21. AppArmor profile anatomy**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 389, `bare-bullet-items` — **22. AppArmor execute transitions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zostať v current profile,`, `prejsť do named child profile,`, `použiť profile attached k executable,`, `bežať unconfined podľa konkrétneho execute rule.`.
+- **CRITICAL** line 420, `outline-instead-of-explanation` — **24. AppArmor tooling a logs**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 446, `no-prose-concept` — **25. Bezpečný AppArmor troubleshooting**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 446, `outline-instead-of-explanation` — **25. Bezpečný AppArmor troubleshooting**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 495, `bare-bullet-items` — **29. Kubernetes integration**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod security context,`, `node runtime config,`, `process context/profile na konkrétnom node,`, `volume labels a mount options,`.
+- **CRITICAL** line 527, `outline-instead-of-explanation` — **31. Policy maintenance lifecycle**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 541, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 575, `no-prose-concept` — **33. Troubleshooting: služba nevie čítať nový data path**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 575, `outline-instead-of-explanation` — **33. Troubleshooting: služba nevie čítať nový data path**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 586, `bare-bullet-items` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj denial s enforcementom zapnutým.`, `Získaj presný audit record.`, `Over, či aplikácia beží v správnej domain/profile.`, `Skontroluj podporovaný boolean, port type alebo abstraction.`.
+- **CRITICAL** line 586, `outline-instead-of-explanation` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 34, `list-first-introduction` — **3. Vrstvený permission model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 82, `list-first-introduction` — **5. SELinux režimy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 99, `single-sentence-concept` — **6. SELinux contexts a labels**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 170, `single-sentence-concept` — **9. SELinux audit a diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 233, `bare-bullet-items` — **12. AppArmor režimy**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `enforce — porušenia sa blokujú,`, `unloaded — profil sa neuplatňuje.`.
-- **HIGH** line 256, `single-sentence-concept` — **13. AppArmor profil**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 289, `single-sentence-concept` — **14. AppArmor tools a logs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 365, `single-sentence-concept` — **18. Troubleshooting scenár: správne UNIX permissions, stále denied**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 377, `single-sentence-concept` — **Krok 2: process a MAC stav**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 394, `list-first-introduction` — **Krok 3: oprava**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 403, `single-sentence-concept` — **19. Troubleshooting scenár: služba funguje ručne, nie cez systemd**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 423, `list-first-introduction` — **20. Bezpečná práca s policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 440, `single-sentence-concept` — **„SELinux/AppArmor stačí vypnúť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 448, `single-sentence-concept` — **„audit2allow alebo aa-logprof vie rozhodnúť, čo je bezpečné“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 452, `single-sentence-concept` — **„SELinux rozhoduje podľa pathname“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 456, `single-sentence-concept` — **„AppArmor je iba jednoduchý file allowlist“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 206, `list-heavy-section` — **12. SELinux object classes**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 257, `list-heavy-section` — **15. SELinux policy modules**: 6 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 272, `bare-bullet-items` — **16. AVC audit evidence**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `scontext — source process context.`, `tcontext — target object context.`, `tclass — object class.`.
+- **HIGH** line 292, `single-sentence-concept` — **17. Bezpečný SELinux troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 356, `bare-bullet-items` — **21. AppArmor profile anatomy**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `w — zápis.`, `k — file locking.`, `l — link operation.`.
+- **HIGH** line 356, `single-sentence-concept` — **21. AppArmor profile anatomy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 420, `list-first-introduction` — **24. AppArmor tooling a logs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 420, `single-sentence-concept` — **24. AppArmor tooling a logs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 446, `list-first-introduction` — **25. Bezpečný AppArmor troubleshooting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 543, `single-sentence-concept` — **„Keď mode bits povoľujú prístup, kernel ho musí povoliť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 547, `single-sentence-concept` — **„Root obíde SELinux alebo AppArmor“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 559, `single-sentence-concept` — **„Každý AVC denial treba povoliť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 567, `single-sentence-concept` — **„AppArmor profil je iba zoznam paths“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 571, `single-sentence-concept` — **„Container label/profile nahrádza ostatné kontroly“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 575, `list-first-introduction` — **33. Troubleshooting: služba nevie čítať nový data path**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 586, `single-sentence-concept` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 82, `thin-concept-section` — **5. SELinux režimy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 170, `thin-concept-section` — **9. SELinux audit a diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 233, `thin-concept-section` — **12. AppArmor režimy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 256, `thin-concept-section` — **13. AppArmor profil**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **14. AppArmor tools a logs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 394, `thin-concept-section` — **Krok 3: oprava**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 403, `thin-concept-section` — **19. Troubleshooting scenár: služba funguje ručne, nie cez systemd**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 423, `thin-concept-section` — **20. Bezpečná práca s policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 71, `term-before-explanation` — **5. SELinux security context**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MLS`, `MCS`, `identity`, `Enforcement`
+- **HIGH** line 292, `thin-concept-section` — **17. Bezpečný SELinux troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 356, `thin-concept-section` — **21. AppArmor profile anatomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 420, `thin-concept-section` — **24. AppArmor tooling a logs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 446, `thin-concept-section` — **25. Bezpečný AppArmor troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 527, `thin-concept-section` — **31. Policy maintenance lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 575, `term-before-explanation` — **33. Troubleshooting: služba nevie čítať nový data path**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `MAC`, `workload`
+- **HIGH** line 575, `thin-concept-section` — **33. Troubleshooting: služba nevie čítať nový data path**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 586, `thin-concept-section` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md`
 
@@ -18388,19 +18385,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4077 | 0 | 0 | 4077 |
-| `bare-bullet-items` | 3699 | 331 | 0 | 0 | 4030 |
+| `single-sentence-concept` | 0 | 4075 | 0 | 0 | 4075 |
+| `bare-bullet-items` | 3695 | 332 | 0 | 0 | 4027 |
 | `outline-instead-of-explanation` | 3635 | 0 | 0 | 0 | 3635 |
-| `thin-concept-section` | 0 | 3329 | 0 | 0 | 3329 |
-| `term-before-explanation` | 0 | 356 | 2232 | 0 | 2588 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1305 | 1305 |
-| `example-not-explicit` | 0 | 0 | 0 | 1154 | 1154 |
-| `list-first-introduction` | 0 | 911 | 0 | 0 | 911 |
+| `thin-concept-section` | 0 | 3328 | 0 | 0 | 3328 |
+| `term-before-explanation` | 0 | 358 | 2232 | 0 | 2590 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1321 | 1321 |
+| `example-not-explicit` | 0 | 0 | 0 | 1171 | 1171 |
+| `list-first-introduction` | 0 | 910 | 0 | 0 | 910 |
 | `short-concept-section` | 0 | 0 | 866 | 0 | 866 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 574 | 574 |
-| `empty-section` | 487 | 0 | 0 | 0 | 487 |
-| `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
-| `list-heavy-section` | 0 | 219 | 0 | 0 | 219 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 583 | 583 |
+| `empty-section` | 486 | 0 | 0 | 0 | 486 |
+| `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
+| `list-heavy-section` | 0 | 221 | 0 | 0 | 221 |
 
 ## Required remediation pattern
 
