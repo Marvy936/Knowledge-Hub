@@ -367,15 +367,15 @@
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
       "title": "Kernel a user space",
-      "words": 707,
-      "headings": 16,
-      "sections": 16,
-      "findings": 29,
-      "critical": 11,
-      "high": 10,
-      "medium": 4,
-      "low": 4,
-      "score": 232,
+      "words": 3013,
+      "headings": 31,
+      "sections": 31,
+      "findings": 48,
+      "critical": 5,
+      "high": 6,
+      "medium": 8,
+      "low": 29,
+      "score": 169,
       "grade": "D"
     },
     {
@@ -15045,7 +15045,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: DevOps Foundations`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: DevOps Foundations`.",
       "score": 12
     },
     {
@@ -15068,26 +15068,26 @@
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "3. Mentálny model",
-      "line": 19,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "1. Čo oddeľuje kernel space od user space",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "4. CPU privilege levels",
-      "line": 43,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `system call,`, `hardware interrupt,`, `exception alebo fault.`.",
-      "score": 8
+      "section": "1. Čo oddeľuje kernel space od user space",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "4. CPU privilege levels",
-      "line": 43,
+      "section": "3. Vrstvy Linux systému",
+      "line": 36,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -15095,8 +15095,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "4. CPU privilege levels",
-      "line": 43,
+      "section": "3. Vrstvy Linux systému",
+      "line": 36,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -15104,116 +15104,314 @@
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "5. System calls",
-      "line": 55,
+      "section": "3. Vrstvy Linux systému",
+      "line": 36,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "6. Virtual memory",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izoláciu procesov,`, `zdieľané knižnice,`, `memory-mapped files,`, `copy-on-write,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "6. Virtual memory",
-      "line": 69,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "6. Virtual memory",
-      "line": 69,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "8. Pozorovanie hranice",
-      "line": 98,
+      "section": "3. Vrstvy Linux systému",
+      "line": 36,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "8. Pozorovanie hranice",
-      "line": 98,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "8. Pozorovanie hranice",
-      "line": 98,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý súbor sa program pokúsil otvoriť,`, `aké oprávnenie zlyhalo,`, `na ktorom socket connect čaká,`, `ktorý syscall vrátil konkrétny errno .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "8. Pozorovanie hranice",
-      "line": 98,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "8. Pozorovanie hranice",
-      "line": 98,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "9. User space nie je jedna úroveň dôvery",
-      "line": 119,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "9. User space nie je jedna úroveň dôvery",
-      "line": 119,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatné procesy a virtuálne adresné priestory,`, `Unix users a groups,`, `Linux capabilities,`, `namespaces a cgroups,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "9. User space nie je jedna úroveň dôvery",
-      "line": 119,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JVM`, `API`, `ABI`, `VFS`",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "10. Časté omyly",
-      "line": 133,
+      "section": "4. CPU privilege levels",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "6. Knižničná funkcia, runtime a syscall",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "7. Scheduling a execution context",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "7. Scheduling a execution context",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "8. Virtual memory a address space",
+      "line": 106,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "9. Page fault nie je automaticky chyba",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "9. Page fault nie je automaticky chyba",
+      "line": 120,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "9. Page fault nie je automaticky chyba",
+      "line": 120,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGSEGV`, `SIGBUS`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "10. VFS, filesystems a file descriptors",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "10. VFS, filesystems a file descriptors",
+      "line": 130,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "11. Devices a kernel drivers",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "12. Kernel modules",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "12. Kernel modules",
+      "line": 146,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "12. Kernel modules",
+      "line": 146,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "13. Kernel log a user-space log nie sú to isté",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "14. Bezpečnostné rozhodnutie pri system calle",
+      "line": 174,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "14. Bezpečnostné rozhodnutie pri system calle",
+      "line": 174,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "14. Bezpečnostné rozhodnutie pri system calle",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "14. Bezpečnostné rozhodnutie pri system calle",
+      "line": 174,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "14. Bezpečnostné rozhodnutie pri system calle",
+      "line": 174,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "14. Bezpečnostné rozhodnutie pri system calle",
+      "line": 174,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `DAC`, `ACL`, `resource`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "15. User space nie je jedna úroveň dôvery",
+      "line": 197,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "15. User space nie je jedna úroveň dôvery",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "15. User space nie je jedna úroveň dôvery",
+      "line": 197,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `DAC`, `LSM`, `identity`, `scope`, `resource`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "16. Kontajner a kernel boundary",
+      "line": 210,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "17. Pozorovanie system-call boundary cez strace",
+      "line": 218,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "17. Pozorovanie system-call boundary cez strace",
+      "line": 218,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "20. Troubleshooting: Permission denied pri otvorení súboru",
+      "line": 265,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "20. Troubleshooting: Permission denied pri otvorení súboru",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "20. Troubleshooting: Permission denied pri otvorení súboru",
+      "line": 265,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "20. Troubleshooting: Permission denied pri otvorení súboru",
+      "line": 265,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `LSM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "21. Troubleshooting: vysoký system CPU",
+      "line": 288,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
+      "section": "22. Časté omyly",
+      "line": 296,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -15221,57 +15419,30 @@
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "„Kernel je operačný systém a všetko ostatné je aplikácia“",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "23. Praktické overenie",
+      "line": 318,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "„System call je obyčajné volanie funkcie“",
-      "line": 139,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "25. Zhrnutie",
+      "line": 347,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "11. Troubleshooting scenár",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "11. Troubleshooting scenár",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Použi strace a identifikuj syscall a pathname.`, `Over UID/GID procesu.`, `Skontroluj directory traversal permissions na každom parent adresári.`, `Až potom men oprávnenia.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "11. Troubleshooting scenár",
-      "line": 147,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
-      "section": "11. Troubleshooting scenár",
-      "line": 147,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `ACL`, `LSM`, `policy`",
-      "score": 7
+      "section": "25. Zhrnutie",
+      "line": 347,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
