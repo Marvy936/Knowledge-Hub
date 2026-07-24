@@ -10,234 +10,236 @@
 
 ## 1. Definícia
 
-**Toil** je opakovaná prevádzková práca, ktorá je prevažne manuálna, automatizovateľná, reaktívna a rastie približne úmerne s veľkosťou systému alebo počtom zákazníkov.
+**Toil** je opakovaná prevádzková práca, ktorá je prevažne manuálna, automatizovateľná, reaktívna a rastie spolu s veľkosťou systému alebo počtom používateľov. Spotrebúva ľudskú kapacitu, ale sama nevytvára trvalú schopnosť, ktorá by potrebu ďalšieho opakovania znižovala.
 
-**Technical debt** je budúci náklad vytvorený technickým rozhodnutím, skratkou, zanedbanou údržbou alebo rastúcou komplexitou, ktorá sťažuje ďalšie zmeny a prevádzku.
+**Technical debt** je budúci náklad vytvorený technickým alebo procesným rozhodnutím, zanedbanou údržbou alebo rastúcou komplexitou. Zvyšuje cenu ďalších zmien, incidentov, onboarding-u a prevádzky, aj keď sa v konkrétnom okamihu nemusí prejavovať ako manuálna práca.
 
-Tieto pojmy sa prekrývajú, ale nie sú rovnaké.
+## 2. Rozdiel medzi toil-om a dlhom
 
-## 2. Mentálny model
-
-```text
-Toil
-  = práca, ktorú musíme stále opakovať
-
-Technical debt
-  = vlastnosť systému, ktorá robí budúcu prácu drahšou
-```
-
-Príklad:
+Toil opisuje spotrebu práce; technical debt opisuje vlastnosť systému, ktorá budúcu prácu predražuje alebo zvyšuje riziko. Jeden problém môže obsahovať oboje, ale tieto pojmy sa nesmú zamieňať.
 
 ```text
-Technical debt: deployment nemá automatizovaný rollback.
-Toil: operátor pri každom zlyhaní ručne vykonáva 15 rollback krokov.
+technical debt: deployment nemá automatizovaný rollback
+→ incident vytvorí potrebu ručného rollbacku
+→ opakovaný ručný rollback je toil
 ```
 
-Dlh môže toil vytvárať. Toil zároveň odoberá kapacitu potrebnú na odstránenie dlhu.
+Dlh často toil vytvára a toil následne odoberá kapacitu potrebnú na odstránenie dlhu. Tak vzniká samoposilňujúca slučka, v ktorej tím trávi čoraz viac času reaktívnou prevádzkou a čoraz menej engineering zlepšeniami.
 
-## 3. Typické vlastnosti toil-u
+## 3. Ako rozpoznať toil
 
-Práca má charakter toil-u, ak spĺňa viacero z týchto znakov:
+Práca nie je toil iba preto, že je manuálna alebo nepríjemná. Za toil ju možno považovať vtedy, keď sa kombinuje viacero vlastností a organizácia vie opísaný outcome dosiahnuť trvalejším mechanizmom.
 
-- je manuálna,
-- opakuje sa,
-- dá sa automatizovať,
-- je reaktívna namiesto strategickej,
-- neprináša trvalé zlepšenie systému,
-- rastie lineárne s počtom resources, ticketov alebo zákazníkov,
-- vyžaduje ľudský zásah iba preto, že systém nemá vhodné rozhranie alebo automatizáciu.
+- **Opakovanie —** rovnaký alebo veľmi podobný zásah sa vracia pravidelne; jeho frekvencia preto vytvára kumulatívnu spotrebu času.
+- **Manuálna exekúcia —** človek vykonáva predvídateľné kroky, ktoré by mohol bezpečne vykonať systém alebo self-service rozhranie.
+- **Reaktivita —** práca vzniká ako odpoveď na alert, ticket alebo poruchu namiesto plánovaného zlepšovania schopnosti.
+- **Nulový trvalý efekt —** po dokončení zásahu zostáva systém rovnako závislý od ďalšieho ľudského zásahu pri nasledujúcom výskyte.
+- **Lineárny rast —** počet manuálnych úkonov rastie približne s počtom zákazníkov, resources, deploymentov alebo incidentov.
+- **Automatizovateľné pravidlá —** rozhodnutie možno vyjadriť stabilným contractom, validáciou a bezpečným failure modelom.
 
-Nie každá manuálna práca je toil. Jednorazová architektonická analýza alebo vyšetrovanie nového incidentu môže mať vysokú hodnotu a nemusí byť automatizovateľné.
+Prvé vyšetrovanie neznámeho incidentu nie je automaticky toil, pretože vytvára nové poznanie. Ak sa však rovnaký incident rieši desiatykrát rovnakým reštartom bez systémovej zmeny, pôvodne hodnotná diagnostika sa zmenila na reaktívny toil.
 
-## 4. Príklady toil-u
+## 4. Typické zdroje toil-u
 
-- ručné vytváranie rovnakých používateľských účtov,
-- opakované obnovovanie expirovaných certifikátov,
-- manuálny deployment podľa checklistu,
-- pravidelné čistenie diskov bez odstránenia príčiny rastu,
-- kopírovanie údajov medzi ticketovacími systémami,
-- ručné reštartovanie služby po známej chybe,
-- opakované pridávanie rovnakých firewall pravidiel,
-- manuálne škálovanie podľa predvídateľnej metriky.
+Toil často nevzniká z jednej chýbajúcej automation, ale z nejasného rozhrania, slabého ownershipu alebo systému, ktorý neposkytuje bezpečný self-service mechanizmus.
 
-## 5. Príklady práce, ktorá nie je automaticky toil
+- **Manuálne prideľovanie accessu —** každý request vyžaduje operátora, hoci role, scope a approval pravidlá sú opakovateľné; riešením môže byť identity lifecycle a time-bound self-service workflow.
+- **Obnovovanie certifikátov —** človek opakovane sleduje expiry a vykonáva renewal; trvalejšia schopnosť zahŕňa automatický renewal, validation a alert na zlyhanie procesu.
+- **Deployment podľa checklistu —** kroky sú známe, ale závisia od pamäte a poradia operátora; pipeline môže vytvoriť auditovateľnú, validovanú a opakovateľnú exekúciu.
+- **Pravidelné čistenie diskov —** zásah odstraňuje symptóm, no nie nebounded logging, chybnú retention alebo capacity policy.
+- **Ručné reštarty —** služba sa obnoví, ale memory leak, deadlock alebo dependency failure zostáva a vytvára ďalší incident.
+- **Kopírovanie údajov medzi systémami —** ľudia kompenzujú chýbajúcu integráciu alebo autoritatívny source of truth, pričom vznikajú chyby a stale data.
 
-- prvé vyšetrovanie neznámeho incidentu,
-- návrh disaster recovery stratégie,
-- bezpečnostné threat modeling stretnutie,
-- refactoring zložitého modulu,
-- jednorazová migrácia s vysokým rizikom,
-- komunikácia so zákazníkom počas závažného incidentu.
+## 5. Práca, ktorá nie je automaticky toil
 
-Rozhodujúca nie je nepríjemnosť práce, ale jej opakovateľnosť, škálovanie a možnosť vytvoriť trvalejší mechanizmus.
+Niektoré činnosti sú manuálne, no vytvárajú nový model, rozhodnutie alebo znalosti, ktoré nemožno redukovať na stabilnú procedúru. Ich hodnotu treba posudzovať podľa výsledku, nie podľa toho, či ich vykonal človek.
 
-## 6. Technical debt
+- **Threat modeling —** vyžaduje kontext a tvorbu nových threat hypotheses; môže používať šablóny, ale samotné rozhodovanie nie je rutinná exekúcia.
+- **Prvé incident investigation —** tím objavuje neznámy failure mode a vytvára nové evidence; toil vznikne až pri opakovanom rovnakom zásahu bez nápravy.
+- **Architektonický návrh —** porovnáva trade-offy a budúce scenáre; automatizovať možno analýzu dát, nie zodpovednosť za rozhodnutie.
+- **Komunikácia počas incidentu —** vyžaduje situačný úsudok, koordináciu a dôveru; automatizácia môže pripraviť kontext, ale nie úplne nahradiť rozhodovanie.
+- **Jednorazová riziková migrácia —** môže potrebovať skripty a rehearsal, no nemusí sa z nej stať všeobecná platform capability.
 
-Technical debt môže vzniknúť vedome aj nevedome.
+## 6. Technical debt ako ekonomický záväzok
 
-### Vedome prijatý dlh
+Technical debt možno chápať ako rozhodnutie, ktoré dnes znižuje cenu alebo čas, ale vytvára budúci „úrok“. Úrok sa prejavuje dlhším lead time-om, vyšším change failure rate, opakovanými incidentmi, náročnejším onboardingom alebo potrebou špecializovaných manuálnych zásahov.
 
-Tím zvolí jednoduchšie riešenie, aby splnil časovo kritický cieľ, a explicitne eviduje následnú nápravu.
+Nie každý dlh je zlý. Vedome prijatý dlh môže byť primeraný, ak je jeho benefit väčší než očakávaný úrok a existuje owner, scope, trigger pre nápravu a viditeľnosť v plánovaní.
 
-### Nevedomý dlh
+## 7. Vedome prijatý, nevedomý a zanedbaný dlh
 
-Tím neskôr zistí, že pôvodný návrh nezvláda nový rozsah, bezpečnostné požiadavky alebo prevádzkový model.
+Tieto tri kategórie opisujú odlišný governance problém. Dôležité nie je iba to, ako dlh vznikol, ale či organizácia rozumie jeho dopadu a aktívne ho riadi.
 
-### Zanedbaný dlh
+- **Vedome prijatý dlh —** tím zvolí jednoduchšie riešenie pre časovo kritický cieľ a zaznamená obmedzenia, ownera a podmienku návratu; ide o riadený trade-off.
+- **Nevedomý dlh —** nové scale, security alebo reliability požiadavky odhalia, že pôvodný návrh už nestačí; tím potrebuje revidovať staré predpoklady bez hľadania vinníka.
+- **Zanedbaný dlh —** známa dočasná skratka nemá ownera ani termín a ďalšie vrstvy ju obchádzajú ďalšími workaroundmi; úrok sa nekontrolovane kumuluje.
 
-Dočasná skratka sa stane trvalou, nemá ownera ani termín a ďalšie zmeny ju obchádzajú ďalšími skratkami.
+## 8. Typy technického dlhu
 
-## 7. Typy technického dlhu
+Dlh nie je iba nekvalitný aplikačný kód. Môže existovať v architektúre, platforme, delivery procese, dokumentácii, security aj organizačných rozhraniach.
 
-- architektonický dlh,
-- nekvalitné alebo duplicitné implementácie,
-- chýbajúce testy,
-- zastarané dependencies,
-- nepodporované platformy,
-- manuálne deployment procesy,
-- nedostatočná observability,
-- chýbajúce runbooky,
-- nejasný ownership,
-- nekonzistentná Infrastructure as Code,
-- bezpečnostné výnimky bez expirácie.
+- **Architektonický dlh —** coupling, single points of failure alebo neškálovateľný data model predražujú každú ďalšiu zmenu.
+- **Testing debt —** chýbajúce alebo flaky testy znižujú dôveru a nútia tímy používať manuálne regresie a opakované retries.
+- **Dependency debt —** zastarané runtime-y a libraries zvyšujú security exposure a neskôr vyžadujú veľký skok namiesto malých priebežných upgradeov.
+- **Operational debt —** slabá observability, chýbajúce runbooky a neotestované recovery paths predlžujú incidenty.
+- **Infrastructure debt —** nekonzistentné IaC, ručné resources a state drift komplikujú reprodukciu a recovery.
+- **Security debt —** výnimky bez expirácie, broad permissions alebo staré trust roots zvyšujú blast radius aj náklady budúcej nápravy.
+- **Organizačný dlh —** nejasný ownership a handoff-based proces vytvárajú queues, rework a „nie je to náš problém“ správanie.
 
-Dlh nie je iba v aplikačnom kóde. Môže byť v infraštruktúre, procesoch, dokumentácii aj organizačných hraniciach.
+## 9. Samoposilňujúca slučka
 
-## 8. Spätná väzba medzi toil-om a dlhom
+Technical debt vytvára incidenty a manuálne zásahy. Tie spotrebujú engineering kapacitu, takže tím odkladá patching, refactoring a automation a dlh sa ďalej zväčšuje.
 
 ```text
-Technical debt
-      ↓
-vytvára manuálne zásahy a incidenty
-      ↓
-     toil
-      ↓
-znižuje čas na engineering zlepšenia
-      ↓
-dlh sa ďalej zväčšuje
+debt
+→ viac failure modes a manuálnej práce
+→ toil
+→ menej času na engineering
+→ viac odložených opráv
+→ ďalší debt
 ```
 
-Tento cyklus môže prevádzkový tím uzamknúť v reaktívnom režime.
+Túto slučku nemožno zlomiť iba požiadavkou „pracovať efektívnejšie“. Tím potrebuje rezervovanú kapacitu, prioritizačný mechanizmus a meranie, ktoré ukáže cenu opakovaného toil-u.
 
-## 9. Automatizácia toil-u
+## 10. Automatizovať, odstrániť alebo prijať
 
-Automatizácia je vhodná, keď:
+Nie každý toil sa má riešiť rovnakým spôsobom. Pred automatizáciou treba určiť, či je samotná činnosť potrebná, či je stabilná a či automatizácia nezväčší blast radius chybného pravidla.
 
-- proces je dostatočne stabilný,
-- opakuje sa často,
-- riziko ľudskej chyby je významné,
-- výsledok je merateľný,
-- existuje jasný owner,
-- cena automatizácie je nižšia než dlhodobá cena manuálnej práce.
+- **Odstrániť príčinu —** najlepšia možnosť, keď možno zrušiť potrebu zásahu, napríklad opraviť memory leak namiesto automatického reštartu.
+- **Zjednodušiť —** zredukovať variants, approvals alebo handoffs skôr, než sa proces zapíše do kódu.
+- **Automatizovať —** vhodné pre stabilné, často opakované a overiteľné kroky s jasným ownerom a failure modelom.
+- **Self-service —** presunúť bezpečnú exekúciu bližšie k používateľovi, pričom platforma vynúti policy, validáciu a audit.
+- **Prijať —** ak je frekvencia nízka a cena automatizácie vyššia než dlhodobá manuálna cena, kontrolovaný runbook môže byť primeraný.
 
-Najprv treba proces pochopiť a zjednodušiť. Automatizácia zlej procedúry môže iba zrýchliť produkciu chýb.
+## 11. Symptóm verzus root cause
 
-## 10. Odstránenie príčiny vs. automatizácia symptómu
-
-Príklad:
+Automatizácia symptómu môže byť vhodná ako dočasná mitigácia, ale nesmie sa vydávať za odstránenie dlhu. Cron, ktorý maže logy, môže zabrániť okamžitému zaplneniu disku, no root cause môže byť chybná retention, unbounded debug logging alebo nedostatočná capacity.
 
 ```text
-Symptóm: disk sa každý týždeň zaplní.
-Rýchla automatizácia: cron maže staré logy.
-Root cause riešenie: správna log rotation, retention policy,
-centralizované logovanie a alert pred vyčerpaním kapacity.
+symptom control: automaticky uvoľni disk
+root-cause change: správna log rotation + retention + central storage + capacity alert
 ```
 
-Cron môže byť dočasná ochrana, ale nemusí odstrániť technický dlh.
+Dočasná mitigácia potrebuje explicitný owner a exit condition. Bez nich sa rýchla ochrana stane trvalou architektúrou a vytvorí ďalší skrytý dlh.
 
-## 11. Meranie toil-u
+## 12. Meranie toil-u
 
-Toil možno sledovať napríklad ako:
+Meranie má ukázať, kde ľudská kapacita opakovane kompenzuje chýbajúcu systémovú schopnosť. Nemá sa používať na hodnotenie jednotlivcov, pretože ľudia často vykonávajú toil vytvorený architektúrou a prioritami organizácie.
 
-- hodiny manuálnej opakovanej práce za obdobie,
-- počet opakujúcich sa ticketov,
-- počet manuálnych krokov na deployment,
-- počet stránkovaní spôsobených známou príčinou,
-- čas strávený rutinnou údržbou oproti engineering práci,
-- rast operačnej práce pri raste zákazníkov.
+- **Toil hours —** čas strávený opakovanou exekúciou za týždeň alebo mesiac; umožní odhadnúť kumulatívnu cenu.
+- **Repeat ticket count —** počet requests s rovnakým patternom; vysoká frekvencia signalizuje chýbajúce self-service rozhranie alebo automatizáciu.
+- **Manual steps per change —** ukazuje variability a handoff risk v deployment alebo provisioning procese.
+- **Known-cause pages —** počet on-call zásahov pre failure mode, ktorý už tím pozná; odhaľuje neuzavreté incident learning.
+- **Scaling coefficient —** ako operačná práca rastie pri raste customers alebo resources; lineárny rast je varovný signál.
+- **Engineering-to-operations ratio —** pomer času na trvalé zlepšenia voči reaktívnej prevádzke; dlhodobý pokles signalizuje toil trap.
 
-Meranie má slúžiť na priorizáciu zlepšení, nie na hodnotenie jednotlivcov.
+Samotný počet ticketov môže byť zavádzajúci, ak sa zmení spôsob evidencie. Metriky preto treba doplniť samplingom práce a kvalitatívnym review s ľuďmi, ktorí ju vykonávajú.
 
-## 12. Evidencia technického dlhu
+## 13. Evidencia technického dlhu
 
-Dobrý záznam dlhu obsahuje:
+Položka dlhu musí byť dostatočne konkrétna, aby mohla súťažiť o prioritu s feature workom. Vágny záznam „refactor platform“ neukazuje dopad, urgency ani požadovaný outcome.
 
-- konkrétny problém,
-- aktuálny dopad,
-- riziko ďalšieho odkladu,
-- systémy a tímy, ktorých sa týka,
-- navrhovanú nápravu,
-- približnú cenu,
-- ownera,
-- spúšťač alebo termín prehodnotenia.
+Dobrý záznam obsahuje:
 
-Položka „refactor platform“ bez dopadu a scope sa ťažko prioritizuje.
+- **Problém —** konkrétny mechanizmus, ktorý vytvára náklad alebo riziko, nie iba názov technológie.
+- **Evidence —** incidenty, toil hours, latency, security finding alebo change failure, ktoré dokazujú aktuálny dopad.
+- **Scope —** služby, tímy, tenants a failure domains, ktorých sa dlh týka.
+- **Úrok —** ako sa cena zväčšuje pri ďalšom raste alebo odklade.
+- **Navrhovaný outcome —** aká schopnosť alebo invariant má po náprave platiť.
+- **Owner —** tím zodpovedný za rozhodnutie a ďalšie review, nie nevyhnutne jediný implementátor.
+- **Trigger —** dátum, incident count, scale threshold alebo dependency deadline, pri ktorom sa položka musí znovu posúdiť.
 
-## 13. Prioritizácia
+## 14. Prioritizácia
 
-Dlh možno posudzovať podľa:
+Priorita dlhu nevzniká z toho, ktorý problém je technicky najzaujímavejší. Má vychádzať z používateľského dopadu, security a reliability rizika, frekvencie toil-u, blokovania ďalšej práce a rastu budúceho úroku.
 
-```text
-Priorita ≈ frekvencia problému × dopad × rastúce riziko
-           ───────────────────────────────────────────
-                     cena nápravy
-```
+Praktický model môže pracovať s týmito otázkami:
 
-Nie je to presný matematický model. Núti však oddeliť hlasné, ale zriedkavé problémy od tichých problémov, ktoré denne spotrebúvajú kapacitu.
+- **Ako často problém vzniká?** Opakovaný malý zásah môže ročne stáť viac než jeden veľký incident.
+- **Aký je blast radius?** Dlh v shared identity alebo CI platforme môže ovplyvniť veľa tímov naraz.
+- **Ako rýchlo rastie úrok?** End-of-support dependency alebo expirovaný certificate chain má časovo rastúce riziko.
+- **Čo dlh blokuje?** Niektoré opravy odomknú viacero ďalších zmien alebo znížia celý delivery lead time.
+- **Aká je reverzibilita nápravy?** Malý experiment môže byť vhodnejší než veľký jednorazový rewrite.
+- **Aká je cena nečinnosti?** Porovnáva sa s implementačnou cenou, nie iba s veľkosťou backlog itemu.
 
-## 14. Príklad z CI/CD
+## 15. Capacity allocation
 
-Stav:
+Ak roadmapa obsahuje iba features, toil a debt sa riešia až počas incidentu. Organizácia preto potrebuje explicitne rezervovať kapacitu na reliability, maintenance, security a automation.
 
-- pipeline trvá 70 minút,
-- testy sú flaky,
-- vývojári retryujú joby,
-- deployment musí niekto manuálne potvrdiť a doplniť parametre.
+Model môže používať fixný podiel kapacity, error-budget policy, pravidelný debt review alebo limit toil-u, po ktorého prekročení sa feature work spomalí. Dôležité je, aby pravidlo malo reálnu rozhodovaciu silu a nebolo iba deklaráciou bez priority.
 
-Technical debt:
+## 16. Ownership dlhu
 
-- zlá test isolation,
-- neefektívny build graph,
-- chýbajúce deterministické prostredie,
-- manuálne release rozhranie.
+Owner technického dlhu zodpovedá za jeho viditeľnosť, evidence a ďalšie rozhodnutie. Nemusí mať kapacitu odstrániť celý problém sám, ale musí zabezpečiť, že riziko sa nestratí medzi tímami.
 
-Toil:
+Dlh v shared platforme môže potrebovať spoločný ownership platformy a consumers. Aplikačný tím má dodať evidence dopadu, platform tím navrhnúť capability a product alebo engineering leadership rozhodnúť o priorite voči ostatnej práci.
 
-- sledovanie pipeline,
-- opakované retry,
-- ručné vyhľadávanie správnych parametrov,
-- manuálna koordinácia deploymentu.
+## 17. End-to-end príklad CI/CD
 
-## 15. Anti-patterny
+Pipeline trvá 70 minút, testy sú flaky a deployment potrebuje manuálne doplniť environment parameters. Vývojári preto sledujú jobs, opakovane klikajú retry a koordinujú release cez chat.
+
+Technical debt tvorí neefektívny build graph, shared mutable test environment, chýbajúca parameter schema a nedeterministické test data. Toil tvorí každodenné čakanie, ručné retry, hľadanie správnych hodnôt a manuálne schválenie zmeny, ktorá spĺňa stabilné pravidlá.
+
+Náprava nezačne automatickým retry každého testu. Najprv oddelí flaky testy, zmeria queue a execution time, zavedie deterministic environment a explicitnú deployment schema; až potom automatizuje bezpečné promotion pravidlá.
+
+## 18. SRE kontext
+
+SRE používa toil ako prevádzkový budget, pretože neobmedzená opakovaná práca vytlačí engineering. Cieľom nie je dosiahnuť nulu, ale udržať toil pod hranicou, pri ktorej tím stále dokáže zlepšovať reliability systému.
+
+On-call incident s novým failure mode môže byť hodnotná engineering práca. Ak však rovnaký alert pravidelne vedie k rovnakému runbook kroku, vzniká kandidát na automatizáciu, self-healing alebo odstránenie root cause-u.
+
+## 19. Observability a reporting
+
+Toil a debt potrebujú spoločné reporting rozhranie s delivery a reliability dátami. Samostatný backlog bez väzby na incidenty a kapacitu sa rýchlo stane nedôveryhodný.
+
+Dashboard môže spájať repeat incidents, toil hours, debt items podľa risku, time-to-remediation a trend engineering capacity. Kvalitatívny review musí vysvetliť príčinu trendu; pokles ticketov môže znamenať automatizáciu, ale aj to, že ľudia prestali toil evidovať.
+
+## 20. Anti-patterny
 
 ### Hero culture
 
-Skúsený človek opakovane manuálne zachraňuje systém. Organizácia oceňuje zásah, ale neinvestuje do odstránenia príčiny.
+Skúsený človek opakovane zachraňuje systém manuálnym zásahom a organizácia odmeňuje viditeľnú obnovu. Root cause, automation a knowledge sharing sa však nefinancujú, takže bus factor aj toil zostávajú vysoké.
 
 ### Automatizácia bez ownershipu
 
-Skript odstráni časť toil-u, ale nikto ho netestuje, neaktualizuje ani nesleduje jeho zlyhania.
+Skript zníži okamžitú manuálnu prácu, ale nemá testy, telemetry ani lifecycle. Po zmene API začne ticho zlyhávať a vytvorí nový prevádzkový dlh.
 
-### Nekonečný backlog dlhu
+### Nekonečný debt backlog
 
-Dlh sa eviduje, ale nikdy nevstupuje do plánovania a nemá jasné kritériá priority.
+Položky sa evidujú bez evidence, ownera a triggera. Backlog potom neovplyvňuje plánovanie a slúži iba ako archív známych problémov.
 
-### Premenovanie toil-u na „operational excellence“
+### Toil sa normalizuje ako „operational excellence“
 
-Rutinná manuálna práca sa normalizuje ako povinnosť namiesto toho, aby sa spochybnila jej potreba.
+Opakovaná manuálna práca sa považuje za znak obetavosti. Organizácia prestane spochybňovať, prečo je zásah potrebný a prečo jeho objem rastie.
 
-## 16. Kontrolné otázky
+### Rewrite ako univerzálna náprava
+
+Tím navrhne kompletný prepis bez merania dominantného dlhu a migračného rizika. Veľká zmena môže vytvoriť nový dlh skôr, než odstráni pôvodný.
+
+### Automatizácia symptómu bez exit condition
+
+Dočasný cron alebo auto-restart stabilizuje službu, ale nemá ownera ani termín odstránenia. Mitigácia sa stane trvalou a zakryje rastúci root-cause risk.
+
+## 21. Kontrolné otázky
 
 1. Prečo nie je každá manuálna práca toil?
-2. Ako môže technical debt vytvárať toil?
-3. Prečo môže automatizácia symptómu ponechať root cause nedotknutú?
-4. Ktoré údaje by si zbieral pri meraní toil-u?
-5. Ako sa líši vedome prijatý dlh od zanedbaného dlhu?
-6. Prečo hero culture dlhodobo znižuje reliability?
+2. Aký je rozdiel medzi spotrebou toil-u a vlastnosťou technical debt?
+3. Ako technical debt vytvára samoposilňujúcu toil slučku?
+4. Kedy je opakovaný incident investigation ešte learning a kedy už toil?
+5. Prečo automatizácia symptómu nemusí znížiť technický dlh?
+6. Ktoré metriky ukážu, že operačná práca rastie lineárne so systémom?
+7. Čo musí obsahovať prioritizovateľný debt record?
+8. Ako sa líši vedome prijatý dlh od zanedbaného dlhu?
+9. Prečo fixný feature-only roadmap model vedie k toil trap?
+10. Kedy je prijatie manuálneho runbooku lepšie než vývoj platformy?
+11. Ako hero culture zvyšuje bus factor aj technický dlh?
+12. Ako overíš, že automatizácia toil skutočne odstránila a iba ho nepresunula?
 
-## 17. Zhrnutie
+## 22. Zhrnutie
 
-Toil je opakovaná operačná spotreba ľudskej kapacity. Technical debt je vlastnosť systému, ktorá zvyšuje cenu budúcich zmien a prevádzky. DevOps a SRE sa nesnažia odstrániť všetku manuálnu prácu, ale systematicky znižovať prácu, ktorá neprináša trvalé zlepšenie.
+Toil je opakovaná spotreba ľudskej kapacity bez trvalého zlepšenia. Technical debt je vlastnosť systému, ktorá zvyšuje budúcu cenu, riziko a náročnosť zmien; často vytvára toil a následne sa cez nedostatok engineering kapacity ďalej zväčšuje.
+
+Silný operating model toil meria, rozlišuje symptom od root cause-u, eviduje debt s konkrétnym dopadom a rezervuje kapacitu na nápravu. Cieľom nie je automatizovať každú manuálnu úlohu, ale systematicky vytvárať schopnosti, ktoré znižujú potrebu opakovanej reaktívnej práce.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
