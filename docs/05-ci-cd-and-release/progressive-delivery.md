@@ -1,360 +1,490 @@
 # Progressive delivery
 
-Progressive delivery je riadený systém postupného sprístupňovania zmeny na základe produkčnej evidence. Spája deployment stratégie, feature flags, segmentáciu, observability, automatizované analysis a recovery do jedného kontrolovaného rollout procesu.
+## Metadata
 
-## 1. Základný model
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
+
+## 1. Definícia
+
+Progressive delivery je riadený release systém, ktorý oddeľuje deployment od expozície a rozširuje zmenu po krokoch na základe produkčnej evidence. Spája immutable artifacts, canary alebo ring cohorts, feature flags, observability, policy-driven analysis a recovery do jednej state machine.
 
 ```text
-immutable artifact
-→ deploy without full exposure
-→ expose limited cohort
-→ collect technical and business evidence
-→ promote, pause, abort or remediate
-→ repeat until intended release state
+artifact prepared
+→ deployed with bounded exposure
+→ evidence collected
+→ promote / pause / abort / inconclusive
+→ next step
+→ intended release state
+→ delayed validation
+→ cleanup and closure
 ```
 
-Nejde o jedinú techniku. Canary, rings, blue-green, feature flags, A/B testing a shadow traffic sú stavebné prvky.
+Nie je to jediná deployment technika. Je to orchestration a decision model nad viacerými technikami.
 
-## 2. Deployment vs. release control
+## 2. Nezávislé osi promotion
 
-Progressive delivery oddeľuje:
+Progressive delivery môže riadiť oddelene:
 
-- **artifact promotion** — ktorý immutable artifact je v environment-e,
-- **traffic promotion** — koľko requestov smeruje na novú verziu,
-- **audience promotion** — ktoré cohorts capability používajú,
-- **feature promotion** — ktoré behavior paths sú aktívne,
-- **release decision** — či je zmena považovaná za produkčne prijatú.
+- **Artifact promotion —** ktorý digest je nasadený.
+- **Environment promotion —** kde artifact beží.
+- **Traffic promotion —** aký podiel requests smeruje na novú generation.
+- **Audience promotion —** ktoré rings, tenants alebo clients sú eligible.
+- **Feature promotion —** ktorý runtime behavior je aktívny.
+- **Data migration promotion —** ktorá read/write cesta je autoritatívna.
+- **Release acceptance —** či sa zmena považuje za prijatú a podporovanú.
 
-Tieto osi nemusia postupovať súčasne.
+Ak tieto osi nie sú korelované, napríklad traffic je 100 %, ale feature iba 10 %, telemetry a recovery sa ľahko interpretujú nesprávne.
 
-## 3. Delivery controller
+## 3. Mental model: rollout controller nad desired a observed state
 
-Controller môže riadiť:
+Controller porovnáva:
 
-- rollout steps,
-- traffic weights,
-- ring membership,
-- feature flags,
-- observation windows,
-- metric queries,
-- promotion a abort policy,
-- rollback alebo roll-forward action,
-- auditný release record.
+```text
+desired rollout state
+vs.
+observed deployment, exposure, evidence and recovery state
+```
 
-Controller je produkčný control plane. Jeho permissions a configuration majú rovnakú kritickosť ako deployment pipeline.
+A vykonáva ďalší bezpečný transition. Controller nie je iba timer; je to privilegovaný production control plane s právom meniť traffic, flags, deployments a niekedy data migration fázu.
 
 ## 4. Progressive delivery contract
 
-Každý rollout má mať explicitný kontrakt:
+Každý rollout potrebuje:
+
+- release/artifact digest,
+- config a infrastructure revision,
+- target environment,
+- rollout strategy a steps,
+- cohort/membership definition,
+- feature a data-migration state,
+- promotion, abort a inconclusive rules,
+- evidence sources a queries,
+- minimum sample a observation durations,
+- maximum blast radius,
+- recovery hierarchy,
+- ownera, approvals a expiry,
+- cleanup a final-state definition.
+
+Contract musí byť versionovaný a viazaný na immutable subject.
+
+## 5. Rollout state machine
 
 ```text
-artifact digest
-+ config revision
-+ target environment
-+ rollout strategy
-+ cohort definition
-+ promotion metrics
-+ abort metrics
-+ observation windows
-+ max blast radius
-+ recovery actions
-+ owner
+planned
+→ prechecks
+→ deployed, no exposure
+→ step active
+→ evidence collecting
+→ evaluating
+→ progressing / paused / aborted / inconclusive
+→ next step alebo recovery
+→ full exposure
+→ delayed validation
+→ accepted
+→ cleanup
+→ closed
 ```
 
-Bez immutable identity nemožno spojiť evidence s nasadeným obsahom.
+Stavy `paused`, `inconclusive` a `cleanup pending` sú prvotriedne, nie iba textové poznámky.
 
-## 5. Strategies
+## 6. Preconditions
 
-### Canary
+Pred prvým krokom over:
 
-Postupné percento trafficu s baseline porovnaním.
+- artifact/provenance a required gates,
+- environment baseline health,
+- config/flag/data compatibility,
+- version-level telemetry,
+- cohort routing correctness,
+- recovery eligibility,
+- controller permissions a health,
+- rollout lock,
+- error-budget a incident stav,
+- on-call a support readiness.
 
-### Rings
+## 7. Strategy composition
 
-Stabilné cohorts s rastúcou kritickosťou alebo reprezentatívnosťou.
-
-### Blue-green
-
-Oddelený target a traffic cutover s možnosťou routing rollbacku.
-
-### Feature flags
-
-Runtime exposure capability nezávislá od artifact deploymentu.
-
-### Shadow
-
-Reálny workload bez autoritatívnej response a bez povolených side effects.
-
-### A/B experiment
-
-Porovnanie variantov podľa produktového outcome, nie iba safety.
-
-## 6. Promotion evidence
-
-Evidence môže zahŕňať:
-
-- artifact integrity a provenance,
-- pre-deployment test results,
-- runtime health,
-- SLI/SLO a error-budget burn,
-- latency, errors a saturation,
-- business success rate,
-- security anomalies,
-- support alebo user feedback,
-- sample size a confidence,
-- compatibility checks,
-- change-management metadata.
-
-Promotion policy má používať najmenší dostatočný súbor dôkazov, nie neobmedzený dashboard checklist.
-
-## 7. Technical vs. business metrics
-
-Technické metrics odpovedajú, či systém funguje stabilne. Business metrics odpovedajú, či zmena prináša správny outcome.
-
-Príklad:
+Príklady skladania:
 
 ```text
-HTTP success rate = stable
-latency = stable
-checkout completion = -8 %
+shadow
+→ canary within ring 0
+→ ring 1
+→ ring 2 with feature flag at 10 %
+→ full artifact exposure
+→ feature full exposure
 ```
 
-Technický rollout môže byť zdravý, ale release neúspešný.
+Kompozícia zvyšuje kontrolu, ale aj stavový priestor. Každý control plane musí mať spoločný rollout ID a konzistentný desired state.
 
-## 8. Observation window
+## 8. Risk classification
 
-Observation window musí pokryť čas, za ktorý sa prejaví relevantný risk:
-
-- okamžité request failures,
-- cache warm-up,
-- autoscaling,
-- long transactions,
-- queue backlog,
-- scheduled jobs,
-- delayed business outcomes,
-- retention alebo churn.
-
-Jedna univerzálna duration pre všetky kroky je slabá policy.
-
-## 9. Risk-based rollout
-
-Rozsah kontroly možno odvodiť z:
+Risk môže zohľadniť:
 
 - business criticality,
-- changed components,
-- IAM alebo database zmien,
+- IAM/security zmenu,
+- databázové a event mutations,
 - reversibility,
 - blast radius,
 - novelty,
-- incident history,
-- observability quality,
+- dependency scope,
 - test evidence,
-- dependency scope.
+- observability quality,
+- incident history,
+- client/server skew.
 
-Nízko-riziková zmena môže postupovať rýchlejšie. Vysoko-riziková potrebuje menšie kroky, dlhšie windows alebo manuálny checkpoint.
+Risk class určuje veľkosť krokov, automation level, observation duration a approval.
 
-## 10. Pause, abort a resume
+## 9. Evidence model
 
-Stavy rollout-u musia byť explicitné:
+Evidence zahŕňa:
 
-- `progressing`,
-- `paused`,
-- `degraded`,
-- `aborted`,
-- `rolled_back`,
-- `rolled_forward`,
-- `completed`.
+- pre-release test a security results,
+- artifact signature/provenance,
+- deployment verification,
+- technical SLIs,
+- functional synthetics,
+- business outcomes,
+- security/data invariants,
+- sample completeness,
+- support/user signals,
+- compatibility a migration state.
 
-Resume po pause musí overiť, že artifact, policy, environment a evidence sú stále aktuálne.
+Každá evidence položka potrebuje subject identity, timestamp, source a freshness pravidlo.
 
-## 11. Missing alebo delayed telemetry
+## 10. Technical, functional a business validation
 
-Policy musí rozhodnúť:
+Technický pass nestačí. Príklad:
+
+```text
+error rate stable
+latency stable
+checkout completion -8 %
+```
+
+Rollout môže byť technicky zdravý a produktovo neúspešný. Naopak, business metric môže krátkodobo rásť pri neprijateľnej fraud alebo reliability regresii.
+
+## 11. Sample a observation contract
+
+Každý krok definuje:
+
+- minimálny count relevantných events,
+- minimálnu duration,
+- maximálnu duration,
+- delayed outcome horizon,
+- cohort comparability,
+- metrics completeness,
+- stable baseline interval.
+
+Percento trafficu ani fixných desať minút nie sú univerzálnym dôkazom.
+
+## 12. Promotion verdicts
+
+- **Promote —** required evidence je úplná a policy splnená.
+- **Pause —** treba zachovať scope a manuálne alebo automaticky vyšetrovať.
+- **Abort —** guardrail je porušený alebo risk je neprijateľný.
+- **Inconclusive —** dôkaz nestačí alebo nie je porovnateľný.
+- **Invalid —** subject, cohort, config alebo experiment setup nezodpovedal contractu.
+
+## 13. Missing a delayed telemetry
+
+Policy určuje:
 
 - ktoré signály fail closed,
-- ktoré fail open s warningom,
-- ako dlho sa čaká,
-- čo je minimálna completeness,
-- ako sa deteguje stale query,
-- ako sa odlíši nula udalostí od chýbajúcich dát.
+- maximum data lag,
+- minimum completeness,
+- správanie pri query error,
+- rozdiel medzi nulou a missing data,
+- fallback analysis,
+- ownera analytics dependency.
 
-Absencia errorov pri nefunkčnej telemetry nie je úspech.
+Controller nesmie promotionovať preto, že monitoring prestal fungovať.
 
-## 12. Automated analysis
+## 14. Automated analysis
 
-Automatická analysis môže používať:
+Môže používať:
 
-- threshold rules,
-- baseline ratio,
-- trend detection,
+- absolútne thresholds,
+- delta voči control,
+- SLO burn,
+- trends,
 - anomaly detection,
-- statistical tests,
-- composite score,
-- error-budget burn policy.
+- confidence alebo Bayesian rule,
+- hard business/security invariants.
 
-Model musí byť vysvetliteľný a testovateľný. Komplexný score bez možnosti vysvetliť abort znižuje dôveru operátorov.
+Model musí byť vysvetliteľný, versionovaný a testovaný na historických rolloutoch. Composite score nesmie skryť kritický invariant.
 
-## 13. Manual checkpoints
+## 15. Control group a attribution
 
-Manuálny approval má zmysel pri:
+Canary alebo ring evidence potrebuje porovnateľnú baseline. Koreluj:
 
-- právnom alebo business rozhodnutí,
-- neautomatizovateľnej evidence,
-- vysokom a nevratnom dopade,
-- emergency risk acceptance,
-- nejednoznačnom signále.
+- artifact/version,
+- cohort,
+- region/zone,
+- config/flags,
+- route/workload,
+- rollout step,
+- concurrent changes.
 
-Approval nemá nahrádzať automatické overenie identity, testov, policy a runtime health.
+Súbežná environment alebo dependency zmena môže verdict invalidovať.
 
-## 14. Error budgets
+## 16. Manual checkpoints
 
-Error-budget stav môže meniť rollout policy:
+Ľudské rozhodnutie je vhodné pri:
+
+- neautomatizovateľnej business/ethical evidence,
+- vysokom nevratnom dopade,
+- regulácii,
+- inconclusive signále,
+- emergency risk acceptance.
+
+Approval musí byť naviazaný na aktuálny subject a evidence; nový digest, config alebo stale window ho invaliduje.
+
+## 17. Error budgets a incident state
+
+Policy môže meniť rollout:
 
 ```text
 healthy budget
 → normal progression
 
-high burn
-→ smaller steps, longer windows or freeze
+high burn / active incident
+→ smaller steps, pause alebo freeze
 ```
 
-Použi user-facing reliability signal, nie všeobecný zákaz zmien po každom incidente.
+Freeze sa má viazať na user-facing reliability a recovery capacity, nie na všeobecnú averziu k zmene.
 
-## 15. Recovery hierarchy
+## 18. Recovery hierarchy
 
-Možnosti:
+Od najmenej invazívnej akcie:
 
-1. zastaviť ďalšiu promotion,
+1. zastaviť promotion,
 2. znížiť exposure,
-3. vypnúť feature flag,
-4. route traffic na stable target,
-5. rollback artifactu,
-6. roll-forward s opravou,
+3. vypnúť feature/migration path,
+4. route na stable target,
+5. rollback config/artifact,
+6. roll-forward fix,
 7. compensating action,
-8. restore dát podľa recovery plánu.
+8. data repair alebo restore.
 
-Najrýchlejšia bezpečná akcia závisí od state compatibility.
+Správna vrstva závisí od toho, čo sa už zmenilo v mutable state.
 
-## 16. Database a shared-state constraints
+## 19. Shared-state compatibility
 
-Progressive rollout predlžuje coexistence starých a nových verzií. Vyžaduje:
+Progressive rollout predlžuje overlap. Potrebuje:
 
-- backward-compatible schema,
-- tolerant readers,
-- compatible writers,
-- event schema evolution,
+- expand-contract DB schema,
+- tolerant events,
 - cache/session versioning,
-- idempotent migrations,
-- cleanup až po rollback window.
+- backward-compatible clients,
+- idempotent writes,
+- feature cleanup až po rollback window,
+- explicitnú compatibility matrix.
 
-Traffic control nevyrieši nekompatibilný shared state.
+Traffic a flags neopravia nekompatibilný shared state.
 
-## 17. Multi-service releases
+## 20. Multi-service release
 
-Pri viacerých services je potrebné:
+Preferuj independently deployable components. Release manifest má obsahovať digests a compatibility ranges.
 
-- dependency graph,
-- compatibility matrix,
-- independent deployability,
-- release manifest,
-- coordinated flags,
-- per-service telemetry,
-- partial rollout recovery.
+Pri coordinated change:
 
-Big-bang promotion všetkých services znižuje hodnotu progressive delivery.
+- deploy tolerant consumers/readers first,
+- potom producers/writers,
+- používaj flags/adapters,
+- sleduj per-service rollout,
+- definuj partial recovery.
 
-## 18. Governance a audit
+Big-bang promotion znižuje blast-radius kontrolu.
+
+## 21. Controller security
+
+Controller môže meniť production routing a flags. Potrebuje:
+
+- least privilege,
+- protected workflow/config,
+- short-lived identity,
+- approval pre high-risk overrides,
+- immutable audit,
+- separation od untrusted PR code,
+- lock a concurrency protection,
+- tested kill switch.
+
+## 22. Controller availability a failure semantics
+
+Rieš:
+
+- controller outage počas step-u,
+- duplicate reconciliation,
+- stale desired state,
+- partial traffic update,
+- metric-service outage,
+- lost lock/lease,
+- restart a idempotent resume.
+
+Data plane má zostať v poslednom známom bezpečnom stave, nie náhodne pokračovať.
+
+## 23. Pause lifecycle
+
+Pause record obsahuje:
+
+- dôvod,
+- current exposure a artifacts,
+- evidence gaps,
+- ownera,
+- max pause duration,
+- allowed actions,
+- resume prechecks,
+- expiry/recovery fallback.
+
+Nekonečný pause vytvára permanentný skew a flag debt.
+
+## 24. Delayed validation
+
+Po full exposure pokračuj v monitorovaní:
+
+- memory leak,
+- queue/backlog,
+- scheduled jobs,
+- billing/settlement,
+- retention/churn,
+- certificate/credential cycles,
+- data reconciliation.
+
+Release acceptance môže nastať až po tejto fáze.
+
+## 25. Cleanup a closure
+
+Progressive delivery končí až keď:
+
+- final artifact/config/exposure sú zaznamenané,
+- old generation je retired,
+- flags a temp routing sú odstránené,
+- migration je v intended phase,
+- rollback window je uzavreté alebo explicitné,
+- evidence a decision record sú archivované,
+- follow-up findings majú ownerov.
+
+## 26. Audit trail
 
 Zachovaj:
 
-- kto vytvoril rollout,
-- artifact a config identity,
-- policy version,
-- každú zmenu exposure,
-- metric snapshots alebo query references,
-- approvals a exceptions,
-- abort/rollback reason,
-- final release state.
+- rollout contract revision,
+- subject identities,
+- každú exposure/config zmenu,
+- metrics queries a snapshots/references,
+- policy verdicts,
+- approvals/overrides,
+- recovery transitions,
+- final release a cleanup state.
 
-Audit má byť generovaný mechanizmom, nie ručne rekonštruovaný z chatu.
+## 27. Metriky procesu
 
-## 19. Metriky procesu
-
-Sleduj:
-
-- rollout duration,
-- pause a abort rate,
-- false abort rate,
-- exposure before detection,
-- automatic vs. manual decisions,
-- rollback/roll-forward success,
-- stale rollout count,
-- policy override rate,
+- mean exposure before detection,
 - time to full release,
-- change fail rate podľa stratégie.
+- pause/inconclusive/abort rate,
+- false abort a false promotion,
+- stale rollout count,
+- controller/analytics failure rate,
+- manual override rate,
+- cleanup lead time,
+- rollback/roll-forward success,
+- escaped defects podľa strategy/risk class.
 
-Rýchlejší rollout nie je automaticky lepší, ak rastie blast radius alebo false confidence.
+## 28. Typické anti-patterny
 
-## 20. Troubleshooting
+### Progressive delivery = pomalý rollout
 
-### Rollout sa zasekol v pause
+Bez evidence a decision policy ide iba o pomalšie šírenie.
 
-Over ownera, expiry, missing evidence, stale approval a recovery condition. Pause bez lifecycle vytvára version skew.
+### Každá zmena rovnaký workflow
 
-### Controller promotionoval bez trafficu
+Ignoruje risk a reversibility.
 
-Metric query vrátila nulu namiesto missing data alebo nebola overená sample size.
+### Viac control planes bez spoločnej identity
 
-### Feature flag a traffic weight sa rozchádzajú
+Traffic, flags a data state sa rozídu.
 
-Zaveď jeden rollout contract a koreláciu oboch control planes.
+### Missing metrics = success
 
-### Automatický rollback zhoršil incident
+Nefunkčný oracle spôsobí false promotion.
 
-State nebol backward-compatible alebo rollback signal bol noisy. Zastav automatiku a prehodnoť recovery policy.
+### Automatika bez explainability
 
-### Final release stále obsahuje starý path
+Operátor nevie auditovať verdict.
 
-Chýbal cleanup owner/expiry. Progressive delivery lifecycle nie je dokončený pri 100 % exposure.
+### Nekonečný canary/pause
 
-## 21. Anti-patterny
+Temporary skew sa stane permanentným.
 
-### Progressive delivery = pomalý rolling update
+### 100 % exposure = finished
 
-Chýba evidence-driven promotion a explicitný exposure control.
+Old code paths, flags a migration debt zostávajú.
 
-### Rovnaká policy pre každú zmenu
+## 29. Diagnostický postup
 
-Ignoruje rozdielnu reversibility a business kritickosť.
+1. Urči rollout ID, subject a desired state.
+2. Zisti actual artifact, traffic, audience, flags a data phase.
+3. Over controller lock a last transition.
+4. Validuj telemetry completeness a query freshness.
+5. Porovnaj cohort/control a concurrent changes.
+6. Skontroluj shared-state compatibility.
+7. Pri pause urč ownera, expiry a resume preconditions.
+8. Pri abort-e vyber recovery podľa state mutation.
+9. Po recovery over user/business/data invariants.
+10. Uzavri cleanup a learning actions.
 
-### Nekonečný canary
+## 30. Rozhodovací rámec
 
-Dočasný stav sa stane permanentným a zvyšuje version skew.
+1. Ktoré osi promotion potrebujeme oddeliť?
+2. Aký immutable subject a rollout contract používame?
+3. Aký risk class a blast radius je prijateľný?
+4. Aká vzorka a observation horizon dokazujú každý krok?
+5. Ktoré metrics sú technical, functional a business guardrails?
+6. Ako sa rieši missing/inconclusive evidence?
+7. Aké concurrent changes invalidujú verdict?
+8. Aká recovery hierarchy platí?
+9. Ako sa controller zotaví z partial failure?
+10. Kedy je release prijatý a cleanup dokončený?
 
-### Automatizácia bez explainability
+## 31. Kontrolný checklist
 
-Operátor nevie, prečo controller promotionoval alebo abortoval.
+- subject a rollout contract sú immutable/versionované,
+- všetky promotion osi majú actual state,
+- risk class určuje steps a approvals,
+- version-level telemetry je úplná,
+- sample/duration a delayed horizon sú definované,
+- verdict taxonomy obsahuje inconclusive/invalid,
+- controller a analytics failures majú policy,
+- shared state je compatible,
+- recovery hierarchy a eligibility sú overené,
+- rollout lock chráni concurrency,
+- pause má expiry,
+- full exposure pokračuje delayed validation,
+- cleanup a closure sú vynútené.
 
-### Rollout bez cleanup fázy
+## 32. Kontrolné otázky
 
-Flags, staré versions a dočasné configy zostávajú ako dlh.
+1. Aké osi promotion progressive delivery oddeľuje?
+2. Čo musí obsahovať rollout contract?
+3. Prečo controller potrebuje desired aj observed state?
+4. Aký je rozdiel medzi pause, abort, inconclusive a invalid?
+5. Ako missing telemetry ovplyvňuje verdict?
+6. Prečo technical pass nemusí znamenať release success?
+7. Ako error budget mení rollout policy?
+8. Prečo traffic control nevyrieši shared-state nekompatibilitu?
+9. Ako sa controller zotaví po partial update?
+10. Kedy je progressive delivery lifecycle skutočne uzavretý?
 
-## 22. Kontrolné otázky
+## Summary
 
-1. Čo je progressive delivery?
-2. Aké osi promotion možno riadiť nezávisle?
-3. Čo obsahuje rollout contract?
-4. Ako sa líšia technické a business metrics?
-5. Ako zvoliť observation window?
-6. Ako má policy reagovať na missing telemetry?
-7. Kedy má zmysel manuálny checkpoint?
-8. Ako error budget mení rollout policy?
-9. Prečo shared-state compatibility zostáva kritická?
-10. Kedy je progressive rollout skutočne dokončený?
+Progressive delivery je policy-driven state machine nad artifactom, environmentom, trafficom, audience, feature flags a data migration stavom. Dôveryhodnosť vzniká immutable rollout contractom, version-level evidence, risk-based steps, explicitnými verdictmi a bezpečnou recovery hierarchiou. Controller musí byť chránený ako produkčný control plane a zvládať partial failures aj missing telemetry. Full exposure nie je koniec: release potrebuje delayed validation, odstránenie dočasných paths a formálne uzavretie evidence a rollout state.
 
 ## Glossary impact
 
-Relevantné pojmy: progressive delivery, rollout controller, rollout contract, evidence-driven promotion, progressive exposure, rollout pause, rollout abort, policy override, exposure before detection, automated analysis a cleanup phase.
+Relevantné pojmy: progressive delivery, rollout controller, rollout contract, promotion axis, observed state, evidence-driven promotion, inconclusive rollout, rollout pause, exposure control, recovery hierarchy, delayed validation, cleanup phase a rollout closure.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
