@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10696**
-- Total words: **482,838**
-- Findings: **23547** (critical 8041, high 9158, medium 3114, low 3234)
+- Audited conceptual sections: **10708**
+- Total words: **484,231**
+- Findings: **23572** (critical 8046, high 9158, medium 3116, low 3252)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -193,6 +193,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 563 | 22 | 33 | 10 | 4 | 1128 | `docs/02-networking-and-web/dhcp.md` |
 | D | 551 | 18 | 37 | 10 | 4 | 1166 | `docs/09-kubernetes/deployment.md` |
 | D | 546 | 21 | 35 | 5 | 2 | 1011 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
+| D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 544 | 31 | 15 | 13 | 5 | 1262 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | D | 541 | 19 | 28 | 9 | 46 | 3195 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 534 | 27 | 23 | 9 | 1 | 852 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
@@ -209,7 +210,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 477 | 22 | 23 | 8 | 4 | 877 | `docs/03-git-and-automation/branching-strategies.md` |
 | D | 465 | 26 | 15 | 10 | 1 | 1343 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
-| D | 462 | 18 | 26 | 9 | 5 | 1127 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
@@ -1815,47 +1815,52 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`, `Predpoklady: TCP a UDP, Linux networking`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 55, `empty-section` — **4. Socket lifecycle**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 95, `outline-instead-of-explanation` — **5. Binding adresy**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `bare-bullet-items` — **6. Pozorovanie socketov**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-l : listening,`, `-t : TCP,`, `-u : UDP,`, `-p : process,`.
-- **CRITICAL** line 117, `outline-instead-of-explanation` — **6. Pozorovanie socketov**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 186, `bare-bullet-items` — **9. Ephemeral ports a vyčerpanie**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyčerpanie lokálneho ephemeral range,`, `veľa socketov v TIME-WAIT ,`, `collision s NAT mappings,`, `limity file descriptorov,`.
-- **CRITICAL** line 210, `bare-bullet-items` — **10. Unix domain sockets**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálna komunikácia bez IP routing,`, `filesystem permissions ako access control,`, `nižší overhead v niektorých prípadoch.`, `zlý ownership alebo mode,`.
-- **CRITICAL** line 210, `outline-instead-of-explanation` — **10. Unix domain sockets**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `bare-bullet-items` — **12. Port publishing a forwarding**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `port aplikácie,`, `port v container namespace,`, `publikovaný host port,`, `load balancer frontend port,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **12. Port publishing a forwarding**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 281, `bare-bullet-items` — **13. Bezpečnosť**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bind iba na potrebné interfaces,`, `firewall allowlist,`, `autentifikácia a šifrovanie na aplikačnej vrstve,`, `least privilege procesu,`.
-- **CRITICAL** line 281, `outline-instead-of-explanation` — **13. Bezpečnosť**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 297, `bare-bullet-items` — **14. Diagnostický postup**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje proces a socket,`, `na akej adrese je bind,`, `v ktorom namespace je socket,`, `je port publikovaný alebo routovateľný,`.
-- **CRITICAL** line 297, `outline-instead-of-explanation` — **14. Diagnostický postup**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 320, `empty-section` — **15. Typické symptómy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 342, `empty-section` — **16. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 115, `bare-bullet-items` — **7. UDP socket lifecycle**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nastaví default remote endpoint,`, `umožní používať send() a recv() ,`, `filtruje datagramy podľa peer identity,`, `môže zlepšiť priradenie ICMP chýb ku konkrétnemu socketu.`.
+- **CRITICAL** line 208, `bare-bullet-items` — **15. SO REUSEPORT**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac worker procesov bez jedného centrálneho acceptora,`, `distribúcia UDP datagramov medzi workers,`, `graceful rollout s paralelnými listeners podľa aplikačného modelu.`, `nerovnomerné flow sizes,`.
+- **CRITICAL** line 208, `outline-instead-of-explanation` — **15. SO REUSEPORT**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 239, `bare-bullet-items` — **17. Ephemeral port allocation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľa súčasných flows k rovnakému destination,`, `connection churn a veľa TIME-WAIT ,`, `malý ephemeral range,`, `explicitné bindovanie source portov,`.
+- **CRITICAL** line 279, `outline-instead-of-explanation` — **20. Unix domain sockets**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 325, `bare-bullet-items` — **23. Container port a publikovaný host port**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application port,`, `container namespace port,`, `host published port,`, `load-balancer frontend port,`.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **27. Bezpečnostný model socket exposure**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 390, `bare-bullet-items` — **28. Pozorovanie socketov v Linuxe**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protocol a address family,`, `bind address a port,`, `network namespace,`, `listener alebo connected state,`.
+- **CRITICAL** line 390, `outline-instead-of-explanation` — **28. Pozorovanie socketov v Linuxe**: 8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 413, `bare-bullet-items` — **29. Connection refused**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination host poslal TCP RST, pretože nič nepočúva,`, `firewall alebo proxy explicitne rejectli connection,`, `aplikácia počúva na inej adrese alebo porte,`, `NAT/load-balancer target smeruje na nesprávny endpoint.`.
+- **CRITICAL** line 413, `outline-instead-of-explanation` — **29. Connection refused**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 424, `bare-bullet-items` — **30. Timeout**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS alebo route zlyhanie,`, `ARP/NDP failure,`, `firewall drop,`, `chýbajúci return path,`.
+- **CRITICAL** line 424, `outline-instead-of-explanation` — **30. Timeout**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 439, `bare-bullet-items` — **31. Address already in use**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúci listener na rovnakom endpoint-e,`, `wildcard listener, ktorý pokrýva konkrétnu adresu,`, `IPv6 dual-stack socket, ktorý koliduje s IPv4 bindom,`, `reuse options nastavené iba na jednej strane,`.
+- **CRITICAL** line 439, `outline-instead-of-explanation` — **31. Address already in use**: 6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 466, `no-prose-concept` — **33. Diagnostický postup: klient sa nepripojí na 8080**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 466, `outline-instead-of-explanation` — **33. Diagnostický postup: klient sa nepripojí na 8080**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 486, `bare-bullet-items` — **34. Diagnostický postup: socket existuje, ale aplikácia nereaguje**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over send a receive queues cez ss -tinp .`, `Skontroluj thread alebo event-loop state procesu.`, `Over file-descriptor a worker limits.`, `Skontroluj dependency latency a application logs.`.
+- **CRITICAL** line 486, `outline-instead-of-explanation` — **34. Diagnostický postup: socket existuje, ale aplikácia nereaguje**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 497, `empty-section` — **35. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `list-first-introduction` — **2. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 57, `list-first-introduction` — **TCP server**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 75, `list-first-introduction` — **TCP klient**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 75, `single-sentence-concept` — **TCP klient**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 95, `single-sentence-concept` — **5. Binding adresy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 117, `single-sentence-concept` — **6. Pozorovanie socketov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 152, `bare-bullet-items` — **7. TCP listen queues**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `queue pre neúplné handshake,`, `accept queue pre dokončené spojenia čakajúce na accept() .`.
-- **HIGH** line 152, `single-sentence-concept` — **7. TCP listen queues**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 174, `bare-bullet-items` — **8. SO REUSEADDR a SO REUSEPORT**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `rýchlejší restart servera po predchádzajúcom spojení,`, `riadené rozdelenie incoming spojení kernelom.`.
-- **HIGH** line 259, `single-sentence-concept` — **12. Port publishing a forwarding**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 297, `single-sentence-concept` — **14. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 326, `single-sentence-concept` — **Timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 330, `single-sentence-concept` — **Address already in use**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 334, `single-sentence-concept` — **Funguje cez localhost, nie cez sieť**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **Funguje na hoste, nie v kontajneri**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 360, `single-sentence-concept` — **„UDP socket nemôže byť connected“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 239, `list-heavy-section` — **17. Ephemeral port allocation**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 279, `bare-bullet-items` — **20. Unix domain sockets**: 5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `parent directory permissions,`, `stale pathname po nekorektnom páde,`, `mount namespace rozdiely,`, `SELinux/AppArmor policy,`.
+- **HIGH** line 378, `single-sentence-concept` — **27. Bezpečnostný model socket exposure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 390, `list-first-introduction` — **28. Pozorovanie socketov v Linuxe**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 390, `single-sentence-concept` — **28. Pozorovanie socketov v Linuxe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 439, `single-sentence-concept` — **31. Address already in use**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 466, `list-first-introduction` — **33. Diagnostický postup: klient sa nepripojí na 8080**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 486, `list-first-introduction` — **34. Diagnostický postup: socket existuje, ale aplikácia nereaguje**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 486, `single-sentence-concept` — **34. Diagnostický postup: socket existuje, ale aplikácia nereaguje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 503, `single-sentence-concept` — **„Jeden port môže obsluhovať iba jednu connection“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `TCP`, `UDP`, `DNS`, `NAT`, `HTTP`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 95, `thin-concept-section` — **5. Binding adresy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 117, `thin-concept-section` — **6. Pozorovanie socketov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 210, `thin-concept-section` — **10. Unix domain sockets**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **12. Port publishing a forwarding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 281, `thin-concept-section` — **13. Bezpečnosť**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 297, `thin-concept-section` — **14. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 61, `term-before-explanation` — **4. Rozsahy portov**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `CAP`, `NET`, `BIND`, `SERVICE`
+- **HIGH** line 208, `thin-concept-section` — **15. SO REUSEPORT**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 279, `term-before-explanation` — **20. Unix domain sockets**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `TCP`, `scope`, `policy`
+- **HIGH** line 279, `thin-concept-section` — **20. Unix domain sockets**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 378, `thin-concept-section` — **27. Bezpečnostný model socket exposure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 390, `thin-concept-section` — **28. Pozorovanie socketov v Linuxe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 413, `thin-concept-section` — **29. Connection refused**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 424, `term-before-explanation` — **30. Timeout**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `ARP`, `NDP`, `SYN`, `TLS`
+- **HIGH** line 424, `thin-concept-section` — **30. Timeout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 439, `thin-concept-section` — **31. Address already in use**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 466, `term-before-explanation` — **33. Diagnostický postup: klient sa nepripojí na 8080**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SYN`, `SYN-ACK`, `RST`
+- **HIGH** line 466, `thin-concept-section` — **33. Diagnostický postup: klient sa nepripojí na 8080**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 486, `thin-concept-section` — **34. Diagnostický postup: socket existuje, ale aplikácia nereaguje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/proxy-and-reverse-proxy.md`
 
@@ -18249,19 +18254,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4038 | 0 | 0 | 4038 |
-| `bare-bullet-items` | 3672 | 328 | 0 | 0 | 4000 |
-| `outline-instead-of-explanation` | 3602 | 0 | 0 | 0 | 3602 |
-| `thin-concept-section` | 0 | 3288 | 0 | 0 | 3288 |
-| `term-before-explanation` | 0 | 362 | 2232 | 0 | 2594 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1368 | 1368 |
-| `example-not-explicit` | 0 | 0 | 0 | 1230 | 1230 |
+| `single-sentence-concept` | 0 | 4031 | 0 | 0 | 4031 |
+| `bare-bullet-items` | 3675 | 327 | 0 | 0 | 4002 |
+| `outline-instead-of-explanation` | 3605 | 0 | 0 | 0 | 3605 |
+| `thin-concept-section` | 0 | 3291 | 0 | 0 | 3291 |
+| `term-before-explanation` | 0 | 366 | 2233 | 0 | 2599 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1371 | 1371 |
+| `example-not-explicit` | 0 | 0 | 0 | 1241 | 1241 |
 | `list-first-introduction` | 0 | 901 | 0 | 0 | 901 |
-| `short-concept-section` | 0 | 0 | 882 | 0 | 882 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 636 | 636 |
-| `empty-section` | 473 | 0 | 0 | 0 | 473 |
-| `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
-| `list-heavy-section` | 0 | 241 | 0 | 0 | 241 |
+| `short-concept-section` | 0 | 0 | 883 | 0 | 883 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 640 | 640 |
+| `empty-section` | 471 | 0 | 0 | 0 | 471 |
+| `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
+| `list-heavy-section` | 0 | 242 | 0 | 0 | 242 |
 
 ## Required remediation pattern
 

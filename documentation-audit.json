@@ -702,16 +702,16 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "title": "Ports and Sockets",
-      "words": 1127,
-      "headings": 31,
-      "sections": 31,
-      "findings": 58,
-      "critical": 18,
+      "title": "Ports a sockets",
+      "words": 2520,
+      "headings": 43,
+      "sections": 43,
+      "findings": 83,
+      "critical": 23,
       "high": 26,
-      "medium": 9,
-      "low": 5,
-      "score": 462,
+      "medium": 11,
+      "low": 23,
+      "score": 544,
       "grade": "D"
     },
     {
@@ -31133,26 +31133,17 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "2. Mentálny model",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Socket ako kernel objekt a file descriptor",
+      "line": 31,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "2. Mentálny model",
-      "line": 17,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "3. Rozsah portov",
-      "line": 37,
+      "section": "4. Rozsahy portov",
+      "line": 61,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -31160,161 +31151,44 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "3. Rozsah portov",
-      "line": 37,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IANA`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "4. Socket lifecycle",
-      "line": 55,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "TCP server",
-      "line": 57,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "TCP klient",
-      "line": 75,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "TCP klient",
-      "line": 75,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "5. Binding adresy",
-      "line": 95,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "5. Binding adresy",
-      "line": 95,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "5. Binding adresy",
-      "line": 95,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "5. Binding adresy",
-      "line": 95,
+      "section": "4. Rozsahy portov",
+      "line": 61,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "5. Binding adresy",
-      "line": 95,
-      "severity": "medium",
+      "section": "4. Rozsahy portov",
+      "line": 61,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "4. Rozsahy portov",
+      "line": 61,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `IPV6`, `V6ONLY`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "6. Pozorovanie socketov",
-      "line": 117,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "6. Pozorovanie socketov",
-      "line": 117,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "6. Pozorovanie socketov",
-      "line": 117,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-l : listening,`, `-t : TCP,`, `-u : UDP,`, `-p : process,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "6. Pozorovanie socketov",
-      "line": 117,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `CAP`, `NET`, `BIND`, `SERVICE`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "6. Pozorovanie socketov",
-      "line": 117,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "7. TCP listen queues",
-      "line": 152,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "7. TCP listen queues",
-      "line": 152,
-      "severity": "high",
+      "section": "7. UDP socket lifecycle",
+      "line": 115,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `queue pre neúplné handshake,`, `accept queue pre dokončené spojenia čakajúce na accept() .`.",
-      "score": 8
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nastaví default remote endpoint,`, `umožní používať send() a recv() ,`, `filtruje datagramy podľa peer identity,`, `môže zlepšiť priradenie ICMP chýb ku konkrétnemu socketu.`.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "7. TCP listen queues",
-      "line": 152,
+      "section": "7. UDP socket lifecycle",
+      "line": 115,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -31322,25 +31196,43 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "7. TCP listen queues",
-      "line": 152,
+      "section": "7. UDP socket lifecycle",
+      "line": 115,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "8. SO REUSEADDR a SO REUSEPORT",
-      "line": 174,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `rýchlejší restart servera po predchádzajúcom spojení,`, `riadené rozdelenie incoming spojení kernelom.`.",
-      "score": 8
+      "section": "7. UDP socket lifecycle",
+      "line": 115,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "8. SO REUSEADDR a SO REUSEPORT",
+      "section": "8. Bind address rozhoduje o exposure",
+      "line": 128,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "8. Bind address rozhoduje o exposure",
+      "line": 128,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "12. SYN queue a accept queue",
       "line": 174,
       "severity": "medium",
       "rule": "short-concept-section",
@@ -31349,7 +31241,7 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "8. SO REUSEADDR a SO REUSEPORT",
+      "section": "12. SYN queue a accept queue",
       "line": 174,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -31358,17 +31250,17 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "9. Ephemeral ports a vyčerpanie",
-      "line": 186,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyčerpanie lokálneho ephemeral range,`, `veľa socketov v TIME-WAIT ,`, `collision s NAT mappings,`, `limity file descriptorov,`.",
-      "score": 12
+      "section": "12. SYN queue a accept queue",
+      "line": 174,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "9. Ephemeral ports a vyčerpanie",
-      "line": 186,
+      "section": "13. Send a receive queues",
+      "line": 192,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -31376,35 +31268,53 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "9. Ephemeral ports a vyčerpanie",
-      "line": 186,
+      "section": "13. Send a receive queues",
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "13. Send a receive queues",
+      "line": 192,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "13. Send a receive queues",
+      "line": 192,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TIME-WAIT`, `NAT`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "10. Unix domain sockets",
-      "line": 210,
+      "section": "15. SO REUSEPORT",
+      "line": 208,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "10. Unix domain sockets",
-      "line": 210,
+      "section": "15. SO REUSEPORT",
+      "line": 208,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálna komunikácia bez IP routing,`, `filesystem permissions ako access control,`, `nižší overhead v niektorých prípadoch.`, `zlý ownership alebo mode,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac worker procesov bez jedného centrálneho acceptora,`, `distribúcia UDP datagramov medzi workers,`, `graceful rollout s paralelnými listeners podľa aplikačného modelu.`, `nerovnomerné flow sizes,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "10. Unix domain sockets",
-      "line": 210,
+      "section": "15. SO REUSEPORT",
+      "line": 208,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -31412,35 +31322,80 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "12. Port publishing a forwarding",
-      "line": 259,
+      "section": "15. SO REUSEPORT",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "15. SO REUSEPORT",
+      "line": 208,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "17. Ephemeral port allocation",
+      "line": 239,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "12. Port publishing a forwarding",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "12. Port publishing a forwarding",
-      "line": 259,
+      "section": "17. Ephemeral port allocation",
+      "line": 239,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `port aplikácie,`, `port v container namespace,`, `publikovaný host port,`, `load balancer frontend port,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľa súčasných flows k rovnakému destination,`, `connection churn a veľa TIME-WAIT ,`, `malý ephemeral range,`, `explicitné bindovanie source portov,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "12. Port publishing a forwarding",
-      "line": 259,
+      "section": "17. Ephemeral port allocation",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "17. Ephemeral port allocation",
+      "line": 239,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TIME-WAIT`, `PAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "20. Unix domain sockets",
+      "line": 279,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "20. Unix domain sockets",
+      "line": 279,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `parent directory permissions,`, `stale pathname po nekorektnom páde,`, `mount namespace rozdiely,`, `SELinux/AppArmor policy,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "20. Unix domain sockets",
+      "line": 279,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -31448,35 +31403,44 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "13. Bezpečnosť",
-      "line": 281,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "20. Unix domain sockets",
+      "line": 279,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "13. Bezpečnosť",
-      "line": 281,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bind iba na potrebné interfaces,`, `firewall allowlist,`, `autentifikácia a šifrovanie na aplikačnej vrstve,`, `least privilege procesu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "13. Bezpečnosť",
-      "line": 281,
+      "section": "20. Unix domain sockets",
+      "line": 279,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `TCP`, `scope`, `policy`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "13. Bezpečnosť",
-      "line": 281,
+      "section": "23. Container port a publikovaný host port",
+      "line": 325,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application port,`, `container namespace port,`, `host published port,`, `load-balancer frontend port,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "23. Container port a publikovaný host port",
+      "line": 325,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "23. Container port a publikovaný host port",
+      "line": 325,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -31484,44 +31448,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "14. Diagnostický postup",
-      "line": 297,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "14. Diagnostický postup",
-      "line": 297,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "14. Diagnostický postup",
-      "line": 297,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje proces a socket,`, `na akej adrese je bind,`, `v ktorom namespace je socket,`, `je port publikovaný alebo routovateľný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "14. Diagnostický postup",
-      "line": 297,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "14. Diagnostický postup",
-      "line": 297,
+      "section": "25. Firewall a bind sú odlišné kontroly",
+      "line": 359,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -31529,17 +31457,359 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "14. Diagnostický postup",
-      "line": 297,
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "27. Bezpečnostný model socket exposure",
+      "line": 378,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `SYN-ACK`, `RST`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MITM`, `scope`, `policy`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "15. Typické symptómy",
-      "line": 320,
+      "section": "28. Pozorovanie socketov v Linuxe",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "28. Pozorovanie socketov v Linuxe",
+      "line": 390,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "28. Pozorovanie socketov v Linuxe",
+      "line": 390,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "28. Pozorovanie socketov v Linuxe",
+      "line": 390,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protocol a address family,`, `bind address a port,`, `network namespace,`, `listener alebo connected state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "28. Pozorovanie socketov v Linuxe",
+      "line": 390,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "29. Connection refused",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "29. Connection refused",
+      "line": 413,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination host poslal TCP RST, pretože nič nepočúva,`, `firewall alebo proxy explicitne rejectli connection,`, `aplikácia počúva na inej adrese alebo porte,`, `NAT/load-balancer target smeruje na nesprávny endpoint.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "29. Connection refused",
+      "line": 413,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "29. Connection refused",
+      "line": 413,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "29. Connection refused",
+      "line": 413,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "30. Timeout",
+      "line": 424,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "30. Timeout",
+      "line": 424,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS alebo route zlyhanie,`, `ARP/NDP failure,`, `firewall drop,`, `chýbajúci return path,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "30. Timeout",
+      "line": 424,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "30. Timeout",
+      "line": 424,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "30. Timeout",
+      "line": 424,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `ARP`, `NDP`, `SYN`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "31. Address already in use",
+      "line": 439,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "31. Address already in use",
+      "line": 439,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "31. Address already in use",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúci listener na rovnakom endpoint-e,`, `wildcard listener, ktorý pokrýva konkrétnu adresu,`, `IPv6 dual-stack socket, ktorý koliduje s IPv4 bindom,`, `reuse options nastavené iba na jednej strane,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "31. Address already in use",
+      "line": 439,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "33. Diagnostický postup: klient sa nepripojí na 8080",
+      "line": 466,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SYN`, `SYN-ACK`, `RST`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "34. Diagnostický postup: socket existuje, ale aplikácia nereaguje",
+      "line": 486,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "34. Diagnostický postup: socket existuje, ale aplikácia nereaguje",
+      "line": 486,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "34. Diagnostický postup: socket existuje, ale aplikácia nereaguje",
+      "line": 486,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "34. Diagnostický postup: socket existuje, ale aplikácia nereaguje",
+      "line": 486,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over send a receive queues cez ss -tinp .`, `Skontroluj thread alebo event-loop state procesu.`, `Over file-descriptor a worker limits.`, `Skontroluj dependency latency a application logs.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "34. Diagnostický postup: socket existuje, ale aplikácia nereaguje",
+      "line": 486,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "34. Diagnostický postup: socket existuje, ale aplikácia nereaguje",
+      "line": 486,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ports-and-sockets.md",
+      "section": "35. Časté omyly",
+      "line": 497,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -31547,53 +31817,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "Timeout",
-      "line": 326,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "Address already in use",
-      "line": 330,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "Funguje cez localhost, nie cez sieť",
-      "line": 334,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "Funguje na hoste, nie v kontajneri",
-      "line": 338,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "16. Časté omyly",
-      "line": 342,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ports-and-sockets.md",
-      "section": "„UDP socket nemôže byť connected“",
-      "line": 360,
+      "section": "„Jeden port môže obsluhovať iba jednu connection“",
+      "line": 503,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
