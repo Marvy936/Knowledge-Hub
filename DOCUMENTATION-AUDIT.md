@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11817**
-- Total words: **578,718**
-- Findings: **27089** (critical 8844, high 9832, medium 3819, low 4594)
+- Audited conceptual sections: **11833**
+- Total words: **580,501**
+- Findings: **27178** (critical 8865, high 9848, medium 3838, low 4627)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -75,6 +75,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1148 | 57 | 51 | 15 | 11 | 1728 | `docs/12-observability/metrics-logs-traces-events.md` |
 | D | 1137 | 52 | 55 | 21 | 10 | 1623 | `docs/09-kubernetes/upgrades.md` |
 | D | 1131 | 46 | 49 | 35 | 49 | 3666 | `docs/04-testing-and-quality/chaos-testing.md` |
+| D | 1126 | 50 | 49 | 26 | 35 | 2843 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 1123 | 52 | 52 | 21 | 12 | 1692 | `docs/12-observability/instrumentation-telemetry.md` |
 | D | 1119 | 54 | 46 | 25 | 14 | 1792 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | D | 1119 | 48 | 58 | 16 | 21 | 2203 | `docs/12-observability/loki.md` |
@@ -188,7 +189,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 640 | 27 | 25 | 18 | 41 | 3216 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 639 | 29 | 35 | 6 | 0 | 1038 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
-| D | 629 | 29 | 33 | 7 | 2 | 1060 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 622 | 28 | 35 | 5 | 0 | 984 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | D | 621 | 25 | 34 | 12 | 5 | 1464 | `docs/09-kubernetes/service-endpointslice.md` |
 | D | 611 | 30 | 25 | 14 | 4 | 1175 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
@@ -6851,68 +6851,105 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/05-ci-cd-and-release/semantic-versioning.md`
 
-- **CRITICAL** line 25, `bare-bullet-items` — **2. Čo je public API**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `programové interfaces,`, `CLI flags a exit codes,`, `configuration schema,`, `environment variables,`.
-- **CRITICAL** line 25, `outline-instead-of-explanation` — **2. Čo je public API**: 12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 46, `bare-bullet-items` — **3. PATCH verzia**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprava nesprávneho výpočtu,`, `security fix bez zmeny verejného contractu,`, `performance zlepšenie so zachovanou semantics,`, `oprava dokumentácie package-u,`.
-- **CRITICAL** line 46, `outline-instead-of-explanation` — **3. PATCH verzia**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 64, `bare-bullet-items` — **4. MINOR verzia**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional API field,`, `nový endpoint,`, `nový backward-compatible CLI command,`, `nový optional configuration parameter,`.
-- **CRITICAL** line 64, `outline-instead-of-explanation` — **4. MINOR verzia**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 82, `bare-bullet-items` — **5. MAJOR verzia**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie endpointu,`, `zmena významu existujúceho poľa,`, `povinný nový parameter,`, `zmena default behavior,`.
-- **CRITICAL** line 82, `outline-instead-of-explanation` — **5. MAJOR verzia**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **9. Version precedence**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `major,`, `minor,`, `patch,`, `pre-release identifiers.`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **9. Version precedence**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 205, `bare-bullet-items` — **11. Dependency resolution**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočnú backward compatibility,`, `runtime environment,`, `transitive dependency konflikty,`, `security stav,`.
-- **CRITICAL** line 205, `outline-instead-of-explanation` — **11. Dependency resolution**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 217, `bare-bullet-items` — **12. API compatibility a behavior compatibility**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntaktická,`, `typová,`, `behaviorálna,`, `výkonnostná,`.
-- **CRITICAL** line 217, `outline-instead-of-explanation` — **12. API compatibility a behavior compatibility**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 256, `bare-bullet-items` — **Unified version**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý release manifest,`, `koordinované cross-component changes.`, `verzia sa mení aj komponentom bez zmeny,`, `major bump jedného contractu ovplyvní celý produkt.`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **Unified version**: 4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 270, `bare-bullet-items` — **Independent versions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency graph,`, `affected-project detection,`, `per-component changelog,`, `koordináciu compatibility.`.
-- **CRITICAL** line 270, `outline-instead-of-explanation` — **Independent versions**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 281, `bare-bullet-items` — **15. Services a SemVer**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint alebo schema versioning,`, `backward-compatible rollout,`, `consumer inventory,`, `contract tests,`.
-- **CRITICAL** line 281, `outline-instead-of-explanation` — **15. Services a SemVer**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `bare-bullet-items` — **16. Databázové schema versions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `monotónne migration IDs,`, `applied migration history,`, `compatibility s old/new application versions,`, `expand-contract lifecycle.`.
-- **CRITICAL** line 296, `outline-instead-of-explanation` — **16. Databázové schema versions**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 309, `bare-bullet-items` — **17. Automatické určovanie verzie**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitného release manifestu,`, `conventional commits,`, `labels,`, `changelog fragments,`.
-- **CRITICAL** line 309, `outline-instead-of-explanation` — **17. Automatické určovanie verzie**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 321, `bare-bullet-items` — **18. Changelog a release notes**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové capabilities,`, `opravy,`, `breaking changes,`, `deprecations,`.
-- **CRITICAL** line 321, `outline-instead-of-explanation` — **18. Changelog a release notes**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 336, `empty-section` — **19. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 364, `bare-bullet-items` — **PATCH release rozbil consumerov**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nedokumentované behavior dependencies,`, `strict schema parsing,`, `enum expansion,`, `default zmeny,`.
-- **CRITICAL** line 364, `outline-instead-of-explanation` — **PATCH release rozbil consumerov**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `bare-bullet-items` — **1. Základný formát**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `MINOR — backward-compatible nová funkcionalita,`, `PATCH — backward-compatible oprava.`.
-- **HIGH** line 7, `list-first-introduction` — **1. Základný formát**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 7, `single-sentence-concept` — **1. Základný formát**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 161, `single-sentence-concept` — **9. Version precedence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 205, `single-sentence-concept` — **11. Dependency resolution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 217, `single-sentence-concept` — **12. API compatibility a behavior compatibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **13. Deprecation lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 252, `single-sentence-concept` — **14. SemVer v monorepe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 256, `single-sentence-concept` — **Unified version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 270, `single-sentence-concept` — **Independent versions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 321, `single-sentence-concept` — **18. Changelog a release notes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **Každá interná zmena je PATCH**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `single-sentence-concept` — **MAJOR bump bez migration plánu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 346, `single-sentence-concept` — **Verzia sa vypočíta z branch názvu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 350, `single-sentence-concept` — **latest compatible bez lockfile**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 354, `single-sentence-concept` — **Dlhodobé 0.x , aby nič nebolo breaking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 358, `single-sentence-concept` — **SemVer pre mutable artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 364, `single-sentence-concept` — **PATCH release rozbil consumerov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 375, `single-sentence-concept` — **Resolver vybral neočakávanú verziu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 7, `thin-concept-section` — **1. Základný formát**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 25, `thin-concept-section` — **2. Čo je public API**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 46, `thin-concept-section` — **3. PATCH verzia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 64, `thin-concept-section` — **4. MINOR verzia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 82, `thin-concept-section` — **5. MAJOR verzia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **9. Version precedence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 205, `thin-concept-section` — **11. Dependency resolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 217, `thin-concept-section` — **12. API compatibility a behavior compatibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 256, `thin-concept-section` — **Unified version**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 270, `thin-concept-section` — **Independent versions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 296, `thin-concept-section` — **16. Databázové schema versions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 309, `thin-concept-section` — **17. Automatické určovanie verzie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 321, `thin-concept-section` — **18. Changelog a release notes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 364, `thin-concept-section` — **PATCH release rozbil consumerov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 46, `bare-bullet-items` — **3. Public API je rozhodujúca boundary**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `function signatures a typy,`, `HTTP/GraphQL endpoints, fields a status/error semantics,`, `event schemas, ordering a delivery assumptions,`, `CLI commands, flags, stdout/stderr format a exit codes,`.
+- **CRITICAL** line 95, `bare-bullet-items` — **6. PATCH verzia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprava nesprávneho výpočtu podľa existujúcej špecifikácie,`, `security fix bez zmeny public contractu,`, `performance optimalizácia so zachovanou observable semantics,`, `oprava memory/resource leak bez zmeny API,`.
+- **CRITICAL** line 125, `bare-bullet-items` — **8. MAJOR verzia**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie endpointu alebo exportu,`, `zmena významu existujúceho fieldu,`, `nový povinný parameter,`, `zmena default behavioru,`.
+- **CRITICAL** line 125, `outline-instead-of-explanation` — **8. MAJOR verzia**: 11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 145, `bare-bullet-items` — **9. Verzia musí byť nemenná**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency lockfiles,`, `reprodukovateľné buildy,`, `audit,`, `incidentnú diagnostiku,`.
+- **CRITICAL** line 205, `bare-bullet-items` — **12. Build metadata**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `môžu identifikovať build, source alebo variant,`, `nemenia SemVer precedence,`, `nemajú sa používať ako jediný spôsob ordering releaseov,`, `môžu mať ecosystem-specific obmedzenia.`.
+- **CRITICAL** line 205, `outline-instead-of-explanation` — **12. Build metadata**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 223, `bare-bullet-items` — **13. Precedence algoritmus**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `porovnaj MAJOR numericky;`, `ak je rovnaký, porovnaj MINOR numericky;`, `ak je rovnaký, porovnaj PATCH numericky;`, `pre-release identifiers porovnávaj zľava doprava;`.
+- **CRITICAL** line 223, `outline-instead-of-explanation` — **13. Precedence algoritmus**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 251, `bare-bullet-items` — **14. Producer a consumer asymetria**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný public API inventory,`, `compatibility tests a diff tooling,`, `review behavior changes,`, `release notes a migration guidance,`.
+- **CRITICAL** line 251, `outline-instead-of-explanation` — **14. Producer a consumer asymetria**: 12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 275, `outline-instead-of-explanation` — **15. Compatibility dimensions**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 290, `bare-bullet-items` — **16. Syntaktická verzus behaviorálna kompatibilita**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena sort orderu,`, `odlišné timeouty alebo retries,`, `zmena rounding pravidla,`, `nový rate limit,`.
+- **CRITICAL** line 290, `outline-instead-of-explanation` — **16. Syntaktická verzus behaviorálna kompatibilita**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 328, `bare-bullet-items` — **18. Version ranges**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znižuje update friction,`, `umožňuje automaticky prijímať fixes,`, `zvyšuje priestor neotestovaných combinations.`, `zvyšuje reprodukovateľnosť,`.
+- **CRITICAL** line 352, `bare-bullet-items` — **19. Lockfile a resolved manifest**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné direct a transitive versions,`, `source/registry,`, `integrity hash podľa ecosystemu,`, `platform markers podľa potreby.`.
+- **CRITICAL** line 352, `outline-instead-of-explanation` — **19. Lockfile a resolved manifest**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 371, `bare-bullet-items` — **20. Dependency update policy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatické PATCH updates,`, `grouped MINOR updates,`, `manuálne MAJOR migrations,`, `security override,`.
+- **CRITICAL** line 388, `bare-bullet-items` — **21. Pre-release dependency ranges**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či pre-release versions povoľuje,`, `z ktorého channelu,`, `pre ktoré environments,`, `ako zabráni náhodnému promotion pre-release artifactu do produkcie,`.
+- **CRITICAL** line 388, `outline-instead-of-explanation` — **21. Pre-release dependency ranges**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 400, `bare-bullet-items` — **22. Deprecation lifecycle**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je deprecated,`, `dostupnú náhradu,`, `prvú deprecated version,`, `plánovanú removal version alebo deadline,`.
+- **CRITICAL** line 400, `outline-instead-of-explanation` — **22. Deprecation lifecycle**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 426, `bare-bullet-items` — **23. Parallel major versions**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support a end-of-life termíny,`, `ktoré fixes sa backportujú,`, `security severity threshold,`, `compatibility a test matrix,`.
+- **CRITICAL** line 426, `outline-instead-of-explanation` — **23. Parallel major versions**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 448, `bare-bullet-items` — **24. Backports**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `supported branch/source of truth,`, `cherry-pick alebo samostatnú implementáciu,`, `tests pre danú dependency/runtime matrix,`, `samostatné release notes,`.
+- **CRITICAL** line 470, `bare-bullet-items` — **25. Monorepo: unified versioning**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšia kompatibilná kombinácia,`, `jeden release manifest a changelog,`, `ľahšie koordinované cross-component zmeny.`, `unchanged komponenty dostávajú novú version,`.
+- **CRITICAL** line 470, `outline-instead-of-explanation` — **25. Monorepo: unified versioning**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 488, `bare-bullet-items` — **26. Monorepo: independent versioning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spoľahlivý dependency graph,`, `affected-package detection,`, `per-component public API inventory,`, `version bump calculation,`.
+- **CRITICAL** line 488, `outline-instead-of-explanation` — **26. Monorepo: independent versioning**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 504, `bare-bullet-items` — **27. Services a contract versioning**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application artifact version,`, `API/schema contract version,`, `deployment revision,`, `release/exposure cohort,`.
+- **CRITICAL** line 518, `bare-bullet-items` — **28. HTTP/API versioning**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versioned URL alebo hostname,`, `media type/content negotiation,`, `header alebo protocol negotiation,`, `nový endpoint a parallel support,`.
+- **CRITICAL** line 518, `outline-instead-of-explanation` — **28. HTTP/API versioning**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 530, `bare-bullet-items` — **29. Event a schema versioning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward compatibility nového consumera so starými events,`, `forward compatibility starého consumera s novými events,`, `unknown fields/types,`, `default values,`.
+- **CRITICAL** line 530, `outline-instead-of-explanation` — **29. Event a schema versioning**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 546, `bare-bullet-items` — **30. Databázové migrations**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré migrations sú applied,`, `expand/backfill/contract fázu,`, `rollback alebo roll-forward možnosti.`.
+- **CRITICAL** line 546, `outline-instead-of-explanation` — **30. Databázové migrations**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 564, `bare-bullet-items` — **31. Infrastructure a modules**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replacement resourceu,`, `zmena default security policy,`, `zmena naming, labels alebo outputs,`, `zmena provider requirements,`.
+- **CRITICAL** line 564, `outline-instead-of-explanation` — **31. Infrastructure a modules**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 579, `bare-bullet-items` — **32. Automatické určovanie bumpu**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API/ABI diffu,`, `schema compatibility kontroly,`, `changelog fragments,`, `conventional commits,`.
+- **CRITICAL** line 579, `outline-instead-of-explanation` — **32. Automatické určovanie bumpu**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 592, `bare-bullet-items` — **33. Changelog a release notes**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové capabilities,`, `bug a security fixes,`, `breaking changes,`, `deprecated a removed APIs,`.
+- **CRITICAL** line 592, `outline-instead-of-explanation` — **33. Changelog a release notes**: 10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 609, `bare-bullet-items` — **34. Troubleshooting nesprávneho version signálu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj presnú resolved version a digest;`, `porovnaj declared public contract so zmenou;`, `skontroluj behavior/default/error semantics;`, `over strict parsers, enums a unknown-field handling;`.
+- **CRITICAL** line 609, `outline-instead-of-explanation` — **34. Troubleshooting nesprávneho version signálu**: 10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 624, `empty-section` — **35. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 662, `no-prose-concept` — **36. Praktický rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 662, `outline-instead-of-explanation` — **36. Praktický rozhodovací rámec**: 15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 680, `bare-bullet-items` — **37. Kontrolný checklist**: 14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public API a supported platforms sú explicitné,`, `core version a identifiers sú syntakticky validné,`, `MAJOR/MINOR/PATCH reset pravidlá sú správne,`, `publikovaná version je immutable,`.
+- **CRITICAL** line 680, `outline-instead-of-explanation` — **37. Kontrolný checklist**: 15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.
+- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 46, `list-heavy-section` — **3. Public API je rozhodujúca boundary**: 14 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 95, `list-heavy-section` — **6. PATCH verzia**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 110, `bare-bullet-items` — **7. MINOR verzia**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nový optional parameter s kompatibilným defaultom,`, `nový endpoint alebo command,`, `nový output, ktorý tolerantný consumer môže ignorovať,`, `nový optional configuration field,`.
+- **HIGH** line 110, `list-heavy-section` — **7. MINOR verzia**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 145, `list-heavy-section` — **9. Verzia musí byť nemenná**: 7 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 161, `single-sentence-concept` — **10. Lexikálny formát**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 223, `single-sentence-concept` — **13. Precedence algoritmus**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 328, `list-heavy-section` — **18. Version ranges**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 371, `list-heavy-section` — **20. Dependency update policy**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 426, `single-sentence-concept` — **23. Parallel major versions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 448, `list-heavy-section` — **24. Backports**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 592, `single-sentence-concept` — **33. Changelog a release notes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 609, `single-sentence-concept` — **34. Troubleshooting nesprávneho version signálu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 626, `single-sentence-concept` — **Každá interná zmena je PATCH**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 630, `single-sentence-concept` — **MAJOR bump ako náhrada migration plánu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 634, `single-sentence-concept` — **0.x ako permanentná výnimka**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 638, `single-sentence-concept` — **Rozšírenie enumu automaticky ako MINOR**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 642, `single-sentence-concept` — **Version range bez lockfile a update evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 646, `single-sentence-concept` — **Build metadata používané na ordering**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 650, `single-sentence-concept` — **SemVer version bez immutable artifactu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 654, `single-sentence-concept` — **Service artifact version zamieňaná za API version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 658, `single-sentence-concept` — **Breaking database change iba cez MAJOR číslo**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 662, `bare-bullet-items` — **36. Praktický rozhodovací rámec**: 11 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo je deklarovaný public API?`, `Ktoré compatibility dimensions sú súčasťou contractu?`, `Je zmena observable pre existujúceho consumera?`, `Je version immutable a viazaná na digest?`.
+- **HIGH** line 662, `list-first-introduction` — **36. Praktický rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 680, `single-sentence-concept` — **37. Kontrolný checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 28, `thin-concept-section` — **2. Základný význam**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 125, `thin-concept-section` — **8. MAJOR verzia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 205, `thin-concept-section` — **12. Build metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 223, `term-before-explanation` — **13. Precedence algoritmus**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAJOR`, `MINOR`, `PATCH`, `ASCII`
+- **HIGH** line 223, `thin-concept-section` — **13. Precedence algoritmus**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 251, `thin-concept-section` — **14. Producer a consumer asymetria**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 275, `thin-concept-section` — **15. Compatibility dimensions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 290, `thin-concept-section` — **16. Syntaktická verzus behaviorálna kompatibilita**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 388, `thin-concept-section` — **21. Pre-release dependency ranges**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 400, `thin-concept-section` — **22. Deprecation lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 426, `thin-concept-section` — **23. Parallel major versions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 470, `thin-concept-section` — **25. Monorepo: unified versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 488, `thin-concept-section` — **26. Monorepo: independent versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 530, `thin-concept-section` — **29. Event a schema versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 546, `thin-concept-section` — **30. Databázové migrations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 592, `thin-concept-section` — **33. Changelog a release notes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 609, `thin-concept-section` — **34. Troubleshooting nesprávneho version signálu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 662, `term-before-explanation` — **36. Praktický rozhodovací rámec**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `PATCH`, `MINOR`, `MAJOR`, `identity`
+- **HIGH** line 662, `thin-concept-section` — **36. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 680, `term-before-explanation` — **37. Kontrolný checklist**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `MAJOR`, `MINOR`, `PATCH`, `policy`
+- **HIGH** line 680, `thin-concept-section` — **37. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/05-ci-cd-and-release/shadow-deployment.md`
 
@@ -19726,19 +19763,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4099 | 406 | 0 | 0 | 4505 |
-| `single-sentence-concept` | 0 | 4099 | 0 | 0 | 4099 |
-| `outline-instead-of-explanation` | 3916 | 0 | 0 | 0 | 3916 |
-| `thin-concept-section` | 0 | 3448 | 0 | 0 | 3448 |
-| `term-before-explanation` | 0 | 444 | 2572 | 0 | 3016 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1876 | 1876 |
-| `example-not-explicit` | 0 | 0 | 0 | 1781 | 1781 |
-| `short-concept-section` | 0 | 0 | 1247 | 0 | 1247 |
-| `list-first-introduction` | 0 | 978 | 0 | 0 | 978 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 937 | 937 |
+| `bare-bullet-items` | 4111 | 408 | 0 | 0 | 4519 |
+| `single-sentence-concept` | 0 | 4097 | 0 | 0 | 4097 |
+| `outline-instead-of-explanation` | 3923 | 0 | 0 | 0 | 3923 |
+| `thin-concept-section` | 0 | 3453 | 0 | 0 | 3453 |
+| `term-before-explanation` | 0 | 447 | 2582 | 0 | 3029 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1892 | 1892 |
+| `example-not-explicit` | 0 | 0 | 0 | 1791 | 1791 |
+| `short-concept-section` | 0 | 0 | 1256 | 0 | 1256 |
+| `list-first-introduction` | 0 | 979 | 0 | 0 | 979 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 944 | 944 |
 | `empty-section` | 487 | 0 | 0 | 0 | 487 |
-| `list-heavy-section` | 0 | 457 | 0 | 0 | 457 |
-| `no-prose-concept` | 342 | 0 | 0 | 0 | 342 |
+| `list-heavy-section` | 0 | 464 | 0 | 0 | 464 |
+| `no-prose-concept` | 344 | 0 | 0 | 0 | 344 |
 
 ## Required remediation pattern
 
