@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11642**
-- Total words: **564,123**
-- Findings: **26309** (critical 8661, high 9685, medium 3665, low 4298)
+- Audited conceptual sections: **11647**
+- Total words: **565,310**
+- Findings: **26368** (critical 8665, high 9688, medium 3681, low 4334)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -112,6 +112,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 893 | 42 | 48 | 6 | 1 | 1269 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | D | 885 | 45 | 37 | 16 | 2 | 1413 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | D | 882 | 47 | 34 | 15 | 3 | 1344 | `docs/06-gitlab/security-scanning.md` |
+| D | 876 | 38 | 35 | 24 | 38 | 2193 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | D | 876 | 41 | 42 | 13 | 4 | 1916 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | D | 875 | 42 | 43 | 12 | 0 | 1216 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
 | D | 863 | 38 | 45 | 15 | 4 | 1491 | `docs/13-security-and-identity/ldap.md` |
@@ -167,7 +168,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 696 | 35 | 30 | 13 | 0 | 1145 | `docs/06-gitlab/variables-and-secrets.md` |
 | D | 695 | 28 | 40 | 13 | 1 | 1252 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | D | 690 | 36 | 29 | 11 | 0 | 1123 | `docs/06-gitlab/container-and-package-registry.md` |
-| D | 684 | 34 | 32 | 8 | 2 | 1006 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | D | 684 | 28 | 37 | 14 | 6 | 1530 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
 | D | 683 | 29 | 39 | 9 | 1 | 1190 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | D | 679 | 31 | 35 | 7 | 6 | 1441 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -5279,71 +5279,78 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/05-ci-cd-and-release/continuous-delivery.md`
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 24, `empty-section` — **2. Continuous Delivery vs. Continuous Deployment**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 36, `bare-bullet-items` — **3. Deployable state**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje immutable artifact,`, `artifact je jednoznačne prepojený so source commitom,`, `potrebné testy a policies prešli,`, `deployment automation je versionovaná,`.
-- **CRITICAL** line 36, `outline-instead-of-explanation` — **3. Deployable state**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 69, `bare-bullet-items` — **5. Artifact promotion**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `source commit,`, `build ID,`, `test evidence,`.
-- **CRITICAL** line 69, `outline-instead-of-explanation` — **5. Artifact promotion**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **6. Environment promotion**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact identity,`, `passing gates,`, `compatibility,`, `environment policy,`.
-- **CRITICAL** line 90, `outline-instead-of-explanation` — **6. Environment promotion**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 108, `bare-bullet-items` — **7. Configuration separation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment variables,`, `configuration service,`, `secret manager,`, `deployment manifest,`.
-- **CRITICAL** line 108, `outline-instead-of-explanation` — **7. Configuration separation**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 120, `bare-bullet-items` — **8. Infrastructure a environment provisioning**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure as Code,`, `declarative configuration,`, `immutable images,`, `ephemeral environments,`.
-- **CRITICAL** line 120, `outline-instead-of-explanation` — **8. Infrastructure a environment provisioning**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 135, `bare-bullet-items` — **9. Deployment automation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný,`, `opakovateľný,`, `idempotentný alebo bezpečne retryable,`, `pozorovateľný,`.
-- **CRITICAL** line 135, `outline-instead-of-explanation` — **9. Deployment automation**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `bare-bullet-items` — **10. Approvals**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sa nasadzuje,`, `aké zmeny obsahuje,`, `ktoré kontroly prešli,`, `aký je risk classification,`.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **10. Approvals**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 164, `bare-bullet-items` — **11. Compliance a separation of duties**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed artifacts,`, `immutable audit log,`, `protected environments,`, `role-based approvals,`.
-- **CRITICAL** line 164, `outline-instead-of-explanation` — **11. Compliance a separation of duties**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 178, `bare-bullet-items` — **12. Release vs. deployment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `feature flags,`, `dark launch,`, `tenant allowlist,`, `canary exposure,`.
-- **CRITICAL** line 178, `outline-instead-of-explanation` — **12. Release vs. deployment**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 210, `bare-bullet-items` — **14. Rollback a roll-forward**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `databázových migráciách,`, `external side effects,`, `event schema zmenách,`, `cache alebo state transformácii.`.
-- **CRITICAL** line 210, `outline-instead-of-explanation` — **14. Rollback a roll-forward**: 9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 227, `bare-bullet-items` — **15. Post-deploy validation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `readiness a health,`, `critical smoke workflow,`, `error rate a latency,`, `dependency behavior,`.
-- **CRITICAL** line 227, `outline-instead-of-explanation` — **15. Post-deploy validation**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 243, `bare-bullet-items` — **16. Release cadence**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on demand,`, `denne,`, `týždenne,`, `podľa release trainu,`.
-- **CRITICAL** line 243, `outline-instead-of-explanation` — **16. Release cadence**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 257, `bare-bullet-items` — **17. Trunk-based development**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátkodobými branches,`, `častou integráciou,`, `feature flags,`, `backward-compatible changes,`.
-- **CRITICAL** line 257, `outline-instead-of-explanation` — **17. Trunk-based development**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 269, `bare-bullet-items` — **18. Pipeline as Code**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaná,`, `reviewovaná,`, `testovateľná,`, `reusable,`.
-- **CRITICAL** line 269, `outline-instead-of-explanation` — **18. Pipeline as Code**: 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 286, `bare-bullet-items` — **19. DORA a Continuous Delivery**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kratší change lead time,`, `vyššiu deployment frequency,`, `menší batch size,`, `rýchlejšiu recovery,`.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **19. DORA a Continuous Delivery**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 324, `bare-bullet-items` — **21. Metriky**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent času, keď main je deployable,`, `lead time od commit-u po deployable candidate,`, `deployment preparation time,`, `manuálne kroky na deployment,`.
-- **CRITICAL** line 324, `outline-instead-of-explanation` — **21. Metriky**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 42, `outline-instead-of-explanation` — **3. Mental model: deployability ako invariant**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 59, `bare-bullet-items` — **4. Deployment pipeline**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vstupný artifact digest,`, `prostredie a konfiguráciu,`, `kontrolované riziko,`, `oracle a success criteria,`.
+- **CRITICAL** line 59, `outline-instead-of-explanation` — **4. Deployment pipeline**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 87, `bare-bullet-items` — **5. Build once, promote many**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest a registry location,`, `source commit a build run,`, `SBOM a provenance,`, `výsledky required checks,`.
+- **CRITICAL** line 114, `outline-instead-of-explanation` — **6. Artifact state machine**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 161, `bare-bullet-items` — **8. Environment parity a fidelity**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký deployment mechanism,`, `rovnaký artifact format,`, `kompatibilné database/broker versions,`, `podobnú identity a authorization cestu,`.
+- **CRITICAL** line 178, `bare-bullet-items` — **9. Configuration separation**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment manifests,`, `environment variables,`, `configuration service,`, `secret manager,`.
+- **CRITICAL** line 178, `outline-instead-of-explanation` — **9. Configuration separation**: 13 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 201, `bare-bullet-items` — **10. Infrastructure a environment provisioning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure as Code,`, `declarative platform configuration,`, `immutable images,`, `policy as code,`.
+- **CRITICAL** line 201, `outline-instead-of-explanation` — **10. Infrastructure a environment provisioning**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 228, `bare-bullet-items` — **11. Deployment automation ako stavový stroj**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentná alebo bezpečne retryable,`, `schopná zistiť aktuálny stav,`, `tolerantná k partial completion,`, `časovo ohraničená,`.
+- **CRITICAL** line 258, `bare-bullet-items` — **12. Approvals ako risk decision**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný artifact digest,`, `source diff alebo release content,`, `výsledky gates a ich čerstvosť,`, `risk classification,`.
+- **CRITICAL** line 258, `outline-instead-of-explanation` — **12. Approvals ako risk decision**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 276, `bare-bullet-items` — **13. Separation of duties**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected environments,`, `role-based approvals,`, `samostatnú deployment identity,`, `signed artifacts a provenance,`.
+- **CRITICAL** line 293, `bare-bullet-items` — **14. Deployment verzus release**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `feature flags,`, `dark launch,`, `tenant/ring allowlists,`, `canary traffic,`.
+- **CRITICAL** line 293, `outline-instead-of-explanation` — **14. Deployment verzus release**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 309, `bare-bullet-items` — **15. Databázová a shared-state kompatibilita**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stará a nová application verzia,`, `starí a noví consumers,`, `nové schema s ešte nemigrovanými dátami,`, `staré events v queue,`.
+- **CRITICAL** line 309, `outline-instead-of-explanation` — **15. Databázová a shared-state kompatibilita**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 333, `bare-bullet-items` — **16. Rollback, roll-forward a feature disable**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevratnej schema migrácii,`, `event publication,`, `external financial side effecte,`, `cache alebo serialization zmene,`.
+- **CRITICAL** line 333, `outline-instead-of-explanation` — **16. Rollback, roll-forward a feature disable**: 12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 355, `bare-bullet-items` — **17. Post-deploy verification a validation**: 10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny artifact digest a config version,`, `readiness, routing a capacity,`, `kritický synthetic/smoke journey,`, `error rate, latency a saturation,`.
+- **CRITICAL** line 355, `outline-instead-of-explanation` — **17. Post-deploy verification a validation**: 12 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 377, `bare-bullet-items` — **18. Release cadence**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on demand,`, `denne alebo viackrát denne,`, `release train,`, `regulované okno,`.
+- **CRITICAL** line 393, `bare-bullet-items` — **19. Pipeline as Code a template trust**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privilegovaný pipeline code z nedôveryhodného PR,`, `nepinované external actions alebo images,`, `reusable template zmena ovplyvňujúca veľa repositories,`, `copy-paste drift,`.
+- **CRITICAL** line 393, `outline-instead-of-explanation` — **19. Pipeline as Code a template trust**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 408, `bare-bullet-items` — **20. Failure taxonomy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact alebo evidence failure,`, `environment provisioning failure,`, `deployment mutation failure,`, `rollout timeout,`.
+- **CRITICAL** line 408, `outline-instead-of-explanation` — **20. Failure taxonomy**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 423, `bare-bullet-items` — **21. Metriky Continuous Delivery**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent času, keď mainline má promotable artifact,`, `lead time od commit-u po deployable candidate,`, `evidence a approval wait time,`, `deployment preparation time,`.
+- **CRITICAL** line 423, `outline-instead-of-explanation` — **21. Metriky Continuous Delivery**: 12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 442, `outline-instead-of-explanation` — **22. Diagnostický postup**: 10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 457, `empty-section` — **23. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 491, `bare-bullet-items` — **24. Praktický rozhodovací rámec**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Čo presne znamená deployable state pre tento systém?`, `Je artifact immutable a jednoznačne identifikovaný?`, `Promujeme rovnaké bytes alebo rebuildujeme?`, `Aké riziko a oracle má každý environment?`.
+- **CRITICAL** line 491, `no-prose-concept` — **24. Praktický rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 491, `outline-instead-of-explanation` — **24. Praktický rozhodovací rámec**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 506, `bare-bullet-items` — **25. Kontrolný checklist**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mainline produkuje immutable artifact;`, `artifact digest sa nemení medzi prostrediami;`, `provenance a required evidence sú dostupné;`, `každé prostredie má explicitný validačný účel;`.
+- **CRITICAL** line 506, `no-prose-concept` — **25. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 506, `outline-instead-of-explanation` — **25. Kontrolný checklist**: 14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 36, `single-sentence-concept` — **3. Deployable state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 51, `single-sentence-concept` — **4. Deployment pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 69, `single-sentence-concept` — **5. Artifact promotion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 135, `single-sentence-concept` — **9. Deployment automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 210, `single-sentence-concept` — **14. Rollback a roll-forward**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 257, `single-sentence-concept` — **17. Trunk-based development**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 269, `single-sentence-concept` — **18. Pipeline as Code**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 300, `single-sentence-concept` — **Manuálny deploy runbook ako hlavný proces**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 304, `single-sentence-concept` — **Rebuild pred produkciou**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 308, `single-sentence-concept` — **Staging ako ručne udržiavaný „pet“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **Approval bez evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **Rollback ako univerzálna odpoveď**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 320, `single-sentence-concept` — **Dlhá code freeze fáza**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 324, `single-sentence-concept` — **21. Metriky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 87, `list-heavy-section` — **5. Build once, promote many**: 8 odrážok a iba 51 slov súvislého vysvetlenia.
+- **HIGH** line 114, `bare-bullet-items` — **6. Artifact state machine**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `chýbajúci alebo expirovaný dôkaz invaliduje promotability;`, `promotion medzi registries musí overiť digest a podpis;`, `environment deployment nesmie nepozorovane mutovať artifact.`.
+- **HIGH** line 139, `bare-bullet-items` — **7. Environment promotion**: 6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `artifact identity,`, `úplnosť a čerstvosť evidence,`, `target environment health,`, `shared-state compatibility,`.
+- **HIGH** line 139, `list-heavy-section` — **7. Environment promotion**: 10 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 161, `list-heavy-section` — **8. Environment parity a fidelity**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 228, `list-heavy-section` — **11. Deployment automation ako stavový stroj**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 276, `list-heavy-section` — **13. Separation of duties**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 293, `list-first-introduction` — **14. Deployment verzus release**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 355, `single-sentence-concept` — **17. Post-deploy verification a validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 423, `single-sentence-concept` — **21. Metriky Continuous Delivery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 442, `bare-bullet-items` — **22. Diagnostický postup**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikuj artifact digest, source commit a policy version;`, `over úplnosť a čerstvosť evidence;`, `rozlíš artifact, environment, deployment, validation a tool failure;`, `skontroluj shared-state compatibility a migration phase;`.
+- **HIGH** line 442, `single-sentence-concept` — **22. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 459, `single-sentence-concept` — **Rebuild pred produkciou**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 463, `single-sentence-concept` — **Prostredia ako rituálne levely**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 467, `single-sentence-concept` — **Manuálny deploy runbook ako hlavný proces**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 471, `single-sentence-concept` — **Approval bez evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 475, `single-sentence-concept` — **Staging ako ručne udržiavaný pet**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `single-sentence-concept` — **Rollback ako automatická odpoveď**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `single-sentence-concept` — **Rovnaký artifact, neauditovaná konfigurácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 487, `single-sentence-concept` — **Dlhá code freeze stabilizácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 491, `list-first-introduction` — **24. Praktický rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 506, `list-first-introduction` — **25. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 36, `thin-concept-section` — **3. Deployable state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 69, `thin-concept-section` — **5. Artifact promotion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 90, `thin-concept-section` — **6. Environment promotion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 108, `thin-concept-section` — **7. Configuration separation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 120, `thin-concept-section` — **8. Infrastructure a environment provisioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 135, `thin-concept-section` — **9. Deployment automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `thin-concept-section` — **10. Approvals**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 164, `thin-concept-section` — **11. Compliance a separation of duties**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 178, `thin-concept-section` — **12. Release vs. deployment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 210, `thin-concept-section` — **14. Rollback a roll-forward**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 227, `thin-concept-section` — **15. Post-deploy validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 257, `thin-concept-section` — **17. Trunk-based development**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 269, `thin-concept-section` — **18. Pipeline as Code**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **19. DORA a Continuous Delivery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 324, `thin-concept-section` — **21. Metriky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 42, `thin-concept-section` — **3. Mental model: deployability ako invariant**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 114, `thin-concept-section` — **6. Artifact state machine**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 293, `thin-concept-section` — **14. Deployment verzus release**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 333, `thin-concept-section` — **16. Rollback, roll-forward a feature disable**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 355, `thin-concept-section` — **17. Post-deploy verification a validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 393, `thin-concept-section` — **19. Pipeline as Code a template trust**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 423, `thin-concept-section` — **21. Metriky Continuous Delivery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 442, `thin-concept-section` — **22. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 491, `thin-concept-section` — **24. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 506, `thin-concept-section` — **25. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/05-ci-cd-and-release/continuous-deployment.md`
 
@@ -19396,19 +19403,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4014 | 394 | 0 | 0 | 4408 |
-| `single-sentence-concept` | 0 | 4059 | 0 | 0 | 4059 |
+| `bare-bullet-items` | 4016 | 397 | 0 | 0 | 4413 |
+| `single-sentence-concept` | 0 | 4056 | 0 | 0 | 4056 |
 | `outline-instead-of-explanation` | 3844 | 0 | 0 | 0 | 3844 |
-| `thin-concept-section` | 0 | 3418 | 0 | 0 | 3418 |
-| `term-before-explanation` | 0 | 433 | 2491 | 0 | 2924 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1752 | 1752 |
-| `example-not-explicit` | 0 | 0 | 0 | 1664 | 1664 |
-| `short-concept-section` | 0 | 0 | 1174 | 0 | 1174 |
-| `list-first-introduction` | 0 | 960 | 0 | 0 | 960 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 882 | 882 |
+| `thin-concept-section` | 0 | 3413 | 0 | 0 | 3413 |
+| `term-before-explanation` | 0 | 433 | 2499 | 0 | 2932 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1767 | 1767 |
+| `example-not-explicit` | 0 | 0 | 0 | 1678 | 1678 |
+| `short-concept-section` | 0 | 0 | 1182 | 0 | 1182 |
+| `list-first-introduction` | 0 | 963 | 0 | 0 | 963 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 889 | 889 |
 | `empty-section` | 478 | 0 | 0 | 0 | 478 |
-| `list-heavy-section` | 0 | 421 | 0 | 0 | 421 |
-| `no-prose-concept` | 325 | 0 | 0 | 0 | 325 |
+| `list-heavy-section` | 0 | 426 | 0 | 0 | 426 |
+| `no-prose-concept` | 327 | 0 | 0 | 0 | 327 |
 
 ## Required remediation pattern
 
