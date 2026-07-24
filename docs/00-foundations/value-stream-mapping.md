@@ -8,243 +8,193 @@
 - Predpoklady: [Systems Thinking](systems-thinking.md), [Feedback Loops](feedback-loops.md)
 - Súvisiace témy: lead time, flow efficiency, constraints, DORA metrics, continuous improvement
 
-## 1. Definícia
+## 1. Čo je value stream
 
-**Value stream** je celý tok práce potrebný na premenu požiadavky alebo problému na výsledok poskytujúci hodnotu používateľovi. **Value Stream Mapping (VSM)** je technika, ktorá tento tok vizualizuje vrátane práce, čakania, odovzdávok, chýb a spätnej väzby.
+**Value stream** je celý socio-technický tok potrebný na premenu požiadavky, problému alebo incidentu na overený výsledok pre používateľa. Zahŕňa nielen aktívnu technickú prácu, ale aj fronty, rozhodnutia, odovzdávky, schválenia, rework a spätnú väzbu.
 
-Cieľom nie je vytvoriť pekný diagram. Cieľom je odhaliť, kde sa hodnota zdržiava, vracia späť alebo sa stráca.
+**Value Stream Mapping (VSM)** je technika, ktorá tento tok zviditeľňuje pomocou konkrétnych udalostí a časov. Jej cieľom nie je vytvoriť estetický procesný diagram, ale identifikovať, kde sa práca zdržiava, vracia späť alebo stráca kontext.
 
-## 2. Problém, ktorý rieši
+## 2. Prečo lokálne metriky nestačia
 
-Tímy často vidia iba svoju časť procesu:
+Jednotlivé tímy prirodzene sledujú vlastnú časť práce. Vývoj môže optimalizovať implementačný čas, QA počet vykonaných testov a prevádzka dĺžku samotného deploymentu, hoci väčšinu end-to-end času zmena strávi čakaním medzi nimi.
 
-- vývoj sleduje čas implementácie,
-- QA sleduje testovanie,
-- security sleduje schválenie,
-- operations sleduje deployment.
+VSM preto používa systémovú hranicu od jasne definovaného vstupu po používateľský výsledok. Lokálne zrýchlenie má hodnotu iba vtedy, keď znižuje celkový lead time, rework, riziko alebo používateľský dopad.
 
-Lokálne môže byť každý tím efektívny, ale zmena môže väčšinu času čakať medzi tímami. VSM optimalizuje end-to-end tok namiesto lokálnej vyťaženosti.
-
-## 3. Mentálny model
+## 3. Základný model toku
 
 ```text
-Požiadavka
-   ↓
-Analýza → vývoj → review → CI → test → approval → deployment → používateľ
-           ↑                         ↓
-           └────── rework / chyba ───┘
+požiadavka alebo incident
+→ rozhodnutie a prioritizácia
+→ implementácia
+→ review a integrácia
+→ build a test
+→ release a deployment
+→ produkčné overenie
+→ používateľský výsledok
 ```
 
-Pri každom kroku sledujeme:
+Tok nie je vždy lineárny. Neúspešný test, nejasná požiadavka alebo produkčný problém môžu vrátiť prácu do skoršej fázy; tieto spätné slučky treba mapovať rovnako dôsledne ako hlavný forward flow.
 
-- process time — čas aktívnej práce,
-- wait time — čas čakania,
-- queue — množstvo rozpracovanej práce,
-- handoff — odovzdanie medzi ľuďmi alebo systémami,
-- rework — návrat práce späť,
-- feedback time — ako rýchlo sa dozvieme výsledok.
+## 4. Pracovná položka a scope mapy
 
-## 4. Lead time a process time
+Mapa musí sledovať konkrétny typ pracovnej položky, pretože feature, bezpečnostná oprava a incident majú odlišný tok. Mapa „celého IT“ zmieša príliš veľa variantov a neumožní spoľahlivo určiť constraint.
 
-Príklad:
+Použiteľný scope napríklad znie: „bežná aplikačná zmena od merge do `main` po overenie v produkcii“. Začiatok a koniec musia byť merateľné udalosti, nie neurčité stavy ako „vývoj začal“ alebo „projekt bol hotový“.
+
+## 5. Process time, wait time a lead time
+
+**Process time** je čas, počas ktorého niekto alebo niečo na položke aktívne pracuje. **Wait time** je čas, keď položka čaká vo fronte, na rozhodnutie, prostredie, kapacitu alebo inú závislosť.
 
 ```text
-Celkový lead time: 10 dní
-Aktívna práca:      9 hodín
+lead time = process time + wait time + rework time
 ```
 
-Rozdiel tvorí čakanie, plánovanie, fronty a odovzdávky. Zrýchlenie 30-minútového build jobu o 20 % nemusí mať význam, ak merge request čaká dva dni na review.
+Ak má zmena deväť hodín aktívnej práce a desaťdňový lead time, dominantný problém pravdepodobne nie je rýchlosť písania kódu. Treba hľadať fronty, handoffs, scheduling delays a opakované návraty práce.
 
-Zjednodušená flow efficiency:
+## 6. Flow efficiency
+
+Flow efficiency vyjadruje podiel aktívneho času na celkovom lead time.
 
 ```text
-Flow efficiency = aktívny process time / celkový lead time × 100 %
+flow efficiency = process time / lead time × 100 %
 ```
 
-Nízka flow efficiency často znamená, že hlavným problémom nie je rýchlosť vykonania práce, ale fronty a koordinácia.
+Nízka hodnota neznamená automaticky zlý tím; môže odhaľovať regulačné čakanie, externú závislosť alebo batch scheduling. Metrika je užitočná vtedy, keď vedie k otázke, prečo práca čaká a či dané čakanie skutočne znižuje riziko.
 
-## 5. Dva dôležité software value streams
+## 7. Queue a work in progress
 
-Pri softvéri treba mapovať minimálne:
+Queue je zásoba práce čakajúcej pred konkrétnym krokom. Rastie, keď arrival rate dlhodobo prevyšuje processing capacity alebo keď je spracovanie výrazne variabilné.
 
-### Delivery value stream
+Work in progress (WIP) zahŕňa všetky začaté, ale nedokončené položky. Vysoký WIP predlžuje lead time, zvyšuje multitasking a spôsobuje, že zmena zastará skôr, než sa dostane do produkcie.
 
-Normálny tok feature alebo opravy od commitu po úspešné nasadenie.
+## 8. Handoff a strata kontextu
 
-### Recovery value stream
+Handoff je odovzdanie pracovnej položky medzi ľuďmi, tímami alebo systémami. Každé odovzdanie môže vytvoriť nový front, odlišnú prioritu a potrebu znovu vysvetliť pôvodný zámer.
 
-Tok od zistenia produkčného problému po obnovenie služby alebo odstránenie dopadu.
+Handoff nie je automaticky zlý, pretože špecializovaná kontrola môže byť potrebná. Treba však vysvetliť, aké riziko kontrola pokrýva, aké evidence potrebuje a či ju možno presunúť skôr, automatizovať alebo sprístupniť ako self-service capability.
 
-Tím môže mať rýchly feature delivery, ale veľmi pomalý recovery proces. Oba toky používajú podobné mechanizmy — diagnostiku, zmenu, test, deployment a overenie.
+## 9. Rework
 
-## 6. Ako vytvoriť current-state map
+Rework je opakovaná práca potrebná preto, že predchádzajúci výstup nebol použiteľný. Môže ísť o opravu nejasnej požiadavky, opakované testovanie flaky scenára, prerobenie deploymentu alebo hotfix po neúspešnom release.
 
-### 1. Urči scope
+Rework sa nesmie zamieňať s hodnotovou iteráciou. Iterácia zámerne skúma neistotu; rework vzniká najmä vtedy, keď systém poskytol neskorú alebo nekvalitnú spätnú väzbu.
 
-Vyber konkrétny produkt, službu a typ zmeny. Mapa „celého IT“ bude príliš všeobecná.
+## 10. Delivery a recovery value stream
 
-### 2. Urči začiatok a koniec
+**Delivery value stream** sleduje normálnu zmenu od vzniku po bezpečné sprístupnenie používateľovi. Ukazuje, ako organizácia premieňa plánovanú prácu na produkčnú hodnotu.
 
-Napríklad:
+**Recovery value stream** sleduje tok od detekcie problému po obnovenie služby a overenie používateľského výsledku. Rýchly delivery proces bez efektívnej diagnostiky, rozhodovania a mitigácie môže mať stále veľmi slabú prevádzkovú odolnosť.
+
+## 11. Zber skutočných udalostí
+
+Current-state mapa má vychádzať zo skutočných udalostí: commitov, review timestamps, pipeline behov, deploymentov, approval records a incidentných záznamov. Workshopová pamäť ľudí je dôležitá na vysvetlenie kontextu, ale samotná často podceňuje čakanie a neformálne obchádzky.
+
+Pri každom kroku zaznamenaj vstupnú udalosť, výstupnú udalosť, process time, wait time, počet položiek vo fronte, failure alebo rework rate a ownera rozhodnutia. Tým sa diagram mení na analyzovateľný model.
+
+## 12. Current-state mapa
+
+Current-state mapa opisuje proces tak, ako reálne funguje dnes. Musí obsahovať ručné zásahy, Slack schválenia, dočasné skripty aj rozdiel medzi deklarovaným a skutočným postupom.
 
 ```text
-Začiatok: commit na main
-Koniec: zmena overená v produkcii
+merge
+→ 18 h čakanie na review
+→ 35 min CI
+→ 6 h čakanie na test environment
+→ 45 min acceptance test
+→ 2 dni approval queue
+→ 12 min deployment
+→ 20 min produkčné overenie
 ```
 
-### 3. Zapoj ľudí z celého toku
+V tomto príklade samotný deployment nie je bottleneck. Najväčšiu časť lead time tvoria fronty pred review, prostredím a schválením.
 
-Vývoj, QA, security, platforma, operations a produkt môžu vidieť odlišné časti reality.
+## 13. Constraint
 
-### 4. Mapuj skutočný proces
+Constraint je prvok, ktorý momentálne najviac obmedzuje throughput alebo recovery schopnosť celého toku. Zrýchlenie iného kroku môže iba rýchlejšie napĺňať front pred constraintom.
 
-Nie proces z dokumentácie, ale to, čo sa reálne deje vrátane ručných obchádzok.
+Constraint nemusí byť technická kapacita. Môže ním byť availability reviewera, policy vyžadujúca manuálny podpis, chýbajúce test environmenty alebo nejasné rozhodovacie právo.
 
-### 5. Zaznamenaj časy a fronty
+## 14. Batch size
 
-Pri každom kroku uveď process time, wait time, failure/rework rate a spôsob odovzdania.
+Batch size určuje, koľko zmien sa spracúva a odovzdáva naraz. Veľké batchy znižujú frekvenciu handoffov, ale zväčšujú množstvo súčasne menených premenných, čas do feedbacku a rozsah možného rollbacku.
 
-### 6. Nájdite constraint
+Menšie dávky zjednodušujú review, testovanie a diagnostiku. Neznamenajú umelé rozdelenie práce na bezvýznamné deploye; každý batch musí zostať koherentný, overiteľný a bezpečne nasaditeľný.
 
-Zameraj sa na najväčšie systémové obmedzenie, nie na najľahšie automatizovateľný krok.
+## 15. Information flow
 
-## 7. Príklad current-state mapy
+Material flow opisuje pohyb pracovnej položky, zatiaľ čo information flow opisuje pohyb požiadaviek, rozhodnutí a spätnej väzby. Slabý informačný tok môže spôsobiť rework aj v procese s rýchlou technickou automatizáciou.
 
-| Krok | Process time | Wait time | Rework |
-|---|---:|---:|---:|
-| Implementácia | 6 h | 1 deň | 10 % |
-| Code review | 45 min | 2 dni | 20 % |
-| CI | 35 min | 0 | 15 % retry |
-| Security approval | 20 min | 3 dni | 5 % |
-| Deployment | 30 min | 1 deň | 10 % |
+Pri mapovaní preto sleduj, kto pozná akceptačné kritériá, kde vzniká bezpečnostný feedback a ako sa produkčné poznatky vracajú k autorovi zmeny. Dashboard bez ownera alebo approval bez kontextu je informačný bottleneck.
 
-Najdlhší vykonávaný krok je implementácia, ale najväčší delay vytvárajú approval a review queues. Optimalizácia build cache sama nevyrieši hlavný constraint.
+## 16. Future-state mapa
 
-## 8. Handoffs
+Future-state mapa opisuje konkrétny nasledujúci stav, nie ideálnu organizáciu bez frontov a rizík. Má ukázať, ktorý constraint sa mení, akým mechanizmom a aké nové failure modes môže zmena vytvoriť.
 
-Každé odovzdanie zvyšuje riziko:
+Príkladom je presun opakovaných security pravidiel do policy-as-code, automatické schválenie nízkorizikových zmien a manuálny review iba pre explicitné výnimky. Hodnota tejto zmeny sa musí potvrdiť kratším wait time bez rastu change failure rate.
 
-- straty kontextu,
-- nejasnej zodpovednosti,
-- čakania vo fronte,
-- rozdielnej priority,
-- chybného prekladu požiadavky.
+## 17. Experiment a overenie
 
-Handoff nie je automaticky zlý. Špecializované kontroly môžu byť potrebné. Treba však skúmať, či sa dajú nahradiť self-service rozhraním, automatickou policy alebo skoršou spoluprácou.
-
-## 9. Batch size a work in progress
-
-Veľké dávky zvyšujú:
-
-- čas do feedbacku,
-- počet naraz menených premenných,
-- riziko konfliktov,
-- cenu review,
-- rozsah rollbacku.
-
-Príliš veľa rozpracovanej práce vytvára fronty. Obmedzenie WIP pomáha dokončovať začaté položky namiesto otvárania ďalších.
-
-## 10. Rework
-
-Rework je práca, ktorá sa musí zopakovať alebo opraviť, pretože predchádzajúci výstup nebol použiteľný.
-
-Príčiny:
-
-- nejasné požiadavky,
-- neskoré bezpečnostné kontroly,
-- nekonzistentné prostredia,
-- flaky tests,
-- chýbajúce kontrakty medzi službami,
-- príliš veľké zmeny.
-
-Rework môže vyzerať ako vysoká aktivita, ale nezvyšuje dodanú hodnotu.
-
-## 11. Future-state map
-
-Future-state mapa nemá predstavovať ideálny svet bez obmedzení. Má opisovať konkrétny dosiahnuteľný ďalší stav.
-
-Príklad:
+Každé VSM zlepšenie má mať baseline, hypotézu, ownera, časové okno a success criteria. Bez nich sa workshop môže skončiť zoznamom želaní, pri ktorom nie je možné určiť, či sa systém skutočne zlepšil.
 
 ```text
-Security požiadavky ako policy-as-code v CI
-  ↓
-automatické schválenie nízkorizikových zmien
-  ↓
-manuálny review iba pre definované výnimky
+hypotéza:
+ak zavedeme review rotation a WIP limit,
+median review wait klesne z 18 h pod 4 h
+bez rastu escaped defect rate
 ```
 
-Výsledok treba overiť metrikami, nie iba pocitom.
+Po experimente treba znovu zmerať celý tok. Lokálne zlepšenie, ktoré presunie front do ďalšej fázy, nie je end-to-end úspech.
 
-## 12. Vzťah k DORA metrikám
+## 18. Vzťah k DORA metrikám
 
-VSM vysvetľuje mechanizmy za výslednými metrikami:
+DORA metriky ukazujú výsledok delivery systému, napríklad change lead time alebo change fail rate. Value stream mapa rozkladá výsledok na konkrétne kroky, fronty a feedback loops, aby bolo možné nájsť mechanizmus problému.
 
-- change lead time ukazuje rýchlosť toku,
-- deployment frequency ukazuje schopnosť dokončovať malé dávky,
-- change fail rate odhaľuje nestabilitu,
-- failed deployment recovery time meria recovery value stream,
-- deployment rework rate ukazuje podiel neplánovaných opravných deploymentov.
+Dlhý change lead time teda nie je priamo diagnóza. VSM môže odhaliť, že väčšinu času tvorí review queue, environment provisioning alebo rework po neskorých contract testoch.
 
-DORA metrika ukáže, **že** je problém. Value stream mapa pomáha zistiť, **kde a prečo** vzniká.
+## 19. Praktický mini-lab
 
-## 13. Anti-patterny
+Vyber jednu nedávnu bežnú produkčnú zmenu a zostav jej časovú os od dohodnutého začiatku po overený používateľský výsledok. Pri každom kroku odlíš aktívnu prácu od čakania a označ každý návrat práce späť.
+
+Následne vypočítaj lead time, process time, wait time, flow efficiency, počet handoffs a počet rework cyklov. Vyber iba jeden dominantný constraint a navrhni malý reverzibilný experiment, ktorý má zmeniť jeho merateľné správanie.
+
+## 20. Troubleshooting mapy
+
+Ak mapa ukazuje nereálne vysokú flow efficiency, skontroluj, či neboli vynechané queue a approval timestamps. Ak sa ľudia nezhodnú na procese, sleduj konkrétnu pracovnú položku namiesto snahy vytvoriť jeden univerzálny diagram.
+
+Ak sa po zmene lead time nezlepší, over, či sa constraint nepresunul do ďalšej fázy alebo či arrival rate nevzrástol. VSM je opakovaný diagnostický cyklus, nie jednorazový workshop.
+
+## 21. Anti-patterny
 
 ### Mapovanie oficiálneho procesu
 
-Tím zakreslí proces zo smernice a ignoruje ručné kroky, Slack správy a obchádzky.
+Diagram zo smernice často neobsahuje ručné workaroundy, neformálne schválenia ani retry. Takáto mapa reprezentuje želaný proces a nemôže spoľahlivo vysvetliť skutočný lead time.
 
 ### Príliš široký scope
 
-Mapa obsahuje celú organizáciu a nedá sa z nej vybrať konkrétny experiment.
+Mapa celej organizácie zmieša rôzne typy práce a vlastníkov. Výsledkom je všeobecný zoznam problémov bez konkrétneho constraintu a experimentu.
 
-### Optimalizácia lokálneho kroku
+### Lokálna optimalizácia
 
-Jeden tím zrýchli svoju prácu, ale iba rýchlejšie plní nasledujúcu frontu.
-
-### VSM bez následnej zmeny
-
-Workshop vytvorí diagram, ale nevznikne owner, hypotéza, experiment ani termín kontroly výsledku.
+Zrýchlenie krátkeho build kroku môže byť technicky správne, ale systémovo zanedbateľné, ak zmena ďalej čaká dni na review. Priorita sa má odvíjať od end-to-end výsledku.
 
 ### Použitie na hodnotenie ľudí
 
-Účelom je zlepšiť systém. Ak sa časy použijú na trestanie jednotlivcov, údaje prestanú byť dôveryhodné.
+VSM skúma systém, nie produktivitu jednotlivca. Ak sa časy použijú na trestanie, ľudia začnú skrývať čakanie, rework a neformálne kroky, čím mapa stratí dôveryhodnosť.
 
-## 14. Praktický mini-lab
+## 22. Kontrolné otázky
 
-Vyber poslednú bežnú produkčnú zmenu a zapíš:
+1. Prečo process time a lead time opisujú odlišné vlastnosti toku?
+2. Ako queue a WIP ovplyvňujú čas dokončenia položky?
+3. Prečo handoff môže vytvoriť delay aj bez aktívnej práce?
+4. Ako odlíšiš hodnotovú iteráciu od reworku?
+5. Prečo treba mapovať delivery aj recovery value stream?
+6. Ako sa constraint líši od najpomalšieho jednotlivého jobu?
+7. Prečo future-state mapa potrebuje merateľnú hypotézu?
+8. Ako sa VSM dopĺňa s DORA metrikami?
 
-1. čas commitu,
-2. čas začiatku a konca review,
-3. čas behu a čakania CI,
-4. approval časy,
-5. deployment čas,
-6. čas overenia v produkcii,
-7. všetky návraty a retry.
+## 23. Zhrnutie
 
-Potom vypočítaj:
-
-```text
-lead time
-aktívny process time
-wait time
-počet handoffs
-počet rework cyklov
-```
-
-Vyber jedno najväčšie obmedzenie a navrhni malý experiment na jeho zníženie.
-
-## 15. Kontrolné otázky
-
-1. Prečo je vyťaženosť jednotlivých tímov slabý ukazovateľ toku hodnoty?
-2. Aký je rozdiel medzi process time a lead time?
-3. Prečo treba mapovať aj recovery value stream?
-4. Ako veľký batch size ovplyvňuje feedback a riziko?
-5. Prečo automatizácia najkratšieho kroku nemusí zlepšiť celý systém?
-6. Ako sa VSM dopĺňa s DORA metrikami?
-
-## 16. Zhrnutie
-
-Value Stream Mapping zviditeľňuje celý tok práce, najmä čakanie, fronty, handoffs a rework. Je to nástroj systems thinking: optimalizuje výsledok celého delivery systému, nie iba lokálnu rýchlosť jedného tímu alebo nástroja.
+Value Stream Mapping zviditeľňuje end-to-end pohyb práce, informácií a spätnej väzby. Jeho hlavnou hodnotou je rozlíšenie process time od wait time, identifikácia constraintu a návrh merateľného experimentu, ktorý zlepšuje celý systém namiesto jednej lokálnej metriky.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
