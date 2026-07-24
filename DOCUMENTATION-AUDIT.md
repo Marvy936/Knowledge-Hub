@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10727**
-- Total words: **485,916**
-- Findings: **23633** (critical 8063, high 9171, medium 3125, low 3274)
+- Audited conceptual sections: **10749**
+- Total words: **488,049**
+- Findings: **23708** (critical 8081, high 9189, medium 3132, low 3306)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -71,6 +71,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1001 | 44 | 54 | 14 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
 | D | 987 | 43 | 54 | 14 | 3 | 1569 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | D | 985 | 43 | 56 | 10 | 1 | 1335 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
+| D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 975 | 41 | 56 | 13 | 2 | 1252 | `docs/13-security-and-identity/least-privilege.md` |
 | D | 972 | 43 | 48 | 17 | 14 | 1773 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | D | 970 | 43 | 38 | 32 | 24 | 3838 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
@@ -191,7 +192,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 575 | 21 | 39 | 5 | 0 | 1338 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 570 | 28 | 27 | 6 | 4 | 1037 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 569 | 23 | 17 | 24 | 50 | 3942 | `docs/13-security-and-identity/threat-modeling.md` |
-| D | 563 | 22 | 33 | 10 | 4 | 1128 | `docs/02-networking-and-web/dhcp.md` |
 | D | 551 | 18 | 37 | 10 | 4 | 1166 | `docs/09-kubernetes/deployment.md` |
 | D | 546 | 21 | 35 | 5 | 2 | 1011 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
@@ -1093,59 +1093,95 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý rieši**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unikátnu IP adresu,`, `subnet mask alebo prefix,`, `gateway,`, `DNS resolvery,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 81, `bare-bullet-items` — **5. DHCP options**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet mask alebo prefix information,`, `router/default gateway,`, `DNS servers,`, `domain search,`.
-- **CRITICAL** line 81, `outline-instead-of-explanation` — **5. DHCP options**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 97, `empty-section` — **6. Scope, pool a reservation**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 113, `bare-bullet-items` — **7. Broadcast boundary a DHCP relay**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadnu ponuku,`, `ponuku z nesprávneho subnetu,`, `nesprávnu gateway,`, `nesprávnu policy podľa relay metadata.`.
-- **CRITICAL** line 138, `bare-bullet-items` — **8. Adresný konflikt**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statická IP vo vnútri DHCP poolu,`, `dva nekoordino­vané DHCP servery,`, `stale lease database,`, `obnovenie snapshotu VM s rovnakou identitou,`.
-- **CRITICAL** line 138, `outline-instead-of-explanation` — **8. Adresný konflikt**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 153, `bare-bullet-items` — **9. Rogue DHCP server**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted uplink ports,`, `blokovanie server responses na untrusted ports,`, `binding database,`, `integrácia s Dynamic ARP Inspection alebo source guard.`.
-- **CRITICAL** line 153, `outline-instead-of-explanation` — **9. Rogue DHCP server**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 166, `bare-bullet-items` — **10. DHCPv6**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLAAC,`, `stateful DHCPv6,`, `stateless DHCPv6,`, `Router Advertisements.`.
-- **CRITICAL** line 179, `empty-section` — **11. SLAAC vs. DHCPv6**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 221, `bare-bullet-items` — **13. Packet capture**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odišiel DISCOVER/SOLICIT,`, `prišla OFFER/ADVERTISE,`, `cez ktorý interface,`, `aké options server poslal,`.
-- **CRITICAL** line 221, `outline-instead-of-explanation` — **13. Packet capture**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 244, `bare-bullet-items` — **14. Cloud a virtualizované siete**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MAC a virtual NIC identity,`, `machine-id alebo client identifier,`, `cloud-init network config,`, `persistent udev naming,`.
-- **CRITICAL** line 244, `outline-instead-of-explanation` — **14. Cloud a virtualizované siete**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 278, `bare-bullet-items` — **16. Diagnostický postup**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je interface administratívne up a má carrier,`, `používa sa správny VLAN/access port,`, `odchádza DISCOVER,`, `prichádza OFFER,`.
-- **CRITICAL** line 278, `outline-instead-of-explanation` — **16. Diagnostický postup**: 10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 302, `empty-section` — **17. Typické symptómy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 324, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 27, `outline-instead-of-explanation` — **2. Prečo sa používajú leases**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 80, `outline-instead-of-explanation` — **7. DHCPREQUEST má viac významov**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 149, `bare-bullet-items` — **14. Lease time ako capacity a resilience trade-off**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlejšie reclaimuje adresy,`, `rýchlejšie distribuuje policy zmenu,`, `zvyšuje renewal traffic a závislosť od servera.`, `znižuje control-plane traffic,`.
+- **CRITICAL** line 149, `outline-instead-of-explanation` — **14. Lease time ako capacity a resilience trade-off**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 165, `outline-instead-of-explanation` — **15. Options tvoria konfiguračný kontrakt**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 221, `bare-bullet-items` — **19. Klientská identita a klonovanie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtual NIC MAC,`, `DHCP client identifier,`, `machine-id,`, `cloud-init datasource state,`.
+- **CRITICAL** line 252, `bare-bullet-items` — **21. giaddr a relay-agent information**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `výber nesprávneho scope,`, `žiadnu matching policy,`, `nesprávnu reservation,`, `drop serverom pre nedôveryhodnú relay informáciu.`.
+- **CRITICAL** line 265, `bare-bullet-items` — **22. Relay a routing musia fungovať obojsmerne**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route servera k relay address,`, `firewall pre UDP/67 a relay traffic,`, `relay source interface a VRF,`, `správny egress VLAN na klienta,`.
+- **CRITICAL** line 265, `outline-instead-of-explanation` — **22. Relay a routing musia fungovať obojsmerne**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 278, `bare-bullet-items` — **23. Pool exhaustion**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny počet klientov prekročil návrh,`, `leases sú príliš dlhé pre daný churn,`, `abandoned/conflict addresses zostávajú blokované,`, `reservations spotrebovali veľkú časť poolu,`.
+- **CRITICAL** line 278, `outline-instead-of-explanation` — **23. Pool exhaustion**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 293, `bare-bullet-items` — **24. Address conflict**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statická adresa leží v dynamic poole,`, `dva nekoordino­vané servery prideľujú rovnaký priestor,`, `stale lease database,`, `snapshot alebo clone obnovil starú identity,`.
+- **CRITICAL** line 293, `outline-instead-of-explanation` — **24. Address conflict**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 315, `bare-bullet-items` — **26. Rogue DHCP server**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `man-in-the-middle,`, `name-resolution manipulation,`, `denial of service,`, `traffic redirection mimo bezpečnostných controls.`.
+- **CRITICAL** line 336, `bare-bullet-items` — **28. DHCP server HA**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failover protocol alebo lease replication,`, `rozdelené address ranges,`, `active/standby službu,`, `platformový distributed control plane.`.
+- **CRITICAL** line 355, `bare-bullet-items` — **30. DHCP a Dynamic DNS**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale records po expirácii,`, `race medzi klientom a serverom,`, `nesprávne ownership update credentials,`, `krátke leases vytvárajú vysoký DNS update churn,`.
+- **CRITICAL** line 355, `outline-instead-of-explanation` — **30. DHCP a Dynamic DNS**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 395, `outline-instead-of-explanation` — **32. DUID a IAID**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 416, `bare-bullet-items` — **34. Router Advertisement zostáva kľúčový**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-link prefixes,`, `default-router lifetime,`, `SLAAC prefix information,`, `M/O flags pre DHCPv6 guidance,`.
+- **CRITICAL** line 416, `outline-instead-of-explanation` — **34. Router Advertisement zostáva kľúčový**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 456, `bare-bullet-items` — **38. PXE a network boot**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `next server,`, `boot filename alebo URL,`, `architecture/client-class specific options,`, `proxyDHCP údaje podľa prostredia.`.
+- **CRITICAL** line 456, `outline-instead-of-explanation` — **38. PXE a network boot**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 497, `bare-bullet-items` — **40. Packet capture DHCPv4**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client MAC a client identifier,`, `transaction ID,`, `Discover/Offer/Request/ACK poradie,`, `requested IP a server identifier,`.
+- **CRITICAL** line 497, `outline-instead-of-explanation` — **40. Packet capture DHCPv4**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 515, `bare-bullet-items` — **41. Packet capture DHCPv6**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOLICIT/ADVERTISE/REQUEST/REPLY,`, `DUID a IAID,`, `IA NA alebo IA PD,`, `lifetimes,`.
+- **CRITICAL** line 515, `outline-instead-of-explanation` — **41. Packet capture DHCPv6**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 532, `no-prose-concept` — **42. Diagnostický postup: klient nedostane IPv4 adresu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 532, `outline-instead-of-explanation` — **42. Diagnostický postup: klient nedostane IPv4 adresu**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 545, `outline-instead-of-explanation` — **43. Diagnostický postup: adresa funguje iba do T1/T2**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 557, `bare-bullet-items` — **44. Diagnostický postup: klient má IP, ale nie konektivitu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny prefix a on-link rozhodovanie,`, `default gateway a classless routes,`, `gateway ARP/NDP reachability,`, `DNS resolvery a search domains,`.
+- **CRITICAL** line 557, `outline-instead-of-explanation` — **44. Diagnostický postup: klient má IP, ale nie konektivitu**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 579, `bare-bullet-items` — **45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Porovnaj client identifiers, vendor/user class a relay metadata.`, `Skontroluj overlapping scopes a reservations.`, `Zachyť všetky Offers a identifikuj rogue server.`, `Over HA server configuration a replication.`.
+- **CRITICAL** line 579, `no-prose-concept` — **45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 579, `outline-instead-of-explanation` — **45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 589, `empty-section` — **46. Typické symptómy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 611, `no-prose-concept` — **47. Bezpečný prevádzkový model**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 611, `outline-instead-of-explanation` — **47. Bezpečný prevádzkový model**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 621, `empty-section` — **48. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Problém, ktorý rieši**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 29, `single-sentence-concept` — **3. DHCPv4 model DORA**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 47, `single-sentence-concept` — **DHCPOFFER**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 51, `single-sentence-concept` — **DHCPREQUEST**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 59, `bare-bullet-items` — **4. Lease lifecycle**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `T2: klient skúša ľubovoľný dostupný server,`, `expiration: bez úspešnej obnovy musí adresu prestať používať.`.
-- **HIGH** line 81, `single-sentence-concept` — **5. DHCP options**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 99, `single-sentence-concept` — **Scope alebo subnet**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `single-sentence-concept` — **Dynamic pool**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **SLAAC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 185, `single-sentence-concept` — **Stateful DHCPv6**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 221, `single-sentence-concept` — **13. Packet capture**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 256, `bare-bullet-items` — **15. PXE boot**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `next-server,`, `boot filename,`, `architecture-specific options.`.
-- **HIGH** line 256, `single-sentence-concept` — **15. PXE boot**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 278, `single-sentence-concept` — **16. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **Lease funguje po reštarte, potom vypadne**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **Niektorí klienti dostanú nesprávny subnet**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 320, `single-sentence-concept` — **Pool exhausted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 334, `single-sentence-concept` — **„DHCP broadcast prejde routerom“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `single-sentence-concept` — **„Keď host dostal IP, DHCP už nemôže byť problém“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 99, `list-first-introduction` — **9. Ďalšie DHCPv4 správy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 149, `single-sentence-concept` — **14. Lease time ako capacity a resilience trade-off**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 221, `list-heavy-section` — **19. Klientská identita a klonovanie**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 293, `single-sentence-concept` — **24. Address conflict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 497, `list-first-introduction` — **40. Packet capture DHCPv4**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 497, `single-sentence-concept` — **40. Packet capture DHCPv4**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 515, `list-first-introduction` — **41. Packet capture DHCPv6**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 515, `single-sentence-concept` — **41. Packet capture DHCPv6**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 532, `list-first-introduction` — **42. Diagnostický postup: klient nedostane IPv4 adresu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 545, `bare-bullet-items` — **43. Diagnostický postup: adresa funguje iba do T1/T2**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Zachyť unicast DHCPREQUEST pri renewal.`, `Over route a firewall klienta k pôvodnému serveru.`, `Skontroluj server logs a lease database.`, `Sleduj prechod na broadcast rebinding.`.
+- **HIGH** line 545, `list-first-introduction` — **43. Diagnostický postup: adresa funguje iba do T1/T2**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 545, `single-sentence-concept` — **43. Diagnostický postup: adresa funguje iba do T1/T2**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 557, `single-sentence-concept` — **44. Diagnostický postup: klient má IP, ale nie konektivitu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 579, `list-first-introduction` — **45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 607, `single-sentence-concept` — **DHCPv6 adresa bez Internetu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 611, `list-first-introduction` — **47. Bezpečný prevádzkový model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 627, `single-sentence-concept` — **„Reservation je statická IP“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 631, `single-sentence-concept` — **„Broadcast automaticky prejde routerom“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 635, `single-sentence-concept` — **„Keď klient dostal IP, DHCP funguje správne“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 639, `single-sentence-concept` — **„Dva DHCP servery automaticky znamenajú HA“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 643, `single-sentence-concept` — **„DHCPv6 poskytne celý IPv6 network setup“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `MAC`, `ARP`, `DNS`, `PXE`, `IP`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. Problém, ktorý rieši**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 59, `thin-concept-section` — **4. Lease lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 81, `term-before-explanation` — **5. DHCP options**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `NTP`, `MTU`, `PXE`
-- **HIGH** line 81, `thin-concept-section` — **5. DHCP options**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 153, `thin-concept-section` — **9. Rogue DHCP server**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 221, `term-before-explanation` — **13. Packet capture**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DISCOVER`, `SOLICIT`, `OFFER`, `ADVERTISE`
-- **HIGH** line 221, `thin-concept-section` — **13. Packet capture**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 256, `thin-concept-section` — **15. PXE boot**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 278, `term-before-explanation` — **16. Diagnostický postup**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `DISCOVER`, `OFFER`, `ACK`, `DNS`, `scope`
-- **HIGH** line 278, `thin-concept-section` — **16. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 27, `thin-concept-section` — **2. Prečo sa používajú leases**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 99, `thin-concept-section` — **9. Ďalšie DHCPv4 správy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 149, `thin-concept-section` — **14. Lease time ako capacity a resilience trade-off**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 165, `term-before-explanation` — **15. Options tvoria konfiguračný kontrakt**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `MTU`, `NTP`, `TLS`, `PXE`
+- **HIGH** line 165, `thin-concept-section` — **15. Options tvoria konfiguračný kontrakt**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 265, `term-before-explanation` — **22. Relay a routing musia fungovať obojsmerne**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`, `VRF`, `VLAN`, `policy`
+- **HIGH** line 265, `thin-concept-section` — **22. Relay a routing musia fungovať obojsmerne**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 293, `thin-concept-section` — **24. Address conflict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 355, `thin-concept-section` — **30. DHCP a Dynamic DNS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 395, `term-before-explanation` — **32. DUID a IAID**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `NA`, `PD`, `delegation`
+- **HIGH** line 395, `thin-concept-section` — **32. DUID a IAID**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 456, `thin-concept-section` — **38. PXE a network boot**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 497, `term-before-explanation` — **40. Packet capture DHCPv4**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `ID`, `ACK`, `IP`, `DNS`
+- **HIGH** line 497, `thin-concept-section` — **40. Packet capture DHCPv4**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 515, `term-before-explanation` — **41. Packet capture DHCPv6**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOLICIT`, `ADVERTISE`, `REQUEST`, `REPLY`, `DUID`, `IAID`, `IA`, `NA`
+- **HIGH** line 515, `thin-concept-section` — **41. Packet capture DHCPv6**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 532, `term-before-explanation` — **42. Diagnostický postup: klient nedostane IPv4 adresu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `DHCP`, `ACK`, `DNS`, `scope`, `policy`, `identity`
+- **HIGH** line 532, `thin-concept-section` — **42. Diagnostický postup: klient nedostane IPv4 adresu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 545, `term-before-explanation` — **43. Diagnostický postup: adresa funguje iba do T1/T2**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `T1`, `T2`, `DHCPREQUEST`, `HA`, `ACK`, `NAK`
+- **HIGH** line 545, `thin-concept-section` — **43. Diagnostický postup: adresa funguje iba do T1/T2**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 557, `term-before-explanation` — **44. Diagnostický postup: klient má IP, ale nie konektivitu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `NDP`, `DNS`, `MTU`, `policy`
+- **HIGH** line 557, `thin-concept-section` — **44. Diagnostický postup: klient má IP, ale nie konektivitu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 579, `term-before-explanation` — **45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `VLAN`, `ID`, `policy`
+- **HIGH** line 579, `thin-concept-section` — **45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 611, `term-before-explanation` — **47. Bezpečný prevádzkový model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IPAM`, `HA`, `DNS`, `policy`
+- **HIGH** line 611, `thin-concept-section` — **47. Bezpečný prevádzkový model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/dns.md`
 
@@ -18284,19 +18320,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4025 | 0 | 0 | 4025 |
-| `bare-bullet-items` | 3679 | 327 | 0 | 0 | 4006 |
-| `outline-instead-of-explanation` | 3616 | 0 | 0 | 0 | 3616 |
-| `thin-concept-section` | 0 | 3298 | 0 | 0 | 3298 |
-| `term-before-explanation` | 0 | 372 | 2237 | 0 | 2609 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1381 | 1381 |
-| `example-not-explicit` | 0 | 0 | 0 | 1250 | 1250 |
-| `list-first-introduction` | 0 | 906 | 0 | 0 | 906 |
-| `short-concept-section` | 0 | 0 | 888 | 0 | 888 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 643 | 643 |
-| `empty-section` | 470 | 0 | 0 | 0 | 470 |
-| `no-prose-concept` | 298 | 0 | 0 | 0 | 298 |
-| `list-heavy-section` | 0 | 243 | 0 | 0 | 243 |
+| `single-sentence-concept` | 0 | 4020 | 0 | 0 | 4020 |
+| `bare-bullet-items` | 3685 | 326 | 0 | 0 | 4011 |
+| `outline-instead-of-explanation` | 3627 | 0 | 0 | 0 | 3627 |
+| `thin-concept-section` | 0 | 3307 | 0 | 0 | 3307 |
+| `term-before-explanation` | 0 | 379 | 2241 | 0 | 2620 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1394 | 1394 |
+| `example-not-explicit` | 0 | 0 | 0 | 1262 | 1262 |
+| `list-first-introduction` | 0 | 913 | 0 | 0 | 913 |
+| `short-concept-section` | 0 | 0 | 891 | 0 | 891 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 650 | 650 |
+| `empty-section` | 468 | 0 | 0 | 0 | 468 |
+| `no-prose-concept` | 301 | 0 | 0 | 0 | 301 |
+| `list-heavy-section` | 0 | 244 | 0 | 0 | 244 |
 
 ## Required remediation pattern
 

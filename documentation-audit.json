@@ -549,15 +549,15 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "title": "DHCP",
-      "words": 1128,
-      "headings": 40,
-      "sections": 40,
-      "findings": 69,
-      "critical": 22,
-      "high": 33,
-      "medium": 10,
-      "low": 4,
-      "score": 563,
+      "words": 3261,
+      "headings": 62,
+      "sections": 62,
+      "findings": 144,
+      "critical": 40,
+      "high": 51,
+      "medium": 17,
+      "low": 36,
+      "score": 980,
       "grade": "D"
     },
     {
@@ -23006,98 +23006,8 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unikátnu IP adresu,`, `subnet mask alebo prefix,`, `gateway,`, `DNS resolvery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "3. DHCPv4 model DORA",
-      "line": 29,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "DHCPOFFER",
-      "line": 47,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "DHCPREQUEST",
-      "line": 51,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "4. Lease lifecycle",
-      "line": 59,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `T2: klient skúša ľubovoľný dostupný server,`, `expiration: bez úspešnej obnovy musí adresu prestať používať.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "4. Lease lifecycle",
-      "line": 59,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "4. Lease lifecycle",
-      "line": 59,
+      "section": "1. Čo DHCP poskytuje",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23105,134 +23015,8 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "5. DHCP options",
-      "line": 81,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "5. DHCP options",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "5. DHCP options",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet mask alebo prefix information,`, `router/default gateway,`, `DNS servers,`, `domain search,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "5. DHCP options",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "5. DHCP options",
-      "line": 81,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `NTP`, `MTU`, `PXE`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "6. Scope, pool a reservation",
-      "line": 97,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "Scope alebo subnet",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "Dynamic pool",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "7. Broadcast boundary a DHCP relay",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadnu ponuku,`, `ponuku z nesprávneho subnetu,`, `nesprávnu gateway,`, `nesprávnu policy podľa relay metadata.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "7. Broadcast boundary a DHCP relay",
-      "line": 113,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "7. Broadcast boundary a DHCP relay",
-      "line": 113,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "8. Adresný konflikt",
-      "line": 138,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "8. Adresný konflikt",
-      "line": 138,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statická IP vo vnútri DHCP poolu,`, `dva nekoordino­vané DHCP servery,`, `stale lease database,`, `obnovenie snapshotu VM s rovnakou identitou,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "8. Adresný konflikt",
-      "line": 138,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "8. Adresný konflikt",
-      "line": 138,
+      "section": "1. Čo DHCP poskytuje",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23240,35 +23024,17 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "8. Adresný konflikt",
-      "line": 138,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCP`, `VM`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "9. Rogue DHCP server",
-      "line": 153,
+      "section": "2. Prečo sa používajú leases",
+      "line": 27,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "9. Rogue DHCP server",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted uplink ports,`, `blokovanie server responses na untrusted ports,`, `binding database,`, `integrácia s Dynamic ARP Inspection alebo source guard.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "9. Rogue DHCP server",
-      "line": 153,
+      "section": "2. Prečo sa používajú leases",
+      "line": 27,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -23276,26 +23042,71 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "9. Rogue DHCP server",
-      "line": 153,
+      "section": "2. Prečo sa používajú leases",
+      "line": 27,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "2. Prečo sa používajú leases",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "2. Prečo sa používajú leases",
+      "line": 27,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "2. Prečo sa používajú leases",
+      "line": 27,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `Policy`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "10. DHCPv6",
-      "line": 166,
+      "section": "5. DHCPDISCOVER",
+      "line": 64,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "6. DHCPOFFER",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "7. DHCPREQUEST má viac významov",
+      "line": 80,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLAAC,`, `stateful DHCPv6,`, `stateless DHCPv6,`, `Router Advertisements.`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "10. DHCPv6",
-      "line": 166,
+      "section": "7. DHCPREQUEST má viac významov",
+      "line": 80,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -23303,8 +23114,593 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "10. DHCPv6",
-      "line": 166,
+      "section": "7. DHCPREQUEST má viac významov",
+      "line": 80,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "7. DHCPREQUEST má viac významov",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "8. DHCPACK a DHCPNAK",
+      "line": 91,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "9. Ďalšie DHCPv4 správy",
+      "line": 99,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "9. Ďalšie DHCPv4 správy",
+      "line": 99,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "9. Ďalšie DHCPv4 správy",
+      "line": 99,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCPDECLINE`, `DHCPRELEASE`, `DHCPINFORM`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "14. Lease time ako capacity a resilience trade-off",
+      "line": 149,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "14. Lease time ako capacity a resilience trade-off",
+      "line": 149,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "14. Lease time ako capacity a resilience trade-off",
+      "line": 149,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlejšie reclaimuje adresy,`, `rýchlejšie distribuuje policy zmenu,`, `zvyšuje renewal traffic a závislosť od servera.`, `znižuje control-plane traffic,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "14. Lease time ako capacity a resilience trade-off",
+      "line": 149,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "14. Lease time ako capacity a resilience trade-off",
+      "line": 149,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCP`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "15. Options tvoria konfiguračný kontrakt",
+      "line": 165,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "15. Options tvoria konfiguračný kontrakt",
+      "line": 165,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "15. Options tvoria konfiguračný kontrakt",
+      "line": 165,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "15. Options tvoria konfiguračný kontrakt",
+      "line": 165,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "15. Options tvoria konfiguračný kontrakt",
+      "line": 165,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "15. Options tvoria konfiguračný kontrakt",
+      "line": 165,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `MTU`, `NTP`, `TLS`, `PXE`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "18. Reservation",
+      "line": 208,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "18. Reservation",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "18. Reservation",
+      "line": 208,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "18. Reservation",
+      "line": 208,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "19. Klientská identita a klonovanie",
+      "line": 221,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "19. Klientská identita a klonovanie",
+      "line": 221,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtual NIC MAC,`, `DHCP client identifier,`, `machine-id,`, `cloud-init datasource state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "19. Klientská identita a klonovanie",
+      "line": 221,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "19. Klientská identita a klonovanie",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "19. Klientská identita a klonovanie",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "19. Klientská identita a klonovanie",
+      "line": 221,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NIC`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "21. giaddr a relay-agent information",
+      "line": 252,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `výber nesprávneho scope,`, `žiadnu matching policy,`, `nesprávnu reservation,`, `drop serverom pre nedôveryhodnú relay informáciu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "21. giaddr a relay-agent information",
+      "line": 252,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "22. Relay a routing musia fungovať obojsmerne",
+      "line": 265,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "22. Relay a routing musia fungovať obojsmerne",
+      "line": 265,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route servera k relay address,`, `firewall pre UDP/67 a relay traffic,`, `relay source interface a VRF,`, `správny egress VLAN na klienta,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "22. Relay a routing musia fungovať obojsmerne",
+      "line": 265,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "22. Relay a routing musia fungovať obojsmerne",
+      "line": 265,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`, `VRF`, `VLAN`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "23. Pool exhaustion",
+      "line": 278,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "23. Pool exhaustion",
+      "line": 278,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny počet klientov prekročil návrh,`, `leases sú príliš dlhé pre daný churn,`, `abandoned/conflict addresses zostávajú blokované,`, `reservations spotrebovali veľkú časť poolu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "23. Pool exhaustion",
+      "line": 278,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "23. Pool exhaustion",
+      "line": 278,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "23. Pool exhaustion",
+      "line": 278,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "24. Address conflict",
+      "line": 293,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "24. Address conflict",
+      "line": 293,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "24. Address conflict",
+      "line": 293,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statická adresa leží v dynamic poole,`, `dva nekoordino­vané servery prideľujú rovnaký priestor,`, `stale lease database,`, `snapshot alebo clone obnovil starú identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "24. Address conflict",
+      "line": 293,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "24. Address conflict",
+      "line": 293,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IPAM`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "25. Conflict detection a DHCPDECLINE",
+      "line": 307,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "26. Rogue DHCP server",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `man-in-the-middle,`, `name-resolution manipulation,`, `denial of service,`, `traffic redirection mimo bezpečnostných controls.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "26. Rogue DHCP server",
+      "line": 315,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "26. Rogue DHCP server",
+      "line": 315,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "27. DHCP snooping trust model",
+      "line": 328,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "28. DHCP server HA",
+      "line": 336,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failover protocol alebo lease replication,`, `rozdelené address ranges,`, `active/standby službu,`, `platformový distributed control plane.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "28. DHCP server HA",
+      "line": 336,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "28. DHCP server HA",
+      "line": 336,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "28. DHCP server HA",
+      "line": 336,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "29. Split-scope trade-off",
+      "line": 349,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "30. DHCP a Dynamic DNS",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "30. DHCP a Dynamic DNS",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale records po expirácii,`, `race medzi klientom a serverom,`, `nesprávne ownership update credentials,`, `krátke leases vytvárajú vysoký DNS update churn,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "30. DHCP a Dynamic DNS",
+      "line": 355,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "30. DHCP a Dynamic DNS",
+      "line": 355,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "32. DUID a IAID",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "32. DUID a IAID",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "32. DUID a IAID",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "32. DUID a IAID",
+      "line": 395,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `NA`, `PD`, `delegation`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "34. Router Advertisement zostáva kľúčový",
+      "line": 416,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "34. Router Advertisement zostáva kľúčový",
+      "line": 416,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-link prefixes,`, `default-router lifetime,`, `SLAAC prefix information,`, `M/O flags pre DHCPv6 guidance,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "34. Router Advertisement zostáva kľúčový",
+      "line": 416,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "34. Router Advertisement zostáva kľúčový",
+      "line": 416,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "34. Router Advertisement zostáva kľúčový",
+      "line": 416,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLAAC`",
@@ -23312,107 +23708,8 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "11. SLAAC vs. DHCPv6",
-      "line": 179,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "SLAAC",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "Stateful DHCPv6",
-      "line": 185,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "13. Packet capture",
-      "line": 221,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "13. Packet capture",
-      "line": 221,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "13. Packet capture",
-      "line": 221,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odišiel DISCOVER/SOLICIT,`, `prišla OFFER/ADVERTISE,`, `cez ktorý interface,`, `aké options server poslal,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "13. Packet capture",
-      "line": 221,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "13. Packet capture",
-      "line": 221,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DISCOVER`, `SOLICIT`, `OFFER`, `ADVERTISE`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "14. Cloud a virtualizované siete",
-      "line": 244,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "14. Cloud a virtualizované siete",
-      "line": 244,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MAC a virtual NIC identity,`, `machine-id alebo client identifier,`, `cloud-init network config,`, `persistent udev naming,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "14. Cloud a virtualizované siete",
-      "line": 244,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "14. Cloud a virtualizované siete",
-      "line": 244,
+      "section": "37. Cloud a virtualizované prostredie",
+      "line": 450,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23420,17 +23717,44 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "14. Cloud a virtualizované siete",
-      "line": 244,
+      "section": "38. PXE a network boot",
+      "line": 456,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "38. PXE a network boot",
+      "line": 456,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `next server,`, `boot filename alebo URL,`, `architecture/client-class specific options,`, `proxyDHCP údaje podľa prostredia.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "38. PXE a network boot",
+      "line": 456,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "38. PXE a network boot",
+      "line": 456,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `NIC`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "15. PXE boot",
-      "line": 256,
+      "section": "40. Packet capture DHCPv4",
+      "line": 497,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -23438,53 +23762,35 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "15. PXE boot",
-      "line": 256,
+      "section": "40. Packet capture DHCPv4",
+      "line": 497,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `next-server,`, `boot filename,`, `architecture-specific options.`.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "15. PXE boot",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "16. Diagnostický postup",
-      "line": 278,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "16. Diagnostický postup",
-      "line": 278,
+      "section": "40. Packet capture DHCPv4",
+      "line": 497,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "16. Diagnostický postup",
-      "line": 278,
+      "section": "40. Packet capture DHCPv4",
+      "line": 497,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je interface administratívne up a má carrier,`, `používa sa správny VLAN/access port,`, `odchádza DISCOVER,`, `prichádza OFFER,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client MAC a client identifier,`, `transaction ID,`, `Discover/Offer/Request/ACK poradie,`, `requested IP a server identifier,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "16. Diagnostický postup",
-      "line": 278,
+      "section": "40. Packet capture DHCPv4",
+      "line": 497,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -23492,8 +23798,107 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "16. Diagnostický postup",
-      "line": 278,
+      "section": "40. Packet capture DHCPv4",
+      "line": 497,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `ID`, `ACK`, `IP`, `DNS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "41. Packet capture DHCPv6",
+      "line": 515,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "41. Packet capture DHCPv6",
+      "line": 515,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "41. Packet capture DHCPv6",
+      "line": 515,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "41. Packet capture DHCPv6",
+      "line": 515,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOLICIT/ADVERTISE/REQUEST/REPLY,`, `DUID a IAID,`, `IA NA alebo IA PD,`, `lifetimes,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "41. Packet capture DHCPv6",
+      "line": 515,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "41. Packet capture DHCPv6",
+      "line": 515,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOLICIT`, `ADVERTISE`, `REQUEST`, `REPLY`, `DUID`, `IAID`, `IA`, `NA`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23501,17 +23906,206 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "16. Diagnostický postup",
-      "line": 278,
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "42. Diagnostický postup: klient nedostane IPv4 adresu",
+      "line": 532,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `DISCOVER`, `OFFER`, `ACK`, `DNS`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `DHCP`, `ACK`, `DNS`, `scope`, `policy`, `identity`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "17. Typické symptómy",
-      "line": 302,
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Zachyť unicast DHCPREQUEST pri renewal.`, `Over route a firewall klienta k pôvodnému serveru.`, `Skontroluj server logs a lease database.`, `Sleduj prechod na broadcast rebinding.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "43. Diagnostický postup: adresa funguje iba do T1/T2",
+      "line": 545,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `T1`, `T2`, `DHCPREQUEST`, `HA`, `ACK`, `NAK`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "44. Diagnostický postup: klient má IP, ale nie konektivitu",
+      "line": 557,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "44. Diagnostický postup: klient má IP, ale nie konektivitu",
+      "line": 557,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "44. Diagnostický postup: klient má IP, ale nie konektivitu",
+      "line": 557,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny prefix a on-link rozhodovanie,`, `default gateway a classless routes,`, `gateway ARP/NDP reachability,`, `DNS resolvery a search domains,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "44. Diagnostický postup: klient má IP, ale nie konektivitu",
+      "line": 557,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "44. Diagnostický postup: klient má IP, ale nie konektivitu",
+      "line": 557,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `NDP`, `DNS`, `MTU`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu",
+      "line": 579,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu",
+      "line": 579,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu",
+      "line": 579,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu",
+      "line": 579,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Porovnaj client identifiers, vendor/user class a relay metadata.`, `Skontroluj overlapping scopes a reservations.`, `Zachyť všetky Offers a identifikuj rogue server.`, `Over HA server configuration a replication.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu",
+      "line": 579,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "45. Diagnostický postup: niektorí klienti dostávajú inú konfiguráciu",
+      "line": 579,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `VLAN`, `ID`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "46. Typické symptómy",
+      "line": 589,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -23519,8 +24113,8 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "Lease funguje po reštarte, potom vypadne",
-      "line": 312,
+      "section": "DHCPv6 adresa bez Internetu",
+      "line": 607,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -23528,26 +24122,80 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "Niektorí klienti dostanú nesprávny subnet",
-      "line": 316,
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "Pool exhausted",
-      "line": 320,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "18. Časté omyly",
-      "line": 324,
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "47. Bezpečný prevádzkový model",
+      "line": 611,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IPAM`, `HA`, `DNS`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "48. Časté omyly",
+      "line": 621,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -23555,8 +24203,8 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "„DHCP broadcast prejde routerom“",
-      "line": 334,
+      "section": "„Reservation je statická IP“",
+      "line": 627,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -23564,8 +24212,35 @@
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",
-      "section": "„Keď host dostal IP, DHCP už nemôže byť problém“",
-      "line": 342,
+      "section": "„Broadcast automaticky prejde routerom“",
+      "line": 631,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "„Keď klient dostal IP, DHCP funguje správne“",
+      "line": 635,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "„Dva DHCP servery automaticky znamenajú HA“",
+      "line": 639,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/dhcp.md",
+      "section": "„DHCPv6 poskytne celý IPv6 network setup“",
+      "line": 643,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
