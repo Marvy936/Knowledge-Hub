@@ -717,15 +717,15 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "title": "Proxy a reverse proxy",
-      "words": 1209,
-      "headings": 33,
-      "sections": 33,
-      "findings": 78,
-      "critical": 30,
-      "high": 31,
-      "medium": 9,
-      "low": 8,
-      "score": 642,
+      "words": 3314,
+      "headings": 78,
+      "sections": 78,
+      "findings": 221,
+      "critical": 78,
+      "high": 79,
+      "medium": 34,
+      "low": 30,
+      "score": 1711,
       "grade": "D"
     },
     {
@@ -34322,14 +34322,68 @@
       "section": "1. Definícia",
       "line": 11,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Forward proxy zastupuje klienta voči externým serverom.`, `Reverse proxy zastupuje serverovú službu voči klientom.`.",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 54 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "1. Definícia",
       "line": 11,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Forward proxy zastupuje klienta voči externým serverom.`, `Reverse proxy zastupuje serverovú službu voči klientom.`, `source a destination endpointy,`, `TCP alebo QUIC state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `QUIC`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "2. Proxy verzus router, NAT a load balancer",
+      "line": 42,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "3. Forward proxy",
+      "line": 70,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "14 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "3. Forward proxy",
+      "line": 70,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `riadený outbound access,`, `egress filtering,`, `audit a attribution,`, `malware alebo content filtering,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "3. Forward proxy",
+      "line": 70,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -34337,53 +34391,8 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "2. Mentálny model",
-      "line": 20,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "3. Forward proxy",
-      "line": 34,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "3. Forward proxy",
-      "line": 34,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "3. Forward proxy",
-      "line": 34,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `riadený outbound access,`, `egress filtering,`, `audit a logging,`, `content filtering,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "3. Forward proxy",
-      "line": 34,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "4. HTTP CONNECT",
-      "line": 55,
+      "line": 70,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34391,35 +34400,44 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "5. Reverse proxy",
-      "line": 68,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Forward proxy",
+      "line": 70,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "5. Reverse proxy",
-      "line": 68,
+      "section": "3. Forward proxy",
+      "line": 70,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLP`, `CIDR`, `NO`, `PROXY`, `DNS`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "4. Transparentný forward proxy",
+      "line": 104,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "5. Reverse proxy",
-      "line": 68,
+      "section": "4. Transparentný forward proxy",
+      "line": 104,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS termination,`, `host/path routing,`, `load balancing,`, `authentication a authorization integration,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikácia nemusí očakávať sprostredkovateľa,`, `TLS nemožno transparentne interpretovať bez interception modelu,`, `original destination treba zachovať v dataplane metadata,`, `asymmetric routing môže obísť proxy,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "5. Reverse proxy",
-      "line": 68,
+      "section": "4. Transparentný forward proxy",
+      "line": 104,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34427,8 +34445,179 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "5. Reverse proxy",
-      "line": 68,
+      "section": "4. Transparentný forward proxy",
+      "line": 104,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "4. Transparentný forward proxy",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "4. Transparentný forward proxy",
+      "line": 104,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizuje alebo autorizuje klienta,`, `vyhodnotí destination policy,`, `vytvorí TCP connection k originu,`, `vráti úspech klientovi,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "5. HTTP CONNECT",
+      "line": 126,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "6. TLS inspection cez forward proxy",
+      "line": 152,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "6. TLS inspection cez forward proxy",
+      "line": 152,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `proxy vidí plaintext,`, `proxy drží alebo používa vysoko citlivý signing key,`, `compromise proxy alebo CA má veľký blast radius,`, `certificate pinning môže zlyhať,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "6. TLS inspection cez forward proxy",
+      "line": 152,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "6. TLS inspection cez forward proxy",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "6. TLS inspection cez forward proxy",
+      "line": 152,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "7. Reverse proxy",
+      "line": 174,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "7. Reverse proxy",
+      "line": 174,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS termination,`, `virtual hosting,`, `host a path routing,`, `load balancing,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "7. Reverse proxy",
+      "line": 174,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "7. Reverse proxy",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "7. Reverse proxy",
+      "line": 174,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `WAF`, `policy`",
@@ -34436,17 +34625,8 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "6. L4 vs. L7 proxy",
-      "line": 96,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L4 proxy",
-      "line": 98,
+      "section": "8. L4 proxy",
+      "line": 208,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34454,26 +34634,26 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L4 proxy",
-      "line": 98,
+      "section": "8. L4 proxy",
+      "line": 208,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "14 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L4 proxy",
-      "line": 98,
+      "section": "8. L4 proxy",
+      "line": 208,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination port,`, `source/destination IP,`, `TCP/UDP flow,`, `prípadne TLS SNI bez plného HTTP spracovania.`.",
+      "detail": "11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination IP a portu,`, `source IP,`, `TCP alebo UDP tuple,`, `connection state,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L4 proxy",
-      "line": 98,
+      "section": "8. L4 proxy",
+      "line": 208,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34481,62 +34661,8 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L4 proxy",
-      "line": 98,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `UDP`, `TLS`, `SNI`, `HTTP`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L7 proxy",
-      "line": 113,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L7 proxy",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L7 proxy",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Host header,`, `path,`, `method,`, `headers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "L7 proxy",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "8. Preservation client identity",
-      "line": 140,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "8. Preservation client identity",
-      "line": 140,
+      "section": "8. L4 proxy",
+      "line": 208,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34544,8 +34670,17 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "9. Host a path routing",
-      "line": 157,
+      "section": "8. L4 proxy",
+      "line": 208,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `UDP`, `TLS`, `SNI`, `ALPN`, `HTTP`, `L7`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "9. L7 proxy",
+      "line": 235,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34553,26 +34688,26 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "9. Host a path routing",
-      "line": 157,
+      "section": "9. L7 proxy",
+      "line": 235,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "20 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "9. Host a path routing",
-      "line": 157,
+      "section": "9. L7 proxy",
+      "line": 235,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávna priorita routes,`, `path normalization rozdiely,`, `URL encoding ambiguity,`, `nebezpečné trustovanie Host headera,`.",
+      "detail": "20 z 20 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheme,`, `Host alebo :authority ,`, `path,`, `method,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "9. Host a path routing",
-      "line": 157,
+      "section": "9. L7 proxy",
+      "line": 235,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34580,125 +34715,35 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "9. Host a path routing",
-      "line": 157,
+      "section": "9. L7 proxy",
+      "line": 235,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "9. L7 proxy",
+      "line": 235,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAF`, `CPU`, `identity`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "10. Buffering a streaming",
-      "line": 176,
+      "section": "11. TLS termination modely",
+      "line": 290,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "10. Buffering a streaming",
-      "line": 176,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvýšiť latency,`, `spotrebovať memory/disk,`, `rozbiť streaming,`, `skryť backpressure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "10. Buffering a streaming",
-      "line": 176,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "10. Buffering a streaming",
-      "line": 176,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "11. Timeouts",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "11. Timeouts",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client header timeout,`, `client body timeout,`, `connect timeout k upstreamu,`, `upstream response/header timeout,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "11. Timeouts",
-      "line": 195,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "11. Timeouts",
-      "line": 195,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "12. Retry",
-      "line": 211,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "12. Retry",
-      "line": 211,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection failure,`, `reset pred response,`, `vybraných HTTP statusoch,`, `timeoutoch.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "12. Retry",
-      "line": 211,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "12. Retry",
-      "line": 211,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "13. Connection pooling",
-      "line": 231,
+      "section": "Edge termination a plaintext upstream",
+      "line": 292,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34706,62 +34751,62 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "13. Connection pooling",
-      "line": 231,
+      "section": "Edge termination a plaintext upstream",
+      "line": 292,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Edge termination a re-encryption",
+      "line": 300,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "TLS passthrough",
+      "line": 308,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "TLS passthrough",
+      "line": 308,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "12. TLS ownership",
+      "line": 321,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "13. Connection pooling",
-      "line": 231,
+      "section": "12. TLS ownership",
+      "line": 321,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej TCP/TLS handshakes,`, `nižšia latency,`, `menší CPU overhead.`, `stale connections,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `server private key,`, `certificate lifecycle,`, `SNI routing,`, `cipher a protocol policy,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "13. Connection pooling",
-      "line": 231,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "13. Connection pooling",
-      "line": 231,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `TLS`, `CPU`, `HTTP`, `DNS`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "14. Caching",
-      "line": 248,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "14. Caching",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheme,`, `host,`, `path,`, `query,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "14. Caching",
-      "line": 248,
+      "section": "12. TLS ownership",
+      "line": 321,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -34769,8 +34814,71 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "14. Caching",
-      "line": 248,
+      "section": "12. TLS ownership",
+      "line": 321,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "12. TLS ownership",
+      "line": 321,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNI`, `ALPN`, `OCSP`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "13. Client identity a trusted proxy chain",
+      "line": 337,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Backend prijíma traffic iba od známych proxy endpointov.`, `Edge proxy odstráni nedôveryhodné forwarding headers.`, `Aplikácia pozná počet alebo rozsah trusted hops.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "13. Client identity a trusted proxy chain",
+      "line": 337,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "13. Client identity a trusted proxy chain",
+      "line": 337,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "13. Client identity a trusted proxy chain",
+      "line": 337,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "13. Client identity a trusted proxy chain",
+      "line": 337,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "13. Client identity a trusted proxy chain",
+      "line": 337,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -34778,98 +34886,44 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "15. Security hranice",
-      "line": 265,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "15. Security hranice",
-      "line": 265,
+      "section": "14. PROXY protocol",
+      "line": 368,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request smuggling,`, `header spoofing,`, `open proxy konfigurácia,`, `SSRF cez dynamický upstream,`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy musí prefix odosielať,`, `backend listener ho musí očakávať,`, `health checks musia používať správny režim.`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "15. Security hranice",
-      "line": 265,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "14. PROXY protocol",
+      "line": 368,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "15. Security hranice",
-      "line": 265,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "15. Security hranice",
-      "line": 265,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSRF`, `URL`, `TLS`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "16. Observability",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
+      "section": "15. Host routing",
+      "line": 387,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over DNS na proxy endpoint,`, `otestuj TCP/TLS spojenie klient → proxy,`, `skontroluj proxy access/error log,`, `over route match podľa Host/path,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Host header injection,`, `mismatch medzi SNI a HTTP authority,`, `chýbajúci default virtual host,`, `absolute-form URL parsing,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "15. Host routing",
+      "line": 387,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
+      "section": "15. Host routing",
+      "line": 387,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34877,8 +34931,89 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
+      "section": "15. Host routing",
+      "line": 387,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "16. Path routing a normalization",
+      "line": 409,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "16. Path routing a normalization",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "16. Path routing a normalization",
+      "line": 409,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent-decodovať,`, `normalizovať . a .. ,`, `zlučovať viac slashov,`, `meniť case podľa protokolu alebo platformy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "16. Path routing a normalization",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "17. Header transformations",
+      "line": 437,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "17. Header transformations",
+      "line": 437,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráni hop-by-hop headers,`, `nastaví forwarding metadata,`, `prepíše Host pre upstream,`, `pridá request ID alebo trace context,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "17. Header transformations",
+      "line": 437,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "17. Header transformations",
+      "line": 437,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "17. Header transformations",
+      "line": 437,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34886,26 +35021,854 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "17. Diagnostický postup",
-      "line": 301,
+      "section": "17. Header transformations",
+      "line": 437,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "18. Typické symptómy",
-      "line": 316,
+      "section": "18. Request buffering",
+      "line": 452,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "18. Request buffering",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chráni upstream pred pomalým klientom,`, `body-size policy sa vyhodnotí pred upstream requestom,`, `proxy môže skenovať alebo transformovať obsah.`, `vyššia latency pred začiatkom upstream spracovania,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "18. Request buffering",
+      "line": 452,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "18. Request buffering",
+      "line": 452,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "18. Request buffering",
+      "line": 452,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "19. Response buffering a backpressure",
+      "line": 473,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy môže zapisovať na disk,`, `upstream sa môže zablokovať cez TCP flow control,`, `request môže zlyhať,`, `memory pressure môže ovplyvniť iné requests.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "19. Response buffering a backpressure",
+      "line": 473,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "19. Response buffering a backpressure",
+      "line": 473,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "19. Response buffering a backpressure",
+      "line": 473,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "20. Streaming, WebSockets a SSE",
+      "line": 496,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "20. Streaming, WebSockets a SSE",
+      "line": 496,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypnuté alebo obmedzené buffering,`, `dlhšie idle timeouty,`, `správny protocol upgrade,`, `flow control,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "20. Streaming, WebSockets a SSE",
+      "line": 496,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "20. Streaming, WebSockets a SSE",
+      "line": 496,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "21. Timeout taxonomy",
+      "line": 510,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 514,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 514,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 514,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 514,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accept alebo handshake timeout,`, `TLS handshake timeout,`, `request header timeout,`, `request body timeout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 514,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 514,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 523,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 523,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 523,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 523,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/service-discovery timeout,`, `connect timeout,`, `upstream TLS handshake timeout,`, `request send timeout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 523,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 523,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Pool",
+      "line": 533,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Pool",
+      "line": 533,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Pool",
+      "line": 533,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Pool",
+      "line": 533,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idle connection lifetime,`, `maximum connection age,`, `queue timeout,`, `endpoint drain timeout.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Pool",
+      "line": 533,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect failure,`, `reset pred odoslaním request body,`, `reset pred response headers,`, `timeout-e,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "23. Retry semantics",
+      "line": 566,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "25. Connection pooling",
+      "line": 614,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "25. Connection pooling",
+      "line": 614,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej TCP a TLS handshakes,`, `nižšia latency,`, `menší CPU overhead,`, `stabilnejšia ephemeral-port a conntrack spotreba.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "25. Connection pooling",
+      "line": 614,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "25. Connection pooling",
+      "line": 614,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "25. Connection pooling",
+      "line": 614,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `TLS`, `CPU`, `DNS`, `HTTP`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "26. Queueing a concurrency",
+      "line": 636,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "26. Queueing a concurrency",
+      "line": 636,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active downstream connections,`, `active upstream connections,`, `queued requests,`, `queue wait time,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "26. Queueing a concurrency",
+      "line": 636,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "27. Service discovery a DNS",
+      "line": 660,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "27. Service discovery a DNS",
+      "line": 660,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS resolution,`, `statická konfigurácia,`, `API-based service discovery,`, `Kubernetes EndpointSlices,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "27. Service discovery a DNS",
+      "line": 660,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "27. Service discovery a DNS",
+      "line": 660,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "27. Service discovery a DNS",
+      "line": 660,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `API-`, `TTL`, `control plane`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "28. Health checks",
+      "line": 684,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Passive health",
+      "line": 688,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "29. Draining",
+      "line": 700,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "29. Draining",
+      "line": 700,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaz nových connections/requests,`, `dokončenie existujúcich requests,`, `dlhé streaming connections,`, `timeout po ktorom sa zostávajúce flows ukončia.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "29. Draining",
+      "line": 700,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "30. Caching",
+      "line": 719,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "30. Caching",
+      "line": 719,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheme,`, `host,`, `path,`, `query,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "30. Caching",
+      "line": 719,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "30. Caching",
+      "line": 719,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "30. Caching",
+      "line": 719,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "30. Caching",
+      "line": 719,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "31. Compression",
+      "line": 746,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "31. Compression",
+      "line": 746,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižší bandwidth,`, `vyšší CPU,`, `zmena cache key podľa Accept-Encoding ,`, `buffering,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "31. Compression",
+      "line": 746,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "31. Compression",
+      "line": 746,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "32. Request size a protocol limits",
+      "line": 761,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "32. Request size a protocol limits",
+      "line": 761,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `header size,`, `počet headers,`, `request-line length,`, `body size,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "32. Request size a protocol limits",
+      "line": 761,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "32. Request size a protocol limits",
+      "line": 761,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "33. Protocol translation",
+      "line": 775,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "33. Protocol translation",
+      "line": 775,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "33. Protocol translation",
+      "line": 775,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP/3 downstream → HTTP/2 upstream,`, `HTTP/2 downstream → HTTP/1.1 upstream,`, `TLS downstream → plaintext upstream,`, `gRPC → HTTP/2 upstream,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "33. Protocol translation",
+      "line": 775,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "33. Protocol translation",
+      "line": 775,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "34. Status attribution",
+      "line": 797,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "502 Bad Gateway",
+      "line": 801,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "502 Bad Gateway",
+      "line": 801,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "502 Bad Gateway",
+      "line": 801,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection refused alebo reset,`, `upstream TLS failure,`, `protocol mismatch,`, `invalid response framing,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "502 Bad Gateway",
+      "line": 801,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "502 Bad Gateway",
+      "line": 801,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "503 Service Unavailable",
+      "line": 811,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "503 Service Unavailable",
+      "line": 811,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "503 Service Unavailable",
-      "line": 322,
+      "line": 811,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky endpoints unhealthy,`, `maintenance,`, `circuit breaker,`, `queue alebo concurrency limit,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "503 Service Unavailable",
+      "line": 811,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "35. Security hranice",
+      "line": 827,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "35. Security hranice",
+      "line": 827,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `open forward proxy,`, `SSRF cez dynamický upstream,`, `request smuggling,`, `response splitting,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "35. Security hranice",
+      "line": 827,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "35. Security hranice",
+      "line": 827,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "35. Security hranice",
+      "line": 827,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSRF`, `TLS`, `CONNECT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "36. Request smuggling",
+      "line": 848,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "36. Request smuggling",
+      "line": 848,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Content-Length ,`, `Transfer-Encoding ,`, `duplicitných headers,`, `whitespace,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "36. Request smuggling",
+      "line": 848,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "37. Observability",
+      "line": 863,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34913,8 +35876,161 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "504 Gateway Timeout",
-      "line": 326,
+      "section": "Downstream",
+      "line": 867,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 867,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 867,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 867,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accepted connections,`, `TLS handshake failures,`, `request rate,`, `client disconnects,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 867,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Downstream",
+      "line": 867,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Routing a queue",
+      "line": 877,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Routing a queue",
+      "line": 877,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Routing a queue",
+      "line": 877,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Routing a queue",
+      "line": 877,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route name,`, `selected cluster/pool,`, `queue wait,`, `retries,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Routing a queue",
+      "line": 877,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 886,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 886,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 886,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 886,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/discovery time,`, `connect time,`, `TLS time,`, `time to response headers,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 886,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Upstream",
+      "line": 886,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "End-to-end",
+      "line": 897,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34922,8 +36038,53 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "Funguje priamo, nie cez proxy",
-      "line": 330,
+      "section": "End-to-end",
+      "line": 897,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "End-to-end",
+      "line": 897,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "End-to-end",
+      "line": 897,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `total request time,`, `request ID alebo trace ID,`, `proxy-generated vs upstream-generated response,`, `bytes in/out,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "End-to-end",
+      "line": 897,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "End-to-end",
+      "line": 897,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "38. Diagnostický postup",
+      "line": 907,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34931,17 +36092,62 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "Fungujú malé requesty, veľké nie",
-      "line": 334,
+      "section": "38. Diagnostický postup",
+      "line": 907,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "38. Diagnostický postup",
+      "line": 907,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over DNS na proxy endpoint.`, `Over client → proxy route, TCP a TLS.`, `Skontroluj SNI, Host/authority a certificate.`, `Over route match a rewrites.`.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "19. Časté omyly",
-      "line": 338,
+      "section": "38. Diagnostický postup",
+      "line": 907,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "38. Diagnostický postup",
+      "line": 907,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "38. Diagnostický postup",
+      "line": 907,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "38. Diagnostický postup",
+      "line": 907,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `SNI`, `ID`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "39. Typické symptómy",
+      "line": 926,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -34949,8 +36155,8 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "„502 znamená, že aplikácia vrátila chybu“",
-      "line": 348,
+      "section": "Funguje priamo, nie cez proxy",
+      "line": 928,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34958,8 +36164,89 @@
     },
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
-      "section": "„Proxy retry je vždy bezpečný“",
-      "line": 352,
+      "section": "Funguje cez jednu proxy vrstvu, nie cez celý chain",
+      "line": 932,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Malé requesty fungujú, veľké nie",
+      "line": 936,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Krátke requesty fungujú, streaming sa odpája",
+      "line": 940,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Po DNS zmene proxy stále používa starý backend",
+      "line": 944,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Klient dostáva 504 , backend nevidí request",
+      "line": 948,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "Backend loguje proxy IP ako klienta",
+      "line": 952,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "40. Časté omyly",
+      "line": 956,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "„Forward proxy a reverse proxy sa líšia iba smerom šípky“",
+      "line": 962,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "„502 znamená aplikačnú chybu backendu“",
+      "line": 970,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
+      "section": "„L4 proxy nemení connection semantics“",
+      "line": 990,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
