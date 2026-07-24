@@ -997,15 +997,15 @@
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
       "title": "Contract a API tests",
-      "words": 1222,
-      "headings": 30,
-      "sections": 30,
-      "findings": 86,
-      "critical": 35,
-      "high": 37,
-      "medium": 7,
-      "low": 7,
-      "score": 740,
+      "words": 3426,
+      "headings": 50,
+      "sections": 50,
+      "findings": 123,
+      "critical": 29,
+      "high": 28,
+      "medium": 27,
+      "low": 39,
+      "score": 724,
       "grade": "D"
     },
     {
@@ -61661,215 +61661,44 @@
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "1. Čo tvorí API kontrakt",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "1. Čo tvorí API kontrakt",
-      "line": 15,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `methods a paths,`, `request a response schemas,`, `required a optional fields,`, `typy a constraints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "1. Čo tvorí API kontrakt",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "1. Čo tvorí API kontrakt",
-      "line": 15,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "2. API test",
-      "line": 37,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "2. API test",
-      "line": 37,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `happy path,`, `invalid input,`, `authorization,`, `not-found a conflict semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "2. API test",
-      "line": 37,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "3. Schema validation nestačí",
-      "line": 56,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "3. Schema validation nestačí",
-      "line": 56,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema assertions,`, `semantic assertions,`, `state assertions,`, `authorization assertions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "3. Schema validation nestačí",
-      "line": 56,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "4. Producer-driven contract",
-      "line": 79,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "4. Producer-driven contract",
-      "line": 79,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "4. Producer-driven contract",
-      "line": 79,
-      "severity": "critical",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centralizovaný popis API,`, `generovanie klientov a dokumentácie,`, `schema validation,`, `linting compatibility pravidiel.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "4. Producer-driven contract",
-      "line": 79,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "5. Consumer-driven contract testing",
-      "line": 95,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "5. Consumer-driven contract testing",
-      "line": 95,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testuje reálne používané interaction patterns,`, `zachytí breaking changes pred integráciou,`, `umožní nezávislé pipelines.`, `príliš detailné expectations môžu zmraziť implementáciu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "5. Consumer-driven contract testing",
-      "line": 95,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "6. Pact-style interaction",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "6. Pact-style interaction",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider state,`, `request,`, `expected response,`, `matching rules.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "6. Pact-style interaction",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "7. Provider states",
-      "line": 145,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "7. Provider states",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "7. Provider states",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľ existuje,`, `objednávka je pending,`, `token je expirovaný,`, `účet nemá oprávnenie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "7. Provider states",
-      "line": 145,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61877,332 +61706,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "8. Backward a forward compatibility",
-      "line": 164,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Backward compatibility",
-      "line": 166,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Forward compatibility",
-      "line": 170,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Forward compatibility",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Forward compatibility",
-      "line": 170,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pridanie optional field je často kompatibilné,`, `odstránenie field je breaking,`, `zmena typu je breaking,`, `zúženie allowed enum values je breaking,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Forward compatibility",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Forward compatibility",
-      "line": 170,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "9. Tolerant reader",
-      "line": 183,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "9. Tolerant reader",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "9. Tolerant reader",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúce required field,`, `neplatný typ,`, `bezpečnostne významnú zmenu,`, `business invariant violation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "9. Tolerant reader",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "10. OpenAPI testing",
-      "line": 194,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "10. OpenAPI testing",
-      "line": 194,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request/response schema checks,`, `operation coverage,`, `generated clients,`, `breaking-change diff,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "10. OpenAPI testing",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "10. OpenAPI testing",
-      "line": 194,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "11. GraphQL kontrakty",
-      "line": 216,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "11. GraphQL kontrakty",
-      "line": 216,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "11. GraphQL kontrakty",
-      "line": 216,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie field,`, `zmena nullability,`, `odstránenie enum value,`, `argument requirements,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "11. GraphQL kontrakty",
-      "line": 216,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "12. Event-driven contracts",
-      "line": 229,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "12. Event-driven contracts",
-      "line": 229,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `topic alebo routing key,`, `event name a version,`, `payload schema,`, `key/partition semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "12. Event-driven contracts",
-      "line": 229,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "12. Event-driven contracts",
-      "line": 229,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "12. Event-driven contracts",
-      "line": 229,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `REST`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "13. Negative API tests",
-      "line": 252,
+      "section": "3. Čo tvorí API kontrakt",
+      "line": 43,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "13. Negative API tests",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "13. Negative API tests",
-      "line": 252,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúce required fields,`, `malformed payload,`, `oversized input,`, `unsupported media type,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "13. Negative API tests",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "14. Authentication vs. authorization tests",
-      "line": 270,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "14. Authentication vs. authorization tests",
-      "line": 270,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing token,`, `invalid signature,`, `expired token,`, `wrong issuer alebo audience.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "14. Authentication vs. authorization tests",
-      "line": 270,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "14. Authentication vs. authorization tests",
-      "line": 270,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "15. Idempotency a retry",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "15. Idempotency a retry",
-      "line": 289,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "15. Idempotency a retry",
-      "line": 289,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prvý request vytvorí výsledok,`, `rovnaký idempotency key nezdvojí side effect,`, `concurrent retries sú bezpečné,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "15. Idempotency a retry",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "15. Idempotency a retry",
-      "line": 289,
+      "section": "3. Čo tvorí API kontrakt",
+      "line": 43,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -62210,215 +61733,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "16. Pagination tests",
-      "line": 301,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "16. Pagination tests",
-      "line": 301,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "16. Pagination tests",
-      "line": 301,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prvú a poslednú stránku,`, `empty result,`, `page size limits,`, `stable ordering,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "16. Pagination tests",
-      "line": 301,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "16. Pagination tests",
-      "line": 301,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "17. Concurrency control",
-      "line": 315,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "17. Concurrency control",
-      "line": 315,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ETag a If-Match ,`, `version field,`, `compare-and-swap token.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "17. Concurrency control",
-      "line": 315,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "19. Deployment compatibility",
-      "line": 350,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "19. Deployment compatibility",
-      "line": 350,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "19. Deployment compatibility",
-      "line": 350,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré consumer versions sú aktívne,`, `ktoré contracts overili provider build,`, `či existuje rollback-compatible database/API model,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "19. Deployment compatibility",
-      "line": 350,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "19. Deployment compatibility",
-      "line": 350,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Snapshot celého response bez semantics",
-      "line": 363,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Mock server ručne odlišný od kontraktu",
-      "line": 367,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Contract ako kópia implementácie",
-      "line": 371,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Iba happy path",
-      "line": 375,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Breaking-change checker ako jediná ochrana",
-      "line": 379,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj consumer a provider versions,`, `zobraz presnú interaction a mismatch,`, `rozlíš schema, value matcher a provider-state problém,`, `over, či contract nie je zastaraný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
+      "section": "3. Čo tvorí API kontrakt",
+      "line": 43,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -62426,12 +61742,1029 @@
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "21. Diagnostický postup",
-      "line": 383,
+      "section": "3. Čo tvorí API kontrakt",
+      "line": 43,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "3. Čo tvorí API kontrakt",
+      "line": 43,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `resource`",
       "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "4. API test",
+      "line": 60,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "4. API test",
+      "line": 60,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "4. API test",
+      "line": 60,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "4. API test",
+      "line": 60,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `identity`, `scope`, `failure semantics`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "5. Contract test",
+      "line": 78,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "5. Contract test",
+      "line": 78,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider implementáciu voči OpenAPI alebo AsyncAPI specification;`, `consumer parser voči publikovaným examples a schema variants;`, `consumer-driven interaction voči provider implementation;`, `backward/forward compatibility dvoch schema versions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "5. Contract test",
+      "line": 78,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "5. Contract test",
+      "line": 78,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "6. Schema validation verzus semantic assertions",
+      "line": 93,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "6. Schema validation verzus semantic assertions",
+      "line": 93,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "7. Producer-driven contract",
+      "line": 117,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "7. Producer-driven contract",
+      "line": 117,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `centrálne popísané rozhranie podporuje dokumentáciu, generation a lint`, `provider môže validovať request/response a operation coverage;`, `specification môže driftovať od runtime implementácie;`, `schema diff neodhaľuje každú business alebo performance zmenu;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "7. Producer-driven contract",
+      "line": 117,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "8. Consumer-driven contract",
+      "line": 137,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "8. Consumer-driven contract",
+      "line": 137,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract reprezentuje reálne používané behavior;`, `provider vidí breaking change pred nasadením;`, `tímy môžu vyvíjať a deployovať nezávislejšie;`, `nepotrebuje permanentné shared E2E prostredie.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "8. Consumer-driven contract",
+      "line": 137,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "8. Consumer-driven contract",
+      "line": 137,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "9. Provider states",
+      "line": 164,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "9. Provider states",
+      "line": 164,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "9. Provider states",
+      "line": 164,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "10. Matching rules a správna prísnosť",
+      "line": 179,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "11. Backward, forward a full compatibility",
+      "line": 199,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "12. Tolerant reader",
+      "line": 217,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci required field;`, `neplatný typ alebo formát;`, `neznámu security-relevant enum hodnotu;`, `porušený business invariant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "12. Tolerant reader",
+      "line": 217,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "13. OpenAPI lifecycle",
+      "line": 231,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "13. OpenAPI lifecycle",
+      "line": 231,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request aj response schemas pre všetky relevantné statusy;`, `nullable verzus optional semantics;`, `security schemes a scopes;`, `examples zodpovedajúce schemas;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "13. OpenAPI lifecycle",
+      "line": 231,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "13. OpenAPI lifecycle",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generation je reprodukovateľná z pinned toolchainu;`, `serialization/deserialization funguje na representative payloads;`, `error responses sa mapujú konzistentne;`, `unknown fields a enum values majú definované správanie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "14. Generated clients a SDK",
+      "line": 266,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "15. GraphQL contracts",
+      "line": 282,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "15. GraphQL contracts",
+      "line": 282,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie field alebo argumentu;`, `zmena nullability;`, `zmena argumentu na required;`, `odstránenie enum value;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "15. GraphQL contracts",
+      "line": 282,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "15. GraphQL contracts",
+      "line": 282,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "16. Event-driven contracts",
+      "line": 298,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "16. Event-driven contracts",
+      "line": 298,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "16. Event-driven contracts",
+      "line": 298,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "17. API authentication tests",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "17. API authentication tests",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci credential;`, `neplatný podpis alebo certificate chain;`, `expired alebo not-yet-valid token;`, `nesprávny issuer, audience alebo client identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "17. API authentication tests",
+      "line": 316,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "17. API authentication tests",
+      "line": 316,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "17. API authentication tests",
+      "line": 316,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "18. API authorization tests",
+      "line": 330,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "18. API authorization tests",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role alebo scope bez potrebného oprávnenia;`, `resource ownership;`, `tenant isolation;`, `field-level alebo action-level policy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "18. API authorization tests",
+      "line": 330,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "18. API authorization tests",
+      "line": 330,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "18. API authorization tests",
+      "line": 330,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "19. Idempotency test",
+      "line": 346,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "19. Idempotency test",
+      "line": 346,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prvý request vytvorí presne jeden business výsledok;`, `súbežné requests s rovnakým key nevytvoria duplicitu;`, `server commitne zmenu, ale response sa klientovi stratí;`, `retry po tomto timeout-e vráti pôvodný výsledok;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "19. Idempotency test",
+      "line": 346,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "19. Idempotency test",
+      "line": 346,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "19. Idempotency test",
+      "line": 346,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "21. Pagination a collection contract",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "21. Pagination a collection contract",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `empty collection a jedinú stránku;`, `prvú, strednú a poslednú stránku;`, `maximum/default page size;`, `deterministic ordering a tie-breaker;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "21. Pagination a collection contract",
+      "line": 374,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "21. Pagination a collection contract",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "21. Pagination a collection contract",
+      "line": 374,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "22. Async operations",
+      "line": 389,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "23. Negative API tests",
+      "line": 405,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "23. Negative API tests",
+      "line": 405,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malformed JSON alebo nepodporovaný media type;`, `chýbajúci required field alebo unknown forbidden field;`, `oversized body, header alebo collection request;`, `neplatná identity a nedostatočné oprávnenie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "23. Negative API tests",
+      "line": 405,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "23. Negative API tests",
+      "line": 405,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "23. Negative API tests",
+      "line": 405,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "25. Contract broker a deployment decision",
+      "line": 439,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "25. Contract broker a deployment decision",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré consumer versions sú v cieľovom prostredí aktívne;`, `ktoré provider buildy ich contracts overili;`, `rolling deployment, kde staré a nové instances koexistujú;`, `rollback na predchádzajúcu provider alebo consumer verziu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "25. Contract broker a deployment decision",
+      "line": 439,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "25. Contract broker a deployment decision",
+      "line": 439,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "25. Contract broker a deployment decision",
+      "line": 439,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "25. Contract broker a deployment decision",
+      "line": 439,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "26. Versioning a deprecation",
+      "line": 454,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "26. Versioning a deprecation",
+      "line": 454,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sa považuje za breaking change;`, `koľko major alebo release lines podporuje;`, `ako dlho trvá deprecation window;`, `ako sa consumers upozornia a meria ich migrácia;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "26. Versioning a deprecation",
+      "line": 454,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "26. Versioning a deprecation",
+      "line": 454,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "26. Versioning a deprecation",
+      "line": 454,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "28. API test verzus E2E test",
+      "line": 482,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "28. API test verzus E2E test",
+      "line": 482,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint alebo event boundary;`, `reálne spustené komponenty;`, `nahradené dependencies;`, `environment a artifact versions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "28. API test verzus E2E test",
+      "line": 482,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "28. API test verzus E2E test",
+      "line": 482,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "29. Failure artifacts a observability",
+      "line": 495,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "29. Failure artifacts a observability",
+      "line": 495,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer a provider version/commit;`, `contract artifact digest;`, `konkrétnu interaction a mismatch path;`, `matcher verzus actual value;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "29. Failure artifacts a observability",
+      "line": 495,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "29. Failure artifacts a observability",
+      "line": 495,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "29. Failure artifacts a observability",
+      "line": 495,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "30. Diagnostika contract failure",
+      "line": 509,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "33. Rozhodovací rámec",
+      "line": 564,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "33. Rozhodovací rámec",
+      "line": 564,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "33. Rozhodovací rámec",
+      "line": 564,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj producerov, consumerov a aktívne versions;`, `definuj autoritatívny contract source;`, `klasifikuj schema, semantic, security a delivery zmenu;`, `urč backward/forward compatibility požiadavky;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "33. Rozhodovací rámec",
+      "line": 564,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "33. Rozhodovací rámec",
+      "line": 564,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "33. Rozhodovací rámec",
+      "line": 564,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract obsahuje shape aj behavior semantics;`, `API test overuje side effects, nie iba status;`, `provider implementation sa testuje voči publikovanej specification;`, `consumer expectations používajú primerané matchers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "34. Kontrolný checklist",
+      "line": 580,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "35. Časté omyly",
+      "line": 596,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "37. Zhrnutie",
+      "line": 633,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
