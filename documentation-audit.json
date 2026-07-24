@@ -1347,15 +1347,15 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "title": "Progressive delivery",
-      "words": 1086,
-      "headings": 39,
-      "sections": 39,
-      "findings": 76,
-      "critical": 28,
-      "high": 40,
-      "medium": 6,
-      "low": 2,
-      "score": 670,
+      "words": 1630,
+      "headings": 42,
+      "sections": 42,
+      "findings": 134,
+      "critical": 53,
+      "high": 57,
+      "medium": 12,
+      "low": 12,
+      "score": 1134,
       "grade": "D"
     },
     {
@@ -93395,8 +93395,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "1. Základný model",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -93404,26 +93413,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "2. Deployment vs. release control",
-      "line": 18,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "2. Deployment vs. release control",
-      "line": 18,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "2. Deployment vs. release control",
-      "line": 18,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93431,8 +93431,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "2. Deployment vs. release control",
-      "line": 18,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "1. Definícia",
+      "line": 9,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93440,26 +93449,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "3. Delivery controller",
-      "line": 30,
+      "section": "2. Nezávislé osi promotion",
+      "line": 26,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "2. Nezávislé osi promotion",
+      "line": 26,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "3. Delivery controller",
-      "line": 30,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollout steps,`, `traffic weights,`, `ring membership,`, `feature flags,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "3. Delivery controller",
-      "line": 30,
+      "section": "2. Nezávislé osi promotion",
+      "line": 26,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93467,17 +93476,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "3. Delivery controller",
-      "line": 30,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "2. Nezávislé osi promotion",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "4. Progressive delivery contract",
-      "line": 46,
+      "line": 52,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93485,25 +93494,61 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "5. Strategies",
-      "line": 66,
+      "section": "4. Progressive delivery contract",
+      "line": 52,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Canary",
-      "line": 68,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. Progressive delivery contract",
+      "line": 52,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release/artifact digest,`, `config a infrastructure revision,`, `target environment,`, `rollout strategy a steps,`.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Rings",
+      "section": "4. Progressive delivery contract",
+      "line": 52,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "4. Progressive delivery contract",
+      "line": 52,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "4. Progressive delivery contract",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "4. Progressive delivery contract",
+      "line": 52,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "5. Rollout state machine",
       "line": 72,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -93512,43 +93557,16 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Blue-green",
-      "line": 76,
+      "section": "5. Rollout state machine",
+      "line": 72,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Feature flags",
-      "line": 80,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Shadow",
-      "line": 84,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "A/B experiment",
-      "line": 88,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "6. Promotion evidence",
+      "section": "6. Preconditions",
       "line": 92,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -93557,25 +93575,25 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "6. Promotion evidence",
+      "section": "6. Preconditions",
       "line": 92,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "6. Promotion evidence",
+      "section": "6. Preconditions",
       "line": 92,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact integrity a provenance,`, `pre-deployment test results,`, `runtime health,`, `SLI/SLO a error-budget burn,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/provenance a required gates,`, `environment baseline health,`, `config/flag/data compatibility,`, `version-level telemetry,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "6. Promotion evidence",
+      "section": "6. Preconditions",
       "line": 92,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -93584,17 +93602,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "6. Promotion evidence",
-      "line": 92,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "8. Observation window",
-      "line": 124,
+      "section": "8. Risk classification",
+      "line": 122,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93602,26 +93611,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "8. Observation window",
-      "line": 124,
+      "section": "8. Risk classification",
+      "line": 122,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "8. Observation window",
-      "line": 124,
+      "section": "8. Risk classification",
+      "line": 122,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `okamžité request failures,`, `cache warm-up,`, `autoscaling,`, `long transactions,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `IAM/security zmenu,`, `databázové a event mutations,`, `reversibility,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "8. Observation window",
-      "line": 124,
+      "section": "8. Risk classification",
+      "line": 122,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93629,35 +93638,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "9. Risk-based rollout",
-      "line": 139,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "9. Risk-based rollout",
-      "line": 139,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `changed components,`, `IAM alebo database zmien,`, `reversibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "9. Risk-based rollout",
-      "line": 139,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "9. Risk-based rollout",
-      "line": 139,
+      "section": "8. Risk classification",
+      "line": 122,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `blast radius`, `scope`",
@@ -93665,8 +93647,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "10. Pause, abort a resume",
-      "line": 156,
+      "section": "9. Evidence model",
+      "line": 140,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93674,26 +93656,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "10. Pause, abort a resume",
-      "line": 156,
+      "section": "9. Evidence model",
+      "line": 140,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "10. Pause, abort a resume",
-      "line": 156,
+      "section": "9. Evidence model",
+      "line": 140,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `progressing ,`, `paused ,`, `degraded ,`, `aborted ,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-release test a security results,`, `artifact signature/provenance,`, `deployment verification,`, `technical SLIs,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "10. Pause, abort a resume",
-      "line": 156,
+      "section": "9. Evidence model",
+      "line": 140,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93701,8 +93683,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "11. Missing alebo delayed telemetry",
-      "line": 170,
+      "section": "11. Sample a observation contract",
+      "line": 169,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93710,188 +93692,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "11. Missing alebo delayed telemetry",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "11. Missing alebo delayed telemetry",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré signály fail closed,`, `ktoré fail open s warningom,`, `ako dlho sa čaká,`, `čo je minimálna completeness,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "11. Missing alebo delayed telemetry",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "12. Automated analysis",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "12. Automated analysis",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threshold rules,`, `baseline ratio,`, `trend detection,`, `anomaly detection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "12. Automated analysis",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "12. Automated analysis",
-      "line": 183,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "13. Manual checkpoints",
-      "line": 197,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "13. Manual checkpoints",
-      "line": 197,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "13. Manual checkpoints",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `právnom alebo business rozhodnutí,`, `neautomatizovateľnej evidence,`, `vysokom a nevratnom dopade,`, `emergency risk acceptance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "13. Manual checkpoints",
-      "line": 197,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "14. Error budgets",
-      "line": 209,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "15. Recovery hierarchy",
-      "line": 223,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "15. Recovery hierarchy",
-      "line": 223,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "15. Recovery hierarchy",
-      "line": 223,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalšiu promotion,`, `znížiť exposure,`, `vypnúť feature flag,`, `route traffic na stable target,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "15. Recovery hierarchy",
-      "line": 223,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "16. Database a shared-state constraints",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "16. Database a shared-state constraints",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward-compatible schema,`, `tolerant readers,`, `compatible writers,`, `event schema evolution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "16. Database a shared-state constraints",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "17. Multi-service releases",
-      "line": 252,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "17. Multi-service releases",
-      "line": 252,
+      "section": "11. Sample a observation contract",
+      "line": 169,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
@@ -93899,17 +93701,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "17. Multi-service releases",
-      "line": 252,
+      "section": "11. Sample a observation contract",
+      "line": 169,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency graph,`, `compatibility matrix,`, `independent deployability,`, `release manifest,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny count relevantných events,`, `minimálnu duration,`, `maximálnu duration,`, `delayed outcome horizon,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "17. Multi-service releases",
-      "line": 252,
+      "section": "11. Sample a observation contract",
+      "line": 169,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93917,8 +93719,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "18. Governance a audit",
-      "line": 266,
+      "section": "12. Promotion verdicts",
+      "line": 183,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "12. Promotion verdicts",
+      "line": 183,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "12. Promotion verdicts",
+      "line": 183,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "12. Promotion verdicts",
+      "line": 183,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "12. Promotion verdicts",
+      "line": 183,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "13. Missing a delayed telemetry",
+      "line": 191,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93926,8 +93773,341 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "18. Governance a audit",
-      "line": 266,
+      "section": "13. Missing a delayed telemetry",
+      "line": 191,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "13. Missing a delayed telemetry",
+      "line": 191,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré signály fail closed,`, `maximum data lag,`, `minimum completeness,`, `správanie pri query error,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "13. Missing a delayed telemetry",
+      "line": 191,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "14. Automated analysis",
+      "line": 205,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "14. Automated analysis",
+      "line": 205,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absolútne thresholds,`, `delta voči control,`, `SLO burn,`, `trends,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "14. Automated analysis",
+      "line": 205,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "14. Automated analysis",
+      "line": 205,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "15. Control group a attribution",
+      "line": 219,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "15. Control group a attribution",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/version,`, `cohort,`, `region/zone,`, `config/flags,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "15. Control group a attribution",
+      "line": 219,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "15. Control group a attribution",
+      "line": 219,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "16. Manual checkpoints",
+      "line": 233,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "16. Manual checkpoints",
+      "line": 233,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "16. Manual checkpoints",
+      "line": 233,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neautomatizovateľnej business/ethical evidence,`, `vysokom nevratnom dopade,`, `regulácii,`, `inconclusive signále,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "16. Manual checkpoints",
+      "line": 233,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "17. Error budgets a incident state",
+      "line": 245,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "18. Recovery hierarchy",
+      "line": 259,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "18. Recovery hierarchy",
+      "line": 259,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "18. Recovery hierarchy",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť promotion,`, `znížiť exposure,`, `vypnúť feature/migration path,`, `route na stable target,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "18. Recovery hierarchy",
+      "line": 259,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "19. Shared-state compatibility",
+      "line": 274,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "19. Shared-state compatibility",
+      "line": 274,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expand-contract DB schema,`, `tolerant events,`, `cache/session versioning,`, `backward-compatible clients,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "19. Shared-state compatibility",
+      "line": 274,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "19. Shared-state compatibility",
+      "line": 274,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "20. Multi-service release",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "20. Multi-service release",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deploy tolerant consumers/readers first,`, `potom producers/writers,`, `používaj flags/adapters,`, `sleduj per-service rollout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "20. Multi-service release",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "21. Controller security",
+      "line": 302,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "21. Controller security",
+      "line": 302,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "21. Controller security",
+      "line": 302,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `least privilege,`, `protected workflow/config,`, `short-lived identity,`, `approval pre high-risk overrides,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "21. Controller security",
+      "line": 302,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "21. Controller security",
+      "line": 302,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "22. Controller availability a failure semantics",
+      "line": 315,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "22. Controller availability a failure semantics",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "22. Controller availability a failure semantics",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller outage počas step-u,`, `duplicate reconciliation,`, `stale desired state,`, `partial traffic update,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "22. Controller availability a failure semantics",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "23. Pause lifecycle",
+      "line": 329,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "23. Pause lifecycle",
+      "line": 329,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
@@ -93935,17 +94115,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "18. Governance a audit",
-      "line": 266,
+      "section": "23. Pause lifecycle",
+      "line": 329,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto vytvoril rollout,`, `artifact a config identity,`, `policy version,`, `každú zmenu exposure,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dôvod,`, `current exposure a artifacts,`, `evidence gaps,`, `ownera,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "18. Governance a audit",
-      "line": 266,
+      "section": "23. Pause lifecycle",
+      "line": 329,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93953,17 +94133,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "18. Governance a audit",
-      "line": 266,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "19. Metriky procesu",
-      "line": 281,
+      "section": "24. Delayed validation",
+      "line": 344,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93971,26 +94142,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "19. Metriky procesu",
-      "line": 281,
+      "section": "24. Delayed validation",
+      "line": 344,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "19. Metriky procesu",
-      "line": 281,
+      "section": "24. Delayed validation",
+      "line": 344,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollout duration,`, `pause a abort rate,`, `false abort rate,`, `exposure before detection,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory leak,`, `queue/backlog,`, `scheduled jobs,`, `billing/settlement,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "19. Metriky procesu",
-      "line": 281,
+      "section": "24. Delayed validation",
+      "line": 344,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93998,17 +94169,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "19. Metriky procesu",
-      "line": 281,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "25. Cleanup a closure",
+      "line": 358,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "19. Metriky procesu",
-      "line": 281,
+      "section": "25. Cleanup a closure",
+      "line": 358,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "25. Cleanup a closure",
+      "line": 358,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `final artifact/config/exposure sú zaznamenané,`, `old generation je retired,`, `flags a temp routing sú odstránené,`, `migration je v intended phase,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "25. Cleanup a closure",
+      "line": 358,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "26. Audit trail",
+      "line": 370,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "26. Audit trail",
+      "line": 370,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "26. Audit trail",
+      "line": 370,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollout contract revision,`, `subject identities,`, `každú exposure/config zmenu,`, `metrics queries a snapshots/references,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "26. Audit trail",
+      "line": 370,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "26. Audit trail",
+      "line": 370,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -94016,8 +94250,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Controller promotionoval bez trafficu",
-      "line": 304,
+      "section": "27. Metriky procesu",
+      "line": 383,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "27. Metriky procesu",
+      "line": 383,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "27. Metriky procesu",
+      "line": 383,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "27. Metriky procesu",
+      "line": 383,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mean exposure before detection,`, `time to full release,`, `pause/inconclusive/abort rate,`, `false abort a false promotion,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "27. Metriky procesu",
+      "line": 383,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "28. Typické anti-patterny",
+      "line": 396,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "Progressive delivery = pomalý rollout",
+      "line": 398,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -94025,8 +94313,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Feature flag a traffic weight sa rozchádzajú",
-      "line": 308,
+      "section": "Každá zmena rovnaký workflow",
+      "line": 402,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -94034,8 +94322,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Progressive delivery = pomalý rolling update",
-      "line": 322,
+      "section": "Viac control planes bez spoločnej identity",
+      "line": 406,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -94043,8 +94331,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Rovnaká policy pre každú zmenu",
-      "line": 326,
+      "section": "Missing metrics = success",
+      "line": 410,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -94052,8 +94340,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Nekonečný canary",
-      "line": 330,
+      "section": "Automatika bez explainability",
+      "line": 414,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -94061,8 +94349,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Automatizácia bez explainability",
-      "line": 334,
+      "section": "Nekonečný canary/pause",
+      "line": 418,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -94070,12 +94358,246 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
-      "section": "Rollout bez cleanup fázy",
-      "line": 338,
+      "section": "100 % exposure = finished",
+      "line": 422,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči rollout ID, subject a desired state.`, `Over controller lock a last transition.`, `Validuj telemetry completeness a query freshness.`, `Porovnaj cohort/control a concurrent changes.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "29. Diagnostický postup",
+      "line": 426,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré osi promotion potrebujeme oddeliť?`, `Aký immutable subject a rollout contract používame?`, `Aký risk class a blast radius je prijateľný?`, `Aká vzorka a observation horizon dokazujú každý krok?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 439,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject a rollout contract sú immutable/versionované,`, `všetky promotion osi majú actual state,`, `risk class určuje steps a approvals,`, `version-level telemetry je úplná,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "31. Kontrolný checklist",
+      "line": 452,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "Summary",
+      "line": 481,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
+      "section": "Summary",
+      "line": 481,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
