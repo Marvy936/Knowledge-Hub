@@ -535,15 +535,15 @@
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
       "title": "Users, groups, permissions, sudo a PAM",
-      "words": 1116,
-      "headings": 25,
-      "sections": 25,
-      "findings": 44,
-      "critical": 14,
-      "high": 18,
-      "medium": 9,
-      "low": 3,
-      "score": 348,
+      "words": 3317,
+      "headings": 37,
+      "sections": 37,
+      "findings": 56,
+      "critical": 8,
+      "high": 12,
+      "medium": 8,
+      "low": 28,
+      "score": 255,
       "grade": "D"
     },
     {
@@ -21264,7 +21264,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Filesystem hierarchy, inodes a links`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Filesystem hierarchy, inodes a links`.",
       "score": 12
     },
     {
@@ -21282,202 +21282,58 @@
       "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `SSH`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `SSH`, `identity`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "2. Databázy účtov",
-      "line": 22,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "2. Databázy účtov",
-      "line": 22,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "3. Real, effective a saved IDs",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "3. Real, effective a saved IDs",
-      "line": 41,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "3. Real, effective a saved IDs",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "5. Mode bits",
-      "line": 66,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "5. Mode bits",
-      "line": 66,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `r — čítanie obsahu,`, `w — zmena obsahu,`, `x — execution.`, `r — čítanie zoznamu entries,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "5. Mode bits",
-      "line": 66,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "6. Numerická notácia",
-      "line": 89,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "6. Numerická notácia",
-      "line": 89,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "7. Vlastníctvo a umask",
-      "line": 120,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "8. Special mode bits",
-      "line": 141,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "10. Root a capabilities",
-      "line": 173,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "10. Root a capabilities",
-      "line": 173,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CAP NET ADMIN — správa sieťových nastavení,`, `CAP SYS ADMIN — veľmi široká capability,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "10. Root a capabilities",
-      "line": 173,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "10. Root a capabilities",
-      "line": 173,
+      "section": "1. Linux identity je číselný kernelový stav",
+      "line": 11,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "10. Root a capabilities",
-      "line": 173,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`, `ADMIN`, `SYS`, `CHOWN`",
-      "score": 7
+      "section": "2. Identity source a NSS",
+      "line": 25,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "11. sudo",
-      "line": 191,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Real, effective, saved a filesystem IDs",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "11. sudo",
-      "line": 191,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `wildcardy môžu povoliť viac, než vyzerá,`, `environment variables môžu meniť správanie programu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "11. sudo",
-      "line": 191,
+      "section": "4. Real, effective, saved a filesystem IDs",
+      "line": 56,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "12. PAM",
-      "line": 217,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "6. Klasické DAC mode bits",
+      "line": 84,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "12. PAM",
-      "line": 217,
+      "section": "6. Klasické DAC mode bits",
+      "line": 84,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -21485,53 +21341,53 @@
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "13. Permission check nie je jediná vrstva",
-      "line": 234,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "6. Klasické DAC mode bits",
+      "line": 84,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "13. Permission check nie je jediná vrstva",
-      "line": 234,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "13. Permission check nie je jediná vrstva",
-      "line": 234,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ACL,`, `SELinux alebo AppArmor,`, `read-only mount,`, `immutable file attribute,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "13. Permission check nie je jediná vrstva",
-      "line": 234,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "13. Permission check nie je jediná vrstva",
-      "line": 234,
+      "section": "6. Klasické DAC mode bits",
+      "line": 84,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `policy`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "14. Diagnostické príkazy",
-      "line": 248,
+      "section": "7. Ako kernel vyberá owner, group alebo other",
+      "line": 107,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "8. Numerická a symbolická notácia",
+      "line": 122,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "10. Umask",
+      "line": 148,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "11. Setuid, setgid a sticky bit",
+      "line": 164,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -21539,8 +21395,125 @@
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "14. Diagnostické príkazy",
-      "line": 248,
+      "section": "12. POSIX ACL",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "12. POSIX ACL",
+      "line": 188,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "14. Root a capabilities",
+      "line": 223,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "14. Root a capabilities",
+      "line": 223,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "15. User namespaces a ID mapping",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "15. User namespaces a ID mapping",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "16. Kompletný filesystem authorization path",
+      "line": 253,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "16. Kompletný filesystem authorization path",
+      "line": 253,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "16. Kompletný filesystem authorization path",
+      "line": 253,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "16. Kompletný filesystem authorization path",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "16. Kompletný filesystem authorization path",
+      "line": 253,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "16. Kompletný filesystem authorization path",
+      "line": 253,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `ID`, `LSM`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "17. sudo ako policy-controlled credential transition",
+      "line": 279,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "18. Sudoers riziká",
+      "line": 308,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -21548,71 +21521,107 @@
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "15. Časté omyly",
-      "line": 268,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "„chmod 777 vyrieši permission problém“",
-      "line": 270,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "„Root môže vždy všetko“",
-      "line": 274,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "„sudo pravidlo na jeden program je automaticky bezpečné“",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "16. Troubleshooting scenár",
-      "line": 286,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "16. Troubleshooting scenár",
-      "line": 286,
+      "section": "18. Sudoers riziká",
+      "line": 308,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "16. Troubleshooting scenár",
-      "line": 286,
+      "section": "18. Sudoers riziká",
+      "line": 308,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "18. Sudoers riziká",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "18. Sudoers riziká",
+      "line": 308,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "18. Sudoers riziká",
+      "line": 308,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SETENV`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "19. PAM architektúra",
+      "line": 318,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "19. PAM architektúra",
+      "line": 318,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "21. PAM failure containment",
+      "line": 340,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over group membership cez id v aktuálnej session.`, `Over ACL a ACL mask.`, `Over mount flags a read-only stav.`, `Over SELinux/AppArmor denial.`.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "16. Troubleshooting scenár",
-      "line": 286,
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -21620,12 +21629,111 @@
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
-      "section": "16. Troubleshooting scenár",
-      "line": 286,
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "23. Diagnostické nástroje a otázky",
+      "line": 359,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `UID`, `GID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`, `UID`",
       "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
+      "section": "25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať",
+      "line": 388,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `LSM`, `UID`, `GID`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/02-networking-and-web/dhcp.md",

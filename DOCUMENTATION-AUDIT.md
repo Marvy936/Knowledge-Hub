@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10542**
-- Total words: **450,399**
-- Findings: **23362** (critical 8238, high 9346, medium 3116, low 2662)
+- Audited conceptual sections: **10554**
+- Total words: **452,600**
+- Findings: **23374** (critical 8232, high 9340, medium 3115, low 2687)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -239,7 +239,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 355 | 15 | 19 | 5 | 6 | 1220 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 352 | 16 | 17 | 7 | 1 | 976 | `docs/01-linux-and-systems/journald-and-logging.md` |
-| D | 348 | 14 | 18 | 9 | 3 | 1116 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
@@ -252,6 +251,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 278 | 12 | 14 | 5 | 3 | 904 | `docs/03-git-and-automation/git-object-model.md` |
 | D | 266 | 12 | 11 | 8 | 3 | 1053 | `docs/01-linux-and-systems/environment-variables.md` |
+| D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
@@ -1337,38 +1337,26 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Filesystem hierarchy, inodes a links`.
+- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Filesystem hierarchy, inodes a links`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 41, `outline-instead-of-explanation` — **3. Real, effective a saved IDs**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 66, `bare-bullet-items` — **5. Mode bits**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `r — čítanie obsahu,`, `w — zmena obsahu,`, `x — execution.`, `r — čítanie zoznamu entries,`.
-- **CRITICAL** line 66, `outline-instead-of-explanation` — **5. Mode bits**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 141, `empty-section` — **8. Special mode bits**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 173, `outline-instead-of-explanation` — **10. Root a capabilities**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 191, `outline-instead-of-explanation` — **11. sudo**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 234, `bare-bullet-items` — **13. Permission check nie je jediná vrstva**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ACL,`, `SELinux alebo AppArmor,`, `read-only mount,`, `immutable file attribute,`.
-- **CRITICAL** line 234, `outline-instead-of-explanation` — **13. Permission check nie je jediná vrstva**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 268, `empty-section` — **15. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 286, `bare-bullet-items` — **16. Troubleshooting scenár**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over group membership cez id v aktuálnej session.`, `Over ACL a ACL mask.`, `Over mount flags a read-only stav.`, `Over SELinux/AppArmor denial.`.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **16. Troubleshooting scenár**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 308, `outline-instead-of-explanation` — **18. Sudoers riziká**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 359, `no-prose-concept` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 359, `outline-instead-of-explanation` — **23. Diagnostické nástroje a otázky**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 388, `no-prose-concept` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 388, `outline-instead-of-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 89, `list-first-introduction` — **6. Numerická notácia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 89, `single-sentence-concept` — **6. Numerická notácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 120, `list-first-introduction` — **7. Vlastníctvo a umask**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 173, `bare-bullet-items` — **10. Root a capabilities**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CAP NET ADMIN — správa sieťových nastavení,`, `CAP SYS ADMIN — veľmi široká capability,`.
-- **HIGH** line 191, `bare-bullet-items` — **11. sudo**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `wildcardy môžu povoliť viac, než vyzerá,`, `environment variables môžu meniť správanie programu.`.
-- **HIGH** line 234, `single-sentence-concept` — **13. Permission check nie je jediná vrstva**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 248, `list-first-introduction` — **14. Diagnostické príkazy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 248, `single-sentence-concept` — **14. Diagnostické príkazy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 270, `single-sentence-concept` — **„chmod 777 vyrieši permission problém“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 274, `single-sentence-concept` — **„Root môže vždy všetko“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 282, `single-sentence-concept` — **„sudo pravidlo na jeden program je automaticky bezpečné“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 286, `single-sentence-concept` — **16. Troubleshooting scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 84, `list-heavy-section` — **6. Klasické DAC mode bits**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 164, `single-sentence-concept` — **11. Setuid, setgid a sticky bit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 253, `list-heavy-section` — **16. Kompletný filesystem authorization path**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 308, `list-first-introduction` — **18. Sudoers riziká**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 359, `list-first-introduction` — **23. Diagnostické nástroje a otázky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 388, `list-first-introduction` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 41, `thin-concept-section` — **3. Real, effective a saved IDs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 173, `term-before-explanation` — **10. Root a capabilities**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`, `ADMIN`, `SYS`, `CHOWN`
-- **HIGH** line 234, `thin-concept-section` — **13. Permission check nie je jediná vrstva**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **16. Troubleshooting scenár**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 253, `term-before-explanation` — **16. Kompletný filesystem authorization path**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `ID`, `LSM`, `policy`
+- **HIGH** line 359, `thin-concept-section` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 388, `term-before-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `LSM`, `UID`, `GID`, `policy`
+- **HIGH** line 388, `thin-concept-section` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/dhcp.md`
 
@@ -18634,19 +18622,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4144 | 0 | 0 | 4144 |
-| `bare-bullet-items` | 3771 | 343 | 0 | 0 | 4114 |
-| `outline-instead-of-explanation` | 3672 | 0 | 0 | 0 | 3672 |
-| `thin-concept-section` | 0 | 3359 | 0 | 0 | 3359 |
-| `term-before-explanation` | 0 | 344 | 2229 | 0 | 2573 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1202 | 1202 |
-| `example-not-explicit` | 0 | 0 | 0 | 1007 | 1007 |
+| `single-sentence-concept` | 0 | 4138 | 0 | 0 | 4138 |
+| `bare-bullet-items` | 3768 | 341 | 0 | 0 | 4109 |
+| `outline-instead-of-explanation` | 3669 | 0 | 0 | 0 | 3669 |
+| `thin-concept-section` | 0 | 3358 | 0 | 0 | 3358 |
+| `term-before-explanation` | 0 | 345 | 2230 | 0 | 2575 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1208 | 1208 |
+| `example-not-explicit` | 0 | 0 | 0 | 1014 | 1014 |
 | `list-first-introduction` | 0 | 943 | 0 | 0 | 943 |
-| `short-concept-section` | 0 | 0 | 887 | 0 | 887 |
-| `empty-section` | 506 | 0 | 0 | 0 | 506 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 453 | 453 |
-| `no-prose-concept` | 289 | 0 | 0 | 0 | 289 |
-| `list-heavy-section` | 0 | 213 | 0 | 0 | 213 |
+| `short-concept-section` | 0 | 0 | 885 | 0 | 885 |
+| `empty-section` | 504 | 0 | 0 | 0 | 504 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 465 | 465 |
+| `no-prose-concept` | 291 | 0 | 0 | 0 | 291 |
+| `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
 
 ## Required remediation pattern
 
