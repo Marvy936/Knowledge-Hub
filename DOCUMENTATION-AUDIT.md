@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11221**
-- Total words: **520,852**
-- Findings: **25013** (critical 8461, high 9523, medium 3366, low 3663)
+- Audited conceptual sections: **11239**
+- Total words: **522,505**
+- Findings: **25064** (critical 8470, high 9532, medium 3377, low 3685)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -146,6 +146,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 734 | 32 | 38 | 12 | 7 | 1841 | `docs/10-helm-and-cka/hooks.md` |
 | D | 731 | 31 | 42 | 8 | 2 | 1769 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | D | 731 | 36 | 27 | 21 | 7 | 1177 | `docs/08-container-fundamentals-and-docker/registries.md` |
+| D | 730 | 31 | 32 | 19 | 26 | 2530 | `docs/03-git-and-automation/branching-strategies.md` |
 | D | 728 | 34 | 37 | 10 | 0 | 1010 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 728 | 30 | 44 | 6 | 3 | 1264 | `docs/09-kubernetes/statefulset.md` |
 | D | 720 | 34 | 35 | 12 | 0 | 1228 | `docs/06-gitlab/environments-deployments-releases.md` |
@@ -217,7 +218,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
-| D | 477 | 22 | 23 | 8 | 4 | 877 | `docs/03-git-and-automation/branching-strategies.md` |
 | D | 465 | 26 | 15 | 10 | 1 | 1343 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
@@ -2620,48 +2620,66 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Merge a rebase, Konflikty`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kde vznikajú zmeny,`, `ako dlho branches žijú,`, `ako sa integrujú,`, `ktoré branches sú releasable,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Definícia**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 24, `bare-bullet-items` — **2. Cieľ stratégie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integračný delay,`, `veľkosť merge konfliktov,`, `počet paralelných verzií,`, `nejasnosť release source,`.
-- **CRITICAL** line 24, `outline-instead-of-explanation` — **2. Cieľ stratégie**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 37, `bare-bullet-items` — **3. Trunk-based development**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malé batches,`, `branch lifetime hodiny až málo dní,`, `feature flags,`, `backward-compatible migrations,`.
-- **CRITICAL** line 53, `bare-bullet-items` — **4. Feature branch workflow**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolovaný review context,`, `CI pre konkrétnu zmenu,`, `jednoduché approvals,`, `ochrana main.`.
-- **CRITICAL** line 53, `outline-instead-of-explanation` — **4. Feature branch workflow**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 78, `bare-bullet-items` — **5. Git Flow**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné release a hotfix línie,`, `podpora viacerých vydaní,`, `jasné stabilizačné branches.`, `zložité merges a backports,`.
-- **CRITICAL** line 78, `outline-instead-of-explanation` — **5. Git Flow**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 121, `bare-bullet-items` — **7. Release branches**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovať viac produkčných verzií,`, `vykonávať stabilizáciu bez zastavenia main,`, `backportovať security fixes,`, `udržiavať enterprise/LTS líniu.`.
-- **CRITICAL** line 121, `outline-instead-of-explanation` — **7. Release branches**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 141, `bare-bullet-items` — **8. Environment branches**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasné, ktorý artifact je rovnaký,`, `merge conflicts počas promotion,`, `environment-specific code drift,`, `zmena binárneho obsahu medzi stages.`.
-- **CRITICAL** line 161, `bare-bullet-items` — **9. Feature flags**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrovať incomplete code bezpečne,`, `postupný rollout,`, `experiment,`, `rýchle vypnutie behavioru.`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **9. Feature flags**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 181, `bare-bullet-items` — **10. Branch protection**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required review,`, `required CI checks,`, `signed commits alebo verified identity,`, `zákaz direct push,`.
-- **CRITICAL** line 181, `outline-instead-of-explanation` — **10. Branch protection**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 196, `empty-section` — **11. Merge methods**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 239, `bare-bullet-items` — **14. Výber stratégie podľa kontextu**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release frequency,`, `počet podporovaných verzií,`, `veľkosť tímu,`, `CI duration a spoľahlivosť,`.
-- **CRITICAL** line 239, `outline-instead-of-explanation` — **14. Výber stratégie podľa kontextu**: 9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 26, `bare-bullet-items` — **2. Mentálny model: izolácia verzus integrácia**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge base sa vzďaľuje od aktuálneho trunku,`, `konflikty obsahujú viac nezávislých rozhodnutí,`, `produktové a databázové kontrakty môžu diverzifikovať,`, `review narastie do veľkého batchu.`.
+- **CRITICAL** line 50, `outline-instead-of-explanation` — **3. Ciele funkčnej stratégie**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 65, `bare-bullet-items` — **4. Trunk-based development**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI poskytuje rýchly a spoľahlivý feedback,`, `databázové a API zmeny podporujú prechodné obdobie,`, `trunk sa opravuje prioritne, ak sa stane červeným,`, `release sa oddeľuje od integrácie.`.
+- **CRITICAL** line 99, `bare-bullet-items` — **5. Short-lived feature branch workflow**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolované review,`, `required approvals,`, `branch-specific CI,`, `experimentálne zmeny bez priameho zápisu do main,`.
+- **CRITICAL** line 128, `bare-bullet-items` — **6. Dlhodobé feature branches**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `silne previazaný monolit bez modularity,`, `chýbajúce feature flags,`, `nemožnosť robiť expand-and-contract migrations,`, `nejasné rozdelenie veľkej iniciatívy,`.
+- **CRITICAL** line 166, `bare-bullet-items` — **8. Git Flow**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `produkt sa vydáva v diskrétnych balíkoch,`, `existuje dlhá stabilizačná fáza,`, `podporuje sa viac inštalovaných verzií,`, `release candidate potrebuje samostatnú hardening líniu,`.
+- **CRITICAL** line 166, `outline-instead-of-explanation` — **8. Git Flow**: 10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 196, `bare-bullet-items` — **9. Release branches**: 10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovať LTS alebo enterprise edície,`, `udržiavať viac aktívnych major/minor verzií,`, `vykonávať formálnu release stabilizáciu.`, `okamih vytvorenia a source commit,`.
+- **CRITICAL** line 196, `outline-instead-of-explanation` — **9. Release branches**: 11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 258, `bare-bullet-items` — **11. Environment branches**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každé prostredie obsahuje iný commit graph,`, `promotion môže vytvoriť nový merge commit,`, `testovaný obsah nie je identický s produkčným artifactom,`, `environment-specific changes sa miešajú so source code,`.
+- **CRITICAL** line 287, `bare-bullet-items` — **12. Feature flags**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skrytie neúplného behavioru,`, `canary rollout,`, `tenant alebo cohort exposure,`, `experiment,`.
+- **CRITICAL** line 287, `outline-instead-of-explanation` — **12. Feature flags**: 12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 341, `bare-bullet-items` — **14. Branch protection**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaz direct push,`, `required reviews,`, `CODEOWNERS approvals,`, `required status checks,`.
+- **CRITICAL** line 341, `outline-instead-of-explanation` — **14. Branch protection**: 10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 358, `empty-section` — **15. Merge metódy a ich kontrakt**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 378, `bare-bullet-items` — **Rebase merge**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `auditných požiadaviek,`, `spôsobu revertovania,`, `kvality branch commitov,`, `potreby bisectu,`.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **Rebase merge**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 391, `bare-bullet-items` — **16. Merge queue**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostatočne rýchle CI,`, `kontrolu flaky tests,`, `cancellation zastaraných behov,`, `prioritizáciu urgentných zmien,`.
+- **CRITICAL** line 416, `bare-bullet-items` — **17. Release provenance a immutable artifacts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý commit bol vybraný,`, `ktorý CI run artifact vytvoril,`, `ktorý digest bol promovovaný,`, `kto deployment schválil,`.
+- **CRITICAL** line 439, `bare-bullet-items` — **18. Compliance a segregácia povinností**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelenie autora, reviewera a deployera,`, `povinné approvals,`, `nemennú audit trail,`, `podpísané release tags,`.
+- **CRITICAL** line 439, `outline-instead-of-explanation` — **18. Compliance a segregácia povinností**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 452, `bare-bullet-items` — **19. Branching strategy pre monorepo**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path-based ownership,`, `affected-change detection,`, `dependency-aware CI,`, `atomic cross-component changes,`.
+- **CRITICAL** line 452, `outline-instead-of-explanation` — **19. Branching strategy pre monorepo**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 476, `outline-instead-of-explanation` — **21. Výber stratégie podľa kontextu**: 13 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 516, `bare-bullet-items` — **23. Metriky stratégie**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull request cycle time,`, `veľkosť zmien,`, `čas čakania na review a CI,`, `merge queue wait time,`.
+- **CRITICAL** line 516, `outline-instead-of-explanation` — **23. Metriky stratégie**: 12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 565, `outline-instead-of-explanation` — **25. Diagnostika nefunkčnej stratégie**: 10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 580, `empty-section` — **26. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 24, `single-sentence-concept` — **2. Cieľ stratégie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 37, `list-heavy-section` — **3. Trunk-based development**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 107, `single-sentence-concept` — **6. GitHub/GitLab Flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 121, `single-sentence-concept` — **7. Release branches**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **10. Branch protection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 198, `single-sentence-concept` — **Merge commit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 226, `single-sentence-concept` — **13. Hotfix workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 239, `single-sentence-concept` — **14. Výber stratégie podľa kontextu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 255, `single-sentence-concept` — **Dlhodobé feature branches**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **Branch per environment pre application source**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 263, `single-sentence-concept` — **Nejasný hotfix smer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 267, `single-sentence-concept` — **Manual bypass main protection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 271, `single-sentence-concept` — **Stratégia bez merania**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 275, `single-sentence-concept` — **16. Praktická odporúčaná baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 11, `list-heavy-section` — **1. Definícia**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 50, `single-sentence-concept` — **3. Ciele funkčnej stratégie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 65, `list-heavy-section` — **4. Trunk-based development**: 11 odrážok a iba 62 slov súvislého vysvetlenia.
+- **HIGH** line 99, `list-heavy-section` — **5. Short-lived feature branch workflow**: 11 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 128, `list-heavy-section` — **6. Dlhodobé feature branches**: 6 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 143, `bare-bullet-items` — **7. GitHub Flow a GitLab Flow**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source integration — zlučovanie kódu,`, `release exposure — sprístupnenie používateľom.`.
+- **HIGH** line 319, `bare-bullet-items` — **13. Backward-compatible integration**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `najprv rozšíriť provider,`, `potom aktualizovať consumers,`, `až nakoniec odstrániť starú verziu.`.
+- **HIGH** line 360, `list-first-introduction` — **Merge commit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 370, `list-first-introduction` — **Squash merge**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 391, `list-heavy-section` — **16. Merge queue**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 476, `bare-bullet-items` — **21. Výber stratégie podľa kontextu**: 7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CI duration a spoľahlivosť,`, `veľkosť a coupling zmien,`, `databázové a API compatibility schopnosti,`, `regulačné approvals,`.
+- **HIGH** line 476, `single-sentence-concept` — **21. Výber stratégie podľa kontextu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 497, `single-sentence-concept` — **22. Baseline pre modernú službu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 537, `single-sentence-concept` — **Branch per environment pre application source**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 541, `single-sentence-concept` — **Dlhodobá integračná branch bez jasného dôvodu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 545, `single-sentence-concept` — **Permanentný emergency bypass**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 549, `single-sentence-concept` — **Hotfix iba v produkčnej branchi**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 553, `single-sentence-concept` — **Feature flag bez removal lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 557, `single-sentence-concept` — **Required checks, ktoré netestujú výsledný merge candidate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 565, `bare-bullet-items` — **25. Diagnostika nefunkčnej stratégie**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Zmeraj branch age a veľkosť changesets.`, `Porovnaj PR CI commit s reálne merge-nutým commitom.`, `Over flaky tests a priemerný CI čas.`, `Zmapuj počet aktívnych release línií a backport smerov.`.
+- **HIGH** line 565, `single-sentence-concept` — **25. Diagnostika nefunkčnej stratégie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 586, `single-sentence-concept` — **„Git Flow je bezpečnejší, lebo má viac branches“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 598, `single-sentence-concept` — **„Feature flag umožňuje commitnúť ľubovoľne rozbitý kód“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 24, `thin-concept-section` — **2. Cieľ stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 78, `thin-concept-section` — **5. Git Flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 121, `thin-concept-section` — **7. Release branches**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **9. Feature flags**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 181, `thin-concept-section` — **10. Branch protection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 239, `thin-concept-section` — **14. Výber stratégie podľa kontextu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 50, `thin-concept-section` — **3. Ciele funkčnej stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 319, `thin-concept-section` — **13. Backward-compatible integration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 439, `thin-concept-section` — **18. Compliance a segregácia povinností**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 476, `term-before-explanation` — **21. Výber stratégie podľa kontextu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LTS`, `CI`, `API`, `CD`
+- **HIGH** line 476, `thin-concept-section` — **21. Výber stratégie podľa kontextu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 516, `thin-concept-section` — **23. Metriky stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 565, `thin-concept-section` — **25. Diagnostika nefunkčnej stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/cherry-pick-and-stash.md`
 
@@ -19034,19 +19052,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3885 | 360 | 0 | 0 | 4245 |
-| `single-sentence-concept` | 0 | 4083 | 0 | 0 | 4083 |
-| `outline-instead-of-explanation` | 3783 | 0 | 0 | 0 | 3783 |
-| `thin-concept-section` | 0 | 3424 | 0 | 0 | 3424 |
-| `term-before-explanation` | 0 | 411 | 2359 | 0 | 2770 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1533 | 1533 |
-| `example-not-explicit` | 0 | 0 | 0 | 1394 | 1394 |
-| `short-concept-section` | 0 | 0 | 1007 | 0 | 1007 |
-| `list-first-introduction` | 0 | 951 | 0 | 0 | 951 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 736 | 736 |
-| `empty-section` | 480 | 0 | 0 | 0 | 480 |
+| `bare-bullet-items` | 3890 | 364 | 0 | 0 | 4254 |
+| `single-sentence-concept` | 0 | 4082 | 0 | 0 | 4082 |
+| `outline-instead-of-explanation` | 3786 | 0 | 0 | 0 | 3786 |
+| `thin-concept-section` | 0 | 3423 | 0 | 0 | 3423 |
+| `term-before-explanation` | 0 | 412 | 2361 | 0 | 2773 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1540 | 1540 |
+| `example-not-explicit` | 0 | 0 | 0 | 1399 | 1399 |
+| `short-concept-section` | 0 | 0 | 1016 | 0 | 1016 |
+| `list-first-introduction` | 0 | 953 | 0 | 0 | 953 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 746 | 746 |
+| `empty-section` | 481 | 0 | 0 | 0 | 481 |
 | `no-prose-concept` | 313 | 0 | 0 | 0 | 313 |
-| `list-heavy-section` | 0 | 294 | 0 | 0 | 294 |
+| `list-heavy-section` | 0 | 298 | 0 | 0 | 298 |
 
 ## Required remediation pattern
 

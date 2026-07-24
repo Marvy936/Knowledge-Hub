@@ -787,15 +787,15 @@
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
       "title": "Branching strategies",
-      "words": 877,
-      "headings": 27,
-      "sections": 27,
-      "findings": 57,
-      "critical": 22,
-      "high": 23,
-      "medium": 8,
-      "low": 4,
-      "score": 477,
+      "words": 2530,
+      "headings": 45,
+      "sections": 45,
+      "findings": 108,
+      "critical": 31,
+      "high": 32,
+      "medium": 19,
+      "low": 26,
+      "score": 730,
       "grade": "D"
     },
     {
@@ -43969,249 +43969,15 @@
       "path": "docs/03-git-and-automation/branching-strategies.md",
       "section": "1. Definícia",
       "line": 11,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kde vznikajú zmeny,`, `ako dlho branches žijú,`, `ako sa integrujú,`, `ktoré branches sú releasable,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "2. Cieľ stratégie",
-      "line": 24,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "2. Cieľ stratégie",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "2. Cieľ stratégie",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integračný delay,`, `veľkosť merge konfliktov,`, `počet paralelných verzií,`, `nejasnosť release source,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "2. Cieľ stratégie",
-      "line": 24,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "3. Trunk-based development",
-      "line": 37,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 56 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "3. Trunk-based development",
-      "line": 37,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malé batches,`, `branch lifetime hodiny až málo dní,`, `feature flags,`, `backward-compatible migrations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "3. Trunk-based development",
-      "line": 37,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "3. Trunk-based development",
-      "line": 37,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "4. Feature branch workflow",
-      "line": 53,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "4. Feature branch workflow",
-      "line": 53,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolovaný review context,`, `CI pre konkrétnu zmenu,`, `jednoduché approvals,`, `ochrana main.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "4. Feature branch workflow",
-      "line": 53,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "4. Feature branch workflow",
-      "line": 53,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "5. Git Flow",
-      "line": 78,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "5. Git Flow",
-      "line": 78,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné release a hotfix línie,`, `podpora viacerých vydaní,`, `jasné stabilizačné branches.`, `zložité merges a backports,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "5. Git Flow",
-      "line": 78,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "5. Git Flow",
-      "line": 78,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "6. GitHub/GitLab Flow",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "7. Release branches",
-      "line": 121,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "7. Release branches",
-      "line": 121,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "7. Release branches",
-      "line": 121,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovať viac produkčných verzií,`, `vykonávať stabilizáciu bez zastavenia main,`, `backportovať security fixes,`, `udržiavať enterprise/LTS líniu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "7. Release branches",
-      "line": 121,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "7. Release branches",
-      "line": 121,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LTS`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "8. Environment branches",
-      "line": 141,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasné, ktorý artifact je rovnaký,`, `merge conflicts počas promotion,`, `environment-specific code drift,`, `zmena binárneho obsahu medzi stages.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "8. Environment branches",
-      "line": 141,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "8. Environment branches",
-      "line": 141,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44219,8 +43985,8 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "8. Environment branches",
-      "line": 141,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44228,35 +43994,44 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "9. Feature flags",
-      "line": 161,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "9. Feature flags",
-      "line": 161,
+      "section": "2. Mentálny model: izolácia verzus integrácia",
+      "line": 26,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrovať incomplete code bezpečne,`, `postupný rollout,`, `experiment,`, `rýchle vypnutie behavioru.`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge base sa vzďaľuje od aktuálneho trunku,`, `konflikty obsahujú viac nezávislých rozhodnutí,`, `produktové a databázové kontrakty môžu diverzifikovať,`, `review narastie do veľkého batchu.`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "9. Feature flags",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "2. Mentálny model: izolácia verzus integrácia",
+      "line": 26,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "10. Branch protection",
-      "line": 181,
+      "section": "2. Mentálny model: izolácia verzus integrácia",
+      "line": 26,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "3. Ciele funkčnej stratégie",
+      "line": 50,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -44264,26 +44039,17 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "10. Branch protection",
-      "line": 181,
+      "section": "3. Ciele funkčnej stratégie",
+      "line": 50,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "10. Branch protection",
-      "line": 181,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required review,`, `required CI checks,`, `signed commits alebo verified identity,`, `zákaz direct push,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "10. Branch protection",
-      "line": 181,
+      "section": "3. Ciele funkčnej stratégie",
+      "line": 50,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -44291,17 +44057,368 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "10. Branch protection",
-      "line": 181,
+      "section": "3. Ciele funkčnej stratégie",
+      "line": 50,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "3. Ciele funkčnej stratégie",
+      "line": 50,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "4. Trunk-based development",
+      "line": 65,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 62 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "4. Trunk-based development",
+      "line": 65,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI poskytuje rýchly a spoľahlivý feedback,`, `databázové a API zmeny podporujú prechodné obdobie,`, `trunk sa opravuje prioritne, ak sa stane červeným,`, `release sa oddeľuje od integrácie.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "5. Short-lived feature branch workflow",
+      "line": 99,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "5. Short-lived feature branch workflow",
+      "line": 99,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolované review,`, `required approvals,`, `branch-specific CI,`, `experimentálne zmeny bez priameho zápisu do main,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "5. Short-lived feature branch workflow",
+      "line": 99,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CODEOWNERS`, `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "11. Merge methods",
+      "section": "5. Short-lived feature branch workflow",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "5. Short-lived feature branch workflow",
+      "line": 99,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "5. Short-lived feature branch workflow",
+      "line": 99,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "6. Dlhodobé feature branches",
+      "line": 128,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "6. Dlhodobé feature branches",
+      "line": 128,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `silne previazaný monolit bez modularity,`, `chýbajúce feature flags,`, `nemožnosť robiť expand-and-contract migrations,`, `nejasné rozdelenie veľkej iniciatívy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "6. Dlhodobé feature branches",
+      "line": 128,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "6. Dlhodobé feature branches",
+      "line": 128,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "6. Dlhodobé feature branches",
+      "line": 128,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "7. GitHub Flow a GitLab Flow",
+      "line": 143,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source integration — zlučovanie kódu,`, `release exposure — sprístupnenie používateľom.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "7. GitHub Flow a GitLab Flow",
+      "line": 143,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "8. Git Flow",
+      "line": 166,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "8. Git Flow",
+      "line": 166,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `produkt sa vydáva v diskrétnych balíkoch,`, `existuje dlhá stabilizačná fáza,`, `podporuje sa viac inštalovaných verzií,`, `release candidate potrebuje samostatnú hardening líniu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "8. Git Flow",
+      "line": 166,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "8. Git Flow",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "9. Release branches",
       "line": 196,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "9. Release branches",
+      "line": 196,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovať LTS alebo enterprise edície,`, `udržiavať viac aktívnych major/minor verzií,`, `vykonávať formálnu release stabilizáciu.`, `okamih vytvorenia a source commit,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "9. Release branches",
+      "line": 196,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "9. Release branches",
+      "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "9. Release branches",
+      "line": 196,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LTS`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "11. Environment branches",
+      "line": 258,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každé prostredie obsahuje iný commit graph,`, `promotion môže vytvoriť nový merge commit,`, `testovaný obsah nie je identický s produkčným artifactom,`, `environment-specific changes sa miešajú so source code,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "11. Environment branches",
+      "line": 258,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "12. Feature flags",
+      "line": 287,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "12. Feature flags",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skrytie neúplného behavioru,`, `canary rollout,`, `tenant alebo cohort exposure,`, `experiment,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "12. Feature flags",
+      "line": 287,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "12. Feature flags",
+      "line": 287,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "13. Backward-compatible integration",
+      "line": 319,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `najprv rozšíriť provider,`, `potom aktualizovať consumers,`, `až nakoniec odstrániť starú verziu.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "13. Backward-compatible integration",
+      "line": 319,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "14. Branch protection",
+      "line": 341,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "14. Branch protection",
+      "line": 341,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaz direct push,`, `required reviews,`, `CODEOWNERS approvals,`, `required status checks,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "14. Branch protection",
+      "line": 341,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "14. Branch protection",
+      "line": 341,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "14. Branch protection",
+      "line": 341,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "14. Branch protection",
+      "line": 341,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CODEOWNERS`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "15. Merge metódy a ich kontrakt",
+      "line": 358,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -44310,61 +44427,124 @@
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
       "section": "Merge commit",
-      "line": 198,
+      "line": 360,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "13. Hotfix workflow",
-      "line": 226,
+      "section": "Squash merge",
+      "line": 370,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "14. Výber stratégie podľa kontextu",
-      "line": 239,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "14. Výber stratégie podľa kontextu",
-      "line": 239,
+      "section": "Rebase merge",
+      "line": 378,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "14. Výber stratégie podľa kontextu",
-      "line": 239,
+      "section": "Rebase merge",
+      "line": 378,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release frequency,`, `počet podporovaných verzií,`, `veľkosť tímu,`, `CI duration a spoľahlivosť,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `auditných požiadaviek,`, `spôsobu revertovania,`, `kvality branch commitov,`, `potreby bisectu,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "14. Výber stratégie podľa kontextu",
-      "line": 239,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "Rebase merge",
+      "line": 378,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "14. Výber stratégie podľa kontextu",
-      "line": 239,
+      "section": "Rebase merge",
+      "line": 378,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "16. Merge queue",
+      "line": 391,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "16. Merge queue",
+      "line": 391,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostatočne rýchle CI,`, `kontrolu flaky tests,`, `cancellation zastaraných behov,`, `prioritizáciu urgentných zmien,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "16. Merge queue",
+      "line": 391,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "16. Merge queue",
+      "line": 391,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "16. Merge queue",
+      "line": 391,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "17. Release provenance a immutable artifacts",
+      "line": 416,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý commit bol vybraný,`, `ktorý CI run artifact vytvoril,`, `ktorý digest bol promovovaný,`, `kto deployment schválil,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "17. Release provenance a immutable artifacts",
+      "line": 416,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "17. Release provenance a immutable artifacts",
+      "line": 416,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
@@ -44372,17 +44552,188 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "Dlhodobé feature branches",
-      "line": 255,
+      "section": "18. Compliance a segregácia povinností",
+      "line": 439,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "18. Compliance a segregácia povinností",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelenie autora, reviewera a deployera,`, `povinné approvals,`, `nemennú audit trail,`, `podpísané release tags,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "18. Compliance a segregácia povinností",
+      "line": 439,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "18. Compliance a segregácia povinností",
+      "line": 439,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "19. Branching strategy pre monorepo",
+      "line": 452,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "19. Branching strategy pre monorepo",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path-based ownership,`, `affected-change detection,`, `dependency-aware CI,`, `atomic cross-component changes,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "19. Branching strategy pre monorepo",
+      "line": 452,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CI duration a spoľahlivosť,`, `veľkosť a coupling zmien,`, `databázové a API compatibility schopnosti,`, `regulačné approvals,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "21. Výber stratégie podľa kontextu",
+      "line": 476,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LTS`, `CI`, `API`, `CD`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "22. Baseline pre modernú službu",
+      "line": 497,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "23. Metriky stratégie",
+      "line": 516,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "23. Metriky stratégie",
+      "line": 516,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull request cycle time,`, `veľkosť zmien,`, `čas čakania na review a CI,`, `merge queue wait time,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "23. Metriky stratégie",
+      "line": 516,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "23. Metriky stratégie",
+      "line": 516,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "23. Metriky stratégie",
+      "line": 516,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
       "section": "Branch per environment pre application source",
-      "line": 259,
+      "line": 537,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -44390,8 +44741,8 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "Nejasný hotfix smer",
-      "line": 263,
+      "section": "Dlhodobá integračná branch bez jasného dôvodu",
+      "line": 541,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -44399,8 +44750,8 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "Manual bypass main protection",
-      "line": 267,
+      "section": "Permanentný emergency bypass",
+      "line": 545,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -44408,8 +44759,8 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "Stratégia bez merania",
-      "line": 271,
+      "section": "Hotfix iba v produkčnej branchi",
+      "line": 549,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -44417,8 +44768,116 @@
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
-      "section": "16. Praktická odporúčaná baseline",
-      "line": 275,
+      "section": "Feature flag bez removal lifecycle",
+      "line": 553,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "Required checks, ktoré netestujú výsledný merge candidate",
+      "line": 557,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Zmeraj branch age a veľkosť changesets.`, `Porovnaj PR CI commit s reálne merge-nutým commitom.`, `Over flaky tests a priemerný CI čas.`, `Zmapuj počet aktívnych release línií a backport smerov.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "25. Diagnostika nefunkčnej stratégie",
+      "line": 565,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `CI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "26. Časté omyly",
+      "line": 580,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "„Git Flow je bezpečnejší, lebo má viac branches“",
+      "line": 586,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/branching-strategies.md",
+      "section": "„Feature flag umožňuje commitnúť ľubovoľne rozbitý kód“",
+      "line": 598,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
