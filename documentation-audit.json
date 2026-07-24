@@ -157,15 +157,15 @@
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
       "title": "Immutable vs. Mutable Infrastructure",
-      "words": 893,
-      "headings": 22,
-      "sections": 22,
-      "findings": 42,
-      "critical": 18,
-      "high": 19,
-      "medium": 2,
-      "low": 3,
-      "score": 373,
+      "words": 2649,
+      "headings": 37,
+      "sections": 37,
+      "findings": 36,
+      "critical": 3,
+      "high": 2,
+      "medium": 4,
+      "low": 27,
+      "score": 102,
       "grade": "D"
     },
     {
@@ -9317,242 +9317,8 @@
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "2. Problém, ktorý rieši immutable model",
-      "line": 22,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "2. Problém, ktorý rieši immutable model",
-      "line": 22,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rôzne poradie patchov,`, `manuálne zásahy,`, `nezdokumentované konfigurácie,`, `zvyšky starých verzií,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "2. Problém, ktorý rieši immutable model",
-      "line": 22,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "3. Mutable workflow",
-      "line": 34,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "4. Immutable workflow",
-      "line": 52,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "5. Príklad s VM image",
-      "line": 72,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "7. Kubernetes rollout",
-      "line": 105,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "7. Kubernetes rollout",
-      "line": 105,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rolling update,`, `canary,`, `rollback na predchádzajúci image,`, `konzistentné repliky,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "7. Kubernetes rollout",
-      "line": 105,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "8. Externý stav",
-      "line": 117,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "8. Externý stav",
-      "line": 117,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "8. Externý stav",
-      "line": 117,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `databázové dáta,`, `persistent volumes,`, `object storage,`, `message queues,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "8. Externý stav",
-      "line": 117,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "9. Rollback",
-      "line": 130,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "9. Rollback",
-      "line": 130,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "9. Rollback",
-      "line": 130,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nekompatibilnej databázovej migrácii,`, `zmene message formátu,`, `externom side effecte,`, `nevratnej transformácii dát.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "9. Rollback",
-      "line": 130,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "10. Patchovanie a bezpečnosť",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "10. Patchovanie a bezpečnosť",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlu build pipeline,`, `inventory všetkých image verzií,`, `automatický rollout,`, `kontrolu, že staré resources naozaj zanikli,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "10. Patchovanie a bezpečnosť",
-      "line": 147,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "12. Hybridný model",
-      "line": 170,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "12. Hybridný model",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "12. Hybridný model",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikačné kontajnery sa nahrádzajú immutable spôsobom,`, `databáza sa upgraduje kontrolovaným mutable procesom,`, `konfigurácia sa mení deklaratívne,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "12. Hybridný model",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "13. Trade-offs",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "13. Trade-offs",
-      "line": 181,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "13. Trade-offs",
-      "line": 181,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -9560,71 +9326,98 @@
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "latest bez identity artifactu",
-      "line": 203,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "Immutable compute so skrytými lokálnymi dátami",
-      "line": 207,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Prečo tento rozdiel existuje",
+      "line": 24,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "15. Rozhodovací checklist",
-      "line": 211,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "6. Artifact identity",
+      "line": 78,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "15. Rozhodovací checklist",
-      "line": 211,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "6. Artifact identity",
+      "line": 78,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "15. Rozhodovací checklist",
-      "line": 211,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "8. Bootstrapping a runtime configuration",
+      "line": 90,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "15. Rozhodovací checklist",
-      "line": 211,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré časti systému sú stateful?`, `Vieme resource automaticky reprodukovať?`, `Ako dlho trvá build a replacement?`, `Je artifact jednoznačne verziovaný?`.",
-      "score": 12
+      "section": "8. Bootstrapping a runtime configuration",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "15. Rozhodovací checklist",
-      "line": 211,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "8. Bootstrapping a runtime configuration",
+      "line": 90,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `resource`",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "15. Rozhodovací checklist",
-      "line": 211,
+      "section": "10. VM images",
+      "line": 109,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "11. Containers",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "12. Kubernetes rollout",
+      "line": 131,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "12. Kubernetes rollout",
+      "line": 131,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
@@ -9632,12 +9425,165 @@
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
-      "section": "17. Zhrnutie",
-      "line": 231,
+      "section": "13. Externý durable state",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "13. Externý durable state",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "14. Stateful systems",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "15. Patching",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "16. Rollback a roll-forward",
+      "line": 168,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "17. Traffic cutover",
+      "line": 182,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "18. Capacity a quotas počas rollout-u",
+      "line": 188,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "19. Emergency changes",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "20. Configuration management v oboch modeloch",
+      "line": 210,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "20. Configuration management v oboch modeloch",
+      "line": 210,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "20. Configuration management v oboch modeloch",
+      "line": 210,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "21. Security a supply-chain dôsledky",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "22. Inventory a garbage collection",
+      "line": 226,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "23. Kedy je mutable model primeraný",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "25. Observability",
+      "line": 252,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "25. Observability",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "30. Zhrnutie",
+      "line": 318,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",
+      "section": "30. Zhrnutie",
+      "line": 318,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/ownership-mindset.md",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10482**
-- Total words: **438,927**
-- Findings: **23444** (critical 8366, high 9460, medium 3119, low 2499)
+- Audited conceptual sections: **10497**
+- Total words: **440,683**
+- Findings: **23438** (critical 8351, high 9443, medium 3121, low 2523)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -238,7 +238,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
-| D | 373 | 18 | 19 | 2 | 3 | 893 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 370 | 15 | 20 | 7 | 5 | 1218 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 370 | 17 | 16 | 8 | 8 | 1106 | `docs/01-linux-and-systems/package-management.md` |
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
@@ -276,6 +275,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 125 | 2 | 9 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
+| D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
@@ -588,40 +588,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Desired State and Reconciliation`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 22, `bare-bullet-items` — **2. Problém, ktorý rieši immutable model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rôzne poradie patchov,`, `manuálne zásahy,`, `nezdokumentované konfigurácie,`, `zvyšky starých verzií,`.
-- **CRITICAL** line 22, `outline-instead-of-explanation` — **2. Problém, ktorý rieši immutable model**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 105, `bare-bullet-items` — **7. Kubernetes rollout**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rolling update,`, `canary,`, `rollback na predchádzajúci image,`, `konzistentné repliky,`.
-- **CRITICAL** line 105, `outline-instead-of-explanation` — **7. Kubernetes rollout**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `bare-bullet-items` — **8. Externý stav**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `databázové dáta,`, `persistent volumes,`, `object storage,`, `message queues,`.
-- **CRITICAL** line 117, `outline-instead-of-explanation` — **8. Externý stav**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 130, `bare-bullet-items` — **9. Rollback**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nekompatibilnej databázovej migrácii,`, `zmene message formátu,`, `externom side effecte,`, `nevratnej transformácii dát.`.
-- **CRITICAL** line 130, `outline-instead-of-explanation` — **9. Rollback**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 147, `bare-bullet-items` — **10. Patchovanie a bezpečnosť**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlu build pipeline,`, `inventory všetkých image verzií,`, `automatický rollout,`, `kontrolu, že staré resources naozaj zanikli,`.
-- **CRITICAL** line 147, `outline-instead-of-explanation` — **10. Patchovanie a bezpečnosť**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **12. Hybridný model**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikačné kontajnery sa nahrádzajú immutable spôsobom,`, `databáza sa upgraduje kontrolovaným mutable procesom,`, `konfigurácia sa mení deklaratívne,`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **12. Hybridný model**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **15. Rozhodovací checklist**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré časti systému sú stateful?`, `Vieme resource automaticky reprodukovať?`, `Ako dlho trvá build a replacement?`, `Je artifact jednoznačne verziovaný?`.
-- **CRITICAL** line 211, `no-prose-concept` — **15. Rozhodovací checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **15. Rozhodovací checklist**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 34, `list-first-introduction` — **3. Mutable workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 52, `list-first-introduction` — **4. Immutable workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 72, `single-sentence-concept` — **5. Príklad s VM image**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 117, `single-sentence-concept` — **8. Externý stav**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 130, `single-sentence-concept` — **9. Rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 170, `single-sentence-concept` — **12. Hybridný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **13. Trade-offs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 203, `single-sentence-concept` — **latest bez identity artifactu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 207, `single-sentence-concept` — **Immutable compute so skrytými lokálnymi dátami**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 211, `list-first-introduction` — **15. Rozhodovací checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 22, `thin-concept-section` — **2. Problém, ktorý rieši immutable model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 105, `thin-concept-section` — **7. Kubernetes rollout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 117, `thin-concept-section` — **8. Externý stav**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 130, `thin-concept-section` — **9. Rollback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 147, `thin-concept-section` — **10. Patchovanie a bezpečnosť**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 170, `thin-concept-section` — **12. Hybridný model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 211, `thin-concept-section` — **15. Rozhodovací checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/ownership-mindset.md`
 
@@ -18876,18 +18844,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4202 | 0 | 0 | 4202 |
-| `bare-bullet-items` | 3837 | 346 | 0 | 0 | 4183 |
-| `outline-instead-of-explanation` | 3727 | 0 | 0 | 0 | 3727 |
-| `thin-concept-section` | 0 | 3403 | 0 | 0 | 3403 |
-| `term-before-explanation` | 0 | 342 | 2227 | 0 | 2569 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1168 | 1168 |
-| `list-first-introduction` | 0 | 958 | 0 | 0 | 958 |
-| `example-not-explicit` | 0 | 0 | 0 | 936 | 936 |
+| `single-sentence-concept` | 0 | 4195 | 0 | 0 | 4195 |
+| `bare-bullet-items` | 3830 | 346 | 0 | 0 | 4176 |
+| `outline-instead-of-explanation` | 3720 | 0 | 0 | 0 | 3720 |
+| `thin-concept-section` | 0 | 3396 | 0 | 0 | 3396 |
+| `term-before-explanation` | 0 | 342 | 2229 | 0 | 2571 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1174 | 1174 |
+| `list-first-introduction` | 0 | 955 | 0 | 0 | 955 |
+| `example-not-explicit` | 0 | 0 | 0 | 950 | 950 |
 | `short-concept-section` | 0 | 0 | 892 | 0 | 892 |
 | `empty-section` | 508 | 0 | 0 | 0 | 508 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 395 | 395 |
-| `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 399 | 399 |
+| `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 209 | 0 | 0 | 209 |
 
 ## Required remediation pattern
