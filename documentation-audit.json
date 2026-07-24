@@ -843,15 +843,15 @@
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
       "title": "Git object model",
-      "words": 904,
-      "headings": 22,
-      "sections": 22,
-      "findings": 34,
-      "critical": 12,
-      "high": 14,
-      "medium": 5,
-      "low": 3,
-      "score": 278,
+      "words": 3180,
+      "headings": 48,
+      "sections": 48,
+      "findings": 90,
+      "critical": 22,
+      "high": 20,
+      "medium": 16,
+      "low": 32,
+      "score": 529,
       "grade": "D"
     },
     {
@@ -45506,35 +45506,8 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "2. Content-addressable storage",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "2. Content-addressable storage",
-      "line": 24,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zmena jedného byte vytvorí iný objekt,`, `hash prepája integritu aj adresovanie.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "2. Content-addressable storage",
-      "line": 24,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "2. Content-addressable storage",
-      "line": 24,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -45542,53 +45515,35 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "3. Blob",
-      "line": 43,
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "2. Problém, ktorý objektový model rieši",
+      "line": 38,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "3. Blob",
-      "line": 43,
+      "section": "2. Problém, ktorý objektový model rieši",
+      "line": 38,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filename,`, `path,`, `timestamps,`, `owner/group,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký presný obsah patril ku konkrétnemu commitu?`, `Ktorý commit je rodičom iného commitu?`, `Ktoré súbory sa medzi dvoma stavmi zmenili?`, `Ktoré objekty sú ešte súčasťou nejakej pomenovanej histórie?`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "3. Blob",
-      "line": 43,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "5. Commit",
-      "line": 94,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "5. Commit",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root tree snapshotu,`, `zero alebo viac parent commits,`, `author identity a čas,`, `committer identity a čas,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "5. Commit",
-      "line": 94,
+      "section": "2. Problém, ktorý objektový model rieši",
+      "line": 38,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -45596,8 +45551,8 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "5. Commit",
-      "line": 94,
+      "section": "2. Problém, ktorý objektový model rieši",
+      "line": 38,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -45605,89 +45560,260 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "5. Commit",
-      "line": 94,
+      "section": "2. Problém, ktorý objektový model rieši",
+      "line": 38,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "2. Problém, ktorý objektový model rieši",
+      "line": 38,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "3. Content-addressable storage",
+      "line": 58,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "3. Content-addressable storage",
+      "line": 58,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "5. Blob: obsah bez mena",
+      "line": 111,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 61 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "5. Blob: obsah bez mena",
+      "line": 111,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filename,`, `parent directory,`, `filesystem path,`, `ownera a group,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "5. Blob: obsah bez mena",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "6. Tree: adresár ako snapshot",
+      "line": 138,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filename,`, `adresárovú hierarchiu,`, `vybraný file mode,`, `referenciu na blob, ďalší tree alebo gitlink.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "7. Snapshot celého projektu",
+      "line": 173,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový blob pre app.py ,`, `nový tree pre src ,`, `nový commit.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "7. Snapshot celého projektu",
+      "line": 173,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "7. Snapshot celého projektu",
+      "line": 173,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "8. Commit objekt",
+      "line": 198,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "8. Commit objekt",
+      "line": 198,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object ID root tree,`, `zero alebo viac parent commitov,`, `autora a author timestamp,`, `committera a committer timestamp,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "8. Commit objekt",
+      "line": 198,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "8. Commit objekt",
+      "line": 198,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "8. Commit objekt",
+      "line": 198,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "9. Author verzus committer",
+      "line": 236,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "10. Parent edges a commit graph",
+      "line": 248,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "10. Parent edges a commit graph",
+      "line": 248,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ancestry queries,`, `výpočet merge base,`, `rozlíšenie fast-forward a divergent history,`, `topologické logovanie,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "10. Parent edges a commit graph",
+      "line": 248,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "10. Parent edges a commit graph",
+      "line": 248,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "10. Parent edges a commit graph",
+      "line": 248,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "12. Annotated tag objekt",
+      "line": 298,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "12. Annotated tag objekt",
+      "line": 298,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target object ID,`, `target type,`, `tag name,`, `tagger identity a čas,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "12. Annotated tag objekt",
+      "line": 298,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "12. Annotated tag objekt",
+      "line": 298,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "7. Commit graph",
-      "line": 132,
+      "section": "16. Reachability",
+      "line": 402,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "7. Commit graph",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "7. Commit graph",
-      "line": 132,
+      "section": "16. Reachability",
+      "line": 402,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ancestry queries,`, `merge-base výpočet,`, `branch divergence,`, `reachability,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local branches,`, `remote-tracking refs,`, `tags,`, `HEAD ,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "7. Commit graph",
-      "line": 132,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "9. HEAD",
-      "line": 175,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "10. Object storage",
-      "line": 190,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "12. Integrity vs. trust",
-      "line": 226,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "12. Integrity vs. trust",
-      "line": 226,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto commit vytvoril,`, `či je autor dôveryhodný,`, `či obsah nie je škodlivý,`, `či branch policy bola dodržaná.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "12. Integrity vs. trust",
-      "line": 226,
+      "section": "16. Reachability",
+      "line": 402,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -45695,8 +45821,8 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "12. Integrity vs. trust",
-      "line": 226,
+      "section": "16. Reachability",
+      "line": 402,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -45704,8 +45830,17 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "13. Praktická explorácia",
-      "line": 237,
+      "section": "16. Reachability",
+      "line": 402,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "17. Reflog ako lokálny ref journal",
+      "line": 431,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45713,17 +45848,296 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "13. Praktická explorácia",
-      "line": 237,
+      "section": "17. Reflog ako lokálny ref journal",
+      "line": 431,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "17. Reflog ako lokálny ref journal",
+      "line": 431,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chybnom reset,`, `rebase,`, `amend,`, `prepnutí branch,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "17. Reflog ako lokálny ref journal",
+      "line": 431,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "17. Reflog ako lokálny ref journal",
+      "line": 431,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "17. Reflog ako lokálny ref journal",
+      "line": 431,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "18. Loose objects",
+      "line": 463,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "19. Packfiles a delta compression",
+      "line": 481,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `celý,`, `ako delta voči inému objektu v packu,`, `ako delta voči objektu identifikovanému mimo aktuálneho packu.`.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "15. Časté omyly",
-      "line": 282,
+      "section": "19. Packfiles a delta compression",
+      "line": 481,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "19. Packfiles a delta compression",
+      "line": 481,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "21. Shallow clone a neúplná ancestry",
+      "line": 524,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "21. Shallow clone a neúplná ancestry",
+      "line": 524,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ancestry query môže byť neúplná,`, `merge-base nemusí byť dostupný,`, `blame a log sa zastavia na shallow boundary,`, `push alebo server policy môže mať obmedzenia,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "21. Shallow clone a neúplná ancestry",
+      "line": 524,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "21. Shallow clone a neúplná ancestry",
+      "line": 524,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "21. Shallow clone a neúplná ancestry",
+      "line": 524,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "23. Replace refs a historické prepojenia",
+      "line": 564,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `dočasná oprava alebo experiment,`, `prepojenie importovaných histórií,`, `forenzná analýza.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "23. Replace refs a historické prepojenia",
+      "line": 564,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "24. Object integrity verzus autenticita",
+      "line": 588,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "24. Object integrity verzus autenticita",
+      "line": 588,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Kto zmenu autorizoval?`, `Je author identity pravdivá?`, `Prešiel commit review a CI?`, `Je obsah bezpečný?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "24. Object integrity verzus autenticita",
+      "line": 588,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "24. Object integrity verzus autenticita",
+      "line": 588,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "24. Object integrity verzus autenticita",
+      "line": 588,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "24. Object integrity verzus autenticita",
+      "line": 588,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "25. Object transfer medzi repozitármi",
+      "line": 607,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "26. Garbage collection",
+      "line": 630,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zabaliť loose objects,`, `prepočítať delta chains,`, `aktualizovať auxiliary indexes,`, `expirovať reflog entries,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "26. Garbage collection",
+      "line": 630,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "26. Garbage collection",
+      "line": 630,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "28. Diagnostika poškodeného repozitára",
+      "line": 665,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "28. Diagnostika poškodeného repozitára",
+      "line": 665,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "28. Diagnostika poškodeného repozitára",
+      "line": 665,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "28. Diagnostika poškodeného repozitára",
+      "line": 665,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "28. Diagnostika poškodeného repozitára",
+      "line": 665,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "28. Diagnostika poškodeného repozitára",
+      "line": 665,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "30. Failure modes",
+      "line": 735,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -45731,8 +46145,8 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "„Branch je kontajner commitov“",
-      "line": 288,
+      "section": "Commit existuje, ale branch ho neukazuje",
+      "line": 737,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45740,8 +46154,8 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "„Commit obsahuje názov branch“",
-      "line": 292,
+      "section": "Rovnaký source snapshot má iný commit ID",
+      "line": 751,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45749,12 +46163,102 @@
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
-      "section": "„Hash dokazuje, že autor je dôveryhodný“",
-      "line": 296,
+      "section": "História sa líši iba u jedného používateľa",
+      "line": 764,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "31. Časté omyly",
+      "line": 768,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "„Reflog je remote backup“",
+      "line": 794,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "32. Diagnostický checklist",
+      "line": 798,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "32. Diagnostický checklist",
+      "line": 798,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "32. Diagnostický checklist",
+      "line": 798,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktorý ref alebo revision expression používam?`, `Na aký object type sa resolveuje?`, `Aký commit a root tree je výsledkom?`, `Je repository shallow alebo partial?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "32. Diagnostický checklist",
+      "line": 798,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "32. Diagnostický checklist",
+      "line": 798,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "32. Diagnostický checklist",
+      "line": 798,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "33. Zhrnutie",
+      "line": 812,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-object-model.md",
+      "section": "33. Zhrnutie",
+      "line": 812,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
