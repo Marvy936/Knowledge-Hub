@@ -1,115 +1,307 @@
 # Release management
 
-Release management riadi cestu od pripraveného, overeného artifactu k používateľsky alebo obchodne dostupnej zmene. Spája versioning, planning, approvals, deployment, communication, observability, recovery a lifecycle podporovaných verzií.
+## Metadata
 
-Release nie je synonymum pre build ani deployment.
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-## 1. Build, deployment a release
+## 1. Definícia
 
-Rozlišuj:
+Release management riadi cestu od overeného immutable candidate-u k používateľsky dostupnej a následne podporovanej zmene. Prepája scope, versioning, artifact identity, compatibility, approvals, deployment, exposure, komunikáciu, observability, recovery a support lifecycle.
+
+Release nie je build ani deployment:
 
 ```text
 build
-→ vytvorenie artifactu
+→ vytvorenie immutable artifactu
 
 deployment
-→ umiestnenie artifactu do environmentu
+→ umiestnenie artifactu do runtime environmentu
 
 release
-→ sprístupnenie capability používateľom alebo business procesu
+→ sprístupnenie capability používateľovi alebo business procesu
 ```
 
-Feature flag umožňuje deployment bez okamžitého release. Mobilná aplikácia môže byť release-nutá cez store až po tom, ako bol backend dávno nasadený.
+Tieto udalosti môžu nastať v rozdielnom čase. Kód môže byť nasadený za vypnutým feature flagom. Mobilný client môže byť publikovaný do store pred aktiváciou backend capability. Databázový expand krok môže prebehnúť mnoho deploymentov pred contract krokom.
 
-## 2. Release unit
+## 2. Mental model: release ako stavový automat
 
-Release unit je presne definovaný súbor zmien a runtime identities, napríklad:
+Release nie je jednorazové kliknutie. Je to state machine nad explicitnou release unit:
+
+```text
+draft
+→ candidate assembled
+→ evidence collecting
+→ ready
+→ approved/policy-eligible
+→ deploying
+→ deployed
+→ progressively released
+→ validated
+→ supported
+→ deprecated
+→ end of life
+```
+
+Vedľajšie stavy:
+
+```text
+blocked
+superseded
+aborted
+rolled back
+rolled forward
+revoked
+partially released
+```
+
+Každý prechod má subject identity, preconditions, ownera, evidence a audit record.
+
+## 3. Release unit
+
+Release unit je presne definovaný súbor artifacts, konfigurácií a zmien, ktoré sa schvaľujú a riadia ako jeden release.
+
+Môže obsahovať:
 
 - jeden application artifact,
 - viac koordinovaných services,
-- application + migrations,
+- frontend, backend a mobile compatibility set,
+- application artifacts a migrations,
 - infrastructure/config bundle,
-- mobile client + API compatibility window,
-- environment manifest s viacerými digestmi.
+- model alebo data package,
+- release manifest s viacerými component digestmi,
+- feature-flag alebo traffic-policy transition.
 
-Bez explicitnej release unit nie je jasné, čo sa schvaľuje, komunikuje ani rollbackuje.
+Bez explicitnej release unit nie je jasné:
 
-## 3. Release record
+- čo je v scope,
+- čo prešlo testami spolu,
+- čo approval schvaľuje,
+- čo sa má rollbacknúť,
+- čo komunikovať používateľom,
+- ktoré components tvoria podporovanú kombináciu.
 
-Auditovateľný release record má obsahovať:
+## 4. Release identity
 
-- release ID a version,
-- artifact digests,
+Release má mať immutable alebo content-addressed identity. Typicky obsahuje:
+
+- release ID alebo logical version,
+- release-manifest digest,
+- component artifact digests,
 - source commits,
-- configuration/infrastructure revisions,
-- database migrations,
-- pipeline runs,
-- test a scan evidence,
-- approvals alebo policy decisions,
+- config a infrastructure revisions,
+- migration bundle/state,
+- pipeline definition a run identity.
+
+Ľudsky čitateľné meno ako `2026.07.24.1` je užitočné, ale runtime a evidence sa majú viazať na immutable digests.
+
+## 5. Release manifest
+
+Pri multi-component release je release manifest zdroj pravdy pre presnú kombináciu:
+
+```yaml
+release: 2026.07.24.1
+components:
+  api: sha256:aaa...
+  worker: sha256:bbb...
+  frontend: sha256:ccc...
+  migrations: sha256:ddd...
+config_revision: 8d2a11f
+infrastructure_revision: 719ab3c
+contract_set: 12
+```
+
+Manifest musí byť:
+
+- immutable alebo content-addressed,
+- podpísaný podľa policy,
+- prepojený na provenance componentov,
+- validovaný proti compatibility pravidlám,
+- použitý deploymentom aj rollbackom,
+- zachovaný podľa support a audit lifecycle.
+
+## 6. Release record
+
+Release record je auditný a prevádzkový záznam celej state machine.
+
+Obsahuje:
+
+- release identity a current state,
+- candidate a final manifest digest,
+- component/source identities,
+- zmenu od predchádzajúceho podporovaného release,
+- evidence manifest,
+- risk classification,
+- approvals/policy decisions,
+- waivery a known risks,
+- rollout a exposure plan,
 - target environments,
-- rollout strategy,
-- feature-flag plan,
-- ownera a on-call kontakty,
-- release a rollback výsledok.
+- deployment records,
+- feature-flag transitions,
+- validation výsledky,
+- abort/rollback/roll-forward udalosti,
+- ownerov a on-call kontakty,
+- support/EOL stav,
+- komunikáciu a incident links.
 
-## 4. Release cadence
+Release record má byť strojovo generovaný tam, kde dáta už existujú. Ručné prepisovanie digestov a výsledkov do ticketu vytvára drift.
 
-Možné modely:
+## 7. Change inventory
+
+Pred zostavením candidate-u vytvor inventory zmien:
+
+- features a user-visible behavior,
+- fixes,
+- security changes,
+- dependency a base-image updates,
+- config/default changes,
+- API/event/schema changes,
+- database migrations,
+- infrastructure/IAM/network changes,
+- deprecations a removals,
+- operational/runbook changes,
+- known issues.
+
+Inventory musí byť naviazané na konkrétny release scope. Git log je technický vstup, nie hotová kurátorská komunikácia.
+
+## 8. Scope admission
+
+Zmena vstúpi do release scope iba vtedy, keď spĺňa admission policy:
+
+- je integrovaná do správnej mainline/release line,
+- artifact alebo component candidate existuje,
+- ownership a risk classification sú známe,
+- required tests a reviews sú dostupné,
+- compatibility a migration impact sú popísané,
+- release notes fragment existuje,
+- dependencies a blockers sú vyriešené.
+
+Release train alebo cutoff má používať objektívny admission stav, nie neformálne „takmer hotové“ zmeny.
+
+## 9. Release candidate
+
+Release candidate je immutable release unit považovaná za možný final release.
+
+```text
+assemble manifest M
+→ verify M
+→ deploy/test M
+→ approve M
+→ final release alias na M
+```
+
+Candidate nesmie byť po testovaní rebuildnutý pod rovnakou identity. Ak sa zmení component, config alebo migration, vzniká nový candidate manifest a staré evidence sa musia znovu vyhodnotiť podľa freshness policy.
+
+## 10. Candidate supersession
+
+Nový candidate môže nahradiť starší:
+
+```text
+RC1 → finding
+RC2 → supersedes RC1
+```
+
+Supersession record má uviesť:
+
+- starý a nový manifest digest,
+- presný delta scope,
+- dôvod,
+- ktoré evidence sa dá znovu použiť,
+- ktoré checks sa invalidujú,
+- či RC1 ostáva diagnosticky dostupný,
+- kto prechod autorizoval.
+
+„Opravili sme iba jeden súbor“ nie je dôvod na automatické zachovanie všetkých výsledkov. Freshness závisí od dependency a risk graphu.
+
+## 11. Release readiness packet
+
+Readiness je risk-based evidence packet nad konkrétnym candidate-om.
+
+Typicky obsahuje:
+
+- artifact/manifest identity a provenance,
+- change inventory a risk classification,
+- functional, contract a regression evidence,
+- performance/capacity evidence podľa rizika,
+- security, license a policy findings,
+- compatibility matrix,
+- database/event migration plan,
+- rollout a abort criteria,
+- rollback/roll-forward eligibility,
+- observability a support readiness,
+- known risks a waivery,
+- communication plan.
+
+Checklist bez immutable subjectu a evidence references nie je dôveryhodný readiness model.
+
+## 12. Readiness verdicts
+
+Readiness nemá byť iba `ready/not ready`. Užitočná taxonomy:
+
+- **Ready —** complete a fresh evidence spĺňa policy.
+- **Ready with accepted risk —** existuje explicitná, expirovateľná waiver a compensating control.
+- **Blocked —** konkrétny finding alebo chýbajúca precondition.
+- **Incomplete —** required evidence sa nevytvorila alebo chýba.
+- **Inconclusive —** evidence existuje, ale nestačí na rozhodnutie.
+- **Expired —** candidate alebo evidence prekročila freshness window.
+- **Superseded —** novší candidate nahradil subject.
+
+## 13. Release cadence
+
+Cadence určuje, kedy sa ready changes môžu dostať k používateľom.
 
 ### On-demand
 
-Release nastane po splnení podmienok. Podporuje malé batches a rýchly feedback.
+Release sa spustí po splnení conditions. Podporuje malé batches a krátky feedback.
 
 ### Fixed cadence
 
-Release windows napríklad denne, týždenne alebo mesačne. Môžu zjednodušiť koordináciu, ale veľké batchovanie zvyšuje riziko.
+Denné, týždenné alebo mesačné windows. Uľahčujú koordináciu, ale môžu vytvárať batchovanie a čakací čas po readiness.
 
-### Train model
+### Release train
 
-Zmeny pripravené do cutoffu nastúpia na konkrétny release train; ostatné čakajú na ďalší.
+Zmeny, ktoré sú ready pred cutoffom, nastúpia na train. Ostatné automaticky prejdú na ďalší train bez tlaku na zníženie quality bar-u.
 
 ### Continuous release
 
-Malé zmeny sú release-nuté priebežne cez automatizovaný a progressive flow.
+Malé zmeny sa priebežne uvoľňujú cez automatizovaný progressive flow.
 
-Cadence musí zodpovedať recovery capability, regulácii a organizačnému kontextu.
+Cadence má zodpovedať recovery capability, customer expectations, regulácii a dependency coordination.
 
-## 5. Release readiness
+## 14. Release train admission
 
-Readiness nie je checklist bez kontextu. Má byť risk-based a evidence-driven.
+Train potrebuje stabilné pravidlá:
 
-Typické oblasti:
+- immutable candidate identity do cutoffu,
+- complete readiness packet,
+- žiadne unresolved required blockers,
+- known dependency ordering,
+- environment a support capacity,
+- rollback/roll-forward readiness,
+- communication scope.
 
-- artifact identity a provenance,
-- functional a non-functional tests,
-- security findings,
-- compatibility,
-- migrations,
-- observability,
-- capacity,
-- rollout a abort criteria,
-- rollback/roll-forward,
-- support readiness,
-- documentation a communication.
+Cutoff nemá meniť quality policy. Zmena, ktorá nestihla readiness, čaká na ďalší train.
 
-## 6. Release candidate
+## 15. Scope freeze verzus code freeze
 
-Release candidate je immutable artifact považovaný za potenciálny final release.
+Scope freeze znamená, že konkrétny release candidate už neprijíma nové features; iba explicitne schválené fixes vytvoria nový candidate.
 
-Bezpečný model:
+Code freeze blokuje širší development alebo integráciu. Často zvyšuje divergence a batch size.
 
-```text
-build candidate digest
-→ test candidate
-→ promotion candidate
-→ final release alias na ten istý digest
-```
+Preferovaný model:
 
-Rebuild po schválení ruší dôkaz, že final artifact prešiel kontrolami.
+- mainline pokračuje,
+- release scope je immutable cez manifest,
+- fixes sa aplikujú cielene,
+- každá zmena vytvorí nový candidate,
+- feature flags alebo branch by abstraction oddelia nehotovú capability.
 
-## 7. Release branch
+Code freeze môže byť legitímny pri kritickej udalosti alebo regulačnom okne, ale nemá nahrádzať deployability a recovery.
 
-Release branch môže stabilizovať konkrétnu release line:
+## 16. Release branch
+
+Release branch môže spravovať konkrétnu podporovanú line:
 
 ```text
 release/2.8
@@ -117,338 +309,598 @@ release/2.8
 
 Použitie:
 
-- final stabilization,
+- stabilizácia candidate-u,
 - backport fixes,
-- dlhodobá podpora,
-- oddelený release cadence.
+- LTS/security support,
+- oddelený cadence pre distribučný produkt.
 
 Riziká:
 
 - divergence od mainline,
-- duplicitné fixy,
-- merge/cherry-pick chyby,
-- dlhé code freeze,
-- nejasný source of truth.
+- fix iba v jednej line,
+- cherry-pick conflicts,
+- duplicitná validácia,
+- nejasný source of truth,
+- dlhodobý freeze.
 
-Release branch má mať explicitný lifecycle a ownership.
+Release branch potrebuje ownera, support/EOL termín, forward-propagation policy a automatizované comparison checks.
 
-## 8. Code freeze
+## 17. Multi-component consistency
 
-Code freeze obmedzuje zmeny pred release. Môže znížiť change rate, ale často maskuje slabú automatizáciu a recovery.
+Coordinated release musí overiť, že kombinácia componentov je podporovaná.
 
-Lepšie mechanizmy:
+Príklady rizík:
 
-- malé batches,
-- branch protection,
-- merge queue,
-- risk classification,
-- progressive delivery,
+- nový API producer s nepodporovaným starým consumerom,
+- frontend očakáva capability, ktorú backend flag ešte neposkytuje,
+- worker spracúva event schema, ktorú API ešte nepublikuje,
+- migration contract prebehne pred odstránením starých pods,
+- config revision patrí inému artifact setu.
+
+Release manifest a compatibility tests majú overovať set, nie iba jednotlivé artifacts izolovane.
+
+## 18. Producer/consumer coordination
+
+Bezpečný release preferuje backward-compatible transitions:
+
+```text
+producer rozšíri contract
+→ starí aj noví consumers fungujú
+→ consumers sa migrujú
+→ telemetry potvrdí adopciu
+→ starý contract sa odstráni neskôr
+```
+
+Big-bang release všetkých participantov naraz je často signálom, že compatibility window alebo version negotiation chýba.
+
+## 19. Databázový release lifecycle
+
+Databáza je shared mutable state. Release ju nemôže spravovať ako immutable binary.
+
+```text
+expand schema
+→ deploy compatible code
+→ backfill/migrate data
+→ over reads/writes
+→ prepnúť behavior
+→ odstrániť starých consumers
+→ contract schema
+```
+
+Release record má zachytiť:
+
+- migration IDs a status,
+- lock/runtime expectations,
+- backfill checkpoint,
+- old/new application compatibility,
+- rollback limitations,
+- reconciliation a integrity evidence,
+- moment, keď je contract krok eligible.
+
+## 20. Event-driven release lifecycle
+
+Pri queues a events zohľadni:
+
+- uložené staré messages,
+- parallel producer/consumer versions,
+- backward/forward schema compatibility,
+- replay a poison messages,
+- idempotency,
+- backlog počas rollout-u,
+- rollback consumera,
+- deprecation window podľa retention.
+
+Release finalizácia nemá znamenať, že starý event contract možno okamžite odstrániť.
+
+## 21. Deployment verzus release exposure
+
+Deployment odpovedá „kde artifact beží“. Release exposure odpovedá „kto dostáva nový behavior“.
+
+Exposure môže byť riadená cez:
+
 - feature flags,
-- robustné rollback/roll-forward.
+- rings,
+- tenant allowlist,
+- canary traffic,
+- region rollout,
+- store/phased distribution,
+- configuration alebo entitlement.
 
-Freeze môže byť legitímny pri regulačnej alebo kritickej udalosti, ale nemá byť permanentný operating model.
+Release record musí rozlišovať:
 
-## 9. Release approvals
+```text
+artifact deployed: 100 % instances
+feature exposed: 10 % users
+```
 
-Approval má potvrdiť konkrétne rozhodnutie, nie mechanicky zopakovať zelený pipeline stav.
+Inak je nejasné, kedy používateľský release skutočne nastal.
 
-Dobrý approval pozná:
+## 22. Rollout plan
 
-- presný artifact digest,
-- zmenu od poslednej verzie,
-- risk classification,
-- evidence,
-- rollout plan,
-- recovery plan,
-- platnosť rozhodnutia.
+Rollout plan definuje state transitions:
 
-Nový commit, rebuild alebo zmena konfigurácie môže approval invalidovať.
+- initial target cohort,
+- rollout kroky alebo rings,
+- minimálne observation windows,
+- promotion metrics,
+- abort criteria,
+- maximálny blast radius,
+- feature-flag transitions,
+- dependency ordering,
+- rollback, roll-forward alebo disable action,
+- ownera pre každé rozhodnutie.
 
-## 10. Segregation of duties
+Percentá bez criteria nie sú progressive delivery.
 
-V regulovanom prostredí môže byť potrebné oddeliť:
+## 23. Release approval
+
+Approval je risk decision nad immutable candidate-om a readiness packetom.
+
+Approver má vidieť:
+
+- čo je v scope,
+- presný manifest digest,
+- delta od posledného release,
+- risk a reversibility,
+- blockers, waivery a known issues,
+- rollout/abort plan,
+- recovery eligibility,
+- communication a support readiness.
+
+Approval musí expirovať pri zmene manifestu, relevantnej config, policy, environment preconditions alebo významnej security informácii.
+
+## 24. Separation of duties
+
+Pri citlivých releases môže byť potrebné oddeliť:
 
 - autora zmeny,
-- reviewerov,
+- code reviewerov,
 - build identity,
+- evidence producerov,
 - release approvera,
 - deployment identity,
 - auditora.
 
-Automatizácia môže vynucovať separation of duties bez ručného kopírovania ticketov.
+Separation of duties sa má vynucovať platformou a identity policy. Nemá znamenať manuálne kopírovanie artifacts alebo údajov medzi systémami.
 
-## 11. Change request a release evidence
+## 25. Release window
 
-Ticket alebo change request má odkazovať na strojovo overiteľný release record, nie ručne opisovať údaje, ktoré už existujú v pipeline.
+Window môže zohľadňovať:
 
-Preferovaný model:
+- support a on-call coverage,
+- traffic a business criticality,
+- external dependency support,
+- regulated change periods,
+- customer maintenance expectations,
+- error-budget stav,
+- prebiehajúce incidenty,
+- recovery time.
 
-```text
-change intent
-+ risk classification
-+ immutable release identity
-+ generated evidence
-+ decision record
-```
+„Nenasadzovať v piatok“ nie je univerzálne pravidlo. Dôležité je, či organizácia dokáže zmenu pozorovať a bezpečne obnoviť.
 
-## 12. Release notes
+## 26. Communication plan
 
-Release notes sú určené konkrétnemu publiku:
+Komunikácia má byť viazaná na release ID a používateľský dopad.
 
-- používatelia,
-- administrátori,
-- integrátori,
-- support,
-- security alebo compliance.
+Publiká:
 
-Obsah môže zahŕňať:
+- end users,
+- administrators,
+- API integrators,
+- support a operations,
+- security/compliance,
+- internal stakeholders,
+- external partners.
+
+Plán definuje:
+
+- predbežné oznámenie,
+- maintenance/degradation expectation,
+- breaking/deprecated behavior,
+- live release status,
+- incident/rollback update,
+- final validation a known issues.
+
+## 27. Release notes
+
+Release notes sú kurátorská komunikácia konkrétneho release.
+
+Obsah podľa publika:
 
 - nové capabilities,
-- opravy,
+- opravy a security zmeny,
 - breaking changes,
-- deprecations,
+- deprecations a removals,
 - migration kroky,
+- config/default zmeny,
+- compatibility requirements,
 - known issues,
-- security informácie,
-- rollback limitations.
+- recovery alebo rollback limitations,
+- support/EOL informácie.
 
-Commit log bez kurácie nie je automaticky dobrý release note.
+Commit log nevyjadruje vždy user impact a nemá byť publikovaný bez kurácie.
 
-## 13. Changelog
+## 28. Changelog
 
-Changelog je dlhodobý chronologický záznam významných zmien. Release notes sú komunikácia konkrétneho release.
+Changelog je dlhodobý chronologický záznam významných zmien. Release notes sú komunikácia konkrétnej release unit.
 
-Changelog fragmenty môžu znížiť konflikty v monorepe:
+Changelog fragments umožňujú, aby informácia vznikla spolu so zmenou:
 
 ```text
 changes/1842.feature.md
 changes/1847.fix.md
+changes/1851.breaking.md
 ```
 
-Release automation ich agreguje a označí vydanou verziou.
+Release automation ich agreguje, validuje kategóriu a priradí immutable release identity.
 
-## 14. Release manifest
+## 29. Post-deploy verification
 
-Pri viacerých komponentoch manifest mapuje release na immutable identities:
+Po deployment-e over:
 
-```yaml
-release: 2026.07.21.1
-components:
-  api: sha256:aaa
-  worker: sha256:bbb
-  frontend: sha256:ccc
-config_revision: 8d2a11f
-infrastructure_revision: 719ab3c
-```
+- správny artifact/manifest digest,
+- config a schema revision,
+- desired počet healthy instances,
+- routing a feature-flag stav,
+- migrations a background jobs,
+- synthetics a critical smoke,
+- technical errors, latency a saturation.
 
-Manifest podporuje reprodukciu environmentu, audit aj koordinovaný rollback.
+Deployment controller success nie je dôkaz správneho runtime state.
 
-## 15. Dependency a compatibility management
+## 30. Post-release validation
 
-Release plán musí zohľadniť:
+Po exposure sleduj:
 
-- producer/consumer compatibility,
-- API a event schemas,
-- client upgrade lag,
-- database schema,
-- infrastructure dependencies,
-- third-party services,
-- minimum/maximum supported versions.
+- functional journey completion,
+- business KPIs,
+- user/support signals,
+- authorization a data correctness,
+- async side effects a settlements,
+- long-running memory/backlog behavior,
+- cohort a region differences,
+- SLO/error-budget dopad.
 
-Koordinovaný „big bang“ release je často signálom nedostatočnej backward compatibility.
+Niektoré signals majú delay. Release nemá byť formálne uzavretý skôr, než prejde relevantná observation window alebo je delayed validation explicitne odovzdaná do ongoing monitoring ownershipu.
 
-## 16. Database release
+## 31. Hypercare
 
-Databázové zmeny majú samostatný lifecycle:
+Hypercare je dočasne zvýšená pripravenosť po významnom release.
 
-```text
-expand schema
-→ deploy compatible application
-→ migrate/backfill data
-→ observe
-→ remove old usage
-→ contract schema
-```
+Môže zahŕňať:
 
-Release record musí uviesť applied migrations a rollback limitations.
+- dostupného release ownera,
+- zvýšenú dashboard/alert pozornosť,
+- support triage channel,
+- business KPI review,
+- rýchly decision path,
+- častejšie status updates.
 
-## 17. Release window
+Hypercare má mať začiatok, koniec a exit criteria. Nenahrádza permanentnú observability ani on-call model.
 
-Release window môže byť založené na:
+## 32. Abort, rollback, roll-forward a disable
 
-- support coverage,
-- traffic profile,
-- dependency availability,
-- business kalendári,
-- compliance pravidlách,
-- maintenance constraints.
+Recovery action závisí od failure a state compatibility.
 
-„Nenasadzovať v piatok“ nie je univerzálne pravidlo. Rozhodujú detection a recovery capability.
+- **Abort —** zastaví ďalšie rollout kroky.
+- **Feature disable —** odstráni exposure pri zachovanom deployment-e.
+- **Rollback —** obnoví staršiu application/release unit.
+- **Roll-forward —** nasadí opravu alebo dokončí migráciu.
+- **Traffic shift —** presmeruje na zdravý region/ring.
+- **Write freeze —** chráni dáta pri corruption riziku.
 
-## 18. Communication plan
+Rozhodnutie zohľadňuje:
 
-Definuj:
-
-- kto musí byť informovaný,
-- pred akou zmenou,
-- akým kanálom,
-- čo je maintenance alebo degradation expectation,
-- kde je live status,
-- kto komunikuje rollback alebo incident.
-
-Komunikácia má používať release ID a používateľský dopad, nie iba interný commit SHA.
-
-## 19. Rollout plan
-
-Release plan má explicitne uvádzať:
-
-- target population,
-- rollout kroky,
-- observation windows,
-- promotion criteria,
-- abort criteria,
-- maximum blast radius,
-- feature-flag transitions,
-- rollback/roll-forward postup.
-
-## 20. Hypercare
-
-Hypercare je dočasne zvýšená pozornosť po významnom release:
-
-- owner dostupnosť,
-- zvýšené dashboardy/alerts,
-- support triage,
-- business KPI sledovanie,
-- rýchly decision path.
-
-Nemá nahrádzať permanentnú observability ani on-call model.
-
-## 21. Release rollback a roll-forward
-
-Rollback obnovuje staršiu application verziu. Roll-forward nasadí opravu alebo dokončí migráciu.
-
-Rozhodnutie závisí od:
-
-- databázovej kompatibility,
+- database/event compatibility,
 - external side effects,
-- queue/event state,
-- cache formátu,
 - client versions,
-- času na opravu,
-- exposure a impactu.
+- queue/backlog state,
+- cache/serialized formats,
+- čas na opravu,
+- user impact a exposure.
 
-Release management musí recovery testovať, nie iba dokumentovať.
+## 33. Rollback eligibility
 
-## 22. Supported versions
+Pred releaseom over:
 
-Definuj support policy:
+- starý artifact/release manifest je dostupný,
+- provenance a trust policy ho povoľujú,
+- config a secrets references existujú,
+- databáza a events sú backward-compatible,
+- starý client/server contract stále funguje,
+- deployment workflow podporuje návrat,
+- post-rollback validation je pripravená.
 
-- latest only,
-- current + previous,
-- LTS lines,
-- security-only support,
-- end-of-life dátum.
+„Vrátime predchádzajúcu version“ nie je plán bez týchto preconditions.
 
-Policy ovplyvňuje backporting, test matrix, dependency updates a incident response.
+## 34. Emergency release a hotfix
 
-## 23. Emergency release
-
-Emergency alebo hotfix flow má byť rýchlejší, nie nekontrolovaný.
+Emergency flow má byť rýchlejší, nie neauditovaný.
 
 Minimálne zachovaj:
 
-- code review podľa rizika,
-- immutable artifact,
-- kritické tests,
-- security controls,
-- deployment record,
-- explicitný owner,
-- post-release follow-up.
+- explicitný incident/risk dôvod,
+- source review primeraný situácii,
+- immutable artifact a provenance,
+- kritické targeted tests,
+- security a policy minimum,
+- ownera a on-call readiness,
+- deployment/release record,
+- recovery plan,
+- post-release validation,
+- následné doplnenie obídených evidence.
 
-Break-glass použitie musí byť auditované a následne vyhodnotené.
+Break-glass musí byť časovo obmedzený, auditovaný a následne reviewovaný.
 
-## 24. Release metrics
+## 35. Hotfix source of truth
 
-Sleduj:
+Hotfix môže vzniknúť na podporovanej release branch alebo z current mainline podľa incident contextu.
+
+Musí sa zabezpečiť:
+
+- oprava v affected release line,
+- forward propagation do mainline a novších lines,
+- samostatná version a artifact digest,
+- testy pre každú podporovanú line,
+- aktualizované release notes,
+- odstránenie dočasného workaroundu.
+
+Fix iba v production branch vytvára budúcu regresiu pri ďalšom release.
+
+## 36. Supported version policy
+
+Definuj, ktoré versions sú podporované:
+
+- latest only,
+- current a previous major/minor,
+- LTS lines,
+- security-only support,
+- extended paid/regulatory support,
+- end-of-life date.
+
+Policy ovplyvňuje:
+
+- backports,
+- test matrix,
+- artifact retention,
+- dependency updates,
+- documentation,
+- incident response,
+- vulnerability SLAs,
+- client compatibility.
+
+## 37. Deprecation a end of life
+
+Release lifecycle nekončí vydaním.
+
+EOL proces:
+
+```text
+announce deprecation
+→ publish replacement/migration
+→ measure active usage
+→ warning period
+→ restrict new adoption
+→ end support
+→ remove artifacts/endpoints podľa policy
+```
+
+EOL musí uviesť:
+
+- poslednú podporovanú version,
+- dátum ukončenia,
+- typ supportu do termínu,
+- migration path,
+- data/export obligations,
+- security implications,
+- ownera a communication channels.
+
+## 38. Release revocation
+
+Release môže byť revokovaný pri kompromitácii, corruption alebo kritickom defekte.
+
+Revocation môže:
+
+- zablokovať nové deployments,
+- zastaviť rollout/exposure,
+- označiť artifacts ako nepovolené,
+- upozorniť active environments,
+- spustiť incident, rollback alebo hotfix,
+- zachovať artifacts pre forenznú analýzu.
+
+Revocation nie je automaticky fyzické zmazanie evidence.
+
+## 39. Uzatvorenie release recordu
+
+Release sa formálne uzavrie, keď:
+
+- deployment a exposure dosiahli plánovaný stav,
+- required validation windows prešli,
+- abort/rollback stav je vyriešený,
+- known issues a support ownership sú zaznamenané,
+- communication bola dokončená,
+- evidence a deployment records sú kompletné,
+- waivery a follow-up actions majú ownerov a termíny,
+- release support/EOL class je priradená.
+
+Closed neznamená, že monitoring končí. Znamená, že release event bol odovzdaný do normálneho prevádzkového a support lifecycle.
+
+## 40. Release retrospective
+
+Pri významnom, neúspešnom alebo emergency release vyhodnoť:
+
+- čo spôsobilo delay alebo incident,
+- kvalitu readiness evidence,
+- správnosť risk classification,
+- approval a waiting time,
+- rollout signal quality,
+- recovery effectiveness,
+- komunikáciu,
+- manual steps,
+- defect escape a chýbajúce guardrails.
+
+Výstup musí viesť k testu, policy, automation, platform defaultu alebo procesnej zmene.
+
+## 41. Metriky
+
+Sleduj spoločne flow, quality a recovery:
 
 - release frequency,
-- lead time,
-- deployment frequency,
-- change fail rate,
-- failed deployment recovery time,
-- rollback/abort rate,
-- release delay po readiness,
+- lead time od change po release,
+- čas ready-to-release waiting,
+- candidate count a supersession rate,
+- release-train miss rate,
 - approval wait time,
+- rollout duration,
+- abort/rollback/roll-forward rate,
+- change fail rate,
+- mean exposure before detection,
+- failed release recovery time,
 - defect escape rate,
-- stale release candidates,
-- unsupported version population.
+- stale candidates,
+- emergency release rate,
+- unsupported version population,
+- release-note alebo communication defects,
+- otvorené follow-up actions podľa veku.
 
-Metriky majú zlepšovať systém, nie odmeňovať objem releaseov bez hodnoty.
+Vyšší počet releaseov nie je úspech, ak rastie user impact alebo support debt.
 
-## 25. Anti-patterny
+## 42. Diagnostický postup
 
-### Release = manuálny checklist v tickete
+Keď release zlyhá alebo je nejasný:
 
-Evidence je zastaraná a neoveriteľná.
+1. identifikuj release/manifest digest a current state;
+2. zisti presný deployment a exposure scope;
+3. porovnaj candidate, approved a deployed identities;
+4. over config, infrastructure a schema revisions;
+5. skontroluj readiness evidence a freshness;
+6. rozlíš deployment, functional, business, compatibility alebo telemetry failure;
+7. zastav ďalšiu expozíciu podľa abort policy;
+8. zhodnoť rollback/roll-forward/disable eligibility;
+9. over data a event integrity;
+10. komunikuj release ID a user impact;
+11. uchovaj timeline a decision records;
+12. po recovery uzavri hotfix forward propagation a preventívnu kontrolu.
+
+## 43. Typické anti-patterny
+
+### Release je manuálny checklist v tickete
+
+Evidence je ručne kopírovaná, zastaraná a neviazaná na immutable candidate.
 
 ### Final artifact sa po schválení rebuildne
 
-Approval patrí iným bytes.
+Approval a tests patria iným bytes.
+
+### Scope sa mení počas rollout-u
+
+Nie je možné určiť, čo evidence a communication pokrývali.
 
 ### Veľký mesačný release bundle
 
-Zvyšuje blast radius a komplikuje root-cause analýzu.
+Zvyšuje blast radius, compatibility matrix a root-cause ambiguity.
 
-### Approval bez rizikového kontextu
+### Approval bez risk packetu
 
-Je iba ceremoniálny gate.
+Je ceremoniálny a predlžuje queue bez kvalitnejšieho rozhodnutia.
 
-### Rollback plán „vrátime predchádzajúcu verziu“
+### Deployment = release = validation
 
-Ignoruje dáta, events a side effects.
+Orchestrátor success sa zamieňa za používateľský outcome.
 
-### Release notes sú celý Git log
+### Rollback plán ignoruje mutable state
 
-Používateľ nevie identifikovať dopad.
+Starý artifact nemusí rozumieť novej databáze, events alebo cache.
 
-## 26. Troubleshooting
+### Hotfix iba v release branch
 
-### Nie je jasné, čo je v produkcii
+Nasledujúci release z mainline problém znovu zavedie.
 
-Zaveď deployment record a environment manifest s digestmi a config revisions.
+### Release branch bez EOL
 
-### Release candidate sa líši od final artifactu
+Vzniká neurčitý support záväzok a divergence.
 
-Odstráň rebuild pri promotion a publikuj immutable digest.
+### Hypercare bez exit criteria
 
-### Approval čaká dni
+Dočasný režim sa stane trvalým manuálnym dohľadom.
 
-Analyzuj chýbajúcu evidence, nejasný ownership, batch size a zbytočné univerzálne approval pravidlá.
+### Release record sa nikdy neuzavrie
 
-### Rollback zlyhal
+Nie je jasný support owner, final state ani follow-up debt.
 
-Over state compatibility, migrácie, queue backlog, cache schema a dostupnosť starého artifactu.
+## 44. Praktický rozhodovací rámec
 
-### Release branch sa výrazne odchýlila
+1. Čo presne tvorí release unit?
+2. Aká immutable identity a manifest ju reprezentujú?
+3. Aké changes sú v scope a ktoré nie?
+4. Aká admission/readiness policy platí?
+5. Ktoré evidence sú complete a fresh?
+6. Je candidate superseded alebo stále aktuálny?
+7. Aké component/API/event/database compatibility existujú?
+8. Aký cadence alebo train release používa?
+9. Ktorý deployment stav a ktorý exposure stav sa menia?
+10. Aké promotion a abort criteria platia?
+11. Aký je maximálny blast radius a observation window?
+12. Je rollback kompatibilný so shared state?
+13. Aký roll-forward alebo disable mechanizmus existuje?
+14. Kto schvaľuje a kto reaguje?
+15. Aké publikum potrebuje komunikáciu?
+16. Kedy je release validated a kedy formálne closed?
+17. Aký support/EOL lifecycle dostane?
+18. Ako sa hotfix forward-propaguje?
 
-Skráť lifecycle, automatizuj backports, pravidelne syncuj mainline a zníž množstvo paralelných release lines.
+## 45. Kontrolný checklist
 
-## 27. Kontrolné otázky
+Pred release over:
 
-1. Aký je rozdiel medzi buildom, deploymentom a release?
+- release unit a manifest sú immutable,
+- change inventory je úplné,
+- candidate nebol po evidence rebuildnutý,
+- readiness packet patrí správnemu manifestu,
+- evidence je complete, fresh a policy-eligible,
+- waivery majú ownera, compensating control a expiry,
+- compatibility matrix pokrýva old/new participants,
+- migrations a backfills majú explicitné fázy,
+- deployment a exposure sú oddelené,
+- rollout, observation a abort criteria sú definované,
+- rollback/roll-forward/disable sú reálne eligible,
+- on-call, support a communication sú pripravené,
+- release notes uvádzajú breaking/deprecation/known issues,
+- post-deploy aj post-release validation sú definované,
+- support/EOL class je určená,
+- hotfix a branch lifecycle majú forward-propagation pravidlá,
+- release record bude po validation formálne uzavretý.
+
+## 46. Kontrolné otázky
+
+1. Aký je rozdiel medzi buildom, deploymentom a releaseom?
 2. Čo tvorí release unit?
-3. Čo má obsahovať release record?
-4. Prečo sa schválený release candidate nemá rebuildovať?
-5. Aké riziká má release branch?
-6. Kedy má approval reálnu hodnotu?
-7. Na čo slúži release manifest?
-8. Ako expand-contract podporuje release databázovej zmeny?
-9. Kedy preferovať rollback a kedy roll-forward?
-10. Aké controls musí zachovať emergency release?
+3. Načo slúži release manifest?
+4. Aké stavy má release lifecycle?
+5. Prečo zmena candidate-u invaliduje časť evidence?
+6. Čo obsahuje readiness packet?
+7. Aký je rozdiel medzi blocked, incomplete a inconclusive readiness?
+8. Ako funguje release train admission?
+9. Aký je rozdiel medzi scope freeze a code freeze?
+10. Aké riziká má release branch?
+11. Prečo multi-component release potrebuje set-level compatibility?
+12. Ako sa deployment odlišuje od release exposure?
+13. Kedy má approval reálnu rozhodovaciu hodnotu?
+14. Ako database a events komplikujú release?
+15. Prečo rollback nemusí byť bezpečný?
+16. Čo musí zachovať emergency release?
+17. Ako sa hotfix propaguje do mainline?
+18. Čo má obsahovať supported-version a EOL policy?
+19. Kedy je release record možné uzavrieť?
+20. Ktoré metriky odhalia release process debt?
+
+## Summary
+
+Release management je riadený lifecycle immutable release unit od candidate assembly cez readiness, approval, deployment, progressive exposure a validation až po support a end of life. Dôveryhodný proces používa release manifest, complete a fresh evidence, explicitný scope, compatibility windows, oddelenie deploymentu od releaseu, merateľné rollout/abort criteria a overenú recovery. Hotfix, revocation, support, EOL a formálne uzatvorenie release recordu sú súčasťou rovnakého systému; release nekončí vytvorením artifactu ani zeleným deployment jobom.
 
 ## Glossary impact
 
-Relevantné pojmy: release management, release unit, release record, release cadence, release train, release candidate, release branch, code freeze, release manifest, changelog, release notes, hypercare, emergency release, hotfix a supported version policy.
+Relevantné pojmy: release management, release unit, release identity, release manifest, release record, release state machine, change inventory, scope admission, release candidate, candidate supersession, readiness packet, release cadence, release train, scope freeze, release branch, deployment exposure, hypercare, emergency release, hotfix, release revocation, supported version policy, end of life a release closure.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
