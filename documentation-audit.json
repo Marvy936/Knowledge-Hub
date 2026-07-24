@@ -59,15 +59,15 @@
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
       "title": "Desired State and Reconciliation",
-      "words": 872,
-      "headings": 22,
-      "sections": 22,
-      "findings": 42,
-      "critical": 18,
-      "high": 19,
-      "medium": 5,
-      "low": 0,
-      "score": 379,
+      "words": 2403,
+      "headings": 32,
+      "sections": 32,
+      "findings": 34,
+      "critical": 3,
+      "high": 2,
+      "medium": 7,
+      "low": 22,
+      "score": 108,
       "grade": "D"
     },
     {
@@ -5960,35 +5960,35 @@
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 20,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 20,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces zlyhá,`, `node vypadne,`, `používateľ vykoná manuálnu zmenu,`, `externé API odmietne operáciu,`.",
-      "score": 12
+      "section": "2. Štyri pohľady na stav",
+      "line": 17,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 20,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "2. Štyri pohľady na stav",
+      "line": 17,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 20,
+      "section": "2. Štyri pohľady na stav",
+      "line": 17,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
@@ -5996,291 +5996,219 @@
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "3. Mentálny model regulačnej slučky",
-      "line": 33,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "4. Prečo level-based model prežije stratené udalosti",
+      "line": 44,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "5. Viac controllerov",
-      "line": 69,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Prečo level-based model prežije stratené udalosti",
+      "line": 44,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "5. Viac controllerov",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Deployment controller riadi ReplicaSets,`, `ReplicaSet controller riadi počet Podov,`, `scheduler priraďuje neschedulované Pody na nodes,`, `kubelet zabezpečuje lokálny stav Podov a kontajnerov,`.",
-      "score": 12
+      "section": "7. Source of truth",
+      "line": 80,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "5. Viac controllerov",
-      "line": 69,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "7. Source of truth",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "8. GitOps",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "8. GitOps",
-      "line": 112,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zmenu automaticky vrátiť,`, `iba oznámiť drift,`, `čakať na manuálne schválenie.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "8. GitOps",
-      "line": 112,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "9. Source of truth",
-      "line": 134,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "9. Source of truth",
-      "line": 134,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git repository,`, `Kubernetes API object,`, `Terraform configuration a state,`, `CMDB,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "9. Source of truth",
-      "line": 134,
+      "section": "7. Source of truth",
+      "line": 80,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "9. Source of truth",
+      "section": "9. Drift",
+      "line": 97,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "9. Drift",
+      "line": 97,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "9. Drift",
+      "line": 97,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "10. Convergence",
+      "line": 109,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "11. Eventual consistency a readiness",
+      "line": 115,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "11. Eventual consistency a readiness",
+      "line": 115,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "12. Status ako vysvetlenie, nie druhý intent",
+      "line": 128,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
+      "section": "13. Retry, backoff a rate limiting",
       "line": 134,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CMDB`, `control plane`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "10. Drift",
-      "line": 149,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "14. Finalizers a deletion lifecycle",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "10. Drift",
-      "line": 149,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manuálnym zásahom,`, `neúspešnou automatizáciou,`, `zmenou defaultných hodnôt providera,`, `externým procesom,`.",
-      "score": 12
+      "section": "17. GitOps reconciliation",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "10. Drift",
-      "line": 149,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "10. Drift",
-      "line": 149,
+      "section": "17. GitOps reconciliation",
+      "line": 172,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `blast radius`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "11. Convergence",
-      "line": 162,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "18. Terraform reconciliation",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "11. Convergence",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "18. Terraform reconciliation",
+      "line": 184,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "11. Convergence",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dva controllery vlastnia rovnakú hodnotu,`, `desired state nie je realizovateľný,`, `controller používa nestabilné vstupy,`, `porovnanie nesprávne vyhodnocuje ekvivalentné hodnoty,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "11. Convergence",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "12. Eventual consistency",
-      "line": 178,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `spec alebo intent,`, `status alebo pozorovaný výsledok,`, `conditions a events vysvetľujúce priebeh.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "12. Eventual consistency",
-      "line": 178,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "13. Failure handling",
+      "section": "19. Degraded control plane",
       "line": 192,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "13. Failure handling",
-      "line": 192,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "21. Observability controlleru",
+      "line": 212,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "13. Failure handling",
-      "line": 192,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry,`, `exponential backoff,`, `rate limiting,`, `idempotentné operácie,`.",
-      "score": 12
+      "section": "21. Observability controlleru",
+      "line": 212,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "13. Failure handling",
-      "line": 192,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "14. Časté omyly",
-      "line": 204,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "„Reconciliation vždy vráti manuálnu zmenu“",
-      "line": 210,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "„Viac automatizácie znamená viac istoty“",
+      "section": "22. End-to-end príklad",
       "line": 218,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "15. Diagnostika reconciliation systému",
-      "line": 222,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "26. Zhrnutie",
+      "line": 284,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "15. Diagnostika reconciliation systému",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "15. Diagnostika reconciliation systému",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je desired state?`, `Aký je observed state?`, `Ktorý controller vlastní danú zmenu?`, `Je controller spustený a má oprávnenia?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/desired-state-and-reconciliation.md",
-      "section": "15. Diagnostika reconciliation systému",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "26. Zhrnutie",
+      "line": 284,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",

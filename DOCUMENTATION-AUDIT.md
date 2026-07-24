@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10472**
-- Total words: **437,396**
-- Findings: **23452** (critical 8381, high 9477, medium 3117, low 2477)
+- Audited conceptual sections: **10482**
+- Total words: **438,927**
+- Findings: **23444** (critical 8366, high 9460, medium 3119, low 2499)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -236,7 +236,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 391 | 13 | 26 | 7 | 5 | 1210 | `docs/02-networking-and-web/dns.md` |
 | D | 388 | 12 | 30 | 3 | 0 | 1027 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
-| D | 379 | 18 | 19 | 5 | 0 | 872 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 373 | 18 | 19 | 2 | 3 | 893 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
@@ -275,6 +274,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
 | D | 125 | 2 | 9 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
+| D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
@@ -389,40 +389,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Declarative vs. Imperative Approach, Idempotency`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 20, `bare-bullet-items` — **2. Problém, ktorý rieši**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces zlyhá,`, `node vypadne,`, `používateľ vykoná manuálnu zmenu,`, `externé API odmietne operáciu,`.
-- **CRITICAL** line 20, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 69, `bare-bullet-items` — **5. Viac controllerov**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Deployment controller riadi ReplicaSets,`, `ReplicaSet controller riadi počet Podov,`, `scheduler priraďuje neschedulované Pody na nodes,`, `kubelet zabezpečuje lokálny stav Podov a kontajnerov,`.
-- **CRITICAL** line 69, `outline-instead-of-explanation` — **5. Viac controllerov**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 134, `bare-bullet-items` — **9. Source of truth**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git repository,`, `Kubernetes API object,`, `Terraform configuration a state,`, `CMDB,`.
-- **CRITICAL** line 134, `outline-instead-of-explanation` — **9. Source of truth**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `bare-bullet-items` — **10. Drift**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manuálnym zásahom,`, `neúspešnou automatizáciou,`, `zmenou defaultných hodnôt providera,`, `externým procesom,`.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **10. Drift**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **11. Convergence**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dva controllery vlastnia rovnakú hodnotu,`, `desired state nie je realizovateľný,`, `controller používa nestabilné vstupy,`, `porovnanie nesprávne vyhodnocuje ekvivalentné hodnoty,`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **11. Convergence**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 192, `bare-bullet-items` — **13. Failure handling**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry,`, `exponential backoff,`, `rate limiting,`, `idempotentné operácie,`.
-- **CRITICAL** line 192, `outline-instead-of-explanation` — **13. Failure handling**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 204, `empty-section` — **14. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 222, `bare-bullet-items` — **15. Diagnostika reconciliation systému**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je desired state?`, `Aký je observed state?`, `Ktorý controller vlastní danú zmenu?`, `Je controller spustený a má oprávnenia?`.
-- **CRITICAL** line 222, `outline-instead-of-explanation` — **15. Diagnostika reconciliation systému**: 8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 33, `list-first-introduction` — **3. Mentálny model regulačnej slučky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 112, `bare-bullet-items` — **8. GitOps**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zmenu automaticky vrátiť,`, `iba oznámiť drift,`, `čakať na manuálne schválenie.`.
-- **HIGH** line 112, `single-sentence-concept` — **8. GitOps**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 162, `single-sentence-concept` — **11. Convergence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 178, `bare-bullet-items` — **12. Eventual consistency**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `spec alebo intent,`, `status alebo pozorovaný výsledok,`, `conditions a events vysvetľujúce priebeh.`.
-- **HIGH** line 192, `single-sentence-concept` — **13. Failure handling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 210, `single-sentence-concept` — **„Reconciliation vždy vráti manuálnu zmenu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 218, `single-sentence-concept` — **„Viac automatizácie znamená viac istoty“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `single-sentence-concept` — **15. Diagnostika reconciliation systému**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 20, `thin-concept-section` — **2. Problém, ktorý rieši**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 69, `thin-concept-section` — **5. Viac controllerov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 112, `thin-concept-section` — **8. GitOps**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `thin-concept-section` — **10. Drift**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **11. Convergence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 178, `thin-concept-section` — **12. Eventual consistency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 192, `thin-concept-section` — **13. Failure handling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 222, `thin-concept-section` — **15. Diagnostika reconciliation systému**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/devops-anti-patterns.md`
 
@@ -18908,17 +18876,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4208 | 0 | 0 | 4208 |
-| `bare-bullet-items` | 3844 | 348 | 0 | 0 | 4192 |
-| `outline-instead-of-explanation` | 3734 | 0 | 0 | 0 | 3734 |
-| `thin-concept-section` | 0 | 3411 | 0 | 0 | 3411 |
-| `term-before-explanation` | 0 | 342 | 2224 | 0 | 2566 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1161 | 1161 |
-| `list-first-introduction` | 0 | 959 | 0 | 0 | 959 |
-| `example-not-explicit` | 0 | 0 | 0 | 927 | 927 |
-| `short-concept-section` | 0 | 0 | 893 | 0 | 893 |
-| `empty-section` | 509 | 0 | 0 | 0 | 509 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 389 | 389 |
+| `single-sentence-concept` | 0 | 4202 | 0 | 0 | 4202 |
+| `bare-bullet-items` | 3837 | 346 | 0 | 0 | 4183 |
+| `outline-instead-of-explanation` | 3727 | 0 | 0 | 0 | 3727 |
+| `thin-concept-section` | 0 | 3403 | 0 | 0 | 3403 |
+| `term-before-explanation` | 0 | 342 | 2227 | 0 | 2569 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1168 | 1168 |
+| `list-first-introduction` | 0 | 958 | 0 | 0 | 958 |
+| `example-not-explicit` | 0 | 0 | 0 | 936 | 936 |
+| `short-concept-section` | 0 | 0 | 892 | 0 | 892 |
+| `empty-section` | 508 | 0 | 0 | 0 | 508 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 395 | 395 |
 | `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
 | `list-heavy-section` | 0 | 209 | 0 | 0 | 209 |
 
