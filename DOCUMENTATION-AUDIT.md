@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11149**
-- Total words: **515,944**
-- Findings: **24850** (critical 8412, high 9457, medium 3345, low 3636)
+- Audited conceptual sections: **11173**
+- Total words: **517,603**
+- Findings: **24886** (critical 8412, high 9480, medium 3353, low 3641)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -227,6 +227,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
+| D | 408 | 5 | 39 | 9 | 5 | 2246 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
@@ -253,7 +254,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
 | D | 192 | 4 | 11 | 6 | 28 | 2425 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 192 | 6 | 8 | 5 | 28 | 3160 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
-| D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
 | D | 175 | 4 | 8 | 8 | 27 | 2532 | `docs/00-foundations/declarative-vs-imperative.md` |
 | D | 175 | 5 | 6 | 8 | 31 | 2698 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
@@ -3244,25 +3244,48 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 43, `empty-section` — **3. Reset modes**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 145, `empty-section` — **10. Bezpečný rozhodovací strom**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 179, `empty-section` — **12. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 546, `bare-bullet-items` — **26. Obnova necommitnutých zmien**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `staged blob po predchádzajúcom git add ,`, `dangling blob nájdený cez git fsck --lost-found ,`, `editor local history,`, `filesystem snapshot alebo backup,`.
+- **CRITICAL** line 590, `empty-section` — **28. Rozhodovací model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 690, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `list-first-introduction` — **1. Rozdiel v jednej mape**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `single-sentence-concept` — **1. Rozdiel v jednej mape**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 21, `single-sentence-concept` — **2. Restore**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 45, `list-first-introduction` — **Soft**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 55, `list-first-introduction` — **Mixed**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 64, `list-first-introduction` — **Hard**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 74, `list-first-introduction` — **4. Reset path vs. reset commit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 86, `list-first-introduction` — **5. Revert**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 113, `list-first-introduction` — **7. Amend**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 161, `single-sentence-concept` — **11. Troubleshooting scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **„Reset vždy zmaže files“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 189, `single-sentence-concept` — **„Hard reset vyčistí aj všetky untracked files“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 193, `single-sentence-concept` — **„Amend iba upraví text existujúceho commitu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 11, `single-sentence-concept` — **1. Definícia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 56, `bare-bullet-items` — **3. git restore — obnova obsahu bez pohybu branch**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pri obnove working tree je source typicky index,`, `pri --staged je source typicky HEAD .`.
+- **HIGH** line 107, `list-first-introduction` — **5. Restore index — unstage**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 153, `bare-bullet-items` — **7. Partial restore**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zahodiť iba chybnú časť unstaged zmien,`, `unstage iba vybrané hunks cez --staged -p ,`, `oddeliť logické zmeny bez zahodenia celého súboru.`.
+- **HIGH** line 195, `bare-bullet-items` — **9. git reset — pohyb refu a synchronizácia stavov**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `posunúť current branch alebo detached HEAD na target,`, `nastaviť index podľa target tree,`, `nastaviť tracked working tree podľa target tree.`.
+- **HIGH** line 195, `single-sentence-concept` — **9. git reset — pohyb refu a synchronizácia stavov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 211, `bare-bullet-items` — **10. Soft reset**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zlúčiť viac lokálnych commitov do nového commitu,`, `opraviť commit boundaries,`, `zmeniť posledné commits pri zachovaní presného staged snapshotu.`.
+- **HIGH** line 211, `list-first-introduction` — **10. Soft reset**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 211, `single-sentence-concept` — **10. Soft reset**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 241, `list-first-introduction` — **11. Mixed reset**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 270, `list-first-introduction` — **12. Hard reset**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 302, `bare-bullet-items` — **13. Reset --merge**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `návrate po merge-like operácii,`, `zachovaní niektorých unstaged zmien,`, `situácii, kde --hard by bolo príliš deštruktívne.`.
+- **HIGH** line 328, `bare-bullet-items` — **15. Path reset**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nepresúva branch ani HEAD ,`, `mení iba index pre vybrané paths,`.
+- **HIGH** line 328, `list-first-introduction` — **15. Path reset**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 354, `single-sentence-concept` — **16. Reset v detached HEAD stave**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 390, `bare-bullet-items` — **18. git revert — kompenzačný commit**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vypočíta zmenu daného commitu voči jeho parentovi,`, `aplikuje inverznú zmenu na current HEAD ,`, `vytvorí nový commit.`.
+- **HIGH** line 390, `list-first-introduction` — **18. git revert — kompenzačný commit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 486, `bare-bullet-items` — **23. git commit --amend**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `doplniť zabudnutý staged súbor,`, `opraviť poslednú commit message,`, `znovu podpísať alebo upraviť lokálny commit.`.
+- **HIGH** line 486, `list-first-introduction` — **23. git commit --amend**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 502, `bare-bullet-items` — **24. ORIG HEAD**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nie každá operácia ho aktualizuje rovnako,`, `ďalšia operácia ho môže prepísať,`, `nie je to história všetkých pohybov.`.
+- **HIGH** line 502, `single-sentence-concept` — **24. ORIG HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 524, `list-first-introduction` — **25. Reflog recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 546, `list-heavy-section` — **26. Obnova necommitnutých zmien**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 615, `list-first-introduction` — **29. Bezpečný lokálny reset workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 615, `single-sentence-concept` — **29. Bezpečný lokálny reset workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 634, `list-first-introduction` — **30. Bezpečný publikovaný revert workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 652, `list-first-introduction` — **Reset zmenil viac files, než som čakal**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 662, `list-first-introduction` — **Revert konfliktuje**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 672, `single-sentence-concept` — **restore nevrátil verziu z HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 153, `thin-concept-section` — **7. Partial restore**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 195, `thin-concept-section` — **9. git reset — pohyb refu a synchronizácia stavov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 211, `thin-concept-section` — **10. Soft reset**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 328, `thin-concept-section` — **15. Path reset**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 390, `thin-concept-section` — **18. git revert — kompenzačný commit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 502, `thin-concept-section` — **24. ORIG HEAD**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/working-tree-staging-repository.md`
 
@@ -18919,19 +18942,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3860 | 347 | 0 | 0 | 4207 |
-| `single-sentence-concept` | 0 | 4073 | 0 | 0 | 4073 |
+| `bare-bullet-items` | 3861 | 356 | 0 | 0 | 4217 |
+| `single-sentence-concept` | 0 | 4074 | 0 | 0 | 4074 |
 | `outline-instead-of-explanation` | 3758 | 0 | 0 | 0 | 3758 |
-| `thin-concept-section` | 0 | 3390 | 0 | 0 | 3390 |
-| `term-before-explanation` | 0 | 410 | 2349 | 0 | 2759 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1516 | 1516 |
-| `example-not-explicit` | 0 | 0 | 0 | 1385 | 1385 |
-| `short-concept-section` | 0 | 0 | 996 | 0 | 996 |
-| `list-first-introduction` | 0 | 944 | 0 | 0 | 944 |
+| `thin-concept-section` | 0 | 3397 | 0 | 0 | 3397 |
+| `term-before-explanation` | 0 | 410 | 2352 | 0 | 2762 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1519 | 1519 |
+| `example-not-explicit` | 0 | 0 | 0 | 1387 | 1387 |
+| `short-concept-section` | 0 | 0 | 1001 | 0 | 1001 |
+| `list-first-introduction` | 0 | 949 | 0 | 0 | 949 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 735 | 735 |
-| `empty-section` | 480 | 0 | 0 | 0 | 480 |
+| `empty-section` | 479 | 0 | 0 | 0 | 479 |
 | `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
-| `list-heavy-section` | 0 | 293 | 0 | 0 | 293 |
+| `list-heavy-section` | 0 | 294 | 0 | 0 | 294 |
 
 ## Required remediation pattern
 

@@ -927,15 +927,15 @@
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "title": "Reset, revert a restore",
-      "words": 587,
-      "headings": 22,
-      "sections": 22,
-      "findings": 22,
+      "words": 2246,
+      "headings": 46,
+      "sections": 46,
+      "findings": 58,
       "critical": 5,
-      "high": 16,
-      "medium": 1,
-      "low": 0,
-      "score": 191,
+      "high": 39,
+      "medium": 9,
+      "low": 5,
+      "score": 408,
       "grade": "D"
     },
     {
@@ -50933,7 +50933,7 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "1. Rozdiel v jednej mape",
+      "section": "1. Definícia",
       "line": 11,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -50942,17 +50942,89 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "1. Rozdiel v jednej mape",
+      "section": "1. Definícia",
       "line": 11,
       "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "3. git restore — obnova obsahu bez pohybu branch",
+      "line": 56,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pri obnove working tree je source typicky index,`, `pri --staged je source typicky HEAD .`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "3. git restore — obnova obsahu bez pohybu branch",
+      "line": 56,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "3. git restore — obnova obsahu bez pohybu branch",
+      "line": 56,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "3. git restore — obnova obsahu bez pohybu branch",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "5. Restore index — unstage",
+      "line": 107,
+      "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "2. Restore",
-      "line": 21,
+      "section": "7. Partial restore",
+      "line": 153,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zahodiť iba chybnú časť unstaged zmien,`, `unstage iba vybrané hunks cez --staged -p ,`, `oddeliť logické zmeny bez zahodenia celého súboru.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "7. Partial restore",
+      "line": 153,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "9. git reset — pohyb refu a synchronizácia stavov",
+      "line": 195,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -50960,8 +51032,305 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "3. Reset modes",
-      "line": 43,
+      "section": "9. git reset — pohyb refu a synchronizácia stavov",
+      "line": 195,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `posunúť current branch alebo detached HEAD na target,`, `nastaviť index podľa target tree,`, `nastaviť tracked working tree podľa target tree.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "9. git reset — pohyb refu a synchronizácia stavov",
+      "line": 195,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "9. git reset — pohyb refu a synchronizácia stavov",
+      "line": 195,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "10. Soft reset",
+      "line": 211,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "10. Soft reset",
+      "line": 211,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "10. Soft reset",
+      "line": 211,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zlúčiť viac lokálnych commitov do nového commitu,`, `opraviť commit boundaries,`, `zmeniť posledné commits pri zachovaní presného staged snapshotu.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "10. Soft reset",
+      "line": 211,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "11. Mixed reset",
+      "line": 241,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "12. Hard reset",
+      "line": 270,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "12. Hard reset",
+      "line": 270,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "13. Reset --merge",
+      "line": 302,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `návrate po merge-like operácii,`, `zachovaní niektorých unstaged zmien,`, `situácii, kde --hard by bolo príliš deštruktívne.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "13. Reset --merge",
+      "line": 302,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "15. Path reset",
+      "line": 328,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "15. Path reset",
+      "line": 328,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nepresúva branch ani HEAD ,`, `mení iba index pre vybrané paths,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "15. Path reset",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "16. Reset v detached HEAD stave",
+      "line": 354,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "18. git revert — kompenzačný commit",
+      "line": 390,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "18. git revert — kompenzačný commit",
+      "line": 390,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vypočíta zmenu daného commitu voči jeho parentovi,`, `aplikuje inverznú zmenu na current HEAD ,`, `vytvorí nový commit.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "18. git revert — kompenzačný commit",
+      "line": 390,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "18. git revert — kompenzačný commit",
+      "line": 390,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "21. Revert merge commitu",
+      "line": 447,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "23. git commit --amend",
+      "line": 486,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "23. git commit --amend",
+      "line": 486,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `doplniť zabudnutý staged súbor,`, `opraviť poslednú commit message,`, `znovu podpísať alebo upraviť lokálny commit.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "23. git commit --amend",
+      "line": 486,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "24. ORIG HEAD",
+      "line": 502,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "24. ORIG HEAD",
+      "line": 502,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nie každá operácia ho aktualizuje rovnako,`, `ďalšia operácia ho môže prepísať,`, `nie je to história všetkých pohybov.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "24. ORIG HEAD",
+      "line": 502,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "25. Reflog recovery",
+      "line": 524,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "26. Obnova necommitnutých zmien",
+      "line": 546,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "26. Obnova necommitnutých zmien",
+      "line": 546,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `staged blob po predchádzajúcom git add ,`, `dangling blob nájdený cez git fsck --lost-found ,`, `editor local history,`, `filesystem snapshot alebo backup,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "26. Obnova necommitnutých zmien",
+      "line": 546,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "26. Obnova necommitnutých zmien",
+      "line": 546,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "26. Obnova necommitnutých zmien",
+      "line": 546,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IDE`, `WIP`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "28. Rozhodovací model",
+      "line": 590,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -50969,8 +51338,17 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "Soft",
-      "line": 45,
+      "section": "29. Bezpečný lokálny reset workflow",
+      "line": 615,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/reset-revert-restore.md",
+      "section": "29. Bezpečný lokálny reset workflow",
+      "line": 615,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -50978,8 +51356,8 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "Mixed",
-      "line": 55,
+      "section": "30. Bezpečný publikovaný revert workflow",
+      "line": 634,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -50987,8 +51365,8 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "Hard",
-      "line": 64,
+      "section": "Reset zmenil viac files, než som čakal",
+      "line": 652,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -50996,8 +51374,8 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "4. Reset path vs. reset commit",
-      "line": 74,
+      "section": "Revert konfliktuje",
+      "line": 662,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -51005,75 +51383,21 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "5. Revert",
-      "line": 86,
+      "section": "restore nevrátil verziu z HEAD",
+      "line": 672,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "7. Amend",
-      "line": 113,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "10. Bezpečný rozhodovací strom",
-      "line": 145,
+      "section": "32. Časté omyly",
+      "line": 690,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "11. Troubleshooting scenár",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "12. Časté omyly",
-      "line": 179,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "„Reset vždy zmaže files“",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "„Hard reset vyčistí aj všetky untracked files“",
-      "line": 189,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "„Amend iba upraví text existujúceho commitu“",
-      "line": 193,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
