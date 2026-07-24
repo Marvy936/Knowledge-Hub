@@ -871,15 +871,15 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "title": "Konflikty",
-      "words": 812,
-      "headings": 24,
-      "sections": 24,
-      "findings": 46,
-      "critical": 17,
-      "high": 24,
-      "medium": 4,
-      "low": 1,
-      "score": 407,
+      "words": 2465,
+      "headings": 50,
+      "sections": 50,
+      "findings": 110,
+      "critical": 44,
+      "high": 43,
+      "medium": 10,
+      "low": 13,
+      "score": 911,
       "grade": "D"
     },
     {
@@ -49205,26 +49205,35 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "1. Čo je konflikt",
-      "line": 11,
+      "section": "2. Textový a semantický konflikt",
+      "line": 25,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "2. Textový a semantický konflikt",
+      "line": 25,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "1. Čo je konflikt",
-      "line": 11,
-      "severity": "critical",
+      "section": "2. Textový a semantický konflikt",
+      "line": 25,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `modify/modify,`, `add/add,`, `delete/modify,`, `rename/rename,`.",
-      "score": 12
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `branch A premenuje API field,`, `branch B pridá nový consumer starého field-u,`, `zmeny sú v rozdielnych súboroch,`, `merge prejde bez markerov,`.",
+      "score": 8
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "1. Čo je konflikt",
-      "line": 11,
+      "section": "2. Textový a semantický konflikt",
+      "line": 25,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49232,71 +49241,8 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "2. Three-way model",
+      "section": "2. Textový a semantický konflikt",
       "line": 25,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "2. Three-way model",
-      "line": 25,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "3. Conflict markers",
-      "line": 46,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "4. Základný workflow",
-      "line": 58,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "4. Základný workflow",
-      "line": 58,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "6. Semantic conflict",
-      "line": 104,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "6. Semantic conflict",
-      "line": 104,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "6. Semantic conflict",
-      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49304,8 +49250,8 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "6. Semantic conflict",
-      "line": 104,
+      "section": "2. Textový a semantický konflikt",
+      "line": 25,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
@@ -49313,35 +49259,17 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "8. Binary conflicts",
-      "line": 130,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "8. Binary conflicts",
-      "line": 130,
+      "section": "3. Conflict taxonomy",
+      "line": 42,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "8. Binary conflicts",
-      "line": 130,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvoliť jednu verziu,`, `vygenerovať nový artifact zo source dát,`, `použiť domain-specific merge driver,`, `odstrániť generované binaries z repository.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "8. Binary conflicts",
-      "line": 130,
+      "section": "3. Conflict taxonomy",
+      "line": 42,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49349,8 +49277,80 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "10. Rerere",
-      "line": 158,
+      "section": "3. Conflict taxonomy",
+      "line": 42,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "3. Conflict taxonomy",
+      "line": 42,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "3. Conflict taxonomy",
+      "line": 42,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "4. Najprv identifikuj operáciu",
+      "line": 62,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "4. Najprv identifikuj operáciu",
+      "line": 62,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "4. Najprv identifikuj operáciu",
+      "line": 62,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge,`, `rebase,`, `cherry-pick,`, `revert,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "4. Najprv identifikuj operáciu",
+      "line": 62,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "9. Základný resolution workflow",
+      "line": 215,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "9. Základný resolution workflow",
+      "line": 215,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -49358,26 +49358,35 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "11. Lock files a generované súbory",
-      "line": 176,
+      "section": "9. Základný resolution workflow",
+      "line": 215,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "11. Lock files a generované súbory",
-      "line": 176,
+      "section": "9. Základný resolution workflow",
+      "line": 215,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyriešiť source dependency declarations,`, `spustiť oficiálny package manager,`, `regenerovať lock file,`, `validovať build/tests.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj typ konfliktu,`, `prečítaj base, ours a theirs,`, `pochop intent oboch commitov,`, `vytvor výslednú verziu,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "11. Lock files a generované súbory",
-      "line": 176,
+      "section": "9. Základný resolution workflow",
+      "line": 215,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "10. Combined diff",
+      "line": 249,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -49385,35 +49394,26 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "12. Konflikty v konfigurácii a IaC",
-      "line": 189,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "12. Konflikty v konfigurácii a IaC",
-      "line": 189,
+      "section": "11. Modify/modify konflikt",
+      "line": 270,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "12. Konflikty v konfigurácii a IaC",
-      "line": 189,
+      "section": "11. Modify/modify konflikt",
+      "line": 270,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntaktickú validitu,`, `duplicate keys,`, `výsledné defaults,`, `ordering dependencies,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevyberaj automaticky dlhšiu alebo novšiu verziu,`, `zisti, čo každá zmena riešila,`, `spoj invarianty oboch strán,`, `odstráň už neplatnú logiku,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "12. Konflikty v konfigurácii a IaC",
-      "line": 189,
+      "section": "11. Modify/modify konflikt",
+      "line": 270,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49421,53 +49421,287 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "12. Konflikty v konfigurácii a IaC",
-      "line": 189,
+      "section": "12. Add/add konflikt",
+      "line": 296,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "12. Add/add konflikt",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zlúčiť obsah,`, `ponechať jednu implementáciu,`, `premenovať jednu path,`, `rozdeliť zodpovednosti do dvoch files,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "12. Add/add konflikt",
+      "line": 296,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "14. Rename detection",
+      "line": 336,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "14. Rename detection",
+      "line": 336,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rename + veľký rewrite môže byť vyhodnotený ako delete/add,`, `rename threshold ovplyvní zobrazenie a merge heuristiku,`, `dve nezávislé renames môžu vytvoriť rename/rename conflict,`, `directory rename inference môže meniť cieľ paths.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "14. Rename detection",
+      "line": 336,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "14. Rename detection",
+      "line": 336,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "14. Rename detection",
+      "line": 336,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "15. Directory/file conflict",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "15. Directory/file conflict",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `imports,`, `build scripts,`, `deployment paths,`, `documentation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "15. Directory/file conflict",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "17. Binary conflicts",
+      "line": 400,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "17. Binary conflicts",
+      "line": 400,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvoliť jednu stranu,`, `otvoriť obe verzie v domain-specific editore,`, `znovu vygenerovať artifact zo zdrojových dát,`, `použiť definovaný merge driver,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "17. Binary conflicts",
+      "line": 400,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "18. Submodule conflicts",
+      "line": 420,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "18. Submodule conflicts",
+      "line": 420,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vybrať ours gitlink,`, `vybrať theirs gitlink,`, `nájsť descendant commit obsahujúci obe zmeny,`, `merge-nuť históriu priamo v submodule repository,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "18. Submodule conflicts",
+      "line": 420,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "18. Submodule conflicts",
+      "line": 420,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "19. Lock files",
+      "line": 440,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "19. Lock files",
+      "line": 440,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyrieš source dependency declarations,`, `odstráň konfliktné markery v manifestoch,`, `spusti oficiálny package manager v podporovanej verzii,`, `regeneruj lock file,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "19. Lock files",
+      "line": 440,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "20. Generované files",
+      "line": 463,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "20. Generované files",
+      "line": 463,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "20. Generované files",
+      "line": 463,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý source ho vytvára,`, `ktorá verzia generatora je autoritatívna,`, `či je output deterministický,`, `či sa má commitovať,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "20. Generované files",
+      "line": 463,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "21. YAML, JSON a konfigurácia",
+      "line": 487,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "21. YAML, JSON a konfigurácia",
+      "line": 487,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicate keys,`, `type zmeny,`, `list ordering,`, `anchor/alias semantics,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "21. YAML, JSON a konfigurácia",
+      "line": 487,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "21. YAML, JSON a konfigurácia",
+      "line": 487,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `policy`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "13. Minimalizácia konfliktov",
-      "line": 203,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "13. Minimalizácia konfliktov",
-      "line": 203,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "13. Minimalizácia konfliktov",
-      "line": 203,
+      "section": "22. Infrastructure as Code konflikty",
+      "line": 511,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "13. Minimalizácia konfliktov",
-      "line": 203,
+      "section": "22. Infrastructure as Code konflikty",
+      "line": 511,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malé branches a malé batches,`, `častá integrácia,`, `jasné ownership boundaries,`, `oddeliť mechanické refactory od behavior changes,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rendered manifest,`, `provider/module version,`, `resource identity,`, `destructive replacement,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "13. Minimalizácia konfliktov",
-      "line": 203,
+      "section": "22. Infrastructure as Code konflikty",
+      "line": 511,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49475,8 +49709,17 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "15. Overenie resolution",
-      "line": 220,
+      "section": "22. Infrastructure as Code konflikty",
+      "line": 511,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "23. Merge drivers a .gitattributes",
+      "line": 539,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49484,35 +49727,116 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "15. Overenie resolution",
-      "line": 220,
+      "section": "23. Merge drivers a .gitattributes",
+      "line": 539,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "23. Merge drivers a .gitattributes",
+      "line": 539,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický,`, `dostupný v lokálnom aj CI prostredí,`, `bezpečný pre nedôveryhodný obsah,`, `jasne versionovaný,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "23. Merge drivers a .gitattributes",
+      "line": 539,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "23. Merge drivers a .gitattributes",
+      "line": 539,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "23. Merge drivers a .gitattributes",
+      "line": 539,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "26. rerere",
+      "line": 604,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "26. rerere",
+      "line": 604,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normalized conflict pre-image,`, `zvolenú post-image resolution.`, `opakované rebases,`, `dlhodobé release branches,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "26. rerere",
+      "line": 604,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "26. rerere",
+      "line": 604,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "15. Overenie resolution",
-      "line": 220,
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "15. Overenie resolution",
-      "line": 220,
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatter,`, `parser/linter,`, `unit/integration tests,`, `build,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachoval sa intent oboch zmien?`, `Zmenil sa public API alebo schema contract?`, `Sú migration a aplikácia kompatibilné v rollout poradí?`, `Nevznikla duplicate initialization alebo handler registration?`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "15. Overenie resolution",
-      "line": 220,
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49520,8 +49844,35 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "16. Recovery",
-      "line": 237,
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "27. Semantic conflict checklist",
+      "line": 630,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`, `resource`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "28. Overenie resolution",
+      "line": 645,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49529,8 +49880,116 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "17. Časté omyly",
-      "line": 254,
+      "section": "28. Overenie resolution",
+      "line": 645,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "28. Overenie resolution",
+      "line": 645,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatter,`, `linter/parser,`, `unit tests,`, `integration tests,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "28. Overenie resolution",
+      "line": 645,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "30. Uchovanie dôkazov",
+      "line": 709,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "30. Uchovanie dôkazov",
+      "line": 709,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "30. Uchovanie dôkazov",
+      "line": 709,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pôvodné tip SHAs,`, `merge base,`, `operáciu a options,`, `generator/package-manager verziu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "30. Uchovanie dôkazov",
+      "line": 709,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "31. Minimalizácia konfliktov",
+      "line": 731,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "31. Minimalizácia konfliktov",
+      "line": 731,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malé branches a batches,`, `častá integrácia,`, `jasné ownership boundaries,`, `oddelenie mechanického refactoru od behavior zmeny,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "31. Minimalizácia konfliktov",
+      "line": 731,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "31. Minimalizácia konfliktov",
+      "line": 731,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "31. Minimalizácia konfliktov",
+      "line": 731,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "32. Bezpečný resolution workflow",
+      "line": 748,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -49538,8 +49997,44 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "„Ours je vždy moja feature branch“",
-      "line": 260,
+      "section": "Conflict markers zostali po commite",
+      "line": 775,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Conflict markers zostali po commite",
+      "line": 775,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pre-commit check,`, `CI grep s rozumným patternom,`, `parser/build tests.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Conflict markers zostali po commite",
+      "line": 775,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Conflict markers zostali po commite",
+      "line": 775,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Git hlási unmerged paths, ale file vyzerá vyriešený",
+      "line": 789,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49547,8 +50042,8 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "„Rename je explicitne uložený v commite“",
-      "line": 264,
+      "section": "Lock file po resolution stále mení veľa dependencies",
+      "line": 809,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49556,8 +50051,89 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "„Lock file sa vyrieši vybraním dlhšej verzie“",
-      "line": 268,
+      "section": "Lock file po resolution stále mení veľa dependencies",
+      "line": 809,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Lock file po resolution stále mení veľa dependencies",
+      "line": 809,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `verziu package managera,`, `source manifest diff,`, `registry/config policy,`, `platform-specific resolution,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Lock file po resolution stále mení veľa dependencies",
+      "line": 809,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "Lock file po resolution stále mení veľa dependencies",
+      "line": 809,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "34. Časté omyly",
+      "line": 821,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "„Správna resolution je jedna z dvoch strán“",
+      "line": 827,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "„Žiadne markery znamenajú žiadny konflikt“",
+      "line": 835,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "„Rename je uložený v commite“",
+      "line": 839,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "„Lock file stačí zlúčiť textovo“",
+      "line": 843,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-conflicts.md",
+      "section": "„ git add potvrdzuje funkčnú správnosť“",
+      "line": 847,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
