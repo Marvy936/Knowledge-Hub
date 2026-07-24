@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11022**
-- Total words: **507,390**
-- Findings: **24557** (critical 8313, high 9387, medium 3290, low 3567)
+- Audited conceptual sections: **11054**
+- Total words: **509,846**
+- Findings: **24628** (critical 8335, high 9393, medium 3312, low 3588)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -115,6 +115,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 844 | 37 | 42 | 16 | 10 | 1665 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
 | D | 843 | 34 | 46 | 17 | 11 | 1495 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | D | 836 | 35 | 41 | 21 | 13 | 1375 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
+| D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 831 | 36 | 45 | 11 | 8 | 1789 | `docs/10-helm-and-cka/upgrade-rollback.md` |
 | D | 816 | 33 | 49 | 11 | 1 | 1451 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
 | D | 808 | 41 | 35 | 12 | 3 | 1240 | `docs/06-gitlab/runners-and-executors.md` |
@@ -224,7 +225,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
-| D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
 | D | 388 | 12 | 30 | 3 | 0 | 1027 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
@@ -3128,47 +3128,75 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Git object model`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 25, `bare-bullet-items` — **2. Working tree**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tracked a nezmenené,`, `tracked a modified,`, `staged,`, `untracked,`.
-- **CRITICAL** line 25, `outline-instead-of-explanation` — **2. Working tree**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 50, `bare-bullet-items` — **3. Index nie je iba „zoznam súborov“**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path,`, `mode,`, `object ID blobu,`, `stat cache,`.
-- **CRITICAL** line 50, `outline-instead-of-explanation` — **3. Index nie je iba „zoznam súborov“**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 82, `empty-section` — **5. Tri dôležité diffy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 149, `bare-bullet-items` — **8. Ignore vrstvy**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository .gitignore ,`, `directory-specific .gitignore ,`, `.git/info/exclude ,`, `globálny excludes file.`.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **8. Ignore vrstvy**: 4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 279, `empty-section` — **Súbor sa nechce pridať**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 306, `empty-section` — **17. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 61, `bare-bullet-items` — **3. Working tree**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tracked paths materializované z indexu alebo commitu,`, `lokálne zmenené tracked paths,`, `untracked files,`, `ignored files,`.
+- **CRITICAL** line 61, `outline-instead-of-explanation` — **3. Working tree**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 102, `bare-bullet-items` — **5. Index je pripravovaný tree, nie zoznam checkboxov**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path,`, `object ID blobu alebo gitlinku,`, `Git file mode,`, `stage number,`.
+- **CRITICAL** line 102, `outline-instead-of-explanation` — **5. Index je pripravovaný tree, nie zoznam checkboxov**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 127, `bare-bullet-items` — **6. git add ako content capture**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta working-tree content,`, `aplikuje clean filters a line-ending normalization podľa attributes,`, `vytvorí alebo znovu použije blob object,`.
+- **CRITICAL** line 127, `outline-instead-of-explanation` — **6. git add ako content capture**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **7. Rozsah git add**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 170, `empty-section` — **8. Tri základné diff hranice**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 264, `bare-bullet-items` — **11. Partial staging**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdeľ veľké hunks cez s ,`, `prípadne manuálne edituj patch cez e ,`, `over git diff --staged ,`, `spusti test relevantný pre staged kombináciu.`.
+- **CRITICAL** line 351, `bare-bullet-items` — **15. Ignore policy a jej vrstvy**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.gitignore v root alebo podadresároch,`, `.git/info/exclude ,`, `global excludes file z core.excludesFile ,`, `command-specific exclude patterns.`.
+- **CRITICAL** line 367, `bare-bullet-items` — **16. Tracked secret a .gitignore**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v predchádzajúcich commit objects,`, `v remote clones,`, `v pull request diffs,`, `v CI logs alebo artifacts,`.
+- **CRITICAL** line 388, `bare-bullet-items` — **17. Index stat cache**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `size,`, `timestamps,`, `inode/device metadata podľa platformy,`, `mode.`.
+- **CRITICAL** line 466, `bare-bullet-items` — **21. Checkout a materializácia**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HEAD ,`, `target branch ref,`, `index,`, `working tree.`.
+- **CRITICAL** line 535, `bare-bullet-items` — **24. File modes**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regular non-executable 100644 ,`, `regular executable 100755 ,`, `symlink 120000 ,`, `gitlink 160000 .`.
+- **CRITICAL** line 586, `bare-bullet-items` — **26. Custom filters**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checkout bez filtra vytvorí nečakaný content,`, `filter môže zlyhať alebo byť nedeterministický,`, `secret handling môže uniknúť do process listu/logov,`, `repository nemusí byť reprodukovateľné bez external tooling.`.
+- **CRITICAL** line 586, `outline-instead-of-explanation` — **26. Custom filters**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 638, `bare-bullet-items` — **29. Multiple worktrees**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HEAD ,`, `index,`, `working tree,`, `časť worktree-specific metadata.`.
+- **CRITICAL** line 683, `bare-bullet-items` — **31. Nested repositories a embedded .git**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normálne tracked files,`, `submodule,`, `subtree/import,`, `package dependency,`.
+- **CRITICAL** line 747, `bare-bullet-items` — **34. Index corruption a rebuild**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor kópiu .git/index ,`, `zachovaj working tree,`, `over HEAD a object integrity,`, `rebuild index z HEAD ,`.
+- **CRITICAL** line 791, `bare-bullet-items` — **36. Bezpečný commit workflow**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over staged tree bez unstaged zmien,`, `skontroluj secrets a generated files,`, `over file modes a line endings,`, `skontroluj submodule gitlinks,`.
+- **CRITICAL** line 791, `outline-instead-of-explanation` — **36. Bezpečný commit workflow**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 819, `bare-bullet-items` — **37. Diagnostický postup: commit neobsahuje očakávanú zmenu**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over working tree verzus index:`, `Over index verzus HEAD :`, `Over blob v indexe:`, `Over commit content:`.
+- **CRITICAL** line 819, `outline-instead-of-explanation` — **37. Diagnostický postup: commit neobsahuje očakávanú zmenu**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 855, `bare-bullet-items` — **38. Diagnostický postup: file sa nechce pridať**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je path ignored?`, `Je už tracked a iba skrytá flagom?`, `Je v sparse-checkout view?`, `Je parent directory nested repository?`.
+- **CRITICAL** line 855, `outline-instead-of-explanation` — **38. Diagnostický postup: file sa nechce pridať**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 882, `bare-bullet-items` — **39. Diagnostický postup: celý súbor sa javí zmenený**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LF/CRLF transformácia,`, `encoding alebo BOM,`, `formatter,`, `executable-bit zmena,`.
+- **CRITICAL** line 882, `outline-instead-of-explanation` — **39. Diagnostický postup: celý súbor sa javí zmenený**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 905, `empty-section` — **40. Failure modes**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 931, `empty-section` — **41. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 961, `bare-bullet-items` — **42. Diagnostický checklist**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je HEAD snapshot?`, `Čo presne je v indexe?`, `Čo je navyše iba vo working tree?`, `Je path ovplyvnená .gitattributes alebo filters?`.
+- **CRITICAL** line 961, `outline-instead-of-explanation` — **42. Diagnostický checklist**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 25, `single-sentence-concept` — **2. Working tree**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 50, `single-sentence-concept` — **3. Index nie je iba „zoznam súborov“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 66, `bare-bullet-items` — **4. git add**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `časť zmien staged,`, `časť zmien unstaged.`.
-- **HIGH** line 66, `list-first-introduction` — **4. git add**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 84, `list-first-introduction` — **Working tree vs. index**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 84, `single-sentence-concept` — **Working tree vs. index**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 92, `list-first-introduction` — **Index vs. HEAD**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 92, `single-sentence-concept` — **Index vs. HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 100, `list-first-introduction` — **Working tree vs. HEAD**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 100, `single-sentence-concept` — **Working tree vs. HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 149, `list-first-introduction` — **8. Ignore vrstvy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 149, `single-sentence-concept` — **8. Ignore vrstvy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 162, `bare-bullet-items` — **9. Checkout a restore**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `switch mení branch/HEAD,`, `restore obnovuje working tree alebo index.`.
-- **HIGH** line 220, `single-sentence-concept` — **12. Conflict stages v indexe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 236, `single-sentence-concept` — **13. Sparse checkout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 260, `bare-bullet-items` — **15. Praktický bezpečný commit workflow**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vo working tree,`, `v indexe,`, `v commite.`.
-- **HIGH** line 260, `list-first-introduction` — **15. Praktický bezpečný commit workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 260, `single-sentence-concept` — **15. Praktický bezpečný commit workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 287, `single-sentence-concept` — **Commit neobsahuje poslednú zmenu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 296, `single-sentence-concept` — **Celý súbor je zmenený bez viditeľného dôvodu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 308, `single-sentence-concept` — **„ git add iba označí súbor“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **„Commit vezme všetko, čo vidím v editore“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **„ .gitignore odstráni secret z histórie“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 320, `single-sentence-concept` — **„Untracked file je bezpečne zálohovaný Gitom“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 29, `single-sentence-concept` — **2. Základný state model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 146, `single-sentence-concept` — **7. Rozsah git add**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 172, `list-first-introduction` — **Working tree verzus index**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 172, `single-sentence-concept` — **Working tree verzus index**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 180, `list-first-introduction` — **Index verzus HEAD**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 180, `single-sentence-concept` — **Index verzus HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 189, `list-first-introduction` — **Working tree verzus HEAD**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 189, `single-sentence-concept` — **Working tree verzus HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 205, `single-sentence-concept` — **9. Status ako dvojrozmerný výsledok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 285, `single-sentence-concept` — **12. Interaktívny restore a reset hunks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 309, `bare-bullet-items` — **13. Intent-to-add**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zahrnúť nový súbor do diff review,`, `partial staging nového súboru cez git add -p ,`, `pripraviť path bez okamžitého plného stage.`.
+- **HIGH** line 697, `bare-bullet-items` — **32. Untracked cleanup**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `-d — zahrnie untracked directories.`, `-X — iba ignored paths.`, `-x — aj ignored paths.`.
+- **HIGH** line 724, `single-sentence-concept` — **33. Obnova tracked working changes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 791, `single-sentence-concept` — **36. Bezpečný commit workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 819, `list-first-introduction` — **37. Diagnostický postup: commit neobsahuje očakávanú zmenu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 819, `single-sentence-concept` — **37. Diagnostický postup: commit neobsahuje očakávanú zmenu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 855, `list-first-introduction` — **38. Diagnostický postup: file sa nechce pridať**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 855, `single-sentence-concept` — **38. Diagnostický postup: file sa nechce pridať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 882, `list-first-introduction` — **39. Diagnostický postup: celý súbor sa javí zmenený**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 882, `single-sentence-concept` — **39. Diagnostický postup: celý súbor sa javí zmenený**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 927, `single-sentence-concept` — **Sparse checkout ukazuje, že súbor chýba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 933, `single-sentence-concept` — **„Working tree je Git história“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 937, `single-sentence-concept` — **„Staging area je dočasný zoznam filenames“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 941, `single-sentence-concept` — **„Commit automaticky vezme všetko z editora“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 953, `single-sentence-concept` — **„ assume-unchanged je lokálny ignore“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 957, `single-sentence-concept` — **„Untracked file je obnoviteľný cez reflog“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 961, `single-sentence-concept` — **42. Diagnostický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 25, `thin-concept-section` — **2. Working tree**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 50, `thin-concept-section` — **3. Index nie je iba „zoznam súborov“**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 66, `thin-concept-section` — **4. git add**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `thin-concept-section` — **8. Ignore vrstvy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **9. Checkout a restore**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 260, `thin-concept-section` — **15. Praktický bezpečný commit workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 86, `thin-concept-section` — **4. Tracked, untracked a ignored nie sú tri verzie toho istého**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 146, `thin-concept-section` — **7. Rozsah git add**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 205, `thin-concept-section` — **9. Status ako dvojrozmerný výsledok**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 586, `thin-concept-section` — **26. Custom filters**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 791, `thin-concept-section` — **36. Bezpečný commit workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 819, `thin-concept-section` — **37. Diagnostický postup: commit neobsahuje očakávanú zmenu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 855, `thin-concept-section` — **38. Diagnostický postup: file sa nechce pridať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 882, `thin-concept-section` — **39. Diagnostický postup: celý súbor sa javí zmenený**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 961, `thin-concept-section` — **42. Diagnostický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/yaml-json-regular-expressions.md`
 
@@ -18750,16 +18778,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3808 | 343 | 0 | 0 | 4151 |
-| `single-sentence-concept` | 0 | 4047 | 0 | 0 | 4047 |
-| `outline-instead-of-explanation` | 3715 | 0 | 0 | 0 | 3715 |
-| `thin-concept-section` | 0 | 3356 | 0 | 0 | 3356 |
-| `term-before-explanation` | 0 | 408 | 2321 | 0 | 2729 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1480 | 1480 |
-| `example-not-explicit` | 0 | 0 | 0 | 1363 | 1363 |
-| `short-concept-section` | 0 | 0 | 969 | 0 | 969 |
+| `bare-bullet-items` | 3823 | 342 | 0 | 0 | 4165 |
+| `single-sentence-concept` | 0 | 4051 | 0 | 0 | 4051 |
+| `outline-instead-of-explanation` | 3722 | 0 | 0 | 0 | 3722 |
+| `thin-concept-section` | 0 | 3359 | 0 | 0 | 3359 |
+| `term-before-explanation` | 0 | 408 | 2330 | 0 | 2738 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1492 | 1492 |
+| `example-not-explicit` | 0 | 0 | 0 | 1370 | 1370 |
+| `short-concept-section` | 0 | 0 | 982 | 0 | 982 |
 | `list-first-introduction` | 0 | 940 | 0 | 0 | 940 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 724 | 724 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 726 | 726 |
 | `empty-section` | 476 | 0 | 0 | 0 | 476 |
 | `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
 | `list-heavy-section` | 0 | 293 | 0 | 0 | 293 |

@@ -941,15 +941,15 @@
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
       "title": "Working tree, staging area a repository",
-      "words": 905,
-      "headings": 30,
-      "sections": 30,
-      "findings": 47,
-      "critical": 12,
-      "high": 32,
-      "medium": 3,
-      "low": 0,
-      "score": 405,
+      "words": 3361,
+      "headings": 62,
+      "sections": 62,
+      "findings": 118,
+      "critical": 34,
+      "high": 38,
+      "medium": 25,
+      "low": 21,
+      "score": 835,
       "grade": "D"
     },
     {
@@ -49133,242 +49133,35 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "2. Working tree",
-      "line": 25,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "2. Working tree",
-      "line": 25,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "2. Working tree",
-      "line": 25,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tracked a nezmenené,`, `tracked a modified,`, `staged,`, `untracked,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "2. Working tree",
-      "line": 25,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "3. Index nie je iba „zoznam súborov“",
-      "line": 50,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "3. Index nie je iba „zoznam súborov“",
-      "line": 50,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "3. Index nie je iba „zoznam súborov“",
-      "line": 50,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path,`, `mode,`, `object ID blobu,`, `stat cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "3. Index nie je iba „zoznam súborov“",
-      "line": 50,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "3. Index nie je iba „zoznam súborov“",
-      "line": 50,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "4. git add",
-      "line": 66,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "4. git add",
-      "line": 66,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `časť zmien staged,`, `časť zmien unstaged.`.",
-      "score": 8
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "4. git add",
-      "line": 66,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "5. Tri dôležité diffy",
-      "line": 82,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Working tree vs. index",
-      "line": 84,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Working tree vs. index",
-      "line": 84,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Index vs. HEAD",
-      "line": 92,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Index vs. HEAD",
-      "line": 92,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Working tree vs. HEAD",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Working tree vs. HEAD",
-      "line": 100,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "8. Ignore vrstvy",
-      "line": 149,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "8. Ignore vrstvy",
-      "line": 149,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "8. Ignore vrstvy",
-      "line": 149,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "8. Ignore vrstvy",
-      "line": 149,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository .gitignore ,`, `directory-specific .gitignore ,`, `.git/info/exclude ,`, `globálny excludes file.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "8. Ignore vrstvy",
-      "line": 149,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "9. Checkout a restore",
-      "line": 162,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `switch mení branch/HEAD,`, `restore obnovuje working tree alebo index.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "9. Checkout a restore",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "9. Checkout a restore",
-      "line": 162,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
@@ -49376,8 +49169,8 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "12. Conflict stages v indexe",
-      "line": 220,
+      "section": "2. Základný state model",
+      "line": 29,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49385,44 +49178,44 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "13. Sparse checkout",
-      "line": 236,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Working tree",
+      "line": 61,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "15. Praktický bezpečný commit workflow",
-      "line": 260,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "15. Praktický bezpečný commit workflow",
-      "line": 260,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "15. Praktický bezpečný commit workflow",
-      "line": 260,
-      "severity": "high",
+      "section": "3. Working tree",
+      "line": 61,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vo working tree,`, `v indexe,`, `v commite.`.",
-      "score": 8
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tracked paths materializované z indexu alebo commitu,`, `lokálne zmenené tracked paths,`, `untracked files,`, `ignored files,`.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "15. Praktický bezpečný commit workflow",
-      "line": 260,
+      "section": "3. Working tree",
+      "line": 61,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "3. Working tree",
+      "line": 61,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "4. Tracked, untracked a ignored nie sú tri verzie toho istého",
+      "line": 86,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49430,8 +49223,152 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Súbor sa nechce pridať",
-      "line": 279,
+      "section": "4. Tracked, untracked a ignored nie sú tri verzie toho istého",
+      "line": 86,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "4. Tracked, untracked a ignored nie sú tri verzie toho istého",
+      "line": 86,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "5. Index je pripravovaný tree, nie zoznam checkboxov",
+      "line": 102,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "5. Index je pripravovaný tree, nie zoznam checkboxov",
+      "line": 102,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path,`, `object ID blobu alebo gitlinku,`, `Git file mode,`, `stage number,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "5. Index je pripravovaný tree, nie zoznam checkboxov",
+      "line": 102,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "5. Index je pripravovaný tree, nie zoznam checkboxov",
+      "line": 102,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "5. Index je pripravovaný tree, nie zoznam checkboxov",
+      "line": 102,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "6. git add ako content capture",
+      "line": 127,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "6. git add ako content capture",
+      "line": 127,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta working-tree content,`, `aplikuje clean filters a line-ending normalization podľa attributes,`, `vytvorí alebo znovu použije blob object,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "6. git add ako content capture",
+      "line": 127,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "6. git add ako content capture",
+      "line": 127,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "6. git add ako content capture",
+      "line": 127,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "7. Rozsah git add",
+      "line": 146,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "7. Rozsah git add",
+      "line": 146,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "7. Rozsah git add",
+      "line": 146,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "7. Rozsah git add",
+      "line": 146,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "8. Tri základné diff hranice",
+      "line": 170,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -49439,8 +49376,8 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Commit neobsahuje poslednú zmenu",
-      "line": 287,
+      "section": "Working tree verzus index",
+      "line": 172,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49448,8 +49385,17 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "Celý súbor je zmenený bez viditeľného dôvodu",
-      "line": 296,
+      "section": "Working tree verzus index",
+      "line": 172,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "Index verzus HEAD",
+      "line": 180,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49457,8 +49403,593 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "17. Časté omyly",
-      "line": 306,
+      "section": "Index verzus HEAD",
+      "line": 180,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "Working tree verzus HEAD",
+      "line": 189,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "Working tree verzus HEAD",
+      "line": 189,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "9. Status ako dvojrozmerný výsledok",
+      "line": 205,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "9. Status ako dvojrozmerný výsledok",
+      "line": 205,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "9. Status ako dvojrozmerný výsledok",
+      "line": 205,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "11. Partial staging",
+      "line": 264,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdeľ veľké hunks cez s ,`, `prípadne manuálne edituj patch cez e ,`, `over git diff --staged ,`, `spusti test relevantný pre staged kombináciu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "11. Partial staging",
+      "line": 264,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "12. Interaktívny restore a reset hunks",
+      "line": 285,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "13. Intent-to-add",
+      "line": 309,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zahrnúť nový súbor do diff review,`, `partial staging nového súboru cez git add -p ,`, `pripraviť path bez okamžitého plného stage.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "13. Intent-to-add",
+      "line": 309,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "13. Intent-to-add",
+      "line": 309,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "15. Ignore policy a jej vrstvy",
+      "line": 351,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.gitignore v root alebo podadresároch,`, `.git/info/exclude ,`, `global excludes file z core.excludesFile ,`, `command-specific exclude patterns.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "15. Ignore policy a jej vrstvy",
+      "line": 351,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "15. Ignore policy a jej vrstvy",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "16. Tracked secret a .gitignore",
+      "line": 367,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v predchádzajúcich commit objects,`, `v remote clones,`, `v pull request diffs,`, `v CI logs alebo artifacts,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "16. Tracked secret a .gitignore",
+      "line": 367,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "16. Tracked secret a .gitignore",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "16. Tracked secret a .gitignore",
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "16. Tracked secret a .gitignore",
+      "line": 367,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "17. Index stat cache",
+      "line": 388,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `size,`, `timestamps,`, `inode/device metadata podľa platformy,`, `mode.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "21. Checkout a materializácia",
+      "line": 466,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HEAD ,`, `target branch ref,`, `index,`, `working tree.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "21. Checkout a materializácia",
+      "line": 466,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "21. Checkout a materializácia",
+      "line": 466,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "24. File modes",
+      "line": 535,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regular non-executable 100644 ,`, `regular executable 100755 ,`, `symlink 120000 ,`, `gitlink 160000 .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "24. File modes",
+      "line": 535,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "24. File modes",
+      "line": 535,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "26. Custom filters",
+      "line": 586,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "26. Custom filters",
+      "line": 586,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checkout bez filtra vytvorí nečakaný content,`, `filter môže zlyhať alebo byť nedeterministický,`, `secret handling môže uniknúť do process listu/logov,`, `repository nemusí byť reprodukovateľné bez external tooling.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "26. Custom filters",
+      "line": 586,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "27. Sparse checkout",
+      "line": 603,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "27. Sparse checkout",
+      "line": 603,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "29. Multiple worktrees",
+      "line": 638,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HEAD ,`, `index,`, `working tree,`, `časť worktree-specific metadata.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "29. Multiple worktrees",
+      "line": 638,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "29. Multiple worktrees",
+      "line": 638,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "31. Nested repositories a embedded .git",
+      "line": 683,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normálne tracked files,`, `submodule,`, `subtree/import,`, `package dependency,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "31. Nested repositories a embedded .git",
+      "line": 683,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "32. Untracked cleanup",
+      "line": 697,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `-d — zahrnie untracked directories.`, `-X — iba ignored paths.`, `-x — aj ignored paths.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "32. Untracked cleanup",
+      "line": 697,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "33. Obnova tracked working changes",
+      "line": 724,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "34. Index corruption a rebuild",
+      "line": 747,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor kópiu .git/index ,`, `zachovaj working tree,`, `over HEAD a object integrity,`, `rebuild index z HEAD ,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "34. Index corruption a rebuild",
+      "line": 747,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "34. Index corruption a rebuild",
+      "line": 747,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "36. Bezpečný commit workflow",
+      "line": 791,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "36. Bezpečný commit workflow",
+      "line": 791,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "36. Bezpečný commit workflow",
+      "line": 791,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over staged tree bez unstaged zmien,`, `skontroluj secrets a generated files,`, `over file modes a line endings,`, `skontroluj submodule gitlinks,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "36. Bezpečný commit workflow",
+      "line": 791,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "37. Diagnostický postup: commit neobsahuje očakávanú zmenu",
+      "line": 819,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "37. Diagnostický postup: commit neobsahuje očakávanú zmenu",
+      "line": 819,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "37. Diagnostický postup: commit neobsahuje očakávanú zmenu",
+      "line": 819,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "37. Diagnostický postup: commit neobsahuje očakávanú zmenu",
+      "line": 819,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over working tree verzus index:`, `Over index verzus HEAD :`, `Over blob v indexe:`, `Over commit content:`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "37. Diagnostický postup: commit neobsahuje očakávanú zmenu",
+      "line": 819,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "37. Diagnostický postup: commit neobsahuje očakávanú zmenu",
+      "line": 819,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "38. Diagnostický postup: file sa nechce pridať",
+      "line": 855,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "38. Diagnostický postup: file sa nechce pridať",
+      "line": 855,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "38. Diagnostický postup: file sa nechce pridať",
+      "line": 855,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "38. Diagnostický postup: file sa nechce pridať",
+      "line": 855,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je path ignored?`, `Je už tracked a iba skrytá flagom?`, `Je v sparse-checkout view?`, `Je parent directory nested repository?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "38. Diagnostický postup: file sa nechce pridať",
+      "line": 855,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "38. Diagnostický postup: file sa nechce pridať",
+      "line": 855,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "39. Diagnostický postup: celý súbor sa javí zmenený",
+      "line": 882,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "39. Diagnostický postup: celý súbor sa javí zmenený",
+      "line": 882,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "39. Diagnostický postup: celý súbor sa javí zmenený",
+      "line": 882,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "39. Diagnostický postup: celý súbor sa javí zmenený",
+      "line": 882,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LF/CRLF transformácia,`, `encoding alebo BOM,`, `formatter,`, `executable-bit zmena,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "39. Diagnostický postup: celý súbor sa javí zmenený",
+      "line": 882,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "39. Diagnostický postup: celý súbor sa javí zmenený",
+      "line": 882,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LF`, `CRLF`, `BOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "40. Failure modes",
+      "line": 905,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -49466,8 +49997,8 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "„ git add iba označí súbor“",
-      "line": 308,
+      "section": "Sparse checkout ukazuje, že súbor chýba",
+      "line": 927,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49475,8 +50006,17 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "„Commit vezme všetko, čo vidím v editore“",
-      "line": 312,
+      "section": "41. Časté omyly",
+      "line": 931,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "„Working tree je Git história“",
+      "line": 933,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49484,8 +50024,8 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "„ .gitignore odstráni secret z histórie“",
-      "line": 316,
+      "section": "„Staging area je dočasný zoznam filenames“",
+      "line": 937,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49493,12 +50033,111 @@
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
-      "section": "„Untracked file je bezpečne zálohovaný Gitom“",
-      "line": 320,
+      "section": "„Commit automaticky vezme všetko z editora“",
+      "line": 941,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "„ assume-unchanged je lokálny ignore“",
+      "line": 953,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "„Untracked file je obnoviteľný cez reflog“",
+      "line": 957,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je HEAD snapshot?`, `Čo presne je v indexe?`, `Čo je navyše iba vo working tree?`, `Je path ovplyvnená .gitattributes alebo filters?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "42. Diagnostický checklist",
+      "line": 961,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
+      "section": "43. Zhrnutie",
+      "line": 976,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
