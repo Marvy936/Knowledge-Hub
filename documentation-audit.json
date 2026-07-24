@@ -1473,15 +1473,15 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "title": "Shadow deployment",
-      "words": 1008,
-      "headings": 32,
-      "sections": 32,
-      "findings": 59,
-      "critical": 25,
-      "high": 23,
-      "medium": 9,
-      "low": 2,
-      "score": 513,
+      "words": 1541,
+      "headings": 42,
+      "sections": 42,
+      "findings": 132,
+      "critical": 54,
+      "high": 53,
+      "medium": 14,
+      "low": 11,
+      "score": 1119,
       "grade": "D"
     },
     {
@@ -103970,8 +103970,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "1. Základný model",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -103979,35 +103988,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "2. Čo shadow deployment overuje",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "2. Čo shadow deployment overuje",
-      "line": 15,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "2. Čo shadow deployment overuje",
-      "line": 15,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kompatibilitu requestov,`, `performance pri reálnom workload mixe,`, `parser a protocol behavior,`, `nové query alebo ranking algoritmy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "2. Čo shadow deployment overuje",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -104015,98 +104006,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "2. Čo shadow deployment overuje",
-      "line": 15,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "3. Mirror point",
-      "line": 31,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "3. Mirror point",
-      "line": 31,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `edge proxy,`, `API gateway,`, `service mesh,`, `load balancer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "3. Mirror point",
-      "line": 31,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "3. Mirror point",
-      "line": 31,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "4. Synchronous vs. asynchronous mirroring",
-      "line": 45,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "5. Write safety",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "5. Write safety",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment alebo order creation,`, `email/SMS/push notification,`, `account mutation,`, `inventory reservation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "5. Write safety",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "5. Write safety",
-      "line": 57,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "5. Write safety",
-      "line": 57,
+      "section": "1. Definícia",
+      "line": 9,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -104114,71 +104024,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "5. Write safety",
-      "line": 57,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SMS`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "6. Authentication a authorization",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "6. Authentication a authorization",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vymeniť user token za obmedzenú shadow identity,`, `odstrániť nepotrebné claims,`, `použiť read-only service account,`, `redigovať citlivé headers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "6. Authentication a authorization",
-      "line": 85,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "6. Authentication a authorization",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "7. Data privacy",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "7. Data privacy",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `osobné údaje,`, `secrets a credentials,`, `payment údaje,`, `health alebo regulated data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "7. Data privacy",
-      "line": 100,
+      "section": "2. Mental model: neautoritatívna paralelná execution",
+      "line": 21,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -104186,98 +104033,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "8. Sampling",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "2. Mental model: neautoritatívna paralelná execution",
+      "line": 21,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "8. Sampling",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percenta requestov,`, `route,`, `tenant segmentu,`, `payload size,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "8. Sampling",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "9. Request normalization",
-      "line": 130,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "9. Request normalization",
-      "line": 130,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp,`, `nonce,`, `request ID,`, `expirovaný token,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "9. Request normalization",
-      "line": 130,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "9. Request normalization",
-      "line": 130,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "10. Response diffing",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "10. Response diffing",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status alebo outcome category,`, `schema,`, `normalized body,`, `selected fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "10. Response diffing",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "11. Correlation",
-      "line": 163,
+      "section": "3. Čo shadow dokáže overiť",
+      "line": 31,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104285,35 +104051,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "12. Capacity a cost",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "12. Capacity a cost",
-      "line": 177,
+      "section": "3. Čo shadow dokáže overiť",
+      "line": 31,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "12. Capacity a cost",
-      "line": 177,
+      "section": "3. Čo shadow dokáže overiť",
+      "line": 31,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application compute,`, `network traffic,`, `dependency reads,`, `database queries,`.",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request a protocol compatibility,`, `parser behavior,`, `reálny workload mix,`, `performance a resource profile,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "12. Capacity a cost",
-      "line": 177,
+      "section": "3. Čo shadow dokáže overiť",
+      "line": 31,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -104321,8 +104078,170 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "12. Capacity a cost",
-      "line": 177,
+      "section": "3. Čo shadow dokáže overiť",
+      "line": 31,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "4. Experiment subject a provenance",
+      "line": 54,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "4. Experiment subject a provenance",
+      "line": 54,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "4. Experiment subject a provenance",
+      "line": 54,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary a shadow artifact digests,`, `config revisions,`, `mirror policy version,`, `mirror point,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "4. Experiment subject a provenance",
+      "line": 54,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "4. Experiment subject a provenance",
+      "line": 54,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "5. Mirror point",
+      "line": 71,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "5. Mirror point",
+      "line": 71,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `edge/load balanceri,`, `API gateway,`, `service mesh,`, `application boundary,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "5. Mirror point",
+      "line": 71,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "5. Mirror point",
+      "line": 71,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "6. Synchronous verzus asynchronous delivery",
+      "line": 84,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Asynchronous",
+      "line": 90,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Asynchronous",
+      "line": 90,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `delivery lag,`, `drop,`, `reordering,`, `duplicate delivery,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Asynchronous",
+      "line": 90,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "7. Mirror delivery semantics",
+      "line": 102,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "7. Mirror delivery semantics",
+      "line": 102,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "7. Mirror delivery semantics",
+      "line": 102,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `at-most-once, at-least-once alebo best-effort charakter,`, `max queue depth,`, `drop policy,`, `retry limit,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "7. Mirror delivery semantics",
+      "line": 102,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "7. Mirror delivery semantics",
+      "line": 102,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -104330,35 +104249,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "13. Cache a state effects",
-      "line": 200,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "13. Cache a state effects",
-      "line": 200,
+      "section": "8. Sampling a representatívnosť",
+      "line": 117,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "13. Cache a state effects",
-      "line": 200,
+      "section": "8. Sampling a representatívnosť",
+      "line": 117,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zohrievať alebo vytláčať cache,`, `meniť database buffer pool,`, `spotrebovať rate limits,`, `vytvoriť service-discovery load,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percenta,`, `route/operation,`, `request complexity,`, `tenant/region segmentu,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "13. Cache a state effects",
-      "line": 200,
+      "section": "8. Sampling a representatívnosť",
+      "line": 117,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -104366,8 +104276,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "14. Messaging a event shadowing",
-      "line": 213,
+      "section": "9. Input capture a body semantics",
+      "line": 131,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "9. Input capture a body semantics",
+      "line": 131,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "9. Input capture a body semantics",
+      "line": 131,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `streaming body môže byť read-once,`, `upload môže byť veľký,`, `token môže expirovať,`, `nonce alebo signature je jednorazová,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "9. Input capture a body semantics",
+      "line": 131,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "9. Input capture a body semantics",
+      "line": 131,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "10. Input sanitizácia",
+      "line": 144,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "10. Input sanitizácia",
+      "line": 144,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials a session tokens,`, `payment/health data,`, `secrets v headers/body,`, `osobné identifikátory,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "10. Input sanitizácia",
+      "line": 144,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "11. Shadow identity a authorization",
+      "line": 157,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
@@ -104375,17 +104357,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "14. Messaging a event shadowing",
-      "line": 213,
+      "section": "11. Shadow identity a authorization",
+      "line": 157,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatný consumer group ID,`, `zákaz authoritative acknowledgements,`, `izolované output topics,`, `replay a offset policy,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-only workload identity,`, `minimálne claims,`, `isolated tenant/sandbox,`, `explicitný shadow claim,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "14. Messaging a event shadowing",
-      "line": 213,
+      "section": "11. Shadow identity a authorization",
+      "line": 157,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -104393,35 +104375,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "14. Messaging a event shadowing",
-      "line": 213,
+      "section": "11. Shadow identity a authorization",
+      "line": 157,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "15. Long-running workflows",
-      "line": 228,
+      "section": "12. Side-effect firewall",
+      "line": 170,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "12. Side-effect firewall",
+      "line": 170,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "15 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "15. Long-running workflows",
-      "line": 228,
+      "section": "12. Side-effect firewall",
+      "line": 170,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzistentný shadow state,`, `koreláciu udalostí,`, `izolované workflow IDs,`, `delayed outcome collection,`.",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment/order writes,`, `email/SMS/push,`, `inventory reservation,`, `account mutation,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "15. Long-running workflows",
-      "line": 228,
+      "section": "12. Side-effect firewall",
+      "line": 170,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -104429,8 +104420,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Shadow results často chýbajú",
-      "line": 255,
+      "section": "12. Side-effect firewall",
+      "line": 170,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SMS`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "13. Indirect interference",
+      "line": 195,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104438,8 +104438,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Shadow vytvoril reálne side effects",
-      "line": 267,
+      "section": "13. Indirect interference",
+      "line": 195,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "13. Indirect interference",
+      "line": 195,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytesniť cache,`, `zahriať database buffer pool,`, `spotrebovať quotas,`, `zvýšiť connection count,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "13. Indirect interference",
+      "line": 195,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "14. Request normalization",
+      "line": 209,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104447,8 +104474,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Response diff je extrémne vysoký",
-      "line": 271,
+      "section": "14. Request normalization",
+      "line": 209,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "14. Request normalization",
+      "line": 209,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current time,`, `random seed,`, `generated request ID,`, `nonce,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "14. Request normalization",
+      "line": 209,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "14. Request normalization",
+      "line": 209,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "15. Response a behavior diff",
+      "line": 229,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "15. Response a behavior diff",
+      "line": 229,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status/outcome class,`, `schema a required fields,`, `vybrané business hodnoty,`, `ordering-insensitive collections,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "15. Response a behavior diff",
+      "line": 229,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "15. Response a behavior diff",
+      "line": 229,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "16. Diff taxonomy",
+      "line": 245,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104456,8 +104555,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Shadow používa production write credentials",
-      "line": 277,
+      "section": "16. Diff taxonomy",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "16. Diff taxonomy",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected change,`, `acceptable nondeterminism,`, `primary defect,`, `shadow defect,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "16. Diff taxonomy",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "17. Correlation",
+      "line": 260,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104465,8 +104591,305 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Mirror 100 % bez capacity modelu",
-      "line": 281,
+      "section": "18. Capacity a cost ceiling",
+      "line": 276,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "18. Capacity a cost ceiling",
+      "line": 276,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary request latency,`, `database connection pool,`, `broker throughput,`, `external API quotas,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "18. Capacity a cost ceiling",
+      "line": 276,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "18. Capacity a cost ceiling",
+      "line": 276,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "19. Messaging a event shadowing",
+      "line": 289,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "19. Messaging a event shadowing",
+      "line": 289,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ackovať za primary group,`, `meniť primary offsets,`, `publikovať authoritative events,`, `súťažiť o partition ownership,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "19. Messaging a event shadowing",
+      "line": 289,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "20. Long-running workflows",
+      "line": 301,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "20. Long-running workflows",
+      "line": 301,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "20. Long-running workflows",
+      "line": 301,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzistentný shadow state,`, `izolované workflow IDs,`, `event correlation,`, `delayed result collector,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "20. Long-running workflows",
+      "line": 301,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "21. Experiment validity",
+      "line": 312,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "21. Experiment validity",
+      "line": 312,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "21. Experiment validity",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid and equivalent,`, `valid with expected differences,`, `valid regression found,`, `inconclusive pre nízku vzorku,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "21. Experiment validity",
+      "line": 312,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "22. Promotion ladder",
+      "line": 325,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "23. Privacy a retention",
+      "line": 337,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "23. Privacy a retention",
+      "line": 337,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "23. Privacy a retention",
+      "line": 337,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `právny účel,`, `data minimization,`, `residency,`, `encryption,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "23. Privacy a retention",
+      "line": 337,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "24. Failure recovery",
+      "line": 353,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "24. Failure recovery",
+      "line": 353,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "24. Failure recovery",
+      "line": 353,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypni mirror alebo zníž sample,`, `odpoj shadow resources,`, `over primary latency a dependency load,`, `drain alebo drop mirror queue,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "24. Failure recovery",
+      "line": 353,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "24. Failure recovery",
+      "line": 353,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "25. Observability a evidence",
+      "line": 372,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "25. Observability a evidence",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "25. Observability a evidence",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mirror attempted/delivered/dropped,`, `delivery lag,`, `primary overhead,`, `shadow throughput/saturation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "25. Observability a evidence",
+      "line": 372,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "26. Typické anti-patterny",
+      "line": 387,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Response sa zahodí, preto je shadow bezpečný",
+      "line": 389,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Production write credentials",
+      "line": 393,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Synchronous mirror bez timeout/drop policy",
+      "line": 397,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "100 % mirroring bez capacity modelu",
+      "line": 401,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104475,7 +104898,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "Chýbajúci correlation ID",
-      "line": 285,
+      "line": 405,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104483,8 +104906,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Každý rozdiel sa počíta ako regresia",
-      "line": 289,
+      "section": "Každý mismatch je regresia",
+      "line": 409,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -104492,12 +104915,246 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
-      "section": "Úspešný shadow = automatický plný rollout",
-      "line": 293,
+      "section": "Shadow success = full release",
+      "line": 413,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over primary/shadow digest a config.`, `Skontroluj mirror point a policy version.`, `Porovnaj attempted, delivered a completed counts.`, `Over delivery lag, duplicates a ordering.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "27. Diagnostický postup",
+      "line": 417,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Akú hypotézu má shadow overiť?`, `Kde sa traffic zrkadlí a čo tým vynechá?`, `Aké delivery semantics platia?`, `Ktoré dáta treba sanitizovať?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "28. Rozhodovací rámec",
+      "line": 430,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable primary/shadow identities,`, `mirror policy a point sú versionované,`, `primary path má timeout/drop ochranu,`, `sample inventory je reprezentatívny,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "29. Kontrolný checklist",
+      "line": 443,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Summary",
+      "line": 472,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
+      "section": "Summary",
+      "line": 472,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
