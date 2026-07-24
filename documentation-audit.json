@@ -282,16 +282,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "title": "Linux Control Groups — cgroups",
-      "words": 1394,
-      "headings": 39,
-      "sections": 39,
-      "findings": 47,
-      "critical": 21,
-      "high": 18,
-      "medium": 6,
-      "low": 2,
-      "score": 417,
+      "title": "Linux control groups — cgroups",
+      "words": 3589,
+      "headings": 51,
+      "sections": 51,
+      "findings": 82,
+      "critical": 13,
+      "high": 13,
+      "medium": 10,
+      "low": 46,
+      "score": 353,
       "grade": "D"
     },
     {
@@ -12678,274 +12678,13 @@
       "line": 3,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CPU`, `OOM`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CPU`, `OOM`, `PSI`",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU bandwidth a weight,`, `memory usage a pressure,`, `I/O bandwidth a priority,`, `počet procesov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "3. Mentálny model",
-      "line": 30,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "4. cgroup v1 a cgroup v2",
-      "line": 45,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "6. Controllers",
-      "line": 97,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "6. Controllers",
-      "line": 97,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cpu ,`, `cpuset ,`, `memory ,`, `io ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "6. Controllers",
-      "line": 97,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "7. CPU controller",
-      "line": 124,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "8. cpuset controller",
-      "line": 176,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "8. cpuset controller",
-      "line": 176,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znížiť scheduler flexibility,`, `preťažiť jeden core,`, `spôsobiť remote NUMA access,`, `skomplikovať failover pri offline CPU.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "8. cpuset controller",
-      "line": 176,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "9. Memory controller",
-      "line": 194,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "9. Memory controller",
-      "line": 194,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "9. Memory controller",
-      "line": 194,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory.current — aktuálne chargeované použitie,`, `memory.max — hard limit,`, `memory.high — throttling/reclaim boundary,`, `memory.low — best-effort protection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "9. Memory controller",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Memory accounting",
-      "line": 216,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Memory accounting",
-      "line": 216,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous memory,`, `page cache,`, `kernel memory kategórie,`, `socket buffers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Memory accounting",
-      "line": 216,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "12. I/O controller",
-      "line": 296,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `io.stat ,`, `io.max ,`, `io.weight ,`, `io.pressure .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "12. I/O controller",
-      "line": 296,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "14. Delegácia",
-      "line": 339,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership cgroup directories,`, `ktoré controllers možno aktivovať,`, `zákaz presúvania procesov mimo povoleného subtree,`, `pravidlo no internal processes pre niektoré controller scenáre,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "14. Delegácia",
-      "line": 339,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "15. Systemd resource controls",
-      "line": 362,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "16. Containers a Kubernetes",
-      "line": 396,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "16. Containers a Kubernetes",
-      "line": 396,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "16. Containers a Kubernetes",
-      "line": 396,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU request ovplyvňuje scheduling a typicky relative shares,`, `CPU limit sa typicky mapuje na quota,`, `memory request ovplyvňuje scheduling a QoS,`, `memory limit sa mapuje na hard cgroup boundary,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "16. Containers a Kubernetes",
-      "line": 396,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "16. Containers a Kubernetes",
-      "line": 396,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -12953,8 +12692,179 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "16. Containers a Kubernetes",
-      "line": 396,
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "2. Prečo je potrebná skupinová kontrola",
+      "line": 24,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "2. Prečo je potrebná skupinová kontrola",
+      "line": 24,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "2. Prečo je potrebná skupinová kontrola",
+      "line": 24,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `RAM`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "3. Cgroup v1 a cgroup v2",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "4. Unified hierarchy",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "4. Unified hierarchy",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "6. Processes verzus threads",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "7. Controllers a subtree activation",
+      "line": 119,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "7. Controllers a subtree activation",
+      "line": 119,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "7. Controllers a subtree activation",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "7. Controllers a subtree activation",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "7. Controllers a subtree activation",
+      "line": 119,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "7. Controllers a subtree activation",
+      "line": 119,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `NUMA`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "8. No-internal-process rule",
+      "line": 140,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "8. No-internal-process rule",
+      "line": 140,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "10. CPU weight",
+      "line": 172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "10. CPU weight",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "12. Weight verzus quota",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "12. Weight verzus quota",
+      "line": 225,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
@@ -12962,53 +12872,359 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "17. Cgroups vs. nice a ulimit",
-      "line": 419,
+      "section": "13. Cpuset controller",
+      "line": 236,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preťažiť jeden core,`, `znížiť scheduler flexibility,`, `zvýšiť remote NUMA access,`, `vytvoriť nerovnomerné IRQ a workload placement,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "nice",
-      "line": 421,
+      "section": "13. Cpuset controller",
+      "line": 236,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "14. Memory accounting",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "14. Memory accounting",
+      "line": 261,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "15. Memory protection: memory.min a memory.low",
+      "line": 279,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "17. memory.max",
+      "line": 303,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 68 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "18. Troubleshooting scenáre",
-      "line": 435,
+      "section": "17. memory.max",
+      "line": 303,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application heap,`, `page cache charge,`, `thread stacks,`, `socket buffers,`.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Aplikácia je pomalá, host CPU nie je plné",
-      "line": 437,
+      "section": "17. memory.max",
+      "line": 303,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "18. Swap control",
+      "line": 326,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "18. Swap control",
+      "line": 326,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "19. Memory events a local OOM",
+      "line": 342,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "19. Memory events a local OOM",
+      "line": 342,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "19. Memory events a local OOM",
+      "line": 342,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "20. OOM group semantics",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "20. OOM group semantics",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "21. PIDs controller",
+      "line": 368,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "22. I/O accounting",
+      "line": 397,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "22. I/O accounting",
+      "line": 397,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "23. I/O weight a hard limits",
+      "line": 416,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "23. I/O weight a hard limits",
+      "line": 416,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "24. Pressure Stall Information",
+      "line": 430,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "25. Delegácia",
+      "line": 452,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Proces bol zabitý, host má voľnú RAM",
-      "line": 450,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "25. Delegácia",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastníctvo a write oprávnenia cgroup filesystem nodes,`, `ktoré controllery môže delegate aktivovať,`, `hranicu, za ktorú nesmie presúvať processes,`, `parent resource budget,`.",
+      "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Proces bol zabitý, host má voľnú RAM",
-      "line": 450,
+      "section": "25. Delegácia",
+      "line": 452,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "25. Delegácia",
+      "line": 452,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "28. Containers",
+      "line": 538,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container PID na hoste,`, `jeho /proc/<pid /cgroup path,`, `parent Pod alebo service cgroup,`, `runtime a systemd properties,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "28. Containers",
+      "line": 538,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "30. Kubernetes QoS a hierarchy",
+      "line": 581,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process-level OOM v container cgroup,`, `Pod alebo parent cgroup limit,`, `node-wide OOM,`, `kubelet eviction pre memory pressure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "30. Kubernetes QoS a hierarchy",
+      "line": 581,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "30. Kubernetes QoS a hierarchy",
+      "line": 581,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "31. Cgroup freeze a kill",
+      "line": 597,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "31. Cgroup freeze a kill",
+      "line": 597,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "32. Cgroup lifecycle",
+      "line": 607,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "33. Troubleshooting: služba má vysokú latency pri nízkom host CPU",
+      "line": 615,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "33. Troubleshooting: služba má vysokú latency pri nízkom host CPU",
+      "line": 615,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "33. Troubleshooting: služba má vysokú latency pri nízkom host CPU",
+      "line": 615,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "33. Troubleshooting: služba má vysokú latency pri nízkom host CPU",
+      "line": 615,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "33. Troubleshooting: služba má vysokú latency pri nízkom host CPU",
+      "line": 615,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -13016,8 +13232,62 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Aplikácia nevie vytvoriť nový thread",
-      "line": 461,
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "34. Troubleshooting: OOM v kontajneri, host má voľnú RAM",
+      "line": 629,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `workload`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "35. Troubleshooting: fork() zlyháva pri voľnej memory",
+      "line": 640,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -13025,8 +13295,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "Aplikácia nevie vytvoriť nový thread",
-      "line": 461,
+      "section": "35. Troubleshooting: fork() zlyháva pri voľnej memory",
+      "line": 640,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -13034,8 +13304,44 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "19. Časté omyly",
-      "line": 471,
+      "section": "35. Troubleshooting: fork() zlyháva pri voľnej memory",
+      "line": 640,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "35. Troubleshooting: fork() zlyháva pri voľnej memory",
+      "line": 640,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "35. Troubleshooting: fork() zlyháva pri voľnej memory",
+      "line": 640,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "35. Troubleshooting: fork() zlyháva pri voľnej memory",
+      "line": 640,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "36. Časté omyly",
+      "line": 650,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -13043,12 +13349,21 @@
     },
     {
       "path": "docs/01-linux-and-systems/cgroups.md",
-      "section": "„Host má voľnú RAM, takže OOM nemohol nastať“",
-      "line": 481,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "38. Zhrnutie",
+      "line": 702,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cgroups.md",
+      "section": "38. Zhrnutie",
+      "line": 702,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",

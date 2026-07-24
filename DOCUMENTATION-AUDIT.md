@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10627**
-- Total words: **467,266**
-- Findings: **23407** (critical 8125, high 9232, medium 3096, low 2954)
+- Audited conceptual sections: **10639**
+- Total words: **469,461**
+- Findings: **23442** (critical 8117, high 9227, medium 3100, low 2998)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -221,7 +221,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 435 | 21 | 21 | 6 | 1 | 1085 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | D | 432 | 17 | 27 | 4 | 2 | 1563 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
-| D | 417 | 21 | 18 | 6 | 2 | 1394 | `docs/01-linux-and-systems/cgroups.md` |
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
@@ -232,6 +231,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
+| D | 353 | 13 | 13 | 10 | 46 | 3589 | `docs/01-linux-and-systems/cgroups.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
@@ -645,43 +645,30 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý rieši**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU bandwidth a weight,`, `memory usage a pressure,`, `I/O bandwidth a priority,`, `počet procesov,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 45, `empty-section` — **4. cgroup v1 a cgroup v2**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 97, `bare-bullet-items` — **6. Controllers**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cpu ,`, `cpuset ,`, `memory ,`, `io ,`.
-- **CRITICAL** line 97, `outline-instead-of-explanation` — **6. Controllers**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 124, `empty-section` — **7. CPU controller**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 176, `bare-bullet-items` — **8. cpuset controller**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znížiť scheduler flexibility,`, `preťažiť jeden core,`, `spôsobiť remote NUMA access,`, `skomplikovať failover pri offline CPU.`.
-- **CRITICAL** line 176, `outline-instead-of-explanation` — **8. cpuset controller**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 194, `bare-bullet-items` — **9. Memory controller**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory.current — aktuálne chargeované použitie,`, `memory.max — hard limit,`, `memory.high — throttling/reclaim boundary,`, `memory.low — best-effort protection,`.
-- **CRITICAL** line 194, `outline-instead-of-explanation` — **9. Memory controller**: 9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 216, `bare-bullet-items` — **Memory accounting**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous memory,`, `page cache,`, `kernel memory kategórie,`, `socket buffers,`.
-- **CRITICAL** line 216, `outline-instead-of-explanation` — **Memory accounting**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `bare-bullet-items` — **12. I/O controller**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `io.stat ,`, `io.max ,`, `io.weight ,`, `io.pressure .`.
-- **CRITICAL** line 339, `bare-bullet-items` — **14. Delegácia**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership cgroup directories,`, `ktoré controllers možno aktivovať,`, `zákaz presúvania procesov mimo povoleného subtree,`, `pravidlo no internal processes pre niektoré controller scenáre,`.
-- **CRITICAL** line 396, `bare-bullet-items` — **16. Containers a Kubernetes**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU request ovplyvňuje scheduling a typicky relative shares,`, `CPU limit sa typicky mapuje na quota,`, `memory request ovplyvňuje scheduling a QoS,`, `memory limit sa mapuje na hard cgroup boundary,`.
-- **CRITICAL** line 396, `outline-instead-of-explanation` — **16. Containers a Kubernetes**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 419, `empty-section` — **17. Cgroups vs. nice a ulimit**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 435, `empty-section` — **18. Troubleshooting scenáre**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 471, `empty-section` — **19. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 236, `bare-bullet-items` — **13. Cpuset controller**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preťažiť jeden core,`, `znížiť scheduler flexibility,`, `zvýšiť remote NUMA access,`, `vytvoriť nerovnomerné IRQ a workload placement,`.
+- **CRITICAL** line 303, `bare-bullet-items` — **17. memory.max**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application heap,`, `page cache charge,`, `thread stacks,`, `socket buffers,`.
+- **CRITICAL** line 342, `outline-instead-of-explanation` — **19. Memory events a local OOM**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 452, `bare-bullet-items` — **25. Delegácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastníctvo a write oprávnenia cgroup filesystem nodes,`, `ktoré controllery môže delegate aktivovať,`, `hranicu, za ktorú nesmie presúvať processes,`, `parent resource budget,`.
+- **CRITICAL** line 538, `bare-bullet-items` — **28. Containers**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container PID na hoste,`, `jeho /proc/<pid /cgroup path,`, `parent Pod alebo service cgroup,`, `runtime a systemd properties,`.
+- **CRITICAL** line 581, `bare-bullet-items` — **30. Kubernetes QoS a hierarchy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process-level OOM v container cgroup,`, `Pod alebo parent cgroup limit,`, `node-wide OOM,`, `kubelet eviction pre memory pressure,`.
+- **CRITICAL** line 615, `outline-instead-of-explanation` — **33. Troubleshooting: služba má vysokú latency pri nízkom host CPU**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 629, `no-prose-concept` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 629, `outline-instead-of-explanation` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 640, `outline-instead-of-explanation` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 650, `empty-section` — **36. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 30, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 194, `single-sentence-concept` — **9. Memory controller**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 362, `single-sentence-concept` — **15. Systemd resource controls**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 396, `single-sentence-concept` — **16. Containers a Kubernetes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 421, `single-sentence-concept` — **nice**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 437, `single-sentence-concept` — **Aplikácia je pomalá, host CPU nie je plné**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 450, `list-first-introduction` — **Proces bol zabitý, host má voľnú RAM**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 450, `single-sentence-concept` — **Proces bol zabitý, host má voľnú RAM**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `list-first-introduction` — **Aplikácia nevie vytvoriť nový thread**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 461, `single-sentence-concept` — **Aplikácia nevie vytvoriť nový thread**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 481, `single-sentence-concept` — **„Host má voľnú RAM, takže OOM nemohol nastať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CPU`, `OOM`
+- **HIGH** line 119, `list-heavy-section` — **7. Controllers a subtree activation**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 303, `list-heavy-section` — **17. memory.max**: 7 odrážok a iba 68 slov súvislého vysvetlenia.
+- **HIGH** line 452, `list-heavy-section` — **25. Delegácia**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 629, `list-first-introduction` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 640, `list-first-introduction` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 640, `single-sentence-concept` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CPU`, `OOM`, `PSI`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 97, `thin-concept-section` — **6. Controllers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 194, `thin-concept-section` — **9. Memory controller**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 216, `thin-concept-section` — **Memory accounting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 615, `thin-concept-section` — **33. Troubleshooting: služba má vysokú latency pri nízkom host CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 629, `thin-concept-section` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 640, `thin-concept-section` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md`
 
@@ -18407,19 +18394,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4091 | 0 | 0 | 4091 |
-| `bare-bullet-items` | 3704 | 330 | 0 | 0 | 4034 |
-| `outline-instead-of-explanation` | 3635 | 0 | 0 | 0 | 3635 |
+| `single-sentence-concept` | 0 | 4084 | 0 | 0 | 4084 |
+| `bare-bullet-items` | 3701 | 330 | 0 | 0 | 4031 |
+| `outline-instead-of-explanation` | 3633 | 0 | 0 | 0 | 3633 |
 | `thin-concept-section` | 0 | 3326 | 0 | 0 | 3326 |
-| `term-before-explanation` | 0 | 355 | 2227 | 0 | 2582 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1283 | 1283 |
-| `example-not-explicit` | 0 | 0 | 0 | 1119 | 1119 |
-| `list-first-introduction` | 0 | 912 | 0 | 0 | 912 |
-| `short-concept-section` | 0 | 0 | 869 | 0 | 869 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 552 | 552 |
-| `empty-section` | 493 | 0 | 0 | 0 | 493 |
-| `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 218 | 0 | 0 | 218 |
+| `term-before-explanation` | 0 | 355 | 2232 | 0 | 2587 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1295 | 1295 |
+| `example-not-explicit` | 0 | 0 | 0 | 1143 | 1143 |
+| `list-first-introduction` | 0 | 911 | 0 | 0 | 911 |
+| `short-concept-section` | 0 | 0 | 868 | 0 | 868 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 560 | 560 |
+| `empty-section` | 489 | 0 | 0 | 0 | 489 |
+| `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
+| `list-heavy-section` | 0 | 221 | 0 | 0 | 221 |
 
 ## Required remediation pattern
 
