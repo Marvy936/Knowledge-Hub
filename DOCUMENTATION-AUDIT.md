@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10587**
-- Total words: **458,326**
-- Findings: **23360** (critical 8190, high 9285, medium 3101, low 2784)
+- Audited conceptual sections: **10591**
+- Total words: **459,352**
+- Findings: **23366** (critical 8182, high 9274, medium 3102, low 2808)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -240,7 +240,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 319 | 11 | 23 | 2 | 0 | 816 | `docs/03-git-and-automation/merge-and-rebase.md` |
-| D | 304 | 12 | 17 | 6 | 4 | 1070 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 302 | 13 | 14 | 7 | 7 | 1331 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
@@ -263,6 +262,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
 | D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
+| D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
@@ -1195,33 +1195,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 155, `bare-bullet-items` — **7. Mount options**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ro / rw ,`, `noexec ,`, `nosuid ,`, `nodev ,`.
-- **CRITICAL** line 155, `outline-instead-of-explanation` — **7. Mount options**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **9. Journaling a crash consistency**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `omylom zmazaným dátam,`, `ransomware,`, `aplikačnej korupcii,`, `strate celého zariadenia.`.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **9. Journaling a crash consistency**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 222, `bare-bullet-items` — **10. Filesystem check a repair**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti scope dopadu,`, `zastav writers,`, `vytvor snapshot alebo image, ak je to možné,`, `over hardware/block layer chyby,`.
-- **CRITICAL** line 222, `outline-instead-of-explanation` — **10. Filesystem check a repair**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 298, `bare-bullet-items` — **13. Network filesystems**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boot ordering,`, `hangs pri network partition,`, `odlišná locking semantics,`, `identity mapping,`.
-- **CRITICAL** line 313, `bare-bullet-items` — **14. Diagnostický postup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý filesystem path reálne používa?`, `Sú vyčerpané blocks alebo inodes?`, `Nie sú veľké files prekryté mountom?`, `Nedrží proces deleted-open files?`.
-- **CRITICAL** line 313, `outline-instead-of-explanation` — **14. Diagnostický postup**: 6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 336, `empty-section` — **15. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 184, `outline-instead-of-explanation` — **12. Filesystem check a repair**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 289, `outline-instead-of-explanation` — **19. Diagnostika No space left on device**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 33, `bare-bullet-items` — **2. Block devices**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `lsblk ukáže topológiu block devices,`, `lsblk -f doplní filesystem type, UUID a mountpoint,`, `blkid číta filesystem a partition identifiers.`.
-- **HIGH** line 60, `bare-bullet-items` — **3. Partition table**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `GPT,`, `MBR/DOS.`.
-- **HIGH** line 176, `list-first-introduction` — **8. Capacity: df vs. du**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 176, `single-sentence-concept` — **8. Capacity: df vs. du**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 298, `list-heavy-section` — **13. Network filesystems**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 313, `single-sentence-concept` — **14. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **„Directory /data je samostatný disk“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 350, `single-sentence-concept` — **„Journaling chráni pred stratou dát“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 289, `single-sentence-concept` — **19. Diagnostika No space left on device**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PAM`, `LVM`, `RAID`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 155, `thin-concept-section` — **7. Mount options**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **8. Capacity: df vs. du**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 211, `thin-concept-section` — **9. Journaling a crash consistency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 222, `thin-concept-section` — **10. Filesystem check a repair**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 313, `thin-concept-section` — **14. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 289, `thin-concept-section` — **19. Diagnostika No space left on device**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/systemd-services-daemons.md`
 
@@ -18525,19 +18506,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4117 | 0 | 0 | 4117 |
-| `bare-bullet-items` | 3742 | 334 | 0 | 0 | 4076 |
-| `outline-instead-of-explanation` | 3654 | 0 | 0 | 0 | 3654 |
-| `thin-concept-section` | 0 | 3348 | 0 | 0 | 3348 |
-| `term-before-explanation` | 0 | 346 | 2229 | 0 | 2575 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1241 | 1241 |
-| `example-not-explicit` | 0 | 0 | 0 | 1052 | 1052 |
-| `list-first-introduction` | 0 | 924 | 0 | 0 | 924 |
-| `short-concept-section` | 0 | 0 | 872 | 0 | 872 |
-| `empty-section` | 501 | 0 | 0 | 0 | 501 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 491 | 491 |
+| `single-sentence-concept` | 0 | 4114 | 0 | 0 | 4114 |
+| `bare-bullet-items` | 3737 | 332 | 0 | 0 | 4069 |
+| `outline-instead-of-explanation` | 3652 | 0 | 0 | 0 | 3652 |
+| `thin-concept-section` | 0 | 3344 | 0 | 0 | 3344 |
+| `term-before-explanation` | 0 | 346 | 2231 | 0 | 2577 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1244 | 1244 |
+| `example-not-explicit` | 0 | 0 | 0 | 1064 | 1064 |
+| `list-first-introduction` | 0 | 923 | 0 | 0 | 923 |
+| `short-concept-section` | 0 | 0 | 871 | 0 | 871 |
+| `empty-section` | 500 | 0 | 0 | 0 | 500 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 500 | 500 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 216 | 0 | 0 | 216 |
+| `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
 
 ## Required remediation pattern
 

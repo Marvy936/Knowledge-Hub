@@ -506,16 +506,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "title": "Storage, Mounts and Filesystems",
-      "words": 1070,
-      "headings": 22,
-      "sections": 22,
-      "findings": 39,
-      "critical": 12,
-      "high": 17,
-      "medium": 6,
-      "low": 4,
-      "score": 304,
+      "title": "Storage, mounty a filesystems",
+      "words": 2096,
+      "headings": 26,
+      "sections": 26,
+      "findings": 45,
+      "critical": 4,
+      "high": 6,
+      "medium": 7,
+      "low": 28,
+      "score": 155,
       "grade": "D"
     },
     {
@@ -20477,53 +20477,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "2. Block devices",
+      "section": "1. Mentálny model storage stacku",
+      "line": 11,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "2. Block device",
       "line": 33,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `lsblk ukáže topológiu block devices,`, `lsblk -f doplní filesystem type, UUID a mountpoint,`, `blkid číta filesystem a partition identifiers.`.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "2. Block devices",
+      "section": "2. Block device",
       "line": 33,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "3. Partition table",
-      "line": 60,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `GPT,`, `MBR/DOS.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "3. Partition table",
-      "line": 60,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "3. Partition table",
-      "line": 60,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MBR`, `DOS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LVM`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "4. Filesystem",
-      "line": 78,
+      "section": "3. Partition table",
+      "line": 49,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -20531,8 +20513,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "5. VFS a mount",
-      "line": 101,
+      "section": "4. Transformačné vrstvy",
+      "line": 63,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -20540,116 +20522,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "7. Mount options",
-      "line": 155,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "7. Mount options",
-      "line": 155,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ro / rw ,`, `noexec ,`, `nosuid ,`, `nodev ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "7. Mount options",
-      "line": 155,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "8. Capacity: df vs. du",
-      "line": 176,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "8. Capacity: df vs. du",
-      "line": 176,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "8. Capacity: df vs. du",
-      "line": 176,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "9. Journaling a crash consistency",
-      "line": 211,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "9. Journaling a crash consistency",
-      "line": 211,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `omylom zmazaným dátam,`, `ransomware,`, `aplikačnej korupcii,`, `strate celého zariadenia.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "9. Journaling a crash consistency",
-      "line": 211,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "10. Filesystem check a repair",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "10. Filesystem check a repair",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti scope dopadu,`, `zastav writers,`, `vytvor snapshot alebo image, ak je to možné,`, `over hardware/block layer chyby,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "10. Filesystem check a repair",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "10. Filesystem check a repair",
-      "line": 222,
+      "section": "5. Filesystem",
+      "line": 81,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -20657,35 +20531,71 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "10. Filesystem check a repair",
-      "line": 222,
+      "section": "5. Filesystem",
+      "line": 81,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "5. Filesystem",
+      "line": 81,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "5. Filesystem",
+      "line": 81,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `XFS`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "13. Network filesystems",
-      "line": 298,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
+      "section": "6. VFS a mount",
+      "line": 97,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "13. Network filesystems",
-      "line": 298,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boot ordering,`, `hangs pri network partition,`, `odlišná locking semantics,`, `identity mapping,`.",
-      "score": 12
+      "section": "6. VFS a mount",
+      "line": 97,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "13. Network filesystems",
-      "line": 298,
+      "section": "7. Persistentné mounty a /etc/fstab",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "7. Persistentné mounty a /etc/fstab",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "8. Mount options ako policy",
+      "line": 129,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -20693,8 +20603,116 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "13. Network filesystems",
-      "line": 298,
+      "section": "8. Mount options ako policy",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "8. Mount options ako policy",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "9. Capacity model: bloky, inodes, quota a reserved space",
+      "line": 145,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "9. Capacity model: bloky, inodes, quota a reserved space",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "10. Page cache, writeback a durability",
+      "line": 165,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "10. Page cache, writeback a durability",
+      "line": 165,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "12. Filesystem check a repair",
+      "line": 184,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "12. Filesystem check a repair",
+      "line": 184,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "12. Filesystem check a repair",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "12. Filesystem check a repair",
+      "line": 184,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UUID`, `RAID`, `XFS`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "13. LVM",
+      "line": 201,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "14. Snapshots",
+      "line": 232,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "15. Swap",
+      "line": 240,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -20702,17 +20720,53 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "13. Network filesystems",
-      "line": 298,
+      "section": "16. Network filesystems",
+      "line": 253,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "16. Network filesystems",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "16. Network filesystems",
+      "line": 253,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "14. Diagnostický postup",
-      "line": 313,
+      "section": "17. Bind mounts, namespaces a kontajnery",
+      "line": 264,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "17. Bind mounts, namespaces a kontajnery",
+      "line": 264,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -20720,26 +20774,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "14. Diagnostický postup",
-      "line": 313,
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "14. Diagnostický postup",
-      "line": 313,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý filesystem path reálne používa?`, `Sú vyčerpané blocks alebo inodes?`, `Nie sú veľké files prekryté mountom?`, `Nedrží proces deleted-open files?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "14. Diagnostický postup",
-      "line": 313,
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -20747,30 +20792,39 @@
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "15. Časté omyly",
-      "line": 336,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "„Directory /data je samostatný disk“",
-      "line": 338,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
-      "section": "„Journaling chráni pred stratou dát“",
-      "line": 350,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
+      "section": "19. Diagnostika No space left on device",
+      "line": 289,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RAID`, `LVM`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
