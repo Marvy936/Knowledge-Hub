@@ -310,16 +310,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "title": "Cron and systemd Timers",
-      "words": 1218,
-      "headings": 27,
-      "sections": 27,
-      "findings": 47,
-      "critical": 15,
-      "high": 20,
-      "medium": 7,
-      "low": 5,
-      "score": 370,
+      "title": "Cron a systemd timers",
+      "words": 3073,
+      "headings": 33,
+      "sections": 33,
+      "findings": 56,
+      "critical": 6,
+      "high": 12,
+      "medium": 5,
+      "low": 33,
+      "score": 226,
       "grade": "D"
     },
     {
@@ -13648,10 +13648,10 @@
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Súvisiace témy: automation, batch processing, idempotency, locking, ob`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
@@ -13673,35 +13673,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "1. Definícia",
+      "section": "1. Čo scheduling skutočne rieši",
       "line": 11,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `cron spúšťa command podľa crontab expression,`, `systemd timer aktivuje inú unit, najčastejšie .service .`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "3. Cron syntax",
-      "line": 51,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "4. Day-of-month a day-of-week pasca",
-      "line": 81,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -13709,89 +13682,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "5. Cron environment",
-      "line": 95,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "5. Cron environment",
-      "line": 95,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny PATH ,`, `iný working directory,`, `nenačítaný .bashrc ,`, `chýbajúce environment variables,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "5. Cron environment",
-      "line": 95,
+      "section": "2. Požiadavky na spoľahlivý scheduled job",
+      "line": 35,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "5. Cron environment",
-      "line": 95,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`, `TTY`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "6. Output a failure visibility",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "6. Output a failure visibility",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logovať do journald alebo kontrolovaného logu,`, `kontrolovať exit status,`, `emitovať metriku alebo heartbeat,`, `alertovať pri zlyhaní alebo chýbajúcom úspechu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "6. Output a failure visibility",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "7. Overlap a concurrency",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicitné spracovanie,`, `race conditions,`, `lock contention,`, `preťaženie dependency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "7. Overlap a concurrency",
-      "line": 140,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "7. Overlap a concurrency",
-      "line": 140,
+      "section": "2. Požiadavky na spoľahlivý scheduled job",
+      "line": 35,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -13799,35 +13700,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "8. Idempotencia a retry",
-      "line": 166,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "8. Idempotencia a retry",
-      "line": 166,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má explicitný input scope,`, `zapisuje progress alebo checkpoint,`, `opakovanie je bezpečné,`, `rozlišuje transient a permanent failures,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "8. Idempotencia a retry",
-      "line": 166,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "8. Idempotencia a retry",
-      "line": 166,
+      "section": "2. Požiadavky na spoľahlivý scheduled job",
+      "line": 35,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -13835,80 +13709,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "8. Idempotencia a retry",
-      "line": 166,
-      "severity": "medium",
+      "section": "2. Požiadavky na spoľahlivý scheduled job",
+      "line": 35,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "9. systemd timer model",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "10. Calendar expressions",
-      "line": 227,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "11. Monotonic timers",
-      "line": 245,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "11. Monotonic timers",
-      "line": 245,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `OnBootSec od bootu,`, `OnUnitActiveSec od poslednej aktivácie,`, `OnUnitInactiveSec od času, keď unit prestala byť active.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "11. Monotonic timers",
-      "line": 245,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `scope`, `policy`",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "12. Persistent=true",
-      "line": 261,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "15. Observability systemd timers",
-      "line": 295,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "17. Cron vs. systemd timer",
-      "line": 330,
+      "section": "3. Cron execution model",
+      "line": 50,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -13916,53 +13727,242 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "18. Troubleshooting cron",
-      "line": 345,
+      "section": "Day-of-month a day-of-week",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "5. Čas, timezone a DST",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "6. Cron environment a execution identity",
+      "line": 119,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 63 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "18. Troubleshooting cron",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "6. Cron environment a execution identity",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "18. Troubleshooting cron",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skontroluj syntax a user crontab,`, `over cron daemon,`, `nastav explicitný PATH a shell,`, `použi absolútne paths,`.",
-      "score": 12
+      "section": "6. Cron environment a execution identity",
+      "line": 119,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "18. Troubleshooting cron",
-      "line": 345,
+      "section": "8. Prekrývanie behov a locking",
+      "line": 164,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "9. Idempotencia, checkpoint a retry",
+      "line": 191,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 57 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "18. Troubleshooting cron",
-      "line": 345,
+      "section": "9. Idempotencia, checkpoint a retry",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "9. Idempotencia, checkpoint a retry",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "9. Idempotencia, checkpoint a retry",
+      "line": 191,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`, `PAM`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "19. Troubleshooting systemd timer",
-      "line": 365,
+      "section": "10. Systemd timer model",
+      "line": 217,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "11. Calendar timers",
+      "line": 271,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "12. Monotonic timers",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "12. Monotonic timers",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "12. Monotonic timers",
+      "line": 285,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "13. Missed runs a Persistent=true",
+      "line": 302,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "13. Missed runs a Persistent=true",
+      "line": 302,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "15. Systemd service lifecycle pre job",
+      "line": 333,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "15. Systemd service lifecycle pre job",
+      "line": 333,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGTERM`, `CPU`, `Resource`, `blast radius`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "16. Dependencies a remote readiness",
+      "line": 364,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout pre connect a request,`, `bounded retry s backoffom,`, `rozlíšenie authentication, validation a transient network failure,`, `kontrolu, že remote side effect neprebehol pred timeoutom,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "16. Dependencies a remote readiness",
+      "line": 364,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "16. Dependencies a remote readiness",
+      "line": 364,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "17. User timers",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "17. User timers",
+      "line": 385,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "18. Observability a success monitoring",
+      "line": 398,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "18. Observability a success monitoring",
+      "line": 398,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -13970,35 +13970,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "19. Troubleshooting systemd timer",
-      "line": 365,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "19. Troubleshooting systemd timer",
-      "line": 365,
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "19. Troubleshooting systemd timer",
-      "line": 365,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timer enabled/active,`, `next trigger,`, `service exit status,`, `effective unit a drop-ins,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "19. Troubleshooting systemd timer",
-      "line": 365,
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -14006,8 +13988,107 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "20. Časté omyly",
-      "line": 388,
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "20. Troubleshooting: job funguje ručne, ale nie z cronu",
+      "line": 440,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`, `DST`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "21. Troubleshooting: timer čaká, ale job nevytvára výsledok",
+      "line": 461,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
+      "section": "22. Časté omyly",
+      "line": 474,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -14015,30 +14096,30 @@
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "„Každých päť minút znamená, že nikdy nevznikne overlap“",
-      "line": 398,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "24. Zhrnutie",
+      "line": 513,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "„Persistent timer bezpečne dobehne všetko“",
-      "line": 402,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "24. Zhrnutie",
+      "line": 513,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",
-      "section": "„Scheduled job nepotrebuje monitoring“",
-      "line": 406,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "24. Zhrnutie",
+      "line": 513,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/environment-variables.md",

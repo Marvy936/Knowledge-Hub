@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10611**
-- Total words: **463,639**
-- Findings: **23375** (critical 8137, high 9242, medium 3098, low 2898)
+- Audited conceptual sections: **10617**
+- Total words: **465,494**
+- Findings: **23384** (critical 8128, high 9234, medium 3096, low 2926)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -231,7 +231,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
-| D | 370 | 15 | 20 | 7 | 5 | 1218 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
@@ -247,6 +246,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
+| D | 226 | 6 | 12 | 5 | 33 | 3073 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
 | D | 216 | 5 | 9 | 9 | 40 | 2608 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
@@ -702,41 +702,24 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/01-linux-and-systems/cron-and-systemd-timers.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Súvisiace témy: automation, batch processing, idempotency, locking, ob`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 95, `bare-bullet-items` — **5. Cron environment**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny PATH ,`, `iný working directory,`, `nenačítaný .bashrc ,`, `chýbajúce environment variables,`.
-- **CRITICAL** line 95, `outline-instead-of-explanation` — **5. Cron environment**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 120, `bare-bullet-items` — **6. Output a failure visibility**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logovať do journald alebo kontrolovaného logu,`, `kontrolovať exit status,`, `emitovať metriku alebo heartbeat,`, `alertovať pri zlyhaní alebo chýbajúcom úspechu,`.
-- **CRITICAL** line 120, `outline-instead-of-explanation` — **6. Output a failure visibility**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 140, `bare-bullet-items` — **7. Overlap a concurrency**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicitné spracovanie,`, `race conditions,`, `lock contention,`, `preťaženie dependency,`.
-- **CRITICAL** line 166, `bare-bullet-items` — **8. Idempotencia a retry**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má explicitný input scope,`, `zapisuje progress alebo checkpoint,`, `opakovanie je bezpečné,`, `rozlišuje transient a permanent failures,`.
-- **CRITICAL** line 166, `outline-instead-of-explanation` — **8. Idempotencia a retry**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 345, `bare-bullet-items` — **18. Troubleshooting cron**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skontroluj syntax a user crontab,`, `over cron daemon,`, `nastav explicitný PATH a shell,`, `použi absolútne paths,`.
-- **CRITICAL** line 345, `outline-instead-of-explanation` — **18. Troubleshooting cron**: 9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 365, `bare-bullet-items` — **19. Troubleshooting systemd timer**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timer enabled/active,`, `next trigger,`, `service exit status,`, `effective unit a drop-ins,`.
-- **CRITICAL** line 365, `outline-instead-of-explanation` — **19. Troubleshooting systemd timer**: 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 388, `empty-section` — **20. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 364, `bare-bullet-items` — **16. Dependencies a remote readiness**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout pre connect a request,`, `bounded retry s backoffom,`, `rozlíšenie authentication, validation a transient network failure,`, `kontrolu, že remote side effect neprebehol pred timeoutom,`.
+- **CRITICAL** line 440, `outline-instead-of-explanation` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 461, `outline-instead-of-explanation` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 474, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `bare-bullet-items` — **1. Definícia**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `cron spúšťa command podľa crontab expression,`, `systemd timer aktivuje inú unit, najčastejšie .service .`.
-- **HIGH** line 51, `single-sentence-concept` — **3. Cron syntax**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **9. systemd timer model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 227, `list-first-introduction` — **10. Calendar expressions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 245, `bare-bullet-items` — **11. Monotonic timers**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `OnBootSec od bootu,`, `OnUnitActiveSec od poslednej aktivácie,`, `OnUnitInactiveSec od času, keď unit prestala byť active.`.
-- **HIGH** line 245, `single-sentence-concept` — **11. Monotonic timers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 295, `list-first-introduction` — **15. Observability systemd timers**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 345, `single-sentence-concept` — **18. Troubleshooting cron**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 365, `list-first-introduction` — **19. Troubleshooting systemd timer**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 365, `single-sentence-concept` — **19. Troubleshooting systemd timer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 398, `single-sentence-concept` — **„Každých päť minút znamená, že nikdy nevznikne overlap“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 402, `single-sentence-concept` — **„Persistent timer bezpečne dobehne všetko“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 406, `single-sentence-concept` — **„Scheduled job nepotrebuje monitoring“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 35, `list-heavy-section` — **2. Požiadavky na spoľahlivý scheduled job**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 119, `list-heavy-section` — **6. Cron environment a execution identity**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 191, `list-heavy-section` — **9. Idempotencia, checkpoint a retry**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
+- **HIGH** line 440, `single-sentence-concept` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 461, `single-sentence-concept` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 95, `thin-concept-section` — **5. Cron environment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 120, `thin-concept-section` — **6. Output a failure visibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 245, `thin-concept-section` — **11. Monotonic timers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 345, `thin-concept-section` — **18. Troubleshooting cron**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 365, `thin-concept-section` — **19. Troubleshooting systemd timer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 35, `term-before-explanation` — **2. Požiadavky na spoľahlivý scheduled job**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `scope`, `policy`
+- **HIGH** line 333, `term-before-explanation` — **15. Systemd service lifecycle pre job**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGTERM`, `CPU`, `Resource`, `blast radius`
+- **HIGH** line 440, `thin-concept-section` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 461, `thin-concept-section` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/environment-variables.md`
 
@@ -18429,19 +18412,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4098 | 0 | 0 | 4098 |
-| `bare-bullet-items` | 3712 | 331 | 0 | 0 | 4043 |
-| `outline-instead-of-explanation` | 3638 | 0 | 0 | 0 | 3638 |
-| `thin-concept-section` | 0 | 3331 | 0 | 0 | 3331 |
-| `term-before-explanation` | 0 | 351 | 2225 | 0 | 2576 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1267 | 1267 |
-| `example-not-explicit` | 0 | 0 | 0 | 1102 | 1102 |
-| `list-first-introduction` | 0 | 916 | 0 | 0 | 916 |
-| `short-concept-section` | 0 | 0 | 873 | 0 | 873 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 529 | 529 |
+| `single-sentence-concept` | 0 | 4092 | 0 | 0 | 4092 |
+| `bare-bullet-items` | 3706 | 330 | 0 | 0 | 4036 |
+| `outline-instead-of-explanation` | 3635 | 0 | 0 | 0 | 3635 |
+| `thin-concept-section` | 0 | 3328 | 0 | 0 | 3328 |
+| `term-before-explanation` | 0 | 353 | 2226 | 0 | 2579 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1274 | 1274 |
+| `example-not-explicit` | 0 | 0 | 0 | 1111 | 1111 |
+| `list-first-introduction` | 0 | 913 | 0 | 0 | 913 |
+| `short-concept-section` | 0 | 0 | 870 | 0 | 870 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 541 | 541 |
 | `empty-section` | 494 | 0 | 0 | 0 | 494 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
+| `list-heavy-section` | 0 | 218 | 0 | 0 | 218 |
 
 ## Required remediation pattern
 
