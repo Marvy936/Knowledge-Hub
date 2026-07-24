@@ -801,15 +801,15 @@
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
       "title": "Cherry-pick a stash",
-      "words": 821,
-      "headings": 27,
-      "sections": 27,
-      "findings": 39,
-      "critical": 9,
-      "high": 27,
-      "medium": 3,
-      "low": 0,
-      "score": 331,
+      "words": 2417,
+      "headings": 49,
+      "sections": 49,
+      "findings": 102,
+      "critical": 31,
+      "high": 51,
+      "medium": 10,
+      "low": 10,
+      "score": 819,
       "grade": "D"
     },
     {
@@ -44475,40 +44475,40 @@
       "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `HEAD`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `HEAD`, `identity`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "1. Cherry-pick",
-      "line": 11,
+      "section": "2. Cherry-pick — definícia",
+      "line": 22,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "1. Cherry-pick",
-      "line": 11,
+      "section": "2. Cherry-pick — definícia",
+      "line": 22,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "1. Cherry-pick",
-      "line": 11,
+      "section": "2. Cherry-pick — definícia",
+      "line": 22,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový parent,`, `nový object ID,`, `typicky rovnaký patch intent,`, `často zachovaného autora,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový parent,`, `nové object ID,`, `typicky zachovaného autora,`, `nového committera a committer timestamp,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "1. Cherry-pick",
-      "line": 11,
+      "section": "2. Cherry-pick — definícia",
+      "line": 22,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -44516,8 +44516,8 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "1. Cherry-pick",
-      "line": 11,
+      "section": "2. Cherry-pick — definícia",
+      "line": 22,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
@@ -44525,8 +44525,8 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "2. Cherry-pick nie je presun commitu",
-      "line": 27,
+      "section": "3. Commit graph dôsledok",
+      "line": 41,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -44534,44 +44534,17 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "3. Typické použitia",
-      "line": 39,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "3. Typické použitia",
-      "line": 39,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "3. Typické použitia",
-      "line": 39,
+      "section": "3. Commit graph dôsledok",
+      "line": 41,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "3. Typické použitia",
-      "line": 39,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backport opravy do release branch,`, `prenesenie jedného izolovaného commitu,`, `obnova commitu z detached alebo zmazanej branch,`, `dočasný výber z väčšej série pred reorganizáciou.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "3. Typické použitia",
-      "line": 39,
+      "section": "3. Commit graph dôsledok",
+      "line": 41,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -44579,134 +44552,35 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "4. Rozsah commitov",
-      "line": 48,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Commit graph dôsledok",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "4. Rozsah commitov",
-      "line": 48,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "5. -x pre backport audit",
-      "line": 62,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "6. No-commit mode",
-      "line": 70,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "8. Konflikt a pokračovanie",
-      "line": 88,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "8. Konflikt a pokračovanie",
-      "line": 88,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "12. Apply vs. pop",
-      "line": 150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "12. Apply vs. pop",
-      "line": 150,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "12. Apply vs. pop",
-      "line": 150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "13. Stash branch",
-      "line": 162,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "14. Partial stash",
-      "line": 170,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "16. Kedy radšej commit než stash",
-      "line": 191,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "16. Kedy radšej commit než stash",
-      "line": 191,
+      "section": "4. Typické použitia",
+      "line": 60,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "16. Kedy radšej commit než stash",
-      "line": 191,
+      "section": "4. Typické použitia",
+      "line": 60,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `práca je významná,`, `potrebuje backup cez remote,`, `chceš ju zdieľať,`, `stashov je veľa,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backport opravy do podporovanej release branch,`, `prenos izolovaného fixu bez celej feature branch,`, `obnovu commitov z detached HEAD alebo zmazanej branch,`, `prenos hotfixu medzi paralelnými release líniami,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "16. Kedy radšej commit než stash",
-      "line": 191,
+      "section": "4. Typické použitia",
+      "line": 60,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -44714,8 +44588,638 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "16. Kedy radšej commit než stash",
-      "line": 191,
+      "section": "4. Typické použitia",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "4. Typické použitia",
+      "line": 60,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má commit jedného parenta alebo je merge commit,`, `závisí od skorších commitov,`, `obsahuje migration/schema/config zmenu,`, `bol už ekvivalentný patch prenesený,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "5. Pred cherry-pickom analyzuj commit",
+      "line": 72,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "6. Dependency ordering",
+      "line": 92,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "6. Dependency ordering",
+      "line": 92,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "6. Dependency ordering",
+      "line": 92,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konfliktovať,`, `prejsť bez konfliktu, ale nekompilovať,`, `vytvoriť runtime chybu,`, `obísť bezpečnostný invariant zavedený v B .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "6. Dependency ordering",
+      "line": 92,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "7. Revision ranges",
+      "line": 110,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "7. Revision ranges",
+      "line": 110,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "7. Revision ranges",
+      "line": 110,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "7. Revision ranges",
+      "line": 110,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "9. -x pre audit backportu",
+      "line": 146,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "9. -x pre audit backportu",
+      "line": 146,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "9. -x pre audit backportu",
+      "line": 146,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dohľadanie origin fixu,`, `rozlíšenie backportu od nezávislej podobnej zmeny,`, `jednoduchšie porovnanie podporovaných release branches,`, `lepší incident a security audit.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "9. -x pre audit backportu",
+      "line": 146,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "10. No-commit režim",
+      "line": 167,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "10. No-commit režim",
+      "line": 167,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "10. No-commit režim",
+      "line": 167,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skombinovať viac malých source commitov do jedného backportu,`, `manuálne upraviť patch pre staršiu release branch,`, `otestovať výsledok pred vytvorením commitu.`, `stráca sa one-to-one audit,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "10. No-commit režim",
+      "line": 167,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "10. No-commit režim",
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "12. Empty cherry-pick",
+      "line": 214,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeho patch už target branch obsahuje,`, `neskoršie zmeny ho prekonali,`, `conflict resolution odstránila celý efekt,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "12. Empty cherry-pick",
+      "line": 214,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "14. Sequencer state",
+      "line": 266,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "15. Patch identity a duplicate changes",
+      "line": 287,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "15. Patch identity a duplicate changes",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automaticky vyhodnotiť obsah bez konfliktu,`, `konfliktovať pre odlišný kontext,`, `neaplikovať text duplicitne, ale zachovať duplicate business event,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "15. Patch identity a duplicate changes",
+      "line": 287,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "15. Patch identity a duplicate changes",
+      "line": 287,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "15. Patch identity a duplicate changes",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "17. Cherry-pick recovery",
+      "line": 326,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "18. Stash — definícia",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "18. Stash — definícia",
+      "line": 345,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "18. Stash — definícia",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "18. Stash — definícia",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálny,`, `nepomenovaný stabilnou branchou,`, `spravovaný cez reflog syntax stash@{n} ,`, `vhodný na krátkodobé odloženie práce,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "18. Stash — definícia",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "19. Stash interný model",
+      "line": 361,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "19. Stash interný model",
+      "line": 361,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "19. Stash interný model",
+      "line": 361,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `working-tree snapshot,`, `index snapshot,`, `pôvodný HEAD base,`, `voliteľne untracked/ignored snapshot.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "19. Stash interný model",
+      "line": 361,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "19. Stash interný model",
+      "line": 361,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "20. Čo defaultný stash zahŕňa",
+      "line": 380,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `untracked files,`, `ignored files.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "20. Čo defaultný stash zahŕňa",
+      "line": 380,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "22. --keep-index",
+      "line": 439,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "22. --keep-index",
+      "line": 439,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "22. --keep-index",
+      "line": 439,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `stage-ni hotovú logickú zmenu,`, `stash-ni zvyšnú rozpracovanú prácu,`, `otestuj a commitni staged snapshot.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "22. --keep-index",
+      "line": 439,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "24. Apply, pop a drop",
+      "line": 477,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "24. Apply, pop a drop",
+      "line": 477,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "25. Obnova indexu cez --index",
+      "line": 501,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "25. Obnova indexu cez --index",
+      "line": 501,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "25. Obnova indexu cez --index",
+      "line": 501,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current index je nekompatibilný,`, `paths sa medzičasom zmenili,`, `stash vznikol z konfliktného alebo zložitého partial state,`, `target branch má výrazne odlišný tree.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "25. Obnova indexu cez --index",
+      "line": 501,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "25. Obnova indexu cez --index",
+      "line": 501,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "26. stash branch",
+      "line": 518,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "26. stash branch",
+      "line": 518,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "26. stash branch",
+      "line": 518,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí branch z pôvodného base commitu stashu,`, `checkoutne ju,`, `aplikuje stash,`, `pri úspechu stash entry odstráni.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "26. stash branch",
+      "line": 518,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "26. stash branch",
+      "line": 518,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "27. Stash konflikt",
+      "line": 535,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "27. Stash konflikt",
+      "line": 535,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "29. Dropnutý alebo clear-nutý stash",
+      "line": 579,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "30. Kedy radšej WIP branch a commit",
+      "line": 602,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "30. Kedy radšej WIP branch a commit",
+      "line": 602,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `práca je hodnotná alebo trvá dlhšie,`, `potrebuje remote backup,`, `potrebuješ ju zdieľať,`, `chceš CI alebo review,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "30. Kedy radšej WIP branch a commit",
+      "line": 602,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "30. Kedy radšej WIP branch a commit",
+      "line": 602,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "30. Kedy radšej WIP branch a commit",
+      "line": 602,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
@@ -44723,8 +45227,17 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "Stash apply konfliktuje",
-      "line": 211,
+      "section": "31. Bezpečný backport workflow",
+      "line": 623,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "31. Bezpečný backport workflow",
+      "line": 623,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -44732,8 +45245,89 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "18. Časté omyly",
-      "line": 231,
+      "section": "32. Bezpečný stash workflow",
+      "line": 642,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "32. Bezpečný stash workflow",
+      "line": 642,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Cherry-pick tvrdí, že commit je empty",
+      "line": 665,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Cherry-pick aplikoval nesprávny rozsah",
+      "line": 675,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Cherry-pick aplikoval nesprávny rozsah",
+      "line": 675,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Stash apply nič nezmenil",
+      "line": 685,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Stash apply nič nezmenil",
+      "line": 685,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Stash apply nič nezmenil",
+      "line": 685,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena už v target tree existuje,`, `aplikoval sa iný stash@{n} po posune reflogu,`, `stash obsahoval iba index alebo iba iné paths,`, `clean/smudge filter zmenil working-tree reprezentáciu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "Stash apply nič nezmenil",
+      "line": 685,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
+      "section": "34. Časté omyly",
+      "line": 704,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -44741,35 +45335,8 @@
     },
     {
       "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "„Cherry-pick zachová ten istý commit“",
-      "line": 233,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "„Cherry-pick vytvorí merge relationship“",
-      "line": 237,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "„Stash je bezpečný cloud backup“",
-      "line": 241,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/cherry-pick-and-stash.md",
-      "section": "„Pop je vždy lepší než apply“",
-      "line": 245,
+      "section": "„Stash zahŕňa všetky files“",
+      "line": 726,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

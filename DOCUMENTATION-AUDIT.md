@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11173**
-- Total words: **517,603**
-- Findings: **24886** (critical 8412, high 9480, medium 3353, low 3641)
+- Audited conceptual sections: **11195**
+- Total words: **519,199**
+- Findings: **24949** (critical 8434, high 9504, medium 3360, low 3651)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -119,6 +119,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 36 | 45 | 11 | 8 | 1789 | `docs/10-helm-and-cka/upgrade-rollback.md` |
+| D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 816 | 33 | 49 | 11 | 1 | 1451 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
 | D | 808 | 41 | 35 | 12 | 3 | 1240 | `docs/06-gitlab/runners-and-executors.md` |
 | D | 805 | 33 | 41 | 17 | 13 | 1764 | `docs/09-kubernetes/probes.md` |
@@ -237,7 +238,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
-| D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
@@ -2667,40 +2667,86 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Cherry-pick**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový parent,`, `nový object ID,`, `typicky rovnaký patch intent,`, `často zachovaného autora,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Cherry-pick**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 39, `bare-bullet-items` — **3. Typické použitia**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backport opravy do release branch,`, `prenesenie jedného izolovaného commitu,`, `obnova commitu z detached alebo zmazanej branch,`, `dočasný výber z väčšej série pred reorganizáciou.`.
-- **CRITICAL** line 39, `outline-instead-of-explanation` — **3. Typické použitia**: 4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 191, `bare-bullet-items` — **16. Kedy radšej commit než stash**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `práca je významná,`, `potrebuje backup cez remote,`, `chceš ju zdieľať,`, `stashov je veľa,`.
-- **CRITICAL** line 191, `outline-instead-of-explanation` — **16. Kedy radšej commit než stash**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 231, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 22, `bare-bullet-items` — **2. Cherry-pick — definícia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový parent,`, `nové object ID,`, `typicky zachovaného autora,`, `nového committera a committer timestamp,`.
+- **CRITICAL** line 22, `outline-instead-of-explanation` — **2. Cherry-pick — definícia**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 41, `outline-instead-of-explanation` — **3. Commit graph dôsledok**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 60, `bare-bullet-items` — **4. Typické použitia**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backport opravy do podporovanej release branch,`, `prenos izolovaného fixu bez celej feature branch,`, `obnovu commitov z detached HEAD alebo zmazanej branch,`, `prenos hotfixu medzi paralelnými release líniami,`.
+- **CRITICAL** line 60, `outline-instead-of-explanation` — **4. Typické použitia**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 72, `bare-bullet-items` — **5. Pred cherry-pickom analyzuj commit**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má commit jedného parenta alebo je merge commit,`, `závisí od skorších commitov,`, `obsahuje migration/schema/config zmenu,`, `bol už ekvivalentný patch prenesený,`.
+- **CRITICAL** line 72, `outline-instead-of-explanation` — **5. Pred cherry-pickom analyzuj commit**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 92, `bare-bullet-items` — **6. Dependency ordering**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konfliktovať,`, `prejsť bez konfliktu, ale nekompilovať,`, `vytvoriť runtime chybu,`, `obísť bezpečnostný invariant zavedený v B .`.
+- **CRITICAL** line 92, `outline-instead-of-explanation` — **6. Dependency ordering**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 146, `bare-bullet-items` — **9. -x pre audit backportu**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dohľadanie origin fixu,`, `rozlíšenie backportu od nezávislej podobnej zmeny,`, `jednoduchšie porovnanie podporovaných release branches,`, `lepší incident a security audit.`.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **9. -x pre audit backportu**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 167, `bare-bullet-items` — **10. No-commit režim**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skombinovať viac malých source commitov do jedného backportu,`, `manuálne upraviť patch pre staršiu release branch,`, `otestovať výsledok pred vytvorením commitu.`, `stráca sa one-to-one audit,`.
+- **CRITICAL** line 167, `outline-instead-of-explanation` — **10. No-commit režim**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 214, `bare-bullet-items` — **12. Empty cherry-pick**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeho patch už target branch obsahuje,`, `neskoršie zmeny ho prekonali,`, `conflict resolution odstránila celý efekt,`.
+- **CRITICAL** line 287, `bare-bullet-items` — **15. Patch identity a duplicate changes**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automaticky vyhodnotiť obsah bez konfliktu,`, `konfliktovať pre odlišný kontext,`, `neaplikovať text duplicitne, ale zachovať duplicate business event,`.
+- **CRITICAL** line 287, `outline-instead-of-explanation` — **15. Patch identity a duplicate changes**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 345, `bare-bullet-items` — **18. Stash — definícia**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálny,`, `nepomenovaný stabilnou branchou,`, `spravovaný cez reflog syntax stash@{n} ,`, `vhodný na krátkodobé odloženie práce,`.
+- **CRITICAL** line 345, `outline-instead-of-explanation` — **18. Stash — definícia**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 361, `bare-bullet-items` — **19. Stash interný model**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `working-tree snapshot,`, `index snapshot,`, `pôvodný HEAD base,`, `voliteľne untracked/ignored snapshot.`.
+- **CRITICAL** line 361, `outline-instead-of-explanation` — **19. Stash interný model**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 501, `bare-bullet-items` — **25. Obnova indexu cez --index**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current index je nekompatibilný,`, `paths sa medzičasom zmenili,`, `stash vznikol z konfliktného alebo zložitého partial state,`, `target branch má výrazne odlišný tree.`.
+- **CRITICAL** line 501, `outline-instead-of-explanation` — **25. Obnova indexu cez --index**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 518, `bare-bullet-items` — **26. stash branch**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí branch z pôvodného base commitu stashu,`, `checkoutne ju,`, `aplikuje stash,`, `pri úspechu stash entry odstráni.`.
+- **CRITICAL** line 518, `outline-instead-of-explanation` — **26. stash branch**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 602, `bare-bullet-items` — **30. Kedy radšej WIP branch a commit**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `práca je hodnotná alebo trvá dlhšie,`, `potrebuje remote backup,`, `potrebuješ ju zdieľať,`, `chceš CI alebo review,`.
+- **CRITICAL** line 602, `outline-instead-of-explanation` — **30. Kedy radšej WIP branch a commit**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 685, `bare-bullet-items` — **Stash apply nič nezmenil**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena už v target tree existuje,`, `aplikoval sa iný stash@{n} po posune reflogu,`, `stash obsahoval iba index alebo iba iné paths,`, `clean/smudge filter zmenil working-tree reprezentáciu.`.
+- **CRITICAL** line 685, `outline-instead-of-explanation` — **Stash apply nič nezmenil**: 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 704, `empty-section` — **34. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `single-sentence-concept` — **1. Cherry-pick**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 27, `list-first-introduction` — **2. Cherry-pick nie je presun commitu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 39, `list-first-introduction` — **3. Typické použitia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 39, `single-sentence-concept` — **3. Typické použitia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 48, `list-first-introduction` — **4. Rozsah commitov**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 48, `single-sentence-concept` — **4. Rozsah commitov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 62, `list-first-introduction` — **5. -x pre backport audit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 70, `list-first-introduction` — **6. No-commit mode**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 88, `list-first-introduction` — **8. Konflikt a pokračovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 88, `single-sentence-concept` — **8. Konflikt a pokračovanie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 150, `list-first-introduction` — **12. Apply vs. pop**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 150, `single-sentence-concept` — **12. Apply vs. pop**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 162, `list-first-introduction` — **13. Stash branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 170, `list-first-introduction` — **14. Partial stash**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 191, `single-sentence-concept` — **16. Kedy radšej commit než stash**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 211, `list-first-introduction` — **Stash apply konfliktuje**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 233, `single-sentence-concept` — **„Cherry-pick zachová ten istý commit“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **„Cherry-pick vytvorí merge relationship“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 241, `single-sentence-concept` — **„Stash je bezpečný cloud backup“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 245, `single-sentence-concept` — **„Pop je vždy lepší než apply“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 22, `list-first-introduction` — **2. Cherry-pick — definícia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 41, `list-first-introduction` — **3. Commit graph dôsledok**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 72, `list-first-introduction` — **5. Pred cherry-pickom analyzuj commit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 72, `single-sentence-concept` — **5. Pred cherry-pickom analyzuj commit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 92, `single-sentence-concept` — **6. Dependency ordering**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 110, `list-first-introduction` — **7. Revision ranges**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 110, `single-sentence-concept` — **7. Revision ranges**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 146, `list-first-introduction` — **9. -x pre audit backportu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 167, `list-first-introduction` — **10. No-commit režim**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 326, `single-sentence-concept` — **17. Cherry-pick recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 345, `list-first-introduction` — **18. Stash — definícia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 345, `single-sentence-concept` — **18. Stash — definícia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 361, `single-sentence-concept` — **19. Stash interný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 380, `bare-bullet-items` — **20. Čo defaultný stash zahŕňa**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `untracked files,`, `ignored files.`.
+- **HIGH** line 439, `bare-bullet-items` — **22. --keep-index**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `stage-ni hotovú logickú zmenu,`, `stash-ni zvyšnú rozpracovanú prácu,`, `otestuj a commitni staged snapshot.`.
+- **HIGH** line 439, `list-first-introduction` — **22. --keep-index**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 439, `single-sentence-concept` — **22. --keep-index**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 477, `list-first-introduction` — **24. Apply, pop a drop**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 501, `list-first-introduction` — **25. Obnova indexu cez --index**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 518, `list-first-introduction` — **26. stash branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 535, `single-sentence-concept` — **27. Stash konflikt**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 579, `list-first-introduction` — **29. Dropnutý alebo clear-nutý stash**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 623, `list-first-introduction` — **31. Bezpečný backport workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 623, `single-sentence-concept` — **31. Bezpečný backport workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 642, `list-first-introduction` — **32. Bezpečný stash workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 642, `single-sentence-concept` — **32. Bezpečný stash workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 665, `list-first-introduction` — **Cherry-pick tvrdí, že commit je empty**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 675, `list-first-introduction` — **Cherry-pick aplikoval nesprávny rozsah**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 675, `single-sentence-concept` — **Cherry-pick aplikoval nesprávny rozsah**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 685, `single-sentence-concept` — **Stash apply nič nezmenil**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 726, `single-sentence-concept` — **„Stash zahŕňa všetky files“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Cherry-pick**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 39, `thin-concept-section` — **3. Typické použitia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 150, `thin-concept-section` — **12. Apply vs. pop**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 191, `thin-concept-section` — **16. Kedy radšej commit než stash**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 22, `thin-concept-section` — **2. Cherry-pick — definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 41, `thin-concept-section` — **3. Commit graph dôsledok**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 60, `thin-concept-section` — **4. Typické použitia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 72, `thin-concept-section` — **5. Pred cherry-pickom analyzuj commit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 92, `thin-concept-section` — **6. Dependency ordering**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 110, `thin-concept-section` — **7. Revision ranges**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 146, `thin-concept-section` — **9. -x pre audit backportu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 167, `thin-concept-section` — **10. No-commit režim**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 266, `thin-concept-section` — **14. Sequencer state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 345, `thin-concept-section` — **18. Stash — definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 361, `thin-concept-section` — **19. Stash interný model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 380, `thin-concept-section` — **20. Čo defaultný stash zahŕňa**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 439, `thin-concept-section` — **22. --keep-index**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 477, `thin-concept-section` — **24. Apply, pop a drop**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 535, `thin-concept-section` — **27. Stash konflikt**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 602, `thin-concept-section` — **30. Kedy radšej WIP branch a commit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 685, `thin-concept-section` — **Stash apply nič nezmenil**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/clone-fetch-pull-push.md`
 
@@ -18942,15 +18988,15 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3861 | 356 | 0 | 0 | 4217 |
-| `single-sentence-concept` | 0 | 4074 | 0 | 0 | 4074 |
-| `outline-instead-of-explanation` | 3758 | 0 | 0 | 0 | 3758 |
-| `thin-concept-section` | 0 | 3397 | 0 | 0 | 3397 |
-| `term-before-explanation` | 0 | 410 | 2352 | 0 | 2762 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1519 | 1519 |
-| `example-not-explicit` | 0 | 0 | 0 | 1387 | 1387 |
-| `short-concept-section` | 0 | 0 | 1001 | 0 | 1001 |
-| `list-first-introduction` | 0 | 949 | 0 | 0 | 949 |
+| `bare-bullet-items` | 3872 | 358 | 0 | 0 | 4230 |
+| `single-sentence-concept` | 0 | 4077 | 0 | 0 | 4077 |
+| `outline-instead-of-explanation` | 3769 | 0 | 0 | 0 | 3769 |
+| `thin-concept-section` | 0 | 3410 | 0 | 0 | 3410 |
+| `term-before-explanation` | 0 | 410 | 2355 | 0 | 2765 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1526 | 1526 |
+| `example-not-explicit` | 0 | 0 | 0 | 1390 | 1390 |
+| `short-concept-section` | 0 | 0 | 1005 | 0 | 1005 |
+| `list-first-introduction` | 0 | 955 | 0 | 0 | 955 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 735 | 735 |
 | `empty-section` | 479 | 0 | 0 | 0 | 479 |
 | `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
