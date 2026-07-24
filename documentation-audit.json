@@ -1193,15 +1193,15 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "title": "Artifact versioning",
-      "words": 1011,
-      "headings": 33,
-      "sections": 33,
-      "findings": 63,
-      "critical": 21,
-      "high": 35,
-      "medium": 5,
-      "low": 2,
-      "score": 546,
+      "words": 2786,
+      "headings": 62,
+      "sections": 62,
+      "findings": 172,
+      "critical": 54,
+      "high": 52,
+      "medium": 32,
+      "low": 34,
+      "score": 1224,
       "grade": "D"
     },
     {
@@ -77285,26 +77285,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "1. Čo je artifact",
-      "line": 7,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "1. Čo je artifact",
-      "line": 7,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "2. Artifact verzus source",
+      "line": 27,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "19 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "2. Artifact verzus source",
+      "line": 27,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container image,`, `binary alebo executable,`, `package,`, `archive,`.",
+      "detail": "19 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container image alebo OCI artifact,`, `binary, executable alebo library,`, `package pre language ecosystem,`, `archive alebo installer,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "1. Čo je artifact",
-      "line": 7,
+      "section": "2. Artifact verzus source",
+      "line": 27,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -77312,44 +77366,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "1. Čo je artifact",
-      "line": 7,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
-      "score": 4
+      "section": "2. Artifact verzus source",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "2. Požiadavky na dobrú artifact identity",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "2. Artifact verzus source",
+      "line": 27,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "2. Požiadavky na dobrú artifact identity",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačná,`, `nemenná,`, `strojovo spracovateľná,`, `auditovateľná,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "2. Požiadavky na dobrú artifact identity",
-      "line": 24,
+      "section": "2. Artifact verzus source",
+      "line": 27,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `VM`, `SBOM`, `OS`, `attestation`",
       "score": 7
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "2. Požiadavky na dobrú artifact identity",
-      "line": 24,
+      "section": "3. Tri typy identity",
+      "line": 56,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Logical version",
+      "line": 60,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Content identity",
+      "line": 70,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "4. Artifact name a namespace",
+      "line": 93,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry alebo repository,`, `organization/project namespace,`, `package alebo artifact name,`, `logical version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "4. Artifact name a namespace",
+      "line": 93,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "4. Artifact name a namespace",
+      "line": 93,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -77357,305 +77447,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "4. Build metadata",
-      "line": 74,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "4. Build metadata",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "4. Build metadata",
-      "line": 74,
+      "section": "5. Content digest",
+      "line": 112,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source repository,`, `commit SHA,`, `branch alebo tag,`, `build timestamp,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena jedného bytu vytvorí inú identity,`, `deployment môže presne pinovať obsah,`, `registry alebo transport môže overiť integrity,`, `evidence sa môže viazať na immutable subject,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "4. Build metadata",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "4. Build metadata",
-      "line": 74,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "4. Build metadata",
-      "line": 74,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `ID`, `OS`, `SBOM`, `identity`, `attestation`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "5. Versioning schémy",
-      "line": 94,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Semantic version",
-      "line": 98,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Semantic version",
-      "line": 98,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Calendar version",
-      "line": 106,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Calendar version",
-      "line": 106,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Incrementing build number",
-      "line": 114,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Incrementing build number",
-      "line": 114,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Commit-based version",
-      "line": 122,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Commit-based version",
-      "line": 122,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Hybridná verzia",
-      "line": 130,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Hybridná verzia",
-      "line": 130,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "7. Mutable tags",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "7. Mutable tags",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasný rollback,`, `cache inconsistency,`, `deployment drift,`, `nemožnosť dokázať, čo bolo nasadené,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "7. Mutable tags",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "8. Build once, promote many",
-      "line": 192,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "10. Artifact repository a registry",
-      "line": 229,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "10. Artifact repository a registry",
-      "line": 229,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "10. Artifact repository a registry",
-      "line": 229,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable publishing alebo write-once policy,`, `access control,`, `checksum verification,`, `retention rules,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "10. Artifact repository a registry",
-      "line": 229,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "10. Artifact repository a registry",
-      "line": 229,
+      "section": "5. Content digest",
+      "line": 112,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "11. Retention a garbage collection",
-      "line": 245,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Content digest",
+      "line": 112,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "11. Retention a garbage collection",
-      "line": 245,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "11. Retention a garbage collection",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívne production releases,`, `rollback candidates,`, `supported versions,`, `pre-release artifacts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "11. Retention a garbage collection",
-      "line": 245,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "12. Provenance a podpisovanie",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "12. Provenance a podpisovanie",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolenú builder identity,`, `trusted source repository,`, `protected branch,`, `konkrétny workflow,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "12. Provenance a podpisovanie",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "12. Provenance a podpisovanie",
-      "line": 259,
+      "section": "5. Content digest",
+      "line": 112,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -77663,80 +77483,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "13. Artifact a configuration versioning",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "13. Artifact a configuration versioning",
-      "line": 282,
+      "section": "6. Logical version",
+      "line": 126,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "13. Artifact a configuration versioning",
-      "line": 282,
+      "section": "6. Logical version",
+      "line": 126,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `config revision,`, `infrastructure revision,`, `database schema/migration state,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Semantic Versioning,`, `Calendar Versioning,`, `monotónny release number,`, `commit-derived alebo distance-derived version,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "13. Artifact a configuration versioning",
-      "line": 282,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "6. Logical version",
+      "line": 126,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "14. Rollback requirements",
-      "line": 298,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "14. Rollback requirements",
-      "line": 298,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "14. Rollback requirements",
-      "line": 298,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupný starší artifact,`, `jeho metadata a provenance,`, `kompatibilnú konfiguráciu,`, `kompatibilnú databázovú schému,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "14. Rollback requirements",
-      "line": 298,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "15. Typické anti-patterny",
-      "line": 311,
+      "section": "7. Versioning schémy",
+      "line": 138,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -77744,8 +77519,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Production používa latest",
-      "line": 317,
+      "section": "Semantic Versioning",
+      "line": 140,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77753,8 +77528,989 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Version je iba pipeline number",
-      "line": 321,
+      "section": "Semantic Versioning",
+      "line": 140,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Calendar Versioning",
+      "line": 148,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Monotónny build alebo release number",
+      "line": 157,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Commit-derived version",
+      "line": 165,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Commit-derived version",
+      "line": 165,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Hybrid",
+      "line": 173,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "9. Build metadata",
+      "line": 205,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "9. Build metadata",
+      "line": 205,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source repository a commit SHA,`, `branch/tag alebo release request,`, `pipeline a job run ID,`, `builder/workload identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "9. Build metadata",
+      "line": 205,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "9. Build metadata",
+      "line": 205,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "9. Build metadata",
+      "line": 205,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "9. Build metadata",
+      "line": 205,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `ID`, `OS`, `SBOM`, `workload`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "11. Rebuild verzus reprodukovateľný build",
+      "line": 248,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "11. Rebuild verzus reprodukovateľný build",
+      "line": 248,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `produkčný release má použiť pôvodný schválený digest,`, `nezávislý rebuild môže overiť reproducibility,`, `zhodný digest zvyšuje dôveru v kontrolu vstupov,`, `ani zhodný rebuild nenahrádza provenance pôvodného artifactu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "11. Rebuild verzus reprodukovateľný build",
+      "line": 248,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "11. Rebuild verzus reprodukovateľný build",
+      "line": 248,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "11. Rebuild verzus reprodukovateľný build",
+      "line": 248,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "12. Publication contract",
+      "line": 262,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "12. Publication contract",
+      "line": 262,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "12. Publication contract",
+      "line": 262,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace a version ownership,`, `create-only alebo write-once behavior,`, `atomicitu publication,`, `collision behavior,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "12. Publication contract",
+      "line": 262,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `last writer prepíše prvý artifact,`, `metadata patria inému digestu,`, `tag smeruje na náhodného winnera,`, `consumers stiahnu rozdielny obsah podľa času.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "13. Publication race",
+      "line": 286,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "14. Mutable tag a alias",
+      "line": 306,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "14. Mutable tag a alias",
+      "line": 306,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `starý a nový digest,`, `actor alebo workload identity,`, `čas,`, `dôvod/promotion record,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "14. Mutable tag a alias",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "14. Mutable tag a alias",
+      "line": 306,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "14. Mutable tag a alias",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "15. Immutable tag",
+      "line": 328,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "15. Immutable tag",
+      "line": 328,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontrolovať publisher identity,`, `overovať provenance a signature,`, `riešiť nesprávne publikovaný artifact cez yank/revocation, nie prepísa`, `uchovať retention roots,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "15. Immutable tag",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "15. Immutable tag",
+      "line": 328,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "16. Multi-platform artifacts",
+      "line": 340,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "16. Multi-platform artifacts",
+      "line": 340,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index digest,`, `variant digests,`, `build provenance každého variantu,`, `test results podľa platformy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "16. Multi-platform artifacts",
+      "line": 340,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "16. Multi-platform artifacts",
+      "line": 340,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "17. Release manifest alebo BOM",
+      "line": 364,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "17. Release manifest alebo BOM",
+      "line": 364,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable alebo content-addressed,`, `podpísaný podľa policy,`, `prepojený na component provenance,`, `použitý promotion aj rollback procesom,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "17. Release manifest alebo BOM",
+      "line": 364,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "17. Release manifest alebo BOM",
+      "line": 364,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "17. Release manifest alebo BOM",
+      "line": 364,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "18. Evidence binding",
+      "line": 388,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "18. Evidence binding",
+      "line": 388,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "18. Evidence binding",
+      "line": 388,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `variant digest,`, `release-manifest digest,`, `config/infrastructure revision podľa typu dôkazu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "18. Evidence binding",
+      "line": 388,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "18. Evidence binding",
+      "line": 388,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "18. Evidence binding",
+      "line": 388,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "19. Provenance",
+      "line": 407,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "19. Provenance",
+      "line": 407,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "19. Provenance",
+      "line": 407,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolený repository a commit/ref context,`, `protected branch alebo trusted release trigger,`, `schválenú builder identity,`, `pinované build dependencies,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "19. Provenance",
+      "line": 407,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "19. Provenance",
+      "line": 407,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "20. Signatures",
+      "line": 431,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "20. Signatures",
+      "line": 431,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo bolo podpísané,`, `kto podpis vytvoril,`, `či identity a certificate chain sú povolené,`, `čas a validity/revocation stav,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "20. Signatures",
+      "line": 431,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "20. Signatures",
+      "line": 431,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "20. Signatures",
+      "line": 431,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "21. SBOM a dependency identity",
+      "line": 446,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "21. SBOM a dependency identity",
+      "line": 446,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SBOM patrí predošlému rebuildu,`, `multi-platform variants majú rozdielne dependencies,`, `mutable package references sa nedajú neskôr presne resolve-nuť.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "21. SBOM a dependency identity",
+      "line": 446,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "21. SBOM a dependency identity",
+      "line": 446,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "21. SBOM a dependency identity",
+      "line": 446,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "23. Yanking",
+      "line": 475,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "23. Yanking",
+      "line": 475,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release obsahuje závažný bug,`, `metadata alebo compatibility declaration je chybná,`, `package sa nemá používať pre nové installs,`, `existujúci lockfile musí zostať reprodukovateľný.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "23. Yanking",
+      "line": 475,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "23. Yanking",
+      "line": 475,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "24. Revocation",
+      "line": 488,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "24. Revocation",
+      "line": 488,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy denial nových deployments,`, `alert pre environments, kde artifact beží,`, `incident a rotation credentials,`, `rollback alebo roll-forward,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "24. Revocation",
+      "line": 488,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "24. Revocation",
+      "line": 488,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "24. Revocation",
+      "line": 488,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "25. Retention roots",
+      "line": 503,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "25. Retention roots",
+      "line": 503,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívne nasadený,`, `podporovaná production release,`, `rollback candidate,`, `referencovaný release manifestom,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "25. Retention roots",
+      "line": 503,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "26. Retention classes",
+      "line": 517,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "26. Retention classes",
+      "line": 517,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "26. Retention classes",
+      "line": 517,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient branch artifacts,`, `pull-request candidates,`, `failed-build diagnostics,`, `release candidates,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "26. Retention classes",
+      "line": 517,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "27. Legal hold a incident hold",
+      "line": 533,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "27. Legal hold a incident hold",
+      "line": 533,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný scope/digests,`, `dôvod,`, `ownera,`, `čas začiatku,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "27. Legal hold a incident hold",
+      "line": 533,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "27. Legal hold a incident hold",
+      "line": 533,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "28. Registry replication a disaster recovery",
+      "line": 549,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "28. Registry replication a disaster recovery",
+      "line": 549,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replication integrity podľa digestu,`, `metadata a signature replication,`, `consistency lag,`, `access policy v secondary registry,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "28. Registry replication a disaster recovery",
+      "line": 549,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "28. Registry replication a disaster recovery",
+      "line": 549,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "28. Registry replication a disaster recovery",
+      "line": 549,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "28. Registry replication a disaster recovery",
+      "line": 549,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeho bytes a provenance sú dostupné,`, `signature/trust policy ho stále povoľuje,`, `config je kompatibilná,`, `database/event schema ostala backward-compatible,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "29. Rollback eligibility",
+      "line": 566,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "30. Artifact deletion",
+      "line": 581,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "30. Artifact deletion",
+      "line": 581,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "30. Artifact deletion",
+      "line": 581,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active deployments,`, `release-manifest references,`, `rollback windows,`, `legal/incident holds,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "30. Artifact deletion",
+      "line": 581,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "30. Artifact deletion",
+      "line": 581,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "31. Release notes a artifact identity",
+      "line": 602,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "31. Release notes a artifact identity",
+      "line": 602,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré changes sú v nasadených bytes,`, `či hotfix vytvoril nový artifact,`, `ktoré variants a migrations release obsahuje.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "31. Release notes a artifact identity",
+      "line": 602,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "32. Typické anti-patterny",
+      "line": 613,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Production používa iba latest",
+      "line": 619,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77763,7 +78519,7 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "section": "Rebuild pri promotion",
-      "line": 325,
+      "line": 623,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77771,8 +78527,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Artifact bez source mappingu",
-      "line": 329,
+      "section": "Version je iba CI run number",
+      "line": 627,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77780,8 +78536,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Neobmedzená retention",
-      "line": 333,
+      "section": "Signature bez provenance policy",
+      "line": 631,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77789,8 +78545,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Rovnaká verzia má rôzny checksum",
-      "line": 339,
+      "section": "SBOM bez subject digestu",
+      "line": 635,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77798,26 +78554,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Rovnaká verzia má rôzny checksum",
-      "line": 339,
+      "section": "Zmazanie revoked artifactu bez forenznej stopy",
+      "line": 639,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Jeden logical version pre rozdielne platform variants bez indexu",
+      "line": 643,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Retention podľa veku pipeline",
+      "line": 647,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "33. Diagnostický postup",
+      "line": 651,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "33. Diagnostický postup",
+      "line": 651,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Rovnaká verzia má rôzny checksum",
-      "line": 339,
+      "section": "33. Diagnostický postup",
+      "line": 651,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable repository policy,`, `paralelné publish jobs,`, `timestampy v archive,`, `nezapinned dependencies,`.",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti plný registry/package namespace;`, `resolve-ni logical version alebo tag na digest;`, `porovnaj digest s deployment a evidence recordom;`, `identifikuj manifest/index a platform variant;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Rovnaká verzia má rôzny checksum",
-      "line": 339,
+      "section": "33. Diagnostický postup",
+      "line": 651,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -77825,17 +78617,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Rovnaká verzia má rôzny checksum",
-      "line": 339,
+      "section": "33. Diagnostický postup",
+      "line": 651,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "33. Diagnostický postup",
+      "line": 651,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "33. Diagnostický postup",
+      "line": 651,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Deployment nevie stiahnuť starý artifact",
-      "line": 351,
+      "section": "34. Troubleshooting scenáre",
+      "line": 667,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Produkcia nevie stiahnuť rollback artifact",
+      "line": 677,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77843,12 +78662,174 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "Reproducible build sa nezhoduje",
-      "line": 359,
+      "section": "Reproducible rebuild sa nezhoduje",
+      "line": 681,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je artifact namespace a logical version contract?`, `Aký digest identifikuje konkrétny subject?`, `Je version write-once a publication atomic?`, `Ako sa rieši parallel publication collision?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 689,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact má plný namespace a logical version,`, `content digest je uložený v release recorde,`, `publication je create-only alebo write-once,`, `candidate nebol pre final release rebuildnutý,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "36. Kontrolný checklist",
+      "line": 707,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "Summary",
+      "line": 746,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
