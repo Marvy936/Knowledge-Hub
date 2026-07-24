@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10566**
-- Total words: **455,390**
-- Findings: **23378** (critical 8221, high 9316, medium 3111, low 2730)
+- Audited conceptual sections: **10568**
+- Total words: **456,534**
+- Findings: **23370** (critical 8212, high 9303, medium 3108, low 2747)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -237,7 +237,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 370 | 15 | 20 | 7 | 5 | 1218 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 370 | 17 | 16 | 8 | 8 | 1106 | `docs/01-linux-and-systems/package-management.md` |
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
-| D | 355 | 15 | 19 | 5 | 6 | 1220 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 352 | 16 | 17 | 7 | 1 | 976 | `docs/01-linux-and-systems/journald-and-logging.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
@@ -264,6 +263,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 175 | 5 | 6 | 8 | 31 | 2698 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
+| D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
@@ -1268,37 +1268,15 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Procesy, thready, PID a signals, Environment variables`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Daemon a service manager**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorenie userspace počas bootu,`, `spúšťanie a zastavovanie units,`, `dependency ordering,`, `sledovanie procesov cez cgroups,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Daemon a service manager**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 68, `empty-section` — **4. Základná service unit**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 120, `empty-section` — **6. Service types**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **8. Štart, enable a preset**: 4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 221, `bare-bullet-items` — **11. Restart policy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je operácia po reštarte bezpečná a idempotentná?`, `Nespôsobí proces ďalšie poškodenie?`, `Je medzi pokusmi backoff?`, `Existuje alert na opakované restarty?`.
-- **CRITICAL** line 221, `outline-instead-of-explanation` — **11. Restart policy**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 242, `bare-bullet-items` — **12. Graceful shutdown**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prestať prijímať novú prácu,`, `dokončiť alebo bezpečne prerušiť in-flight operácie,`, `flushnúť stav,`, `ukončiť child procesy,`.
-- **CRITICAL** line 242, `outline-instead-of-explanation` — **12. Graceful shutdown**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 333, `empty-section` — **17. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 355, `bare-bullet-items` — **18. Troubleshooting scenár**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pozri systemctl status a journalctl -u .`, `Zobraz efektívnu unit cez systemctl cat .`, `Porovnaj User, Group, WorkingDirectory, Environment a PATH.`, `Over ExecStart absolútnu cestu a arguments.`.
-- **CRITICAL** line 355, `outline-instead-of-explanation` — **18. Troubleshooting scenár**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 122, `empty-section` — **8. Service types určujú okamih považovaný za štart**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 305, `outline-instead-of-explanation` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 317, `empty-section` — **23. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 91, `single-sentence-concept` — **[Unit]**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 95, `single-sentence-concept` — **[Service]**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 126, `single-sentence-concept` — **Type=exec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 138, `single-sentence-concept` — **Type=oneshot**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 162, `bare-bullet-items` — **8. Štart, enable a preset**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `start mení runtime state teraz,`, `enable --now vykoná oboje,`.
-- **HIGH** line 162, `list-first-introduction` — **8. Štart, enable a preset**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 162, `single-sentence-concept` — **8. Štart, enable a preset**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 221, `list-first-introduction` — **11. Restart policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 242, `single-sentence-concept` — **12. Graceful shutdown**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 287, `list-first-introduction` — **14. Logs a status**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 321, `bare-bullet-items` — **16. Socket activation**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `on-demand activation,`, `paralelizácia bootu,`, `zachovanie listening endpointu počas niektorých restart scenárov.`.
-- **HIGH** line 339, `single-sentence-concept` — **„enable službu okamžite spustí“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 355, `single-sentence-concept` — **18. Troubleshooting scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 27, `list-heavy-section` — **2. Unit je desired configuration aj runtime state**: 7 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 305, `single-sentence-concept` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **8. Štart, enable a preset**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 221, `thin-concept-section` — **11. Restart policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 242, `thin-concept-section` — **12. Graceful shutdown**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 355, `thin-concept-section` — **18. Troubleshooting scenár**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 27, `term-before-explanation` — **2. Unit je desired configuration aj runtime state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `scope`, `resource`
+- **HIGH** line 305, `thin-concept-section` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md`
 
@@ -18587,19 +18565,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4129 | 0 | 0 | 4129 |
-| `bare-bullet-items` | 3762 | 338 | 0 | 0 | 4100 |
-| `outline-instead-of-explanation` | 3665 | 0 | 0 | 0 | 3665 |
-| `thin-concept-section` | 0 | 3357 | 0 | 0 | 3357 |
-| `term-before-explanation` | 0 | 345 | 2230 | 0 | 2575 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1222 | 1222 |
-| `example-not-explicit` | 0 | 0 | 0 | 1030 | 1030 |
-| `list-first-introduction` | 0 | 932 | 0 | 0 | 932 |
-| `short-concept-section` | 0 | 0 | 881 | 0 | 881 |
-| `empty-section` | 501 | 0 | 0 | 0 | 501 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 478 | 478 |
+| `single-sentence-concept` | 0 | 4122 | 0 | 0 | 4122 |
+| `bare-bullet-items` | 3758 | 336 | 0 | 0 | 4094 |
+| `outline-instead-of-explanation` | 3661 | 0 | 0 | 0 | 3661 |
+| `thin-concept-section` | 0 | 3354 | 0 | 0 | 3354 |
+| `term-before-explanation` | 0 | 346 | 2229 | 0 | 2575 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1227 | 1227 |
+| `example-not-explicit` | 0 | 0 | 0 | 1037 | 1037 |
+| `list-first-introduction` | 0 | 929 | 0 | 0 | 929 |
+| `short-concept-section` | 0 | 0 | 879 | 0 | 879 |
+| `empty-section` | 500 | 0 | 0 | 0 | 500 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 483 | 483 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
+| `list-heavy-section` | 0 | 216 | 0 | 0 | 216 |
 
 ## Required remediation pattern
 

@@ -521,15 +521,15 @@
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
       "title": "systemd, services a daemons",
-      "words": 1220,
-      "headings": 33,
-      "sections": 33,
-      "findings": 45,
-      "critical": 15,
-      "high": 19,
-      "medium": 5,
-      "low": 6,
-      "score": 355,
+      "words": 2364,
+      "headings": 35,
+      "sections": 35,
+      "findings": 37,
+      "critical": 6,
+      "high": 6,
+      "medium": 2,
+      "low": 23,
+      "score": 155,
       "grade": "D"
     },
     {
@@ -20918,43 +20918,7 @@
     },
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "1. Daemon a service manager",
-      "line": 11,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "1. Daemon a service manager",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorenie userspace počas bootu,`, `spúšťanie a zastavovanie units,`, `dependency ordering,`, `sledovanie procesov cez cgroups,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "1. Daemon a service manager",
-      "line": 11,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "1. Daemon a service manager",
-      "line": 11,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "1. Daemon a service manager",
+      "section": "1. Daemon, service a service manager",
       "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -20963,17 +20927,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "1. Daemon a service manager",
-      "line": 11,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "2. Unit je desired configuration aj runtime state",
+      "line": 27,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "2. Unit",
-      "line": 25,
+      "section": "2. Unit je desired configuration aj runtime state",
+      "line": 27,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -20981,278 +20945,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "4. Základná service unit",
-      "line": 68,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "[Unit]",
-      "line": 91,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "[Service]",
-      "line": 95,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "6. Service types",
-      "line": 120,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "Type=exec",
-      "line": 126,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "Type=oneshot",
-      "line": 138,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "8. Štart, enable a preset",
-      "line": 162,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "8. Štart, enable a preset",
-      "line": 162,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "8. Štart, enable a preset",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "8. Štart, enable a preset",
-      "line": 162,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `start mení runtime state teraz,`, `enable --now vykoná oboje,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "8. Štart, enable a preset",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "11. Restart policy",
-      "line": 221,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "11. Restart policy",
-      "line": 221,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "11. Restart policy",
-      "line": 221,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je operácia po reštarte bezpečná a idempotentná?`, `Nespôsobí proces ďalšie poškodenie?`, `Je medzi pokusmi backoff?`, `Existuje alert na opakované restarty?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "11. Restart policy",
-      "line": 221,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "11. Restart policy",
-      "line": 221,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "12. Graceful shutdown",
-      "line": 242,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "12. Graceful shutdown",
-      "line": 242,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "12. Graceful shutdown",
-      "line": 242,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prestať prijímať novú prácu,`, `dokončiť alebo bezpečne prerušiť in-flight operácie,`, `flushnúť stav,`, `ukončiť child procesy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "12. Graceful shutdown",
-      "line": 242,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "14. Logs a status",
-      "line": 287,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "16. Socket activation",
-      "line": 321,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `on-demand activation,`, `paralelizácia bootu,`, `zachovanie listening endpointu počas niektorých restart scenárov.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "16. Socket activation",
-      "line": 321,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "17. Časté omyly",
-      "line": 333,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "„enable službu okamžite spustí“",
-      "line": 339,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pozri systemctl status a journalctl -u .`, `Zobraz efektívnu unit cez systemctl cat .`, `Porovnaj User, Group, WorkingDirectory, Environment a PATH.`, `Over ExecStart absolútnu cestu a arguments.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
+      "section": "2. Unit je desired configuration aj runtime state",
+      "line": 27,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -21260,12 +20954,246 @@
     },
     {
       "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 355,
+      "section": "2. Unit je desired configuration aj runtime state",
+      "line": 27,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `scope`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "3. Odkiaľ systemd načíta unit definíciu",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "3. Odkiaľ systemd načíta unit definíciu",
+      "line": 43,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "6. Dependency a ordering sú dve rôzne osi",
+      "line": 103,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "8. Service types určujú okamih považovaný za štart",
+      "line": 122,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "Type=oneshot",
+      "line": 140,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "9. ExecStart nie je shell command line",
+      "line": 146,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "10. Runtime activation, enable a preset",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "10. Runtime activation, enable a preset",
+      "line": 162,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "11. daemon-reload, reload a restart riešia iné vrstvy",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "13. MainPID a child procesy",
+      "line": 201,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "14. Readiness, liveness a active state",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "15. Restart policy je control loop",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "17. Graceful shutdown je časovo ohraničený protokol",
+      "line": 246,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "17. Graceful shutdown je časovo ohraničený protokol",
+      "line": 246,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "18. ExecStartPre, ExecStartPost a lifecycle hooks",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "19. Security hardening mení execution boundary",
+      "line": 264,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "20. Socket activation mení ownership listening endpointu",
+      "line": 287,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "21. Status a journal sú dve rozdielne evidence vrstvy",
+      "line": 293,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd",
+      "line": 305,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`, `PID`, `policy`",
       "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/systemd-services-daemons.md",
+      "section": "23. Časté omyly",
+      "line": 317,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md",
