@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10565**
-- Total words: **454,698**
-- Findings: **23384** (critical 8229, high 9325, medium 3116, low 2714)
+- Audited conceptual sections: **10566**
+- Total words: **455,390**
+- Findings: **23378** (critical 8221, high 9316, medium 3111, low 2730)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -249,7 +249,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 278 | 12 | 14 | 5 | 3 | 904 | `docs/03-git-and-automation/git-object-model.md` |
-| D | 266 | 12 | 11 | 8 | 3 | 1053 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
@@ -274,6 +273,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
+| D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 82 | 3 | 3 | 0 | 16 | 1614 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
@@ -767,26 +767,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Shell, Bash, pipes, redirection a exit codes`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 100, `outline-instead-of-explanation` — **7. PATH**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 133, `bare-bullet-items` — **9. Locale**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encoding,`, `collation a sort order,`, `formát dátumu a čísiel,`, `klasifikáciu znakov,`.
-- **CRITICAL** line 133, `outline-instead-of-explanation` — **9. Locale**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 152, `bare-bullet-items` — **10. Konfigurácia cez environment**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké štruktúrované konfigurácie,`, `často meniace sa hodnoty,`, `dáta vyžadujúce atomické reloadovanie,`, `secrets s prísnym exposure modelom.`.
-- **CRITICAL** line 152, `outline-instead-of-explanation` — **10. Konfigurácia cez environment**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `bare-bullet-items` — **13. Environment v kontajneroch**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v process metadata,`, `crash dumps,`, `debug endpoints,`, `deployment manifests,`.
-- **CRITICAL** line 233, `bare-bullet-items` — **14. Secrets**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché injection,`, `široké dedenie do child procesov,`, `riziko logovania,`, `nemožnosť jemného access lifecycle po štarte,`.
-- **CRITICAL** line 257, `outline-instead-of-explanation` — **16. Diagnostika**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 268, `empty-section` — **17. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 216, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 61, `list-first-introduction` — **4. Jednorazové nastavenie pre command**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 71, `list-first-introduction` — **5. Zobrazenie environmentu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 88, `list-first-introduction` — **6. Odstránenie a čistý environment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 100, `bare-bullet-items` — **7. PATH**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zapisovateľný adresár pred systémovými cestami umožňuje command hijack`, `sudo môže používať secure path .`.
-- **HIGH** line 152, `single-sentence-concept` — **10. Konfigurácia cez environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 247, `list-first-introduction` — **15. Expansion a default values v Bash**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 257, `bare-bullet-items` — **16. Diagnostika**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Porovnaj executable, user, working directory a arguments.`, `Porovnaj PATH a relevantné environment values.`, `Over permissions a mount namespace služby.`, `Spusti aplikáciu s čistým environmentom a explicitnými hodnotami.`.
-- **HIGH** line 257, `single-sentence-concept` — **16. Diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 257, `thin-concept-section` — **16. Diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md`
 
@@ -18604,17 +18587,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4131 | 0 | 0 | 4131 |
-| `bare-bullet-items` | 3766 | 340 | 0 | 0 | 4106 |
-| `outline-instead-of-explanation` | 3669 | 0 | 0 | 0 | 3669 |
-| `thin-concept-section` | 0 | 3358 | 0 | 0 | 3358 |
-| `term-before-explanation` | 0 | 345 | 2231 | 0 | 2576 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1220 | 1220 |
-| `example-not-explicit` | 0 | 0 | 0 | 1022 | 1022 |
-| `list-first-introduction` | 0 | 936 | 0 | 0 | 936 |
-| `short-concept-section` | 0 | 0 | 885 | 0 | 885 |
+| `single-sentence-concept` | 0 | 4129 | 0 | 0 | 4129 |
+| `bare-bullet-items` | 3762 | 338 | 0 | 0 | 4100 |
+| `outline-instead-of-explanation` | 3665 | 0 | 0 | 0 | 3665 |
+| `thin-concept-section` | 0 | 3357 | 0 | 0 | 3357 |
+| `term-before-explanation` | 0 | 345 | 2230 | 0 | 2575 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1222 | 1222 |
+| `example-not-explicit` | 0 | 0 | 0 | 1030 | 1030 |
+| `list-first-introduction` | 0 | 932 | 0 | 0 | 932 |
+| `short-concept-section` | 0 | 0 | 881 | 0 | 881 |
 | `empty-section` | 501 | 0 | 0 | 0 | 501 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 472 | 472 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 478 | 478 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
 

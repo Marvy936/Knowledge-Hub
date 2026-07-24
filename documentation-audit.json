@@ -325,15 +325,15 @@
     {
       "path": "docs/01-linux-and-systems/environment-variables.md",
       "title": "Environment variables",
-      "words": 1053,
-      "headings": 23,
-      "sections": 23,
-      "findings": 34,
-      "critical": 12,
-      "high": 11,
-      "medium": 8,
-      "low": 3,
-      "score": 266,
+      "words": 1745,
+      "headings": 24,
+      "sections": 24,
+      "findings": 28,
+      "critical": 4,
+      "high": 2,
+      "medium": 3,
+      "low": 19,
+      "score": 97,
       "grade": "D"
     },
     {
@@ -13997,179 +13997,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "4. Jednorazové nastavenie pre command",
-      "line": 61,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "5. Zobrazenie environmentu",
-      "line": 71,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "6. Odstránenie a čistý environment",
-      "line": 88,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "7. PATH",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "7. PATH",
-      "line": 100,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zapisovateľný adresár pred systémovými cestami umožňuje command hijack`, `sudo môže používať secure path .`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "7. PATH",
-      "line": 100,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "7. PATH",
-      "line": 100,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "9. Locale",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "9. Locale",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encoding,`, `collation a sort order,`, `formát dátumu a čísiel,`, `klasifikáciu znakov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "9. Locale",
-      "line": 133,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "10. Konfigurácia cez environment",
-      "line": 152,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "10. Konfigurácia cez environment",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "10. Konfigurácia cez environment",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké štruktúrované konfigurácie,`, `často meniace sa hodnoty,`, `dáta vyžadujúce atomické reloadovanie,`, `secrets s prísnym exposure modelom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "10. Konfigurácia cez environment",
-      "line": 152,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "13. Environment v kontajneroch",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v process metadata,`, `crash dumps,`, `debug endpoints,`, `deployment manifests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "13. Environment v kontajneroch",
-      "line": 219,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "13. Environment v kontajneroch",
-      "line": 219,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "14. Secrets",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché injection,`, `široké dedenie do child procesov,`, `riziko logovania,`, `nemožnosť jemného access lifecycle po štarte,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "14. Secrets",
-      "line": 233,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "14. Secrets",
-      "line": 233,
+      "section": "1. Čo environment skutočne je",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -14177,53 +14006,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "15. Expansion a default values v Bash",
-      "line": 247,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "16. Diagnostika",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "16. Diagnostika",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "16. Diagnostika",
-      "line": 257,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Porovnaj executable, user, working directory a arguments.`, `Porovnaj PATH a relevantné environment values.`, `Over permissions a mount namespace služby.`, `Spusti aplikáciu s čistým environmentom a explicitnými hodnotami.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "16. Diagnostika",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "16. Diagnostika",
-      "line": 257,
+      "section": "1. Čo environment skutočne je",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -14231,17 +14015,179 @@
     },
     {
       "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "16. Diagnostika",
-      "line": 257,
+      "section": "2. Dedenie je kopírovanie snapshotu",
+      "line": 27,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "4. Jednorazový environment pre jeden command",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "6. Čistý environment ako diagnostický nástroj",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "7. PATH je lookup policy, nie iba textový zoznam",
+      "line": 86,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "7. PATH je lookup policy, nie iba textový zoznam",
+      "line": 86,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "9. Locale mení sémantiku textového spracovania",
+      "line": 115,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "10. Environment ako runtime configuration interface",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "11. Precedence musí byť explicitný kontrakt",
+      "line": 138,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "12. Environment file nie je univerzálny formát",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "12. Environment file nie je univerzálny formát",
+      "line": 151,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "13. Environment v systemd",
+      "line": 157,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "13. Environment v systemd",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "14. Environment v kontajneroch a Kubernetes",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "14. Environment v kontajneroch a Kubernetes",
+      "line": 176,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "15. Secrets v environmente",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "16. Unset, empty a default value sú rozdielne stavy",
+      "line": 192,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "17. Diagnostika rozdielu medzi shellom a službou",
+      "line": 204,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/environment-variables.md",
-      "section": "17. Časté omyly",
-      "line": 268,
+      "section": "17. Diagnostika rozdielu medzi shellom a službou",
+      "line": 204,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "17. Diagnostika rozdielu medzi shellom a službou",
+      "line": 204,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `HOME`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/environment-variables.md",
+      "section": "18. Časté omyly",
+      "line": 216,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
