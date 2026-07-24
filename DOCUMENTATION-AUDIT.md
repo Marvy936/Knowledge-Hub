@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10576**
-- Total words: **457,371**
-- Findings: **23363** (critical 8200, high 9293, medium 3107, low 2763)
+- Audited conceptual sections: **10587**
+- Total words: **458,326**
+- Findings: **23360** (critical 8190, high 9285, medium 3101, low 2784)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -236,7 +236,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 370 | 15 | 20 | 7 | 5 | 1218 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
-| D | 352 | 16 | 17 | 7 | 1 | 976 | `docs/01-linux-and-systems/journald-and-logging.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
@@ -260,6 +259,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
 | D | 175 | 4 | 8 | 8 | 27 | 2532 | `docs/00-foundations/declarative-vs-imperative.md` |
 | D | 175 | 5 | 6 | 8 | 31 | 2698 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
+| D | 175 | 6 | 9 | 1 | 22 | 1931 | `docs/01-linux-and-systems/journald-and-logging.md` |
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
 | D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
@@ -789,37 +789,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp,`, `unit,`, `PID, UID a GID,`, `executable,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Definícia**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 59, `bare-bullet-items` — **4. Čítanie logov**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-b filtruje aktuálny boot,`, `-b -1 predchádzajúci boot,`, `-u konkrétnu unit,`, `-p priority,`.
-- **CRITICAL** line 59, `outline-instead-of-explanation` — **4. Čítanie logov**: 5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 140, `bare-bullet-items` — **7. Volatile a persistent storage**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `volatile ,`, `persistent ,`, `auto ,`, `none .`.
-- **CRITICAL** line 206, `bare-bullet-items` — **10. Kernel logs**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OOM killer,`, `filesystem errors,`, `device resets,`, `network driver problémoch,`.
-- **CRITICAL** line 206, `outline-instead-of-explanation` — **10. Kernel logs**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 261, `bare-bullet-items` — **13. Čas a korelácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timezone,`, `UTC vs. local time,`, `clock drift,`, `NTP stav,`.
-- **CRITICAL** line 261, `outline-instead-of-explanation` — **13. Čas a korelácia**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 280, `bare-bullet-items` — **14. Diagnostický postup**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `urč čas a boot,`, `filtruj unit,`, `nájdi prvú chybu, nie iba posledný následok,`, `skontroluj exit status a signal,`.
-- **CRITICAL** line 280, `outline-instead-of-explanation` — **14. Diagnostický postup**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 302, `bare-bullet-items` — **15. Bezpečnosť a citlivé údaje**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `access tokens,`, `session IDs,`, `osobné údaje,`, `request bodies,`.
-- **CRITICAL** line 302, `outline-instead-of-explanation` — **15. Bezpečnosť a citlivé údaje**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 316, `empty-section` — **16. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 40, `empty-section` — **3. Zdroje records a ich failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 227, `outline-instead-of-explanation` — **20. Diagnostika zlyhania služby**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **21. Diagnostika chýbajúcich logov**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 258, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 40, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 59, `single-sentence-concept` — **4. Čítanie logov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 173, `list-first-introduction` — **8. Disk usage a retention**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 206, `list-first-introduction` — **10. Kernel logs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 230, `bare-bullet-items` — **11. Output formats**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `json pre automatizované spracovanie,`, `cat zobrazí iba message bez metadata.`.
-- **HIGH** line 230, `list-first-introduction` — **11. Output formats**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 230, `single-sentence-concept` — **11. Output formats**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **14. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 322, `single-sentence-concept` — **„Keď v logu nič nie je, udalosť nenastala“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 227, `list-first-introduction` — **20. Diagnostika zlyhania služby**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 227, `single-sentence-concept` — **20. Diagnostika zlyhania služby**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `single-sentence-concept` — **21. Diagnostika chýbajúcich logov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `term-before-explanation` — **1. Definícia**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `UID`, `GID`, `ID`
-- **HIGH** line 59, `thin-concept-section` — **4. Čítanie logov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 230, `thin-concept-section` — **11. Output formats**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 280, `thin-concept-section` — **14. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 302, `thin-concept-section` — **15. Bezpečnosť a citlivé údaje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 227, `term-before-explanation` — **20. Diagnostika zlyhania služby**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `OOM`, `ID`, `scope`
+- **HIGH** line 227, `thin-concept-section` — **20. Diagnostika zlyhania služby**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `thin-concept-section` — **21. Diagnostika chýbajúcich logov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/kernel-and-user-space.md`
 
@@ -18543,17 +18525,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4119 | 0 | 0 | 4119 |
-| `bare-bullet-items` | 3749 | 335 | 0 | 0 | 4084 |
-| `outline-instead-of-explanation` | 3658 | 0 | 0 | 0 | 3658 |
-| `thin-concept-section` | 0 | 3350 | 0 | 0 | 3350 |
-| `term-before-explanation` | 0 | 346 | 2231 | 0 | 2577 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1233 | 1233 |
-| `example-not-explicit` | 0 | 0 | 0 | 1043 | 1043 |
-| `list-first-introduction` | 0 | 927 | 0 | 0 | 927 |
-| `short-concept-section` | 0 | 0 | 876 | 0 | 876 |
-| `empty-section` | 500 | 0 | 0 | 0 | 500 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 487 | 487 |
+| `single-sentence-concept` | 0 | 4117 | 0 | 0 | 4117 |
+| `bare-bullet-items` | 3742 | 334 | 0 | 0 | 4076 |
+| `outline-instead-of-explanation` | 3654 | 0 | 0 | 0 | 3654 |
+| `thin-concept-section` | 0 | 3348 | 0 | 0 | 3348 |
+| `term-before-explanation` | 0 | 346 | 2229 | 0 | 2575 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1241 | 1241 |
+| `example-not-explicit` | 0 | 0 | 0 | 1052 | 1052 |
+| `list-first-introduction` | 0 | 924 | 0 | 0 | 924 |
+| `short-concept-section` | 0 | 0 | 872 | 0 | 872 |
+| `empty-section` | 501 | 0 | 0 | 0 | 501 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 491 | 491 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 216 | 0 | 0 | 216 |
 

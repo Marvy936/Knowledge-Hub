@@ -353,15 +353,15 @@
     {
       "path": "docs/01-linux-and-systems/journald-and-logging.md",
       "title": "journald and Logging",
-      "words": 976,
-      "headings": 22,
-      "sections": 22,
-      "findings": 41,
-      "critical": 16,
-      "high": 17,
-      "medium": 7,
-      "low": 1,
-      "score": 352,
+      "words": 1931,
+      "headings": 33,
+      "sections": 33,
+      "findings": 38,
+      "critical": 6,
+      "high": 9,
+      "medium": 1,
+      "low": 22,
+      "score": 175,
       "grade": "D"
     },
     {
@@ -14699,35 +14699,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "1. Definícia",
+      "section": "1. Logging ako event pipeline",
       "line": 11,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp,`, `unit,`, `PID, UID a GID,`, `executable,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "2. Journal record nie je iba textový riadok",
+      "line": 32,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -14735,269 +14717,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `UID`, `GID`, `ID`",
-      "score": 7
+      "section": "2. Journal record nie je iba textový riadok",
+      "line": 32,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "3. Mentálny model",
+      "section": "3. Zdroje records a ich failure boundaries",
       "line": 40,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "4. Čítanie logov",
-      "line": 59,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "4. Čítanie logov",
-      "line": 59,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "4. Čítanie logov",
-      "line": 59,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-b filtruje aktuálny boot,`, `-b -1 predchádzajúci boot,`, `-u konkrétnu unit,`, `-p priority,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "4. Čítanie logov",
-      "line": 59,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "7. Volatile a persistent storage",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `volatile ,`, `persistent ,`, `auto ,`, `none .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "7. Volatile a persistent storage",
-      "line": 140,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "8. Disk usage a retention",
-      "line": 173,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "10. Kernel logs",
-      "line": 206,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "10. Kernel logs",
-      "line": 206,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "10. Kernel logs",
-      "line": 206,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OOM killer,`, `filesystem errors,`, `device resets,`, `network driver problémoch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "10. Kernel logs",
-      "line": 206,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "10. Kernel logs",
-      "line": 206,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "11. Output formats",
-      "line": 230,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "11. Output formats",
-      "line": 230,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "11. Output formats",
-      "line": 230,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `json pre automatizované spracovanie,`, `cat zobrazí iba message bez metadata.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "11. Output formats",
-      "line": 230,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "13. Čas a korelácia",
-      "line": 261,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "13. Čas a korelácia",
-      "line": 261,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timezone,`, `UTC vs. local time,`, `clock drift,`, `NTP stav,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "13. Čas a korelácia",
-      "line": 261,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "13. Čas a korelácia",
-      "line": 261,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `NTP`, `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "14. Diagnostický postup",
-      "line": 280,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "14. Diagnostický postup",
-      "line": 280,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "14. Diagnostický postup",
-      "line": 280,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `urč čas a boot,`, `filtruj unit,`, `nájdi prvú chybu, nie iba posledný následok,`, `skontroluj exit status a signal,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "14. Diagnostický postup",
-      "line": 280,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "15. Bezpečnosť a citlivé údaje",
-      "line": 302,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "15. Bezpečnosť a citlivé údaje",
-      "line": 302,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `access tokens,`, `session IDs,`, `osobné údaje,`, `request bodies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "15. Bezpečnosť a citlivé údaje",
-      "line": 302,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "16. Časté omyly",
-      "line": 316,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -15005,12 +14735,255 @@
     },
     {
       "path": "docs/01-linux-and-systems/journald-and-logging.md",
-      "section": "„Keď v logu nič nie je, udalosť nenastala“",
-      "line": 322,
+      "section": "4. Journald je lokálny event store, nie celý observability systém",
+      "line": 60,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "5. Boot scope je základ korelácie",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "5. Boot scope je základ korelácie",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "7. Priority je tvrdenie emitera, nie objektívny severity model",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "10. Retention je risk a capacity contract",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "12. Rate limiting chráni host, ale zahadzuje evidence",
+      "line": 139,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "12. Rate limiting chráni host, ale zahadzuje evidence",
+      "line": 139,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "13. stdout buffering a oneskorené records",
+      "line": 152,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "17. At-least-once forwarding a duplicity",
+      "line": 200,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "18. Čas, monotonic clock a korelácia",
+      "line": 206,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "18. Čas, monotonic clock a korelácia",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "19. Security a data minimization",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "19. Security a data minimization",
+      "line": 219,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "20. Diagnostika zlyhania služby",
+      "line": 227,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `OOM`, `ID`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "21. Diagnostika chýbajúcich logov",
+      "line": 245,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "21. Diagnostika chýbajúcich logov",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "21. Diagnostika chýbajúcich logov",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "21. Diagnostika chýbajúcich logov",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "21. Diagnostika chýbajúcich logov",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "21. Diagnostika chýbajúcich logov",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/journald-and-logging.md",
+      "section": "22. Časté omyly",
+      "line": 258,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/kernel-and-user-space.md",
