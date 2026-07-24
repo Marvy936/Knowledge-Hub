@@ -619,15 +619,15 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "title": "HTTPS, TLS, certificates a PKI",
-      "words": 1314,
-      "headings": 41,
-      "sections": 41,
-      "findings": 85,
-      "critical": 29,
-      "high": 40,
-      "medium": 15,
-      "low": 1,
-      "score": 715,
+      "words": 3495,
+      "headings": 62,
+      "sections": 62,
+      "findings": 165,
+      "critical": 48,
+      "high": 45,
+      "medium": 29,
+      "low": 43,
+      "score": 1089,
       "grade": "D"
     },
     {
@@ -28671,7 +28671,7 @@
       "line": 11,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -28680,7 +28680,7 @@
       "line": 11,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `šifrovanie dát počas prenosu,`, `integritu komunikácie,`, `autentifikáciu servera pomocou certifikátu,`, `voliteľne autentifikáciu klienta cez mTLS.`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dôvernosť dát počas prenosu;`, `integritu a detekciu neoprávnenej zmeny;`, `voliteľnú autentifikáciu klienta cez mutual TLS;`, `negotiation verzie, cryptographic algorithms a aplikačného protokolu.`.",
       "score": 12
     },
     {
@@ -28694,476 +28694,44 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "2. Mentálny model",
-      "line": 22,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "3. Symmetric a asymmetric cryptography",
-      "line": 36,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `asymmetric cryptography na authentication a key agreement,`, `symmetric cryptography na efektívne šifrovanie aplikačných dát,`, `hash/MAC alebo AEAD na integritu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "3. Symmetric a asymmetric cryptography",
-      "line": 36,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "3. Symmetric a asymmetric cryptography",
-      "line": 36,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `AEAD`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "4. Certificate",
-      "line": 46,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "4. Certificate",
-      "line": 46,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Subject,`, `Subject Alternative Name — SAN,`, `Issuer,`, `validity interval,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "4. Certificate",
-      "line": 46,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "5. PKI a chain of trust",
-      "line": 63,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "5. PKI a chain of trust",
-      "line": 63,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "5. PKI a chain of trust",
-      "line": 63,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podpisový chain k dôveryhodnému rootu,`, `validity interval,`, `hostname v SAN,`, `key usage a policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "5. PKI a chain of trust",
-      "line": 63,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "5. PKI a chain of trust",
-      "line": 63,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "6. Root a intermediate CA",
-      "line": 84,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "6. Root a intermediate CA",
-      "line": 84,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedzuje blast radius,`, `umožňuje oddeliť issuance policy,`, `zjednodušuje rotation,`, `môže mať kratšiu životnosť a constraints.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "6. Root a intermediate CA",
-      "line": 84,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "6. Root a intermediate CA",
-      "line": 84,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "9. ALPN",
-      "line": 138,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `http/1.1 ,`, `h2 pre HTTP/2.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "9. ALPN",
-      "line": 138,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "10. Cipher suites",
-      "line": 149,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastarané protocol versions,`, `slabé ciphers,`, `nebezpečné hash/signature algorithms,`, `export alebo anonymous suites.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "10. Cipher suites",
-      "line": 149,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "10. Cipher suites",
-      "line": 149,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "11. Forward secrecy",
-      "line": 162,
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSRF`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "2. Celý HTTPS lifecycle",
+      "line": 31,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "12. Session resumption",
-      "line": 166,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Threat model TLS",
+      "line": 50,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "12. Session resumption",
-      "line": 166,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "12. Session resumption",
-      "line": 166,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižšia handshake latency,`, `menší CPU overhead.`, `ticket key lifecycle,`, `zdieľanie keys medzi load-balanced endpoints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "12. Session resumption",
-      "line": 166,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "12. Session resumption",
-      "line": 166,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `RTT`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "14. Certificate issuance",
-      "line": 187,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "15. ACME",
-      "line": 211,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "15. ACME",
-      "line": 211,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `challenge type,`, `DNS alebo HTTP ownership,`, `rate limits,`, `secure account keys,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "15. ACME",
-      "line": 211,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "15. ACME",
-      "line": 211,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "16. Wildcard certificates",
-      "line": 227,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "16. Wildcard certificates",
-      "line": 227,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "16. Wildcard certificates",
-      "line": 227,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej certifikátov.`, `väčší blast radius private key,`, `širší scope identity,`, `komplikovanejšie ownership boundaries.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "16. Wildcard certificates",
-      "line": 227,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "16. Wildcard certificates",
-      "line": 227,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`, `scope`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "17. mTLS",
-      "line": 241,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "17. mTLS",
-      "line": 241,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service-to-service identity,`, `device identity,`, `administratívne API,`, `zero-trust segmenty.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "17. mTLS",
-      "line": 241,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "17. mTLS",
-      "line": 241,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "18. Trust stores",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "18. Trust stores",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "18. Trust stores",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operačný systém,`, `Java truststore,`, `browser store,`, `application-bundled CA bundle,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "18. Trust stores",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "18. Trust stores",
-      "line": 259,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "19. Revocation",
-      "line": 271,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CRL — Certificate Revocation List,`, `OCSP — online status query,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "19. Revocation",
-      "line": 271,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "19. Revocation",
-      "line": 271,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRL`, `OCSP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "20. Certificate expiry a rotation",
-      "line": 283,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "20. Certificate expiry a rotation",
-      "line": 283,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dni do expiry,`, `chain completeness,`, `hostname coverage,`, `deployed serial/fingerprint,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "20. Certificate expiry a rotation",
-      "line": 283,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "20. Certificate expiry a rotation",
-      "line": 283,
+      "section": "3. Threat model TLS",
+      "line": 50,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -29171,17 +28739,44 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "21. HSTS",
-      "line": 299,
+      "section": "4. Symmetric a asymmetric cryptography",
+      "line": 62,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `chybná konfigurácia môže zneprístupniť subdomény,`, `includeSubDomains rozširuje scope,`, `preload je dlhodobý záväzok.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "21. HSTS",
-      "line": 299,
+      "section": "Asymmetric cryptography",
+      "line": 66,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "Asymmetric cryptography",
+      "line": 66,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "Asymmetric cryptography",
+      "line": 66,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podpis handshake transcriptu;`, `preukázanie držby private key zodpovedajúceho certifikátu;`, `autentifikáciu CA signatures;`, `key agreement cez ephemeral Diffie-Hellman mechanizmy.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "Asymmetric cryptography",
+      "line": 66,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -29189,17 +28784,764 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "21. HSTS",
-      "line": 299,
+      "section": "Asymmetric cryptography",
+      "line": 66,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "22. TLS termination a passthrough",
-      "line": 317,
+      "section": "5. X.509 certificate",
+      "line": 85,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "5. X.509 certificate",
+      "line": 85,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "5. X.509 certificate",
+      "line": 85,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "5. X.509 certificate",
+      "line": 85,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "5. X.509 certificate",
+      "line": 85,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `CA`, `CRL`, `AIA`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "7. PKI a chain of trust",
+      "line": 131,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `leaf certificate;`, `jeden alebo viac intermediate certificates.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "7. PKI a chain of trust",
+      "line": 131,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "8. Certificate path building a validation",
+      "line": 148,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "8. Certificate path building a validation",
+      "line": 148,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `leaf zodpovedá požadovanému hostname;`, `každý certificate je v platnom časovom intervale;`, `signature každého child certificate overí issuer public key;`, `chain končí v trusted anchor;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "8. Certificate path building a validation",
+      "line": 148,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "8. Certificate path building a validation",
+      "line": 148,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "8. Certificate path building a validation",
+      "line": 148,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "9. Root a intermediate CA lifecycle",
+      "line": 167,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "9. Root a intermediate CA lifecycle",
+      "line": 167,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `offline alebo v silno chránenom HSM;`, `používaný zriedka;`, `dlhšie platný;`, `chránený multiperson controlom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "9. Root a intermediate CA lifecycle",
+      "line": 167,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "9. Root a intermediate CA lifecycle",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "9. Root a intermediate CA lifecycle",
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "9. Root a intermediate CA lifecycle",
+      "line": 167,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HSM`, `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "11. TLS 1.2 verzus TLS 1.3",
+      "line": 213,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "11. TLS 1.2 verzus TLS 1.3",
+      "line": 213,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepoužíva statický RSA key exchange;`, `vyžaduje moderné AEAD ciphers;`, `znižuje počet round trips;`, `oddeľuje cipher suite od authentication a key-exchange voľby;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "11. TLS 1.2 verzus TLS 1.3",
+      "line": 213,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "11. TLS 1.2 verzus TLS 1.3",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "11. TLS 1.2 verzus TLS 1.3",
+      "line": 213,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "11. TLS 1.2 verzus TLS 1.3",
+      "line": 213,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RSA`, `AEAD`, `PSK`, `RTT`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "12. SNI",
+      "line": 227,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `destination IP pre TCP;`, `SNI pre TLS virtual host;`, `HTTP Host alebo :authority pre aplikačný route.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "12. SNI",
+      "line": 227,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "14. Cipher suites, groups a signatures",
+      "line": 271,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "14. Cipher suites, groups a signatures",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protocol version;`, `symmetric AEAD cipher a hash;`, `key-exchange group, napríklad elliptic curve;`, `server certificate key type;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "14. Cipher suites, groups a signatures",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "14. Cipher suites, groups a signatures",
+      "line": 271,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "14. Cipher suites, groups a signatures",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "16. TLS records a application data",
+      "line": 300,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption;`, `integrity;`, `ordering/detection podľa record state;`, `oddelenie handshake a application traffic phases.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "16. TLS records a application data",
+      "line": 300,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "16. TLS records a application data",
+      "line": 300,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "16. TLS records a application data",
+      "line": 300,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej round trips;`, `menej asymmetric operations;`, `nižšia CPU záťaž;`, `rýchlejšie short-lived requests.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "17. Session resumption",
+      "line": 315,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "19. Certificate issuance lifecycle",
+      "line": 350,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local file s prísnymi permissions;`, `OS key store;`, `cloud key manager;`, `HSM;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "20. Private key ownership",
+      "line": 376,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `HSM`, `workload`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "21. CSR a proof of possession",
+      "line": 399,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "21. CSR a proof of possession",
+      "line": 399,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené SANs;`, `validity;`, `key algorithms;`, `EKU;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "21. CSR a proof of possession",
+      "line": 399,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "21. CSR a proof of possession",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "21. CSR a proof of possession",
+      "line": 399,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EKU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "22. ACME",
+      "line": 415,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "22. ACME",
+      "line": 415,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account key a oprávnenia;`, `challenge routing alebo DNS write;`, `rate limits a retry policy;`, `key generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "22. ACME",
+      "line": 415,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "22. ACME",
+      "line": 415,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "22. ACME",
+      "line": 415,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "22. ACME",
+      "line": 415,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CA`, `DNS`, `TXT`, `TLS-`, `TLS`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "23. Wildcard a multi-SAN certificates",
+      "line": 440,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "23. Wildcard a multi-SAN certificates",
+      "line": 440,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšie centralizované endpointy;`, `väčší blast radius pri key compromise;`, `zložitejšia ownership koordinácia;`, `certificate transparency odhalí všetky public names;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "23. Wildcard a multi-SAN certificates",
+      "line": 440,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "23. Wildcard a multi-SAN certificates",
+      "line": 440,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "23. Wildcard a multi-SAN certificates",
+      "line": 440,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "23. Wildcard a multi-SAN certificates",
+      "line": 440,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "24. Trust stores",
+      "line": 455,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "24. Trust stores",
+      "line": 455,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operačný systém;`, `browser-specific store;`, `Java truststore;`, `Python/OpenSSL CA bundle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "24. Trust stores",
+      "line": 455,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "24. Trust stores",
+      "line": 455,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "24. Trust stores",
+      "line": 455,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `OS`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "25. Private PKI",
+      "line": 478,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "25. Private PKI",
+      "line": 478,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `offline alebo silno chránený root;`, `issuing intermediates;`, `issuance authentication a authorization;`, `inventory identities a ownerov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "25. Private PKI",
+      "line": 478,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "25. Private PKI",
+      "line": 478,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré CA sú akceptované;`, `ktoré identity smú volať konkrétnu operáciu;`, `ako sa revokuje kompromitovaný workload;`, `ako sa rotuje bez prerušenia long-lived connections;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "26. Mutual TLS",
+      "line": 497,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "27. TLS termination, re-encryption a passthrough",
+      "line": 522,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -29208,34 +29550,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Termination",
-      "line": 319,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "Re-encryption",
-      "line": 323,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "24. Diagnostika",
-      "line": 339,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "24. Diagnostika",
-      "line": 339,
+      "line": 524,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -29243,26 +29558,98 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "24. Diagnostika",
-      "line": 339,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "Re-encryption",
+      "line": 532,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "24. Diagnostika",
-      "line": 339,
+      "section": "Passthrough",
+      "line": 540,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "28. Client identity cez proxy",
+      "line": 551,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS destination,`, `TCP alebo QUIC reachability,`, `SNI,`, `protocol version a cipher,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream prijíma traffic výhradne z trusted proxy;`, `proxy odstráni client-supplied verziu;`, `channel proxy → upstream je chránený;`, `identity mapping je auditovaný;`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "24. Diagnostika",
-      "line": 339,
+      "section": "28. Client identity cez proxy",
+      "line": 551,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "29. Revocation",
+      "line": 565,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "29. Revocation",
+      "line": 565,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `responder outage;`, `privacy, pretože query odhaľuje navštevovaný certificate;`, `cache a freshness;`, `rozdielny fail-open/fail-closed behavior klientov;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "29. Revocation",
+      "line": 565,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "29. Revocation",
+      "line": 565,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRL`, `OCSP`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "30. Certificate Transparency",
+      "line": 587,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "30. Certificate Transparency",
+      "line": 587,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nezabraňuje samotnému chybnému issuance;`, `poskytuje auditovateľnú evidenciu;`, `môže odhaliť subdomain names;`, `vyžaduje monitoring a response proces;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "30. Certificate Transparency",
+      "line": 587,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -29270,26 +29657,251 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "24. Diagnostika",
-      "line": 339,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `QUIC`, `SNI`, `SAN`, `ALPN`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "25. Typické symptómy",
-      "line": 360,
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "certificate has expired",
-      "line": 362,
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vydaj nový certificate alebo trust anchor;`, `nasadzuj nový certificate postupne;`, `zachovaj overlap starého a nového trustu;`, `reloadni alebo reštartuj službu podľa podporovaného lifecycle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "31. Certificate rotation bez outage",
+      "line": 599,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`, `CA`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "33. Expiry monitoring",
+      "line": 634,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "33. Expiry monitoring",
+      "line": 634,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dni do notAfter ;`, `notBefore a clock skew;`, `hostname coverage;`, `chain completeness;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "33. Expiry monitoring",
+      "line": 634,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "33. Expiry monitoring",
+      "line": 634,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "33. Expiry monitoring",
+      "line": 634,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "33. Expiry monitoring",
+      "line": 634,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCSP`, `SNI`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "34. HSTS",
+      "line": 655,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "34. HSTS",
+      "line": 655,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `header sa prijíma iba cez validné HTTPS;`, `includeSubDomains rozširuje záväzok na všetky subdomains;`, `preload je dlhodobé rozhodnutie a recovery je pomalá;`, `všetky zahrnuté subdomains musia mať funkčné HTTPS;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "34. HSTS",
+      "line": 655,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "34. HSTS",
+      "line": 655,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "35. Certificate pinning",
+      "line": 673,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "35. Certificate pinning",
+      "line": 673,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aspoň jeden backup key/pin;`, `overlap;`, `update channel;`, `emergency recovery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "35. Certificate pinning",
+      "line": 673,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "35. Certificate pinning",
+      "line": 673,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "35. Certificate pinning",
+      "line": 673,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "36. TLS inspection",
+      "line": 690,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "36. TLS inspection",
+      "line": 690,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `proxy je high-value trust boundary;`, `môže rozbiť certificate pinning alebo mTLS;`, `dešifrované dáta a keys musia byť chránené;`, `logging nesmie zachytávať credentials;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "36. TLS inspection",
+      "line": 690,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "36. TLS inspection",
+      "line": 690,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "36. TLS inspection",
+      "line": 690,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29297,8 +29909,71 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over DNS a destination IP;`, `over TCP alebo QUIC reachability;`, `zaznamenaj ClientHello capabilities, ak je to potrebné;`, `pošli správne SNI;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "37. Praktická diagnostika",
+      "line": 705,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `TCP`, `QUIC`, `SNI`, `TLS`, `ALPN`, `SAN`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "38. Typické failure patterns",
+      "line": 734,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "unable to get local issuer certificate",
-      "line": 366,
+      "line": 744,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29307,7 +29982,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Hostname mismatch",
-      "line": 370,
+      "line": 748,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29316,7 +29991,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Funguje v browseri, nie v aplikácii",
-      "line": 374,
+      "line": 752,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29324,8 +29999,8 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "Po rotation časť klientov zlyháva",
-      "line": 378,
+      "section": "Po rotation zlyháva iba časť klientov",
+      "line": 756,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29333,8 +30008,17 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "26. Časté omyly",
-      "line": 382,
+      "section": "mTLS klient je odmietnutý",
+      "line": 764,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "39. Časté omyly",
+      "line": 768,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -29342,8 +30026,8 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "„HTTPS znamená, že server je dôveryhodný“",
-      "line": 384,
+      "section": "„Keď certificate nie je expired, je validný“",
+      "line": 778,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29351,8 +30035,8 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "„Certificate šifruje dáta“",
-      "line": 388,
+      "section": "40. Praktický checklist",
+      "line": 794,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -29360,21 +30044,57 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "„Keď certifikát nie je expired, je validný“",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "40. Praktický checklist",
+      "line": 794,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
-      "section": "„mTLS vyrieši authorization“",
-      "line": 400,
+      "section": "40. Praktický checklist",
+      "line": 794,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správne SANs a SNI routing;`, `private key ownership a permissions;`, `leaf + complete intermediate chain;`, `server authentication EKU;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "40. Praktický checklist",
+      "line": 794,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "40. Praktický checklist",
+      "line": 794,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "40. Praktický checklist",
+      "line": 794,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "40. Praktický checklist",
+      "line": 794,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNI`, `EKU`, `ALPN`, `RTT`, `OCSP`, `HSTS`, `policy`, `scope`",
+      "score": 7
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",

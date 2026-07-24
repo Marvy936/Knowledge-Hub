@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10891**
-- Total words: **498,352**
-- Findings: **24184** (critical 8210, high 9306, medium 3234, low 3434)
+- Audited conceptual sections: **10912**
+- Total words: **500,533**
+- Findings: **24264** (critical 8229, high 9311, medium 3248, low 3476)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -63,6 +63,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1119 | 54 | 46 | 25 | 14 | 1792 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | D | 1119 | 48 | 58 | 16 | 21 | 2203 | `docs/12-observability/loki.md` |
 | D | 1112 | 55 | 53 | 11 | 6 | 1209 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
+| D | 1089 | 48 | 45 | 29 | 43 | 3495 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | D | 1082 | 49 | 49 | 20 | 26 | 2042 | `docs/11-cloud-and-aws/aws-backup.md` |
 | D | 1078 | 46 | 56 | 20 | 13 | 1986 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | D | 1060 | 48 | 57 | 10 | 5 | 1798 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
@@ -146,7 +147,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 718 | 32 | 36 | 13 | 4 | 1390 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | D | 718 | 33 | 35 | 12 | 4 | 1650 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | D | 717 | 26 | 40 | 18 | 16 | 1682 | `docs/09-kubernetes/configmap-secret.md` |
-| D | 715 | 29 | 40 | 15 | 1 | 1314 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | D | 714 | 29 | 40 | 14 | 2 | 1722 | `docs/09-kubernetes/securitycontext-pod-security.md` |
 | D | 713 | 27 | 43 | 14 | 1 | 1489 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | D | 708 | 35 | 32 | 10 | 4 | 1205 | `docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md` |
@@ -1470,72 +1470,96 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`, `Predpoklady: HTTP, DNS, TCP a UDP`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `šifrovanie dát počas prenosu,`, `integritu komunikácie,`, `autentifikáciu servera pomocou certifikátu,`, `voliteľne autentifikáciu klienta cez mTLS.`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Definícia**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 46, `bare-bullet-items` — **4. Certificate**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Subject,`, `Subject Alternative Name — SAN,`, `Issuer,`, `validity interval,`.
-- **CRITICAL** line 46, `outline-instead-of-explanation` — **4. Certificate**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 63, `bare-bullet-items` — **5. PKI a chain of trust**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podpisový chain k dôveryhodnému rootu,`, `validity interval,`, `hostname v SAN,`, `key usage a policy,`.
-- **CRITICAL** line 63, `outline-instead-of-explanation` — **5. PKI a chain of trust**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 84, `bare-bullet-items` — **6. Root a intermediate CA**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedzuje blast radius,`, `umožňuje oddeliť issuance policy,`, `zjednodušuje rotation,`, `môže mať kratšiu životnosť a constraints.`.
-- **CRITICAL** line 84, `outline-instead-of-explanation` — **6. Root a intermediate CA**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `bare-bullet-items` — **10. Cipher suites**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastarané protocol versions,`, `slabé ciphers,`, `nebezpečné hash/signature algorithms,`, `export alebo anonymous suites.`.
-- **CRITICAL** line 166, `bare-bullet-items` — **12. Session resumption**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižšia handshake latency,`, `menší CPU overhead.`, `ticket key lifecycle,`, `zdieľanie keys medzi load-balanced endpoints,`.
-- **CRITICAL** line 166, `outline-instead-of-explanation` — **12. Session resumption**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **15. ACME**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `challenge type,`, `DNS alebo HTTP ownership,`, `rate limits,`, `secure account keys,`.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **15. ACME**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 227, `bare-bullet-items` — **16. Wildcard certificates**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej certifikátov.`, `väčší blast radius private key,`, `širší scope identity,`, `komplikovanejšie ownership boundaries.`.
-- **CRITICAL** line 227, `outline-instead-of-explanation` — **16. Wildcard certificates**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 241, `bare-bullet-items` — **17. mTLS**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service-to-service identity,`, `device identity,`, `administratívne API,`, `zero-trust segmenty.`.
-- **CRITICAL** line 241, `outline-instead-of-explanation` — **17. mTLS**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `bare-bullet-items` — **18. Trust stores**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operačný systém,`, `Java truststore,`, `browser store,`, `application-bundled CA bundle,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **18. Trust stores**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 283, `bare-bullet-items` — **20. Certificate expiry a rotation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dni do expiry,`, `chain completeness,`, `hostname coverage,`, `deployed serial/fingerprint,`.
-- **CRITICAL** line 283, `outline-instead-of-explanation` — **20. Certificate expiry a rotation**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 317, `empty-section` — **22. TLS termination a passthrough**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 339, `bare-bullet-items` — **24. Diagnostika**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS destination,`, `TCP alebo QUIC reachability,`, `SNI,`, `protocol version a cipher,`.
-- **CRITICAL** line 339, `outline-instead-of-explanation` — **24. Diagnostika**: 10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 360, `empty-section` — **25. Typické symptómy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 382, `empty-section` — **26. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dôvernosť dát počas prenosu;`, `integritu a detekciu neoprávnenej zmeny;`, `voliteľnú autentifikáciu klienta cez mutual TLS;`, `negotiation verzie, cryptographic algorithms a aplikačného protokolu.`.
+- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Definícia**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 66, `bare-bullet-items` — **Asymmetric cryptography**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podpis handshake transcriptu;`, `preukázanie držby private key zodpovedajúceho certifikátu;`, `autentifikáciu CA signatures;`, `key agreement cez ephemeral Diffie-Hellman mechanizmy.`.
+- **CRITICAL** line 66, `outline-instead-of-explanation` — **Asymmetric cryptography**: 4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 85, `outline-instead-of-explanation` — **5. X.509 certificate**: 13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 148, `bare-bullet-items` — **8. Certificate path building a validation**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `leaf zodpovedá požadovanému hostname;`, `každý certificate je v platnom časovom intervale;`, `signature každého child certificate overí issuer public key;`, `chain končí v trusted anchor;`.
+- **CRITICAL** line 167, `bare-bullet-items` — **9. Root a intermediate CA lifecycle**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `offline alebo v silno chránenom HSM;`, `používaný zriedka;`, `dlhšie platný;`, `chránený multiperson controlom.`.
+- **CRITICAL** line 167, `outline-instead-of-explanation` — **9. Root a intermediate CA lifecycle**: 9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 213, `bare-bullet-items` — **11. TLS 1.2 verzus TLS 1.3**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepoužíva statický RSA key exchange;`, `vyžaduje moderné AEAD ciphers;`, `znižuje počet round trips;`, `oddeľuje cipher suite od authentication a key-exchange voľby;`.
+- **CRITICAL** line 213, `outline-instead-of-explanation` — **11. TLS 1.2 verzus TLS 1.3**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 271, `bare-bullet-items` — **14. Cipher suites, groups a signatures**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protocol version;`, `symmetric AEAD cipher a hash;`, `key-exchange group, napríklad elliptic curve;`, `server certificate key type;`.
+- **CRITICAL** line 300, `bare-bullet-items` — **16. TLS records a application data**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption;`, `integrity;`, `ordering/detection podľa record state;`, `oddelenie handshake a application traffic phases.`.
+- **CRITICAL** line 315, `bare-bullet-items` — **17. Session resumption**: 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej round trips;`, `menej asymmetric operations;`, `nižšia CPU záťaž;`, `rýchlejšie short-lived requests.`.
+- **CRITICAL** line 315, `outline-instead-of-explanation` — **17. Session resumption**: 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 376, `bare-bullet-items` — **20. Private key ownership**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local file s prísnymi permissions;`, `OS key store;`, `cloud key manager;`, `HSM;`.
+- **CRITICAL** line 376, `outline-instead-of-explanation` — **20. Private key ownership**: 13 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 399, `bare-bullet-items` — **21. CSR a proof of possession**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené SANs;`, `validity;`, `key algorithms;`, `EKU;`.
+- **CRITICAL** line 415, `bare-bullet-items` — **22. ACME**: 10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account key a oprávnenia;`, `challenge routing alebo DNS write;`, `rate limits a retry policy;`, `key generation;`.
+- **CRITICAL** line 415, `outline-instead-of-explanation` — **22. ACME**: 13 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 440, `bare-bullet-items` — **23. Wildcard a multi-SAN certificates**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšie centralizované endpointy;`, `väčší blast radius pri key compromise;`, `zložitejšia ownership koordinácia;`, `certificate transparency odhalí všetky public names;`.
+- **CRITICAL** line 440, `outline-instead-of-explanation` — **23. Wildcard a multi-SAN certificates**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 455, `bare-bullet-items` — **24. Trust stores**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operačný systém;`, `browser-specific store;`, `Java truststore;`, `Python/OpenSSL CA bundle;`.
+- **CRITICAL** line 455, `outline-instead-of-explanation` — **24. Trust stores**: 13 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 478, `bare-bullet-items` — **25. Private PKI**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `offline alebo silno chránený root;`, `issuing intermediates;`, `issuance authentication a authorization;`, `inventory identities a ownerov;`.
+- **CRITICAL** line 478, `outline-instead-of-explanation` — **25. Private PKI**: 10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 497, `bare-bullet-items` — **26. Mutual TLS**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré CA sú akceptované;`, `ktoré identity smú volať konkrétnu operáciu;`, `ako sa revokuje kompromitovaný workload;`, `ako sa rotuje bez prerušenia long-lived connections;`.
+- **CRITICAL** line 522, `empty-section` — **27. TLS termination, re-encryption a passthrough**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 551, `bare-bullet-items` — **28. Client identity cez proxy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream prijíma traffic výhradne z trusted proxy;`, `proxy odstráni client-supplied verziu;`, `channel proxy → upstream je chránený;`, `identity mapping je auditovaný;`.
+- **CRITICAL** line 565, `outline-instead-of-explanation` — **29. Revocation**: 10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 587, `bare-bullet-items` — **30. Certificate Transparency**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nezabraňuje samotnému chybnému issuance;`, `poskytuje auditovateľnú evidenciu;`, `môže odhaliť subdomain names;`, `vyžaduje monitoring a response proces;`.
+- **CRITICAL** line 587, `outline-instead-of-explanation` — **30. Certificate Transparency**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 599, `bare-bullet-items` — **31. Certificate rotation bez outage**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vydaj nový certificate alebo trust anchor;`, `nasadzuj nový certificate postupne;`, `zachovaj overlap starého a nového trustu;`, `reloadni alebo reštartuj službu podľa podporovaného lifecycle;`.
+- **CRITICAL** line 599, `outline-instead-of-explanation` — **31. Certificate rotation bez outage**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 634, `bare-bullet-items` — **33. Expiry monitoring**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dni do notAfter ;`, `notBefore a clock skew;`, `hostname coverage;`, `chain completeness;`.
+- **CRITICAL** line 634, `outline-instead-of-explanation` — **33. Expiry monitoring**: 12 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 655, `bare-bullet-items` — **34. HSTS**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `header sa prijíma iba cez validné HTTPS;`, `includeSubDomains rozširuje záväzok na všetky subdomains;`, `preload je dlhodobé rozhodnutie a recovery je pomalá;`, `všetky zahrnuté subdomains musia mať funkčné HTTPS;`.
+- **CRITICAL** line 655, `outline-instead-of-explanation` — **34. HSTS**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 673, `bare-bullet-items` — **35. Certificate pinning**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aspoň jeden backup key/pin;`, `overlap;`, `update channel;`, `emergency recovery;`.
+- **CRITICAL** line 690, `outline-instead-of-explanation` — **36. TLS inspection**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 705, `bare-bullet-items` — **37. Praktická diagnostika**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over DNS a destination IP;`, `over TCP alebo QUIC reachability;`, `zaznamenaj ClientHello capabilities, ak je to potrebné;`, `pošli správne SNI;`.
+- **CRITICAL** line 705, `outline-instead-of-explanation` — **37. Praktická diagnostika**: 12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 734, `empty-section` — **38. Typické failure patterns**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 768, `empty-section` — **39. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 794, `bare-bullet-items` — **40. Praktický checklist**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správne SANs a SNI routing;`, `private key ownership a permissions;`, `leaf + complete intermediate chain;`, `server authentication EKU;`.
+- **CRITICAL** line 794, `outline-instead-of-explanation` — **40. Praktický checklist**: 15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 22, `list-first-introduction` — **2. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 36, `bare-bullet-items` — **3. Symmetric a asymmetric cryptography**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `asymmetric cryptography na authentication a key agreement,`, `symmetric cryptography na efektívne šifrovanie aplikačných dát,`, `hash/MAC alebo AEAD na integritu.`.
-- **HIGH** line 63, `list-first-introduction` — **5. PKI a chain of trust**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 138, `bare-bullet-items` — **9. ALPN**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `http/1.1 ,`, `h2 pre HTTP/2.`.
-- **HIGH** line 162, `single-sentence-concept` — **11. Forward secrecy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 166, `single-sentence-concept` — **12. Session resumption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 187, `single-sentence-concept` — **14. Certificate issuance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 227, `single-sentence-concept` — **16. Wildcard certificates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **18. Trust stores**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 271, `bare-bullet-items` — **19. Revocation**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CRL — Certificate Revocation List,`, `OCSP — online status query,`.
-- **HIGH** line 299, `bare-bullet-items` — **21. HSTS**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `chybná konfigurácia môže zneprístupniť subdomény,`, `includeSubDomains rozširuje scope,`, `preload je dlhodobý záväzok.`.
-- **HIGH** line 319, `single-sentence-concept` — **Termination**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 323, `single-sentence-concept` — **Re-encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 339, `list-first-introduction` — **24. Diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 339, `single-sentence-concept` — **24. Diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 362, `single-sentence-concept` — **certificate has expired**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 366, `single-sentence-concept` — **unable to get local issuer certificate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 370, `single-sentence-concept` — **Hostname mismatch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 374, `single-sentence-concept` — **Funguje v browseri, nie v aplikácii**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 378, `single-sentence-concept` — **Po rotation časť klientov zlyháva**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 384, `single-sentence-concept` — **„HTTPS znamená, že server je dôveryhodný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 388, `single-sentence-concept` — **„Certificate šifruje dáta“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 392, `single-sentence-concept` — **„Keď certifikát nie je expired, je validný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 400, `single-sentence-concept` — **„mTLS vyrieši authorization“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 31, `list-first-introduction` — **2. Celý HTTPS lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 62, `single-sentence-concept` — **4. Symmetric a asymmetric cryptography**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 66, `single-sentence-concept` — **Asymmetric cryptography**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 131, `bare-bullet-items` — **7. PKI a chain of trust**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `leaf certificate;`, `jeden alebo viac intermediate certificates.`.
+- **HIGH** line 148, `list-heavy-section` — **8. Certificate path building a validation**: 10 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 227, `bare-bullet-items` — **12. SNI**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `destination IP pre TCP;`, `SNI pre TLS virtual host;`, `HTTP Host alebo :authority pre aplikačný route.`.
+- **HIGH** line 271, `list-heavy-section` — **14. Cipher suites, groups a signatures**: 6 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 350, `list-first-introduction` — **19. Certificate issuance lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 376, `single-sentence-concept` — **20. Private key ownership**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 399, `list-heavy-section` — **21. CSR a proof of possession**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 497, `list-heavy-section` — **26. Mutual TLS**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 524, `list-first-introduction` — **Termination**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 532, `list-first-introduction` — **Re-encryption**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 540, `list-first-introduction` — **Passthrough**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 565, `bare-bullet-items` — **29. Revocation**: 6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `responder outage;`, `privacy, pretože query odhaľuje navštevovaný certificate;`, `cache a freshness;`, `rozdielny fail-open/fail-closed behavior klientov;`.
+- **HIGH** line 673, `list-heavy-section` — **35. Certificate pinning**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 690, `bare-bullet-items` — **36. TLS inspection**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `proxy je high-value trust boundary;`, `môže rozbiť certificate pinning alebo mTLS;`, `dešifrované dáta a keys musia byť chránené;`, `logging nesmie zachytávať credentials;`.
+- **HIGH** line 705, `list-first-introduction` — **37. Praktická diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 705, `single-sentence-concept` — **37. Praktická diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 744, `single-sentence-concept` — **unable to get local issuer certificate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 748, `single-sentence-concept` — **Hostname mismatch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 752, `single-sentence-concept` — **Funguje v browseri, nie v aplikácii**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 756, `single-sentence-concept` — **Po rotation zlyháva iba časť klientov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 764, `single-sentence-concept` — **mTLS klient je odmietnutý**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 778, `single-sentence-concept` — **„Keď certificate nie je expired, je validný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 794, `single-sentence-concept` — **40. Praktický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `HTTP`, `DNS`, `TCP`, `UDP`, `OCSP`, `HSTS`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 36, `thin-concept-section` — **3. Symmetric a asymmetric cryptography**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 46, `thin-concept-section` — **4. Certificate**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 63, `thin-concept-section` — **5. PKI a chain of trust**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 84, `thin-concept-section` — **6. Root a intermediate CA**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 166, `thin-concept-section` — **12. Session resumption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 211, `thin-concept-section` — **15. ACME**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 227, `thin-concept-section` — **16. Wildcard certificates**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 241, `thin-concept-section` — **17. mTLS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **18. Trust stores**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 299, `thin-concept-section` — **21. HSTS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 339, `term-before-explanation` — **24. Diagnostika**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `QUIC`, `SNI`, `SAN`, `ALPN`, `policy`
-- **HIGH** line 339, `thin-concept-section` — **24. Diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 66, `thin-concept-section` — **Asymmetric cryptography**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 85, `term-before-explanation` — **5. X.509 certificate**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `CA`, `CRL`, `AIA`
+- **HIGH** line 213, `term-before-explanation` — **11. TLS 1.2 verzus TLS 1.3**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RSA`, `AEAD`, `PSK`, `RTT`
+- **HIGH** line 315, `thin-concept-section` — **17. Session resumption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 376, `term-before-explanation` — **20. Private key ownership**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `HSM`, `workload`, `identity`
+- **HIGH** line 415, `term-before-explanation` — **22. ACME**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CA`, `DNS`, `TXT`, `TLS-`, `TLS`, `policy`
+- **HIGH** line 415, `thin-concept-section` — **22. ACME**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 455, `thin-concept-section` — **24. Trust stores**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 587, `thin-concept-section` — **30. Certificate Transparency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 599, `term-before-explanation` — **31. Certificate rotation bez outage**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`, `CA`, `identity`, `policy`
+- **HIGH** line 599, `thin-concept-section` — **31. Certificate rotation bez outage**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 705, `term-before-explanation` — **37. Praktická diagnostika**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `TCP`, `QUIC`, `SNI`, `TLS`, `ALPN`, `SAN`
+- **HIGH** line 705, `thin-concept-section` — **37. Praktická diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 794, `term-before-explanation` — **40. Praktický checklist**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNI`, `EKU`, `ALPN`, `RTT`, `OCSP`, `HSTS`, `policy`, `scope`
+- **HIGH** line 794, `thin-concept-section` — **40. Praktický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/ipv4-ipv6-subnetting.md`
 
@@ -18566,19 +18590,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3753 | 340 | 0 | 0 | 4093 |
-| `single-sentence-concept` | 0 | 4040 | 0 | 0 | 4040 |
-| `outline-instead-of-explanation` | 3677 | 0 | 0 | 0 | 3677 |
-| `thin-concept-section` | 0 | 3335 | 0 | 0 | 3335 |
-| `term-before-explanation` | 0 | 390 | 2296 | 0 | 2686 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1428 | 1428 |
-| `example-not-explicit` | 0 | 0 | 0 | 1315 | 1315 |
-| `short-concept-section` | 0 | 0 | 938 | 0 | 938 |
-| `list-first-introduction` | 0 | 929 | 0 | 0 | 929 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 691 | 691 |
+| `bare-bullet-items` | 3764 | 340 | 0 | 0 | 4104 |
+| `single-sentence-concept` | 0 | 4034 | 0 | 0 | 4034 |
+| `outline-instead-of-explanation` | 3685 | 0 | 0 | 0 | 3685 |
+| `thin-concept-section` | 0 | 3332 | 0 | 0 | 3332 |
+| `term-before-explanation` | 0 | 396 | 2299 | 0 | 2695 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1439 | 1439 |
+| `example-not-explicit` | 0 | 0 | 0 | 1332 | 1332 |
+| `short-concept-section` | 0 | 0 | 949 | 0 | 949 |
+| `list-first-introduction` | 0 | 932 | 0 | 0 | 932 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 705 | 705 |
 | `empty-section` | 468 | 0 | 0 | 0 | 468 |
 | `no-prose-concept` | 312 | 0 | 0 | 0 | 312 |
-| `list-heavy-section` | 0 | 272 | 0 | 0 | 272 |
+| `list-heavy-section` | 0 | 277 | 0 | 0 | 277 |
 
 ## Required remediation pattern
 
