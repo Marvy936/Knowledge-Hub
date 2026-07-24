@@ -143,15 +143,15 @@
     {
       "path": "docs/00-foundations/idempotency.md",
       "title": "Idempotency",
-      "words": 833,
-      "headings": 20,
-      "sections": 20,
-      "findings": 31,
-      "critical": 13,
-      "high": 14,
-      "medium": 1,
-      "low": 3,
-      "score": 271,
+      "words": 2222,
+      "headings": 31,
+      "sections": 31,
+      "findings": 38,
+      "critical": 3,
+      "high": 2,
+      "medium": 4,
+      "low": 29,
+      "score": 106,
       "grade": "D"
     },
     {
@@ -9047,62 +9047,8 @@
     },
     {
       "path": "docs/00-foundations/idempotency.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 23,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 23,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeoutmi,`, `prerušenými spojeniami,`, `nejasným výsledkom predchádzajúceho pokusu,`, `opakovaným spustením pipeline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 23,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "3. Mentálny model",
-      "line": 36,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "3. Mentálny model",
-      "line": 36,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "5. Ansible príklad",
-      "line": 77,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -9110,35 +9056,26 @@
     },
     {
       "path": "docs/00-foundations/idempotency.md",
-      "section": "7. Idempotencia a HTTP",
-      "line": 105,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/idempotency.md",
-      "section": "7. Idempotencia a HTTP",
-      "line": 105,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `GET má iba čítať,`, `DELETE má byť idempotentný z pohľadu výsledného stavu,`.",
-      "score": 8
+      "section": "2. Prečo je idempotencia potrebná",
+      "line": 17,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/idempotency.md",
-      "section": "7. Idempotencia a HTTP",
-      "line": 105,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "7. Idempotencia a HTTP",
-      "line": 105,
+      "section": "2. Prečo je idempotencia potrebná",
+      "line": 17,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -9146,129 +9083,255 @@
     },
     {
       "path": "docs/00-foundations/idempotency.md",
-      "section": "7. Idempotencia a HTTP",
-      "line": 105,
-      "severity": "high",
+      "section": "2. Prečo je idempotencia potrebná",
+      "line": 17,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "2. Prečo je idempotencia potrebná",
+      "line": 17,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "2. Prečo je idempotencia potrebná",
+      "line": 17,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GET`, `PUT`, `DELETE`, `POST`, `resource`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/idempotency.md",
-      "section": "11. Čiastočné zlyhanie",
-      "line": 142,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "11. Čiastočné zlyhanie",
-      "line": 142,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný identifikátor,`, `kontrolu existujúceho stavu,`, `bezpečný retry mechanizmus,`, `prípadne compensating action.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "11. Čiastočné zlyhanie",
-      "line": 142,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "12. Side effects",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "12. Side effects",
-      "line": 161,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "12. Side effects",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odoslanie e-mailu,`, `vytvorenie ticketu,`, `inkrementácia počítadla,`, `finančná transakcia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "12. Side effects",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "13. Časté omyly",
-      "line": 174,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "14. Praktický checklist",
-      "line": 188,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "14. Praktický checklist",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "14. Praktický checklist",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Má request stabilný identifikátor?`, `Vieme zistiť, či už bol spracovaný?`, `Čo sa stane pri retry po timeoute?`, `Môžu vzniknúť duplicity?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "14. Praktický checklist",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/idempotency.md",
-      "section": "14. Praktický checklist",
-      "line": 188,
+      "section": "3. Mentálny model: intent, identity, state a result",
+      "line": 29,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "6. Shell a configuration management",
+      "line": 67,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "6. Shell a configuration management",
+      "line": 67,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "6. Shell a configuration management",
+      "line": 67,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "7. Terraform a Kubernetes",
+      "line": 82,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "8. HTTP metódy a výsledný stav",
+      "line": 90,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "8. HTTP metódy a výsledný stav",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "10. Scope a vlastníctvo keyu",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "11. Retention a expiry",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "11. Retention a expiry",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "12. In-progress, completed a failed state",
+      "line": 123,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "12. In-progress, completed a failed state",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "14. Workflow a čiastočný úspech",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "14. Workflow a čiastočný úspech",
+      "line": 141,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "14. Workflow a čiastočný úspech",
+      "line": 141,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "15. Side effects a outbox pattern",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "15. Side effects a outbox pattern",
+      "line": 152,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "17. Idempotencia, deterministickosť a read-only",
+      "line": 164,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "18. Idempotencia nie je exactly-once execution",
+      "line": 170,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "19. Security hranice",
+      "line": 176,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "19. Security hranice",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "20. Observability",
+      "line": 182,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "20. Observability",
+      "line": 182,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "25. Zhrnutie",
+      "line": 249,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/idempotency.md",
+      "section": "25. Zhrnutie",
+      "line": 249,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/immutable-vs-mutable-infrastructure.md",

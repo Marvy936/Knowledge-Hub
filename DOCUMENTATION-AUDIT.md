@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10461**
-- Total words: **436,007**
-- Findings: **23445** (critical 8391, high 9489, medium 3114, low 2451)
+- Audited conceptual sections: **10472**
+- Total words: **437,396**
+- Findings: **23452** (critical 8381, high 9477, medium 3117, low 2477)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -258,7 +258,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 278 | 12 | 14 | 5 | 3 | 904 | `docs/03-git-and-automation/git-object-model.md` |
-| D | 271 | 13 | 14 | 1 | 3 | 833 | `docs/00-foundations/idempotency.md` |
 | D | 266 | 12 | 11 | 8 | 3 | 1053 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
@@ -276,6 +275,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
 | D | 125 | 2 | 9 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
+| D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
@@ -612,30 +612,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Declarative vs. Imperative Approach`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 23, `bare-bullet-items` — **2. Problém, ktorý rieši**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeoutmi,`, `prerušenými spojeniami,`, `nejasným výsledkom predchádzajúceho pokusu,`, `opakovaným spustením pipeline,`.
-- **CRITICAL** line 23, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 105, `outline-instead-of-explanation` — **7. Idempotencia a HTTP**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 142, `bare-bullet-items` — **11. Čiastočné zlyhanie**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný identifikátor,`, `kontrolu existujúceho stavu,`, `bezpečný retry mechanizmus,`, `prípadne compensating action.`.
-- **CRITICAL** line 142, `outline-instead-of-explanation` — **11. Čiastočné zlyhanie**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **12. Side effects**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odoslanie e-mailu,`, `vytvorenie ticketu,`, `inkrementácia počítadla,`, `finančná transakcia,`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **12. Side effects**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 174, `empty-section` — **13. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 188, `bare-bullet-items` — **14. Praktický checklist**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Má request stabilný identifikátor?`, `Vieme zistiť, či už bol spracovaný?`, `Čo sa stane pri retry po timeoute?`, `Môžu vzniknúť duplicity?`.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **14. Praktický checklist**: 7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 23, `single-sentence-concept` — **2. Problém, ktorý rieši**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 36, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 36, `single-sentence-concept` — **3. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 105, `bare-bullet-items` — **7. Idempotencia a HTTP**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `GET má iba čítať,`, `DELETE má byť idempotentný z pohľadu výsledného stavu,`.
-- **HIGH** line 161, `single-sentence-concept` — **12. Side effects**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 188, `single-sentence-concept` — **14. Praktický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 23, `thin-concept-section` — **2. Problém, ktorý rieši**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 105, `term-before-explanation` — **7. Idempotencia a HTTP**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GET`, `PUT`, `DELETE`, `POST`, `resource`
-- **HIGH** line 105, `thin-concept-section` — **7. Idempotencia a HTTP**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 142, `thin-concept-section` — **11. Čiastočné zlyhanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **12. Side effects**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 188, `thin-concept-section` — **14. Praktický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/immutable-vs-mutable-infrastructure.md`
 
@@ -18930,17 +18908,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4212 | 0 | 0 | 4212 |
-| `bare-bullet-items` | 3848 | 349 | 0 | 0 | 4197 |
-| `outline-instead-of-explanation` | 3739 | 0 | 0 | 0 | 3739 |
-| `thin-concept-section` | 0 | 3416 | 0 | 0 | 3416 |
-| `term-before-explanation` | 0 | 343 | 2222 | 0 | 2565 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1154 | 1154 |
-| `list-first-introduction` | 0 | 960 | 0 | 0 | 960 |
-| `example-not-explicit` | 0 | 0 | 0 | 916 | 916 |
-| `short-concept-section` | 0 | 0 | 892 | 0 | 892 |
-| `empty-section` | 510 | 0 | 0 | 0 | 510 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 381 | 381 |
+| `single-sentence-concept` | 0 | 4208 | 0 | 0 | 4208 |
+| `bare-bullet-items` | 3844 | 348 | 0 | 0 | 4192 |
+| `outline-instead-of-explanation` | 3734 | 0 | 0 | 0 | 3734 |
+| `thin-concept-section` | 0 | 3411 | 0 | 0 | 3411 |
+| `term-before-explanation` | 0 | 342 | 2224 | 0 | 2566 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1161 | 1161 |
+| `list-first-introduction` | 0 | 959 | 0 | 0 | 959 |
+| `example-not-explicit` | 0 | 0 | 0 | 927 | 927 |
+| `short-concept-section` | 0 | 0 | 893 | 0 | 893 |
+| `empty-section` | 509 | 0 | 0 | 0 | 509 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 389 | 389 |
 | `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
 | `list-heavy-section` | 0 | 209 | 0 | 0 | 209 |
 
