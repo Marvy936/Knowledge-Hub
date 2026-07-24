@@ -577,15 +577,15 @@
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "title": "Ethernet, MAC a ARP",
-      "words": 1175,
-      "headings": 26,
-      "sections": 26,
-      "findings": 69,
-      "critical": 26,
-      "high": 24,
-      "medium": 13,
-      "low": 6,
-      "score": 553,
+      "words": 2814,
+      "headings": 34,
+      "sections": 34,
+      "findings": 82,
+      "critical": 16,
+      "high": 17,
+      "medium": 10,
+      "low": 39,
+      "score": 409,
       "grade": "D"
     },
     {
@@ -24081,157 +24081,31 @@
       "line": 3,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `OSI`, `TCP`, `IP`, `VLAN`, `NDP`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `OSI`, `TCP`, `IP`, `VLAN`, `NDP`, `availability`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "2. Ethernet frame",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "2. Lokálny-hop mentálny model",
       "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "2. Ethernet frame",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IPv4,`, `IPv6,`, `ARP,`, `VLAN-tagged frame.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "2. Ethernet frame",
-      "line": 17,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "2. Ethernet frame",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `VLAN-`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "3. MAC address",
-      "line": 38,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "3. MAC address",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "3. MAC address",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `môže byť softvérovo zmenená,`, `virtual interfaces dostávajú generované adresy,`, `cloud a virtualizácia abstrahujú fyzický hardware,`, `MAC je relevantná iba v danom L2 domain,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "3. MAC address",
-      "line": 38,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "3. MAC address",
-      "line": 38,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "Unicast, multicast a broadcast",
-      "line": 54,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "Unicast, multicast a broadcast",
-      "line": 54,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "Unicast, multicast a broadcast",
-      "line": 54,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `unicast: jeden destination interface,`, `multicast: skupina receivers,`, `broadcast: všetky nodes v broadcast domain.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "Unicast, multicast a broadcast",
-      "line": 54,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "4. Switch forwarding",
-      "line": 66,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "4. Switch forwarding",
-      "line": 66,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination MAC v table → pošli na konkrétny port,`, `neznámy unicast → flood v rámci VLAN,`, `broadcast/multicast podľa policy → flood alebo špecializované spracova`, `destination na rovnakom ingress porte → neforwarduj späť.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "4. Switch forwarding",
-      "line": 66,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "4. Switch forwarding",
-      "line": 66,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24239,8 +24113,89 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "4. Switch forwarding",
-      "line": 66,
+      "section": "3. Ethernet frame",
+      "line": 37,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "6. Unicast, multicast a broadcast",
+      "line": 75,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "6. Unicast, multicast a broadcast",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "7. Ako sa switch učí MAC table",
+      "line": 91,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "8. Forwarding decision",
+      "line": 107,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "8. Forwarding decision",
+      "line": 107,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `určenie ingress portu a VLAN kontextu,`, `source MAC learning,`, `lookup destination MAC vo forwarding table,`, `výber egress správania,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "8. Forwarding decision",
+      "line": 107,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "8. Forwarding decision",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "8. Forwarding decision",
+      "line": 107,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "8. Forwarding decision",
+      "line": 107,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `policy`",
@@ -24248,44 +24203,44 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "5. Collision domain a broadcast domain",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "5. Collision domain a broadcast domain",
-      "line": 85,
+      "section": "9. Collision domain a broadcast domain",
+      "line": 129,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARP/broadcast traffic,`, `blast radius L2 problémov,`, `riziko loops,`, `náročnosť troubleshooting-u.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARP a discovery traffic,`, `blast radius broadcast stormu,`, `počet endpointov spracúvajúcich každý broadcast,`, `rozsah duplicate-IP a spoofing problémov,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "5. Collision domain a broadcast domain",
-      "line": 85,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "9. Collision domain a broadcast domain",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "5. Collision domain a broadcast domain",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `blast radius`",
-      "score": 4
+      "section": "10. VLAN ako logický L2 segment",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "6. VLAN",
-      "line": 98,
+      "section": "11. VLAN a subnet nie sú to isté",
+      "line": 161,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "13. ARP iba pre next hop",
+      "line": 195,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24293,62 +24248,17 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "9. Neighbor cache",
-      "line": 149,
+      "section": "14. Neighbor cache a jej stavy",
+      "line": 209,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "9. Neighbor cache",
-      "line": 149,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `INCOMPLETE — resolution prebieha,`, `REACHABLE — nedávno potvrdený neighbor,`, `DELAY a PROBE — aktívne overovanie,`, `FAILED — resolution zlyhala,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "9. Neighbor cache",
-      "line": 149,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "9. Neighbor cache",
-      "line": 149,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INCOMPLETE`, `REACHABLE`, `DELAY`, `PROBE`, `FAILED`, `PERMANENT`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "10. Gratuitous ARP",
-      "line": 169,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "10. Gratuitous ARP",
-      "line": 169,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failover virtual IP,`, `aktualizácia neighbor caches po presune služby,`, `duplicate address detection v niektorých implementáciách,`, `oznamovanie MAC zmeny.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "10. Gratuitous ARP",
-      "line": 169,
+      "section": "14. Neighbor cache a jej stavy",
+      "line": 209,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -24356,26 +24266,116 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "12. ARP spoofing a bezpečnosť",
-      "line": 188,
+      "section": "14. Neighbor cache a jej stavy",
+      "line": 209,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "14. Neighbor cache a jej stavy",
+      "line": 209,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "14. Neighbor cache a jej stavy",
+      "line": 209,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INCOMPLETE`, `DELAY`, `PROBE`, `PERMANENT`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "15. Neighbor reachability verzus ARP mapping",
+      "line": 230,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "16. Gratuitous ARP a failover",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "16. Gratuitous ARP a failover",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "17. Duplicate IP",
+      "line": 261,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spojenia náhodne smerujú na iný endpoint,`, `neighbor entry sa často mení,`, `switch vidí traffic z rôznych MAC,`, `klienti majú rozdielne výsledky,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "17. Duplicate IP",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "17. Duplicate IP",
+      "line": 261,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "18. Proxy ARP",
+      "line": 283,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "detail": "11 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "12. ARP spoofing a bezpečnosť",
-      "line": 188,
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `man-in-the-middle,`, `denial of service,`, `traffic interception,`, `gateway impersonation.`.",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `man-in-the-middle,`, `gateway impersonation,`, `traffic interception,`, `denial of service,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "12. ARP spoofing a bezpečnosť",
-      "line": 188,
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -24383,8 +24383,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "12. ARP spoofing a bezpečnosť",
-      "line": 188,
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24392,8 +24392,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "12. ARP spoofing a bezpečnosť",
-      "line": 188,
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24401,26 +24401,53 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "12. ARP spoofing a bezpečnosť",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCP`, `MAC`, `IP`",
-      "score": 4
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "13. L2 loops a Spanning Tree",
-      "line": 210,
+      "section": "19. ARP spoofing a poisoning",
+      "line": 291,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCP`, `IP`, `MAC`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "20. L2 loops a Spanning Tree",
+      "line": 314,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký broadcast traffic,`, `switch CPU load,`, `MAC flapping,`, `packet loss,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broadcast storm,`, `vysoké CPU switchov,`, `MAC flapping,`, `vyčerpanie link capacity,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "13. L2 loops a Spanning Tree",
-      "line": 210,
+      "section": "21. Port security a anti-spoofing",
+      "line": 331,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "21. Port security a anti-spoofing",
+      "line": 331,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný počet MAC na porte,`, `virtual machine a container behavior,`, `bonding/teaming failover,`, `virtual IP model,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "21. Port security a anti-spoofing",
+      "line": 331,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24428,17 +24455,251 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "13. L2 loops a Spanning Tree",
-      "line": 210,
+      "section": "21. Port security a anti-spoofing",
+      "line": 331,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `VLAN`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "14. Linux interface a neighbor diagnostika",
-      "line": 224,
+      "section": "22. Linux diagnostické observation points",
+      "line": 346,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "22. Linux diagnostické observation points",
+      "line": 346,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "22. Linux diagnostické observation points",
+      "line": 346,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "22. Linux diagnostické observation points",
+      "line": 346,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "22. Linux diagnostické observation points",
+      "line": 346,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `RX`, `TX`, `L3`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `či ARP request odchádza na správnom interface,`, `či prichádza reply,`, `či odpovedá jedna alebo viac MAC adries,`, `či source MAC zodpovedá očakávanému endpointu,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "23. Packet capture Ethernetu a ARP",
+      "line": 370,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `VLAN`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interface nemá carrier alebo je administratívne down,`, `host je v nesprávnej VLAN,`, `source IP/prefix je chybný,`, `gateway nie je v skutočnosti on-link,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "24. Troubleshooting: route existuje, gateway je nedostupná",
+      "line": 396,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `IP`, `ARP`, `MTU`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over, že nový node IP skutočne vlastní,`, `over správny source interface a VLAN,`, `zachyť gratuitous ARP na novom node,`, `skontroluj neighbor cache klienta alebo gateway,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "25. Troubleshooting: failover VIP nefunguje",
+      "line": 428,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `MAC`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "VLAN sa považuje za úplnú bezpečnostnú hranicu",
+      "line": 453,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -24446,143 +24707,8 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "14. Linux interface a neighbor diagnostika",
-      "line": 224,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "14. Linux interface a neighbor diagnostika",
-      "line": 224,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "14. Linux interface a neighbor diagnostika",
-      "line": 224,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `administratívny stav,`, `carrier,`, `speed/duplex,`, `RX/TX errors a drops,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "14. Linux interface a neighbor diagnostika",
-      "line": 224,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "14. Linux interface a neighbor diagnostika",
-      "line": 224,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RX`, `TX`, `MTU`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "15. Packet capture",
-      "line": 247,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "15. Packet capture",
-      "line": 247,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odchádza ARP request?`, `prichádza reply?`, `reply obsahuje očakávanú MAC?`, `neodpovedá viac zariadení na jednu IP?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "15. Packet capture",
-      "line": 247,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "15. Packet capture",
-      "line": 247,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "16. Troubleshooting scenár: route existuje, gateway je nedostupná",
-      "line": 271,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "16. Troubleshooting scenár: route existuje, gateway je nedostupná",
-      "line": 271,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "16. Troubleshooting scenár: route existuje, gateway je nedostupná",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "16. Troubleshooting scenár: route existuje, gateway je nedostupná",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávna VLAN,`, `link down,`, `gateway offline,`, `duplicate IP,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "16. Troubleshooting scenár: route existuje, gateway je nedostupná",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "16. Troubleshooting scenár: route existuje, gateway je nedostupná",
-      "line": 271,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `IP`, `ARP`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "17. Troubleshooting scenár: IP failover nefunguje okamžite",
-      "line": 294,
+      "section": "27. Praktický mini-lab",
+      "line": 461,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
@@ -24590,17 +24716,17 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "17. Troubleshooting scenár: IP failover nefunguje okamžite",
-      "line": 294,
+      "section": "27. Praktický mini-lab",
+      "line": 461,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over, že nový node IP skutočne vlastní,`, `odošli gratuitous ARP,`, `sleduj neighbor cache klienta/gateway,`, `over switch MAC table,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selected egress interface,`, `selected next-hop IP,`, `ARP request source IP/MAC,`, `ARP reply source IP/MAC,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "17. Troubleshooting scenár: IP failover nefunguje okamžite",
-      "line": 294,
+      "section": "27. Praktický mini-lab",
+      "line": 461,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -24608,48 +24734,39 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "17. Troubleshooting scenár: IP failover nefunguje okamžite",
-      "line": 294,
+      "section": "27. Praktický mini-lab",
+      "line": 461,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "17. Troubleshooting scenár: IP failover nefunguje okamžite",
-      "line": 294,
+      "section": "27. Praktický mini-lab",
+      "line": 461,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARP`, `MAC`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "18. Časté omyly",
-      "line": 307,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "29. Zhrnutie",
+      "line": 499,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "„ARP nájde MAC remote servera“",
-      "line": 313,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
-      "section": "„MAC adresa je nezmeniteľná hardware identita“",
-      "line": 317,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "29. Zhrnutie",
+      "line": 499,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",

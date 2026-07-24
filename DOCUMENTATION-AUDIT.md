@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10671**
-- Total words: **476,604**
-- Findings: **23490** (critical 8082, high 9191, medium 3110, low 3107)
+- Audited conceptual sections: **10679**
+- Total words: **478,243**
+- Findings: **23503** (critical 8072, high 9184, medium 3107, low 3140)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -192,7 +192,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 570 | 28 | 27 | 6 | 4 | 1037 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 569 | 23 | 17 | 24 | 50 | 3942 | `docs/13-security-and-identity/threat-modeling.md` |
 | D | 563 | 22 | 33 | 10 | 4 | 1128 | `docs/02-networking-and-web/dhcp.md` |
-| D | 553 | 26 | 24 | 13 | 6 | 1175 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 551 | 18 | 37 | 10 | 4 | 1166 | `docs/09-kubernetes/deployment.md` |
 | D | 546 | 21 | 35 | 5 | 2 | 1011 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | D | 544 | 31 | 15 | 13 | 5 | 1262 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
@@ -221,6 +220,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 432 | 17 | 27 | 4 | 2 | 1563 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
+| D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
@@ -1194,53 +1194,36 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`, `Predpoklady: OSI a TCP/IP model, Linux networking`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Ethernet frame**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IPv4,`, `IPv6,`, `ARP,`, `VLAN-tagged frame.`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Ethernet frame**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 38, `bare-bullet-items` — **3. MAC address**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `môže byť softvérovo zmenená,`, `virtual interfaces dostávajú generované adresy,`, `cloud a virtualizácia abstrahujú fyzický hardware,`, `MAC je relevantná iba v danom L2 domain,`.
-- **CRITICAL** line 38, `outline-instead-of-explanation` — **3. MAC address**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 66, `bare-bullet-items` — **4. Switch forwarding**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination MAC v table → pošli na konkrétny port,`, `neznámy unicast → flood v rámci VLAN,`, `broadcast/multicast podľa policy → flood alebo špecializované spracova`, `destination na rovnakom ingress porte → neforwarduj späť.`.
-- **CRITICAL** line 66, `outline-instead-of-explanation` — **4. Switch forwarding**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 85, `bare-bullet-items` — **5. Collision domain a broadcast domain**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARP/broadcast traffic,`, `blast radius L2 problémov,`, `riziko loops,`, `náročnosť troubleshooting-u.`.
-- **CRITICAL** line 85, `outline-instead-of-explanation` — **5. Collision domain a broadcast domain**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `bare-bullet-items` — **9. Neighbor cache**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `INCOMPLETE — resolution prebieha,`, `REACHABLE — nedávno potvrdený neighbor,`, `DELAY a PROBE — aktívne overovanie,`, `FAILED — resolution zlyhala,`.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **9. Neighbor cache**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 169, `bare-bullet-items` — **10. Gratuitous ARP**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failover virtual IP,`, `aktualizácia neighbor caches po presune služby,`, `duplicate address detection v niektorých implementáciách,`, `oznamovanie MAC zmeny.`.
-- **CRITICAL** line 169, `outline-instead-of-explanation` — **10. Gratuitous ARP**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `bare-bullet-items` — **12. ARP spoofing a bezpečnosť**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `man-in-the-middle,`, `denial of service,`, `traffic interception,`, `gateway impersonation.`.
-- **CRITICAL** line 210, `bare-bullet-items` — **13. L2 loops a Spanning Tree**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký broadcast traffic,`, `switch CPU load,`, `MAC flapping,`, `packet loss,`.
-- **CRITICAL** line 224, `bare-bullet-items` — **14. Linux interface a neighbor diagnostika**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `administratívny stav,`, `carrier,`, `speed/duplex,`, `RX/TX errors a drops,`.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **14. Linux interface a neighbor diagnostika**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 247, `bare-bullet-items` — **15. Packet capture**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odchádza ARP request?`, `prichádza reply?`, `reply obsahuje očakávanú MAC?`, `neodpovedá viac zariadení na jednu IP?`.
-- **CRITICAL** line 247, `outline-instead-of-explanation` — **15. Packet capture**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 271, `bare-bullet-items` — **16. Troubleshooting scenár: route existuje, gateway je nedostupná**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávna VLAN,`, `link down,`, `gateway offline,`, `duplicate IP,`.
-- **CRITICAL** line 271, `outline-instead-of-explanation` — **16. Troubleshooting scenár: route existuje, gateway je nedostupná**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 294, `bare-bullet-items` — **17. Troubleshooting scenár: IP failover nefunguje okamžite**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over, že nový node IP skutočne vlastní,`, `odošli gratuitous ARP,`, `sleduj neighbor cache klienta/gateway,`, `over switch MAC table,`.
-- **CRITICAL** line 294, `outline-instead-of-explanation` — **17. Troubleshooting scenár: IP failover nefunguje okamžite**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 307, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 129, `bare-bullet-items` — **9. Collision domain a broadcast domain**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARP a discovery traffic,`, `blast radius broadcast stormu,`, `počet endpointov spracúvajúcich každý broadcast,`, `rozsah duplicate-IP a spoofing problémov,`.
+- **CRITICAL** line 209, `outline-instead-of-explanation` — **14. Neighbor cache a jej stavy**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 261, `bare-bullet-items` — **17. Duplicate IP**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spojenia náhodne smerujú na iný endpoint,`, `neighbor entry sa často mení,`, `switch vidí traffic z rôznych MAC,`, `klienti majú rozdielne výsledky,`.
+- **CRITICAL** line 291, `bare-bullet-items` — **19. ARP spoofing a poisoning**: 10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `man-in-the-middle,`, `gateway impersonation,`, `traffic interception,`, `denial of service,`.
+- **CRITICAL** line 314, `bare-bullet-items` — **20. L2 loops a Spanning Tree**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broadcast storm,`, `vysoké CPU switchov,`, `MAC flapping,`, `vyčerpanie link capacity,`.
+- **CRITICAL** line 331, `bare-bullet-items` — **21. Port security a anti-spoofing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný počet MAC na porte,`, `virtual machine a container behavior,`, `bonding/teaming failover,`, `virtual IP model,`.
+- **CRITICAL** line 346, `outline-instead-of-explanation` — **22. Linux diagnostické observation points**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 396, `bare-bullet-items` — **24. Troubleshooting: route existuje, gateway je nedostupná**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interface nemá carrier alebo je administratívne down,`, `host je v nesprávnej VLAN,`, `source IP/prefix je chybný,`, `gateway nie je v skutočnosti on-link,`.
+- **CRITICAL** line 396, `outline-instead-of-explanation` — **24. Troubleshooting: route existuje, gateway je nedostupná**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 428, `bare-bullet-items` — **25. Troubleshooting: failover VIP nefunguje**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over, že nový node IP skutočne vlastní,`, `over správny source interface a VLAN,`, `zachyť gratuitous ARP na novom node,`, `skontroluj neighbor cache klienta alebo gateway,`.
+- **CRITICAL** line 428, `outline-instead-of-explanation` — **25. Troubleshooting: failover VIP nefunguje**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 461, `bare-bullet-items` — **27. Praktický mini-lab**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selected egress interface,`, `selected next-hop IP,`, `ARP request source IP/MAC,`, `ARP reply source IP/MAC,`.
+- **CRITICAL** line 461, `outline-instead-of-explanation` — **27. Praktický mini-lab**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 38, `single-sentence-concept` — **3. MAC address**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 54, `bare-bullet-items` — **Unicast, multicast a broadcast**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `unicast: jeden destination interface,`, `multicast: skupina receivers,`, `broadcast: všetky nodes v broadcast domain.`.
-- **HIGH** line 54, `list-first-introduction` — **Unicast, multicast a broadcast**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 54, `single-sentence-concept` — **Unicast, multicast a broadcast**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 188, `list-heavy-section` — **12. ARP spoofing a bezpečnosť**: 10 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 224, `list-first-introduction` — **14. Linux interface a neighbor diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 224, `single-sentence-concept` — **14. Linux interface a neighbor diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 271, `list-first-introduction` — **16. Troubleshooting scenár: route existuje, gateway je nedostupná**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 271, `single-sentence-concept` — **16. Troubleshooting scenár: route existuje, gateway je nedostupná**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **„ARP nájde MAC remote servera“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 317, `single-sentence-concept` — **„MAC adresa je nezmeniteľná hardware identita“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `OSI`, `TCP`, `IP`, `VLAN`, `NDP`
+- **HIGH** line 107, `bare-bullet-items` — **8. Forwarding decision**: 6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `určenie ingress portu a VLAN kontextu,`, `source MAC learning,`, `lookup destination MAC vo forwarding table,`, `výber egress správania,`.
+- **HIGH** line 107, `list-heavy-section` — **8. Forwarding decision**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 291, `list-heavy-section` — **19. ARP spoofing a poisoning**: 11 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 331, `list-heavy-section` — **21. Port security a anti-spoofing**: 6 odrážok a iba 54 slov súvislého vysvetlenia.
+- **HIGH** line 370, `bare-bullet-items` — **23. Packet capture Ethernetu a ARP**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `či ARP request odchádza na správnom interface,`, `či prichádza reply,`, `či odpovedá jedna alebo viac MAC adries,`, `či source MAC zodpovedá očakávanému endpointu,`.
+- **HIGH** line 370, `list-heavy-section` — **23. Packet capture Ethernetu a ARP**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 453, `single-sentence-concept` — **VLAN sa považuje za úplnú bezpečnostnú hranicu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `OSI`, `TCP`, `IP`, `VLAN`, `NDP`, `availability`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 38, `thin-concept-section` — **3. MAC address**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 54, `thin-concept-section` — **Unicast, multicast a broadcast**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 66, `thin-concept-section` — **4. Switch forwarding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `term-before-explanation` — **9. Neighbor cache**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INCOMPLETE`, `REACHABLE`, `DELAY`, `PROBE`, `FAILED`, `PERMANENT`
-- **HIGH** line 149, `thin-concept-section` — **9. Neighbor cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **14. Linux interface a neighbor diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 247, `thin-concept-section` — **15. Packet capture**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 271, `term-before-explanation` — **16. Troubleshooting scenár: route existuje, gateway je nedostupná**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `IP`, `ARP`, `policy`
-- **HIGH** line 271, `thin-concept-section` — **16. Troubleshooting scenár: route existuje, gateway je nedostupná**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 294, `thin-concept-section` — **17. Troubleshooting scenár: IP failover nefunguje okamžite**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 209, `term-before-explanation` — **14. Neighbor cache a jej stavy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INCOMPLETE`, `DELAY`, `PROBE`, `PERMANENT`
+- **HIGH** line 291, `term-before-explanation` — **19. ARP spoofing a poisoning**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCP`, `IP`, `MAC`, `policy`
+- **HIGH** line 346, `term-before-explanation` — **22. Linux diagnostické observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `RX`, `TX`, `L3`
+- **HIGH** line 396, `term-before-explanation` — **24. Troubleshooting: route existuje, gateway je nedostupná**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VLAN`, `IP`, `ARP`, `MTU`, `policy`
+- **HIGH** line 396, `thin-concept-section` — **24. Troubleshooting: route existuje, gateway je nedostupná**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 428, `thin-concept-section` — **25. Troubleshooting: failover VIP nefunguje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 461, `thin-concept-section` — **27. Praktický mini-lab**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/firewalls.md`
 
@@ -18323,19 +18306,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4052 | 0 | 0 | 4052 |
-| `bare-bullet-items` | 3685 | 335 | 0 | 0 | 4020 |
-| `outline-instead-of-explanation` | 3623 | 0 | 0 | 0 | 3623 |
-| `thin-concept-section` | 0 | 3317 | 0 | 0 | 3317 |
-| `term-before-explanation` | 0 | 359 | 2238 | 0 | 2597 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1332 | 1332 |
-| `example-not-explicit` | 0 | 0 | 0 | 1181 | 1181 |
-| `list-first-introduction` | 0 | 905 | 0 | 0 | 905 |
-| `short-concept-section` | 0 | 0 | 872 | 0 | 872 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 594 | 594 |
-| `empty-section` | 479 | 0 | 0 | 0 | 479 |
+| `single-sentence-concept` | 0 | 4047 | 0 | 0 | 4047 |
+| `bare-bullet-items` | 3681 | 336 | 0 | 0 | 4017 |
+| `outline-instead-of-explanation` | 3618 | 0 | 0 | 0 | 3618 |
+| `thin-concept-section` | 0 | 3312 | 0 | 0 | 3312 |
+| `term-before-explanation` | 0 | 361 | 2234 | 0 | 2595 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1340 | 1340 |
+| `example-not-explicit` | 0 | 0 | 0 | 1193 | 1193 |
+| `list-first-introduction` | 0 | 902 | 0 | 0 | 902 |
+| `short-concept-section` | 0 | 0 | 873 | 0 | 873 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 607 | 607 |
+| `empty-section` | 478 | 0 | 0 | 0 | 478 |
 | `no-prose-concept` | 295 | 0 | 0 | 0 | 295 |
-| `list-heavy-section` | 0 | 223 | 0 | 0 | 223 |
+| `list-heavy-section` | 0 | 226 | 0 | 0 | 226 |
 
 ## Required remediation pattern
 
