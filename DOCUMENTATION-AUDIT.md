@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11054**
-- Total words: **509,846**
-- Findings: **24628** (critical 8335, high 9393, medium 3312, low 3588)
+- Audited conceptual sections: **11089**
+- Total words: **512,046**
+- Findings: **24708** (critical 8367, high 9409, medium 3327, low 3605)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -116,6 +116,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 843 | 34 | 46 | 17 | 11 | 1495 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | D | 836 | 35 | 41 | 21 | 13 | 1375 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
+| D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 36 | 45 | 11 | 8 | 1789 | `docs/10-helm-and-cka/upgrade-rollback.md` |
 | D | 816 | 33 | 49 | 11 | 1 | 1451 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
 | D | 808 | 41 | 35 | 12 | 3 | 1240 | `docs/06-gitlab/runners-and-executors.md` |
@@ -243,7 +244,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
-| D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
 | D | 226 | 6 | 12 | 5 | 33 | 3073 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
@@ -2751,33 +2751,81 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 288, `empty-section` — **19. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 38, `bare-bullet-items` — **2. Commit ako nemenný graph node**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root tree,`, `zero alebo viac parent commitov,`, `author identity a time,`, `committer identity a time,`.
+- **CRITICAL** line 38, `outline-instead-of-explanation` — **2. Commit ako nemenný graph node**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 214, `bare-bullet-items` — **10. Detached HEAD**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build historického commitu,`, `read-only inspection,`, `experiment,`, `bisect,`.
+- **CRITICAL** line 214, `outline-instead-of-explanation` — **10. Detached HEAD**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 256, `bare-bullet-items` — **12. Branch switch ako viacvrstvová operácia**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symbolic HEAD ,`, `index,`, `working tree.`, `commitnúť,`.
+- **CRITICAL** line 256, `outline-instead-of-explanation` — **12. Branch switch ako viacvrstvová operácia**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 315, `bare-bullet-items` — **15. Annotated tag**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target object ID,`, `target type,`, `tag name,`, `tagger identity a time,`.
+- **CRITICAL** line 315, `outline-instead-of-explanation` — **15. Annotated tag**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 359, `bare-bullet-items` — **17. Tag mutability a release contract**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact versioningu,`, `package provenance,`, `deployment manifestu,`, `SBOM,`.
+- **CRITICAL** line 439, `bare-bullet-items` — **21. Upstream branch**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ahead/behind v git status ,`, `default target git pull ,`, `default push behavior podľa push.default ,`, `@{upstream} revision syntax.`.
+- **CRITICAL** line 439, `outline-instead-of-explanation` — **21. Upstream branch**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 469, `bare-bullet-items` — **22. Push remote verzus upstream**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch.<name .remote ,`, `branch.<name .merge ,`, `branch.<name .pushRemote ,`, `remote.pushDefault ,`.
+- **CRITICAL** line 469, `outline-instead-of-explanation` — **22. Push remote verzus upstream**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 507, `bare-bullet-items` — **24. Non-fast-forward update**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rebase publikovanej branch,`, `reset branch dozadu,`, `nahradení histórie iným graphom,`, `force pushi.`.
+- **CRITICAL** line 566, `bare-bullet-items` — **27. Branch deletion**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-D vynúti delete bez tejto ochrany.`, `reflog local branch/HEAD,`, `inú branch alebo tag,`, `remote clone,`.
+- **CRITICAL** line 566, `outline-instead-of-explanation` — **27. Branch deletion**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 659, `bare-bullet-items` — **32. Recovery po reset/rebase/delete**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalšie rewrite a GC,`, `pozri reflog:`, `identifikuj správny commit,`, `vytvor recovery branch:`.
+- **CRITICAL** line 659, `outline-instead-of-explanation` — **32. Recovery po reset/rebase/delete**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 682, `bare-bullet-items` — **33. Reflog limity**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je prevažne lokálny,`, `nie je súčasť bežného fetch/push protokolu,`, `má expiration policy,`, `môže byť vypnutý alebo odlišný v bare/server repository,`.
+- **CRITICAL** line 682, `outline-instead-of-explanation` — **33. Reflog limity**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 694, `bare-bullet-items` — **34. Signed commits**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kryptografickú validitu,`, `mapping key → osoba alebo workload,`, `key expiry/revocation,`, `policy, ktoré identity sú povolené,`.
+- **CRITICAL** line 694, `outline-instead-of-explanation` — **34. Signed commits**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 715, `bare-bullet-items` — **35. Signed annotated tags**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný tag name,`, `tag object/signature,`, `peeled commit ID,`, `server/ref provenance,`.
+- **CRITICAL** line 804, `bare-bullet-items` — **41. Diagnostika: local branch sa nezhoduje s remote**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local branch main ,`, `local remote-tracking ref origin/main ,`, `aktuálny server ref cez git ls-remote ,`, `configured upstream,`.
+- **CRITICAL** line 804, `outline-instead-of-explanation` — **41. Diagnostika: local branch sa nezhoduje s remote**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 829, `bare-bullet-items` — **42. Diagnostika: force push bol odmietnutý**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je server branch protected?`, `Používa sa správny remote a refspec?`, `Zmenil remote branch niekto iný?`, `Je lease založený na aktuálnom remote-tracking refe?`.
+- **CRITICAL** line 829, `outline-instead-of-explanation` — **42. Diagnostika: force push bol odmietnutý**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 847, `bare-bullet-items` — **43. Diagnostika: tag ukazuje iný commit u kolegu**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag bol presunutý,`, `local tag nebol fetchovaný alebo prepísaný,`, `lightweight verzus annotated tag confusion,`, `kolega používa iný remote,`.
+- **CRITICAL** line 847, `outline-instead-of-explanation` — **43. Diagnostika: tag ukazuje iný commit u kolegu**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 866, `empty-section` — **44. Failure modes**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 892, `empty-section` — **45. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 922, `bare-bullet-items` — **46. Diagnostický checklist**: 11 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Na čo presne ukazuje HEAD ?`, `Je branch born, unborn alebo detached context?`, `Ktorý local ref sa posúva pri commite?`, `Aký je upstream a push remote?`.
+- **CRITICAL** line 922, `outline-instead-of-explanation` — **46. Diagnostický checklist**: 13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `list-first-introduction` — **1. Štyri rozdielne koncepty**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `single-sentence-concept` — **1. Štyri rozdielne koncepty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 33, `bare-bullet-items` — **3. Author vs. committer**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `author: kto pôvodne vytvoril zmenu,`, `committer: kto vytvoril konkrétny commit objekt.`.
-- **HIGH** line 33, `list-first-introduction` — **3. Author vs. committer**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 33, `single-sentence-concept` — **3. Author vs. committer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 71, `list-first-introduction` — **5. Vytvorenie a prepnutie branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 83, `single-sentence-concept` — **6. HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 97, `single-sentence-concept` — **7. Detached HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 127, `single-sentence-concept` — **8. Tag**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 156, `list-first-introduction` — **10. Remote-tracking refs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 169, `single-sentence-concept` — **11. Upstream branch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 180, `list-first-introduction` — **12. Revision syntax**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 197, `list-first-introduction` — **13. Reachability a ancestry**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 197, `single-sentence-concept` — **13. Reachability a ancestry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 251, `list-first-introduction` — **17. Praktický graf**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 264, `list-first-introduction` — **„Nie som na žiadnej branch“**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 264, `single-sentence-concept` — **„Nie som na žiadnej branch“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 278, `list-first-introduction` — **Branch sa nezhoduje s remote**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 278, `single-sentence-concept` — **Branch sa nezhoduje s remote**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 290, `single-sentence-concept` — **„Branch obsahuje commits“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 294, `single-sentence-concept` — **„Tag sa nikdy nedá zmeniť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 298, `single-sentence-concept` — **„ origin/main je aktuálny serverový stav“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 107, `bare-bullet-items` — **5. Ref storage**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ako files pod .git/refs/... ,`, `v .git/packed-refs ,`, `v backend-e, ktorý Git používa pre ref storage.`.
+- **HIGH** line 172, `bare-bullet-items` — **8. HEAD ako checkout context**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvorí nový commit s parentom HEAD ,`, `posunie branch ref, na ktorý HEAD symbolicky ukazuje,`, `aktualizuje reflog branch a HEAD .`.
+- **HIGH** line 172, `single-sentence-concept` — **8. HEAD ako checkout context**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 214, `single-sentence-concept` — **10. Detached HEAD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 239, `single-sentence-concept` — **11. Zachovanie detached práce**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 315, `single-sentence-concept` — **15. Annotated tag**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 343, `bare-bullet-items` — **16. Tag peeling**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Bez suffixu môže výsledok byť tag object ID.`, `^{} rekurzívne dereferencuje tag object.`.
+- **HIGH** line 343, `single-sentence-concept` — **16. Tag peeling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 566, `single-sentence-concept` — **27. Branch deletion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 622, `list-first-introduction` — **30. Parent revision syntax**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 659, `single-sentence-concept` — **32. Recovery po reset/rebase/delete**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 682, `single-sentence-concept` — **33. Reflog limity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 773, `list-first-introduction` — **39. Practical graph inspection**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 786, `list-first-introduction` — **40. Diagnostika: „nie som na branchi“**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 804, `single-sentence-concept` — **41. Diagnostika: local branch sa nezhoduje s remote**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 829, `single-sentence-concept` — **42. Diagnostika: force push bol odmietnutý**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 847, `list-first-introduction` — **43. Diagnostika: tag ukazuje iný commit u kolegu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 847, `single-sentence-concept` — **43. Diagnostika: tag ukazuje iný commit u kolegu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 872, `single-sentence-concept` — **origin/main je starý**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 898, `single-sentence-concept` — **„Commit patrí jednej branchi“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 902, `single-sentence-concept` — **„Tag je nemenný objekt“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 906, `single-sentence-concept` — **„ HEAD je vždy branch“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 910, `single-sentence-concept` — **„ origin/main je server“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 914, `single-sentence-concept` — **„Force-with-lease je úplne bezpečný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 922, `single-sentence-concept` — **46. Diagnostický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 33, `thin-concept-section` — **3. Author vs. committer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 38, `thin-concept-section` — **2. Commit ako nemenný graph node**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 172, `thin-concept-section` — **8. HEAD ako checkout context**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 214, `thin-concept-section` — **10. Detached HEAD**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 315, `thin-concept-section` — **15. Annotated tag**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 343, `thin-concept-section` — **16. Tag peeling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 439, `thin-concept-section` — **21. Upstream branch**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 469, `thin-concept-section` — **22. Push remote verzus upstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 566, `thin-concept-section` — **27. Branch deletion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 659, `thin-concept-section` — **32. Recovery po reset/rebase/delete**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 682, `thin-concept-section` — **33. Reflog limity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 804, `thin-concept-section` — **41. Diagnostika: local branch sa nezhoduje s remote**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 829, `thin-concept-section` — **42. Diagnostika: force push bol odmietnutý**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 847, `thin-concept-section` — **43. Diagnostika: tag ukazuje iný commit u kolegu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 922, `thin-concept-section` — **46. Diagnostický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/git-object-model.md`
 
@@ -18778,17 +18826,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3823 | 342 | 0 | 0 | 4165 |
-| `single-sentence-concept` | 0 | 4051 | 0 | 0 | 4051 |
-| `outline-instead-of-explanation` | 3722 | 0 | 0 | 0 | 3722 |
-| `thin-concept-section` | 0 | 3359 | 0 | 0 | 3359 |
-| `term-before-explanation` | 0 | 408 | 2330 | 0 | 2738 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1492 | 1492 |
-| `example-not-explicit` | 0 | 0 | 0 | 1370 | 1370 |
-| `short-concept-section` | 0 | 0 | 982 | 0 | 982 |
-| `list-first-introduction` | 0 | 940 | 0 | 0 | 940 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 726 | 726 |
-| `empty-section` | 476 | 0 | 0 | 0 | 476 |
+| `bare-bullet-items` | 3840 | 344 | 0 | 0 | 4184 |
+| `single-sentence-concept` | 0 | 4057 | 0 | 0 | 4057 |
+| `outline-instead-of-explanation` | 3736 | 0 | 0 | 0 | 3736 |
+| `thin-concept-section` | 0 | 3372 | 0 | 0 | 3372 |
+| `term-before-explanation` | 0 | 408 | 2339 | 0 | 2747 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1504 | 1504 |
+| `example-not-explicit` | 0 | 0 | 0 | 1373 | 1373 |
+| `short-concept-section` | 0 | 0 | 988 | 0 | 988 |
+| `list-first-introduction` | 0 | 935 | 0 | 0 | 935 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 728 | 728 |
+| `empty-section` | 477 | 0 | 0 | 0 | 477 |
 | `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
 | `list-heavy-section` | 0 | 293 | 0 | 0 | 293 |
 

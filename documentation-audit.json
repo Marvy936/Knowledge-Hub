@@ -829,15 +829,15 @@
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
       "title": "Commit, branch, tag a HEAD",
-      "words": 914,
-      "headings": 28,
-      "sections": 28,
-      "findings": 30,
-      "critical": 3,
-      "high": 26,
-      "medium": 1,
-      "low": 0,
-      "score": 246,
+      "words": 3114,
+      "headings": 63,
+      "sections": 63,
+      "findings": 110,
+      "critical": 35,
+      "high": 42,
+      "medium": 16,
+      "low": 17,
+      "score": 834,
       "grade": "D"
     },
     {
@@ -45236,53 +45236,26 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "1. Štyri rozdielne koncepty",
-      "line": 11,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Commit ako nemenný graph node",
+      "line": 38,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "1. Štyri rozdielne koncepty",
-      "line": 11,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "3. Author vs. committer",
-      "line": 33,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "3. Author vs. committer",
-      "line": 33,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "3. Author vs. committer",
-      "line": 33,
-      "severity": "high",
+      "section": "2. Commit ako nemenný graph node",
+      "line": 38,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `author: kto pôvodne vytvoril zmenu,`, `committer: kto vytvoril konkrétny commit objekt.`.",
-      "score": 8
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root tree,`, `zero alebo viac parent commitov,`, `author identity a time,`, `committer identity a time,`.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "3. Author vs. committer",
-      "line": 33,
+      "section": "2. Commit ako nemenný graph node",
+      "line": 38,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -45290,98 +45263,71 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "5. Vytvorenie a prepnutie branch",
-      "line": 71,
+      "section": "2. Commit ako nemenný graph node",
+      "line": 38,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "2. Commit ako nemenný graph node",
+      "line": 38,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "2. Commit ako nemenný graph node",
+      "line": 38,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "3. Author a committer",
+      "line": 63,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "5. Ref storage",
+      "line": 107,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ako files pod .git/refs/... ,`, `v .git/packed-refs ,`, `v backend-e, ktorý Git používa pre ref storage.`.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "6. HEAD",
-      "line": 83,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Ref storage",
+      "line": 107,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "7. Detached HEAD",
-      "line": 97,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "6. Validita názvu branch",
+      "line": 133,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "8. Tag",
-      "line": 127,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "10. Remote-tracking refs",
-      "line": 156,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "11. Upstream branch",
-      "line": 169,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "12. Revision syntax",
-      "line": 180,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "13. Reachability a ancestry",
-      "line": 197,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "13. Reachability a ancestry",
-      "line": 197,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "17. Praktický graf",
-      "line": 251,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "„Nie som na žiadnej branch“",
-      "line": 264,
+      "section": "8. HEAD ako checkout context",
+      "line": 172,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45389,17 +45335,26 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "„Nie som na žiadnej branch“",
-      "line": 264,
+      "section": "8. HEAD ako checkout context",
+      "line": 172,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvorí nový commit s parentom HEAD ,`, `posunie branch ref, na ktorý HEAD symbolicky ukazuje,`, `aktualizuje reflog branch a HEAD .`.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "Branch sa nezhoduje s remote",
-      "line": 278,
+      "section": "8. HEAD ako checkout context",
+      "line": 172,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "10. Detached HEAD",
+      "line": 214,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45407,8 +45362,350 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "Branch sa nezhoduje s remote",
-      "line": 278,
+      "section": "10. Detached HEAD",
+      "line": 214,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "10. Detached HEAD",
+      "line": 214,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build historického commitu,`, `read-only inspection,`, `experiment,`, `bisect,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "10. Detached HEAD",
+      "line": 214,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "10. Detached HEAD",
+      "line": 214,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "11. Zachovanie detached práce",
+      "line": 239,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "12. Branch switch ako viacvrstvová operácia",
+      "line": 256,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "12. Branch switch ako viacvrstvová operácia",
+      "line": 256,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symbolic HEAD ,`, `index,`, `working tree.`, `commitnúť,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "12. Branch switch ako viacvrstvová operácia",
+      "line": 256,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "15. Annotated tag",
+      "line": 315,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "15. Annotated tag",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "15. Annotated tag",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target object ID,`, `target type,`, `tag name,`, `tagger identity a time,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "15. Annotated tag",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "15. Annotated tag",
+      "line": 315,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "16. Tag peeling",
+      "line": 343,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "16. Tag peeling",
+      "line": 343,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Bez suffixu môže výsledok byť tag object ID.`, `^{} rekurzívne dereferencuje tag object.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "16. Tag peeling",
+      "line": 343,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "16. Tag peeling",
+      "line": 343,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "16. Tag peeling",
+      "line": 343,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "17. Tag mutability a release contract",
+      "line": 359,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact versioningu,`, `package provenance,`, `deployment manifestu,`, `SBOM,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "17. Tag mutability a release contract",
+      "line": 359,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "17. Tag mutability a release contract",
+      "line": 359,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "17. Tag mutability a release contract",
+      "line": 359,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "21. Upstream branch",
+      "line": 439,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "21. Upstream branch",
+      "line": 439,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ahead/behind v git status ,`, `default target git pull ,`, `default push behavior podľa push.default ,`, `@{upstream} revision syntax.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "21. Upstream branch",
+      "line": 439,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "22. Push remote verzus upstream",
+      "line": 469,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "22. Push remote verzus upstream",
+      "line": 469,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch.<name .remote ,`, `branch.<name .merge ,`, `branch.<name .pushRemote ,`, `remote.pushDefault ,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "22. Push remote verzus upstream",
+      "line": 469,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "24. Non-fast-forward update",
+      "line": 507,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rebase publikovanej branch,`, `reset branch dozadu,`, `nahradení histórie iným graphom,`, `force pushi.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "24. Non-fast-forward update",
+      "line": 507,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "24. Non-fast-forward update",
+      "line": 507,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "26. Atomic ref updates",
+      "line": 554,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "27. Branch deletion",
+      "line": 566,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "27. Branch deletion",
+      "line": 566,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "27. Branch deletion",
+      "line": 566,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-D vynúti delete bez tejto ochrany.`, `reflog local branch/HEAD,`, `inú branch alebo tag,`, `remote clone,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "27. Branch deletion",
+      "line": 566,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "27. Branch deletion",
+      "line": 566,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "27. Branch deletion",
+      "line": 566,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "30. Parent revision syntax",
+      "line": 622,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -45416,8 +45713,305 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "19. Časté omyly",
-      "line": 288,
+      "section": "32. Recovery po reset/rebase/delete",
+      "line": 659,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "32. Recovery po reset/rebase/delete",
+      "line": 659,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "32. Recovery po reset/rebase/delete",
+      "line": 659,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalšie rewrite a GC,`, `pozri reflog:`, `identifikuj správny commit,`, `vytvor recovery branch:`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "32. Recovery po reset/rebase/delete",
+      "line": 659,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "33. Reflog limity",
+      "line": 682,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "33. Reflog limity",
+      "line": 682,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "33. Reflog limity",
+      "line": 682,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je prevažne lokálny,`, `nie je súčasť bežného fetch/push protokolu,`, `má expiration policy,`, `môže byť vypnutý alebo odlišný v bare/server repository,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "33. Reflog limity",
+      "line": 682,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "33. Reflog limity",
+      "line": 682,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "33. Reflog limity",
+      "line": 682,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "34. Signed commits",
+      "line": 694,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "34. Signed commits",
+      "line": 694,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kryptografickú validitu,`, `mapping key → osoba alebo workload,`, `key expiry/revocation,`, `policy, ktoré identity sú povolené,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "34. Signed commits",
+      "line": 694,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "34. Signed commits",
+      "line": 694,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "34. Signed commits",
+      "line": 694,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "35. Signed annotated tags",
+      "line": 715,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný tag name,`, `tag object/signature,`, `peeled commit ID,`, `server/ref provenance,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "35. Signed annotated tags",
+      "line": 715,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "35. Signed annotated tags",
+      "line": 715,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "39. Practical graph inspection",
+      "line": 773,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "40. Diagnostika: „nie som na branchi“",
+      "line": 786,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "41. Diagnostika: local branch sa nezhoduje s remote",
+      "line": 804,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "41. Diagnostika: local branch sa nezhoduje s remote",
+      "line": 804,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "41. Diagnostika: local branch sa nezhoduje s remote",
+      "line": 804,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local branch main ,`, `local remote-tracking ref origin/main ,`, `aktuálny server ref cez git ls-remote ,`, `configured upstream,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "41. Diagnostika: local branch sa nezhoduje s remote",
+      "line": 804,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "42. Diagnostika: force push bol odmietnutý",
+      "line": 829,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "42. Diagnostika: force push bol odmietnutý",
+      "line": 829,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "42. Diagnostika: force push bol odmietnutý",
+      "line": 829,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je server branch protected?`, `Používa sa správny remote a refspec?`, `Zmenil remote branch niekto iný?`, `Je lease založený na aktuálnom remote-tracking refe?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "42. Diagnostika: force push bol odmietnutý",
+      "line": 829,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "43. Diagnostika: tag ukazuje iný commit u kolegu",
+      "line": 847,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "43. Diagnostika: tag ukazuje iný commit u kolegu",
+      "line": 847,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "43. Diagnostika: tag ukazuje iný commit u kolegu",
+      "line": 847,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "43. Diagnostika: tag ukazuje iný commit u kolegu",
+      "line": 847,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag bol presunutý,`, `local tag nebol fetchovaný alebo prepísaný,`, `lightweight verzus annotated tag confusion,`, `kolega používa iný remote,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "43. Diagnostika: tag ukazuje iný commit u kolegu",
+      "line": 847,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "44. Failure modes",
+      "line": 866,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -45425,8 +46019,8 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "„Branch obsahuje commits“",
-      "line": 290,
+      "section": "origin/main je starý",
+      "line": 872,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45434,8 +46028,17 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "„Tag sa nikdy nedá zmeniť“",
-      "line": 294,
+      "section": "45. Časté omyly",
+      "line": 892,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "„Commit patrí jednej branchi“",
+      "line": 898,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45443,12 +46046,129 @@
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
-      "section": "„ origin/main je aktuálny serverový stav“",
-      "line": 298,
+      "section": "„Tag je nemenný objekt“",
+      "line": 902,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "„ HEAD je vždy branch“",
+      "line": 906,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "„ origin/main je server“",
+      "line": 910,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "„Force-with-lease je úplne bezpečný“",
+      "line": 914,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Na čo presne ukazuje HEAD ?`, `Je branch born, unborn alebo detached context?`, `Ktorý local ref sa posúva pri commite?`, `Aký je upstream a push remote?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "46. Diagnostický checklist",
+      "line": 922,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `recovery point`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "47. Zhrnutie",
+      "line": 940,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "47. Zhrnutie",
+      "line": 940,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
