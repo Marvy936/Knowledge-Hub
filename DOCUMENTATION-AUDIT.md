@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11133**
-- Total words: **514,395**
-- Findings: **24810** (critical 8405, high 9449, medium 3341, low 3615)
+- Audited conceptual sections: **11149**
+- Total words: **515,944**
+- Findings: **24850** (critical 8412, high 9457, medium 3345, low 3636)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -212,6 +212,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 513 | 25 | 23 | 9 | 2 | 1008 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 505 | 24 | 24 | 7 | 4 | 994 | `docs/04-testing-and-quality/verification-vs-validation.md` |
+| D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 477 | 22 | 23 | 8 | 4 | 877 | `docs/03-git-and-automation/branching-strategies.md` |
@@ -236,7 +237,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
-| D | 319 | 11 | 23 | 2 | 0 | 816 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
@@ -2954,38 +2954,53 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 105, `bare-bullet-items` — **6. Rebase nie je presun existujúcich commitov**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `určí merge base,`, `identifikuje patches unikátne pre branch,`, `resetne branch na nový base,`, `aplikuje zmeny po jednej,`.
-- **CRITICAL** line 105, `outline-instead-of-explanation` — **6. Rebase nie je presun existujúcich commitov**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `bare-bullet-items` — **7. Kedy použiť merge**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chceš zachovať skutočnú topology histórie,`, `branch je zdieľaná,`, `integrácia je významná udalosť,`, `nechceš prepisovať publikované commits,`.
-- **CRITICAL** line 117, `outline-instead-of-explanation` — **7. Kedy použiť merge**: 5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 127, `bare-bullet-items` — **8. Kedy použiť rebase**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upratuješ vlastnú nepublikovanú branch,`, `chceš lineárnu feature históriu,`, `aktualizuješ feature branch na aktuálny main pred merge,`, `tímová policy to explicitne podporuje.`.
-- **CRITICAL** line 127, `outline-instead-of-explanation` — **8. Kedy použiť rebase**: 4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **13. Squash merge**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `budúce merge-base správanie,`, `audit commitov,`, `spätné dohľadanie jednotlivých feature commitov,`, `revert celej feature.`.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **13. Squash merge**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 267, `empty-section` — **17. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 20, `bare-bullet-items` — **2. Najprv analyzuj commit graph**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je working tree a index čistý?`, `Existuje divergencia alebo je možný fast-forward?`, `Sú commits už publikované a používané inými ľuďmi?`, `Vyžaduje tím merge commit, squash alebo lineárnu históriu?`.
+- **CRITICAL** line 20, `outline-instead-of-explanation` — **2. Najprv analyzuj commit graph**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 172, `outline-instead-of-explanation` — **8. Rebase ako replay commitov**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 224, `outline-instead-of-explanation` — **10. Kedy je merge vhodnejší**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 237, `outline-instead-of-explanation` — **11. Kedy je rebase vhodnejší**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 253, `bare-bullet-items` — **12. Interactive rebase**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť poradie commitov,`, `rozdeliť jeden commit,`, `zlúčiť fixup commits,`, `opraviť messages,`.
+- **CRITICAL** line 253, `outline-instead-of-explanation` — **12. Interactive rebase**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 342, `bare-bullet-items` — **15. Merge conflicts a index stages**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ours je current branch,`, `theirs je integrovaná branch.`, `theirs predstavuje práve replayovaný starý commit.`.
+- **CRITICAL** line 388, `bare-bullet-items` — **16. Abort a state files**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MERGE HEAD ,`, `ORIG HEAD ,`, `REBASE HEAD ,`, `rebase-merge/ alebo rebase-apply/ .`.
+- **CRITICAL** line 424, `outline-instead-of-explanation` — **18. Squash merge**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 459, `outline-instead-of-explanation` — **20. Signatures, attestations a audit**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 502, `bare-bullet-items` — **23. Overenie výsledku**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatter/linter,`, `unit a integračné testy,`, `build,`, `relevantný používateľský scenár.`.
+- **CRITICAL** line 502, `outline-instead-of-explanation` — **23. Overenie výsledku**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 601, `bare-bullet-items` — **Rebase hlási, že commit bol skipped**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ekvivalentný patch už existuje v novej báze,`, `commit bol predtým cherry-picknutý,`, `patch-id heuristika ho vyhodnotila ako ekvivalentný,`, `nesprávne zvolený upstream rozsah.`.
+- **CRITICAL** line 601, `outline-instead-of-explanation` — **Rebase hlási, že commit bol skipped**: 4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 639, `empty-section` — **28. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `single-sentence-concept` — **1. Dva integračné modely**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 20, `single-sentence-concept` — **2. Merge base**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 56, `single-sentence-concept` — **4. True merge**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 84, `list-first-introduction` — **5. Rebase**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 84, `single-sentence-concept` — **5. Rebase**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 105, `single-sentence-concept` — **6. Rebase nie je presun existujúcich commitov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 117, `single-sentence-concept` — **7. Kedy použiť merge**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 127, `single-sentence-concept` — **8. Kedy použiť rebase**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 142, `list-first-introduction` — **9. Interactive rebase**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 161, `list-first-introduction` — **10. Rebase onto**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 161, `single-sentence-concept` — **10. Rebase onto**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 211, `list-first-introduction` — **13. Squash merge**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 237, `single-sentence-concept` — **15. Overenie výsledku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 250, `single-sentence-concept` — **16. Recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 269, `single-sentence-concept` — **„Rebase iba uprace graf bez zmeny commitov“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `single-sentence-concept` — **„Merge je vždy bezpečný a rebase vždy nebezpečný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 20, `single-sentence-concept` — **2. Najprv analyzuj commit graph**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 154, `single-sentence-concept` — **7. Fast-forward policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 172, `bare-bullet-items` — **8. Rebase ako replay commitov**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Uloží zmeny jednotlivých commitov v poradí.`, `Presunie pracovnú bázu na nový base.`, `Aplikuje každú zmenu.`, `Posunie branch ref na posledný nový commit.`.
+- **HIGH** line 224, `bare-bullet-items` — **10. Kedy je merge vhodnejší**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `commits už používa viac ľudí,`, `branch je publikovaná a nie je dohodnutý rewrite,`, `treba zachovať ancestry a integráciu ako auditnú udalosť,`, `pravidelne sa spájajú dlhšie žijúce release branches.`.
+- **HIGH** line 224, `single-sentence-concept` — **10. Kedy je merge vhodnejší**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 237, `bare-bullet-items` — **11. Kedy je rebase vhodnejší**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `upratuješ vlastnú nepublikovanú feature branch,`, `chceš rozbiť alebo zlúčiť lokálne work-in-progress commits,`, `potrebuješ presunúť vybranú sériu na inú bázu.`.
+- **HIGH** line 237, `single-sentence-concept` — **11. Kedy je rebase vhodnejší**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 253, `list-first-introduction` — **12. Interactive rebase**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 253, `single-sentence-concept` — **12. Interactive rebase**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 306, `single-sentence-concept` — **14. rebase --onto**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 424, `list-first-introduction` — **18. Squash merge**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 484, `bare-bullet-items` — **22. rerere**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `opakovaných rebase cykloch,`, `dlhodobých release branches,`, `testovaní merge výsledku pred finálnou integráciou.`.
+- **HIGH** line 502, `single-sentence-concept` — **23. Overenie výsledku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 576, `list-first-introduction` — **26. Bezpečný integračný workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 601, `single-sentence-concept` — **Rebase hlási, že commit bol skipped**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 617, `single-sentence-concept` — **Merge vytvoril neočakávaný commit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 629, `list-first-introduction` — **Po rebase chýba zmena**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 657, `single-sentence-concept` — **„ -Xours bezpečne vezme celú našu verziu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 105, `thin-concept-section` — **6. Rebase nie je presun existujúcich commitov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 117, `thin-concept-section` — **7. Kedy použiť merge**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 127, `thin-concept-section` — **8. Kedy použiť rebase**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 211, `thin-concept-section` — **13. Squash merge**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 20, `thin-concept-section` — **2. Najprv analyzuj commit graph**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 154, `thin-concept-section` — **7. Fast-forward policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 224, `thin-concept-section` — **10. Kedy je merge vhodnejší**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 237, `thin-concept-section` — **11. Kedy je rebase vhodnejší**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 253, `thin-concept-section` — **12. Interactive rebase**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 408, `thin-concept-section` — **17. Merge options a stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 459, `term-before-explanation` — **20. Signatures, attestations a audit**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `SHA`, `ID`, `attestation`
+- **HIGH** line 459, `thin-concept-section` — **20. Signatures, attestations a audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 502, `thin-concept-section` — **23. Overenie výsledku**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 601, `thin-concept-section` — **Rebase hlási, že commit bol skipped**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/merge-conflicts.md`
 
@@ -18904,16 +18919,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3858 | 343 | 0 | 0 | 4201 |
-| `single-sentence-concept` | 0 | 4075 | 0 | 0 | 4075 |
-| `outline-instead-of-explanation` | 3753 | 0 | 0 | 0 | 3753 |
-| `thin-concept-section` | 0 | 3385 | 0 | 0 | 3385 |
-| `term-before-explanation` | 0 | 409 | 2349 | 0 | 2758 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1510 | 1510 |
-| `example-not-explicit` | 0 | 0 | 0 | 1376 | 1376 |
-| `short-concept-section` | 0 | 0 | 992 | 0 | 992 |
+| `bare-bullet-items` | 3860 | 347 | 0 | 0 | 4207 |
+| `single-sentence-concept` | 0 | 4073 | 0 | 0 | 4073 |
+| `outline-instead-of-explanation` | 3758 | 0 | 0 | 0 | 3758 |
+| `thin-concept-section` | 0 | 3390 | 0 | 0 | 3390 |
+| `term-before-explanation` | 0 | 410 | 2349 | 0 | 2759 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1516 | 1516 |
+| `example-not-explicit` | 0 | 0 | 0 | 1385 | 1385 |
+| `short-concept-section` | 0 | 0 | 996 | 0 | 996 |
 | `list-first-introduction` | 0 | 944 | 0 | 0 | 944 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 729 | 729 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 735 | 735 |
 | `empty-section` | 480 | 0 | 0 | 0 | 480 |
 | `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
 | `list-heavy-section` | 0 | 293 | 0 | 0 | 293 |

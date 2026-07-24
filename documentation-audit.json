@@ -857,15 +857,15 @@
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
       "title": "Merge a rebase",
-      "words": 816,
-      "headings": 24,
-      "sections": 24,
-      "findings": 36,
-      "critical": 11,
-      "high": 23,
-      "medium": 2,
-      "low": 0,
-      "score": 319,
+      "words": 2365,
+      "headings": 40,
+      "sections": 40,
+      "findings": 76,
+      "critical": 18,
+      "high": 31,
+      "medium": 6,
+      "low": 21,
+      "score": 504,
       "grade": "D"
     },
     {
@@ -47954,16 +47954,34 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "1. Dva integračné modely",
+      "section": "1. Definícia",
       "line": 11,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "2. Merge base",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "2. Najprv analyzuj commit graph",
       "line": 20,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -47972,62 +47990,26 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "4. True merge",
-      "line": 56,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "5. Rebase",
-      "line": 84,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "5. Rebase",
-      "line": 84,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "6. Rebase nie je presun existujúcich commitov",
-      "line": 105,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "6. Rebase nie je presun existujúcich commitov",
-      "line": 105,
+      "section": "2. Najprv analyzuj commit graph",
+      "line": 20,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "6. Rebase nie je presun existujúcich commitov",
-      "line": 105,
+      "section": "2. Najprv analyzuj commit graph",
+      "line": 20,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `určí merge base,`, `identifikuje patches unikátne pre branch,`, `resetne branch na nový base,`, `aplikuje zmeny po jednej,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je working tree a index čistý?`, `Existuje divergencia alebo je možný fast-forward?`, `Sú commits už publikované a používané inými ľuďmi?`, `Vyžaduje tím merge commit, squash alebo lineárnu históriu?`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "6. Rebase nie je presun existujúcich commitov",
-      "line": 105,
+      "section": "2. Najprv analyzuj commit graph",
+      "line": 20,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48035,8 +48017,53 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "7. Kedy použiť merge",
-      "line": 117,
+      "section": "2. Najprv analyzuj commit graph",
+      "line": 20,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "2. Najprv analyzuj commit graph",
+      "line": 20,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "3. Merge base",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "3. Merge base",
+      "line": 43,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "4. Three-way merge",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "7. Fast-forward policy",
+      "line": 154,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -48044,26 +48071,8 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "7. Kedy použiť merge",
-      "line": 117,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "7. Kedy použiť merge",
-      "line": 117,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chceš zachovať skutočnú topology histórie,`, `branch je zdieľaná,`, `integrácia je významná udalosť,`, `nechceš prepisovať publikované commits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "7. Kedy použiť merge",
-      "line": 117,
+      "section": "7. Fast-forward policy",
+      "line": 154,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48071,62 +48080,53 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "8. Kedy použiť rebase",
-      "line": 127,
+      "section": "8. Rebase ako replay commitov",
+      "line": 172,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "8. Rebase ako replay commitov",
+      "line": 172,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Uloží zmeny jednotlivých commitov v poradí.`, `Presunie pracovnú bázu na nový base.`, `Aplikuje každú zmenu.`, `Posunie branch ref na posledný nový commit.`.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "8. Kedy použiť rebase",
-      "line": 127,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "8. Kedy použiť rebase",
-      "line": 127,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upratuješ vlastnú nepublikovanú branch,`, `chceš lineárnu feature históriu,`, `aktualizuješ feature branch na aktuálny main pred merge,`, `tímová policy to explicitne podporuje.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "8. Kedy použiť rebase",
-      "line": 127,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "8. Kedy použiť rebase",
-      "line": 127,
+      "section": "8. Rebase ako replay commitov",
+      "line": 172,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "9. Interactive rebase",
-      "line": 142,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "8. Rebase ako replay commitov",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "10. Rebase onto",
-      "line": 161,
+      "section": "8. Rebase ako replay commitov",
+      "line": 172,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "10. Kedy je merge vhodnejší",
+      "line": 224,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -48134,44 +48134,26 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "10. Rebase onto",
-      "line": 161,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "13. Squash merge",
-      "line": 211,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "13. Squash merge",
-      "line": 211,
+      "section": "10. Kedy je merge vhodnejší",
+      "line": 224,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "13. Squash merge",
-      "line": 211,
-      "severity": "critical",
+      "section": "10. Kedy je merge vhodnejší",
+      "line": 224,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `budúce merge-base správanie,`, `audit commitov,`, `spätné dohľadanie jednotlivých feature commitov,`, `revert celej feature.`.",
-      "score": 12
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `commits už používa viac ľudí,`, `branch je publikovaná a nie je dohodnutý rewrite,`, `treba zachovať ancestry a integráciu ako auditnú udalosť,`, `pravidelne sa spájajú dlhšie žijúce release branches.`.",
+      "score": 8
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "13. Squash merge",
-      "line": 211,
+      "section": "10. Kedy je merge vhodnejší",
+      "line": 224,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48179,7 +48161,25 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "15. Overenie výsledku",
+      "section": "10. Kedy je merge vhodnejší",
+      "line": 224,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "10. Kedy je merge vhodnejší",
+      "line": 224,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "11. Kedy je rebase vhodnejší",
       "line": 237,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -48188,8 +48188,44 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "16. Recovery",
-      "line": 250,
+      "section": "11. Kedy je rebase vhodnejší",
+      "line": 237,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "11. Kedy je rebase vhodnejší",
+      "line": 237,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `upratuješ vlastnú nepublikovanú feature branch,`, `chceš rozbiť alebo zlúčiť lokálne work-in-progress commits,`, `potrebuješ presunúť vybranú sériu na inú bázu.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "11. Kedy je rebase vhodnejší",
+      "line": 237,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "11. Kedy je rebase vhodnejší",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "12. Interactive rebase",
+      "line": 253,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -48197,8 +48233,341 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "17. Časté omyly",
-      "line": 267,
+      "section": "12. Interactive rebase",
+      "line": 253,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "12. Interactive rebase",
+      "line": 253,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "12. Interactive rebase",
+      "line": 253,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť poradie commitov,`, `rozdeliť jeden commit,`, `zlúčiť fixup commits,`, `opraviť messages,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "12. Interactive rebase",
+      "line": 253,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "14. rebase --onto",
+      "line": 306,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "15. Merge conflicts a index stages",
+      "line": 342,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ours je current branch,`, `theirs je integrovaná branch.`, `theirs predstavuje práve replayovaný starý commit.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "15. Merge conflicts a index stages",
+      "line": 342,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "15. Merge conflicts a index stages",
+      "line": 342,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "16. Abort a state files",
+      "line": 388,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MERGE HEAD ,`, `ORIG HEAD ,`, `REBASE HEAD ,`, `rebase-merge/ alebo rebase-apply/ .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "16. Abort a state files",
+      "line": 388,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MERGE`, `REBASE`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "17. Merge options a stratégie",
+      "line": 408,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "17. Merge options a stratégie",
+      "line": 408,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "18. Squash merge",
+      "line": 424,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "18. Squash merge",
+      "line": 424,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "18. Squash merge",
+      "line": 424,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "18. Squash merge",
+      "line": 424,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "18. Squash merge",
+      "line": 424,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "20. Signatures, attestations a audit",
+      "line": 459,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "20. Signatures, attestations a audit",
+      "line": 459,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "20. Signatures, attestations a audit",
+      "line": 459,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "20. Signatures, attestations a audit",
+      "line": 459,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "20. Signatures, attestations a audit",
+      "line": 459,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `SHA`, `ID`, `attestation`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "21. Revertovanie merge commitu",
+      "line": 472,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "22. rerere",
+      "line": 484,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `opakovaných rebase cykloch,`, `dlhodobých release branches,`, `testovaní merge výsledku pred finálnou integráciou.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "22. rerere",
+      "line": 484,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "23. Overenie výsledku",
+      "line": 502,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "23. Overenie výsledku",
+      "line": 502,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "23. Overenie výsledku",
+      "line": 502,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatter/linter,`, `unit a integračné testy,`, `build,`, `relevantný používateľský scenár.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "23. Overenie výsledku",
+      "line": 502,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "25. Recovery",
+      "line": 548,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "26. Bezpečný integračný workflow",
+      "line": 576,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "Rebase hlási, že commit bol skipped",
+      "line": 601,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "Rebase hlási, že commit bol skipped",
+      "line": 601,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "Rebase hlási, že commit bol skipped",
+      "line": 601,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ekvivalentný patch už existuje v novej báze,`, `commit bol predtým cherry-picknutý,`, `patch-id heuristika ho vyhodnotila ako ekvivalentný,`, `nesprávne zvolený upstream rozsah.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "Rebase hlási, že commit bol skipped",
+      "line": 601,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "Merge vytvoril neočakávaný commit",
+      "line": 617,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "Po rebase chýba zmena",
+      "line": 629,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/merge-and-rebase.md",
+      "section": "28. Časté omyly",
+      "line": 639,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -48206,17 +48575,8 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "„Rebase iba uprace graf bez zmeny commitov“",
-      "line": 269,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-and-rebase.md",
-      "section": "„Merge je vždy bezpečný a rebase vždy nebezpečný“",
-      "line": 273,
+      "section": "„ -Xours bezpečne vezme celú našu verziu“",
+      "line": 657,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
