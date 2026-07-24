@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10501**
-- Total words: **442,051**
-- Findings: **23441** (critical 8339, high 9426, medium 3129, low 2547)
+- Audited conceptual sections: **10499**
+- Total words: **442,614**
+- Findings: **23411** (critical 8325, high 9407, medium 3124, low 2555)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -229,7 +229,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 412 | 18 | 20 | 9 | 5 | 1152 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
-| D | 402 | 17 | 22 | 6 | 3 | 953 | `docs/00-foundations/value-stream-mapping.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
 | D | 392 | 20 | 15 | 9 | 2 | 1159 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 391 | 13 | 26 | 7 | 5 | 1210 | `docs/02-networking-and-web/dns.md` |
@@ -276,6 +275,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
+| D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
@@ -723,42 +723,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Systems Thinking, Feedback Loops`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý rieši**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vývoj sleduje čas implementácie,`, `QA sleduje testovanie,`, `security sleduje schválenie,`, `operations sleduje deployment.`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 28, `outline-instead-of-explanation` — **3. Mentálny model**: 6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 80, `empty-section` — **6. Ako vytvoriť current-state map**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 123, `bare-bullet-items` — **8. Handoffs**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `straty kontextu,`, `nejasnej zodpovednosti,`, `čakania vo fronte,`, `rozdielnej priority,`.
-- **CRITICAL** line 123, `outline-instead-of-explanation` — **8. Handoffs**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 135, `bare-bullet-items` — **9. Batch size a work in progress**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas do feedbacku,`, `počet naraz menených premenných,`, `riziko konfliktov,`, `cenu review,`.
-- **CRITICAL** line 135, `outline-instead-of-explanation` — **9. Batch size a work in progress**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 147, `bare-bullet-items` — **10. Rework**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasné požiadavky,`, `neskoré bezpečnostné kontroly,`, `nekonzistentné prostredia,`, `flaky tests,`.
-- **CRITICAL** line 147, `outline-instead-of-explanation` — **10. Rework**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 178, `bare-bullet-items` — **12. Vzťah k DORA metrikám**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `change lead time ukazuje rýchlosť toku,`, `deployment frequency ukazuje schopnosť dokončovať malé dávky,`, `change fail rate odhaľuje nestabilitu,`, `failed deployment recovery time meria recovery value stream,`.
-- **CRITICAL** line 178, `outline-instead-of-explanation` — **12. Vzťah k DORA metrikám**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 212, `bare-bullet-items` — **14. Praktický mini-lab**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas commitu,`, `čas začiatku a konca review,`, `čas behu a čakania CI,`, `approval časy,`.
-- **CRITICAL** line 212, `outline-instead-of-explanation` — **14. Praktický mini-lab**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 28, `bare-bullet-items` — **3. Mentálny model**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `process time — čas aktívnej práce,`, `wait time — čas čakania,`, `queue — množstvo rozpracovanej práce,`, `rework — návrat práce späť,`.
-- **HIGH** line 28, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 28, `single-sentence-concept` — **3. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 66, `single-sentence-concept` — **5. Dva dôležité software value streams**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 70, `single-sentence-concept` — **Delivery value stream**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 86, `single-sentence-concept` — **2. Urči začiatok a koniec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 95, `single-sentence-concept` — **3. Zapoj ľudí z celého toku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 99, `single-sentence-concept` — **4. Mapuj skutočný proces**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `single-sentence-concept` — **5. Zaznamenaj časy a fronty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 107, `single-sentence-concept` — **6. Nájdite constraint**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 192, `single-sentence-concept` — **Mapovanie oficiálneho procesu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 196, `single-sentence-concept` — **Príliš široký scope**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 200, `single-sentence-concept` — **Optimalizácia lokálneho kroku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 204, `single-sentence-concept` — **VSM bez následnej zmeny**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 212, `single-sentence-concept` — **14. Praktický mini-lab**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 23, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 28, `thin-concept-section` — **3. Mentálny model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 135, `thin-concept-section` — **9. Batch size a work in progress**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 147, `thin-concept-section` — **10. Rework**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 178, `thin-concept-section` — **12. Vzťah k DORA metrikám**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 212, `thin-concept-section` — **14. Praktický mini-lab**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/you-build-it-you-run-it.md`
 
@@ -18815,16 +18782,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4183 | 0 | 0 | 4183 |
-| `bare-bullet-items` | 3822 | 346 | 0 | 0 | 4168 |
-| `outline-instead-of-explanation` | 3717 | 0 | 0 | 0 | 3717 |
-| `thin-concept-section` | 0 | 3393 | 0 | 0 | 3393 |
-| `term-before-explanation` | 0 | 342 | 2235 | 0 | 2577 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1177 | 1177 |
-| `example-not-explicit` | 0 | 0 | 0 | 963 | 963 |
+| `single-sentence-concept` | 0 | 4170 | 0 | 0 | 4170 |
+| `bare-bullet-items` | 3816 | 345 | 0 | 0 | 4161 |
+| `outline-instead-of-explanation` | 3710 | 0 | 0 | 0 | 3710 |
+| `thin-concept-section` | 0 | 3388 | 0 | 0 | 3388 |
+| `term-before-explanation` | 0 | 342 | 2232 | 0 | 2574 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1182 | 1182 |
+| `example-not-explicit` | 0 | 0 | 0 | 966 | 966 |
 | `list-first-introduction` | 0 | 950 | 0 | 0 | 950 |
-| `short-concept-section` | 0 | 0 | 894 | 0 | 894 |
-| `empty-section` | 508 | 0 | 0 | 0 | 508 |
+| `short-concept-section` | 0 | 0 | 892 | 0 | 892 |
+| `empty-section` | 507 | 0 | 0 | 0 | 507 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 407 | 407 |
 | `no-prose-concept` | 292 | 0 | 0 | 0 | 292 |
 | `list-heavy-section` | 0 | 212 | 0 | 0 | 212 |

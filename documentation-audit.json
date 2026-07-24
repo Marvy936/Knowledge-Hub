@@ -255,15 +255,15 @@
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
       "title": "Value Stream Mapping",
-      "words": 953,
-      "headings": 30,
-      "sections": 30,
-      "findings": 48,
-      "critical": 17,
-      "high": 22,
-      "medium": 6,
-      "low": 3,
-      "score": 402,
+      "words": 1516,
+      "headings": 28,
+      "sections": 28,
+      "findings": 18,
+      "critical": 3,
+      "high": 3,
+      "medium": 1,
+      "low": 11,
+      "score": 80,
       "grade": "D"
     },
     {
@@ -12746,53 +12746,26 @@
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "2. Problém, ktorý rieši",
+      "section": "1. Čo je value stream",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/value-stream-mapping.md",
+      "section": "2. Prečo lokálne metriky nestačia",
       "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vývoj sleduje čas implementácie,`, `QA sleduje testovanie,`, `security sleduje schválenie,`, `operations sleduje deployment.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `QA`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "3. Mentálny model",
-      "line": 28,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "3. Mentálny model",
-      "line": 28,
+      "section": "3. Základný model toku",
+      "line": 23,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -12800,107 +12773,8 @@
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "3. Mentálny model",
-      "line": 28,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "3. Mentálny model",
-      "line": 28,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `process time — čas aktívnej práce,`, `wait time — čas čakania,`, `queue — množstvo rozpracovanej práce,`, `rework — návrat práce späť,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "3. Mentálny model",
-      "line": 28,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "5. Dva dôležité software value streams",
-      "line": 66,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "Delivery value stream",
-      "line": 70,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "6. Ako vytvoriť current-state map",
-      "line": 80,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "2. Urči začiatok a koniec",
-      "line": 86,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "3. Zapoj ľudí z celého toku",
-      "line": 95,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "4. Mapuj skutočný proces",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "5. Zaznamenaj časy a fronty",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "6. Nájdite constraint",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "7. Príklad current-state mapy",
-      "line": 111,
+      "section": "5. Process time, wait time a lead time",
+      "line": 44,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -12908,8 +12782,35 @@
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "7. Príklad current-state mapy",
-      "line": 111,
+      "section": "7. Queue a work in progress",
+      "line": 64,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/value-stream-mapping.md",
+      "section": "9. Rework",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/value-stream-mapping.md",
+      "section": "11. Zber skutočných udalostí",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/value-stream-mapping.md",
+      "section": "11. Zber skutočných udalostí",
+      "line": 88,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -12917,116 +12818,17 @@
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "8. Handoffs",
+      "section": "14. Batch size",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/value-stream-mapping.md",
+      "section": "15. Information flow",
       "line": 123,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "8. Handoffs",
-      "line": 123,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `straty kontextu,`, `nejasnej zodpovednosti,`, `čakania vo fronte,`, `rozdielnej priority,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "8. Handoffs",
-      "line": 123,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "9. Batch size a work in progress",
-      "line": 135,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "9. Batch size a work in progress",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas do feedbacku,`, `počet naraz menených premenných,`, `riziko konfliktov,`, `cenu review,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "9. Batch size a work in progress",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "10. Rework",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "10. Rework",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasné požiadavky,`, `neskoré bezpečnostné kontroly,`, `nekonzistentné prostredia,`, `flaky tests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "10. Rework",
-      "line": 147,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "12. Vzťah k DORA metrikám",
-      "line": 178,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "12. Vzťah k DORA metrikám",
-      "line": 178,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `change lead time ukazuje rýchlosť toku,`, `deployment frequency ukazuje schopnosť dokončovať malé dávky,`, `change fail rate odhaľuje nestabilitu,`, `failed deployment recovery time meria recovery value stream,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "12. Vzťah k DORA metrikám",
-      "line": 178,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "12. Vzťah k DORA metrikám",
-      "line": 178,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -13034,93 +12836,21 @@
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "12. Vzťah k DORA metrikám",
-      "line": 178,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
-      "score": 4
+      "section": "19. Praktický mini-lab",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "Mapovanie oficiálneho procesu",
-      "line": 192,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "Príliš široký scope",
-      "line": 196,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "Optimalizácia lokálneho kroku",
-      "line": 200,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "VSM bez následnej zmeny",
-      "line": 204,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "14. Praktický mini-lab",
-      "line": 212,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "14. Praktický mini-lab",
-      "line": 212,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "14. Praktický mini-lab",
-      "line": 212,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas commitu,`, `čas začiatku a konca review,`, `čas behu a čakania CI,`, `approval časy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "14. Praktický mini-lab",
-      "line": 212,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/value-stream-mapping.md",
-      "section": "14. Praktický mini-lab",
-      "line": 212,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
+      "section": "23. Zhrnutie",
+      "line": 195,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/you-build-it-you-run-it.md",
