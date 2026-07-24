@@ -8,547 +8,530 @@
 - Predpoklady: [OSI a TCP/IP model](osi-and-tcp-ip-model.md), [Routing a default gateway](routing-and-default-gateway.md)
 - Súvisiace témy: ports, sockets, DNS, HTTP, QUIC, load balancing, firewalls
 
-## 1. Definícia
+## 1. Čo transportná vrstva rieši
 
-TCP a UDP sú transportné protokoly používané nad IP.
+TCP a UDP prenášajú aplikačné dáta medzi transportnými endpointmi nad IP. IP rozhoduje, kam packet smeruje, zatiaľ čo transportná vrstva rozlišuje konkrétne aplikácie na hoste, definuje formu prenášaných dát a podľa protokolu pridáva stav, recovery alebo riadenie toku.
 
-- TCP poskytuje connection-oriented byte stream s reliability, ordering, flow control a congestion control.
-- UDP poskytuje connectionless datagram service s minimálnym transportným stavom a bez zabudovanej garancie doručenia alebo poradia.
-
-Ani jeden protokol sám neurčuje význam aplikačných dát.
-
-## 2. Transport endpoint
-
-Transportný endpoint sa typicky identifikuje kombináciou:
+TCP poskytuje obojsmerný, usporiadaný a spoľahlivý byte stream. UDP prenáša samostatné datagramy bez zabudovaného handshakeu, retransmission, ordering alebo flow-control modelu. Ani jeden protokol však neurčuje význam payloadu; ten definuje aplikačný protokol.
 
 ```text
-IP address + protocol + port
+application semantics
+        ↓
+TCP byte stream alebo UDP datagrams
+        ↓
+IP packets
+        ↓
+route, link a fyzický prenos
 ```
 
-TCP connection je jednoznačne identifikovaná 4-tuple:
+## 2. Endpoint, flow a connection identity
+
+Transportný endpoint nie je iba port. Je to kombinácia network namespace, transportného protokolu, lokálnej IP adresy a lokálneho portu. Remote peer pridáva vzdialenú IP a port.
+
+TCP connection sa typicky identifikuje 5-tuple:
 
 ```text
+protocol
 source IP
 source port
 destination IP
 destination port
 ```
 
-V praxi sa zohľadňuje aj transport protocol a network namespace.
+Network namespace je ďalšia hranica, pretože dva namespaces môžu mať rovnaké IP adresy aj porty bez konfliktu. Jeden serverový port môže súčasne obsluhovať tisíce connections, pretože jednotlivé accepted sockets majú odlišné remote endpoints.
 
-Preto môže jeden server port 443 obsluhovať tisíce connections z rôznych source endpoints.
+## 3. Porty a ich význam
 
-## 3. Porty
+Port je 16-bitové číslo v rozsahu `0–65535`. Well-known, registered a dynamic ranges sú organizačné konvencie, nie dôkaz protokolu ani bezpečnostná politika.
 
-Port je 16-bit číslo v rozsahu 0–65535.
+- Well-known port — štandardne sa používa pre všeobecne známe služby, ale aplikácia na ňom môže hovoriť iným protokolom.
+- Registered port — býva priradený produktu alebo aplikačnému protokolu, no stále nejde o enforcement mechanizmus.
+- Ephemeral port — operačný systém ho typicky vyberie ako dočasný source port outbound connection.
 
-Konvenčné skupiny:
+Port `443` preto neznamená automaticky HTTPS a otvorený port neznamená, že je služba autorizovaná alebo zdravá.
 
-- well-known ports,
-- registered ports,
-- dynamic/ephemeral ports.
+## 4. TCP je byte stream, nie správy
 
-Tieto rozsahy sú organizačné konvencie, nie bezpečnostná policy.
-
-Aplikácia môže používať HTTP na neštandardnom porte a ľubovoľný iný protokol na porte 443.
-
-## 4. TCP byte stream
-
-TCP neposkytuje message boundaries.
-
-Ak aplikácia vykoná:
+TCP zachováva poradie bytes, ale nezachováva hranice jednotlivých `write()` volaní. Sender môže vykonať dve malé writes a receiver ich môže prečítať spolu, po častiach alebo v inom chunk rozdelení.
 
 ```text
-write("ABC")
-write("DEF")
+sender:   write("ABC") + write("DEF")
+receiver: read("AB") + read("CDEF")
 ```
 
-receiver môže čítať:
+Aplikačný protokol preto potrebuje framing:
+
+- Length prefix — správa nesie svoju veľkosť, takže receiver vie, koľko bytes ešte čaká.
+- Delimiter — koniec správy označuje špeciálna sekvencia, ktorú musí protokol bezpečne escapovať.
+- Fixed-size record — každá správa má rovnakú dĺžku, čo zjednodušuje parsing, ale môže plytvať miestom.
+- Self-describing format — parser určí hranicu zo syntaxe formátu, stále však musí správne pracovať s neúplným inputom.
+
+Predpoklad „jedno `send` = jedno `recv`“ je chyba aplikačného protokolu.
+
+## 5. Vytvorenie TCP connection
+
+Klient typicky vykoná `connect()`, kernel vyberie source address a ephemeral port, vytvorí connection state a odošle SYN. Server má listening socket, SYN queue a následne accept queue pre dokončené handshakes čakajúce na `accept()`.
 
 ```text
-"ABCDEF"
+Client                                      Server
+SYN, seq=x                           ───────►
+                                     ◄─────── SYN-ACK, seq=y, ack=x+1
+ACK, ack=y+1                         ───────►
+ESTABLISHED                                  ESTABLISHED
 ```
 
-alebo viac menších chunks podľa buffering-u a network conditions.
+Handshake plní viac úloh:
 
-Aplikačný protokol musí definovať framing, napríklad:
+- Sequence synchronization — obe strany si zvolia initial sequence space, podľa ktorého číslujú bytes.
+- Bidirectional path validation — klient aj server musia vedieť doručiť aspoň handshake packets opačným smerom.
+- Option negotiation — endpointy si oznámia MSS, window scaling, SACK, timestamps a ďalšie podporované vlastnosti.
+- State allocation — kernel vytvorí stav potrebný na retransmission, ordering, windows a close lifecycle.
 
-- length prefix,
-- delimiter,
-- fixed-size record,
-- self-describing serialization.
+Úspešný handshake dokazuje funkčný transportný začiatok. Nedokazuje TLS úspech, aplikačnú autorizáciu ani správne spracovanie requestu.
 
-## 5. TCP handshake
+## 6. Sequence numbers, ACK a ordered delivery
 
-Klasický three-way handshake:
+TCP čísluje bytes, nie packets. Receiver ACK hodnotou oznamuje ďalší byte, ktorý očakáva; tým kumulatívne potvrdzuje všetky predchádzajúce súvislé bytes.
 
-```text
-Client                     Server
-  | ------ SYN -----------> |
-  | <---- SYN-ACK ---------- |
-  | ------ ACK -----------> |
-  |       ESTABLISHED        |
-```
+Sender drží nepotvrdené dáta v retransmission queue. Keď dostane ACK, môže potvrdenú časť uvoľniť. Ak chýba časť streamu, receiver novšie bytes dočasne podrží, ale aplikácii ich neodovzdá pred chýbajúcim miestom.
 
-Účel:
+Tento mechanizmus vytvára head-of-line blocking v rámci jedného TCP streamu: strata jedného segmentu pozastaví delivery neskorších bytes, hoci fyzicky už dorazili.
 
-- synchronizovať initial sequence numbers,
-- potvrdiť obojsmernú reachability,
-- dohodnúť options, napríklad MSS, window scaling, SACK a timestamps.
+## 7. Loss detection a retransmission
 
-Handshake úspech ešte nedokazuje, že application request bude úspešný.
+TCP nerozoznáva fyzickú príčinu straty. Pozoruje len ACK pattern, čas a prípadné explicitné congestion signály.
 
-## 6. Sequence numbers a acknowledgments
+- Retransmission timeout — sender po odhadovanom časovom limite zopakuje nepotvrdené dáta.
+- Duplicate ACK — opakované ACK rovnakej hodnoty signalizujú dieru v sequence space.
+- SACK — receiver oznámi aj neskoršie bloky, ktoré už má, takže sender nemusí opakovať celý rozsah.
+- RACK a moderné loss detection — implementácia môže loss odvodzovať z časovania novšie doručených segmentov.
 
-TCP čísluje bytes v stream-e.
-
-Receiver potvrdzuje, ktorý ďalší byte očakáva. Sender podľa acknowledgments vie:
-
-- ktoré dáta boli potvrdené,
-- ktoré môže odstrániť z retransmission queue,
-- ktoré musí po timeout alebo duplicate ACK signále retransmitovať.
-
-TCP reliability znamená, že protokol sa pokúša doručiť ordered byte stream alebo connection ukončí chybou. Neznamená nekonečné retries ani business-level exactly-once spracovanie.
-
-## 7. Retransmissions
-
-Packet môže byť stratený pre:
-
-- congestion,
-- link errors,
-- firewall/policy drop,
-- route changes,
-- receiver overload,
-- queue overflow.
-
-TCP používa:
-
-- retransmission timeout,
-- duplicate ACK heuristiky,
-- selective acknowledgments,
-- moderné loss-detection algoritmy podľa implementácie.
-
-Pozorovanie:
+Loss môže vzniknúť pre queue overflow, link error, firewall drop, congestion, route change, receiver overload alebo chybný middlebox. Retransmission counter je dôkaz transportného recovery, nie automaticky dôkaz konkrétneho zlého linku.
 
 ```bash
 ss -ti
 nstat | grep -i retrans
-tcpdump -ni any tcp
+tcpdump -ni any 'tcp and host <IP>'
 ```
 
-Retransmission je symptóm straty alebo oneskorenia, nie automaticky dôkaz chyby konkrétneho linku.
+## 8. RTT a retransmission timeout
 
-## 8. Flow control
+TCP priebežne odhaduje round-trip time a jeho variabilitu. Retransmission timeout musí byť dosť dlhý, aby nereagoval na každé krátke oneskorenie, ale dosť krátky, aby recovery netrvala neprimerane dlho.
 
-Receiver advertises receive window podľa dostupného bufferu.
+Vysoký RTT znižuje rýchlosť feedback loopu. Loss na high-latency path preto často bolí viac než rovnaké percento lossu v lokálnej sieti. Pri diagnostike treba pozerať RTT, jeho distribúciu, retransmissions a množstvo dát in flight spolu.
+
+## 9. Flow control chráni receiver
+
+Receiver má obmedzený socket buffer a aplikácia z neho musí čítať. Advertised receive window oznamuje senderovi, koľko ďalších bytes môže poslať bez pretečenia receiver bufferu.
 
 ```text
-sender rate
-  ≤ receiver advertised capacity
+network doručuje bytes
+        ↓
+receive socket buffer
+        ↓ read()
+application
 ```
 
-Ak receiver nestíha čítať, window sa môže zmenšiť až na zero window. Sender potom periodicky overuje, či sa window znovu otvorilo.
+Ak aplikácia číta pomaly, receive window sa zmenšuje. Pri zero window sender zastaví bežné posielanie a periodicky používa probes, aby zistil, či sa priestor znovu otvoril.
 
-Flow control chráni receiver. Nie je to to isté ako congestion control, ktorý chráni network path.
+Zero-window stav preto často ukazuje receiver-side pressure alebo blocked application thread. Nie je to rovnaký mechanizmus ako congestion control.
 
-## 9. Congestion control
+## 10. Congestion control chráni sieťovú cestu
 
-TCP odhaduje dostupnú kapacitu pathu a upravuje množstvo dát in flight.
+Congestion control obmedzuje množstvo nepotvrdených dát v sieti. Sender používa congestion window, RTT, loss, ECN a pacing na odhad bezpečného sending rate.
 
-Koncepty:
+- Slow start — sender na začiatku rýchlo zväčšuje množstvo dát in flight, kým nenájde približnú kapacitu alebo congestion signál.
+- Congestion avoidance — rast je opatrnejší a snaží sa stabilizovať okolo dostupnej kapacity.
+- Loss response — algoritmus typicky zníži sending rate, pretože loss môže znamenať preplnené queues.
+- ECN — sieť môže označiť congestion bez zahodenia packetu, ak to celý path podporuje.
+- Pacing — sender rozkladá packets v čase, aby nevytváral zbytočné bursty.
 
-- congestion window,
-- slow start,
-- congestion avoidance,
-- loss alebo ECN signal,
-- pacing,
-- RTT estimation.
+Flow control odpovedá „koľko ešte zvládne receiver“. Congestion control odpovedá „koľko unesie cesta bez škodlivého queueingu a lossu“.
 
-Konkrétny algoritmus môže byť napríklad CUBIC alebo BBR podľa systému.
+## 11. Bandwidth-delay product
 
-```bash
-sysctl net.ipv4.tcp_congestion_control
-sysctl net.ipv4.tcp_available_congestion_control
+Množstvo dát, ktoré treba mať in flight na plné využitie cesty, približne zodpovedá bandwidth × RTT. High-bandwidth a high-latency path preto potrebuje väčšie windows a buffers než lokálna sieť.
+
+Príliš malé okno obmedzí throughput aj bez packet lossu. Príliš veľké nekontrolované queues môžu naopak vytvoriť bufferbloat a vysokú latency. Tuning musí vychádzať z merania pathu a workloadu, nie z univerzálnych sysctl receptov.
+
+## 12. MSS, MTU a segmentation
+
+MSS je maximálny TCP payload segmentu oznámený peerovi. Typicky sa odvodí z lokálneho MTU po odpočítaní IP a TCP headerov.
+
+Sender môže aplikácii prijať veľký buffer a neskôr ho rozdeliť na segmenty. Offloading mechanizmy môžu segmentation presunúť z CPU protocol stacku do NIC, preto hostový packet capture môže zobrazovať väčšie logical packets než fyzická sieť.
+
+MTU black hole sa často prejaví takto:
+
+```text
+handshake funguje
+malý request funguje
+väčší response sa zastaví
+retransmissions bez progresu
 ```
 
-Zmena algoritmu bez merania a workload kontextu nie je univerzálna optimalizácia.
+Príčinou môže byť zablokovaný ICMP Packet Too Big/Fragmentation Needed alebo nesprávne tunelové MTU.
 
-## 10. MSS, MTU a segmentation
+## 13. Listening socket a dve serverové queues
 
-Maximum Segment Size určuje maximálny TCP payload segmentu, ktorý endpoint deklaruje pri handshake.
+Serverový listening socket nie je totožný s accepted connection. Kernel počas prijímania connections typicky pracuje s dvoma logickými queue oblasťami:
 
-Typicky sa odvodzuje z interface/path MTU mínus IP a TCP headers.
+- SYN queue — obsahuje handshakes, ktoré ešte nie sú dokončené.
+- Accept queue — obsahuje dokončené connections, ktoré aplikácia ešte neprevzala cez `accept()`.
 
-Mechanizmy ako TCP Segmentation Offload môžu spôsobiť, že packet capture na hoste ukáže väčšie logical segments než frames na fyzickom linku.
-
-MTU black hole môže spôsobiť, že handshake a malé dáta fungujú, ale väčšie prenosy sa zastavia.
-
-## 11. TCP states
-
-Dôležité stavy:
-
-- `LISTEN`,
-- `SYN-SENT`,
-- `SYN-RECV`,
-- `ESTABLISHED`,
-- `FIN-WAIT-1`,
-- `FIN-WAIT-2`,
-- `CLOSE-WAIT`,
-- `LAST-ACK`,
-- `TIME-WAIT`,
-- `CLOSED`.
-
-```bash
-ss -tan
-ss -s
-```
-
-### `CLOSE-WAIT`
-
-Remote peer ukončil svoju stranu, ale lokálna aplikácia ešte nezavrela socket. Veľký trvalý počet často ukazuje application cleanup problém.
-
-### `TIME-WAIT`
-
-Endpoint, ktorý aktívne ukončil connection, dočasne drží state, aby staré segments neovplyvnili novú connection s rovnakým tuple.
-
-Veľa `TIME-WAIT` nie je automaticky incident; treba posúdiť ephemeral port pressure, connection reuse a workload.
-
-## 12. Graceful a abortive close
-
-### FIN
-
-Oznamuje, že endpoint už nebude posielať ďalšie bytes, ale môže ešte prijímať.
-
-TCP umožňuje half-close.
-
-### RST
-
-Connection sa ukončí okamžite a receiver dostane reset signal. RST môže vzniknúť, keď:
-
-- nič nepočúva na porte,
-- application abortne socket,
-- firewall aktívne rejectne,
-- packet patrí neexistujúcej connection.
-
-RST je odlišný od tichého dropu, ktorý vedie skôr k timeoutu.
-
-## 13. Listen backlog
-
-Server vytvorí listening socket a kernel drží queues pre incoming connection state.
-
-Pri preťažení môže dôjsť k:
-
-- SYN queue pressure,
-- accept queue overflow,
-- dropped connections,
-- retransmitted SYNs,
-- rastu handshake latency.
-
-Pozorovanie:
+Preťaženie môže vzniknúť, keď SYN rate prekročí ochranné mechanizmy, aplikácia volá `accept()` príliš pomaly alebo worker model nevie nové connections spracovať.
 
 ```bash
 ss -lnt
+ss -s
 nstat | grep -E 'Listen|SYN'
 ```
 
-Application musí dostatočne rýchlo volať `accept()` a mať primeranú concurrency a backlog configuration.
+Backlog parameter aplikácie, kernel limity a reálna rýchlosť accept loopu tvoria jeden systém. Zvýšenie jediného limitu nemusí odstrániť bottleneck.
 
-## 14. Ephemeral ports
+## 14. TCP state machine
 
-Klient typicky používa dočasný source port.
+TCP connection neprechádza iba stavmi `open` a `closed`. Kernel musí koordinovať obojsmerné ukončenie a chrániť sequence space.
+
+- `LISTEN` — socket čaká na nové handshakes.
+- `SYN-SENT` — klient odoslal SYN a čaká na odpoveď.
+- `SYN-RECV` — server prijal SYN a čaká na posledný ACK.
+- `ESTABLISHED` — obe strany môžu prenášať bytes.
+- `FIN-WAIT-1/2` — lokálna strana aktívne ukončuje sending direction.
+- `CLOSE-WAIT` — remote peer poslal FIN, ale lokálna aplikácia ešte socket nezavrela.
+- `LAST-ACK` — lokálna strana pošle vlastný FIN a čaká na potvrdenie.
+- `TIME-WAIT` — aktívny closer dočasne chráni starý tuple a oneskorené segmenty.
+
+```bash
+ss -tan
+ss -tan state close-wait
+ss -tan state time-wait
+```
+
+## 15. `CLOSE-WAIT` a application cleanup
+
+`CLOSE-WAIT` znamená, že peer už ukončil svoj sending direction a kernel túto udalosť doručil lokálnej aplikácii. Stav sa skončí až vtedy, keď aplikácia zavrie socket.
+
+Trvalý rast `CLOSE-WAIT` preto často ukazuje zabudnutý `close()`, blocked worker, neukončený request context alebo chybný connection pool. Kernel tuning nevyrieši application lifecycle leak.
+
+## 16. `TIME-WAIT` a bezpečné opätovné použitie tuple
+
+`TIME-WAIT` drží endpoint, ktorý aktívne ukončil connection. Chráni novú connection s rovnakým tuple pred oneskorenými segmentmi starej connection a umožňuje retransmit posledného ACK pri strate.
+
+Veľký počet `TIME-WAIT` môže byť normálny pri veľkom počte krátkych connections. Incident vzniká až pri merateľnom dopade, napríklad ephemeral port exhaustion, conntrack pressure alebo nadmernom connection setup overhead-e.
+
+## 17. Graceful close, half-close a reset
+
+FIN uzatvára iba jeden smer streamu. Endpoint môže oznámiť, že už nebude posielať ďalšie bytes, ale stále môže prijímať dáta z opačnej strany.
+
+RST connection okamžite zruší. Môže znamenať:
+
+- No listener — destination host nemá socket pre daný port.
+- Active reject — firewall alebo proxy connection explicitne odmietli.
+- Application abort — proces zavrel socket spôsobom, ktorý zahodil neodoslané alebo neprečítané dáta.
+- Unknown connection — packet nezodpovedá existujúcemu kernel state.
+
+Tichý drop vedie typicky k timeoutu a retries. RST dáva rýchlu explicitnú chybu.
+
+## 18. TCP timeouty nie sú jedna hodnota
+
+Connection lifecycle používa viac časových hraníc:
+
+- Connect timeout — ako dlho klient čaká na vytvorenie transportnej connection.
+- Retransmission timers — ako TCP obnovuje stratené segmenty.
+- Idle timeout — ako dlho aplikácia, proxy alebo middlebox drží neaktívny flow.
+- Read/write deadline — ako dlho aplikácia čaká na progres konkrétnej operácie.
+- Keepalive timers — ako kernel testuje dlho neaktívnu transportnú liveness.
+
+Aplikačný timeout kratší než transport recovery môže connection ukončiť skôr, než TCP vyčerpá vlastné retries. Pri incidente treba identifikovať, ktorá vrstva timeout vyhlásila.
+
+## 19. Keepalive a application heartbeat
+
+TCP keepalive posiela probes na dlho neaktívnej connection a overuje, či transportný peer ešte reaguje. Default intervaly bývajú pre mnohé aplikácie veľmi dlhé.
+
+Application heartbeat je súčasť protokolu a môže overiť viac:
+
+- Peer process odpovedá — nielen kernel hosta.
+- Protocol loop funguje — správa prešla parserom a event loopom.
+- Session je platná — aplikácia môže odhaliť expirovanú autentizáciu.
+- Dependency stav je použiteľný — heartbeat môže niesť aplikačné metadata.
+
+Tieto mechanizmy sa dopĺňajú, ale nie sú zameniteľné.
+
+## 20. Nagle, delayed ACK a malé správy
+
+Nagle algorithm môže zadržať malé writes, kým sa nepotvrdia predchádzajúce dáta alebo sa nazbiera väčší segment. Delayed ACK môže krátko odložiť potvrdenie, aby ho spojil s odpoveďou alebo ďalším ACK.
+
+V určitých request/response patterns sa tieto mechanizmy môžu nepriaznivo kombinovať. `TCP_NODELAY` môže znížiť latency malých interaktívnych správ, ale zvyšuje počet packets a overhead. Rozhodnutie musí vychádzať z message size, traffic patternu a meranej latency.
+
+## 21. Ephemeral ports a outbound capacity
+
+Klient potrebuje pre každú súčasnú TCP connection unikátny local tuple. Ak sa veľa connections smerom k rovnakému destination vytvára z jednej source IP, ephemeral port space sa môže stať kapacitným limitom.
 
 ```bash
 sysctl net.ipv4.ip_local_port_range
+ss -s
 ```
 
-Ephemeral port exhaustion môže nastať pri:
+Príčiny pressure:
 
-- veľkom počte outbound connections,
-- dlhom `TIME-WAIT`,
-- malom source IP/port priestore,
-- connection leak,
-- NAT gateway port pressure,
-- chýbajúcom connection pooling-u.
+- Connection churn — aplikácia stále vytvára nové connections namiesto pooling-u.
+- Dlhé `TIME-WAIT` — staré tuples ešte nemožno bezpečne znova použiť.
+- Connection leak — sockets zostávajú otvorené bez užitočnej práce.
+- NAT/PAT — viac klientov zdieľa jeden prekladový source IP a port space.
+- Malý source-address pool — egress používa príliš málo zdrojových IP adries.
 
-Možné riešenia závisia od root cause:
+Správna náprava môže byť pooling, viac source IPs, menší churn, oprava leakov alebo rozdelenie egressu. Náhodné skracovanie TCP lifecycle timers môže poškodiť correctness.
 
-- reuse/pooling,
-- viac source IPs,
-- kratšie application lifetime tam, kde je bezpečné,
-- zníženie leakov,
-- horizontálne rozdelenie egressu.
+## 22. UDP datagram semantics
 
-Náhodné sysctl tuning bez pochopenia state lifecycle môže vytvoriť correctness riziká.
+UDP zachováva hranice správ. Jeden `sendto()` vytvorí jeden datagram a receiver dostane celý datagram alebo žiadny; ak je receive buffer príliš malý, zvyšok môže byť zahodený podľa API semantics.
 
-## 15. Keepalive
+UDP neposkytuje natívne:
 
-TCP keepalive je voliteľný kernel mechanizmus na detekciu dlho neaktívnej a nefunkčnej connection.
+- Handshake — sender nemusí vedieť, či receiver existuje.
+- Delivery guarantee — datagram sa môže stratiť bez transportnej recovery.
+- Ordering — neskorší datagram môže prísť skôr.
+- Duplicate suppression — rovnaká správa môže doraziť viackrát.
+- Flow control — sender nevie, či application receive queue stíha.
+- Congestion control — jednoduché UDP API samo nereguluje sending rate podľa path pressure.
 
-Nie je to isté ako application heartbeat.
+Vyšší protokol musí implementovať presne tie vlastnosti, ktoré jeho failure model potrebuje.
 
-Application heartbeat môže overovať:
+## 23. UDP header a checksum
 
-- protocol responsiveness,
-- business session,
-- dependency health.
+UDP header obsahuje source port, destination port, length a checksum. Malý header znižuje protocol overhead, ale neodstraňuje aplikačnú potrebu pre retries, deduplication, security alebo congestion behavior.
 
-TCP keepalive overuje iba transportnú liveness podľa svojich časov a probe pravidiel.
+Checksum odhaľuje poškodenie počas prenosu. Zlyhaný datagram sa zahodí; UDP neposiela automatický retransmission request.
 
-## 16. Nagle, delayed ACK a malé writes
+## 24. „Connected“ UDP socket
 
-Nagle algorithm môže agregovať malé writes, aby znížil počet segments. Delayed ACK môže krátko odkladať acknowledgment.
+UDP socket môže aplikácia pripojiť ku konkrétnemu peerovi cez `connect()`. Nevzniká tým handshake ani zdieľaný transportný connection state ako pri TCP.
 
-V určitých request/response patterns môže interakcia zvýšiť latency. Aplikácia môže použiť `TCP_NODELAY`, ale plošné vypnutie bez merania zvyšuje packet overhead.
+Kernel však získa praktické informácie:
 
-Rozhodnutie závisí od message size, latency cieľa a traffic patternu.
+- Default destination — aplikácia môže používať `send()` namiesto `sendto()`.
+- Peer filtering — socket prijíma iba datagramy z vybraného remote endpointu.
+- Route/source selection — kernel môže skôr vyriešiť lokálny path.
+- Asynchronous errors — niektoré ICMP chyby možno priradiť konkrétnemu socketu.
 
-## 17. UDP datagram model
+## 25. UDP failure ambiguity
 
-UDP zachováva message boundaries.
+Keď UDP klient nedostane odpoveď, samotný transport nevie rozlíšiť:
 
 ```text
-send datagram A
-send datagram B
+request sa stratil
+receiver ho zahodil
+aplikácia ho nespracovala
+response sa stratila
+response prišla po timeout-e
 ```
 
-Receiver dostane samostatné datagrams, ak boli doručené.
+Preto aplikačný protokol používa transaction IDs, sequence numbers, deadlines, retry policy a deduplication. Retry bez idempotency môže zopakovať side effect rovnako ako pri TCP aplikačnom timeout-e.
 
-UDP neposkytuje zabudované:
+## 26. UDP buffers a drops
 
-- connection handshake,
-- retransmission,
-- ordering,
-- flow control,
-- congestion control,
-- duplicate suppression.
+Kernel drží send a receive queues aj pre UDP. Pri vysokom trafficu môže receiver buffer pretekať skôr, než aplikácia datagramy prečíta.
 
-Aplikácia alebo vyšší protokol musí implementovať to, čo potrebuje.
+```bash
+ss -uan
+nstat
+netstat -su
+```
 
-## 18. UDP header
+Dôležité je rozlíšiť packet loss na linke od lokálneho socket-buffer dropu. Packet capture pred socket delivery môže ukazovať, že datagram dorazil na host, hoci aplikácia ho už nedostala.
 
-UDP header obsahuje:
+## 27. UDP, fragmentácia a Path MTU
 
-- source port,
-- destination port,
-- length,
-- checksum.
+Veľký UDP datagram môže byť fragmentovaný na IP vrstve. Strata jedného fragmentu znehodnotí celý datagram a fragmenty často horšie prechádzajú firewallmi alebo middleboxes.
 
-Je výrazne jednoduchší než TCP header.
+Bezpečnejší protokolový návrh:
 
-Nízky protocol overhead však neznamená automaticky nižšiu aplikačnú latency. Aplikácia môže potrebovať vlastné timers, retries, security a congestion behavior.
+- Obmedzí veľkosť datagramu — tak, aby sa zmestil do očakávaného path MTU.
+- Použije aplikačné chunking — každý chunk má identitu, ordering a recovery pravidlá.
+- Implementuje PMTUD — vrátane správneho spracovania ICMP signálov.
+- Zvolí iný transport — keď aplikácia potrebuje stream segmentation a spoľahlivú delivery.
 
-## 19. Connected UDP socket
+DNS používa EDNS na väčšie UDP odpovede a pri truncation môže prejsť na TCP.
 
-UDP socket môže byť v API „connected“ na konkrétny peer.
+## 28. ICMP chyby pri UDP
 
-To neznamená TCP-like handshake. Kernel iba:
+Ak destination host nemá listener na UDP porte, môže poslať ICMP Port Unreachable. Firewall môže túto odpoveď zahodiť alebo ticho zahodiť samotný request, takže klient vidí iba timeout.
 
-- nastaví default destination,
-- filtruje incoming datagrams podľa peer,
-- môže doručovať niektoré asynchronous errors socketu.
+Asynchronous error nemusí byť aplikácii doručený okamžite a správanie závisí od socket API a operačného systému. Absencia ICMP chyby preto nedokazuje, že receiver request prijal.
 
-`ss -uan` môže zobrazovať UDP socket state odlišne od jednoduchého unbound listenera.
+## 29. Broadcast a multicast
 
-## 20. UDP loss, duplication a reordering
+UDP sa často používa tam, kde má jedna správa osloviť viac receivers.
 
-Aplikácia musí počítať s tým, že datagram:
+- IPv4 broadcast — datagram sa doručuje v broadcast domain a router ho bežne neforwarduje.
+- IP multicast — receivers sa prihlasujú do skupiny a sieť musí podporovať príslušný forwarding model.
+- Service discovery — lokálne protokoly používajú multicast alebo broadcast na nájdenie peers bez centrálneho registry.
+- Telemetry a media — jeden stream môže sieť distribuovať viacerým receivers efektívnejšie než samostatné unicasty.
 
-- nepríde,
-- príde viackrát,
-- príde mimo poradia,
-- príde poškodený a bude zahodený,
-- je väčší než receiver buffer,
-- fragmentuje sa a stratí celý message pri strate fragmentu.
+Multicast nie je automaticky dostupný cez routované, cloudové alebo overlay siete. Potrebuje explicitnú sieťovú podporu a observability.
 
-Preto napríklad DNS používa transaction IDs a retries; streaming protokoly používajú sequence numbers a loss handling.
+## 30. QUIC nad UDP
 
-## 21. UDP a MTU
+QUIC používa UDP ako prenosový substrate, ale nad ním implementuje vlastný connection a recovery model:
 
-Veľký UDP datagram môže byť IP-fragmentovaný. Strata jedného fragmentu znehodnotí celý datagram.
+- Reliable streams — loss recovery a ordering sa riešia v QUIC vrstve.
+- Per-stream multiplexing — strata v jednom streame neblokuje delivery nezávislého streamu rovnakým spôsobom ako TCP byte stream.
+- Congestion control — protokol reguluje sending rate podľa path feedbacku.
+- TLS 1.3 integration — kryptografický handshake je súčasťou connection setupu.
+- Connection migration — identita connection nie je viazaná iba na nemenný IP/port tuple.
 
-Preferované stratégie:
+Tvrdenie „QUIC je nespoľahlivý, lebo používa UDP“ zamieňa vlastnosti substrate s vlastnosťami celého protokolu.
 
-- držať datagrams pod bezpečným path MTU,
-- používať application fragmentation s vlastnou recovery logikou,
-- Path MTU discovery,
-- prepnúť na transport s vhodným segmentation/reliability modelom.
+## 31. TCP verzus UDP nie je „spoľahlivosť verzus rýchlosť“
 
-DNS over UDP používa EDNS a pri truncation môže fallbacknúť na TCP podľa klienta/protokolu.
+Voľba transportu vychádza z aplikačného kontraktu.
 
-## 22. ICMP errors a UDP
-
-Keď UDP destination port neexistuje, host môže poslať ICMP Port Unreachable.
-
-Firewall môže ICMP blokovať, takže sender dostane iba timeout.
-
-Connected UDP socket môže dostať error pri ďalšej operácii, ale správanie závisí od OS a timing-u.
-
-Absencia UDP response nehovorí, či sa stratil request, response alebo application odpoveď nevznikla.
-
-## 23. Multicast a broadcast
-
-UDP sa často používa s multicastom alebo IPv4 broadcastom.
-
-Použitie:
-
-- service discovery,
-- routing/control protocols,
-- telemetry,
-- media distribution.
-
-Multicast vyžaduje group membership a network support. Nie je automaticky routovaný medzi segmentmi.
-
-## 24. QUIC nad UDP
-
-QUIC používa UDP ako substrate a implementuje:
-
-- reliable streams,
-- congestion control,
-- loss recovery,
-- encryption cez TLS 1.3 integráciu,
-- connection migration,
-- stream multiplexing bez TCP head-of-line blocking medzi streams.
-
-Tvrdenie „UDP je nespoľahlivý, preto QUIC je nespoľahlivý“ je nesprávne. Reliability môže implementovať vyššia vrstva.
-
-## 25. TCP vs. UDP výber
-
-| Požiadavka | TCP | UDP / protokol nad UDP |
+| Otázka | TCP | UDP alebo protokol nad UDP |
 |---|---|---|
-| ordered reliable byte stream | natívne | musí implementovať vyššia vrstva |
-| message boundaries | nie | áno |
-| connection setup | handshake | bez UDP handshake |
-| multicast/broadcast | nie | možné |
-| kernel congestion control | áno | musí riešiť vyšší protokol |
-| partial loss tolerance | stream čaká na chýbajúce bytes | aplikácia môže zvoliť vlastné správanie |
+| Potrebuje aplikácia ordered byte stream? | Poskytuje ho natívne. | Vyššia vrstva ho musí navrhnúť. |
+| Potrebuje zachovať message boundaries? | Aplikácia musí pridať framing. | Datagram boundaries sú zachované. |
+| Je čiastočná strata prijateľná? | Stream čaká na chýbajúce bytes. | Aplikácia môže stratenú správu ignorovať alebo obnoviť selektívne. |
+| Potrebuje multicast? | TCP ho neposkytuje. | UDP môže používať multicast alebo broadcast. |
+| Kto riadi congestion? | Kernel TCP stack. | Vyšší protokol alebo aplikácia. |
+| Kto definuje retry a deduplication? | TCP obnovuje bytes, nie business operácie. | Aplikácia rieši transport aj business semantics podľa návrhu. |
 
-Výber nie je iba „rýchlosť vs. spoľahlivosť“. Rozhoduje aplikačný semantics a failure model.
+## 32. Transport, TLS a aplikačné retries
 
-## 26. Sockets v Linuxe
+TCP môže doručiť request serveru, server ho môže spracovať a connection môže zlyhať pred doručením response. Klient potom nevie, či operácia prebehla.
+
+```text
+request doručený
+server vykonal side effect
+response sa stratila
+client timeout
+client retry
+```
+
+Transportná reliability preto neposkytuje business-level exactly-once. API potrebuje idempotency key, deduplication, transaction status alebo bezpečný reconciliation model.
+
+## 33. Pozorovanie TCP a UDP v Linuxe
 
 ```bash
 ss -lntup
 ss -tan
 ss -uan
 ss -ti
+ss -s
 lsof -i
 ```
 
-Dôležité:
+Pri každom výstupe over:
 
-- network namespace,
-- bind address,
-- port,
-- socket state,
-- owning process,
-- queue sizes,
-- TCP internal info.
+- Namespace — hostový socket inventory nemusí obsahovať kontajnerový namespace.
+- Bind address — loopback listener nie je dostupný zvonku.
+- Protocol — TCP a UDP port space sú oddelené.
+- State — listening socket, established connection a UDP endpoint majú iný význam.
+- Queue — vysoké send/receive queue môže ukazovať backpressure.
+- Owner — proces, ktorý socket vytvoril, nemusí byť totožný s procesom, ktorý ho neskôr zdedil alebo obsluhuje.
 
-Listening na `127.0.0.1:8080` nie je dostupné z remote hosta. Listening na `0.0.0.0:8080` pokrýva všetky IPv4 local addresses, ale firewall môže traffic stále blokovať.
-
-## 27. Packet capture
-
-TCP handshake:
+## 34. Packet capture ako transportný dôkaz
 
 ```bash
 sudo tcpdump -ni any 'tcp port 443'
-```
-
-UDP flow:
-
-```bash
 sudo tcpdump -ni any 'udp port 53'
 ```
 
-Interpretácia TCP:
+TCP capture umožní rozlíšiť:
 
-- SYN bez odpovede → drop, path alebo server reachability,
-- RST → aktívne odmietnutie alebo no listener,
-- handshake + immediate FIN/RST → application/protocol policy,
-- retransmissions → loss alebo severe delay,
-- zero window → receiver pressure.
+- SYN bez odpovede — packet alebo return path sa stráca, prípadne server neodpovedá.
+- RST — aktívne odmietnutie alebo chýbajúci listener.
+- Úspešný handshake — L4 setup funguje, ďalšia chyba je v TLS, aplikácii alebo neskoršom transporte.
+- Retransmissions — sender nedostáva očakávané ACK.
+- Zero window — receiver nemá buffer capacity alebo aplikácia nečíta.
+- FIN/RST po prvých bytes — protokolová alebo aplikačná policy connection ukončila.
 
-Interpretácia UDP vyžaduje aplikačný protokol, pretože transport nemá connection state.
+Pri UDP capture treba poznať aplikačný request/response formát a transaction identity. UDP samo neposkytuje handshake state.
 
-## 28. Troubleshooting scenár: TCP timeout
+## 35. Diagnostický postup: TCP connect timeout
 
 ```bash
-getent hosts example.com
-ip route get <IP>
-ss -tan dst <IP>:443
+getent ahosts example.com
+ip route get <resolved-ip>
+ss -tan dst <resolved-ip>:443
 nc -vz example.com 443
-tcpdump -ni any host <IP> and tcp port 443
+tcpdump -ni any 'host <resolved-ip> and tcp port 443'
 ```
 
-Rozlíš:
+Postupuj podľa dôkazu:
 
-- DNS failure,
-- route/ARP failure,
-- SYN drop,
-- RST,
-- handshake success,
-- TLS/application timeout.
+1. Resolver — over, ktorú IP family a adresu klient reálne používa.
+2. Route — potvrď interface, gateway a source address.
+3. SYN — zisti, či odchádza z očakávaného namespace a interface.
+4. SYN-ACK alebo RST — rozlíš tichý drop od explicitného odmietnutia.
+5. Return path — ak server odpovedá, over, kam odpoveď smeruje.
+6. Handshake completion — skontroluj, či posledný ACK dorazí serveru.
+7. Vyššia vrstva — po úspešnom handshake pokračuj TLS a aplikačnou diagnostikou.
 
-## 29. Troubleshooting scenár: veľa `CLOSE-WAIT`
+## 36. Diagnostický postup: veľa `CLOSE-WAIT`
 
-1. Identifikuj owning process.
-2. Over, či remote peers posielajú FIN.
-3. Skontroluj application socket lifecycle.
-4. Pozri thread dumps alebo goroutines/tasks.
-5. Sleduj file descriptor growth.
-6. Oprav application cleanup; neznižuj stav iba sysctl tuningom.
+1. Identifikuj proces a konkrétne sockets cez `ss -tanp` alebo `lsof`.
+2. Packet capture potvrď, že remote peers posielajú FIN.
+3. Skontroluj thread, goroutine alebo event-loop stack, ktorý má socket zavrieť.
+4. Sleduj počet file descriptors a connection-pool state v čase.
+5. Over timeout a cancellation paths aplikácie.
+6. Oprav cleanup logiku a následne over, že počet `CLOSE-WAIT` nekumulatívne klesá.
 
-`CLOSE-WAIT` state čaká na lokálnu aplikáciu, nie na sieť.
+`CLOSE-WAIT` čaká na lokálnu aplikáciu, nie na sieťový timeout.
 
-## 30. Troubleshooting scenár: UDP request bez odpovede
+## 37. Diagnostický postup: UDP request bez odpovede
 
-1. Zachyť request na senderi.
-2. Over route a firewall.
-3. Zachyť request na receiveri.
-4. Over listening socket a bind address.
-5. Zachyť response.
-6. Over return path.
-7. Skontroluj ICMP errors.
-8. Over application transaction ID a timeout/retry logiku.
+1. Zachyť odoslaný datagram na klientovi a over destination, source port a transaction ID.
+2. Over route, firewall, NAT a MTU na forward path.
+3. Zachyť request na receiveri v správnom network namespace.
+4. Over UDP listener, bind address a receive-buffer drops.
+5. Skontroluj aplikačné logy, parser a request identity.
+6. Zachyť response na receiveri.
+7. Over return route, NAT state a firewall.
+8. Skontroluj ICMP errors a klientsky timeout/retry model.
 
-## 31. Časté omyly
+Bez capture na oboch stranách sa „UDP timeout“ nedá spoľahlivo priradiť requestu, response ani aplikácii.
 
-### „TCP garantuje, že business operácia prebehne presne raz“
+## 38. Časté omyly
 
-Nie. Connection môže zlyhať po server-side spracovaní, ale pred doručením response. Aplikácia potrebuje idempotency a deduplication.
+### „TCP garantuje presne jedno spracovanie“
+
+TCP garantuje ordered byte delivery alebo chybu connection. Negarantuje, že business operácia neprebehne dvakrát po aplikačnom retry.
 
 ### „UDP je vždy rýchlejší“
 
-Nie. Vyšší protokol môže implementovať komplexné reliability a security mechanizmy.
+UDP má menší základný transportný mechanizmus, ale vyšší protokol môže pridať handshake, encryption, recovery a congestion control. Výsledná latency závisí od celého stacku.
 
-### „TIME-WAIT je memory leak“
+### „Veľa `TIME-WAIT` je memory leak“
 
-Je normálny TCP lifecycle state. Problémom môže byť až jeho dopad na port alebo state capacity.
+`TIME-WAIT` je normálny correctness state. Hodnotí sa jeho dopad na port, conntrack a memory capacity, nie samotná existencia.
 
-### „TCP connection je identifikovaná iba destination portom“
+### „Handshake znamená zdravú službu“
 
-Používa source/destination addresses a ports.
-
-### „Keď handshake funguje, aplikácia je zdravá“
-
-Handshake overuje transportnú cestu, nie aplikačné spracovanie.
+Handshake potvrdzuje vytvorenie TCP transportu. Aplikácia môže byť preťažená, odmietnuť protokol alebo zlyhať počas TLS.
 
 ### „UDP nemá žiadny stav“
 
-Samotný protokol nemá TCP connection state, ale kernel socket, conntrack, NAT a aplikácia môžu stav udržiavať.
+UDP protokol nemá TCP state machine, ale socket queues, conntrack, NAT a aplikácia môžu udržiavať významný stav.
 
-## 32. Kontrolné otázky
+### „Packet capture ukazuje presne to, čo vidí fyzický link“
 
-1. Aký je rozdiel medzi TCP byte streamom a UDP datagramom?
-2. Čo identifikuje TCP connection?
-3. Načo slúži three-way handshake?
-4. Aký je rozdiel medzi flow control a congestion control?
-5. Čo znamenajú `CLOSE-WAIT` a `TIME-WAIT`?
-6. Ako vzniká ephemeral port exhaustion?
-7. Prečo UDP aplikácia potrebuje vlastnú retry alebo ordering logiku?
-8. Ako MTU ovplyvňuje TCP aj UDP?
-9. Prečo QUIC môže byť reliable, hoci beží nad UDP?
-10. Ako packet capture rozlíši timeout od aktívneho odmietnutia?
+Offloading, namespaces, tunnels a capture point môžu meniť zobrazené segmenty a headers. Observation point musí byť súčasťou interpretácie.
+
+## 39. Kontrolné otázky
+
+1. Prečo TCP nezachováva hranice aplikačných správ?
+2. Ktoré hodnoty identifikujú TCP connection?
+3. Čo sa dohodne alebo inicializuje počas three-way handshakeu?
+4. Ako sa líši flow control od congestion control?
+5. Prečo jedna strata blokuje delivery neskorších bytes v rovnakom TCP streame?
+6. Aký je rozdiel medzi SYN queue a accept queue?
+7. Čo presne signalizujú `CLOSE-WAIT` a `TIME-WAIT`?
+8. Ako vzniká ephemeral port exhaustion?
+9. Prečo UDP timeout neodhaľuje, kde sa správa stratila?
+10. Prečo veľký UDP datagram predstavuje prevádzkové riziko?
+11. Ako môže byť QUIC reliable, hoci používa UDP?
+12. Prečo TCP reliability neposkytuje business-level exactly-once?
+13. Ako packet capture rozlíši tichý drop od aktívneho odmietnutia?
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
