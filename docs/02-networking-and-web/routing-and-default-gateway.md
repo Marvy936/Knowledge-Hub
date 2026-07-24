@@ -6,58 +6,103 @@
 - Úroveň: L2 — rozumiem mechanizmu
 - Doména: Networking and Web Fundamentals
 - Predpoklady: [IPv4, IPv6 a subnetting](ipv4-ipv6-subnetting.md), [Ethernet, MAC a ARP](ethernet-mac-arp.md)
-- Súvisiace témy: policy routing, dynamic routing, NAT, firewalls, cloud route tables
+- Súvisiace témy: policy routing, dynamic routing, ECMP, NAT, firewally, cloud route tables
 
 ## 1. Definícia
 
-Routing je proces výberu cesty, ktorou sa IP packet odošle k destination prefixu. Router alebo host porovná destination IP s routing table a vyberie najvhodnejšiu route.
+Routing je proces výberu cesty pre IP packet podľa destination adresy a ďalších policy vstupov. Výsledkom routing decision nie je dôkaz dostupnosti cieľa; je to lokálne rozhodnutie, ktoré určí egress interface, next hop, source address a ďalšie forwarding parametre.
 
-Default gateway je next hop použitý vtedy, keď neexistuje presnejšia route pre destination.
+Default gateway je next hop použitý vtedy, keď pre destination neexistuje špecifickejšia route v aktuálnom routing-policy kontexte.
 
-## 2. Routing table
+```text
+packet destination
+  ↓
+policy rules vyberú routing table
+  ↓
+longest-prefix match vyberie route
+  ↓
+route určí egress interface, next hop a source hint
+  ↓
+neighbor resolution doručí frame k next hopu
+  ↓
+ďalší router rozhoduje znova
+```
+
+## 2. Route ako rozhodovací objekt
 
 Route typicky obsahuje:
 
 - destination prefix,
-- next hop/gateway,
-- outgoing interface,
+- route type,
+- next hop alebo priamy egress interface,
 - metric alebo preference,
-- source address hint,
-- protocol/origin,
-- scope a type,
-- prípadne ďalšie policy attributes.
+- source-address hint,
+- protocol alebo origin,
+- scope,
+- routing table,
+- voliteľné multipath, MTU alebo policy attributes.
 
-Linux:
+Linux inventár:
 
 ```bash
-ip route
+ip -4 route
 ip -6 route
+ip rule show
+ip route show table all
 ```
 
 Príklad:
 
 ```text
-default via 192.0.2.1 dev eth0
+default via 192.0.2.1 dev eth0 metric 100
 192.0.2.0/24 dev eth0 proto kernel scope link src 192.0.2.10
 10.20.0.0/16 via 192.0.2.254 dev eth0 metric 50
 ```
 
-## 3. Connected route
+Route neobsahuje stav celej end-to-end služby. Nehovorí, či gateway odpovedá na ARP/NDP, či firewall traffic povolí, či existuje return path ani či aplikácia počúva.
 
-Keď interface dostane adresu s prefixom, kernel typicky vytvorí connected route.
+## 3. Routing verzus forwarding
+
+**Routing** je výpočet alebo výber cesty. **Forwarding** je spracovanie konkrétneho packetu podľa už existujúceho routing a policy state.
+
+Control plane môže routes vytvoriť statickou konfiguráciou, dynamickým protokolom, cloud controllerom alebo orchestration systémom. Data plane potom vykonáva lookup a packet pošle, lokálne doručí alebo zahodí.
 
 ```text
-IP:    192.0.2.10/24
-Route: 192.0.2.0/24 dev eth0 scope link
+control plane: nauč sa, kadiaľ je prefix dostupný
+forwarding plane: pre tento konkrétny packet použi vybranú route
 ```
 
-Destination v tomto prefixe sa považuje za on-link. Host sa pokúsi získať MAC adresu destination priamo cez ARP, nie cez default gateway.
+Chybná route je control-plane problém. Drop na interface queue alebo firewall hooku je data-plane problém. Pri incidente treba tieto roviny oddeliť.
 
-Chybný prefix môže preto zmeniť L2/L3 rozhodnutie.
+## 4. Connected route
 
-## 4. Longest-prefix match
+Keď interface dostane IP adresu s prefixom, kernel typicky vytvorí connected route:
 
-Ak sa zhoduje viac routes, vyhráva najšpecifickejší prefix.
+```text
+interface: eth0
+address:   192.0.2.10/24
+route:     192.0.2.0/24 dev eth0 scope link src 192.0.2.10
+```
+
+Destination v connected prefixe sa považuje za on-link. Host sa pokúsi získať MAC adresu destination priamo cez ARP alebo NDP.
+
+Ak je prefix omylom príliš široký, host môže vzdialenú IP považovať za lokálnu a márne ju ARPovať namiesto odoslania packetu gateway. Chybný prefix je preto zároveň routing aj neighbor-resolution problém.
+
+## 5. Local route
+
+Linux udržiava osobitnú `local` table pre adresy patriace hostu, broadcasty a ďalšie lokálne destinations:
+
+```bash
+ip route show table local
+```
+
+Ak destination zodpovedá lokálnej adrese, packet sa neposiela na fyzický link iba preto, že existuje interface s touto adresou. Kernel ho môže doručiť lokálnemu socketu cez local input path.
+
+To vysvetľuje, prečo route typu `local` má iné správanie než connected unicast route. Pri policy routingu alebo virtual IP troubleshootingu treba kontrolovať aj local table, nie iba `main`.
+
+## 6. Longest-prefix match
+
+Ak destination zodpovedá viacerým routes, vyhrá najšpecifickejší prefix:
 
 ```text
 10.0.0.0/8      via gateway A
@@ -65,118 +110,95 @@ Ak sa zhoduje viac routes, vyhráva najšpecifickejší prefix.
 10.10.20.0/24   via gateway C
 ```
 
-Destination `10.10.20.5` použije `/24` route cez gateway C.
+Destination `10.10.20.5` použije `/24` cez gateway C.
 
-Metric sa typicky porovnáva až medzi routes s rovnakou prefix specificity a v rámci príslušného routing modelu.
+Prefix specificity sa porovnáva pred metric. Route `/24` s vyššou metric typicky stále vyhrá nad `/16`, pretože opisuje menší a presnejší address range.
 
-## 5. Default route
+Mentálny model:
 
-IPv4:
+```text
+najprv policy context
+→ potom najdlhší zhodný prefix
+→ potom preference/metric medzi rovnako špecifickými kandidátmi
+→ potom multipath selection, ak zostáva viac rovnocenných ciest
+```
+
+## 7. Default route
+
+IPv4 default:
 
 ```text
 0.0.0.0/0
 ```
 
-IPv6:
+IPv6 default:
 
 ```text
 ::/0
 ```
 
-Default route sa zhoduje s každou adresou, ale je najmenej špecifická.
+Prefix length nula znamená, že route sa zhoduje s každou adresou. Zároveň je najmenej špecifická, preto ju prekryje každá presnejšia route.
+
+Default gateway teda nedostáva „všetok traffic“. Lokálne destinations, connected prefixes, host routes, VPN routes a policy-selected routes môžu mať prednosť.
+
+Konkrétne rozhodnutie:
 
 ```bash
 ip route get 203.0.113.20
 ip -6 route get 2001:db8::20
 ```
 
-`ip route get` je užitočnejší než samotný výpis table, pretože ukáže konkrétny resolved decision vrátane interface, gateway a source address.
+`ip route get` je praktickejší než samotný výpis table, pretože ukáže resolved route, selected source, interface a gateway pre konkrétny flow context.
 
-## 6. Next hop musí byť dosiahnuteľný
+## 8. Next-hop reachability
 
-Gateway musí byť typicky on-link alebo dosiahnuteľná cez ďalší explicitný mechanizmus.
+Gateway musí byť z pohľadu vybranej route linkovo dosiahnuteľná alebo musí existovať explicitný mechanizmus, ktorý umožní recursive resolution.
 
 ```text
 default via 192.0.2.1 dev eth0
 ```
 
-Host musí vedieť doručiť frame k `192.0.2.1` cez eth0.
+Host musí vedieť doručiť Ethernet frame k `192.0.2.1` cez `eth0`. Typicky to znamená, že next hop patrí do connected prefixu interface-u a ARP/NDP uspeje.
 
 Existencia route nedokazuje:
 
-- ARP/NDP úspech,
-- funkčný link,
-- dostupnosť gateway,
-- správny return path,
-- firewall povolenie.
+- že interface má carrier,
+- že host je v správnej VLAN,
+- že neighbor odpovie,
+- že gateway routuje ďalej,
+- že firewall traffic povolí,
+- že destination pozná return path.
 
-## 7. Packet forwarding na routeri
+Routing table je plán. Neighbor table a packet capture ukazujú, či sa plán vykonal na lokálnom hop-e.
 
-Host sa stane IP routerom, keď:
+## 9. Recursive next-hop resolution
 
-- má viac relevantných interfaces alebo paths,
-- kernel forwarding je povolený,
-- routing table pozná destination,
-- firewall forwarding policy traffic povoľuje,
-- return path existuje.
+Niektoré routing systémy dovolia route, ktorej next hop sa sám musí vyriešiť cez inú route.
 
-Linux:
-
-```bash
-sysctl net.ipv4.ip_forward
-sysctl net.ipv6.conf.all.forwarding
+```text
+10.20.0.0/16 via 192.0.2.254
+192.0.2.254 je reachable cez connected 192.0.2.0/24
 ```
 
-Forwarding nie je NAT. Router môže routovať bez translation.
+Routing engine najprv určí next-hop IP a potom nájde spôsob, ako sa k next hopu dostať. Konkrétne pravidlá závisia od platformy a route flags.
 
-## 8. TTL a hop limit
+Ak next-hop resolution zlyhá, route môže zostať nakonfigurovaná, ale nemusí byť aktívna alebo použiteľná. Pri dynamickom routingu je dôležité rozlišovať route v control-plane databáze od route nainštalovanej vo forwarding table.
 
-IPv4 TTL a IPv6 hop limit sa na každom router hop-e znižujú.
+## 10. Source-address selection
 
-Pri dosiahnutí nuly router packet zahodí a typicky odošle ICMP Time Exceeded.
+Host s viacerými adresami musí vybrať source IP pre outbound packet. Výber ovplyvňuje:
 
-To umožňuje nástroje:
-
-```bash
-traceroute example.com
-tracepath example.com
-```
-
-Routing loop sa prejaví opakujúcimi sa hops alebo vypršaním TTL, ale firewally a asymetrické paths môžu výsledok komplikovať.
-
-## 9. Route types v Linuxe
-
-Okrem unicast route existujú typy ako:
-
-- `local` — destination patrí lokálnemu hostu,
-- `broadcast`,
-- `unreachable`,
-- `blackhole`,
-- `prohibit`,
-- `throw`.
-
-Príklad blackhole route:
-
-```bash
-ip route add blackhole 203.0.113.0/24
-```
-
-Používa sa na explicitné zahodenie alebo na routing-policy designs. Je dôležité rozlíšiť zámerný blackhole od chýbajúcej route.
-
-## 10. Source address selection
-
-Host s viacerými adresami musí vybrať source IP.
-
-Výber ovplyvňuje:
-
-- route `src` hint,
-- address scope,
-- IPv6 source selection rules,
+- route `src` alebo `prefsrc` hint,
+- destination scope,
+- prefix similarity,
+- IPv6 source-selection pravidlá,
 - policy routing,
-- socket bind aplikácie.
+- socket bind aplikácie,
+- interface a address state.
 
 ```bash
 ip route get 198.51.100.10
+ip -6 route get 2001:db8::10
 ```
 
 Výstup môže obsahovať:
@@ -185,75 +207,129 @@ Výstup môže obsahovať:
 src 192.0.2.10
 ```
 
-Nesprávny source address môže spôsobiť chýbajúci return path, firewall deny alebo nesprávnu identitu služby.
+Nesprávna source address môže spôsobiť chýbajúci return path, firewall deny, odpoveď na iný interface alebo nesprávnu identitu služby. Routing sa preto nemá analyzovať iba podľa destination.
 
-## 11. Multiple default routes
+## 11. Forward path a return path
 
-Host môže mať viac default routes s rôznymi metrics.
+End-to-end komunikácia potrebuje route v oboch smeroch:
 
 ```text
-default via 192.0.2.1 dev eth0 metric 100
-default via 198.51.100.1 dev eth1 metric 200
+client → server
+server → client
 ```
 
-Nižšia metric je typicky preferovaná. Samotná route však nemusí automaticky reagovať na vzdialenú service health. Link môže byť up, ale upstream Internet path nefunkčný.
+Forward route môže byť správna, ale odpoveď sa nemusí vrátiť. Každá strana a každý transit segment potrebuje route k source prefixu alebo mechanizmus, ktorý ho prekladá.
 
-Robustný failover môže potrebovať:
+Pri incidente „request odchádza, odpoveď neprichádza“ treba samostatne zrekonštruovať:
 
-- route tracking,
-- dynamic routing,
-- health-check automation,
-- policy routing,
-- connection-state consideration.
+1. forward path,
+2. destination processing,
+3. return route,
+4. stateful firewall alebo NAT state,
+5. source-address selection odpovede.
+
+Packet capture iba na source hoste často nedokáže určiť, kde sa return packet stratil.
 
 ## 12. Asymmetric routing
 
-Outbound a inbound traffic môžu ísť rozdielnymi paths.
+Asymmetric routing znamená, že forward a return traffic idú rozdielnymi paths:
 
 ```text
 client → firewall A → server
 server → firewall B → client
 ```
 
-IP routing to môže dovoliť, ale stateful firewalls, NAT alebo load balancers môžu očakávať symetrický flow.
+IP routing to môže podporovať. Problém vzniká, keď middlebox udržiava per-flow state a vidí iba jednu polovicu komunikácie.
 
-Symptómy:
+Typické symptómy:
 
-- SYN prichádza, SYN-ACK odchádza inou cestou,
-- connection timeout,
-- firewall state missing,
-- packet capture na jednej ceste ukazuje iba polovicu flow.
+- SYN príde cez jednu cestu a SYN-ACK odíde cez inú,
+- stateful firewall B nepozná pôvodný SYN,
+- NAT mapping existuje iba na jednej appliance,
+- packet capture na jednej ceste ukazuje polovicu flow-u,
+- failover zmení path existujúceho spojenia.
+
+Asymetria nie je automaticky chybná, ale musí byť kompatibilná s firewallom, NAT-om, load balancerom a observability modelom.
 
 ## 13. Reverse path filtering
 
-Linux `rp_filter` overuje, či source address prichádzajúceho packetu zodpovedá očakávanej reverse route.
+Linux `rp_filter` môže kontrolovať, či source adresa inbound packetu zodpovedá očakávanej reverse route.
 
 ```bash
 sysctl net.ipv4.conf.all.rp_filter
 sysctl net.ipv4.conf.eth0.rp_filter
 ```
 
-Strict mode môže zahadzovať legitímny asymmetric traffic. V multihomed, policy-routing alebo overlay environments treba policy navrhnúť vedome.
+Strict model môže zahodiť packet, ak najlepšia reverse route k source nevedie cez ingress interface. To znižuje spoofing risk, ale môže blokovať legitímny multihomed alebo asymmetric traffic.
 
-Vypnutie bez analýzy môže oslabiť anti-spoofing ochranu.
+Loose model overuje všeobecnú routovateľnosť source adresy menej striktne. Presný režim a jeho vhodnosť závisia od topológie.
 
-## 14. Policy routing
+Vypnutie `rp_filter` bez dôkazu môže odstrániť symptom, ale zároveň oslabiť anti-spoofing ochranu. Najprv treba potvrdiť konkrétny asymmetric path.
 
-Bežný routing rozhoduje najmä podľa destination. Policy routing môže zohľadniť:
+## 14. Viac default routes
 
-- source prefix,
-- packet mark,
-- ingress interface,
-- TOS/DSCP,
-- user/group pri lokálnom traffiku,
-- ďalšie selectors.
+Host môže mať viac default routes:
 
-Linux:
+```text
+default via 192.0.2.1 dev eth0 metric 100
+default via 198.51.100.1 dev eth1 metric 200
+```
+
+Nižšia metric je medzi rovnako špecifickými routes typicky preferovaná. To však nie je plnohodnotný service-health failover.
+
+Interface môže zostať `UP`, gateway môže odpovedať na ARP a route môže zostať aktívna, hoci vzdialený upstream je nefunkčný. Robustný failover preto môže potrebovať:
+
+- trackovanie vzdialenejšieho health signálu,
+- odstránenie alebo zmenu route pri failure,
+- dynamic routing,
+- policy routing podľa source,
+- koordináciu existujúceho connection state,
+- DNS alebo application-level failover.
+
+Samotná metric rieši preference, nie úplnú detekciu path health.
+
+## 15. Metrics, preference a route origin
+
+Pri výbere route sa často miešajú rozdielne pojmy:
+
+- **prefix specificity** — veľkosť zhodného prefixu,
+- **route preference alebo administrative distance** — dôvera k zdroju route,
+- **protocol metric** — cena cesty v rámci routing protokolu,
+- **kernel metric** — lokálna preference konkrétnych routes,
+- **ECMP equality** — podmienka pre multipath kandidátov.
+
+Konkrétne poradie závisí od platformy. Nie je správne používať univerzálne pravidlo „najnižšia metric vždy vyhrá“ bez určenia prefixu, table a route source.
+
+## 16. Linux routing policy database
+
+Linux môže použiť viac routing tables. `ip rule` určuje, v akom poradí a za akých podmienok sa tables vyhodnocujú.
 
 ```bash
-ip rule
+ip rule show
+ip route show table local
+ip route show table main
 ip route show table all
 ```
+
+Typické tables:
+
+- `local` — lokálne addresses a broadcast destinations,
+- `main` — bežné connected, static a dynamic routes,
+- `default` — fallback table podľa konfigurácie,
+- custom tables — source-based alebo service-specific routing.
+
+Bežný `ip route` zobrazuje najmä `main`. Pri policy-routing incidente preto môže vyzerať správne, aj keď packet používa inú table.
+
+## 17. Policy routing
+
+Klasický route lookup používa primárne destination. Policy routing môže pred výberom table zohľadniť:
+
+- source prefix,
+- ingress interface,
+- firewall mark,
+- TOS/DSCP,
+- lokálne UID range,
+- ďalšie platformové selectors.
 
 Príklad konceptu:
 
@@ -261,76 +337,129 @@ Príklad konceptu:
 from 10.0.10.0/24 lookup table 100
 ```
 
-Policy rule vyberie routing table; v nej sa potom opäť vykoná longest-prefix match.
+Workflow:
 
-## 15. Routing tables a rules
-
-Linux má viac tables, napríklad:
-
-- `local`,
-- `main`,
-- `default`,
-- custom tables.
-
-```bash
-ip rule show
-ip route show table local
-ip route show table main
+```text
+packet fields
+  ↓
+ip rule priority order
+  ↓
+vybraná routing table
+  ↓
+longest-prefix match v tejto table
 ```
 
-Bežný `ip route` zobrazuje najmä main table. Pri policy-routing incidente nemusí byť dostatočný.
-
-`ip route get` s doplneným source môže simulovať konkrétny flow:
+Simulácia konkrétneho source:
 
 ```bash
 ip route get 203.0.113.10 from 192.0.2.10
 ```
 
-## 16. Static a dynamic routing
+Pri marked trafficu môže byť potrebné zahrnúť mark a ingress context. Diagnostika bez rovnakých selectorov nemusí reprodukovať reálne rozhodnutie.
 
-### Static route
+## 18. Route types
 
-Konfiguruje administrátor alebo automation.
+Linux podporuje viac route types než bežný unicast:
+
+- `local` — destination patrí hostu,
+- `broadcast` — lokálny broadcast,
+- `unreachable` — explicitná nedostupnosť,
+- `prohibit` — administratívne zakázaná cesta,
+- `blackhole` — tiché zahodenie,
+- `throw` — ukončenie lookupu v table a pokračovanie podľa rules.
+
+Príklad:
+
+```bash
+ip route add blackhole 203.0.113.0/24
+```
+
+Blackhole route môže byť zámerný security alebo aggregation mechanizmus. Z pohľadu klienta však môže vyzerať ako obyčajný timeout. Preto treba rozlíšiť chýbajúcu route, explicitný reject a tiché zahodenie.
+
+## 19. Packet forwarding na Linuxe
+
+Host routuje transit packets iba ak sú splnené viaceré podmienky:
+
+- packet nie je lokálne terminovaný,
+- kernel forwarding je povolený,
+- existuje route k destination,
+- forwarding policy traffic povolí,
+- next hop je reachable,
+- return path existuje.
+
+```bash
+sysctl net.ipv4.ip_forward
+sysctl net.ipv6.conf.all.forwarding
+```
+
+Forwarding nie je NAT. Router môže preposielať packet bez zmeny source alebo destination adresy. NAT je samostatná transformácia aplikovaná podľa policy.
+
+Cloud alebo hypervisor môže mať ďalšiu source/destination check vrstvu, ktorá blokuje appliance forwarding aj pri správnej Linux konfigurácii.
+
+## 20. TTL, hop limit a traceroute
+
+IPv4 TTL a IPv6 hop limit sa na každom routeri znižujú. Pri nule router packet zahodí a typicky odošle ICMP Time Exceeded.
+
+Traceroute posiela probes s postupne rastúcou TTL/hop-limit hodnotou a z odpovedí odhaduje jednotlivé hops.
+
+```bash
+tracepath example.com
+traceroute example.com
+```
+
+Výstup nie je dokonalá mapa každej aplikačnej cesty. ECMP môže vybrať rôzne paths podľa flow hash, niektoré routery neodpovedajú na probes a return path ICMP odpovedí môže byť iná než forward path.
+
+Opakujúce sa hops alebo vypršanie TTL môže signalizovať routing loop, ale treba ho potvrdiť v control-plane a packet evidence.
+
+## 21. Static routing
+
+Static route vytvára administrátor alebo automation:
+
+```bash
+ip route add 10.20.0.0/16 via 192.0.2.254
+```
 
 Výhody:
 
-- jednoduchá,
-- predvídateľná,
-- nízka protocol complexity.
+- jednoduchý mentálny model,
+- predvídateľné správanie,
+- žiadna routing-protocol komunikácia,
+- vhodné pre malé alebo stabilné topológie.
 
 Nevýhody:
 
-- manuálna správa,
-- slabá reakcia na topology changes,
-- rastúca komplexita vo veľkej sieti.
+- manuálna správa a drift,
+- slabá reakcia na topology failure,
+- rastúci počet konfigurácií,
+- riziko nekonzistentného return pathu,
+- potreba osobitného health/failover mechanizmu.
 
-### Dynamic routing
+Static route má byť spravovaná ako desired state, nie ako jednorazový príkaz bez dokumentovaného ownershipu.
 
-Routing protocol vymieňa reachability informácie a vypočítava paths.
+## 22. Dynamic routing
 
-Príklady:
+Dynamic routing protocol vymieňa reachability informácie a vypočítava paths. Príklady:
 
-- OSPF/IS-IS v interných sieťach,
-- BGP medzi autonomous systems aj vo veľkých datacenters/cloud designs.
+- OSPF alebo IS-IS v interných sieťach,
+- BGP medzi autonomous systems aj v datacentroch a cloude.
 
-Dynamic neznamená automaticky správne. Chybný route advertisement sa môže rozšíriť veľmi rýchlo.
+Dynamic routing poskytuje konvergenciu pri topology changes, ale zvyšuje control-plane komplexitu. Chybný prefix advertisement, route leak alebo zlá policy sa môže rozšíriť rýchlejšie než manuálna chyba.
 
-## 17. Administrative distance a metrics
+Bezpečný návrh potrebuje:
 
-Rôzne platformy používajú preference na výber medzi routes z rôznych zdrojov. Potom protokol používa vlastnú metric na výber paths.
+- explicitné import/export policy,
+- prefix filters,
+- maximum-prefix limity,
+- authentication tam, kde je relevantná,
+- route ownership,
+- monitoring adjacencies a route changes,
+- rollback plán.
 
-Konkrétne názvy a poradie závisia od router platformy. Linux route table používa svoje fields a prioritu rules.
+Dynamické neznamená automaticky správne alebo odolné.
 
-Nemiešaj:
+## 23. ECMP
 
-- prefix specificity,
-- route source preference,
-- protocol metric,
-- ECMP selection.
-
-## 18. ECMP
-
-Equal-Cost Multi-Path umožňuje viac rovnocenných next hops.
+Equal-Cost Multi-Path umožňuje používať viac rovnocenných next hops:
 
 ```text
 10.20.0.0/16
@@ -338,148 +467,248 @@ Equal-Cost Multi-Path umožňuje viac rovnocenných next hops.
   nexthop via 192.0.2.2
 ```
 
-Traffic sa typicky rozdeľuje hashom podľa flow fields, nie packet-by-packet náhodne.
+Traffic sa zvyčajne rozdeľuje per-flow hashom, nie náhodne packet po packete. Tým sa znižuje reordering v jednom flow-e.
 
-Riziká:
+Trade-offs:
 
-- nerovnomerné flow sizes,
-- zmena hash mappingu pri failure,
-- stateful middleboxes,
-- asymmetry,
-- observability na viacerých paths.
+- veľké flows môžu vytvoriť nerovnomerné využitie,
+- pri failure sa flow hash mapping zmení,
+- stateful middleboxes musia byť v path-e konzistentne,
+- asymetria môže byť prirodzená,
+- packet captures treba robiť na viacerých paths,
+- hash fields a seed ovplyvňujú rozdelenie.
 
-## 19. Route summarization
+ECMP poskytuje paralelné cesty, ale nie automaticky rovnomernú aplikačnú záťaž.
 
-Viac prefixes možno inzerovať ako väčší aggregate.
+## 24. Route summarization
+
+Súvislé prefixes možno publikovať ako väčší aggregate. Sumarizácia znižuje počet routes a stabilizuje control plane.
 
 ```text
 10.20.0.0/24
 10.20.1.0/24
-...
-→ 10.20.0.0/16 podľa allocation
+10.20.2.0/24
+10.20.3.0/24
+→ 10.20.0.0/22
 ```
 
-Výhody:
+Aggregate môže priťahovať traffic aj pre subprefix, ktorý momentálne neexistuje. Preto sumarizujúci router často inštaluje discard route pre aggregate a presnejšie routes pre dostupné subnets.
 
-- menšie routing tables,
-- stabilnejší control plane,
-- skrytie detailnej topológie.
+Bez tohto mechanizmu môže fallback route vytvoriť loop. Príliš široká sumarizácia môže blackholovať traffic ďaleko od reálneho failure-u.
 
-Riziko: aggregate môže pri chýbajúcej konkrétnej route priťahovať traffic do black hole. Preto sa často používa discard route pre summary a konzistentné allocation.
+## 25. Cloud route tables
 
-## 20. Cloud route tables
+Cloud platformy implementujú virtual routing. Route target môže byť:
 
-Cloud platformy implementujú virtual routing.
-
-Route target môže byť:
-
+- local virtual network,
 - Internet gateway,
 - NAT gateway,
 - virtual appliance,
-- peering/transit gateway,
-- VPN attachment,
-- local virtual network.
+- peering alebo transit gateway,
+- VPN alebo direct-connect attachment,
+- service endpoint.
 
-Dôležité:
+Pri cloud troubleshootingu treba overiť:
 
-- route table nie je automaticky firewall,
-- subnet association určuje, ktorá table sa používa,
-- platform môže rezervovať system routes,
-- source/destination checks môžu blokovať appliance forwarding,
-- return route musí existovať na všetkých relevantných stranách.
+1. ktorá route table je asociovaná so source subnetom,
+2. longest-prefix match pre destination,
+3. stav a ownership targetu,
+4. security groups a network ACLs,
+5. source/destination check pre appliance,
+6. return route na druhej strane,
+7. propagated routes a precedence,
+8. provider-specific system routes.
 
-## 21. Kubernetes a container routing
+Cloud route table nie je firewall. Route umožňuje alebo vyberá path; access policy je samostatná vrstva.
 
-Pod traffic môže používať:
+## 26. Kubernetes a container routing
 
-- direct routes,
-- overlays/tunnels,
-- eBPF dataplane,
-- host routing a policy rules,
-- service translation.
-
-Troubleshooting musí identifikovať namespace a dataplane implementation.
+Pod traffic môže používať direct routes, overlays, tunnels, eBPF dataplane alebo kombináciu host routing a translation rules.
 
 ```text
-Pod route
-→ node veth
-→ CNI dataplane
-→ host route/tunnel
-→ remote node/endpoint
+Pod socket
+  ↓
+Pod network namespace route
+  ↓
+veth alebo runtime dataplane
+  ↓
+node route / tunnel / eBPF forwarding
+  ↓
+remote node alebo endpoint
 ```
 
-Host `ip route` môže byť iba časťou rozhodovacieho modelu.
+Hostový `ip route` môže byť iba jedna časť rozhodovacieho modelu. CNI môže používať policy rules, BPF maps, encapsulation alebo network namespaces.
 
-## 22. Troubleshooting scenár: destination unreachable
+Pri troubleshooting-u identifikuj:
+
+- source namespace,
+- Pod a node addresses,
+- CNI implementation,
+- service translation,
+- host route,
+- underlay return path,
+- NetworkPolicy alebo firewall hooks.
+
+## 27. Diagnostika route decision
+
+Základný postup:
 
 ```bash
 ip addr
-ip rule
+ip rule show
 ip route show table all
 ip route get <destination>
 ip neigh
-ping -c 1 <gateway>
-tracepath <destination>
-tcpdump -ni any host <destination>
 ```
 
-Klasifikuj:
+Pre konkrétny source:
 
-- `Network is unreachable` — lokálne chýba route,
-- ARP/NDP failure — next hop nie je link-layer reachable,
-- ICMP unreachable — vzdialený router/host explicitne odmietol,
-- timeout — packet alebo odpoveď sa stratila bez explicitnej chyby.
+```bash
+ip route get <destination> from <source>
+```
 
-## 23. Troubleshooting scenár: request odchádza, odpoveď neprichádza
+Otázky:
 
-1. Over source address cez `ip route get`.
-2. Zachyť outbound packet.
-3. Zachyť traffic na destination alebo next appliance, ak je prístup.
-4. Over return routing k source.
-5. Skontroluj stateful firewall/NAT symmetry.
-6. Over `rp_filter`.
-7. Skontroluj policy rules a marks.
+1. Je destination lokálna, connected alebo remote?
+2. Ktoré rule vybralo table?
+3. Ktorý prefix vyhral longest-prefix match?
+4. Aký source address bol vybraný?
+5. Je next hop linkovo reachable?
+6. Je route typu unicast, blackhole alebo unreachable?
+7. Existuje return route?
+8. Nezasahuje firewall, NAT, `rp_filter` alebo cloud policy?
 
-Return path je samostatný routing problém; forward route sama nestačí.
+## 28. Chybové signály
 
-## 24. Časté omyly
+`Network is unreachable` typicky znamená, že lokálny routing lookup nenašiel použiteľnú route.
 
-### „Default gateway dostane všetok traffic“
+`Host is unreachable` môže pochádzať z lokálneho neighbor failure-u alebo ICMP odpovede z iného zariadenia.
 
-Nie. Presnejšie connected alebo static routes majú prednosť.
+ICMP `Destination Unreachable` je explicitný signál od hosta alebo routera. Jeho code určuje presnejšiu triedu failure-u.
 
-### „Nižšia metric vždy vyhrá“
+Timeout znamená, že klient nedostal očakávanú odpoveď v limite. Neurčuje, či packet neodišiel, bol zahodený po ceste, destination neodpovedala alebo return packet zlyhal.
 
-Najprv rozhoduje prefix specificity a routing-policy kontext.
+Chybová správa sa má korelovať s packet capture a route state, nie interpretovať izolovane.
 
-### „Route existuje, teda destination je dostupná“
+## 29. Troubleshooting: destination je nedostupná
 
-Route je iba rozhodovací stav. Link, next hop, firewall a return path môžu zlyhať.
+```bash
+ip route get <destination>
+ip neigh
+ping -c 1 <next-hop>
+tracepath <destination>
+sudo tcpdump -ni any host <destination>
+```
 
-### „Forwarding a NAT sú to isté“
+Rozhodovací strom:
 
-Nie. Forwarding routuje packet; NAT mení addresses alebo ports.
+```text
+route lookup zlyhá
+→ lokálna route/policy chyba
 
-### „Asymmetric routing je vždy chyba“
+route existuje, neighbor zlyhá
+→ link/VLAN/ARP/NDP/next-hop problém
 
-IP ho povoľuje, ale môže byť nekompatibilný so stateful middleboxes.
+packet odchádza, ICMP unreachable príde
+→ explicitný downstream routing alebo policy failure
 
-### „Traceroute ukazuje presnú cestu každého application packetu“
+packet odchádza, nič sa nevráti
+→ forward drop, destination failure, return-path alebo stateful middlebox
+```
 
-ECMP, filtering a return-path differences môžu výsledok meniť.
+Každý výsledok vedie do inej diagnostickej vetvy.
 
-## 25. Kontrolné otázky
+## 30. Troubleshooting: request odchádza, odpoveď neprichádza
 
-1. Ako funguje longest-prefix match?
-2. Kedy sa použije default route?
-3. Prečo next hop musí byť on-link reachable?
-4. Aký je rozdiel medzi routing a forwarding?
-5. Prečo route nedokazuje end-to-end dostupnosť?
-6. Ako source-address selection ovplyvňuje return path?
-7. Čo rieši policy routing?
-8. Prečo môže `rp_filter` blokovať asymmetric flow?
-9. Aké trade-offy má ECMP?
-10. Ako by si diagnostikoval packet, ktorý odchádza, ale odpoveď neprichádza?
+1. Zaznamenaj selected source a route cez `ip route get`.
+2. Zachyť outbound packet na source hoste.
+3. Over, či packet dorazí na ďalší router, firewall alebo destination.
+4. Na destination over lokálne doručenie a odpoveď.
+5. Vypočítaj return route k selected source.
+6. Skontroluj NAT a conntrack state.
+7. Skontroluj asymmetric path a `rp_filter`.
+8. Skontroluj policy rules a marks v oboch smeroch.
+9. Over, či odpoveď neodchádza s inou source adresou.
+
+Forward a return path treba dokumentovať ako dve samostatné sekvencie. „Route tam existuje“ nestačí.
+
+## 31. Anti-patterny
+
+### Default gateway sa mení bez výpočtu konkrétneho flow-u
+
+Zmena môže opraviť jeden destination a rozbiť connected, VPN alebo management traffic. Najprv treba overiť longest-prefix a policy context.
+
+### Metric sa používa ako univerzálny failover
+
+Metric nepozná vzdialenú service health ani existujúci connection state.
+
+### Static route sa pridá ručne a nezapíše do desired state
+
+Po reboote alebo reconciliation sa stratí a incident sa zopakuje.
+
+### `rp_filter` sa vypne globálne pri prvom asymetrickom symptóme
+
+Tým sa môže oslabiť anti-spoofing bez potvrdenia root cause.
+
+### Traceroute sa považuje za presnú mapu aplikačného flow-u
+
+ECMP, ICMP filtering a odlišný return path môžu zobrazovať inú cestu než konkrétne TCP spojenie.
+
+## 32. Praktický mini-lab
+
+Vytvor alebo analyzuj routing table:
+
+```text
+10.0.0.0/8 via 192.0.2.1 metric 100
+10.10.0.0/16 via 192.0.2.2 metric 200
+10.10.20.0/24 via 192.0.2.3 metric 300
+default via 192.0.2.254 metric 10
+```
+
+Urči route pre:
+
+- `10.10.20.5`,
+- `10.10.30.5`,
+- `10.20.1.5`,
+- `203.0.113.10`.
+
+Potom vysvetli, prečo metric 10 na default route neprebije presnejšie prefixes.
+
+Na Linux hoste porovnaj:
+
+```bash
+ip route
+ip rule
+ip route show table all
+ip route get <destination>
+ip route get <destination> from <alternate-source>
+```
+
+Zaznamenaj, či source zmení vybranú table, gateway alebo interface.
+
+## 33. Kontrolné otázky
+
+1. Aký je rozdiel medzi routing a forwarding?
+2. Čo presne obsahuje route?
+3. Ako connected route ovplyvní ARP/NDP správanie?
+4. Ako funguje longest-prefix match?
+5. Prečo metric neprebije špecifickejší prefix?
+6. Kedy sa použije default route?
+7. Prečo next hop musí byť linkovo reachable?
+8. Aký je rozdiel medzi forward a return pathom?
+9. Kedy je asymmetric routing problém?
+10. Ako `rp_filter` interaguje s multihomingom?
+11. Ako policy rules vyberajú routing table?
+12. Aký je rozdiel medzi blackhole, unreachable a chýbajúcou route?
+13. Prečo viac default routes neposkytuje automaticky spoľahlivý failover?
+14. Ako ECMP rozdeľuje flows a aké má riziká?
+15. Prečo summary route potrebuje premyslenú discard/failure policy?
+16. Prečo cloud route table nie je firewall?
+17. Ako by si diagnostikoval packet, ktorý odchádza, ale odpoveď sa nevracia?
+
+## 34. Zhrnutie
+
+Routing je lokálne rozhodovanie o ceste packetu. Policy rules vyberú routing table, longest-prefix match vyberie route a route určí next hop, interface a source context. Úspešný lookup však nedokazuje reachability. End-to-end komunikácia potrebuje funkčný local hop, forwarding policy, destination processing a return path. Praktický troubleshooting preto vždy rekonštruuje konkrétny flow v oboch smeroch a rozlišuje control-plane state od reálneho packet movementu.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
