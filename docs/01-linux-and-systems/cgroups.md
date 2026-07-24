@@ -1,137 +1,184 @@
-# Linux Control Groups — cgroups
+# Linux control groups — cgroups
 
 ## Metadata
 
 - Status: Learning
 - Úroveň: L2 — rozumiem mechanizmu
 - Doména: Linux and Systems
-- Predpoklady: [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [CPU and Memory Fundamentals](cpu-and-memory-fundamentals.md), [Linux Namespaces](namespaces.md)
-- Súvisiace témy: systemd, containers, Kubernetes resources, capacity management, OOM
+- Predpoklady: [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [CPU and Memory Fundamentals](cpu-and-memory-fundamentals.md), [Linux namespaces](namespaces.md)
+- Súvisiace témy: systemd, containers, Kubernetes resources, capacity management, OOM, PSI
 
 ## 1. Definícia
 
-Control groups, skrátene cgroups, sú kernel mechanizmus na hierarchické zoskupovanie procesov a riadenie, meranie alebo obmedzovanie ich resource usage.
+Control groups, skrátene cgroups, sú kernelový mechanizmus na hierarchické zoskupovanie procesov a riadenie ich spotreby zdrojov. Cgroup môže merať, relatívne prioritizovať, mäkko brzdiť alebo tvrdo obmedziť CPU, memory, I/O a počet taskov celého workloadu.
 
-Cgroups neposkytujú izolovaný pohľad ako namespaces. Určujú, koľko zdrojov môže skupina procesov použiť a ako sa o ne delí s ostatnými skupinami.
-
-## 2. Problém, ktorý rieši
-
-Bez cgroups by host vedel riadiť priority alebo limity najmä na úrovni jednotlivých procesov. Moderná služba však môže vytvoriť celý strom child procesov.
-
-Cgroup umožňuje riadiť workload ako celok:
-
-- CPU bandwidth a weight,
-- memory usage a pressure,
-- I/O bandwidth a priority,
-- počet procesov,
-- device access v starších modeloch alebo cez doplnkové politiky,
-- accounting a observability.
-
-## 3. Mentálny model
+Namespaces odpovedajú na otázku **čo proces vidí**. Cgroups odpovedajú na otázku **koľko zdrojov môže skupina procesov spotrebovať a ako sa o ne delí s ostatnými skupinami**.
 
 ```text
-cgroup hierarchy
-└── system.slice
-    ├── sshd.service
-    │   ├── sshd parent
-    │   └── session processes
-    └── example.service
-        ├── application
-        └── worker processes
+namespace → izolovaný pohľad
+cgroup    → accounting, priority, pressure a limit
 ```
 
-Limity sa aplikujú na skupinu, nie iba na jeden PID. Child proces zostáva v cgroup, pokiaľ ho manager explicitne nepresunie.
+Cgroup nie je iba kontajnerová vlastnosť. Systemd používa cgroups na správu services, user sessions, scopes a slices aj na hoste bez aplikačných kontajnerov.
 
-## 4. cgroup v1 a cgroup v2
+## 2. Prečo je potrebná skupinová kontrola
 
-### cgroup v1
+Aplikácia často nie je jeden PID. Môže vytvárať workers, helper procesy, kompilátory alebo stovky threadov, takže limit iba na main PID by sa dal obísť alebo by nezachytil skutočný resource footprint.
 
-Každý controller mohol mať samostatnú hierarchiu. CPU, memory a blkio preto nemuseli zoskupovať procesy rovnakým spôsobom.
+Cgroup drží procesný strom workloadu v spoločnej policy boundary:
 
-### cgroup v2
+```text
+example.service cgroup
+  ├── main process
+  ├── worker 1
+  ├── worker 2
+  └── helper subprocess
+```
 
-Používa jednu unified hierarchy a konzistentnejší model delegácie a resource control.
+Získame tým:
 
-Kontrola:
+- **Skupinový accounting** — CPU time, memory charge, I/O a počet taskov sa sledujú pre celý workload.
+- **Relatívnu prioritu** — pri contention môže kritická služba dostať vyššiu váhu než batch job.
+- **Hard limits** — runaway workload nemôže neobmedzene spotrebovať hostovú RAM alebo vytvárať procesy.
+- **Hierarchické rozdelenie** — parent môže prideliť budget tímu, službe alebo Podu a child groups ho ďalej rozdelia.
+- **Prevádzkovú identitu** — service manager vie zastaviť, merať a diagnostikovať všetky procesy unit bez PID file heuristiky.
+
+## 3. Cgroup v1 a cgroup v2
+
+Cgroup v1 umožňovala samostatnú hierarchy pre každý controller. CPU, memory a blkio preto mohli zoskupovať procesy odlišne, čo komplikovalo delegáciu a konzistentné riadenie workloadu.
+
+Cgroup v2 používa jednu unified hierarchy. Proces má jednu cestu v strome a controllery nad ňou aplikujú koordinovanú policy.
+
+Kontrola typu mountu:
 
 ```bash
 stat -fc %T /sys/fs/cgroup
-mount | grep cgroup
 ```
 
-Pre cgroup v2 typicky uvidíš:
+Typický cgroup v2 výsledok:
 
 ```text
 cgroup2fs
 ```
 
-Moderné distribúcie a orchestration platformy preferujú cgroup v2. Konkrétna podpora fields závisí od kernelu, systemd a runtime verzie.
+Moderné distribúcie, systemd a kontajnerové platformy preferujú cgroup v2. Dostupnosť konkrétneho controlleru alebo field-u však stále závisí od kernelu, systemd, runtime a device topology.
 
-## 5. Hierarchia a členstvo procesu
+## 4. Unified hierarchy
 
-Cgroup filesystem je typicky pripojený na:
+Cgroup v2 je strom. Každý adresár reprezentuje cgroup objekt a jeho súbory predstavujú controller knobs, accounting alebo events.
 
 ```text
 /sys/fs/cgroup
+  ├── system.slice
+  │    ├── ssh.service
+  │    └── example.service
+  ├── user.slice
+  └── machine.slice
 ```
 
-Členstvo procesu:
+Parent policy ovplyvňuje descendants. Child nemôže získať viac resource authority, než mu umožní parent hierarchy.
+
+To má dva dôsledky:
+
+- limit na parent cgroup agreguje všetky child workloads,
+- child limit sa vyhodnocuje súčasne s limitmi všetkých ancestors.
+
+Proces preto môže mať vlastný `memory.max=2G`, ale stále naraziť na parent limit, ktorý zdieľa s ďalšími siblings.
+
+## 5. Členstvo procesu
+
+Cgroup membership procesu je viditeľný cez:
 
 ```bash
-cat /proc/<PID>/cgroup
+cat /proc/<pid>/cgroup
 ```
 
-Pri cgroup v2 môže výstup vyzerať:
+Cgroup v2 príklad:
 
 ```text
 0::/system.slice/example.service
 ```
 
-Systemd vytvára a spravuje cgroups pre units. Preto je pri systemd službe vhodnejšie používať unit properties než ručne presúvať PIDs cez filesystem.
+Proces sa môže presunúť zápisom PID do `cgroup.procs`, ak má caller potrebné oprávnenia a hierarchy pravidlá to dovoľujú. V systemd-managed strome sa však PIDs nemajú presúvať ručne bez vedomia managera, pretože by sa porušilo ownership a lifecycle unit.
 
-```bash
-systemctl status example.service
-systemctl show example.service -p ControlGroup
+Child proces typicky zdedí cgroup membership parenta. Preto subprocess vytvorený službou zostáva v jej resource boundary, pokiaľ ho oprávnený manager explicitne nepresunie.
+
+## 6. Processes verzus threads
+
+`cgroup.procs` pracuje s process-level membership, zatiaľ čo `cgroup.threads` podporuje thread-granular model v threaded subtree. Väčšina service a container use cases používa domain cgroups, kde sa workload riadi ako process group.
+
+Threaded cgroups sú pokročilý mechanizmus a nie všetky controllery sa správajú rovnako v threaded subtree. Náhodné rozdeľovanie threadov jednej aplikácie medzi resource groups môže narušiť jej scheduler, memory locality a accounting predpoklady.
+
+Pre DevOps prevádzku je bezpečný základ:
+
+```text
+jedna service / container / Pod boundary
+  → jedna jasne vlastnená domain cgroup subtree
 ```
 
-## 6. Controllers
+## 7. Controllers a subtree activation
 
-Dostupné controllery:
+Kernel môže podporovať viac controllerov, ale parent ich musí sprístupniť descendants cez `cgroup.subtree_control`.
 
 ```bash
 cat /sys/fs/cgroup/cgroup.controllers
-```
-
-Controllery aktivované pre child cgroups:
-
-```bash
 cat /sys/fs/cgroup/cgroup.subtree_control
 ```
 
-Typické cgroup v2 controllery:
+Typické controllery:
 
-- `cpu`,
-- `cpuset`,
-- `memory`,
-- `io`,
-- `pids`,
-- `hugetlb`,
-- `rdma`,
-- `misc` podľa kernelu.
+- **`cpu`** — relatívna váha, quota a CPU accounting.
+- **`cpuset`** — povolené CPU cores a NUMA memory nodes.
+- **`memory`** — memory accounting, protection, reclaim boundaries a hard limit.
+- **`io`** — block I/O accounting, weight a limity podľa zariadenia.
+- **`pids`** — maximálny počet procesov a threadov.
+- **`hugetlb`** — accounting a limit explicitných huge pages.
+- **`rdma` alebo `misc`** — špecializované zdroje podľa kernelu a platformy.
 
-Parent musí controller delegovať do subtree. Nestačí, že controller existuje v kerneli.
+To, že controller existuje v `cgroup.controllers`, neznamená, že je aktívny pre konkrétnu child cgroup. Treba overiť celý ancestor path a delegáciu.
 
-## 7. CPU controller
+## 8. No-internal-process rule
 
-### CPU weight
-
-Relatívna váha pri contention:
+Pri domain controlleroch cgroup v2 platí princíp, že cgroup, ktorá distribuuje controllery do child subtree, nemá zároveň držať bežné workload procesy. Interný node slúži ako organizačný a policy parent; reálne processes patria do descendants.
 
 ```text
-cpu.weight
+team.slice       policy parent, bez workload procesov
+  ├── api.service
+  └── worker.service
 ```
 
-Vyššia hodnota znamená väčší podiel CPU, keď o CPU súťažia viaceré runnable cgroups. Weight nie je pevná rezervácia ani hard limit.
+Toto pravidlo zjednodušuje hierarchické resource distribution. Bez neho by parentove vlastné processes súťažili s descendants nejasným spôsobom.
+
+Systemd tento model spravuje cez slices a service cgroups. Ručné vytváranie stromu bez pochopenia pravidla často vedie k chybe pri aktivácii controlleru.
+
+## 9. CPU accounting
+
+CPU controller sleduje CPU čas spotrebovaný cgroup. `cpu.stat` obsahuje celkové usage a pri quota režime aj throttling counters.
+
+```bash
+cat /sys/fs/cgroup/<path>/cpu.stat
+```
+
+Dôležité hodnoty typicky zahŕňajú:
+
+- **`usage_usec`** — agregovaný CPU čas workloadu.
+- **`user_usec` a `system_usec`** — rozdelenie medzi user a kernel execution.
+- **`nr_periods`** — počet quota periods, počas ktorých bol workload aktívny.
+- **`nr_throttled`** — počet periods, v ktorých bol throttled.
+- **`throttled_usec`** — čas, počas ktorého nemohol bežať pre vyčerpanú quota.
+
+CPU usage a throttling treba interpretovať spolu. Workload môže používať menej CPU v priemere, ale pravidelne vyčerpať krátky quota budget a vytvárať tail latency.
+
+## 10. CPU weight
+
+`cpu.weight` určuje relatívny podiel CPU počas contention. Nie je to pevná rezervácia ani hard limit.
+
+```text
+service A weight 100
+service B weight 200
+```
+
+Keď sú obe cgroups runnable a súťažia o rovnaké CPU, service B má približne vyššiu scheduling weight. Keď service A nemá prácu, B môže použiť voľnú CPU kapacitu aj nad svoj relatívny podiel.
 
 Systemd:
 
@@ -140,21 +187,23 @@ Systemd:
 CPUWeight=200
 ```
 
-### CPU quota
+Weight je vhodný na work-conserving prioritu. Zachováva využitie voľného CPU a prejaví sa až pri skutočnom contention.
 
-Harder bandwidth limit:
+## 11. CPU quota
 
-```text
-cpu.max
-```
-
-Príklad:
+`cpu.max` nastavuje maximálny CPU budget v každom period.
 
 ```text
 50000 100000
 ```
 
-znamená najviac 50 ms CPU času v každom 100 ms období, teda približne 0,5 CPU.
+Tento príklad povoľuje 50 ms CPU času za 100 ms period, teda približne `0.5 CPU`. Hodnota:
+
+```text
+max 100000
+```
+
+znamená bez hard quota pri danom period.
 
 Systemd:
 
@@ -163,112 +212,162 @@ Systemd:
 CPUQuota=50%
 ```
 
-Quota môže vytvoriť throttling a latency aj vtedy, keď host má inak voľné CPUs, pretože workload vyčerpal pridelený budget v danom period.
+Quota môže throttliť workload aj na hoste s idle cores. Dôvodom je, že cgroup vyčerpala svoj period budget, nie že host nemá fyzickú kapacitu.
 
-Pozorovanie:
+Pre latency-sensitive službu môže nízka quota vytvoriť pravidelný sawtooth pattern:
 
-```bash
-cat /sys/fs/cgroup/<path>/cpu.stat
+```text
+burst execution → budget exhausted → throttle → next period → burst
 ```
 
-Sleduj najmä usage a throttling counters.
+Preto sa quota nastavuje podľa burst modelu a meraného throttlingu, nie iba podľa priemerného CPU usage.
 
-## 8. cpuset controller
+## 12. Weight verzus quota
 
-Cpuset obmedzuje, na ktorých CPUs a NUMA memory nodes môže workload bežať.
+Weight a quota riešia rozdielne problémy.
+
+- **Weight** — rozhoduje, ako sa delí nedostatkový CPU čas medzi runnable groups.
+- **Quota** — nastavuje hornú hranicu CPU bandwidth aj vtedy, keď je voľná kapacita.
+
+Pre väčšinu zdieľaných služieb je weight menej deštruktívny, pretože zachováva work-conserving scheduling. Quota je vhodná, keď workload nesmie prekročiť konkrétny budget alebo musí byť chránený susedný systém.
+
+Oba mechanizmy možno kombinovať. Potom treba diagnostikovať, či latency vzniká hostovým contention, nízkou weight alebo vlastnou quota.
+
+## 13. Cpuset controller
+
+Cpuset určuje, na ktorých logical CPUs a NUMA nodes môže workload bežať a alokovať memory.
 
 ```text
 cpuset.cpus
+cpuset.cpus.effective
 cpuset.mems
+cpuset.mems.effective
 ```
 
-Použitie je citlivé na topology. Nesprávne pinovanie môže:
+`effective` hodnoty ukazujú skutočný intersection s parent policy a online topology. Child nemôže používať CPU alebo memory node, ktorý parent nepovolil.
 
-- znížiť scheduler flexibility,
+Cpuset je placement policy, nie CPU bandwidth limit. Workload pinovaný na dva cores môže tie cores použiť naplno, pokiaľ ho neobmedzí quota alebo scheduler contention.
+
+Nesprávny cpuset môže:
+
 - preťažiť jeden core,
-- spôsobiť remote NUMA access,
-- skomplikovať failover pri offline CPU.
+- znížiť scheduler flexibility,
+- zvýšiť remote NUMA access,
+- vytvoriť nerovnomerné IRQ a workload placement,
+- zlyhať po CPU hotplug alebo topology zmene.
 
-Cpuset je placement mechanizmus; CPU quota je bandwidth mechanizmus.
+Pinning má vychádzať z workload profilingu a NUMA modelu.
 
-## 9. Memory controller
+## 14. Memory accounting
 
-Dôležité cgroup v2 fields:
+Memory controller účtuje viac než RSS jedného procesu. Cgroup memory môže zahŕňať anonymous pages, page cache, kernel allocations, socket buffers a ďalšie kategórie podľa kernelovej implementácie.
 
-- `memory.current` — aktuálne chargeované použitie,
-- `memory.max` — hard limit,
-- `memory.high` — throttling/reclaim boundary,
-- `memory.low` — best-effort protection,
-- `memory.min` — silnejšia protection,
-- `memory.swap.current`,
-- `memory.swap.max`,
-- `memory.events`,
-- `memory.stat`.
-
-### `memory.max`
-
-Keď workload prekročí limit a reclaim nestačí, môže nastať cgroup-local OOM. Host pritom môže mať voľnú RAM.
-
-### `memory.high`
-
-Procesy nad hranicou čelia reclaim pressure a throttlingu. Je vhodný na kontrolovanejšiu degradáciu pred hard OOM.
-
-### Memory accounting
-
-Cgroup memory môže zahŕňať:
-
-- anonymous memory,
-- page cache,
-- kernel memory kategórie,
-- socket buffers,
-- ďalšie charges podľa kernelu.
-
-Preto RSS jedného procesu nemusí zodpovedať `memory.current` celej cgroup.
-
-Diagnostika:
-
-```bash
-cat /sys/fs/cgroup/<path>/memory.current
-cat /sys/fs/cgroup/<path>/memory.max
-cat /sys/fs/cgroup/<path>/memory.events
-cat /sys/fs/cgroup/<path>/memory.stat
-```
-
-`memory.events` pomáha rozlíšiť `high`, `max`, `oom` a `oom_kill` udalosti.
-
-## 10. OOM v cgroup
-
-Cgroup-local OOM nie je rovnaký ako host-wide OOM.
+Dôležité fields:
 
 ```text
-Host capacity: 32 GiB
-Container limit: 512 MiB
-Container usage: 512 MiB
-→ cgroup OOM môže nastať, aj keď host má voľnú RAM
+memory.current
+memory.peak
+memory.stat
+memory.events
+memory.swap.current
 ```
 
-Kernel alebo userspace manager môže ukončiť proces v postihnutej cgroup. Správanie ovplyvňujú cgroup settings a runtime.
+`memory.current` je agregovaný charge celej cgroup subtree. Nemusí sa rovnať súčtu RSS z `ps`, pretože accounting boundary a memory kategórie sú odlišné.
 
-Systemd podporuje napríklad:
+`memory.stat` pomáha rozložiť usage na anonymous, file-backed, slab, workingset a reclaim aktivity. Jedno číslo bez breakdownu nestačí na rozlíšenie leak-u od page cache alebo kernel pressure.
+
+## 15. Memory protection: `memory.min` a `memory.low`
+
+Memory protection neurčuje maximum. Chráni časť memory cgroup pred reclaimom počas pressure.
+
+- **`memory.min`** — silná ochrana; kernel sa snaží nechránenú memory reclaimovať skôr a chránený rozsah považuje za nedotknuteľný, pokiaľ je to možné.
+- **`memory.low`** — best-effort ochrana; workload má preferenciu pri reclaim rozhodovaní, ale pri silnom tlaku môže byť memory stále reclaimovaná.
+
+Protection je hierarchická. Child ochrana je efektívna iba v rámci budgetu, ktorý mu poskytuje parent.
+
+Nadmerné protections môžu zhoršiť host-wide OOM riziko. Ak všetky workloads požadujú chránenú memory nad fyzickú kapacitu, kernel nemá dostatočne reclaimable priestor.
+
+## 16. `memory.high`
+
+`memory.high` je pressure boundary, nie okamžitý kill limit. Keď cgroup prekročí túto hodnotu, jej processes čelia intenzívnejšiemu reclaimu a throttlingu.
 
 ```ini
 [Service]
-MemoryMax=512M
-OOMPolicy=stop
+MemoryHigh=1G
 ```
 
-Pri diagnostike kontroluj súčasne:
+Cieľom je vytvoriť kontrolovanú degradáciu pred hard OOM. Workload môže pokračovať, ale allocation a reclaim latency ho spomalia a `memory.events` zaznamená `high` udalosti.
+
+`memory.high` je vhodný na signalizáciu a ochranu hosta, ak aplikácia dokáže reagovať na memory pressure. Bez monitoringu môže vyzerať iba ako náhodná latency.
+
+## 17. `memory.max`
+
+`memory.max` je hard boundary pre chargeovanú memory cgroup. Keď allocation prekročí limit a reclaim nestačí, vznikne cgroup-local OOM.
+
+```ini
+[Service]
+MemoryMax=1500M
+```
+
+Host môže mať voľnú RAM, ale workload stále zlyhá, pretože jeho vlastná hierarchy policy nepovoľuje ďalší charge.
+
+Hard limit chráni host a sibling workloads, ale mení failure mode aplikácie. Namiesto host-wide memory pressure môže jeden proces dostať OOM kill alebo celá service skončiť podľa manager policy.
+
+Limit musí počítať s:
+
+- application heap,
+- page cache charge,
+- thread stacks,
+- socket buffers,
+- runtime overhead,
+- burst počas reloadu alebo compaction,
+- child procesmi.
+
+## 18. Swap control
+
+Cgroup v2 môže samostatne riadiť swap usage:
+
+```text
+memory.swap.current
+memory.swap.max
+memory.swap.events
+```
+
+`memory.swap.max=0` zakáže workloadu chargeovať swap. To môže znížiť nepredvídateľnú swap latency, ale zároveň zvyšuje pravdepodobnosť skoršieho OOM pri anonymous memory pressure.
+
+Swap policy musí zodpovedať workloadu. Latency-sensitive služba, batch job a hostový agent nemusia mať rovnaký kompromis medzi reclaim flexibility a response time.
+
+Host-wide swap availability a cgroup-local swap limit sú dve rozdielne vrstvy. Diagnostika musí skontrolovať obe.
+
+## 19. Memory events a local OOM
+
+`memory.events` sumarizuje významné pressure a failure udalosti:
 
 ```bash
-systemctl status example.service
-systemctl show example.service -p MemoryCurrent -p MemoryMax
-journalctl -k -b | grep -i oom
 cat /sys/fs/cgroup/<path>/memory.events
 ```
 
-## 11. PIDs controller
+Typické counters:
 
-`pids.max` obmedzuje počet procesov alebo threadov v cgroup.
+- **`low`** — reclaim zasahoval protected region.
+- **`high`** — cgroup prekročila `memory.high` a bola throttled/reclaimed.
+- **`max`** — allocation narazila na `memory.max` boundary.
+- **`oom`** — kernel vstúpil do OOM handlingu pre cgroup.
+- **`oom_kill`** — OOM handling ukončil task.
+
+Cgroup-local OOM treba korelovať s kernel journalom a service state. Aplikácia môže skončiť signalom bez jasnej vlastnej log message, pretože kill vykonal kernel.
+
+## 20. OOM group semantics
+
+`memory.oom.group` môže požiadať kernel, aby pri cgroup OOM zaobchádzal s workloadom ako s jednotkou. Namiesto náhodného ukončenia jedného worker procesu môže byť vhodnejšie zastaviť celú službu a nechať supervisor vykonať čistý restart.
+
+Tento model je užitočný, keď čiastočne živá aplikácia po strate jedného kritického procesu nie je bezpečná. Naopak, workload navrhnutý na nezávislé workers môže preferovať granular recovery.
+
+Systemd pridáva vlastnú `OOMPolicy=` pre unit lifecycle. Kernel OOM decision a manager response treba interpretovať ako dve vrstvy jedného failure path.
+
+## 21. PIDs controller
+
+`pids.max` obmedzuje počet taskov, teda procesov a threadov, v cgroup subtree.
 
 ```text
 pids.current
@@ -276,15 +375,15 @@ pids.max
 pids.events
 ```
 
-Limit chráni host pred fork bombou alebo nekontrolovaným thread creation.
+Limit chráni pred fork bombou, neobmedzeným thread poolom a vyčerpaním host PID alebo scheduler capacity.
 
-Symptóm prekročenia môže byť:
+Pri prekročení môže `fork()`, `clone()` alebo thread creation zlyhať s `EAGAIN`:
 
 ```text
-fork: Resource temporarily unavailable
+Resource temporarily unavailable
 ```
 
-Host môže mať dostatok memory aj PID space, ale workload narazil na cgroup-local limit.
+Host môže mať dostatok RAM a globálneho PID priestoru. Autoritatívny dôkaz je cgroup-local `pids.current`, `pids.max` a `pids.events`.
 
 Systemd:
 
@@ -293,30 +392,44 @@ Systemd:
 TasksMax=512
 ```
 
-## 12. I/O controller
+Limit musí počítať s threadmi, nie iba s procesmi zobrazenými v jednoduchom `ps` pohľade.
 
-I/O controller riadi block I/O podľa device major/minor identifikátorov.
+## 22. I/O accounting
 
-Typické fields:
+I/O controller pracuje nad block-device topology a sleduje reads, writes, bytes a operation counts.
 
-- `io.stat`,
-- `io.max`,
-- `io.weight`,
-- `io.pressure`.
-
-Príklad konceptu:
-
-```text
-8:0 rbps=10485760 wbps=5242880
+```bash
+cat /sys/fs/cgroup/<path>/io.stat
 ```
 
-Limit sa viaže na konkrétny block device. Pri device mapper, LVM, RAID alebo cloud storage treba rozumieť skutočnej device topology.
+Záznam je viazaný na device major:minor identitu. Pri LVM, device mapper, RAID, loop devices alebo cloud storage môže byť viditeľná vrstva odlišná od fyzického bottlenecku.
 
-I/O limit na nesprávnej vrstve nemusí riadiť fyzické zariadenie podľa očakávania.
+I/O accounting jednej cgroup preto treba korelovať s hostovým device pohľadom:
 
-## 13. Pressure Stall Information v cgroup
+```bash
+lsblk -o NAME,MAJ:MIN,TYPE,PKNAME,MOUNTPOINTS
+findmnt -T /path
+```
 
-Cgroup v2 môže poskytovať PSI:
+Bez topology mapy môže limit alebo metrika ukazovať správne číslo pre nesprávnu vrstvu.
+
+## 23. I/O weight a hard limits
+
+`io.weight` určuje relatívnu prioritu pri contention na podporovanom scheduler/device path. Podobne ako CPU weight nie je pevná rezervácia a prejaví sa pri súťažení.
+
+`io.max` môže nastaviť hard limit podľa zariadenia:
+
+```text
+8:0 rbps=10485760 wbps=5242880 riops=max wiops=max
+```
+
+Hard limit chráni storage latency susedných workloadov, ale môže spomaliť flush, checkpoint alebo log write natoľko, že aplikácia narazí na timeouty vyššej vrstvy.
+
+Pri network filesysteme alebo remote block storage nemusí lokálny cgroup I/O controller zachytiť celý bottleneck. Časť latency môže vzniknúť v network stacku, remote service alebo cloud throttling policy.
+
+## 24. Pressure Stall Information
+
+Cgroup v2 poskytuje PSI pre CPU, memory a I/O:
 
 ```text
 cpu.pressure
@@ -324,51 +437,77 @@ memory.pressure
 io.pressure
 ```
 
-Ukazuje čas, počas ktorého tasks v cgroup čakali pre resource pressure.
-
-To je dôležité, pretože:
+PSI meria čas, počas ktorého tasks nemohli robiť užitočnú prácu pre nedostatok zdroja. Dopĺňa utilization o informáciu o reálnom stall dopade.
 
 ```text
-utilization
-≠ saturation
-≠ user-visible latency
+utilization → koľko sa zdroj používa
+queue       → koľko práce čaká
+pressure    → ako dlho workload stojí pre nedostatok
 ```
 
-Workload môže mať relatívne nízke priemerné použitie, ale krátke obdobia silného stalling-u.
+Workload môže mať nízky priemerný CPU usage, ale vysoké `cpu.pressure`, ak je často throttled krátkou quota. Podobne memory pressure môže rásť skôr, než sa objaví OOM kill.
 
-## 14. Delegácia
+PSI je vhodné alertovať podľa trendu a workload SLO, nie univerzálnym percentom bez kontextu.
 
-Delegácia znamená, že parent manager bezpečne odovzdá správu subtree inému managerovi, napríklad container runtime alebo user session manageru.
+## 25. Delegácia
 
-Správna delegácia musí riešiť:
+Delegácia znamená, že parent manager odovzdá správu cgroup subtree inému managerovi, napríklad container runtime, user manageru alebo nested orchestratoru.
 
-- ownership cgroup directories,
-- ktoré controllers možno aktivovať,
-- zákaz presúvania procesov mimo povoleného subtree,
-- pravidlo no internal processes pre niektoré controller scenáre,
-- koordináciu s systemd.
+Bezpečná delegácia musí určiť:
 
-Ručné vytváranie cgroups pod systemd-managed hierarchy bez delegácie môže byť prepísané alebo porušovať manager invariants.
+- vlastníctvo a write oprávnenia cgroup filesystem nodes,
+- ktoré controllery môže delegate aktivovať,
+- hranicu, za ktorú nesmie presúvať processes,
+- parent resource budget,
+- kompatibilitu s no-internal-process rule,
+- kto vykoná cleanup subtree po zlyhaní managera.
 
-Systemd unit môže používať:
+Systemd:
 
 ```ini
 [Service]
 Delegate=yes
 ```
 
-To sa používa pre workload managers, nie ako všeobecné nastavenie každej služby.
+`Delegate=yes` nie je hardening voľba pre bežnú aplikáciu. Zámerne poskytuje workload manageru väčšiu kontrolu nad descendant cgroups a má sa používať iba tam, kde je to súčasťou architecture.
 
-## 15. Systemd resource controls
+## 26. Systemd slices a units
 
-Príklady:
+Systemd mapuje units do cgroup hierarchy. Services, scopes a user sessions sú zoskupené pod slices, ktoré môžu niesť parent policy.
+
+```text
+-.slice
+  ├── system.slice
+  │    ├── example.service
+  │    └── ssh.service
+  └── user.slice
+```
+
+Slice umožňuje nastaviť spoločný budget pre skupinu units:
+
+```ini
+[Slice]
+CPUWeight=200
+MemoryHigh=8G
+MemoryMax=10G
+```
+
+Service potom môže mať vlastné child limity. Efektívny výsledok je intersection service policy a všetkých ancestor limits.
+
+Pre systemd workload je preferované používať unit properties namiesto priameho zápisu do `/sys/fs/cgroup`. Service manager tak zachová desired state, ownership a lifecycle.
+
+## 27. Systemd resource properties
+
+Príklad service policy:
 
 ```ini
 [Service]
 CPUWeight=200
 CPUQuota=150%
+MemoryLow=512M
 MemoryHigh=1G
 MemoryMax=1500M
+MemorySwapMax=256M
 TasksMax=512
 IOWeight=100
 ```
@@ -385,122 +524,186 @@ Pozorovanie:
 systemctl show example.service \
   -p ControlGroup \
   -p CPUUsageNSec \
+  -p CPUQuotaPerSecUSec \
   -p MemoryCurrent \
+  -p MemoryPeak \
+  -p MemoryHigh \
   -p MemoryMax \
   -p TasksCurrent \
   -p TasksMax
 ```
 
-Systemd abstrakcia je preferovaná pre systemd units, pretože zachováva desired state a ownership hierarchy.
+`systemctl show` poskytuje manager view. Pri hlbokej diagnostike treba prečítať aj raw cgroup files a kernel events.
 
-## 16. Containers a Kubernetes
+## 28. Containers
 
-Container runtime vytvorí cgroups pre containers alebo Pods a mapuje runtime configuration na kernel controls.
+Container runtime vytvorí cgroup boundary pre container alebo Pod a umiestni do nej namespace PID 1 aj descendants. Runtime config mapuje na kernel controls, ale názvy a hierarchy závisia od systemd drivera, runtime a orchestration platformy.
 
-Kubernetes requests a limits nie sú pri všetkých resources identické mechanizmy:
+Kontajner bez memory limitu stále beží v cgroup, ale môže dediť iba parent policy. „Unlimited“ na úrovni kontajnera neznamená nekonečnú hostovú kapacitu; ancestor slice alebo Pod cgroup môže mať limit.
 
-- CPU request ovplyvňuje scheduling a typicky relative shares,
-- CPU limit sa typicky mapuje na quota,
-- memory request ovplyvňuje scheduling a QoS,
-- memory limit sa mapuje na hard cgroup boundary,
-- cgroup hierarchy a QoS layout závisia od runtime a kubelet configuration.
+Pri diagnostike treba zistiť:
 
-Pre presnú diagnostiku treba sledovať celý reťazec:
+- container PID na hoste,
+- jeho `/proc/<pid>/cgroup` path,
+- parent Pod alebo service cgroup,
+- runtime a systemd properties,
+- raw controller events.
+
+## 29. Kubernetes requests a limits
+
+Kubernetes resource fields sa mapujú na viacero scheduler a runtime mechanizmov. Nie všetky requests a limits sú priamo rovnaký typ cgroup knobu.
+
+### CPU request
+
+CPU request ovplyvňuje scheduling a typicky relatívnu CPU váhu. Neznamená dedicated CPU ani hard minimum throughput, pokiaľ sa nepoužije špecifický CPU Manager a exclusive cpuset model.
+
+### CPU limit
+
+CPU limit sa typicky mapuje na CFS quota. Workload môže byť throttled aj pri voľnom host CPU, ak vyčerpá period budget.
+
+### Memory request
+
+Memory request je primárne scheduler capacity signal. Runtime a QoS policy môžu používať memory protection mechanizmy, ale presný mapping závisí od platformy a verzie.
+
+### Memory limit
+
+Memory limit sa mapuje na hard cgroup boundary. Prekročenie môže viesť ku container-local OOM kill, hoci node má voľnú memory.
+
+Preto treba odlišovať:
 
 ```text
-Kubernetes manifest
-→ scheduler/kubelet policy
-→ container runtime
-→ OCI config
-→ cgroup filesystem
-→ kernel counters
+scheduler placement
+relative priority/protection
+hard runtime limit
+observed workload usage
 ```
 
-## 17. Cgroups vs. nice a ulimit
+## 30. Kubernetes QoS a hierarchy
 
-### `nice`
+Kubernetes vytvára cgroup hierarchy podľa Podov, kontajnerov a QoS classes. Exact layout závisí od cgroup drivera a runtime.
 
-Mení CPU scheduling priority procesu, nie hierarchický workload budget.
+QoS class ovplyvňuje eviction a resource policy, ale nie je náhradou za presné requests/limits a workload profiling. Dva Pods v rovnakej class môžu mať veľmi odlišný pressure profil.
 
-### `ulimit` / rlimits
+Pri OOM incidente treba rozlíšiť:
 
-Nastavuje per-process limity, napríklad open files alebo core size. Child proces ich môže dediť.
+- process-level OOM v container cgroup,
+- Pod alebo parent cgroup limit,
+- node-wide OOM,
+- kubelet eviction pre memory pressure,
+- application-controlled termination.
 
-### cgroups
+Tieto udalosti majú odlišné evidence a recovery semantics.
 
-Riadia skupinu procesov a poskytujú hierarchical accounting.
+## 31. Cgroup freeze a kill
 
-Mechanizmy sa dopĺňajú; nie sú vzájomné synonymá.
+Cgroup v2 poskytuje lifecycle operations pre celú skupinu. `cgroup.freeze` môže pozastaviť descendant tasks a `cgroup.kill` môže ukončiť celý subtree.
 
-## 18. Troubleshooting scenáre
+Tieto operácie sú silnejšie než iterovanie cez snapshot PID listu, pretože nový child process nemôže ľahko uniknúť medzi enumerate a signal krokom.
 
-### Aplikácia je pomalá, host CPU nie je plné
+Freeze nie je checkpoint. Procesný memory a kernel state zostáva v RAM a external dependencies môžu timeoutovať, zatiaľ čo workload stojí.
 
-Kontrola:
+Service manager alebo runtime má tieto mechanizmy používať koordinovane. Ručný zásah môže narušiť supervisor state a readiness.
 
-```bash
-cat /proc/<PID>/cgroup
-cat /sys/fs/cgroup/<path>/cpu.max
-cat /sys/fs/cgroup/<path>/cpu.stat
-cat /sys/fs/cgroup/<path>/cpu.pressure
-```
+## 32. Cgroup lifecycle
 
-Možná príčina: CPU quota throttling.
+Cgroup adresár možno odstrániť až keď neobsahuje processes ani child cgroups. Zostávajúci orphan subtree po páde managera môže indikovať neúplný cleanup alebo stále živé workloady.
 
-### Proces bol zabitý, host má voľnú RAM
+Cgroup object nie je persistent configuration. Po reboote hierarchy znovu vytvorí service manager alebo runtime podľa svojej desired state.
 
-```bash
-cat /sys/fs/cgroup/<path>/memory.max
-cat /sys/fs/cgroup/<path>/memory.current
-cat /sys/fs/cgroup/<path>/memory.events
-journalctl -k -b | grep -i oom
-```
+Preto raw zmena v `/sys/fs/cgroup` nemusí prežiť restart unit, daemon reload ani reboot. Trvalá policy patrí do systemd unit, orchestration manifestu alebo runtime konfigurácie.
 
-Možná príčina: cgroup-local OOM.
+## 33. Troubleshooting: služba má vysokú latency pri nízkom host CPU
 
-### Aplikácia nevie vytvoriť nový thread
+Host ukazuje voľné cores, ale jedna service má pravidelné latency spikes.
 
-```bash
-cat /sys/fs/cgroup/<path>/pids.current
-cat /sys/fs/cgroup/<path>/pids.max
-cat /sys/fs/cgroup/<path>/pids.events
-```
+1. **Nájdi cgroup path** — `systemctl show -p ControlGroup` alebo `/proc/<pid>/cgroup`.
+2. **Skontroluj `cpu.max`** — potvrď quota a period.
+3. **Prečítaj `cpu.stat`** — sleduj `nr_throttled` a `throttled_usec` trend.
+4. **Skontroluj `cpu.pressure`** — zisti reálny stall dopad.
+5. **Porovnaj parent limits** — service môže byť obmedzená ancestor slice policy.
+6. **Skontroluj cpuset** — workload môže byť pinovaný na preťažený core.
+7. **Koreluj s request rate** — burst môže vyčerpať quota aj pri nízkom dlhodobom priemere.
 
-Možná príčina: `pids.max` alebo systemd `TasksMax`.
+Zvýšenie quota bez pochopenia burst modelu môže iba presunúť contention na inú službu.
 
-## 19. Časté omyly
+## 34. Troubleshooting: OOM v kontajneri, host má voľnú RAM
 
-### „CPU limit rezervuje CPU“
+1. **Potvrď cgroup path kontajnera** — host PID a `/proc/<pid>/cgroup` sú autoritatívnejšie než názov kontajnera.
+2. **Prečítaj `memory.current`, `memory.high` a `memory.max`** — rozlíš pressure boundary od hard limitu.
+3. **Prečítaj `memory.events`** — `high`, `max`, `oom` a `oom_kill` odhalia failure path.
+4. **Rozlož `memory.stat`** — anonymous memory, file cache a kernel charges majú odlišné root causes.
+5. **Skontroluj parent hierarchy** — Pod alebo node slice môže mať nižší agregovaný limit.
+6. **Skontroluj kernel journal a runtime events** — potvrď, ktorý task bol zabitý.
+7. **Porovnaj workload burst s limitom** — startup, reload alebo compaction môže krátko potrebovať viac než steady state.
+8. **Over swap policy** — cgroup mohla mať `memory.swap.max=0`, hoci host má swap.
 
-Nie. Quota obmedzuje maximum; rezervácia a scheduling priority sú odlišné koncepty.
+## 35. Troubleshooting: `fork()` zlyháva pri voľnej memory
 
-### „Memory limit sleduje iba RSS hlavného procesu“
+1. **Skontroluj `pids.current` a `pids.max`** — limit zahŕňa thready.
+2. **Prečítaj `pids.events`** — counter potvrdí zasiahnutie boundary.
+3. **Skontroluj systemd `TasksMax`** — unit alebo parent slice môže mať vlastný limit.
+4. **Spočítaj thready aplikácie** — thread leak môže vyzerať ako process limit problém.
+5. **Až potom kontroluj host PID space a `ulimit -u`** — ide o ďalšie nezávislé vrstvy.
 
-Nie. Cgroup účtuje celý workload a viaceré memory kategórie.
+`EAGAIN` z process creation neznamená automaticky nedostatok RAM.
 
-### „Host má voľnú RAM, takže OOM nemohol nastať“
+## 36. Časté omyly
 
-Cgroup-local hard limit môže spôsobiť OOM nezávisle od host-wide voľnej memory.
+### „Cgroup izoluje procesy ako namespace“
 
-### „Namespaces a cgroups sú to isté“
+Nie. Cgroup riadi resource accounting a policy, ale process visibility a menné priestory riešia namespaces.
 
-Namespaces izolujú pohľad. Cgroups riadia a účtujú resources.
+### „CPU request garantuje konkrétny výkon“
 
-### „Môžem ľubovoľne meniť `/sys/fs/cgroup` pod systemd“
+Nie automaticky. Request je scheduling a priority signal; výkon závisí od node contention, weight, cpuset, quota a workload charakteru.
 
-Systemd je owner hierarchy. Použi unit properties alebo korektnú delegáciu.
+### „CPU quota sa použije iba pri contention“
 
-## 20. Kontrolné otázky
+Nie. Hard quota môže throttliť workload aj na inak idle hoste.
+
+### „RSS procesu sa musí rovnať `memory.current`“
+
+Nie. Cgroup účtuje celý subtree a viac memory kategórií než RSS jedného procesu.
+
+### „Host free memory vylučuje OOM“
+
+Nie. Cgroup-local `memory.max` alebo ancestor limit môže vyvolať OOM pri voľnej hostovej RAM.
+
+### „`memory.high` a `memory.max` sú rovnaký limit“
+
+`memory.high` vytvára reclaim a throttling pressure. `memory.max` je hard boundary, po ktorej môže nastať OOM.
+
+### „Priamy zápis do cgroup filesystemu je trvalá konfigurácia“
+
+Nie. Systemd alebo runtime môže hodnotu prepísať a po reboote hierarchy vzniká nanovo z desired state.
+
+### „I/O limit na logical volume presne riadi fyzický disk“
+
+Nie vždy. Device mapper, RAID, remote storage a scheduler topology môžu meniť miesto, kde sa limit aplikuje a kde vzniká bottleneck.
+
+## 37. Kontrolné otázky
 
 1. Aký je rozdiel medzi namespace a cgroup?
-2. Prečo cgroup v2 používa unified hierarchy?
-3. Aký je rozdiel medzi CPU weight a CPU quota?
-4. Čo odlišuje `memory.high` od `memory.max`?
-5. Prečo môže vzniknúť cgroup-local OOM pri voľnej host memory?
-6. Ako `pids.max` chráni host?
-7. Čo meria PSI v cgroup?
-8. Prečo je delegácia dôležitá pri container runtime?
-9. Ako sa Kubernetes resource settings dostanú až ku kernel cgroup fields?
+2. Prečo je cgroup hierarchy vhodnejšia než limit iba na main PID?
+3. Čo znamená unified hierarchy v cgroup v2?
+4. Prečo parent musí aktivovať controller v `cgroup.subtree_control`?
+5. Aký je rozdiel medzi CPU weight a CPU quota?
+6. Prečo môže quota throttliť workload na idle hoste?
+7. Čo je rozdiel medzi cpuset placementom a CPU bandwidth limitom?
+8. Prečo sa `memory.current` nemusí rovnať súčtu RSS?
+9. Aký je rozdiel medzi `memory.low`, `memory.high` a `memory.max`?
+10. Ako vznikne cgroup-local OOM pri voľnej hostovej RAM?
+11. Prečo `TasksMax` zahŕňa aj thready?
+12. Ako PSI dopĺňa utilization a accounting?
+13. Čo znamená bezpečná cgroup delegation?
+14. Ako sa Kubernetes CPU limit typicky prejaví v cgroup v2?
+15. Prečo treba pri diagnostike kontrolovať aj ancestor cgroups?
+
+## 38. Zhrnutie
+
+Cgroups poskytujú hierarchický accounting a resource policy pre skupiny procesov. Cgroup v2 zjednocuje CPU, memory, I/O, PIDs a ďalšie controllery v jednom strome, kde parent policy obmedzuje a deleguje authority descendants.
+
+Spoľahlivá prevádzka vyžaduje rozlišovať relatívne weights, hard quotas, memory protection, pressure boundaries a hard limits. Diagnostika musí sledovať raw controller events, PSI, systemd alebo runtime desired state a všetky ancestor limits; samotný hostový utilization snapshot nevysvetľuje cgroup-local throttling ani OOM.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
