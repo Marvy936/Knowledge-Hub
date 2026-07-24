@@ -479,15 +479,15 @@
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
       "title": "Shell, Bash, pipes, redirection a exit codes",
-      "words": 1062,
-      "headings": 30,
-      "sections": 30,
-      "findings": 37,
-      "critical": 9,
-      "high": 23,
-      "medium": 4,
-      "low": 1,
-      "score": 305,
+      "words": 3160,
+      "headings": 41,
+      "sections": 41,
+      "findings": 47,
+      "critical": 6,
+      "high": 8,
+      "medium": 5,
+      "low": 28,
+      "score": 192,
       "grade": "D"
     },
     {
@@ -19588,10 +19588,10 @@
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Súvisiace témy: automation, CI/CD, environment variables, process subs`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
@@ -19613,80 +19613,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "1. Shell",
+      "section": "1. Shell je jazykový runtime a process orchestrator",
       "line": 11,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `terminal emulator poskytuje vstupno-výstupné rozhranie,`, `shell interpretuje príkazy,`, `command je program alebo shell builtin.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "1. Shell",
-      "line": 11,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "3. Quoting",
-      "line": 43,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "Bez úvodzoviek",
-      "line": 45,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "Dvojité úvodzovky",
-      "line": 53,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "Dvojité úvodzovky",
-      "line": 53,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "Jednoduché úvodzovky",
-      "line": 61,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "4. Argumenty a $@",
-      "line": 71,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "7. Pipe",
-      "line": 125,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -19694,53 +19622,89 @@
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "9. Exit codes a control operators",
-      "line": 158,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Bash, POSIX shell a prenositeľnosť",
+      "line": 28,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "9. Exit codes a control operators",
-      "line": 158,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "2. Bash, POSIX shell a prenositeľnosť",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "9. Exit codes a control operators",
-      "line": 158,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `&& vykoná pravú stranu pri statuse 0,`, `pri nenulovom statuse,`, `; vykoná ďalší command bez ohľadu na status.`.",
-      "score": 8
+      "section": "4. Slovo, argument a quoting",
+      "line": 58,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "9. Exit codes a control operators",
-      "line": 158,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "4. Slovo, argument a quoting",
+      "line": 58,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "10. set -euo pipefail",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Slovo, argument a quoting",
+      "line": 58,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "10. set -euo pipefail",
-      "line": 182,
+      "section": "5. Positional parameters, $@ a arrays",
+      "line": 83,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "5. Positional parameters, $@ a arrays",
+      "line": 83,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "7. Globbing a pathname expansion",
+      "line": 125,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "8. Command lookup",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "9. File descriptors a štandardné streams",
+      "line": 153,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -19748,80 +19712,143 @@
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "10. set -euo pipefail",
-      "line": 182,
+      "section": "9. File descriptors a štandardné streams",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "9. File descriptors a štandardné streams",
+      "line": 153,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "9. File descriptors a štandardné streams",
+      "line": 153,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ERR`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FD`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "12. Command substitution",
-      "line": 222,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "10. Redirection ako descriptor operácia",
+      "line": 163,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "13. Here-document a here-string",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "13. Buffering v pipeline",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "14. Builtins a external commands",
-      "line": 248,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "14. Pipeline exit status",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "15. Bezpečnosť",
-      "line": 261,
+      "section": "15. Control operators",
+      "line": 253,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "17. set -e a jeho hranice",
+      "line": 295,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "17. set -e a jeho hranice",
+      "line": 295,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "21. Command substitution",
+      "line": 398,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "21. Command substitution",
+      "line": 398,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "22. Here-document a here-string",
+      "line": 417,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "22. Here-document a here-string",
+      "line": 417,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "28. Signals a traps",
+      "line": 518,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "Command injection",
-      "line": 263,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "Option injection",
-      "line": 280,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "16. Diagnostika skriptov",
-      "line": 292,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "16. Diagnostika skriptov",
-      "line": 292,
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -19829,53 +19856,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "17. Časté omyly",
-      "line": 303,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "„Pipe posiela súbory“",
-      "line": 305,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 321,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 321,
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 321,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj status pipeline.`, `Zapni set -o pipefail .`, `Skontroluj ${PIPESTATUS[@]} .`, `Pridaj explicitné overenie očakávaného artifactu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 321,
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -19883,11 +19874,110 @@
     },
     {
       "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 321,
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "30. Diagnostika skriptu",
+      "line": 558,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PIPESTATUS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PS4`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md",
+      "section": "32. Troubleshooting: CI hlási úspech po failure",
+      "line": 602,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `PIPESTATUS`",
       "score": 4
     },
     {

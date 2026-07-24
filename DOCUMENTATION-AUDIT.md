@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10554**
-- Total words: **452,600**
-- Findings: **23374** (critical 8232, high 9340, medium 3115, low 2687)
+- Audited conceptual sections: **10565**
+- Total words: **454,698**
+- Findings: **23384** (critical 8229, high 9325, medium 3116, low 2714)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -243,7 +243,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 319 | 11 | 23 | 2 | 0 | 816 | `docs/03-git-and-automation/merge-and-rebase.md` |
-| D | 305 | 9 | 23 | 4 | 1 | 1062 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 304 | 12 | 17 | 6 | 4 | 1070 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 302 | 13 | 14 | 7 | 7 | 1331 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
@@ -259,6 +258,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 209 | 7 | 6 | 12 | 27 | 3036 | `docs/00-foundations/feedback-loops.md` |
 | D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
+| D | 192 | 6 | 8 | 5 | 28 | 3160 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
 | D | 175 | 4 | 8 | 8 | 27 | 2532 | `docs/00-foundations/declarative-vs-imperative.md` |
@@ -1180,38 +1180,20 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Súvisiace témy: automation, CI/CD, environment variables, process subs`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 43, `empty-section` — **3. Quoting**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **10. set -euo pipefail**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 261, `empty-section` — **15. Bezpečnosť**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 303, `empty-section` — **17. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 321, `bare-bullet-items` — **18. Troubleshooting scenár**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj status pipeline.`, `Zapni set -o pipefail .`, `Skontroluj ${PIPESTATUS[@]} .`, `Pridaj explicitné overenie očakávaného artifactu.`.
-- **CRITICAL** line 321, `outline-instead-of-explanation` — **18. Troubleshooting scenár**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 558, `no-prose-concept` — **30. Diagnostika skriptu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 558, `outline-instead-of-explanation` — **30. Diagnostika skriptu**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 602, `no-prose-concept` — **32. Troubleshooting: CI hlási úspech po failure**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 602, `outline-instead-of-explanation` — **32. Troubleshooting: CI hlási úspech po failure**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `bare-bullet-items` — **1. Shell**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `terminal emulator poskytuje vstupno-výstupné rozhranie,`, `shell interpretuje príkazy,`, `command je program alebo shell builtin.`.
-- **HIGH** line 45, `list-first-introduction` — **Bez úvodzoviek**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 53, `list-first-introduction` — **Dvojité úvodzovky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 53, `single-sentence-concept` — **Dvojité úvodzovky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 61, `list-first-introduction` — **Jednoduché úvodzovky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 71, `list-first-introduction` — **4. Argumenty a $@**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 158, `bare-bullet-items` — **9. Exit codes a control operators**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `&& vykoná pravú stranu pri statuse 0,`, `pri nenulovom statuse,`, `; vykoná ďalší command bez ohľadu na status.`.
-- **HIGH** line 158, `list-first-introduction` — **9. Exit codes a control operators**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 158, `single-sentence-concept` — **9. Exit codes a control operators**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `list-first-introduction` — **12. Command substitution**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 232, `list-first-introduction` — **13. Here-document a here-string**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 248, `list-first-introduction` — **14. Builtins a external commands**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 263, `single-sentence-concept` — **Command injection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **Option injection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 292, `list-first-introduction` — **16. Diagnostika skriptov**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 292, `single-sentence-concept` — **16. Diagnostika skriptov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `single-sentence-concept` — **„Pipe posiela súbory“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 321, `single-sentence-concept` — **18. Troubleshooting scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 558, `list-first-introduction` — **30. Diagnostika skriptu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 602, `list-first-introduction` — **32. Troubleshooting: CI hlási úspech po failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CI`, `CD`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 158, `thin-concept-section` — **9. Exit codes a control operators**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 321, `thin-concept-section` — **18. Troubleshooting scenár**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 558, `thin-concept-section` — **30. Diagnostika skriptu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 602, `thin-concept-section` — **32. Troubleshooting: CI hlási úspech po failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/ssh.md`
 
@@ -18622,18 +18604,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4138 | 0 | 0 | 4138 |
-| `bare-bullet-items` | 3768 | 341 | 0 | 0 | 4109 |
+| `single-sentence-concept` | 0 | 4131 | 0 | 0 | 4131 |
+| `bare-bullet-items` | 3766 | 340 | 0 | 0 | 4106 |
 | `outline-instead-of-explanation` | 3669 | 0 | 0 | 0 | 3669 |
 | `thin-concept-section` | 0 | 3358 | 0 | 0 | 3358 |
-| `term-before-explanation` | 0 | 345 | 2230 | 0 | 2575 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1208 | 1208 |
-| `example-not-explicit` | 0 | 0 | 0 | 1014 | 1014 |
-| `list-first-introduction` | 0 | 943 | 0 | 0 | 943 |
+| `term-before-explanation` | 0 | 345 | 2231 | 0 | 2576 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1220 | 1220 |
+| `example-not-explicit` | 0 | 0 | 0 | 1022 | 1022 |
+| `list-first-introduction` | 0 | 936 | 0 | 0 | 936 |
 | `short-concept-section` | 0 | 0 | 885 | 0 | 885 |
-| `empty-section` | 504 | 0 | 0 | 0 | 504 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 465 | 465 |
-| `no-prose-concept` | 291 | 0 | 0 | 0 | 291 |
+| `empty-section` | 501 | 0 | 0 | 0 | 501 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 472 | 472 |
+| `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
 | `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
 
 ## Required remediation pattern
