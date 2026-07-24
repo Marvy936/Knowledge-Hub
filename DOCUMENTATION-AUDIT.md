@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11318**
-- Total words: **527,352**
-- Findings: **25313** (critical 8550, high 9624, medium 3413, low 3726)
+- Audited conceptual sections: **11375**
+- Total words: **530,310**
+- Findings: **25477** (critical 8607, high 9707, medium 3427, low 3736)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -29,6 +29,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1986 | 86 | 109 | 26 | 10 | 1922 | `docs/13-security-and-identity/cia-triad.md` |
 | D | 1955 | 94 | 87 | 33 | 24 | 3555 | `docs/02-networking-and-web/load-balancing.md` |
 | D | 1852 | 85 | 87 | 33 | 22 | 2896 | `docs/12-observability/grafana.md` |
+| D | 1822 | 74 | 110 | 18 | 12 | 4521 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 1820 | 86 | 95 | 17 | 0 | 1202 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
 | D | 1785 | 79 | 86 | 38 | 24 | 2683 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | D | 1711 | 78 | 79 | 34 | 30 | 3314 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
@@ -226,7 +227,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
-| D | 432 | 17 | 27 | 4 | 2 | 1563 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
@@ -3383,50 +3383,190 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/03-git-and-automation/powershell-fundamentals.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Kedy je PowerShell vhodný**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Windows administráciu,`, `cross-platform .NET automation,`, `prácu s objektovými API a management vrstvami,`, `Azure, Microsoft 365 a Active Directory tooling,`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Kedy je PowerShell vhodný**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 106, `bare-bullet-items` — **6. $null**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `$null ,`, `empty string '' ,`, `whitespace string,`, `empty array @() ,`.
-- **CRITICAL** line 106, `outline-instead-of-explanation` — **6. $null**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **11. Output contract**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `success output pre dátový kontrakt,`, `Write-Verbose pre detail,`, `Write-Warning pre varovanie,`, `Write-Error pre error record,`.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **11. Output contract**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 284, `bare-bullet-items` — **14. Pipeline error handling**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť celý batch,`, `zaznamenať failure a pokračovať,`, `vytvoriť dead-letter výstup,`, `spustiť retry.`.
-- **CRITICAL** line 284, `outline-instead-of-explanation` — **14. Pipeline error handling**: 4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 400, `bare-bullet-items` — **20. Credentials a secrets**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret manager,`, `managed identity alebo workload identity,`, `krátkodobé tokens,`, `environment-specific credential provider,`.
-- **CRITICAL** line 400, `outline-instead-of-explanation` — **20. Credentials a secrets**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 436, `bare-bullet-items` — **22. Parallelism**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rate limits,`, `thread-unsafe dependencies,`, `output ordering,`, `shared file writes,`.
-- **CRITICAL** line 436, `outline-instead-of-explanation` — **22. Parallelism**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 472, `bare-bullet-items` — **24. Testing s Pester**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invalid parameters,`, `non-terminating errors,`, `native exit codes,`, `-WhatIf ,`.
-- **CRITICAL** line 472, `outline-instead-of-explanation` — **24. Testing s Pester**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 561, `bare-bullet-items` — **Skript funguje vo Windows PowerShell, ale nie v PowerShell 7**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module compatibility,`, `.NET API rozdiely,`, `default encoding,`, `native argument passing,`.
-- **CRITICAL** line 561, `outline-instead-of-explanation` — **Skript funguje vo Windows PowerShell, ale nie v PowerShell 7**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 572, `empty-section` — **28. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 19, `list-first-introduction` — **2. Object pipeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 46, `single-sentence-concept` — **3. Cmdlet naming a discoverability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 65, `list-first-introduction` — **4. Premenné a typy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 106, `single-sentence-concept` — **6. $null**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 126, `single-sentence-concept` — **7. Strings a quoting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 169, `list-first-introduction` — **9. Functions a advanced functions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 169, `single-sentence-concept` — **9. Functions a advanced functions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 284, `list-first-introduction` — **14. Pipeline error handling**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 284, `single-sentence-concept` — **14. Pipeline error handling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `list-first-introduction` — **15. Structured objects**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 370, `single-sentence-concept` — **18. Paths**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 400, `list-first-introduction` — **20. Credentials a secrets**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 472, `list-first-introduction` — **24. Testing s Pester**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 472, `single-sentence-concept` — **24. Testing s Pester**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 494, `list-first-introduction` — **25. Static analysis a formatting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 494, `single-sentence-concept` — **25. Static analysis a formatting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 503, `list-first-introduction` — **26. Produkčný skeleton**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 503, `single-sentence-concept` — **26. Produkčný skeleton**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 561, `single-sentence-concept` — **Skript funguje vo Windows PowerShell, ale nie v PowerShell 7**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 586, `single-sentence-concept` — **„ -WhatIf automaticky zastaví všetky mutations“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `term-before-explanation` — **1. Kedy je PowerShell vhodný**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `API`, `CI`, `CD`, `JSON`, `XML`, `CSV`
-- **HIGH** line 106, `thin-concept-section` — **6. $null**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 284, `thin-concept-section` — **14. Pipeline error handling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 400, `thin-concept-section` — **20. Credentials a secrets**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 436, `thin-concept-section` — **22. Parallelism**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 472, `thin-concept-section` — **24. Testing s Pester**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 561, `thin-concept-section` — **Skript funguje vo Windows PowerShell, ale nie v PowerShell 7**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Processes, threads, PID a signals, Environment variables`.
+- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameter a type contract,`, `pipeline enumeration,`, `success a diagnostické streams,`, `terminating a non-terminating errors,`.
+- **CRITICAL** line 36, `bare-bullet-items` — **2. Kedy je PowerShell vhodný**: 11 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Windows administrácia,`, `cross-platform .NET automation,`, `object-oriented transformácie JSON, XML, CSV a API výsledkov,`, `filesystem, registry, certificate a service orchestration,`.
+- **CRITICAL** line 36, `outline-instead-of-explanation` — **2. Kedy je PowerShell vhodný**: 13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 59, `bare-bullet-items` — **3. Windows PowerShell verzus PowerShell**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupné modules,`, `.NET API,`, `remoting transport,`, `default text encoding,`.
+- **CRITICAL** line 59, `outline-instead-of-explanation` — **3. Windows PowerShell verzus PowerShell**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 161, `bare-bullet-items` — **7. Command discovery**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alias,`, `function,`, `cmdlet,`, `external executable,`.
+- **CRITICAL** line 220, `outline-instead-of-explanation` — **9. Automatic variables**: 10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 237, `bare-bullet-items` — **10. $null , empty a missing**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `$null ,`, `'' ,`, `whitespace-only string,`, `@() empty array,`.
+- **CRITICAL** line 237, `outline-instead-of-explanation` — **10. $null , empty a missing**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 388, `bare-bullet-items` — **15. Provider model**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `properties a item types sa líšia,`, `transakčné a permission semantics sa líšia,`, `provider nemusí podporovať všetky parameters,`, `cross-platform dostupnosť sa líši.`.
+- **CRITICAL** line 388, `outline-instead-of-explanation` — **15. Provider model**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 427, `bare-bullet-items` — **17. Advanced functions**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-Verbose ,`, `-Debug ,`, `-ErrorAction ,`, `-WarningAction ,`.
+- **CRITICAL** line 427, `outline-instead-of-explanation` — **17. Advanced functions**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 496, `bare-bullet-items` — **19. Parameter binding**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `named parameter,`, `positional parameter,`, `pipeline by value,`, `pipeline by property name,`.
+- **CRITICAL** line 496, `outline-instead-of-explanation` — **19. Parameter binding**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 518, `bare-bullet-items` — **20. Parameter validation**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation exception vznikne počas binding-u,`, `existence check nevylučuje neskorší race,`, `environment-dependent validation môže znižovať testovateľnosť.`.
+- **CRITICAL** line 518, `outline-instead-of-explanation` — **20. Parameter validation**: 4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 665, `bare-bullet-items` — **26. ErrorAction a preference**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fail-fast,`, `continue and report,`, `retry,`, `dead-letter output,`.
+- **CRITICAL** line 665, `outline-instead-of-explanation` — **26. ErrorAction a preference**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 689, `bare-bullet-items` — **27. ErrorRecord**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Exception ,`, `CategoryInfo ,`, `FullyQualifiedErrorId ,`, `TargetObject ,`.
+- **CRITICAL** line 689, `outline-instead-of-explanation` — **27. ErrorRecord**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 944, `bare-bullet-items` — **38. Structured objects**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `property names,`, `types,`, `nullability,`, `units a timezone,`.
+- **CRITICAL** line 944, `outline-instead-of-explanation` — **38. Structured objects**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 967, `bare-bullet-items` — **39. JSON**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-Depth ,`, `enum/datetime serialization,`, `property ordering ako ne-semantic detail,`, `duplicate JSON keys v externom inpute,`.
+- **CRITICAL** line 967, `outline-instead-of-explanation` — **39. JSON**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1008, `bare-bullet-items` — **42. Encoding**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `UTF-8 s/bez BOM,`, `newline policy,`, `serializer,`, `consumer expectations.`.
+- **CRITICAL** line 1034, `bare-bullet-items` — **43. Atomic file update**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `same-filesystem rename semantics,`, `permissions/ACL ownership,`, `existing-target replace behavior na platforme,`, `antivirus/file-lock interference na Windows,`.
+- **CRITICAL** line 1034, `outline-instead-of-explanation` — **43. Atomic file update**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1068, `bare-bullet-items` — **44. Scope**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `global,`, `script,`, `local,`, `private,`.
+- **CRITICAL** line 1068, `outline-instead-of-explanation` — **44. Scope**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1090, `bare-bullet-items` — **45. Dot-sourcing**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name collisions,`, `zmena preferences,`, `zmena working directory alebo state,`, `skrytá dependency.`.
+- **CRITICAL** line 1090, `outline-instead-of-explanation` — **45. Dot-sourcing**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1107, `bare-bullet-items` — **46. Modules**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module version,`, `compatible PowerShell editions,`, `required modules,`, `exported functions/cmdlets/variables/aliases,`.
+- **CRITICAL** line 1107, `outline-instead-of-explanation` — **46. Modules**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1187, `bare-bullet-items` — **49. ShouldProcess , -WhatIf a -Confirm**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-WhatIf ,`, `-Confirm ,`, `common preference integration.`, `iba code vo vnútri ShouldProcess je chránený,`.
+- **CRITICAL** line 1187, `outline-instead-of-explanation` — **49. ShouldProcess , -WhatIf a -Confirm**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1257, `bare-bullet-items` — **51. Credentials a secrets**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `managed/workload identity,`, `OS alebo cloud secret manager,`, `krátkodobé tokens,`, `certificate-based identity,`.
+- **CRITICAL** line 1257, `outline-instead-of-explanation` — **51. Credentials a secrets**: 11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1297, `bare-bullet-items` — **53. Remoting model**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication a authorization boundary,`, `network timeout/failure,`, `session lifecycle,`, `serialization,`.
+- **CRITICAL** line 1297, `outline-instead-of-explanation` — **53. Remoting model**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1359, `bare-bullet-items` — **56. Jobs**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout,`, `cancellation,`, `error collection,`, `cleanup,`.
+- **CRITICAL** line 1359, `outline-instead-of-explanation` — **56. Jobs**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1387, `bare-bullet-items` — **57. Parallel runspaces**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený runspace state,`, `modules/functions nemusia byť dostupné podľa očakávania,`, `$using: values sa prenášajú s obmedzeniami,`, `output order nemusí zodpovedať input order,`.
+- **CRITICAL** line 1387, `outline-instead-of-explanation` — **57. Parallel runspaces**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1410, `bare-bullet-items` — **58. Thread-safe collections a shared state**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `independent work items,`, `immutable input,`, `concurrent collections,`, `central result aggregation,`.
+- **CRITICAL** line 1410, `outline-instead-of-explanation` — **58. Thread-safe collections a shared state**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1424, `bare-bullet-items` — **59. HTTP automation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication,`, `connection/overall timeout podľa cmdlet capabilities,`, `retryable statuses,`, `idempotency,`.
+- **CRITICAL** line 1424, `outline-instead-of-explanation` — **59. HTTP automation**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1449, `bare-bullet-items` — **60. Registry a Windows-specific automation**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `32/64-bit registry views sa môžu líšiť,`, `elevation a ACL sú významné,`, `service/account context môže mať odlišný hive,`, `transaction/rollback treba navrhnúť explicitne.`.
+- **CRITICAL** line 1449, `outline-instead-of-explanation` — **60. Registry a Windows-specific automation**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1482, `bare-bullet-items` — **62. Logging a observability**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Write-Verbose pre detail,`, `Write-Debug pre interné state,`, `Write-Warning pre recoverable problém,`, `Write-Information pre lifecycle event,`.
+- **CRITICAL** line 1482, `outline-instead-of-explanation` — **62. Logging a observability**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1525, `bare-bullet-items` — **64. Testing s Pester**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameter validation,`, `zero/one/many output shape,`, `output pollution,`, `terminating aj non-terminating errors,`.
+- **CRITICAL** line 1525, `outline-instead-of-explanation` — **64. Testing s Pester**: 14 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1558, `bare-bullet-items` — **65. Static analysis a formatting**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `naming,`, `aliases v script-e,`, `unapproved verbs,`, `security-sensitive patterns,`.
+- **CRITICAL** line 1558, `outline-instead-of-explanation` — **65. Static analysis a formatting**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1599, `bare-bullet-items` — **67. Produkčný script skeleton**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout/retry model,`, `credential provider,`, `lock/concurrency policy,`, `rollback alebo compensation,`.
+- **CRITICAL** line 1599, `outline-instead-of-explanation` — **67. Produkčný script skeleton**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1710, `bare-bullet-items` — **68. Troubleshooting: function vrátila viac objektov**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť output do array:`, `Hľadaj:`, `string expressions,`, `cmdlet output, ktorý nebol zachytený,`.
+- **CRITICAL** line 1710, `no-prose-concept` — **68. Troubleshooting: function vrátila viac objektov**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 1710, `outline-instead-of-explanation` — **68. Troubleshooting: function vrátila viac objektov**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1729, `no-prose-concept` — **69. Troubleshooting: catch sa nespustil**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 1729, `outline-instead-of-explanation` — **69. Troubleshooting: catch sa nespustil**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1737, `bare-bullet-items` — **70. Troubleshooting: funguje v 5.1, nie v 7+**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module edition compatibility,`, `removed/changed .NET API,`, `encoding a BOM,`, `native argument passing,`.
+- **CRITICAL** line 1737, `outline-instead-of-explanation` — **70. Troubleshooting: funguje v 5.1, nie v 7+**: 11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1755, `bare-bullet-items` — **71. Troubleshooting: native command zlyhal bez exception**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachytiť exit code okamžite,`, `vedieť povolené success codes,`, `zachovať stdout/stderr podľa contractu,`, `pridať context bez leaknutia secrets,`.
+- **CRITICAL** line 1755, `outline-instead-of-explanation` — **71. Troubleshooting: native command zlyhal bez exception**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1772, `bare-bullet-items` — **72. Troubleshooting: WhatIf aj tak niečo zmenilo**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Nájdite všetky mutation calls.`, `Over, že sú pod ShouldProcess .`, `Skontroluj nested functions a native commands.`, `Oddel state observation od mutation.`.
+- **CRITICAL** line 1772, `no-prose-concept` — **72. Troubleshooting: WhatIf aj tak niečo zmenilo**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 1772, `outline-instead-of-explanation` — **72. Troubleshooting: WhatIf aj tak niečo zmenilo**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 1819, `empty-section` — **74. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 11, `list-heavy-section` — **1. Definícia**: 10 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 59, `single-sentence-concept` — **3. Windows PowerShell verzus PowerShell**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 93, `single-sentence-concept` — **4. Execution lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 112, `list-first-introduction` — **5. Object pipeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 133, `list-first-introduction` — **6. Formatting boundary**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 195, `list-first-introduction` — **8. Variables a types**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 220, `bare-bullet-items` — **9. Automatic variables**: 6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `$ alebo $PSItem — current pipeline item,`, `$MyInvocation — invocation metadata,`, `$PSScriptRoot — directory aktuálneho scriptu/module,`, `$PSCommandPath — path aktuálneho scriptu,`.
+- **HIGH** line 237, `single-sentence-concept` — **10. $null , empty a missing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 388, `single-sentence-concept` — **15. Provider model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 409, `list-first-introduction` — **16. Functions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 427, `list-first-introduction` — **17. Advanced functions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 427, `single-sentence-concept` — **17. Advanced functions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 463, `bare-bullet-items` — **18. Begin, process a end**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `begin — inicializácia raz,`, `end — finalizácia raz.`.
+- **HIGH** line 463, `single-sentence-concept` — **18. Begin, process a end**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 518, `list-first-introduction` — **20. Parameter validation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 518, `single-sentence-concept` — **20. Parameter validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 597, `bare-bullet-items` — **23. Output pollution**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `string,`, `DirectoryInfo z New-Item ,`, `result object.`.
+- **HIGH** line 640, `single-sentence-concept` — **25. Error model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 644, `single-sentence-concept` — **Terminating error**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 665, `list-first-introduction` — **26. ErrorAction a preference**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 717, `list-first-introduction` — **28. throw , Write-Error a rethrow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 770, `bare-bullet-items` — **30. Strict mode**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `čítanie nenastavenej premennej,`, `neexistujúcu property v niektorých contexts,`, `neplatné function call patterns.`.
+- **HIGH** line 815, `list-first-introduction` — **32. $? verzus $LASTEXITCODE**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 884, `list-first-introduction` — **35. Capturing native output**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 944, `list-first-introduction` — **38. Structured objects**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 944, `single-sentence-concept` — **38. Structured objects**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 967, `list-first-introduction` — **39. JSON**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 967, `single-sentence-concept` — **39. JSON**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 986, `list-first-introduction` — **40. CSV**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1034, `list-first-introduction` — **43. Atomic file update**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1034, `single-sentence-concept` — **43. Atomic file update**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1090, `list-first-introduction` — **45. Dot-sourcing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1187, `list-first-introduction` — **49. ShouldProcess , -WhatIf a -Confirm**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1187, `single-sentence-concept` — **49. ShouldProcess , -WhatIf a -Confirm**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1218, `list-first-introduction` — **50. Plan, apply a verify**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1218, `single-sentence-concept` — **50. Plan, apply a verify**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1257, `list-first-introduction` — **51. Credentials a secrets**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1297, `single-sentence-concept` — **53. Remoting model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1346, `list-first-introduction` — **55. $using: a remote/parallel capture**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1359, `single-sentence-concept` — **56. Jobs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1424, `list-first-introduction` — **59. HTTP automation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1449, `list-first-introduction` — **60. Registry a Windows-specific automation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1449, `single-sentence-concept` — **60. Registry a Windows-specific automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1482, `single-sentence-concept` — **62. Logging a observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1525, `list-first-introduction` — **64. Testing s Pester**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1525, `single-sentence-concept` — **64. Testing s Pester**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1558, `list-first-introduction` — **65. Static analysis a formatting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1558, `single-sentence-concept` — **65. Static analysis a formatting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1576, `single-sentence-concept` — **66. Documentation-based help**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1599, `list-first-introduction` — **67. Produkčný script skeleton**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1599, `single-sentence-concept` — **67. Produkčný script skeleton**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1710, `list-first-introduction` — **68. Troubleshooting: function vrátila viac objektov**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1729, `bare-bullet-items` — **69. Troubleshooting: catch sa nespustil**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over, či error bol non-terminating.`, `Použi -ErrorAction Stop na konkrétnom cmdlet-e.`, `Skontroluj $ErrorActionPreference a scope.`.
+- **HIGH** line 1729, `list-first-introduction` — **69. Troubleshooting: catch sa nespustil**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1737, `single-sentence-concept` — **70. Troubleshooting: funguje v 5.1, nie v 7+**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1755, `list-first-introduction` — **71. Troubleshooting: native command zlyhal bez exception**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1755, `single-sentence-concept` — **71. Troubleshooting: native command zlyhal bez exception**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1772, `list-first-introduction` — **72. Troubleshooting: WhatIf aj tak niečo zmenilo**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1783, `single-sentence-concept` — **Format-Table v dátovej pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1787, `single-sentence-concept` — **Write-Host ako jediný function result**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1791, `single-sentence-concept` — **Globálne mutable variables**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1795, `single-sentence-concept` — **Invoke-Expression pre command arguments**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1799, `single-sentence-concept` — **$ErrorActionPreference = 'SilentlyContinue' pre celý script**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1803, `single-sentence-concept` — **Ignorovanie $LASTEXITCODE**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1807, `single-sentence-concept` — **-WhatIf iba na top-level function bez pokrytia mutations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1811, `single-sentence-concept` — **Secret v verbose/debug outpute**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1815, `single-sentence-concept` — **Remote object považovaný za live local object**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1821, `single-sentence-concept` — **„PowerShell pipeline je vždy objektová“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1829, `single-sentence-concept` — **„Function vracia iba posledný expression“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1837, `single-sentence-concept` — **„ -WhatIf blokuje všetky side effects automaticky“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1845, `single-sentence-concept` — **„Monorepo module alebo machine-wide module version je vždy tá správna“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `NET`, `CI`
+- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 36, `term-before-explanation` — **2. Kedy je PowerShell vhodný**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `JSON`, `XML`, `CSV`, `API`, `CI`, `CD`, `SSH-`
+- **HIGH** line 59, `thin-concept-section` — **3. Windows PowerShell verzus PowerShell**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 220, `thin-concept-section` — **9. Automatic variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 237, `thin-concept-section` — **10. $null , empty a missing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 388, `thin-concept-section` — **15. Provider model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 427, `thin-concept-section` — **17. Advanced functions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 463, `thin-concept-section` — **18. Begin, process a end**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 496, `thin-concept-section` — **19. Parameter binding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 518, `thin-concept-section` — **20. Parameter validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 597, `thin-concept-section` — **23. Output pollution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 689, `thin-concept-section` — **27. ErrorRecord**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 815, `thin-concept-section` — **32. $? verzus $LASTEXITCODE**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 944, `thin-concept-section` — **38. Structured objects**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 967, `thin-concept-section` — **39. JSON**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1034, `thin-concept-section` — **43. Atomic file update**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1090, `thin-concept-section` — **45. Dot-sourcing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1107, `thin-concept-section` — **46. Modules**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1187, `thin-concept-section` — **49. ShouldProcess , -WhatIf a -Confirm**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1257, `term-before-explanation` — **51. Credentials a secrets**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `workload`, `identity`, `policy`
+- **HIGH** line 1257, `thin-concept-section` — **51. Credentials a secrets**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1297, `thin-concept-section` — **53. Remoting model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1359, `thin-concept-section` — **56. Jobs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1387, `thin-concept-section` — **57. Parallel runspaces**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1410, `thin-concept-section` — **58. Thread-safe collections a shared state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1424, `thin-concept-section` — **59. HTTP automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1449, `thin-concept-section` — **60. Registry a Windows-specific automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1482, `thin-concept-section` — **62. Logging a observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1525, `thin-concept-section` — **64. Testing s Pester**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1558, `thin-concept-section` — **65. Static analysis a formatting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1599, `thin-concept-section` — **67. Produkčný script skeleton**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1710, `thin-concept-section` — **68. Troubleshooting: function vrátila viac objektov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1729, `thin-concept-section` — **69. Troubleshooting: catch sa nespustil**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1737, `term-before-explanation` — **70. Troubleshooting: funguje v 5.1, nie v 7+**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `API`, `BOM`, `SSH`
+- **HIGH** line 1737, `thin-concept-section` — **70. Troubleshooting: funguje v 5.1, nie v 7+**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1755, `thin-concept-section` — **71. Troubleshooting: native command zlyhal bez exception**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1772, `thin-concept-section` — **72. Troubleshooting: WhatIf aj tak niečo zmenilo**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/python-for-automation.md`
 
@@ -19224,19 +19364,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3930 | 373 | 0 | 0 | 4303 |
-| `single-sentence-concept` | 0 | 4119 | 0 | 0 | 4119 |
-| `outline-instead-of-explanation` | 3820 | 0 | 0 | 0 | 3820 |
-| `thin-concept-section` | 0 | 3455 | 0 | 0 | 3455 |
-| `term-before-explanation` | 0 | 414 | 2380 | 0 | 2794 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1556 | 1556 |
-| `example-not-explicit` | 0 | 0 | 0 | 1420 | 1420 |
-| `short-concept-section` | 0 | 0 | 1033 | 0 | 1033 |
-| `list-first-introduction` | 0 | 960 | 0 | 0 | 960 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 750 | 750 |
+| `bare-bullet-items` | 3957 | 378 | 0 | 0 | 4335 |
+| `single-sentence-concept` | 0 | 4145 | 0 | 0 | 4145 |
+| `outline-instead-of-explanation` | 3846 | 0 | 0 | 0 | 3846 |
+| `thin-concept-section` | 0 | 3483 | 0 | 0 | 3483 |
+| `term-before-explanation` | 0 | 417 | 2389 | 0 | 2806 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1563 | 1563 |
+| `example-not-explicit` | 0 | 0 | 0 | 1421 | 1421 |
+| `short-concept-section` | 0 | 0 | 1038 | 0 | 1038 |
+| `list-first-introduction` | 0 | 980 | 0 | 0 | 980 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 752 | 752 |
 | `empty-section` | 483 | 0 | 0 | 0 | 483 |
-| `no-prose-concept` | 317 | 0 | 0 | 0 | 317 |
-| `list-heavy-section` | 0 | 303 | 0 | 0 | 303 |
+| `no-prose-concept` | 321 | 0 | 0 | 0 | 321 |
+| `list-heavy-section` | 0 | 304 | 0 | 0 | 304 |
 
 ## Required remediation pattern
 
