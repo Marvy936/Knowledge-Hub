@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11089**
-- Total words: **512,046**
-- Findings: **24708** (critical 8367, high 9409, medium 3327, low 3605)
+- Audited conceptual sections: **11133**
+- Total words: **514,395**
+- Findings: **24810** (critical 8405, high 9449, medium 3341, low 3615)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -54,6 +54,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1284 | 54 | 71 | 22 | 3 | 1740 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
 | D | 1237 | 58 | 56 | 25 | 13 | 1960 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
+| D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1171 | 50 | 60 | 21 | 21 | 1801 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 1166 | 53 | 52 | 28 | 11 | 2095 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | D | 1165 | 47 | 74 | 8 | 4 | 1174 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
@@ -227,7 +228,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
-| D | 388 | 12 | 30 | 3 | 0 | 1027 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
@@ -2707,45 +2707,123 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Commit, branch, tag a HEAD`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 27, `bare-bullet-items` — **2. Clone**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí nový repository,`, `nakonfiguruje remote origin ,`, `prenesie reachable objects a refs,`, `vytvorí remote-tracking refs,`.
-- **CRITICAL** line 27, `outline-instead-of-explanation` — **2. Clone**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 243, `bare-bullet-items` — **16. Shallow clone**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge-base,`, `version calculation,`, `changelog generation,`, `blame,`.
-- **CRITICAL** line 243, `outline-instead-of-explanation` — **16. Shallow clone**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 286, `bare-bullet-items` — **19. Praktický bezpečný sync workflow**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorá lokálna branch je aktuálna,`, `ktorý upstream sleduje,`, `či je working tree čistý,`, `či história už bola zdieľaná.`.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **19. Praktický bezpečný sync workflow**: 4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 305, `bare-bullet-items` — **Push rejected**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `non-fast-forward,`, `authentication failure,`, `authorization/branch protection,`, `server hook alebo policy,`.
-- **CRITICAL** line 305, `outline-instead-of-explanation` — **Push rejected**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 334, `empty-section` — **21. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 34, `bare-bullet-items` — **2. Remote ako lokálna konfigurácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fetch URL,`, `prípadne odlišná push URL,`, `fetch refspecs,`, `tag a pruning policy,`.
+- **CRITICAL** line 34, `outline-instead-of-explanation` — **2. Remote ako lokálna konfigurácia**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 58, `bare-bullet-items` — **3. URL a transport**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication,`, `proxy a firewall path,`, `credential handling,`, `host identity verification,`.
+- **CRITICAL** line 79, `bare-bullet-items` — **4. Čo vykoná git clone**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí local repository,`, `nakonfiguruje remote origin ,`, `zistí server refs a default branch,`, `vyjedná a prenesie potrebné objects,`.
+- **CRITICAL** line 79, `outline-instead-of-explanation` — **4. Čo vykoná git clone**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 128, `empty-section` — **6. Clone varianty**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 130, `empty-section` — **Konkrétna branch**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 160, `bare-bullet-items` — **7. Fetch ako object + remote-tracking update**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontaktuje remote,`, `zistí advertised refs a capabilities,`, `vyjedná, ktoré objects chýbajú,`, `stiahne packfile alebo potrebné objects,`.
+- **CRITICAL** line 160, `outline-instead-of-explanation` — **7. Fetch ako object + remote-tracking update**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 259, `bare-bullet-items` — **12. Object negotiation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packfiles,`, `delta compression,`, `bitmaps,`, `negotiation algorithms,`.
+- **CRITICAL** line 301, `bare-bullet-items` — **14. Pruning remote-tracking refs**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local branch rovnakého mena,`, `commits reachable z iných refs,`, `working tree,`, `nefetchované refs mimo config scope.`.
+- **CRITICAL** line 301, `outline-instead-of-explanation` — **14. Pruning remote-tracking refs**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 332, `bare-bullet-items` — **16. Pull je orchestration, nie transport synonymum**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast-forward,`, `merge,`, `rebase,`, `odmietnutie pri --ff-only .`.
+- **CRITICAL** line 332, `outline-instead-of-explanation` — **16. Pull je orchestration, nie transport synonymum**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 459, `bare-bullet-items` — **22. Push lifecycle**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontaktuje remote receive service,`, `autentifikuje transport identity,`, `zistí aktuálne remote refs a capabilities,`, `vypočíta objects potrebné pre proposed updates,`.
+- **CRITICAL** line 459, `outline-instead-of-explanation` — **22. Push lifecycle**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 496, `outline-instead-of-explanation` — **24. push.default**: 4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 551, `bare-bullet-items` — **27. Force push a lease**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organizačnú oprávnenosť rewrite,`, `downstream clones používajúce staré IDs,`, `artifacts postavené zo starej histórie,`, `tag/release consistency.`.
+- **CRITICAL** line 551, `outline-instead-of-explanation` — **27. Force push a lease**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 588, `bare-bullet-items` — **29. Push options a server policy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branch,`, `required pull request,`, `missing signed commits,`, `failed status checks,`.
+- **CRITICAL** line 588, `outline-instead-of-explanation` — **29. Push options a server policy**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 633, `bare-bullet-items` — **31. Delete remote ref**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevymaže local branches v clones,`, `nevymaže okamžite objects,`, `môže zneplatniť otvorený workflow,`, `potrebuje následný prune remote-tracking refs.`.
+- **CRITICAL** line 633, `outline-instead-of-explanation` — **31. Delete remote ref**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 665, `bare-bullet-items` — **33. SSH remote diagnostika**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS a TCP port,`, `SSH host key,`, `použitý private key/agent,`, `server account mapping,`.
+- **CRITICAL** line 665, `outline-instead-of-explanation` — **33. SSH remote diagnostika**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 684, `bare-bullet-items` — **34. HTTPS remote diagnostika**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy a NO PROXY ,`, `TLS certificate/trust store,`, `redirecty,`, `credential helper,`.
+- **CRITICAL** line 684, `outline-instead-of-explanation` — **34. HTTPS remote diagnostika**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 702, `bare-bullet-items` — **35. Credential helpers**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plaintext store helper,`, `credential pre nesprávny host/path,`, `expirovaný token v cache,`, `CI home directory zdieľaný medzi jobs,`.
+- **CRITICAL** line 702, `outline-instead-of-explanation` — **35. Credential helpers**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 718, `bare-bullet-items` — **36. Shallow clone**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neúplný merge-base,`, `obmedzený git describe , blame a changelog,`, `nesprávny version calculation,`, `problémy s history-based analyzérmi,`.
+- **CRITICAL** line 718, `outline-instead-of-explanation` — **36. Shallow clone**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 760, `bare-bullet-items` — **38. Partial clone**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checkout alebo diff môže spustiť network fetch,`, `offline build môže zlyhať,`, `performance závisí od request patternu,`, `server musí podporovať filter/promisor model,`.
+- **CRITICAL** line 760, `outline-instead-of-explanation` — **38. Partial clone**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 842, `bare-bullet-items` — **43. Bezpečný fetch-first workflow**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast-forward only,`, `merge,`, `rebase,`, `žiadnu integráciu, iba review.`.
+- **CRITICAL** line 842, `outline-instead-of-explanation` — **43. Bezpečný fetch-first workflow**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 862, `bare-bullet-items` — **44. Bezpečný push workflow**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit,`, `destination ref,`, `current server tip,`, `fast-forward/non-fast-forward charakter,`.
+- **CRITICAL** line 862, `outline-instead-of-explanation` — **44. Bezpečný push workflow**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 883, `bare-bullet-items` — **45. Diagnostika: push rejected**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transport/DNS/TLS/SSH,`, `authentication,`, `repository authorization,`, `non-fast-forward,`.
+- **CRITICAL** line 883, `outline-instead-of-explanation` — **45. Diagnostika: push rejected**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 907, `bare-bullet-items` — **46. Diagnostika: fetch nevidí branch**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch na serveri neexistuje,`, `názov alebo case mismatch,`, `single-branch refspec,`, `negative refspec,`.
+- **CRITICAL** line 907, `outline-instead-of-explanation` — **46. Diagnostika: fetch nevidí branch**: 7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 954, `bare-bullet-items` — **48. Diagnostika: clone je neúplný**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shallow ancestry,`, `single-branch ref scope,`, `partial object filter,`, `sparse working-tree view,`.
+- **CRITICAL** line 954, `outline-instead-of-explanation` — **48. Diagnostika: clone je neúplný**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 973, `empty-section` — **49. Failure modes**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 1003, `empty-section` — **50. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 1037, `bare-bullet-items` — **51. Diagnostický checklist**: 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je fetch refspec?`, `Je clone single-branch, shallow, partial alebo sparse?`, `Ktorý local branch a upstream sú aktuálne?`, `Je remote-tracking ref čerstvý?`.
+- **CRITICAL** line 1037, `outline-instead-of-explanation` — **51. Diagnostický checklist**: 14 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 136, `bare-bullet-items` — **8. Divergence**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `merge zachová oba ancestry smery,`, `rebase vytvorí nové lokálne commits nad remote tipom,`, `manuálna integrácia podľa tímovej policy.`.
-- **HIGH** line 136, `list-first-introduction` — **8. Divergence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 136, `single-sentence-concept` — **8. Divergence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 170, `list-first-introduction` — **10. Upstream a push defaults**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 200, `list-first-introduction` — **12. Force push**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 222, `list-first-introduction` — **14. Delete remote refs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 222, `single-sentence-concept` — **14. Delete remote refs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 231, `bare-bullet-items` — **15. Authentication vs. authorization**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SSH keys/certificates,`, `HTTPS token alebo credential helper,`, `workload identity v CI.`.
-- **HIGH** line 243, `list-first-introduction` — **16. Shallow clone**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 261, `list-first-introduction` — **17. Partial clone a filter**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 269, `single-sentence-concept` — **18. Mirror a bare repository**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 286, `list-first-introduction` — **19. Praktický bezpečný sync workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 286, `single-sentence-concept` — **19. Praktický bezpečný sync workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `list-first-introduction` — **Push rejected**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 305, `single-sentence-concept` — **Push rejected**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 324, `list-first-introduction` — **Fetch nevidí očakávanú branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 324, `single-sentence-concept` — **Fetch nevidí očakávanú branch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 336, `single-sentence-concept` — **„Pull je fetch“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `single-sentence-concept` — **„ origin/main je vždy aktuálny remote“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 344, `single-sentence-concept` — **„Force-with-lease je úplne bezpečný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 348, `single-sentence-concept` — **„Shallow clone je plnohodnotný clone s menším diskom“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 34, `single-sentence-concept` — **2. Remote ako lokálna konfigurácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 136, `list-first-introduction` — **Single branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 136, `single-sentence-concept` — **Single branch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 144, `list-first-introduction` — **Bez checkoutu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 144, `single-sentence-concept` — **Bez checkoutu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 152, `list-first-introduction` — **Bare clone**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 152, `single-sentence-concept` — **Bare clone**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 203, `bare-bullet-items` — **9. Fetch refspec**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source wildcard vyberá remote branches,`, `destination vytvára remote-tracking namespace,`, `+ povoľuje non-fast-forward update lokálnej remote-tracking evidencie.`.
+- **HIGH** line 203, `single-sentence-concept` — **9. Fetch refspec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `single-sentence-concept` — **11. Negative refspec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 418, `list-first-introduction` — **20. Pull rebase**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 475, `single-sentence-concept` — **23. Push refspec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 496, `list-first-introduction` — **24. push.default**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 496, `single-sentence-concept` — **24. push.default**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 511, `list-first-introduction` — **25. git push -u**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 551, `list-first-introduction` — **27. Force push a lease**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 633, `list-first-introduction` — **31. Delete remote ref**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 665, `list-first-introduction` — **33. SSH remote diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 665, `single-sentence-concept` — **33. SSH remote diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 684, `list-first-introduction` — **34. HTTPS remote diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 702, `list-first-introduction` — **35. Credential helpers**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 718, `list-first-introduction` — **36. Shallow clone**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 739, `list-first-introduction` — **37. Single-branch clone verzus shallow clone**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 760, `list-first-introduction` — **38. Partial clone**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 760, `single-sentence-concept` — **38. Partial clone**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 862, `list-first-introduction` — **44. Bezpečný push workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 862, `single-sentence-concept` — **44. Bezpečný push workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 883, `list-first-introduction` — **45. Diagnostika: push rejected**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 883, `single-sentence-concept` — **45. Diagnostika: push rejected**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 907, `list-first-introduction` — **46. Diagnostika: fetch nevidí branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 907, `single-sentence-concept` — **46. Diagnostika: fetch nevidí branch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 954, `list-first-introduction` — **48. Diagnostika: clone je neúplný**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 954, `single-sentence-concept` — **48. Diagnostika: clone je neúplný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 975, `single-sentence-concept` — **Fetch uspel, ale current branch sa nezmenila**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 979, `single-sentence-concept` — **Push preniesol veľký pack a potom zlyhal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 983, `single-sentence-concept` — **Existing origin/main ukazuje starý commit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 987, `single-sentence-concept` — **git pull --rebase vyžaduje force push**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 991, `single-sentence-concept` — **CI changelog je prázdny**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 995, `single-sentence-concept` — **Mirror migrácia zmazala refs na cieli**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 999, `single-sentence-concept` — **HTTPS funguje lokálne, nie v CI**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1005, `single-sentence-concept` — **„Clone je iba download files“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1013, `single-sentence-concept` — **„ origin/main je server branch“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1021, `single-sentence-concept` — **„Authentication success znamená write permission“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1025, `single-sentence-concept` — **„Force-with-lease je bezpečný force“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1029, `single-sentence-concept` — **„Shallow a partial clone sú to isté“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1033, `single-sentence-concept` — **„ --tags publikuje iba release tag“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1037, `single-sentence-concept` — **51. Diagnostický checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 27, `thin-concept-section` — **2. Clone**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 136, `thin-concept-section` — **8. Divergence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 231, `term-before-explanation` — **15. Authentication vs. authorization**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `HTTPS`, `CI`, `workload`, `identity`
-- **HIGH** line 231, `thin-concept-section` — **15. Authentication vs. authorization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 243, `thin-concept-section` — **16. Shallow clone**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **19. Praktický bezpečný sync workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 305, `thin-concept-section` — **Push rejected**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 34, `thin-concept-section` — **2. Remote ako lokálna konfigurácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 79, `thin-concept-section` — **4. Čo vykoná git clone**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 160, `thin-concept-section` — **7. Fetch ako object + remote-tracking update**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 301, `thin-concept-section` — **14. Pruning remote-tracking refs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 332, `thin-concept-section` — **16. Pull je orchestration, nie transport synonymum**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 459, `thin-concept-section` — **22. Push lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 496, `thin-concept-section` — **24. push.default**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 633, `thin-concept-section` — **31. Delete remote ref**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 665, `thin-concept-section` — **33. SSH remote diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 684, `term-before-explanation` — **34. HTTPS remote diagnostika**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NO`, `PROXY`, `TLS`, `HTTP`, `scope`
+- **HIGH** line 684, `thin-concept-section` — **34. HTTPS remote diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 702, `thin-concept-section` — **35. Credential helpers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 718, `thin-concept-section` — **36. Shallow clone**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 760, `thin-concept-section` — **38. Partial clone**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 842, `thin-concept-section` — **43. Bezpečný fetch-first workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 862, `thin-concept-section` — **44. Bezpečný push workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 883, `term-before-explanation` — **45. Diagnostika: push rejected**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `SSH`, `policy`
+- **HIGH** line 883, `thin-concept-section` — **45. Diagnostika: push rejected**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 907, `thin-concept-section` — **46. Diagnostika: fetch nevidí branch**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 954, `thin-concept-section` — **48. Diagnostika: clone je neúplný**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 1037, `thin-concept-section` — **51. Diagnostický checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/commit-branch-tag-head.md`
 
@@ -18826,17 +18904,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3840 | 344 | 0 | 0 | 4184 |
-| `single-sentence-concept` | 0 | 4057 | 0 | 0 | 4057 |
-| `outline-instead-of-explanation` | 3736 | 0 | 0 | 0 | 3736 |
-| `thin-concept-section` | 0 | 3372 | 0 | 0 | 3372 |
-| `term-before-explanation` | 0 | 408 | 2339 | 0 | 2747 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1504 | 1504 |
-| `example-not-explicit` | 0 | 0 | 0 | 1373 | 1373 |
-| `short-concept-section` | 0 | 0 | 988 | 0 | 988 |
-| `list-first-introduction` | 0 | 935 | 0 | 0 | 935 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 728 | 728 |
-| `empty-section` | 477 | 0 | 0 | 0 | 477 |
+| `bare-bullet-items` | 3858 | 343 | 0 | 0 | 4201 |
+| `single-sentence-concept` | 0 | 4075 | 0 | 0 | 4075 |
+| `outline-instead-of-explanation` | 3753 | 0 | 0 | 0 | 3753 |
+| `thin-concept-section` | 0 | 3385 | 0 | 0 | 3385 |
+| `term-before-explanation` | 0 | 409 | 2349 | 0 | 2758 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1510 | 1510 |
+| `example-not-explicit` | 0 | 0 | 0 | 1376 | 1376 |
+| `short-concept-section` | 0 | 0 | 992 | 0 | 992 |
+| `list-first-introduction` | 0 | 944 | 0 | 0 | 944 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 729 | 729 |
+| `empty-section` | 480 | 0 | 0 | 0 | 480 |
 | `no-prose-concept` | 314 | 0 | 0 | 0 | 314 |
 | `list-heavy-section` | 0 | 293 | 0 | 0 | 293 |
 

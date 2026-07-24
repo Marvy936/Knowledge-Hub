@@ -815,15 +815,15 @@
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
       "title": "Clone, fetch, pull a push",
-      "words": 1027,
-      "headings": 30,
-      "sections": 30,
-      "findings": 45,
-      "critical": 12,
-      "high": 30,
-      "medium": 3,
-      "low": 0,
-      "score": 388,
+      "words": 3376,
+      "headings": 74,
+      "sections": 74,
+      "findings": 147,
+      "critical": 50,
+      "high": 70,
+      "medium": 17,
+      "low": 10,
+      "score": 1222,
       "grade": "D"
     },
     {
@@ -44831,35 +44831,8 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "2. Clone",
-      "line": 27,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "2. Clone",
-      "line": 27,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí nový repository,`, `nakonfiguruje remote origin ,`, `prenesie reachable objects a refs,`, `vytvorí remote-tracking refs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "2. Clone",
-      "line": 27,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "8. Divergence",
-      "line": 136,
+      "section": "2. Remote ako lokálna konfigurácia",
+      "line": 34,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -44867,26 +44840,26 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "8. Divergence",
-      "line": 136,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "2. Remote ako lokálna konfigurácia",
+      "line": 34,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "8. Divergence",
-      "line": 136,
-      "severity": "high",
+      "section": "2. Remote ako lokálna konfigurácia",
+      "line": 34,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `merge zachová oba ancestry smery,`, `rebase vytvorí nové lokálne commits nad remote tipom,`, `manuálna integrácia podľa tímovej policy.`.",
-      "score": 8
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fetch URL,`, `prípadne odlišná push URL,`, `fetch refspecs,`, `tag a pruning policy,`.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "8. Divergence",
-      "line": 136,
+      "section": "2. Remote ako lokálna konfigurácia",
+      "line": 34,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -44894,251 +44867,89 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "8. Divergence",
-      "line": 136,
+      "section": "2. Remote ako lokálna konfigurácia",
+      "line": 34,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `policy`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "10. Upstream a push defaults",
-      "line": 170,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "12. Force push",
-      "line": 200,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "14. Delete remote refs",
-      "line": 222,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "14. Delete remote refs",
-      "line": 222,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "15. Authentication vs. authorization",
-      "line": 231,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SSH keys/certificates,`, `HTTPS token alebo credential helper,`, `workload identity v CI.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "15. Authentication vs. authorization",
-      "line": 231,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "15. Authentication vs. authorization",
-      "line": 231,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `HTTPS`, `CI`, `workload`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "16. Shallow clone",
-      "line": 243,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "16. Shallow clone",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "16. Shallow clone",
-      "line": 243,
+      "section": "3. URL a transport",
+      "line": 58,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge-base,`, `version calculation,`, `changelog generation,`, `blame,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication,`, `proxy a firewall path,`, `credential handling,`, `host identity verification,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "16. Shallow clone",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "17. Partial clone a filter",
-      "line": 261,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "18. Mirror a bare repository",
-      "line": 269,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "19. Praktický bezpečný sync workflow",
-      "line": 286,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "19. Praktický bezpečný sync workflow",
-      "line": 286,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "19. Praktický bezpečný sync workflow",
-      "line": 286,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "19. Praktický bezpečný sync workflow",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorá lokálna branch je aktuálna,`, `ktorý upstream sleduje,`, `či je working tree čistý,`, `či história už bola zdieľaná.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "19. Praktický bezpečný sync workflow",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Push rejected",
-      "line": 305,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Push rejected",
-      "line": 305,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Push rejected",
-      "line": 305,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Push rejected",
-      "line": 305,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `non-fast-forward,`, `authentication failure,`, `authorization/branch protection,`, `server hook alebo policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Push rejected",
-      "line": 305,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Push rejected",
-      "line": 305,
+      "section": "3. URL a transport",
+      "line": 58,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Fetch nevidí očakávanú branch",
-      "line": 324,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. URL a transport",
+      "line": 58,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "Fetch nevidí očakávanú branch",
-      "line": 324,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "4. Čo vykoná git clone",
+      "line": 79,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "21. Časté omyly",
-      "line": 334,
+      "section": "4. Čo vykoná git clone",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí local repository,`, `nakonfiguruje remote origin ,`, `zistí server refs a default branch,`, `vyjedná a prenesie potrebné objects,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "4. Čo vykoná git clone",
+      "line": 79,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "4. Čo vykoná git clone",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "4. Čo vykoná git clone",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "6. Clone varianty",
+      "line": 128,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -45146,8 +44957,17 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "„Pull je fetch“",
-      "line": 336,
+      "section": "Konkrétna branch",
+      "line": 130,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Single branch",
+      "line": 136,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45155,8 +44975,17 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "„ origin/main je vždy aktuálny remote“",
-      "line": 340,
+      "section": "Single branch",
+      "line": 136,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Bez checkoutu",
+      "line": 144,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45164,8 +44993,17 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "„Force-with-lease je úplne bezpečný“",
-      "line": 344,
+      "section": "Bez checkoutu",
+      "line": 144,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Bare clone",
+      "line": 152,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -45173,12 +45011,1092 @@
     },
     {
       "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
-      "section": "„Shallow clone je plnohodnotný clone s menším diskom“",
-      "line": 348,
+      "section": "Bare clone",
+      "line": 152,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "7. Fetch ako object + remote-tracking update",
+      "line": 160,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "7. Fetch ako object + remote-tracking update",
+      "line": 160,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontaktuje remote,`, `zistí advertised refs a capabilities,`, `vyjedná, ktoré objects chýbajú,`, `stiahne packfile alebo potrebné objects,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "7. Fetch ako object + remote-tracking update",
+      "line": 160,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "7. Fetch ako object + remote-tracking update",
+      "line": 160,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "7. Fetch ako object + remote-tracking update",
+      "line": 160,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FETCH`, `HEAD`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "9. Fetch refspec",
+      "line": 203,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "9. Fetch refspec",
+      "line": 203,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source wildcard vyberá remote branches,`, `destination vytvára remote-tracking namespace,`, `+ povoľuje non-fast-forward update lokálnej remote-tracking evidencie.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "9. Fetch refspec",
+      "line": 203,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "11. Negative refspec",
+      "line": 245,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "12. Object negotiation",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packfiles,`, `delta compression,`, `bitmaps,`, `negotiation algorithms,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "12. Object negotiation",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "14. Pruning remote-tracking refs",
+      "line": 301,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "14. Pruning remote-tracking refs",
+      "line": 301,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local branch rovnakého mena,`, `commits reachable z iných refs,`, `working tree,`, `nefetchované refs mimo config scope.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "14. Pruning remote-tracking refs",
+      "line": 301,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "14. Pruning remote-tracking refs",
+      "line": 301,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "16. Pull je orchestration, nie transport synonymum",
+      "line": 332,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "16. Pull je orchestration, nie transport synonymum",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast-forward,`, `merge,`, `rebase,`, `odmietnutie pri --ff-only .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "16. Pull je orchestration, nie transport synonymum",
+      "line": 332,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "20. Pull rebase",
+      "line": 418,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "22. Push lifecycle",
+      "line": 459,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "22. Push lifecycle",
+      "line": 459,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kontaktuje remote receive service,`, `autentifikuje transport identity,`, `zistí aktuálne remote refs a capabilities,`, `vypočíta objects potrebné pre proposed updates,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "22. Push lifecycle",
+      "line": 459,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "22. Push lifecycle",
+      "line": 459,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "22. Push lifecycle",
+      "line": 459,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "23. Push refspec",
+      "line": 475,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "24. push.default",
+      "line": 496,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "24. push.default",
+      "line": 496,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "24. push.default",
+      "line": 496,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "24. push.default",
+      "line": 496,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "24. push.default",
+      "line": 496,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "25. git push -u",
+      "line": 511,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "27. Force push a lease",
+      "line": 551,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "27. Force push a lease",
+      "line": 551,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "27. Force push a lease",
+      "line": 551,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organizačnú oprávnenosť rewrite,`, `downstream clones používajúce staré IDs,`, `artifacts postavené zo starej histórie,`, `tag/release consistency.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "27. Force push a lease",
+      "line": 551,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "29. Push options a server policy",
+      "line": 588,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "29. Push options a server policy",
+      "line": 588,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branch,`, `required pull request,`, `missing signed commits,`, `failed status checks,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "29. Push options a server policy",
+      "line": 588,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "29. Push options a server policy",
+      "line": 588,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "31. Delete remote ref",
+      "line": 633,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "31. Delete remote ref",
+      "line": 633,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "31. Delete remote ref",
+      "line": 633,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevymaže local branches v clones,`, `nevymaže okamžite objects,`, `môže zneplatniť otvorený workflow,`, `potrebuje následný prune remote-tracking refs.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "31. Delete remote ref",
+      "line": 633,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "33. SSH remote diagnostika",
+      "line": 665,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "33. SSH remote diagnostika",
+      "line": 665,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "33. SSH remote diagnostika",
+      "line": 665,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "33. SSH remote diagnostika",
+      "line": 665,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS a TCP port,`, `SSH host key,`, `použitý private key/agent,`, `server account mapping,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "33. SSH remote diagnostika",
+      "line": 665,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "33. SSH remote diagnostika",
+      "line": 665,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `SSH`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "34. HTTPS remote diagnostika",
+      "line": 684,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "34. HTTPS remote diagnostika",
+      "line": 684,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "34. HTTPS remote diagnostika",
+      "line": 684,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy a NO PROXY ,`, `TLS certificate/trust store,`, `redirecty,`, `credential helper,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "34. HTTPS remote diagnostika",
+      "line": 684,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "34. HTTPS remote diagnostika",
+      "line": 684,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NO`, `PROXY`, `TLS`, `HTTP`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "35. Credential helpers",
+      "line": 702,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "35. Credential helpers",
+      "line": 702,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "35. Credential helpers",
+      "line": 702,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plaintext store helper,`, `credential pre nesprávny host/path,`, `expirovaný token v cache,`, `CI home directory zdieľaný medzi jobs,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "35. Credential helpers",
+      "line": 702,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "35. Credential helpers",
+      "line": 702,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "36. Shallow clone",
+      "line": 718,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "36. Shallow clone",
+      "line": 718,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "36. Shallow clone",
+      "line": 718,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neúplný merge-base,`, `obmedzený git describe , blame a changelog,`, `nesprávny version calculation,`, `problémy s history-based analyzérmi,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "36. Shallow clone",
+      "line": 718,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "37. Single-branch clone verzus shallow clone",
+      "line": 739,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "38. Partial clone",
+      "line": 760,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "38. Partial clone",
+      "line": 760,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "38. Partial clone",
+      "line": 760,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "38. Partial clone",
+      "line": 760,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checkout alebo diff môže spustiť network fetch,`, `offline build môže zlyhať,`, `performance závisí od request patternu,`, `server musí podporovať filter/promisor model,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "38. Partial clone",
+      "line": 760,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "43. Bezpečný fetch-first workflow",
+      "line": 842,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "43. Bezpečný fetch-first workflow",
+      "line": 842,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast-forward only,`, `merge,`, `rebase,`, `žiadnu integráciu, iba review.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "43. Bezpečný fetch-first workflow",
+      "line": 842,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "44. Bezpečný push workflow",
+      "line": 862,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "44. Bezpečný push workflow",
+      "line": 862,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "44. Bezpečný push workflow",
+      "line": 862,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "44. Bezpečný push workflow",
+      "line": 862,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit,`, `destination ref,`, `current server tip,`, `fast-forward/non-fast-forward charakter,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "44. Bezpečný push workflow",
+      "line": 862,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "44. Bezpečný push workflow",
+      "line": 862,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "45. Diagnostika: push rejected",
+      "line": 883,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "45. Diagnostika: push rejected",
+      "line": 883,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "45. Diagnostika: push rejected",
+      "line": 883,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "45. Diagnostika: push rejected",
+      "line": 883,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transport/DNS/TLS/SSH,`, `authentication,`, `repository authorization,`, `non-fast-forward,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "45. Diagnostika: push rejected",
+      "line": 883,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "45. Diagnostika: push rejected",
+      "line": 883,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `SSH`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "46. Diagnostika: fetch nevidí branch",
+      "line": 907,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "46. Diagnostika: fetch nevidí branch",
+      "line": 907,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "46. Diagnostika: fetch nevidí branch",
+      "line": 907,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "46. Diagnostika: fetch nevidí branch",
+      "line": 907,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch na serveri neexistuje,`, `názov alebo case mismatch,`, `single-branch refspec,`, `negative refspec,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "46. Diagnostika: fetch nevidí branch",
+      "line": 907,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "46. Diagnostika: fetch nevidí branch",
+      "line": 907,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "48. Diagnostika: clone je neúplný",
+      "line": 954,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "48. Diagnostika: clone je neúplný",
+      "line": 954,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "48. Diagnostika: clone je neúplný",
+      "line": 954,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "48. Diagnostika: clone je neúplný",
+      "line": 954,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shallow ancestry,`, `single-branch ref scope,`, `partial object filter,`, `sparse working-tree view,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "48. Diagnostika: clone je neúplný",
+      "line": 954,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "48. Diagnostika: clone je neúplný",
+      "line": 954,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "49. Failure modes",
+      "line": 973,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Fetch uspel, ale current branch sa nezmenila",
+      "line": 975,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Push preniesol veľký pack a potom zlyhal",
+      "line": 979,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Existing origin/main ukazuje starý commit",
+      "line": 983,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "git pull --rebase vyžaduje force push",
+      "line": 987,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "CI changelog je prázdny",
+      "line": 991,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "Mirror migrácia zmazala refs na cieli",
+      "line": 995,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "HTTPS funguje lokálne, nie v CI",
+      "line": 999,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "50. Časté omyly",
+      "line": 1003,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "„Clone je iba download files“",
+      "line": 1005,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "„ origin/main je server branch“",
+      "line": 1013,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "„Authentication success znamená write permission“",
+      "line": 1021,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "„Force-with-lease je bezpečný force“",
+      "line": 1025,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "„Shallow a partial clone sú to isté“",
+      "line": 1029,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "„ --tags publikuje iba release tag“",
+      "line": 1033,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je fetch refspec?`, `Je clone single-branch, shallow, partial alebo sparse?`, `Ktorý local branch a upstream sú aktuálne?`, `Je remote-tracking ref čerstvý?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "51. Diagnostický checklist",
+      "line": 1037,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `ID`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/clone-fetch-pull-push.md",
+      "section": "52. Zhrnutie",
+      "line": 1056,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
