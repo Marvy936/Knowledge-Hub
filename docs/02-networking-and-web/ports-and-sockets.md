@@ -1,4 +1,4 @@
-# Ports and Sockets
+# Ports a sockets
 
 ## Metadata
 
@@ -8,369 +8,534 @@
 - Predpoklady: [TCP a UDP](tcp-and-udp.md), [Linux networking](../01-linux-and-systems/linux-networking.md)
 - Súvisiace témy: DNS, firewalls, NAT, load balancing, HTTP, connection pooling
 
-## 1. Definícia
+## 1. Port nie je služba
 
-Port je 16-bitový identifikátor transportného endpointu. Socket je kernelový objekt, cez ktorý proces komunikuje lokálne alebo po sieti.
+Port je 16-bitový transportný identifikátor. Socket je kernelový komunikačný objekt, ktorý má protocol family, transport protocol, lokálny endpoint, stav, queues a file-descriptor väzbu na proces.
 
-Port sám o sebe nie je služba. Služba je dostupná až vtedy, keď proces vytvorí socket, priradí mu lokálnu adresu a port, začne počúvať alebo komunikovať a sieťová cesta tento traffic umožní.
-
-## 2. Mentálny model
+Služba je reálne dostupná až vtedy, keď celý reťazec funguje:
 
 ```text
-Process
+process
   ↓ socket()
-Kernel socket
-  ↓ bind(local IP, port)
-Listening alebo connected endpoint
-  ↓ routing, transport, firewall
-Remote endpoint
+kernel socket
+  ↓ bind/listen alebo connect
+lokálny endpoint
+  ↓ route, firewall, NAT, load balancer
+remote endpoint
+  ↓ application protocol
+užitočná odpoveď
 ```
 
-Pre TCP spojenie je konkrétny tok identifikovaný typicky päťprvkom:
+Samotné číslo portu preto nehovorí, či niečo počúva, či je endpoint routovateľný alebo či aplikácia funguje.
+
+## 2. Socket ako kernel objekt a file descriptor
+
+Proces vytvorí socket systémovým volaním `socket()`. Kernel vytvorí objekt a procesu vráti file descriptor, cez ktorý aplikácia volá `bind()`, `connect()`, `listen()`, `accept()`, `send()`, `recv()` a `close()`.
 
 ```text
-protocol + source IP + source port + destination IP + destination port
+process FD 7
+    ↓
+open socket object
+    ├── protocol: TCP
+    ├── local endpoint
+    ├── remote endpoint
+    ├── state
+    ├── send queue
+    └── receive queue
 ```
 
-Dve spojenia preto môžu používať rovnaký server port, ak majú odlišný source endpoint.
+File descriptor možno zdediť cez `fork()`, odovzdať cez Unix socket alebo zdieľať medzi threadmi. „Ktorý proces vlastní port“ preto môže znamenať proces, ktorý listener vytvoril, proces, ktorý ho zdedil, alebo workery, ktoré obsluhujú accepted sockets.
 
-## 3. Rozsah portov
+## 3. Endpoint a flow identity
 
-Porty majú rozsah `0–65535`.
+Lokálny transportný endpoint tvorí minimálne:
 
-Bežné kategórie:
+```text
+network namespace + protocol + local IP + local port
+```
 
-- `0–1023`: system alebo well-known ports,
-- `1024–49151`: registered ports,
-- `49152–65535`: dynamický/private rozsah podľa IANA modelu.
+Konkrétny TCP flow pridáva remote IP a remote port. Preto jeden listener na `192.0.2.10:443` môže obsluhovať veľa súčasných connections; každá má iný remote endpoint.
 
-Operačný systém môže používať vlastný ephemeral port range:
+TCP a UDP majú oddelený port space. TCP listener na porte `53` nekoliduje automaticky s UDP listenerom na porte `53`.
+
+## 4. Rozsahy portov
+
+Porty sú číslované `0–65535`. Rozdelenie na well-known, registered a dynamic ranges je konvencia pre interoperabilitu, nie enforcement pravidlo.
+
+- Well-known range — tradičné systémové služby používajú nízke porty; Linux typicky vyžaduje UID 0 alebo `CAP_NET_BIND_SERVICE` pre bind pod `1024`.
+- Registered range — aplikácie a produkty si rezervujú bežné čísla, ale port stále nedokazuje protokol.
+- Ephemeral range — kernel z neho vyberá dočasné source porty pre outbound flows.
 
 ```bash
 cat /proc/sys/net/ipv4/ip_local_port_range
 ```
 
-Na Linuxe bind na port pod 1024 typicky vyžaduje root alebo capability `CAP_NET_BIND_SERVICE`.
+Operačný systém môže používať iný ephemeral rozsah než organizačné IANA členenie.
 
-## 4. Socket lifecycle
+## 5. TCP server lifecycle
 
-### TCP server
+Typický TCP server prejde týmito krokmi:
 
 ```text
 socket()
-  ↓
+  ↓ vytvorí endpoint objekt
 bind()
-  ↓
+  ↓ priradí local address a port
 listen()
-  ↓
+  ↓ zmení socket na listener
 accept()
-  ↓
+  ↓ vytvorí nový connected socket
 read()/write()
-  ↓
+  ↓ spracuje konkrétny flow
 close()
 ```
 
-Listening socket prijíma nové spojenia. `accept()` vytvorí samostatný connected socket pre konkrétneho klienta; listening socket zostáva aktívny pre ďalšie spojenia.
+Listening socket zostáva otvorený pre nové connections. Každé úspešné `accept()` vráti samostatný file descriptor pre konkrétneho klienta.
 
-### TCP klient
+To je dôležité pri diagnostike: listener môže byť zdravý, ale accepted sockets, workers alebo application queues môžu byť preťažené.
+
+## 6. TCP client lifecycle
+
+Klient vytvorí socket a zavolá `connect()`. Ak neurobí explicitný `bind()`, kernel vyberie source address podľa routingu a source-address selection a pridelí ephemeral port.
 
 ```text
 socket()
   ↓
-voliteľný bind()
+route + source address selection
   ↓
-connect()
+ephemeral port allocation
   ↓
-read()/write()
+TCP handshake
   ↓
-close()
+connected socket
 ```
 
-Ak klient explicitne neurčí source port, kernel vyberie ephemeral port.
+`connect()` preto môže zlyhať ešte pred odoslaním SYN, napríklad pre chýbajúcu route, vyčerpaný port space alebo lokálnu policy.
 
-### UDP
+## 7. UDP socket lifecycle
 
-UDP nemá transportný handshake. Proces môže socket bindnúť a používať `sendto()/recvfrom()`. Volanie `connect()` na UDP sockete nevytvára TCP-like spojenie; nastaví default peer a umožní kernelu filtrovať prijímané datagramy.
+UDP server zvyčajne vykoná `socket()` a `bind()` a potom používa `recvfrom()` a `sendto()`. Neexistuje TCP-like handshake ani accepted socket pre každý peer.
 
-## 5. Binding adresy
+UDP `connect()` je lokálna socketová operácia:
 
-Príklady:
+- nastaví default remote endpoint,
+- umožní používať `send()` a `recv()`,
+- filtruje datagramy podľa peer identity,
+- môže zlepšiť priradenie ICMP chýb ku konkrétnemu socketu.
+
+Nevytvára tým zdieľaný transportný connection state s remote hostom.
+
+## 8. Bind address rozhoduje o exposure
+
+Proces binduje socket na lokálnu adresu, nie na všeobecný názov služby.
+
+| Bind | Význam |
+|---|---|
+| `127.0.0.1:8080` | iba IPv4 loopback v danom namespace |
+| `0.0.0.0:8080` | wildcard pre všetky vhodné lokálne IPv4 adresy |
+| `192.0.2.10:8080` | iba konkrétna lokálna IPv4 adresa |
+| `[::1]:8080` | iba IPv6 loopback |
+| `[::]:8080` | IPv6 wildcard; IPv4 správanie závisí od `IPV6_V6ONLY` |
+
+Loopback listener nemožno sprístupniť remote klientovi iba otvorením firewallu, pretože packet nemá zodpovedajúci non-loopback socket endpoint.
+
+Wildcard bind neznamená „počúvaj na ľubovoľnej vzdialenej IP“. Znamená všetky vhodné lokálne adresy v danom namespace.
+
+## 9. IPv4 a IPv6 wildcard interakcia
+
+IPv6 listener na `[::]:port` môže podľa OS, sysctl a socket option prijímať aj IPv4-mapped flows. Iná aplikácia môže vyžadovať samostatný IPv4 socket.
+
+```bash
+sysctl net.ipv6.bindv6only
+ss -lntp
+```
+
+Pri `Address already in use` treba overiť aj dual-stack wildcard konflikt. Výpis iba jedného address family nemusí ukázať celý bind model.
+
+## 10. Bind na neexistujúcu adresu
+
+Bind na konkrétnu IP typicky vyžaduje, aby bola adresa lokálne nakonfigurovaná. Existujú špeciálne transparent alebo freebind mechanizmy pre proxy a routing scenáre, ale bežná aplikácia sa na ne nemá spoliehať bez explicitného návrhu.
+
+Ak služba štartuje skôr než sa adresa objaví, môže bind zlyhať. Service manager dependency, retry policy alebo wildcard bind musia zodpovedať reálnemu address lifecycle.
+
+## 11. Listening socket nie je accepted socket
+
+Listener reprezentuje service endpoint. Accepted socket reprezentuje jeden konkrétny TCP flow.
 
 ```text
-127.0.0.1:8080
-0.0.0.0:8080
-192.0.2.10:8080
-[::1]:8080
-[::]:8080
+listener 0.0.0.0:443
+├── 192.0.2.10:443 ↔ 198.51.100.20:51000
+├── 192.0.2.10:443 ↔ 198.51.100.21:51001
+└── 192.0.2.10:443 ↔ 203.0.113.8:42000
 ```
 
-Význam:
+Listener a accepted sockets môžu mať odlišné owners po pre-fork, socket activation alebo descriptor passing modeli. Pri incidente treba pozorovať oba druhy objektov.
 
-- `127.0.0.1`: dostupné iba cez IPv4 loopback,
-- `0.0.0.0`: bind na všetky aktuálne IPv4 local addresses,
-- konkrétna IP: iba na danom local address,
-- `::1`: IPv6 loopback,
-- `::`: IPv6 wildcard; dual-stack správanie závisí od `IPV6_V6ONLY` a systémovej konfigurácie.
+## 12. SYN queue a accept queue
 
-Aplikácia počúvajúca na loopbacku nebude dostupná zvonka ani pri otvorenom firewalle.
+TCP listener má dve odlišné kapacitné fázy:
 
-## 6. Pozorovanie socketov
+- SYN queue — handshakes ešte nie sú dokončené.
+- Accept queue — handshake je hotový, ale aplikácia connection ešte neprevzala.
 
-Autoritatívny moderný nástroj na Linuxe je `ss`:
-
-```bash
-ss -lntup
-ss -tan
-ss -uan
-ss -s
-```
-
-Užitočné flags:
-
-- `-l`: listening,
-- `-n`: numerické adresy a porty,
-- `-t`: TCP,
-- `-u`: UDP,
-- `-p`: process,
-- `-a`: všetky sockety.
-
-Príklady:
-
-```bash
-ss -lntp 'sport = :8080'
-ss -tan state established
-ss -tan state time-wait
-```
-
-Proces možno identifikovať aj cez:
-
-```bash
-lsof -nP -iTCP:8080 -sTCP:LISTEN
-fuser -v 8080/tcp
-```
-
-## 7. TCP listen queues
-
-TCP server má koncepty súvisiace s pending spojeniami:
-
-- queue pre neúplné handshake,
-- accept queue pre dokončené spojenia čakajúce na `accept()`.
-
-Aplikácia môže volať:
-
-```c
-listen(fd, backlog)
-```
-
-Skutočné limity ovplyvňuje kernel a sysctl, napríklad:
+`listen(fd, backlog)` vyjadruje požadovanú queue kapacitu, ktorú kernel obmedzí svojou policy.
 
 ```bash
 sysctl net.core.somaxconn
 sysctl net.ipv4.tcp_max_syn_backlog
+ss -lnt
+nstat | grep -E 'Listen|SYN'
 ```
 
-Plná queue môže spôsobovať timeouty, retransmissions alebo odmietnuté spojenia aj vtedy, keď proces stále počúva.
+Plná SYN queue sa prejavuje handshake retries alebo dropmi. Plná accept queue často znamená, že application accept loop alebo worker pool nestíha.
 
-## 8. `SO_REUSEADDR` a `SO_REUSEPORT`
+## 13. Send a receive queues
 
-`SO_REUSEADDR` a `SO_REUSEPORT` riešia odlišné prípady a ich presná semantika závisí od OS.
+Connected socket má buffer pre odosielané a prijaté dáta. `ss` zobrazuje queue hodnoty, ktoré treba interpretovať spolu s protokolom a stavom.
 
-Typické použitie:
+- Rastúci send queue — peer alebo network path nepotvrdzuje dáta dostatočne rýchlo.
+- Rastúci receive queue — dáta dorazili do kernelu, ale aplikácia ich nečíta.
+- UDP receive drops — datagramy môžu doraziť na host, no pretečie socket buffer.
 
-- rýchlejší restart servera po predchádzajúcom spojení,
-- viac workerov počúvajúcich na rovnakom porte s `SO_REUSEPORT`,
-- riadené rozdelenie incoming spojení kernelom.
+Queue je observation point medzi aplikáciou a transportom. Pomáha rozlíšiť application backpressure od path lossu.
 
-Nie sú bezpečnou náhradou za správny lifecycle ani ospravedlnením pre nejasný ownership portu.
+## 14. `SO_REUSEADDR`
 
-## 9. Ephemeral ports a vyčerpanie
+`SO_REUSEADDR` mení pravidlá bind konfliktu. Často umožňuje serveru znovu bindnúť lokálny endpoint po reštarte, aj keď existujú connections v lifecycle stavoch.
 
-Každé outbound TCP spojenie typicky používa ephemeral source port.
+Presná semantika sa líši medzi OS a protokolmi. Option neznamená „dovoľ ľubovoľným procesom používať rovnaký port“ a nenahrádza kontrolu ownershipu, graceful restartu ani socket activation.
 
-Pri veľkom počte spojení môže nastať:
+## 15. `SO_REUSEPORT`
 
-- vyčerpanie lokálneho ephemeral range,
-- veľa socketov v `TIME-WAIT`,
-- collision s NAT mappings,
-- limity file descriptorov,
-- connection tracking pressure.
+`SO_REUSEPORT` umožňuje viacerým kompatibilným sockets bindnúť rovnaký endpoint. Kernel môže incoming flows rozdeliť medzi listeners, často hashom podľa flow identity.
 
-Diagnostika:
+Použitie:
+
+- viac worker procesov bez jedného centrálneho acceptora,
+- distribúcia UDP datagramov medzi workers,
+- graceful rollout s paralelnými listeners podľa aplikačného modelu.
+
+Riziká:
+
+- nerovnomerné flow sizes,
+- nejasný ownership endpointu,
+- rozdielne konfigurácie workerov,
+- zložitejšia observability a rollout koordinácia.
+
+## 16. Systemd socket activation
+
+Systemd môže listener vytvoriť skôr než samotnú service a file descriptor jej odovzdať. Port potom môže počúvať, hoci application process ešte nebeží alebo sa práve reštartuje.
+
+```text
+systemd .socket unit
+  ↓ vlastní listener
+incoming connection
+  ↓ aktivuje service
+service zdedí socket FD
+```
+
+Pri diagnostike treba skontrolovať `.socket` aj `.service` unit. Ownership portu nemusí byť z výpisu procesu intuitívny.
+
+## 17. Ephemeral port allocation
+
+Outbound connection potrebuje unikátny local tuple. Kernel vyberie ephemeral port tak, aby nekolidoval s existujúcim flow v rovnakom namespace a protocol space.
+
+Vyčerpanie môže spôsobiť:
+
+- veľa súčasných flows k rovnakému destination,
+- connection churn a veľa `TIME-WAIT`,
+- malý ephemeral range,
+- explicitné bindovanie source portov,
+- NAT/PAT port pressure,
+- connection leak alebo chýbajúci pooling.
 
 ```bash
 cat /proc/sys/net/ipv4/ip_local_port_range
 ss -s
 ss -tan state time-wait | wc -l
-cat /proc/sys/fs/file-nr
-ulimit -n
 ```
 
-Riešenie nemá automaticky znamenať skrátenie TCP timeoutov. Najprv treba overiť connection reuse, pooling, keep-alive, retry storms a počet destination endpoints.
+Port exhaustion sa môže prejaviť ako `Cannot assign requested address`, connect failure alebo NAT timeout. Nie je to automaticky server-side problém.
 
-## 10. Unix domain sockets
+## 18. Reserved a explicitne používané porty
 
-Socket nemusí používať IP ani port. Unix domain socket komunikuje lokálne cez pathname alebo abstract namespace.
+Linux môže vyhradiť časti ephemeral range pre aplikácie, ktoré potrebujú stabilný port. Aplikácia môže tiež explicitne bindnúť source address a port.
 
-Príklad:
+Taký návrh zmenšuje dostupný tuple priestor a môže vytvoriť kolízie pri scale-out alebo failover scenároch. Port allocation policy musí byť súčasťou capacity modelu, nie skrytý detail.
 
-```text
-/run/app/app.sock
-```
+## 19. File-descriptor limits
 
-Pozorovanie:
+Každý socket používa file descriptor. Aj keď je port space dostatočný, proces môže naraziť na per-process alebo service limit.
 
 ```bash
-ss -lx
-ss -xap
+cat /proc/<PID>/limits
+ls /proc/<PID>/fd | wc -l
+systemctl show example.service -p LimitNOFILE
+sysctl fs.file-max
+```
+
+Zvýšenie limitu bez opravy socket leak iba oddiali incident. Treba rozlíšiť legitímny connection growth od descriptorov, ktoré aplikácia zabudla zavrieť.
+
+## 20. Unix domain sockets
+
+Unix domain socket používa lokálny kernel IPC path namiesto IP routingu. Môže byť pomenovaný filesystem pathname alebo existovať v abstract namespace.
+
+```text
+/run/example/api.sock
 ```
 
 Výhody:
 
-- lokálna komunikácia bez IP routing,
-- filesystem permissions ako access control,
-- nižší overhead v niektorých prípadoch.
+- lokálny scope — traffic neopúšťa host ani network namespace model IP stacku,
+- filesystem DAC — pathname ownership a mode môžu riadiť prístup,
+- descriptor passing — procesy si môžu odovzdávať otvorené file descriptors,
+- jednoduchá integrácia — reverse proxy môže komunikovať s lokálnym backendom bez TCP portu.
 
 Riziká:
 
-- zlý ownership alebo mode,
-- stale socket pathname po páde,
-- neexistujúci parent directory,
-- mount namespace rozdiely.
-
-## 11. Network namespaces
-
-Socket existuje v konkrétnom network namespace. Preto:
+- parent directory permissions,
+- stale pathname po nekorektnom páde,
+- mount namespace rozdiely,
+- SELinux/AppArmor policy,
+- nesprávne cleanup a startup race.
 
 ```bash
-ss -lntp
+ss -xap
+lsof -U
 ```
 
-na hoste nemusí ukázať socket kontajnera.
+## 21. Socket pathname a socket objekt nie sú to isté
 
-Kontrola:
+Pri pathname Unix sockete je directory entry iba meno vedúce ku kernel endpointu. Odstránenie pathname môže zabrániť novým klientom pripojiť sa, ale existujúce connected sockets môžu ďalej fungovať.
+
+Podobne vytvorenie bežného súboru s rovnakým názvom nevytvorí socket. Diagnostika musí rozlišovať filesystem object type a živý listener.
+
+## 22. Network namespaces
+
+IP socket patrí do konkrétneho network namespace. Namespace má vlastné addresses, routes, port space, firewall a socket inventory.
 
 ```bash
 readlink /proc/<PID>/ns/net
-sudo nsenter -t <PID> -n ss -lntp
+readlink /proc/self/ns/net
+sudo nsenter -t <PID> -n ss -lntup
 ```
 
-Port `8080` môže súčasne používať viac procesov v rozdielnych network namespaces bez konfliktu.
+Hostové `ss` nemusí ukázať kontajnerový listener. Port `8080` môže byť bez konfliktu použitý v mnohých namespaces.
 
-## 12. Port publishing a forwarding
+## 23. Container port a publikovaný host port
 
-Kontajner môže počúvať na `0.0.0.0:8080` vo vlastnom namespace, ale host port nemusí byť publikovaný.
-
-Typický tok:
+Aplikácia v kontajneri môže počúvať na `0.0.0.0:8080` iba vo svojom namespace. Remote klient sa k nej dostane až cez routing, proxy alebo publikovanie host portu.
 
 ```text
-client
-  ↓ host:8080
-host NAT/proxy rule
-  ↓ container IP:8080
-container socket
+client → host:18080
+          ↓ DNAT/proxy
+        container-IP:8080
+          ↓
+        application socket
 ```
 
-Treba rozlišovať:
+Treba oddeliť:
 
-- port aplikácie,
-- port v container namespace,
-- publikovaný host port,
-- load balancer frontend port,
+- application port,
+- container namespace port,
+- host published port,
+- load-balancer frontend port,
 - backend target port.
 
-## 13. Bezpečnosť
+Chyba na ktorejkoľvek mapping vrstve môže vyzerať ako „aplikácia nepočúva“.
 
-Otvorený listening socket zväčšuje attack surface.
+## 24. Kubernetes socket kontext
 
-Kontroly:
+Kontajnery v rovnakom Pode typicky zdieľajú network namespace. Preto nemôžu dva procesy bindnúť rovnaký incompatible endpoint bez reuse mechanizmu.
 
-- bind iba na potrebné interfaces,
-- firewall allowlist,
-- autentifikácia a šifrovanie na aplikačnej vrstve,
-- least privilege procesu,
-- minimalizácia publikovaných portov,
-- monitoring neočakávaných listeners,
-- ochrana pred connection exhaustion.
+Kubernetes Service port nie je socket na Pode. Je to virtuálny service endpoint, ktorý dataplane prekladá alebo routuje na target port Podu.
 
-Port scanning iba zisťuje odpoveď endpointu. Neurčuje automaticky verziu služby ani jej bezpečnosť.
+```text
+Service port → targetPort → Pod IP:container listener
+```
 
-## 14. Diagnostický postup
+Pri diagnostike treba overiť každý endpoint a jeho namespace zvlášť.
 
-Aplikácia údajne počúva na porte `8080`, ale klient sa nepripojí:
+## 25. Firewall a bind sú odlišné kontroly
+
+Bind určuje, či kernel má lokálny endpoint pre destination adresu a port. Firewall určuje, či packet môže prejsť policy.
+
+Možné kombinácie:
+
+| Listener | Firewall | Typický výsledok |
+|---|---|---|
+| nie | allow | host môže poslať RST alebo ICMP unreachable |
+| áno | drop | klient typicky timeoutuje |
+| áno | reject | klient dostane rýchlu explicitnú chybu |
+| áno | allow | transport môže pokračovať, aplikácia stále môže zlyhať |
+
+## 26. NAT a load balancer nemenia backend listener contract
+
+DNAT alebo load balancer môžu zmeniť destination IP a port pred doručením backendu. Backend musí počúvať na výslednom lokálnom endpoint-e a jeho return path musí byť kompatibilný s prekladom alebo proxy modelom.
+
+„Frontend port je otvorený“ preto neznamená, že backend port existuje, health check používa správny protokol alebo response prejde späť.
+
+## 27. Bezpečnostný model socket exposure
+
+Listening socket zväčšuje attack surface, ale bezpečnosť nevyrieši samotné číslo portu.
+
+- Minimal bind scope — služba má počúvať iba na adresách, kde je potrebná.
+- Network policy — firewall alebo security group má obmedziť source a protocol.
+- Application authentication — povolený packet nie je autorizovaný používateľ.
+- Encryption — citlivý protokol potrebuje ochranu proti odpočúvaniu a MITM.
+- Least privilege — proces nemá bežať s väčšími právami, než listener vyžaduje.
+- Connection limits — rate limiting, queues a worker bounds chránia pred exhaustion.
+- Inventory — neočakávané listeners treba detegovať a vysvetliť.
+
+## 28. Pozorovanie socketov v Linuxe
+
+```bash
+ss -lntup
+ss -tan
+ss -uan
+ss -xap
+ss -s
+lsof -nP -i
+fuser -v 8080/tcp
+```
+
+Pri výstupe kontroluj:
+
+- protocol a address family,
+- bind address a port,
+- network namespace,
+- listener alebo connected state,
+- send/receive queue,
+- process a file descriptor,
+- cgroup/service ownership,
+- dual-stack wildcard správanie.
+
+## 29. `Connection refused`
+
+Refused znamená aktívnu chybu, nie všeobecný timeout. Typické príčiny:
+
+- destination host poslal TCP RST, pretože nič nepočúva,
+- firewall alebo proxy explicitne rejectli connection,
+- aplikácia počúva na inej adrese alebo porte,
+- NAT/load-balancer target smeruje na nesprávny endpoint.
+
+Packet capture vie potvrdiť RST alebo ICMP unreachable a jeho source.
+
+## 30. Timeout
+
+Timeout znamená absenciu očakávaného progresu do deadline. Môže vzniknúť pred listenerom aj po ňom:
+
+- DNS alebo route zlyhanie,
+- ARP/NDP failure,
+- firewall drop,
+- chýbajúci return path,
+- plná SYN/accept queue,
+- TLS alebo application timeout,
+- packet loss a retransmission,
+- nesprávna IPv4/IPv6 family.
+
+„Timeout“ bez observation pointu nie je root cause.
+
+## 31. `Address already in use`
+
+Bind konflikt môže spôsobovať:
+
+- existujúci listener na rovnakom endpoint-e,
+- wildcard listener, ktorý pokrýva konkrétnu adresu,
+- IPv6 dual-stack socket, ktorý koliduje s IPv4 bindom,
+- reuse options nastavené iba na jednej strane,
+- Unix socket pathname po starom procese,
+- iný proces alebo unit aktivovaný skôr.
+
+```bash
+ss -lntup 'sport = :8080'
+lsof -nP -iTCP:8080
+systemctl list-sockets
+```
+
+## 32. Funguje cez localhost, ale nie zo siete
+
+Najprv over bind:
+
+```bash
+ss -lntp 'sport = :8080'
+```
+
+Ak listener používa `127.0.0.1`, remote packet sa k nemu nemôže priradiť. Ak používa wildcard alebo interface address, pokračuj route, firewall, port publishing a return-path kontrolou.
+
+## 33. Diagnostický postup: klient sa nepripojí na `8080`
 
 ```bash
 ss -lntp 'sport = :8080'
 ip addr
 ip route get <client-ip>
-sudo nft list ruleset
-sudo tcpdump -ni any port 8080
+nft list ruleset
+tcpdump -ni any 'tcp port 8080'
 ```
 
-Postup:
+1. Listener — existuje v správnom network namespace?
+2. Bind — pokrýva destination IP, ktorú klient používa?
+3. Owner — beží očakávaný proces a service?
+4. Queue — nie je listener aktívny, ale preťažený?
+5. Exposure — je container alebo load-balancer port správne mapovaný?
+6. Firewall — ide o allow, drop alebo reject?
+7. Packet path — prichádza SYN a odchádza SYN-ACK/RST?
+8. Return path — smeruje odpoveď späť ku klientovi?
+9. Application layer — po handshake odpovedá správny protokol?
 
-1. existuje proces a socket,
-2. na akej adrese je bind,
-3. v ktorom namespace je socket,
-4. je port publikovaný alebo routovateľný,
-5. blokuje traffic lokálny firewall,
-6. prichádza SYN na správny interface,
-7. odpovedá server SYN-ACK alebo RST,
-8. prebehne application protocol po handshake.
+## 34. Diagnostický postup: socket existuje, ale aplikácia nereaguje
 
-## 15. Typické symptómy
+1. Over send a receive queues cez `ss -tinp`.
+2. Skontroluj thread alebo event-loop state procesu.
+3. Over file-descriptor a worker limits.
+4. Zachyť, či request bytes dorazili a či response bytes odchádzajú.
+5. Skontroluj dependency latency a application logs.
+6. Rozlíš listener health od accepted-connection processing.
 
-### `Connection refused`
+Listener môže byť v `LISTEN`, aj keď všetky workers sú deadlocked alebo vyčerpané.
 
-Typicky remote host odpovedal RST alebo lokálny kernel vie, že nič nepočúva. Môže ísť aj o explicitný firewall reject.
+## 35. Časté omyly
 
-### Timeout
+### „Otvorený port znamená zdravú aplikáciu“
 
-Môže znamenať packet drop, chýbajúcu route, firewall, nefunkčný return path alebo preťaženú queue.
+Listener dokazuje iba lokálny transport endpoint. Neoveruje TLS, autentifikáciu, dependencies ani business response.
 
-### `Address already in use`
+### „Jeden port môže obsluhovať iba jednu connection“
 
-Iný socket už používa rovnakú kombináciu address/port alebo predchádzajúci lifecycle koliduje s bind policy.
+Jeden listener obsluhuje veľa flows, ktoré sa rozlišujú source a destination tuple.
 
-### Funguje cez localhost, nie cez sieť
+### „`0.0.0.0` je adresa, na ktorú sa pripája klient“
 
-Častá príčina je bind iba na loopback.
+Je to wildcard bind reprezentácia. Klient používa konkrétnu destination adresu hosta.
 
-### Funguje na hoste, nie v kontajneri
+### „Hostové `ss` vidí všetky sockets“
 
-Proces môže byť v inom namespace, používať inú route, DNS alebo firewall state.
+Socket inventory je namespace-local. Kontajner alebo Pod môže mať samostatný network namespace.
 
-## 16. Časté omyly
+### „Firewall otvorí loopback listener do siete“
 
-### „Port je otvorený, takže aplikácia funguje“
+Firewall nemení bind address. Aplikácia musí mať socket na non-loopback local endpoint-e.
 
-Nie. Listening socket nedokazuje správny protocol response, autentifikáciu, dependency ani health.
+### „Zvýšenie backlogu vyrieši preťažený server“
 
-### „Jeden port môže používať iba jedno spojenie“
+Väčšia queue môže iba oddialiť drop. Ak accept loop alebo workers nestíhajú, treba opraviť processing capacity a backpressure.
 
-Nie. Server port obsluhuje veľa spojení rozlíšených päťprvkom.
+## 36. Kontrolné otázky
 
-### „`0.0.0.0` je adresa vzdialeného servera“
-
-Nie. Pri bind znamená všetky lokálne IPv4 adresy.
-
-### „Veľa `TIME-WAIT` je automaticky chyba“
-
-Nie. Je to súčasť TCP correctness. Problémom môže byť až kombinácia s port exhaustion alebo nevhodným connection lifecycle.
-
-### „UDP socket nemôže byť connected“
-
-Môže, ale bez TCP handshake a reliability semantics.
-
-## 17. Kontrolné otázky
-
-1. Aký je rozdiel medzi portom a socketom?
-2. Čo identifikuje konkrétne TCP spojenie?
-3. Prečo server potrebuje listening aj accepted sockets?
-4. Aký je rozdiel medzi bindom na loopback a wildcard adresu?
-5. Ako vzniká ephemeral port exhaustion?
-6. Prečo hostové `ss` nemusí vidieť socket kontajnera?
-7. Čo môže spôsobovať `connection refused` a čo timeout?
-8. Prečo listening port nie je dôkaz aplikačného health?
+1. Aký je rozdiel medzi portom, socketom a službou?
+2. Ako file descriptor súvisí so socket objektom?
+3. Čím sa líši listening socket od accepted socketu?
+4. Ako wildcard bind ovplyvňuje network exposure?
+5. Prečo môže IPv6 wildcard kolidovať s IPv4 listenerom?
+6. Aký je rozdiel medzi SYN queue a accept queue?
+7. Čo signalizuje rast receive queue?
+8. Kedy sa používa `SO_REUSEPORT` a aké má riziká?
+9. Ako vzniká ephemeral port exhaustion?
+10. Prečo môže proces naraziť na file-descriptor limit skôr než na port limit?
+11. Ako sa Unix socket líši od TCP socketu?
+12. Prečo hostový port a container port nie sú ten istý endpoint?
+13. Ako packet capture rozlíši refused od timeoutu?
+14. Prečo listener nie je dôkaz aplikačného health?
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
