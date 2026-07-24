@@ -1179,15 +1179,15 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "title": "A/B testing",
-      "words": 1038,
-      "headings": 34,
-      "sections": 34,
-      "findings": 70,
-      "critical": 29,
-      "high": 35,
-      "medium": 6,
-      "low": 0,
-      "score": 639,
+      "words": 1659,
+      "headings": 43,
+      "sections": 43,
+      "findings": 143,
+      "critical": 58,
+      "high": 58,
+      "medium": 15,
+      "low": 12,
+      "score": 1213,
       "grade": "D"
     },
     {
@@ -76655,8 +76655,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "1. Základný model",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -76664,35 +76673,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "3. Experiment hypothesis",
-      "line": 31,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "3. Experiment hypothesis",
-      "line": 31,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "3. Experiment hypothesis",
-      "line": 31,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `population,`, `treatment,`, `primary outcome,`, `očakávaný smer alebo efekt,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "3. Experiment hypothesis",
-      "line": 31,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -76700,44 +76691,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "4. Experiment unit",
-      "line": 50,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "4. Experiment unit",
-      "line": 50,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user ID,`, `account alebo tenant ID,`, `device ID,`, `session,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "4. Experiment unit",
-      "line": 50,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "4. Experiment unit",
-      "line": 50,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "5. Deterministic assignment",
-      "line": 64,
+      "section": "2. A/B verzus canary",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "3. Experiment contract",
+      "line": 38,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -76745,26 +76718,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "5. Deterministic assignment",
-      "line": 64,
+      "section": "3. Experiment contract",
+      "line": 38,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "14 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "5. Deterministic assignment",
-      "line": 64,
+      "section": "3. Experiment contract",
+      "line": 38,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký subjekt zostáva v rovnakom variante,`, `assignment je auditovateľný,`, `rollout percentage možno meniť bez neúmyselného reshuffle,`, `experimenty nemajú kolidovať,`.",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypothesis,`, `eligible population,`, `unit of randomization,`, `control a treatment,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "5. Deterministic assignment",
-      "line": 64,
+      "section": "3. Experiment contract",
+      "line": 38,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -76772,17 +76745,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "5. Deterministic assignment",
-      "line": 64,
+      "section": "3. Experiment contract",
+      "line": 38,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "3. Experiment contract",
+      "line": 38,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "6. Eligibility",
-      "line": 82,
+      "section": "4. Hypotéza",
+      "line": 59,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -76790,26 +76772,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "6. Eligibility",
-      "line": 82,
+      "section": "5. Experiment identity a versioning",
+      "line": 72,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "6. Eligibility",
-      "line": 82,
+      "section": "5. Experiment identity a versioning",
+      "line": 72,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `noví vs. existujúci používatelia,`, `krajina alebo právna jurisdikcia,`, `plan alebo tenant tier,`, `client version,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experiment key,`, `experiment version,`, `variants a payload revisions,`, `assignment salt,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "6. Eligibility",
-      "line": 82,
+      "section": "5. Experiment identity a versioning",
+      "line": 72,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -76817,26 +76799,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "7. Exposure event",
-      "line": 96,
+      "section": "5. Experiment identity a versioning",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "6. Unit of randomization",
+      "line": 87,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "6. Unit of randomization",
+      "line": 87,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "7. Exposure event",
-      "line": 96,
+      "section": "6. Unit of randomization",
+      "line": 87,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experiment ID a version,`, `variant,`, `stable subject ID alebo privacy-safe key,`, `timestamp,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user,`, `account alebo tenant,`, `device,`, `session,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "7. Exposure event",
-      "line": 96,
+      "section": "6. Unit of randomization",
+      "line": 87,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -76844,26 +76844,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "7. Exposure event",
-      "line": 96,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "8. Metrics hierarchy",
-      "line": 112,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Primary metric",
-      "line": 114,
+      "section": "7. Deterministic assignment",
+      "line": 102,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -76871,269 +76853,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Secondary metrics",
-      "line": 118,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Guardrail metrics",
-      "line": 122,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Guardrail metrics",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Guardrail metrics",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error rate,`, `latency,`, `cancellation rate,`, `support contacts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Guardrail metrics",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Diagnostic metrics",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "9. Statistical significance vs. practical significance",
-      "line": 139,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "9. Statistical significance vs. practical significance",
-      "line": 139,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `baseline rate,`, `minimum detectable effect,`, `significance alebo credible interval policy,`, `požadovanú power,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "9. Statistical significance vs. practical significance",
-      "line": 139,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "9. Statistical significance vs. practical significance",
-      "line": 139,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "10. Sequential peeking",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "10. Sequential peeking",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pevne definovaná sample size a duration,`, `sequential testing s korektnou boundary,`, `Bayesian decision policy,`, `explicitný early-stop model pre harm.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "10. Sequential peeking",
-      "line": 152,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "10. Sequential peeking",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "11. Sample ratio mismatch",
-      "line": 165,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "11. Sample ratio mismatch",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "11. Sample ratio mismatch",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `assignment bug,`, `variant-specific crash,`, `logging loss,`, `cache alebo routing problém,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "11. Sample ratio mismatch",
-      "line": 165,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "12. Interference a network effects",
-      "line": 179,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "12. Interference a network effects",
-      "line": 179,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "12. Interference a network effects",
-      "line": 179,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `marketplace supply a demand,`, `social feed,`, `collaboration,`, `shared tenant quota,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "12. Interference a network effects",
-      "line": 179,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "13. Novelty a learning effects",
-      "line": 192,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "13. Novelty a learning effects",
-      "line": 192,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `celý business cycle,`, `weekday/weekend variation,`, `retention window,`, `delayed outcomes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "13. Novelty a learning effects",
-      "line": 192,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "14. Multiple experiments",
-      "line": 204,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "14. Multiple experiments",
-      "line": 204,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experiment namespaces,`, `mutual exclusion groups,`, `dependency metadata,`, `exposure joinability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "14. Multiple experiments",
-      "line": 204,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "15. Experiment lifecycle",
-      "line": 216,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "15. Experiment lifecycle",
-      "line": 216,
+      "section": "7. Deterministic assignment",
+      "line": 102,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -77141,35 +76862,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "16. Ethics, privacy a compliance",
-      "line": 233,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "16. Ethics, privacy a compliance",
-      "line": 233,
+      "section": "7. Deterministic assignment",
+      "line": 102,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "16. Ethics, privacy a compliance",
-      "line": 233,
+      "section": "7. Deterministic assignment",
+      "line": 102,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či treatment môže poškodiť používateľa,`, `či je potrebný consent alebo disclosure,`, `či nie je segmentácia diskriminačná,`, `minimalizáciu osobných údajov,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký subjekt má stabilný variant,`, `assignment je konzistentný naprieč services,`, `zmena percenta má predvídateľný reshuffle model,`, `anonymous identity má lifecycle,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "16. Ethics, privacy a compliance",
-      "line": 233,
+      "section": "7. Deterministic assignment",
+      "line": 102,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -77177,35 +76889,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "17. Operational safety",
-      "line": 248,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "7. Deterministic assignment",
+      "line": 102,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "17. Operational safety",
-      "line": 248,
+      "section": "8. Eligibility",
+      "line": 117,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "17. Operational safety",
-      "line": 248,
+      "section": "8. Eligibility",
+      "line": 117,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `kill switch,`, `guardrail alerts,`, `max exposure,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový/existujúci používateľ,`, `jurisdikciu,`, `plan alebo tenant tier,`, `client capability,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "17. Operational safety",
-      "line": 248,
+      "section": "8. Eligibility",
+      "line": 117,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -77213,7 +76925,358 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Variant B má menej exposure eventov než assignmentov",
+      "section": "9. Assignment verzus exposure",
+      "line": 132,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "9. Assignment verzus exposure",
+      "line": 132,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experiment ID/version,`, `variant,`, `privacy-safe subject key,`, `timestamp,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "9. Assignment verzus exposure",
+      "line": 132,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "9. Assignment verzus exposure",
+      "line": 132,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "9. Assignment verzus exposure",
+      "line": 132,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "10. Intention-to-treat a exposed analysis",
+      "line": 149,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "10. Intention-to-treat a exposed analysis",
+      "line": 149,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "11. Metric contract",
+      "line": 156,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "11. Metric contract",
+      "line": 156,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "11. Metric contract",
+      "line": 156,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event source a schema,`, `numerator a denominator,`, `deduplication,`, `attribution rule,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "11. Metric contract",
+      "line": 156,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "12. Primary, secondary a guardrail metrics",
+      "line": 173,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "12. Primary, secondary a guardrail metrics",
+      "line": 173,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "12. Primary, secondary a guardrail metrics",
+      "line": 173,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "12. Primary, secondary a guardrail metrics",
+      "line": 173,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "12. Primary, secondary a guardrail metrics",
+      "line": 173,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "13. Sample size a praktický efekt",
+      "line": 182,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "13. Sample size a praktický efekt",
+      "line": 182,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `baseline rate/variance,`, `minimum detectable effect,`, `desired power,`, `false-positive policy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "13. Sample size a praktický efekt",
+      "line": 182,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "13. Sample size a praktický efekt",
+      "line": 182,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "14. Precedence experimentálnych validity checks",
+      "line": 196,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "14. Precedence experimentálnych validity checks",
+      "line": 196,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "14. Precedence experimentálnych validity checks",
+      "line": 196,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `assignment integrity,`, `sample ratio,`, `exposure completeness,`, `metric pipeline health,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "14. Precedence experimentálnych validity checks",
+      "line": 196,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "15. Sample Ratio Mismatch",
+      "line": 211,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "15. Sample Ratio Mismatch",
+      "line": 211,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "15. Sample Ratio Mismatch",
+      "line": 211,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `assignment bug,`, `variant-specific crash,`, `logging loss,`, `cache/routing rozdiel,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "15. Sample Ratio Mismatch",
+      "line": 211,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "16. A/A test a instrumentation validation",
+      "line": 225,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "16. A/A test a instrumentation validation",
+      "line": 225,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "16. A/A test a instrumentation validation",
+      "line": 225,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `assignment ratio,`, `exposure logging,`, `metric parity,`, `variance assumptions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "16. A/A test a instrumentation validation",
+      "line": 225,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "17. Sequential monitoring a stopping",
+      "line": 238,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "17. Sequential monitoring a stopping",
+      "line": 238,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixed horizon,`, `validný sequential design,`, `Bayesian decision rule,`, `oddelené immediate harm guardrails.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "17. Sequential monitoring a stopping",
+      "line": 238,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "18. Delayed outcomes a attribution",
+      "line": 251,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "18. Delayed outcomes a attribution",
+      "line": 251,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exposure-to-outcome attribution,`, `conversion window,`, `censoring pri konci testu,`, `late events,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "18. Delayed outcomes a attribution",
+      "line": 251,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "18. Delayed outcomes a attribution",
+      "line": 251,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "19. Interference a network effects",
       "line": 264,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -77222,8 +77285,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Výsledok sa líši podľa dashboardu",
-      "line": 268,
+      "section": "19. Interference a network effects",
+      "line": 264,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "19. Interference a network effects",
+      "line": 264,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `marketplace supply/demand,`, `social graph,`, `collaboration,`, `shared tenant quota,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "19. Interference a network effects",
+      "line": 264,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "21. Multiple experiments",
+      "line": 288,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77231,8 +77321,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Po ukončení experimentu sa efekt stratil",
-      "line": 276,
+      "section": "21. Multiple experiments",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "21. Multiple experiments",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespaces,`, `mutual-exclusion groups,`, `dependencies,`, `interaction metadata,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "21. Multiple experiments",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "22. Operational safety",
+      "line": 301,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "22. Operational safety",
+      "line": 301,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kill switch,`, `max exposure,`, `guardrail alerts,`, `ownera a on-call context,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "22. Operational safety",
+      "line": 301,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "23. Privacy, ethics a fairness",
+      "line": 316,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77240,8 +77384,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Testujeme bez primárnej metriky",
-      "line": 282,
+      "section": "23. Privacy, ethics a fairness",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "23. Privacy, ethics a fairness",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprávnenie experimentovať,`, `consent alebo disclosure,`, `citlivé segmenty,`, `diskriminačný targeting,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "23. Privacy, ethics a fairness",
+      "line": 316,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "24. Experiment decision taxonomy",
+      "line": 332,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77249,8 +77420,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "50/50 routing = A/B test",
-      "line": 286,
+      "section": "24. Experiment decision taxonomy",
+      "line": 332,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "24. Experiment decision taxonomy",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ship treatment,`, `keep control,`, `iterate and rerun,`, `inconclusive,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "24. Experiment decision taxonomy",
+      "line": 332,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "25. Rollout po experimente",
+      "line": 347,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77258,8 +77456,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Experiment beží bez expiry",
-      "line": 290,
+      "section": "25. Rollout po experimente",
+      "line": 347,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "25. Rollout po experimente",
+      "line": 347,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `guardrail review,`, `capacity a reliability overenia,`, `support/operability readiness,`, `cleanup plánu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "25. Rollout po experimente",
+      "line": 347,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "25. Rollout po experimente",
+      "line": 347,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "26. Cleanup a archive",
+      "line": 360,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77267,8 +77501,233 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Každý používateľ vidí oba varianty",
-      "line": 294,
+      "section": "26. Cleanup a archive",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "26. Cleanup a archive",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nastav finálny behavior,`, `odstráň obsolete variant,`, `odstráň flag a assignment logiku,`, `ukonči exposure events,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "26. Cleanup a archive",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "26. Cleanup a archive",
+      "line": 360,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "27. Failure modes",
+      "line": 374,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "27. Failure modes",
+      "line": 374,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "27. Failure modes",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "27. Failure modes",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `assignment bug,`, `missing exposure,`, `SRM,`, `metric drift,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "27. Failure modes",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "27. Failure modes",
+      "line": 374,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over experiment/version a treatment payload.`, `Skontroluj eligibility a assignment counts.`, `Testuj SRM.`, `Porovnaj assignment a exposure funnel.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "28. Diagnostický postup",
+      "line": 387,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "29. Metriky experimentačnej platformy",
+      "line": 400,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "29. Metriky experimentačnej platformy",
+      "line": 400,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "29. Metriky experimentačnej platformy",
+      "line": 400,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "29. Metriky experimentačnej platformy",
+      "line": 400,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SRM incident rate,`, `exposure logging completeness,`, `invalid/inconclusive experiment rate,`, `time to sufficient sample,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "29. Metriky experimentačnej platformy",
+      "line": 400,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "29. Metriky experimentačnej platformy",
+      "line": 400,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "30. Typické anti-patterny",
+      "line": 413,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Traffic split bez assignment integrity",
+      "line": 415,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -77276,12 +77735,210 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
-      "section": "Štatistická významnosť = automatický rollout",
-      "line": 298,
+      "section": "Bez primary metric",
+      "line": 419,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Assignment sa zamieňa s exposure",
+      "line": 423,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Peeking bez validného dizajnu",
+      "line": 427,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Pozitívny segment nájdený post hoc",
+      "line": 431,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Statistical significance = automatický ship",
+      "line": 435,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Experiment bez expiry a cleanupu",
+      "line": 439,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aká je kauzálna hypotéza?`, `Aká je správna randomization unit?`, `Kto je eligible a prečo?`, `Ako sa assignment odlišuje od exposure?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "31. Rozhodovací rámec",
+      "line": 443,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypothesis a primary metric sú vopred zapísané,`, `experiment version identifikuje treatment,`, `unit a eligibility sú správne,`, `assignment je deterministický,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "32. Kontrolný checklist",
+      "line": 458,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Summary",
+      "line": 486,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/a-b-testing.md",
+      "section": "Summary",
+      "line": 486,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
