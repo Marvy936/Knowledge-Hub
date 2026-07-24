@@ -1361,15 +1361,15 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "title": "Quality gates a approvals",
-      "words": 1216,
-      "headings": 38,
-      "sections": 38,
-      "findings": 97,
-      "critical": 42,
-      "high": 43,
-      "medium": 12,
-      "low": 0,
-      "score": 875,
+      "words": 2572,
+      "headings": 54,
+      "sections": 54,
+      "findings": 160,
+      "critical": 56,
+      "high": 58,
+      "medium": 19,
+      "low": 27,
+      "score": 1229,
       "grade": "D"
     },
     {
@@ -89507,8 +89507,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "1. Quality gate",
-      "line": 5,
+      "section": "1. Mental model",
+      "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -89516,395 +89516,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "1. Quality gate",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "1. Quality gate",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test results,`, `static-analysis findings,`, `code coverage delta,`, `vulnerability findings,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "1. Quality gate",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "1. Quality gate",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "3. Blocking a advisory gate",
-      "line": 42,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Blocking",
-      "line": 44,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Blocking",
-      "line": 44,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Blocking",
-      "line": 44,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compilation failure,`, `required tests,`, `invalid artifact signature,`, `porušenie kritickej security policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Blocking",
-      "line": 44,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Blocking",
-      "line": 44,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Advisory",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Advisory",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový nástroj počas kalibrácie,`, `nízku závažnosť,`, `neistý heuristický signál,`, `trendové metriky,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Advisory",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Advisory",
-      "line": 57,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "4. Deterministická policy",
-      "line": 71,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "5. Baseline a new-code policy",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "5. Baseline a new-code policy",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nezhoršovať existujúci stav,`, `blokovať nové kritické findings,`, `vyžadovať coverage pre changed code,`, `postupne znižovať baseline debt.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "5. Baseline a new-code policy",
-      "line": 85,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "6. Quality gate poradie",
-      "line": 98,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "7. Gate scope",
-      "line": 115,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "7. Gate scope",
-      "line": 115,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit alebo merge request,`, `branch,`, `artifact digest,`, `environment promotion,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "7. Gate scope",
-      "line": 115,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "8. Freshness evidence",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "8. Freshness evidence",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit,`, `artifact,`, `dependency lockfile,`, `pipeline definition,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "8. Freshness evidence",
-      "line": 128,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "8. Freshness evidence",
-      "line": 128,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "9. Approval",
-      "line": 142,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "9. Approval",
-      "line": 142,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business timing,`, `compliance alebo separation of duties,`, `potvrdenie risk acceptance,`, `koordinácia s externým partnerom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "9. Approval",
-      "line": 142,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "10. Evidence-based approval",
-      "line": 157,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "10. Evidence-based approval",
-      "line": 157,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "10. Evidence-based approval",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sa mení,`, `artifact digest/version,`, `risk classification,`, `test/security results,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "10. Evidence-based approval",
-      "line": 157,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "10. Evidence-based approval",
-      "line": 157,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "11. Separation of duties",
-      "line": 173,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "11. Separation of duties",
-      "line": 173,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `code owner review,`, `security approval,`, `operations approval,`, `business approval,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "11. Separation of duties",
-      "line": 173,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "12. Risk-based approvals",
-      "line": 187,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "12. Risk-based approvals",
-      "line": 187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "12. Risk-based approvals",
-      "line": 187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `blast radius,`, `customer impact,`, `data mutation,`, `privileged access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "12. Risk-based approvals",
-      "line": 187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "12. Risk-based approvals",
-      "line": 187,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "13. Protected branches a environments",
-      "line": 212,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "13. Protected branches a environments",
-      "line": 212,
+      "section": "1. Mental model",
+      "line": 7,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
@@ -89912,17 +89525,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "13. Protected branches a environments",
-      "line": 212,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge do protected branch,`, `použitie production secretu,`, `deployment do protected environmentu,`, `release tag/signing.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "13. Protected branches a environments",
-      "line": 212,
+      "section": "1. Mental model",
+      "line": 7,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89930,8 +89534,170 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "14. Approval expiry",
-      "line": 223,
+      "section": "1. Mental model",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "1. Mental model",
+      "line": 7,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `Policy`, `scope`, `freshness`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "3. Subject gate-u",
+      "line": 41,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "3. Subject gate-u",
+      "line": 41,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit,`, `synthetic merge-result SHA,`, `artifact digest,`, `release manifest digest,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "3. Subject gate-u",
+      "line": 41,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "3. Subject gate-u",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "3. Subject gate-u",
+      "line": 41,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "4. Evidence manifest",
+      "line": 57,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "4. Evidence manifest",
+      "line": 57,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `evidence ID a typ,`, `subject digest/SHA,`, `producer tool a version,`, `workflow/run identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "4. Evidence manifest",
+      "line": 57,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "4. Evidence manifest",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "4. Evidence manifest",
+      "line": 57,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SHA`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "5. Verdict taxonomy",
+      "line": 88,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "5. Verdict taxonomy",
+      "line": 88,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "5. Verdict taxonomy",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "5. Verdict taxonomy",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "5. Verdict taxonomy",
+      "line": 88,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "5. Verdict taxonomy",
+      "line": 88,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "6. Blocking gate",
+      "line": 105,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -89939,26 +89705,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "14. Approval expiry",
-      "line": 223,
+      "section": "6. Blocking gate",
+      "line": 105,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "15 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "14. Approval expiry",
-      "line": 223,
+      "section": "6. Blocking gate",
+      "line": 105,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novom commite,`, `zmene artifact digestu,`, `zmene deployment planu,`, `významnej zmene environmentu,`.",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chráni významné a explicitné riziko,`, `signál má vysokú presnosť,`, `výsledok je reprodukovateľný,`, `remediation je jasná,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "14. Approval expiry",
-      "line": 223,
+      "section": "6. Blocking gate",
+      "line": 105,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89966,8 +89732,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "15. Delegation a ownership",
-      "line": 236,
+      "section": "6. Blocking gate",
+      "line": 105,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "7. Advisory gate",
+      "line": 130,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "7. Advisory gate",
+      "line": 130,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový nástroj počas kalibrácie,`, `trendová metrika,`, `heuristický signál s vyšším false-positive rate,`, `legacy baseline rollout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "7. Advisory gate",
+      "line": 130,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "7. Advisory gate",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "7. Advisory gate",
+      "line": 130,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "9. Policy composition",
+      "line": 170,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -89975,26 +89795,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "15. Delegation a ownership",
-      "line": 236,
+      "section": "9. Policy composition",
+      "line": 170,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "15. Delegation a ownership",
-      "line": 236,
+      "section": "9. Policy composition",
+      "line": 170,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasné členstvo,`, `backup/on-call model,`, `least privilege,`, `audit zmien členstva,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AND/OR semantics,`, `required a optional evidence,`, `precedence pravidiel,`, `conflict resolution,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "15. Delegation a ownership",
-      "line": 236,
+      "section": "9. Policy composition",
+      "line": 170,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90002,8 +89822,449 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "15. Delegation a ownership",
-      "line": 236,
+      "section": "9. Policy composition",
+      "line": 170,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AND`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "10. Scope a applicability",
+      "line": 194,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "10. Scope a applicability",
+      "line": 194,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `mobile signing gate sa nevzťahuje na backend image,`, `production IAM approval sa nevzťahuje na dokumentáciu,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "10. Scope a applicability",
+      "line": 194,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "10. Scope a applicability",
+      "line": 194,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "11. Baseline a ratcheting",
+      "line": 207,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "11. Baseline a ratcheting",
+      "line": 207,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaná,`, `viazaná na scope,`, `reviewovaná,`, `merateľne znižovaná,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "11. Baseline a ratcheting",
+      "line": 207,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "11. Baseline a ratcheting",
+      "line": 207,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "12. Evidence completeness",
+      "line": 229,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "12. Evidence completeness",
+      "line": 229,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden test shard chýba,`, `report upload zlyhal,`, `scan preskočil časť image layers,`, `policy engine nedostal rendered plan,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "12. Evidence completeness",
+      "line": 229,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "12. Evidence completeness",
+      "line": 229,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "12. Evidence completeness",
+      "line": 229,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "14. Časová freshness",
+      "line": 269,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "14. Časová freshness",
+      "line": 269,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "14. Časová freshness",
+      "line": 269,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vulnerability scan po aktualizácii threat database,`, `environment health,`, `canary metrics,`, `business/calendar approval,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "14. Časová freshness",
+      "line": 269,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "15. Missing evidence a fail-open/fail-closed",
+      "line": 283,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "15. Missing evidence a fail-open/fail-closed",
+      "line": 283,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "15. Missing evidence a fail-open/fail-closed",
+      "line": 283,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Fail closed — pokračovanie sa blokuje.`, `Require review — človek posúdi kontext.`, `artifact signature verification pre production: typicky fail closed;`, `advisory trend dashboard: môže fail open;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "15. Missing evidence a fail-open/fail-closed",
+      "line": 283,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "15. Missing evidence a fail-open/fail-closed",
+      "line": 283,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "16. Tool a infrastructure failure",
+      "line": 298,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "16. Tool a infrastructure failure",
+      "line": 298,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finding,`, `deterministic test failure,`, `timeout,`, `rate limit,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "16. Tool a infrastructure failure",
+      "line": 298,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "16. Tool a infrastructure failure",
+      "line": 298,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "18. Approval",
+      "line": 341,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "18. Approval",
+      "line": 341,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business timing,`, `neautomatizovateľný kontext,`, `risk acceptance,`, `compliance/separation of duties,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "18. Approval",
+      "line": 341,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject identity a digest,`, `source/change summary,`, `target environment a release cohort,`, `risk classification,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "19. Decision packet",
+      "line": 356,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`, `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "20. Approval verdict",
+      "line": 376,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "20. Approval verdict",
+      "line": 376,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `approve,`, `reject,`, `request changes,`, `approve with conditions,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "20. Approval verdict",
+      "line": 376,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "21. Separation of duties",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "21. Separation of duties",
+      "line": 392,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autor zmeny,`, `code owner,`, `security owner,`, `database/platform owner,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "21. Separation of duties",
+      "line": 392,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "21. Separation of duties",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "21. Separation of duties",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "22. Quorum a approval groups",
+      "line": 412,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "22. Quorum a approval groups",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "22. Quorum a approval groups",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden approval z konkrétnej skupiny,`, `dva nezávislé approvals,`, `kombináciu security + environment owner,`, `approval majority/quorum,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "22. Quorum a approval groups",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "22. Quorum a approval groups",
+      "line": 412,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`",
@@ -90011,8 +90272,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "16. Bypass a break-glass",
-      "line": 248,
+      "section": "23. Risk-based approvals",
+      "line": 431,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90020,26 +90281,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "16. Bypass a break-glass",
-      "line": 248,
+      "section": "23. Risk-based approvals",
+      "line": 431,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "16. Bypass a break-glass",
-      "line": 248,
+      "section": "23. Risk-based approvals",
+      "line": 431,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný,`, `silne autorizovaný,`, `časovo obmedzený,`, `auditovaný,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `customer impact,`, `data mutation,`, `privileged access,`, `reversibility,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "16. Bypass a break-glass",
-      "line": 248,
+      "section": "23. Risk-based approvals",
+      "line": 431,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90047,35 +90308,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "17. Exceptions",
-      "line": 262,
+      "section": "24. Approval freshness a revocation",
+      "line": 460,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "24. Approval freshness a revocation",
+      "line": 460,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový commit alebo merge result,`, `zmena artifact digestu,`, `zmena config/infrastructure planu,`, `nový critical finding,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "24. Approval freshness a revocation",
+      "line": 460,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "24. Approval freshness a revocation",
+      "line": 460,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "25. Manual job verzus approval",
+      "line": 476,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "17. Exceptions",
-      "line": 262,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "17. Exceptions",
-      "line": 262,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presným scope-om,`, `ownerom,`, `odôvodnením,`, `compensating control,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "17. Exceptions",
-      "line": 262,
+      "section": "25. Manual job verzus approval",
+      "line": 476,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90083,17 +90362,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "17. Exceptions",
-      "line": 262,
+      "section": "26. Exceptions a waivers",
+      "line": 497,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "26. Exceptions a waivers",
+      "line": 497,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule/policy ID,`, `subject a environment scope,`, `finding identity,`, `dôvod,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "26. Exceptions a waivers",
+      "line": 497,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "26. Exceptions a waivers",
+      "line": 497,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "26. Exceptions a waivers",
+      "line": 497,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "18. Multi-dimensional gates",
-      "line": 276,
+      "section": "27. Break-glass a emergency override",
+      "line": 516,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90101,26 +90416,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "18. Multi-dimensional gates",
-      "line": 276,
+      "section": "27. Break-glass a emergency override",
+      "line": 516,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "18. Multi-dimensional gates",
-      "line": 276,
+      "section": "27. Break-glass a emergency override",
+      "line": 516,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error rate,`, `latency,`, `saturation,`, `business conversion,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `two-person alebo incident-commander authorization podľa rizika,`, `short-lived token,`, `explicitný target/environment,`, `zákaz univerzálneho admin bypassu,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "18. Multi-dimensional gates",
-      "line": 276,
+      "section": "27. Break-glass a emergency override",
+      "line": 516,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90128,62 +90443,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "19. Missing evidence",
-      "line": 295,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `production signature verification: typicky fail closed,`, `advisory trend dashboard: môže fail open s alertom.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "19. Missing evidence",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "20. Gate availability",
-      "line": 306,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "20. Gate availability",
-      "line": 306,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout,`, `retry pre transient failure,`, `degraded mode policy,`, `observability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "20. Gate availability",
-      "line": 306,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "20. Gate availability",
-      "line": 306,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "22. Gate output",
-      "line": 325,
+      "section": "28. Multi-dimensional runtime gates",
+      "line": 544,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90191,26 +90452,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "22. Gate output",
-      "line": 325,
+      "section": "28. Multi-dimensional runtime gates",
+      "line": 544,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "17 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "22. Gate output",
-      "line": 325,
+      "section": "28. Multi-dimensional runtime gates",
+      "line": 544,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý gate zlyhal,`, `ktorá policy rule,`, `na akej evidence,`, `aký artifact/change bol hodnotený,`.",
+      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error rate delta,`, `p95/p99 latency,`, `saturation,`, `restart rate,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "22. Gate output",
-      "line": 325,
+      "section": "28. Multi-dimensional runtime gates",
+      "line": 544,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90218,44 +90479,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "22. Gate output",
-      "line": 325,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "28. Multi-dimensional runtime gates",
+      "line": 544,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "23. Audit trail",
-      "line": 339,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "23. Audit trail",
-      "line": 339,
+      "section": "29. Human judgement boundary",
+      "line": 569,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "23. Audit trail",
-      "line": 339,
+      "section": "29. Human judgement boundary",
+      "line": 569,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy version,`, `evidence IDs,`, `result,`, `approver identity,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podpis verification,`, `policy thresholds,`, `test result completeness,`, `environment lock,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "23. Audit trail",
-      "line": 339,
+      "section": "29. Human judgement boundary",
+      "line": 569,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90263,8 +90515,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "23. Audit trail",
-      "line": 339,
+      "section": "29. Human judgement boundary",
+      "line": 569,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "29. Human judgement boundary",
+      "line": 569,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
@@ -90272,8 +90533,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Gate blokuje všetky zmeny",
-      "line": 372,
+      "section": "30. Gate output a diagnosability",
+      "line": 591,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90281,26 +90542,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Gate blokuje všetky zmeny",
-      "line": 372,
+      "section": "30. Gate output a diagnosability",
+      "line": 591,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Gate blokuje všetky zmeny",
-      "line": 372,
+      "section": "30. Gate output a diagnosability",
+      "line": 591,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `calibration a threshold,`, `baseline,`, `tool version,`, `missing report behavior,`.",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý gate a policy version rozhodovali,`, `aký subject bol hodnotený,`, `ktoré evidence vstúpili,`, `ktoré pravidlo zlyhalo,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Gate blokuje všetky zmeny",
-      "line": 372,
+      "section": "30. Gate output a diagnosability",
+      "line": 591,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90308,17 +90569,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Gate blokuje všetky zmeny",
-      "line": 372,
+      "section": "30. Gate output a diagnosability",
+      "line": 591,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "30. Gate output a diagnosability",
+      "line": 591,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Approval sa po novom commite zachovalo",
-      "line": 383,
+      "section": "31. Audit trail",
+      "line": 607,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90326,17 +90596,134 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "Deployment čaká, hoci approval existuje",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "31. Audit trail",
+      "line": 607,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "26. Časté omyly",
-      "line": 395,
+      "section": "31. Audit trail",
+      "line": 607,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject identity,`, `evidence manifest,`, `policy version,`, `verdict a rule details,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "31. Audit trail",
+      "line": 607,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "31. Audit trail",
+      "line": 607,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "32. Gate service availability",
+      "line": 626,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "32. Gate service availability",
+      "line": 626,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `health a SLO,`, `timeouty,`, `retry pre transient failures,`, `capacity a queue monitoring,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "32. Gate service availability",
+      "line": 626,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "32. Gate service availability",
+      "line": 626,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "33. Metriky gate programu",
+      "line": 642,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "33. Metriky gate programu",
+      "line": 642,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `gate failure rate podľa rule a failure class,`, `finding verzus tool-error pomer,`, `false-positive a waiver rate,`, `time to remediation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "33. Metriky gate programu",
+      "line": 642,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "33. Metriky gate programu",
+      "line": 642,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "33. Metriky gate programu",
+      "line": 642,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "33. Metriky gate programu",
+      "line": 642,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "34. Diagnostický postup",
+      "line": 662,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -90344,8 +90731,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "„Viac approvals znamená vyššiu bezpečnosť“",
-      "line": 397,
+      "section": "Gate blokuje takmer všetko",
+      "line": 664,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90353,8 +90740,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "„Manuálny gate je bezpečnejší než automatický“",
-      "line": 401,
+      "section": "Gate je zelený, ale evidence chýba",
+      "line": 668,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90362,8 +90749,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "„Coverage threshold dokazuje kvalitu“",
-      "line": 405,
+      "section": "Approval ostalo po novom commite",
+      "line": 672,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90371,12 +90758,192 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
-      "section": "„Emergency bypass netreba spätne riešiť“",
-      "line": 409,
+      "section": "Deployment čaká napriek approvalu",
+      "line": 676,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "35. Typické anti-patterny",
+      "line": 688,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Viac approvals automaticky znamená vyššiu bezpečnosť",
+      "line": 690,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Manuálny gate je automaticky bezpečnejší",
+      "line": 694,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Chýbajúci report znamená žiadny finding",
+      "line": 698,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Approval platí pre branch navždy",
+      "line": 702,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Výnimka bez expiry",
+      "line": 706,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Break-glass bez retrospective",
+      "line": 710,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Coverage threshold ako jediný quality gate",
+      "line": 714,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Jeden globálny approver",
+      "line": 718,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Tool failure mapovaný na success",
+      "line": 722,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject má immutable identity,`, `required evidence je v manifeste,`, `evidence patrí subjectu a je kompletná,`, `policy je versionovaná a vysvetliteľná,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "36. Praktický checklist",
+      "line": 726,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Summary",
+      "line": 772,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
+      "section": "Summary",
+      "line": 772,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
