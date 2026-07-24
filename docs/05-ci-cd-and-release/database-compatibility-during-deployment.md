@@ -1,482 +1,689 @@
 # Databázová kompatibilita počas deploymentu
 
-Databázová zmena musí umožniť bezpečnú koexistenciu starej a novej application verzie počas rolling, canary, ring, blue-green aj rollback scenárov. Cieľom nie je iba úspešne vykonať migration, ale zachovať čitateľnosť, zapisovateľnosť a význam dát počas celého release lifecycle.
+## Metadata
 
-## 1. Prečo je problém zložitejší než migration script
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-Počas deploymentu môžu súčasne existovať:
+## 1. Definícia
 
-- staré application instances,
-- nové application instances,
-- background workers,
-- scheduled jobs,
-- starí a noví clients,
-- CDC consumers,
-- reporting jobs,
-- ďalšie services nad rovnakou schema.
+Databázová kompatibilita počas deploymentu je schopnosť viacerých aplikačných, workerových, analytických a integračných verzií bezpečne čítať a zapisovať shared database state počas celého release a recovery lifecycle.
 
-Jednorazová schema zmena môže každú z týchto vrstiev ovplyvniť inak.
+Cieľom nie je iba úspešne spustiť migration script. Cieľom je zachovať:
 
-## 2. Compatibility dimensions
+- dostupnosť,
+- read a write correctness,
+- business semantics,
+- operational limity,
+- rollback alebo roll-forward možnosti,
+- data integrity pre všetkých consumers.
 
-Rozlišuj:
+## 2. Mental model: databázová zmena je distribuovaný protocol
 
-### Schema compatibility
+Počas rollout-u môžu súčasne existovať:
 
-Existujú tables, columns, indexes, constraints a types, ktoré komponent očakáva?
+- old a new application instances,
+- workers a schedulers,
+- old/new clients,
+- reporting a ETL,
+- CDC connectors,
+- ďalšie services s direct query,
+- replicas, backups a restore tooling.
+
+Schema a data change preto nie je lokálna DDL operácia. Je to protocol medzi readers, writers, migration workerom a contract-removal rozhodnutím.
+
+## 3. Compatibility dimensions
+
+### Structural/schema compatibility
+
+Existujú očakávané tables, columns, indexes, constraints a types?
 
 ### Read compatibility
 
-Dokáže stará aj nová verzia interpretovať aktuálne dáta?
+Dokážu všetky aktívne verzie interpretovať aktuálny state vrátane nových hodnôt?
 
 ### Write compatibility
 
-Vytvára každá verzia dáta, ktoré druhá verzia bezpečne prečíta?
+Vytvára každý writer state, ktorý ostatní readers bezpečne spracujú?
 
 ### Semantic compatibility
 
-Majú rovnaké hodnoty rovnaký business význam?
+Má rovnaká hodnota alebo column rovnaký business význam?
 
 ### Operational compatibility
 
-Nevytvorí migration neprijateľné locky, replication lag, I/O alebo storage pressure?
+Nevytvára zmena neprijateľný lock, lag, I/O, storage alebo connection pressure?
 
-## 3. Expand-contract pattern
+### Recovery compatibility
 
-Bezpečný model:
+Môže sa current state bezpečne používať po artifact/config rollbacku?
+
+## 4. Consumer inventory a ownership
+
+Pred návrhom zmeny identifikuj:
+
+- ORM/application access,
+- workers a cron,
+- direct SQL consumers,
+- BI/reporting,
+- CDC/ETL,
+- data exports,
+- backup/restore,
+- replicas a downstream warehouses,
+- ad hoc operational tooling.
+
+Každá schema boundary potrebuje ownera. Contract krok bez consumer inventory je neauditovaný breaking change.
+
+## 5. Migration identity a immutable history
+
+Každá migration má:
+
+- unique monotonic alebo otherwise ordered ID,
+- immutable content/checksum,
+- ownera a purpose,
+- compatibility phase,
+- engine/version assumptions,
+- expected lock/runtime/resource profile,
+- retry/recovery semantics,
+- applied-state record.
+
+Publikovanú a aplikovanú migration neupravuj spätne. Vytvor novú corrective migration.
+
+## 6. Expand-migrate-contract lifecycle
 
 ```text
-1. expand schema
-2. deploy compatible writers/readers
-3. migrate/backfill data
-4. switch reads/writes
-5. observe and validate
-6. contract obsolete schema
+expand
+→ deploy tolerant readers/writers
+→ migrate/backfill
+→ switch behavior
+→ validate
+→ end rollback window
+→ contract
 ```
 
-Destruktívny contract krok sa vykoná až po skončení rollback window a po potvrdení, že žiadny aktívny consumer starý tvar nepotrebuje.
+Jednotlivé fázy môžu byť samostatné releases. Contract sa neriadi dátumom, ale evidence, že starý contract už nikto nepotrebuje.
 
-## 4. Expand fáza
+## 7. Expand fáza
 
-Typické bezpečnejšie operácie:
+Typické additive operácie:
 
-- pridať nullable column,
-- pridať table,
-- pridať index online/concurrently,
-- pridať nový enum model bez okamžitého použitia starými readers,
-- zaviesť compatibility view,
-- pridať nový event/schema version,
-- pripraviť dual-write destination.
+- nová nullable column,
+- nová table,
+- nový index,
+- compatibility view,
+- nový event/schema representation,
+- nový read/write target,
+- unenforced alebo not-yet-validated constraint.
 
-Aj aditívna zmena môže byť prevádzkovo drahá. Vždy over engine-specific behavior.
+Aditívna zmena môže byť stále prevádzkovo drahá. Engine môže rewrite-nuť table, držať metadata lock alebo zvýšiť replica lag.
 
-## 5. Contract fáza
+## 8. Tolerant application release
 
-Destruktívne operácie:
+Pred aktiváciou nového state nasadzuj code, ktorý:
 
-- drop column/table,
-- rename bez compatibility bridge,
-- zúženie type alebo length,
-- pridanie `NOT NULL` bez pripravených dát,
-- odstránenie enum hodnoty,
-- zmena semantics existujúceho poľa,
-- odstránenie indexu používaného starou verziou.
+- toleruje neprítomnosť alebo prítomnosť nového tvaru podľa phase,
+- pozná unknown values,
+- dokáže fallback read,
+- používa idempotentné writes,
+- publikuje phase telemetry,
+- zachováva old contract pre aktívne consumers.
 
-Contract musí mať vlastný release, evidence a recovery plán.
+Reader capability má často predchádzať writer activation.
 
-## 6. Rename bez big-bang zmeny
+## 9. Contract fáza
 
-Namiesto priameho rename:
+Destruktívne zmeny:
+
+- drop table/column,
+- rename bez bridge,
+- type narrowing,
+- `NOT NULL` enforcement,
+- odstránenie enum/state hodnoty,
+- semantic repurpose,
+- drop indexu potrebného old consumerom.
+
+Contract má vlastný release record, prechecks, recovery plan a evidence o nulovom použití starého contractu.
+
+## 10. Rename bez big bang
 
 ```text
 add new_column
-→ write old + new
-→ backfill new_column
+→ deploy dual-compatible code
+→ dual write alebo database-derived sync
+→ backfill
 → read new with fallback old
+→ validate equivalence
 → stop old writes
-→ validate
-→ remove old_column later
+→ read new only
+→ wait rollback/deprecation window
+→ remove old_column
 ```
 
-Alternatívou môže byť compatibility view, trigger alebo application adapter, ale každý pridáva vlastné riziká.
+Compatibility view alebo trigger môže pomôcť, ale pridáva ordering, performance a cleanup riziko.
 
-## 7. Dual write
+## 11. Dual write
 
-Dual write pomáha prechodu medzi schema alebo stores, ale prináša:
+Dual write má tri kľúčové otázky:
 
-- partial failure,
-- ordering rozdiely,
-- duplicate writes,
-- retry ambiguity,
-- transaction boundary problémy,
-- drift medzi reprezentáciami.
+- ktorý store/field je authoritative,
+- čo sa stane pri partial failure,
+- ako sa drift deteguje a opraví.
 
-Potrebné sú:
+Potrebuje:
 
 - idempotency,
-- explicitný authoritative source,
+- explicitnú transaction boundary alebo outbox,
+- retry model,
 - reconciliation,
-- metrics rozdielov,
-- failure queue alebo repair workflow,
-- plán ukončenia dual write.
+- mismatch metrics,
+- repair queue,
+- ukončenie dual-write fázy.
 
-Dual write bez reconciliation iba skrýva nekonzistenciu.
+„Zapíšeme na dve miesta“ bez reconciliation nie je migration strategy.
 
-## 8. Read switching
+## 12. Alternatives k application dual write
+
+Podľa systému:
+
+- database trigger,
+- CDC replication,
+- transactional outbox,
+- migration worker odvodený zo source of truth,
+- event replay,
+- materialized view.
+
+Každá možnosť má rozdielnu consistency, latency, ownership a failure semantics.
+
+## 13. Read switching
+
+Fázy:
+
+- read old,
+- shadow read new a compare,
+- read new with fallback old,
+- percentage/ring read new,
+- read new only,
+- remove fallback.
+
+Zaznamenávaj fallback rate a mismatch kategórie. Ak fallback zostane aktívny trvalo, migration sa nedokončila.
+
+## 14. Shadow reads
+
+Shadow read spustí nový query path, ale používateľovi vráti old result. Kontroluj:
+
+- extra database load,
+- privacy v diff logs,
+- nondeterminism a timing,
+- snapshot consistency,
+- normalization,
+- sampling.
+
+Rozdiel môže vzniknúť tým, že old a new query čítali state v inom okamihu.
+
+## 15. Backfill contract
+
+Backfill potrebuje:
+
+- bounded batch size,
+- deterministic key ordering,
+- checkpointing,
+- idempotent restart,
+- rate limits,
+- pause/resume,
+- poison-record handling,
+- progress a remaining estimate,
+- replication-lag a load guardrails,
+- verification queries,
+- ownera a cleanup.
+
+Jedna veľká transakcia zvyšuje lock, WAL/binlog, storage a rollback riziko.
+
+## 16. Backfill concurrency s live writes
+
+Definuj, ako sa rieši race:
+
+```text
+backfill reads old row
+→ live writer updates row
+→ backfill writes stale derived value
+```
 
 Možnosti:
 
-- read-old,
-- read-new with fallback,
-- shadow read a diff,
-- percentage read rollout,
-- tenant/ring-based read switch,
-- read-new only.
+- compare-and-swap/version column,
+- backfill iba null/unmigrated rows,
+- live dual write s monotonic version,
+- repeat reconciliation pass,
+- database-side atomic expression.
 
-Shadow read môže porovnávať výsledky bez user-facing zmeny, ale musí kontrolovať extra load a privacy.
+## 17. Backfill completion
 
-## 9. Backfill
+`100 % rows processed` nemusí znamenať correctness. Over:
 
-Backfill je data migration cez existujúce rows alebo events. Navrhni:
+- expected population,
+- null/missing counts,
+- checksums alebo aggregates,
+- business invariants,
+- mismatch samples,
+- late writes,
+- reconciliation after completion,
+- replicas a CDC.
 
-- bounded batches,
-- checkpointing,
-- idempotentný restart,
-- rate limiting,
-- pause/resume,
-- progress metrics,
-- retry a poison-record handling,
-- replication-lag guardrail,
-- validation queries,
-- cleanup.
+## 18. Online schema change
 
-Jedna obrovská transakcia zvyšuje lock, WAL/binlog, rollback a outage riziko.
+Engine môže používať:
 
-## 10. Online schema changes
+- metadata-only alteration,
+- in-place operation,
+- table copy,
+- concurrent index build,
+- shadow table a triggers,
+- partition exchange.
 
-Engine môže podporovať:
+Vždy over konkrétny engine/version, table size, lock mode, cancellation, replication behavior, disk peak a cleanup po failure.
 
-- concurrent index creation,
-- online DDL,
-- in-place alter,
-- copy-based migration,
-- shadow table + trigger replication,
-- metadata-only change.
+Marketingový názov `online` neznamená nulový lock alebo nulový dopad.
 
-Názov operácie nepostačuje. Over konkrétnu verziu databázy, table size, lock level, replication a failure behavior.
+## 19. Locks a transactions
 
-## 11. Locky a blocking
-
-Pred migration over:
+Pred migration skontroluj:
 
 - required lock mode,
 - lock acquisition timeout,
 - statement timeout,
-- long-running transactions,
+- long transactions,
 - metadata locks,
-- replication effect,
 - connection pool behavior,
-- retry storm po blokovaní.
+- deadlock/retry,
+- replica apply.
 
-Rýchla DDL operácia môže dlho čakať na lock a následne zablokovať kritický traffic.
+Krátka DDL môže hodiny čakať na lock a po získaní zablokovať traffic.
 
-## 12. Constraints
+## 20. Resource budget
 
-Bezpečný postup pre nový constraint môže byť:
+Stanov guardrails pre:
+
+- database CPU,
+- I/O a storage throughput,
+- WAL/binlog growth,
+- replication lag,
+- disk free space,
+- buffer/cache pressure,
+- connection usage,
+- query latency,
+- backup interference.
+
+Migration job musí vedieť throttle alebo pause.
+
+## 21. Constraints lifecycle
+
+Bezpečný model:
 
 ```text
-add nullable/unenforced condition
-→ backfill and repair
-→ validate existing data
-→ enable enforcement for new writes
-→ enforce globally
+application začne produkovať compliant data
+→ repair/backfill existing data
+→ add constraint in non-blocking/not-valid mode, ak engine umožňuje
+→ validate existing rows
+→ enforce
+→ remove application fallback
 ```
 
-Konkrétna syntax závisí od engine. Základný princíp je oddeliť opravu dát od okamžitého blocking validation.
+Okamžitý blocking validation môže spôsobiť outage.
 
-## 13. Default values
+## 22. NOT NULL
 
-Pridanie column s defaultom môže byť:
+1. readers tolerujú null aj value,
+2. writers vždy zapisujú value,
+3. backfill existing nulls,
+4. monitor null count,
+5. validate/enforce constraint,
+6. odstráň fallback.
 
-- metadata-only,
-- okamžitý table rewrite,
-- lazy materialization,
-- behavior závislý od engine/version.
+Enforcement pred writer rolloutom rozbije old instances.
 
-Application default a database default musia mať konzistentný význam. Staré writers nemusia nové pole posielať.
+## 23. Defaults
 
-## 14. Nullability
+Rozlišuj:
 
-Prechod na `NOT NULL`:
+- application default,
+- database default,
+- materialized existing-row value,
+- semantic default.
 
-1. application začne zapisovať hodnotu,
-2. backfill existujúce rows,
-3. monitoring potvrdí nulový počet chýbajúcich hodnôt,
-4. constraint sa validuje/enforcuje,
-5. starý fallback sa odstráni.
+Engine môže default aplikovať metadata-only alebo table rewrite spôsobom. Old writers nemusia nové pole posielať, preto DB a application default musia byť kompatibilné.
 
-Opačné poradie môže rozbiť staré instances počas rollout-u.
+## 24. Enum a stavové hodnoty
 
-## 15. Enum a stavové hodnoty
+Nový writer môže zapísať value, ktorú old reader nepozná. Použi:
 
-Nová application verzia môže zapísať hodnotu, ktorú stará verzia nepozná.
-
-Ochrany:
-
-- tolerant reader s `unknown` handlingom,
-- oddelenie deploymentu readera pred writerom,
-- capability negotiation,
-- feature flag pre nové writes,
+- tolerant unknown handling,
+- reader-first rollout,
+- feature flag na nové writes,
 - versioned event/schema,
-- rollback window bez nových hodnôt.
+- compatibility adapter,
+- rollback window pred aktiváciou values.
 
-Ignorovanie unknown value môže byť rovnako nebezpečné ako crash.
+Silent mapovanie unknown na nesprávny default môže byť horšie než explicitný failure.
 
-## 16. Index lifecycle
+## 25. Data type change
 
-Nový query path potrebuje index pripravený pred aktiváciou trafficu. Odstránenie starého indexu až po potvrdení, že:
-
-- staré versions nie sú aktívne,
-- rollback ho nepotrebuje,
-- reporting/maintenance queries ho nepoužívajú,
-- query plans sú stabilné.
-
-Index build môže spotrebovať CPU, I/O, storage a replication bandwidth.
-
-## 17. Data type changes
-
-Pri type change preferuj nový column alebo representation:
+Preferuj parallel representation:
 
 ```text
-old_type column
-+ new_type column
+old column + new column
+→ validated conversion
 → dual write/backfill
-→ validate conversion
 → switch readers
-→ remove old later
+→ stop old writers
+→ contract old representation
 ```
 
-In-place conversion môže byť nevratná, blokujúca alebo lossy.
+In-place type conversion môže byť lossy, blocking alebo nevratná.
 
-## 18. Multi-service ownership
+## 26. Index lifecycle
 
-Shared database zvyšuje coupling. Potrebné sú:
+- vytvor index pred aktiváciou nového query pathu,
+- build monitoruj pre I/O, storage a lag,
+- over query plans,
+- zachovaj old index pre rollback/old versions,
+- odstráň až po usage evidence.
 
-- schema owner,
-- consumer inventory,
-- compatibility contract,
+Index usage môžu mať aj reporting alebo maintenance consumers.
+
+## 27. Partitioning a large-table changes
+
+Pri veľkých tables rieš:
+
+- partition key compatibility,
+- online repartitioning,
+- hot partitions,
+- foreign keys,
+- archive/retention jobs,
+- replica and backup behavior,
+- cutover consistency.
+
+Takáto zmena často potrebuje samostatný program, nie jeden application release.
+
+## 28. Multi-service database ownership
+
+Shared database zvyšuje coupling. Zaveď:
+
+- schema/table ownera,
+- explicitné APIs alebo views,
+- consumer registry,
+- query telemetry,
 - migration review,
-- usage telemetry,
-- deprecation window,
-- zákaz nezdokumentovaných direct queries.
+- deprecation notices,
+- contract tests podľa možnosti,
+- zákaz neznámych direct queries.
 
-Bez znalosti consumers nemožno bezpečne vykonať contract fázu.
+Bez ownershipu sa contract fáza nedá bezpečne dokázať.
 
-## 19. CDC, analytics a replicas
+## 29. CDC, replicas a analytics
 
-Schema changes môžu ovplyvniť:
+Over dopad na:
 
-- change-data-capture connector,
-- replica lag,
-- ETL jobs,
-- data warehouse schemas,
+- CDC schema registry/connectors,
+- replica apply a lag,
+- ETL a warehouse,
 - materialized views,
-- backup/restore tooling,
-- audit exports.
+- audit exports,
+- backups a restores,
+- search indexes,
+- downstream data contracts.
 
-Production application health nie je jediná validačná hranica.
+Zelený application smoke nepokrýva celý data ecosystem.
 
-## 20. Migration identity a ordering
+## 30. Migration orchestration
 
-Každá migration potrebuje:
+Migration nemá bežať nekontrolovane pri startup-e každej instance. Preferuj jednoznačného ownera/job s:
 
-- unique ID,
-- deterministic ordering,
-- checksum alebo immutable content,
-- applied-state table,
-- environment evidence,
-- idempotentný alebo explicitne non-repeatable model,
-- concurrency protection.
+- distributed lock,
+- migration ordering,
+- permissions,
+- timeout,
+- evidence,
+- resume/recovery behavior.
 
-Dve pipeline nesmú súčasne aplikovať konfliktujúce migrations bez coordination locku.
+Application startup môže overiť compatible schema range, nie pretekať o DDL ownership.
 
-## 21. Forward-only vs. reversible migrations
+## 31. Compatibility matrix
 
-### Reversible migration
+Príklad:
 
-Má definovaný down path, ale jeho existencia nedokazuje bezpečnosť ani zachovanie dát.
+| Application | Old schema | Expanded schema | Contracted schema |
+|---|---:|---:|---:|
+| Old version | áno | áno | nie |
+| Transition version | áno | áno | podľa návrhu |
+| New version | podľa návrhu | áno | áno |
 
-### Forward-only migration
+Doplň readers, writers, workers a clients. Matrix je vstup pre rollout aj rollback eligibility.
 
-Počíta s opravnou migration alebo restore namiesto automatického down.
-
-Voľba závisí od engine, data-loss rizika a operational modelu. „Down“ skript, ktorý dropne novú column s dátami, nie je bezpečný rollback.
-
-## 22. Migration a application ordering
-
-Príklad expand-contract releaseov:
-
-```text
-Release A: add schema, old behavior remains
-Release B: deploy compatible code, start dual write
-Release C: backfill and validate
-Release D: switch reads, stop old writes
-Release E: remove compatibility path
-Release F: contract old schema
-```
-
-Jedna aplikácia môže zvládnuť viac krokov, ale logical phases musia zostať pozorovateľné a reverzibilné podľa plánu.
-
-## 23. Feature flags
+## 32. Feature flags a migration phase
 
 Flags môžu riadiť:
 
-- nové writes,
+- new writes,
 - read source,
+- shadow read,
 - dual write,
-- backfill activation,
-- shadow comparison,
+- backfill,
+- fallback,
 - cleanup.
 
-Flag state musí byť koordinovaný s migration state. Zapnutie flagu pred schema readiness spôsobí incident.
+Flag state musí mať prerequisites na schema/migration phase. Zapnutie new writes pred expand readiness je control-plane incident.
 
-## 24. Rollback compatibility
+## 33. Rollback window
 
-Pred rolloutom definuj compatibility matrix:
+Počas window zachovaj:
 
-| Application | Schema old | Schema expanded | Schema contracted |
-|---|---:|---:|---:|
-| Old version | áno | áno | nie |
-| New version | podľa návrhu | áno | áno |
+- expanded schema,
+- old read/write compatibility,
+- old artifacts,
+- event/cache compatibility,
+- migration repair path.
 
-Artifact rollback je povolený iba do schema state, ktorému stará verzia rozumie.
+Contract krok explicitne ukončuje niektoré rollback možnosti a musí to zaznamenať release record.
 
-## 25. Validation
+## 34. Forward-only verzus reversible
 
-Použi viac vrstiev:
+- **Reversible syntax —** existuje down operácia.
+- **Semantically reversible —** neboli stratené dáta ani význam.
+- **Operationally reversible —** operácia sa dá vykonať v RTO bez neprijateľného locku.
 
-- migration syntax/test database,
-- schema diff,
-- lock a duration rehearsal,
-- representative data volume,
-- constraint validation,
-- row counts a checksums,
-- shadow reads,
-- business invariants,
-- replication/CDC health,
-- application metrics.
+Down script, ktorý dropne novú column, môže byť syntakticky validný a recovery-nebezpečný.
 
-Rovnaký row count neznamená zachovanie business semantics.
-
-## 26. Observability
-
-Sleduj:
-
-- migration phase a version,
-- rows processed/remain,
-- batch duration,
-- error/retry rate,
-- lock waits,
-- query latency,
-- replication lag,
-- database CPU/I/O/storage,
-- dual-write mismatch,
-- fallback-read rate,
-- unknown enum/value count.
-
-Každý rollout marker má byť korelovateľný s application version.
-
-## 27. Backup a restore
+## 35. Backup, restore a PITR
 
 Pred rizikovou zmenou over:
 
-- posledný úspešný backup,
+- backup integrity,
 - restore test,
-- point-in-time recovery window,
-- expected RPO/RTO,
+- point-in-time window,
 - encryption keys,
-- storage capacity,
-- restore target a cutover postup.
+- RPO/RTO,
+- storage/capacity,
+- restore target,
+- routing cutover,
+- reconciliation s external systems.
 
-Existencia backupu bez overeného restore nie je recovery capability.
+Restore celej databázy môže stratiť legitímne writes po recovery point-e; nie je to bezplatné undo.
 
-## 28. Troubleshooting
+## 36. Validation layers
 
-### Migration čaká na lock
+- migration unit/integration test,
+- schema diff,
+- compatibility matrix test,
+- lock/runtime rehearsal,
+- representative volume,
+- backfill invariants,
+- shadow reads,
+- dual-write reconciliation,
+- application synthetics,
+- CDC/replica health,
+- business/data invariants,
+- restore drill.
 
-Identifikuj blocking transaction, nastav timeout, migration bezpečne zruš a preplánuj. Nezabíjaj transakcie bez znalosti business dopadu.
+## 37. Contract evidence
 
-### Po rollout-e rastú chyby starých instances
+Pred odstránením starého contractu vyžaduj:
 
-Noví writers zapísali nekompatibilné hodnoty alebo schema bola contracted príliš skoro. Zastav nové writes a aktivuj compatibility/repair plan.
+- zero old application/worker versions,
+- zero old write/read telemetry,
+- completed backfill a reconciliation,
+- fallback usage nulové alebo vysvetlené,
+- consumers/dependencies migrated,
+- rollback window formálne ukončené,
+- restore/roll-forward plan,
+- approval ownera schema.
 
-### Backfill zvyšuje replication lag
+## 38. Observability
 
-Zníž batch/rate, pause, rozlož workload a sleduj replica recovery. Promotion zastav.
+Sleduj:
 
-### Dual-write dáta sa rozchádzajú
+- migration ID/phase,
+- rows processed/remaining,
+- batch latency a error,
+- lock waits,
+- query latency,
+- DB CPU/I/O/storage,
+- WAL/binlog a replication lag,
+- fallback read rate,
+- dual-write mismatch,
+- unknown values,
+- CDC/ETL failures,
+- application version correlation.
 
-Urči authoritative source, zastav switch reads, spusti reconciliation a oprav retry/transaction model.
+## 39. Failure taxonomy
 
-### Rollback artifactu zlyhal
+- lock acquisition/blocking failure,
+- partial migration,
+- resource saturation,
+- backfill stale overwrite,
+- dual-write divergence,
+- read mismatch,
+- old consumer incompatibility,
+- CDC/replica failure,
+- premature contract,
+- rollback-ineligible state,
+- restore/reconciliation failure.
 
-Schema alebo data semantics už nie sú kompatibilné. Použi roll-forward, compatibility adapter alebo restore.
+## 40. Diagnostický postup
 
-## 29. Anti-patterny
+1. Urči migration ID, phase a applied state.
+2. Zisti aktívne application/worker/consumer versions.
+3. Over locks, transactions a resource pressure.
+4. Pri backfill-e skontroluj checkpoint, rate a live-write race.
+5. Pri errors old version hľadaj nové values alebo premature contract.
+6. Pri dual-write drift urči authoritative source a zastav read switch.
+7. Skontroluj replicas, CDC a analytics.
+8. Posúď artifact rollback podľa compatibility matrix.
+9. Pri data incident-e zvoľ forward repair, compensation alebo restore.
+10. Contract nepovoľ, kým evidence nie je úplná.
 
-### Rename/drop v rovnakom release ako nový kód
+## 41. Metriky capability
 
-Neexistuje bezpečná mixed-version fáza.
+- migration success/failure rate,
+- lock wait a blocking incidents,
+- backfill duration a throttle time,
+- replication-lag guardrail activations,
+- dual-write mismatch rate,
+- fallback-read age,
+- contract lead time,
+- rollback-ineligible migrations,
+- unknown consumer discoveries,
+- restore test freshness,
+- data-integrity incidents.
 
-### Migration beží pri startup-e každej instance
+## 42. Typické anti-patterny
 
-Vznikajú race conditions, nejasný ownership a nekontrolovaný blast radius.
+### Rename/drop v jednom release
 
-### `down` script = garantovaný rollback
+Chýba mixed-version bridge.
 
-Môže stratiť dáta alebo byť nekompatibilný s aktuálnymi writes.
+### Migration pri startup-e každej instance
+
+Vzniká race a nejasné ownership.
 
 ### Dual write bez reconciliation
 
-Silent drift zostáva neodhalený.
+Silent drift zostáva.
 
-### Backfill bez rate limitu
+### Backfill bez rate limitu a checkpointu
 
-Môže spôsobiť produkčný database incident.
+Môže vytvoriť database incident a nemá bezpečný resume.
 
-### Contract podľa dátumu, nie podľa evidence
+### `Down` script = garantovaný rollback
 
-Kalendár nepotvrdzuje, že starí consumers zmizli.
+Môže stratiť data alebo prekročiť RTO.
 
-## 30. Rozhodovací rámec
+### Contract podľa dátumu
 
-1. Ktoré versions a consumers budú súčasne aktívne?
-2. Akú schema/read/write/semantic compatibility potrebujú?
-3. Aká je expand fáza a čo je destructive contract?
-4. Ako sa riadia dual writes, reads a reconciliation?
-5. Ako prebehne backfill a jeho pause/resume?
-6. Aké locky a resource náklady migration vytvorí?
-7. Aká je compatibility matrix pre rollback?
-8. Kedy presne končí rollback window?
-9. Aké evidence povoľujú contract fázu?
-10. Aký restore alebo roll-forward plán existuje?
+Kalendár nedokazuje, že consumers zmizli.
 
-## 31. Kontrolné otázky
+### Application health = data ecosystem health
 
-1. Čo je expand-contract pattern?
-2. Aký je rozdiel medzi schema a semantic compatibility?
-3. Prečo je direct rename rizikový pri rolling update?
-4. Aké riziká prináša dual write?
-5. Ako navrhnúť bezpečný backfill?
-6. Prečo aditívna DDL nemusí byť prevádzkovo lacná?
-7. Ako nové enum hodnoty komplikujú rollback?
-8. Čo má obsahovať application-schema compatibility matrix?
-9. Prečo reversible migration nemusí byť bezpečná?
-10. Aké evidence povoľujú odstránenie starej schema?
+CDC, replicas a analytics môžu byť zlomené.
+
+### Additive DDL sa považuje za lacnú
+
+Engine môže rewrite-nuť alebo locknúť veľkú table.
+
+## 43. Rozhodovací rámec
+
+1. Ktoré readers/writers/consumers budú súčasne aktívne?
+2. Aké structural, read, write, semantic a operational contracts potrebujú?
+3. Aká je expand a contract boundary?
+4. Kto je authoritative source počas dual write?
+5. Ako sa riešia partial failures a reconciliation?
+6. Ako backfill koexistuje s live writes?
+7. Aké lock/resource limity má DDL?
+8. Aká compatibility matrix povoľuje rollback?
+9. Aké evidence ukončujú fallback a rollback window?
+10. Ako sú zahrnuté CDC, replicas a analytics?
+11. Aký forward-repair/restore plán existuje?
+12. Kto schváli contract fázu?
+
+## 44. Kontrolný checklist
+
+- consumer inventory a owner sú známe,
+- migration content je immutable,
+- phases sú explicitné a pozorovateľné,
+- tolerant readers predchádzajú new writers,
+- dual write má source of truth a reconciliation,
+- backfill je bounded, resumable a race-safe,
+- engine-specific DDL behavior bol testovaný,
+- locks/resource guardrails existujú,
+- compatibility matrix zahŕňa rollback,
+- flags majú schema prerequisites,
+- CDC/replica/analytics validation je zahrnutá,
+- backup restore je overený,
+- contract evidence je úplná,
+- cleanup odstráni fallback a migration debt.
+
+## 45. Kontrolné otázky
+
+1. Prečo je databázová zmena distribuovaný protocol?
+2. Aké compatibility dimensions treba odlišovať?
+3. Ako funguje expand-migrate-contract lifecycle?
+4. Prečo reader rollout často predchádza writer rollout?
+5. Aké failure modes má dual write?
+6. Ako backfill bezpečne koexistuje s live writes?
+7. Prečo `online DDL` nemusí znamenať nulový dopad?
+8. Ako nové enum values rušia rollback eligibility?
+9. Čo musí obsahovať compatibility matrix?
+10. Aké evidence povoľujú contract fázu?
+11. Prečo down migration nemusí byť semantically ani operationally reversible?
+12. Ako sa validuje celý data ecosystem, nie iba aplikácia?
+
+## Summary
+
+Databázová kompatibilita počas deploymentu je viac-release protocol medzi readers, writers, migration workers a všetkými downstream consumers. Bezpečný model používa expand-migrate-contract, tolerant readers pred novými writers, bounded a resumable backfill, reconciliation, engine-specific lock/resource testy a explicitnú compatibility matrix. Rollback window existuje iba dovtedy, kým old versions rozumejú aktuálnemu state. Contract fázu povoľuje evidence o nulovom použití starého contractu, dokončenej migrácii a pripravenom forward-repair alebo restore pláne.
 
 ## Glossary impact
 
-Relevantné pojmy: expand-contract, schema compatibility, read compatibility, write compatibility, semantic compatibility, dual write, reconciliation, shadow read, backfill, online schema change, contract phase, compatibility matrix, forward-only migration, migration lock a fallback read.
+Relevantné pojmy: database deployment compatibility, expand-migrate-contract, structural compatibility, read compatibility, write compatibility, semantic compatibility, recovery compatibility, consumer inventory, dual write, reconciliation, shadow read, bounded backfill, compatibility matrix, contract evidence, forward-only migration a rollback window.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
