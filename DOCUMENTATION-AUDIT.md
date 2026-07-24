@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10603**
-- Total words: **462,074**
-- Findings: **23380** (critical 8153, high 9259, medium 3099, low 2869)
+- Audited conceptual sections: **10611**
+- Total words: **463,639**
+- Findings: **23375** (critical 8137, high 9242, medium 3098, low 2898)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -199,7 +199,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 534 | 27 | 23 | 9 | 1 | 852 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
 | D | 533 | 21 | 29 | 12 | 4 | 1548 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 533 | 17 | 36 | 11 | 4 | 1432 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
-| D | 531 | 22 | 28 | 11 | 4 | 1202 | `docs/01-linux-and-systems/ssh.md` |
 | D | 525 | 22 | 14 | 19 | 57 | 4060 | `docs/13-security-and-identity/vulnerability-and-patch-management.md` |
 | D | 524 | 23 | 27 | 9 | 4 | 1489 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 521 | 17 | 38 | 4 | 4 | 1898 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
@@ -247,6 +246,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
+| D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
 | D | 216 | 5 | 9 | 9 | 40 | 2608 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
@@ -1098,54 +1098,21 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klienta ssh ,`, `server sshd ,`, `scp a sftp ,`, `key tools ssh-keygen ,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Definícia**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 49, `bare-bullet-items` — **3. Host keys a known hosts**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímna reinštalácia servera,`, `zmena IP/DNS targetu,`, `load balancer alebo reused address,`, `man-in-the-middle útok.`.
-- **CRITICAL** line 177, `bare-bullet-items` — **8. Bastion a ProxyJump**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny access,`, `audit,`, `patching,`, `MFA alebo central identity podľa prostredia,`.
-- **CRITICAL** line 177, `outline-instead-of-explanation` — **8. Bastion a ProxyJump**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `empty-section` — **10. Port forwarding**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 221, `empty-section` — **Local forwarding**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 303, `bare-bullet-items` — **13. Hardening**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strong authentication,`, `aktuálny server,`, `least privilege,`, `firewall allowlist tam, kde je možná,`.
-- **CRITICAL** line 303, `outline-instead-of-explanation` — **13. Hardening**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **14. Debugging klienta**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `config files,`, `resolved host,`, `connection attempt,`, `negotiated algorithms,`.
-- **CRITICAL** line 330, `outline-instead-of-explanation` — **14. Debugging klienta**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 351, `bare-bullet-items` — **15. Server-side diagnostika**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user existuje a má valid shell,`, `account nie je locked/expired,`, `home a .ssh ownership,`, `authorized keys path a syntax,`.
-- **CRITICAL** line 351, `outline-instead-of-explanation` — **15. Server-side diagnostika**: 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 371, `bare-bullet-items` — **16. authorized keys restrictions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source addresses,`, `forced command,`, `zákaz PTY,`, `zákaz agent/port/X11 forwarding.`.
-- **CRITICAL** line 371, `outline-instead-of-explanation` — **16. authorized keys restrictions**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 388, `bare-bullet-items` — **17. Automation a host key verification**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spravovať known hosts ako dôveryhodnú konfiguráciu,`, `distribuovať host CA a používať SSH certificates,`, `používať trusted inventory,`, `rotovať keys kontrolovaným procesom.`.
-- **CRITICAL** line 388, `outline-instead-of-explanation` — **17. Automation a host key verification**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 407, `bare-bullet-items` — **18. Troubleshooting scenár**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spusti ssh -vvv host ,`, `over, ktorú identity klient ponúka,`, `použi IdentitiesOnly yes , ak agent ponúka veľa keys,`, `over server logs,`.
-- **CRITICAL** line 407, `outline-instead-of-explanation` — **18. Troubleshooting scenár**: 9 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 421, `empty-section` — **19. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 305, `outline-instead-of-explanation` — **21. SFTP a SCP**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 387, `outline-instead-of-explanation` — **28. Debugging klienta**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 405, `outline-instead-of-explanation` — **29. Server-side diagnostika**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 425, `outline-instead-of-explanation` — **30. Diagnostika port forwardingu**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `single-sentence-concept` — **1. Definícia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 148, `single-sentence-concept` — **7. Client configuration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 177, `list-first-introduction` — **8. Bastion a ProxyJump**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 177, `single-sentence-concept` — **8. Bastion a ProxyJump**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 235, `list-first-introduction` — **Remote forwarding**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 235, `single-sentence-concept` — **Remote forwarding**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 243, `list-first-introduction` — **Dynamic forwarding**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 253, `list-first-introduction` — **11. SFTP a SCP**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 274, `bare-bullet-items` — **12. Server configuration**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `-t kontroluje syntax a keys,`, `-T zobrazí efektívnu konfiguráciu.`.
-- **HIGH** line 330, `list-first-introduction` — **14. Debugging klienta**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 330, `single-sentence-concept` — **14. Debugging klienta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 351, `list-first-introduction` — **15. Server-side diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 351, `single-sentence-concept` — **15. Server-side diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 371, `single-sentence-concept` — **16. authorized keys restrictions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 407, `single-sentence-concept` — **18. Troubleshooting scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 427, `single-sentence-concept` — **„Agent forwarding je bezpečný, lebo private key neopustí laptop“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 431, `single-sentence-concept` — **„Zmena SSH portu vyrieši bezpečnosť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 435, `single-sentence-concept` — **„ ssh-keyscan overí identitu servera“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 345, `list-heavy-section` — **24. Hardening ako model hrozieb**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 387, `list-first-introduction` — **28. Debugging klienta**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 405, `list-first-introduction` — **29. Server-side diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 405, `single-sentence-concept` — **29. Server-side diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 425, `bare-bullet-items` — **30. Diagnostika port forwardingu**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over SSH session a server policy AllowTcpForwarding / PermitOpen .`, `Z bastionu over DNS a TCP reachability cieľa.`, `Použi ssh -vvv na zobrazenie channel open failure.`.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 177, `thin-concept-section` — **8. Bastion a ProxyJump**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 330, `thin-concept-section` — **14. Debugging klienta**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 351, `thin-concept-section` — **15. Server-side diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 371, `thin-concept-section` — **16. authorized keys restrictions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 388, `thin-concept-section` — **17. Automation a host key verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 407, `thin-concept-section` — **18. Troubleshooting scenár**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 387, `thin-concept-section` — **28. Debugging klienta**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 405, `term-before-explanation` — **29. Server-side diagnostika**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAM`, `LSM`, `identity`, `policy`
+- **HIGH** line 405, `thin-concept-section` — **29. Server-side diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/storage-mounts-and-filesystems.md`
 
@@ -18462,19 +18429,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4108 | 0 | 0 | 4108 |
-| `bare-bullet-items` | 3721 | 331 | 0 | 0 | 4052 |
-| `outline-instead-of-explanation` | 3642 | 0 | 0 | 0 | 3642 |
-| `thin-concept-section` | 0 | 3336 | 0 | 0 | 3336 |
-| `term-before-explanation` | 0 | 350 | 2228 | 0 | 2578 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1263 | 1263 |
-| `example-not-explicit` | 0 | 0 | 0 | 1087 | 1087 |
-| `list-first-introduction` | 0 | 920 | 0 | 0 | 920 |
-| `short-concept-section` | 0 | 0 | 871 | 0 | 871 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 519 | 519 |
-| `empty-section` | 497 | 0 | 0 | 0 | 497 |
+| `single-sentence-concept` | 0 | 4098 | 0 | 0 | 4098 |
+| `bare-bullet-items` | 3712 | 331 | 0 | 0 | 4043 |
+| `outline-instead-of-explanation` | 3638 | 0 | 0 | 0 | 3638 |
+| `thin-concept-section` | 0 | 3331 | 0 | 0 | 3331 |
+| `term-before-explanation` | 0 | 351 | 2225 | 0 | 2576 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1267 | 1267 |
+| `example-not-explicit` | 0 | 0 | 0 | 1102 | 1102 |
+| `list-first-introduction` | 0 | 916 | 0 | 0 | 916 |
+| `short-concept-section` | 0 | 0 | 873 | 0 | 873 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 529 | 529 |
+| `empty-section` | 494 | 0 | 0 | 0 | 494 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 214 | 0 | 0 | 214 |
+| `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
 
 ## Required remediation pattern
 

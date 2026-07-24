@@ -493,15 +493,15 @@
     {
       "path": "docs/01-linux-and-systems/ssh.md",
       "title": "SSH",
-      "words": 1202,
-      "headings": 29,
-      "sections": 29,
-      "findings": 65,
-      "critical": 22,
-      "high": 28,
-      "medium": 11,
-      "low": 4,
-      "score": 531,
+      "words": 2767,
+      "headings": 37,
+      "sections": 37,
+      "findings": 60,
+      "critical": 6,
+      "high": 11,
+      "medium": 10,
+      "low": 33,
+      "score": 236,
       "grade": "D"
     },
     {
@@ -20018,251 +20018,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klienta ssh ,`, `server sshd ,`, `scp a sftp ,`, `key tools ssh-keygen ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "3. Host keys a known hosts",
-      "line": 49,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímna reinštalácia servera,`, `zmena IP/DNS targetu,`, `load balancer alebo reused address,`, `man-in-the-middle útok.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "3. Host keys a known hosts",
-      "line": 49,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "3. Host keys a known hosts",
-      "line": 49,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "3. Host keys a known hosts",
-      "line": 49,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "7. Client configuration",
-      "line": 148,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "8. Bastion a ProxyJump",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "8. Bastion a ProxyJump",
-      "line": 177,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "8. Bastion a ProxyJump",
-      "line": 177,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "8. Bastion a ProxyJump",
-      "line": 177,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny access,`, `audit,`, `patching,`, `MFA alebo central identity podľa prostredia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "8. Bastion a ProxyJump",
-      "line": 177,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "8. Bastion a ProxyJump",
-      "line": 177,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "10. Port forwarding",
-      "line": 219,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "Local forwarding",
-      "line": 221,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "Remote forwarding",
-      "line": 235,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "Remote forwarding",
-      "line": 235,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "Dynamic forwarding",
-      "line": 243,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "11. SFTP a SCP",
-      "line": 253,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "12. Server configuration",
-      "line": 274,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `-t kontroluje syntax a keys,`, `-T zobrazí efektívnu konfiguráciu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "12. Server configuration",
-      "line": 274,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "13. Hardening",
-      "line": 303,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "13. Hardening",
-      "line": 303,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strong authentication,`, `aktuálny server,`, `least privilege,`, `firewall allowlist tam, kde je možná,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "13. Hardening",
-      "line": 303,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "13. Hardening",
-      "line": 303,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "13. Hardening",
-      "line": 303,
+      "section": "2. Transport layer",
+      "line": 31,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -20270,233 +20027,44 @@
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "13. Hardening",
-      "line": 303,
+      "section": "2. Transport layer",
+      "line": 31,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "3. Host keys a server identity",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "4. known hosts a trust policy",
+      "line": 67,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "6. User public-key authentication",
+      "line": 89,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "14. Debugging klienta",
-      "line": 330,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "14. Debugging klienta",
-      "line": 330,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "14. Debugging klienta",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "14. Debugging klienta",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `config files,`, `resolved host,`, `connection attempt,`, `negotiated algorithms,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "14. Debugging klienta",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "15. Server-side diagnostika",
-      "line": 351,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "15. Server-side diagnostika",
-      "line": 351,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "15. Server-side diagnostika",
-      "line": 351,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "15. Server-side diagnostika",
-      "line": 351,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user existuje a má valid shell,`, `account nie je locked/expired,`, `home a .ssh ownership,`, `authorized keys path a syntax,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "15. Server-side diagnostika",
-      "line": 351,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "15. Server-side diagnostika",
-      "line": 351,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "16. authorized keys restrictions",
-      "line": 371,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "16. authorized keys restrictions",
-      "line": 371,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "16. authorized keys restrictions",
-      "line": 371,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source addresses,`, `forced command,`, `zákaz PTY,`, `zákaz agent/port/X11 forwarding.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "16. authorized keys restrictions",
-      "line": 371,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "16. authorized keys restrictions",
-      "line": 371,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PTY`, `X11`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "17. Automation a host key verification",
-      "line": 388,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "17. Automation a host key verification",
-      "line": 388,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spravovať known hosts ako dôveryhodnú konfiguráciu,`, `distribuovať host CA a používať SSH certificates,`, `používať trusted inventory,`, `rotovať keys kontrolovaným procesom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "17. Automation a host key verification",
-      "line": 388,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "17. Automation a host key verification",
-      "line": 388,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `SSH`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 407,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 407,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 407,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spusti ssh -vvv host ,`, `over, ktorú identity klient ponúka,`, `použi IdentitiesOnly yes , ak agent ponúka veľa keys,`, `over server logs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 407,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 407,
+      "section": "6. User public-key authentication",
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -20504,26 +20072,314 @@
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "18. Troubleshooting scenár",
-      "line": 407,
+      "section": "6. User public-key authentication",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "8. Key restrictions",
+      "line": 124,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAM`, `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "19. Časté omyly",
-      "line": 421,
+      "section": "8. Key restrictions",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "8. Key restrictions",
+      "line": 124,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "8. Key restrictions",
+      "line": 124,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "9. Password a keyboard-interactive authentication",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "12. ssh-agent",
+      "line": 184,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "12. ssh-agent",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "13. Agent forwarding",
+      "line": 196,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "13. Agent forwarding",
+      "line": 196,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "14. Bastion a ProxyJump",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "15. Connection layer a channels",
+      "line": 224,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "15. Connection layer a channels",
+      "line": 224,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "15. Connection layer a channels",
+      "line": 224,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "17. Interactive session verzus non-interactive command",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "21. SFTP a SCP",
+      "line": 305,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "„Agent forwarding je bezpečný, lebo private key neopustí laptop“",
-      "line": 427,
+      "section": "21. SFTP a SCP",
+      "line": 305,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "21. SFTP a SCP",
+      "line": 305,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "21. SFTP a SCP",
+      "line": 305,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "22. Client configuration precedence",
+      "line": 317,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "23. Server configuration a precedence",
+      "line": 329,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "24. Hardening ako model hrozieb",
+      "line": 345,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "24. Hardening ako model hrozieb",
+      "line": 345,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "24. Hardening ako model hrozieb",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "24. Hardening ako model hrozieb",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "25. Key lifecycle a revocation",
+      "line": 358,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "25. Key lifecycle a revocation",
+      "line": 358,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "27. Server-side process a privilege model",
+      "line": 379,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "28. Debugging klienta",
+      "line": 387,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "28. Debugging klienta",
+      "line": 387,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "28. Debugging klienta",
+      "line": 387,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "28. Debugging klienta",
+      "line": 387,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "28. Debugging klienta",
+      "line": 387,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "28. Debugging klienta",
+      "line": 387,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `KEX`, `Identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "29. Server-side diagnostika",
+      "line": 405,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -20531,21 +20387,120 @@
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "„Zmena SSH portu vyrieši bezpečnosť“",
-      "line": 431,
+      "section": "29. Server-side diagnostika",
+      "line": 405,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/ssh.md",
-      "section": "„ ssh-keyscan overí identitu servera“",
-      "line": 435,
+      "section": "29. Server-side diagnostika",
+      "line": 405,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "29. Server-side diagnostika",
+      "line": 405,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "29. Server-side diagnostika",
+      "line": 405,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "29. Server-side diagnostika",
+      "line": 405,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "29. Server-side diagnostika",
+      "line": 405,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "29. Server-side diagnostika",
+      "line": 405,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAM`, `LSM`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "30. Diagnostika port forwardingu",
+      "line": 425,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "30. Diagnostika port forwardingu",
+      "line": 425,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over SSH session a server policy AllowTcpForwarding / PermitOpen .`, `Z bastionu over DNS a TCP reachability cieľa.`, `Použi ssh -vvv na zobrazenie channel open failure.`.",
       "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "30. Diagnostika port forwardingu",
+      "line": 425,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "30. Diagnostika port forwardingu",
+      "line": 425,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "30. Diagnostika port forwardingu",
+      "line": 425,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/ssh.md",
+      "section": "30. Diagnostika port forwardingu",
+      "line": 425,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/storage-mounts-and-filesystems.md",
