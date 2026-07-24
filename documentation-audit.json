@@ -380,16 +380,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "title": "Linux Capabilities",
-      "words": 1351,
-      "headings": 36,
-      "sections": 36,
-      "findings": 50,
-      "critical": 13,
-      "high": 20,
-      "medium": 8,
-      "low": 9,
-      "score": 360,
+      "title": "Linux capabilities",
+      "words": 3364,
+      "headings": 42,
+      "sections": 42,
+      "findings": 77,
+      "critical": 11,
+      "high": 16,
+      "medium": 6,
+      "low": 44,
+      "score": 337,
       "grade": "D"
     },
     {
@@ -15968,35 +15968,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `web server potrebuje bind na port 80,`, `network daemon potrebuje meniť interface alebo route,`, `backup nástroj potrebuje čítať vybrané filesystems,`, `debugger potrebuje inspectovať iný proces.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "2. Problém, ktorý rieši",
-      "line": 17,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16004,35 +15977,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "3. Mentálny model",
-      "line": 28,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "3. Mentálny model",
-      "line": 28,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "4. Dôležité capabilities",
-      "line": 43,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "4. Dôležité capabilities",
-      "line": 43,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -16040,80 +15986,44 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "5. Capability sets procesu",
-      "line": 61,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Prečo capability model existuje",
+      "line": 28,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Permitted",
+      "section": "2. Prečo capability model existuje",
+      "line": 28,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "3. Capability check nie je jediná bezpečnostná vrstva",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "4. Dôležité capabilities",
       "line": 65,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Effective",
-      "line": 69,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Inheritable",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Ambient",
-      "line": 81,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "6. Root a capabilities",
-      "line": 108,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "6. Root a capabilities",
-      "line": 108,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `securebits,`, `user namespaces,`, `file capabilities,`, `bounding set,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "6. Root a capabilities",
-      "line": 108,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "6. Root a capabilities",
-      "line": 108,
+      "section": "5. Capability sets procesu",
+      "line": 87,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16121,43 +16031,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "6. Root a capabilities",
-      "line": 108,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`",
-      "score": 4
+      "section": "6. Permitted set",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "7. File capabilities",
-      "line": 122,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "7. File capabilities",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filesystem podporu extended attributes,`, `kopírovanie a archiváciu,`, `package upgrades,`, `container image layers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "7. File capabilities",
-      "line": 122,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "7. File capabilities",
+      "section": "7. Effective set",
       "line": 122,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -16166,7 +16049,7 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "7. File capabilities",
+      "section": "7. Effective set",
       "line": 122,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -16175,35 +16058,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "7. File capabilities",
-      "line": 122,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "8. Inheritable set",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "8. execve() a transformácia sets",
-      "line": 157,
+      "section": "9. Bounding set",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "12. Filesystem a deployment dôsledky file capabilities",
+      "line": 186,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "8. execve() a transformácia sets",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process permitted/inheritable/ambient sets,`, `file permitted/inheritable metadata,`, `bounding set,`, `privileged-file pravidiel,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "8. execve() a transformácia sets",
-      "line": 157,
+      "section": "12. Filesystem a deployment dôsledky file capabilities",
+      "line": 186,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -16211,62 +16094,125 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "8. execve() a transformácia sets",
-      "line": 157,
+      "section": "12. Filesystem a deployment dôsledky file capabilities",
+      "line": 186,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "13. execve() capability transformácia",
+      "line": 200,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "14. UID 0 a capability fixup",
+      "line": 220,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "15. Securebits",
+      "line": 228,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "16. no new privs",
+      "line": 240,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "17. Capability scope a user namespaces",
+      "line": 260,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "18. Root v kontajneri",
+      "line": 276,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host UID 0 v rovnakom user namespace,`, `obmedzený runtime capability allowlistom,`, `ďalej obmedzený seccomp, LSM a read-only mountmi.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "18. Root v kontajneri",
+      "line": 276,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "18. Root v kontajneri",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "18. Root v kontajneri",
+      "line": 276,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "18. Root v kontajneri",
+      "line": 276,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "9. Ambient capabilities",
-      "line": 179,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "19. Systemd capability policy",
+      "line": 289,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "12. Capabilities a user namespaces",
-      "line": 236,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "15. SUID vs. file capabilities",
-      "line": 313,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "16. Capability-aware troubleshooting",
-      "line": 325,
+      "section": "19. Systemd capability policy",
+      "line": 289,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "16. Capability-aware troubleshooting",
-      "line": 325,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Má process CAP NET BIND SERVICE effective?`, `Je capability v bounding set?`, `Nezablokoval ju NoNewPrivileges pri exec transition?`, `Beží process v inom user namespace?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "16. Capability-aware troubleshooting",
-      "line": 325,
+      "section": "19. Systemd capability policy",
+      "line": 289,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -16274,8 +16220,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "16. Capability-aware troubleshooting",
-      "line": 325,
+      "section": "19. Systemd capability policy",
+      "line": 289,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -16283,17 +16229,341 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "16. Capability-aware troubleshooting",
-      "line": 325,
-      "severity": "high",
+      "section": "19. Systemd capability policy",
+      "line": 289,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "19. Systemd capability policy",
+      "line": 289,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "20. Service startup: root then drop verzus direct least privilege",
+      "line": 324,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť socket alebo dodať capability,`, `spustiť aplikáciu priamo pod neprivilegovaným UID,`, `odstrániť všetky ostatné capabilities,`, `aplikovať sandbox pred prvou aplikačnou inštrukciou.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "20. Service startup: root then drop verzus direct least privilege",
+      "line": 324,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "21. Socket activation ako alternatíva capability",
+      "line": 337,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "22. File capabilities verzus setuid",
+      "line": 353,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "22. File capabilities verzus setuid",
+      "line": 353,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "24. privileged kontajner",
+      "line": 396,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "25. Capability leakage cez child proces",
+      "line": 404,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia s ambient capability spustí shell hook,`, `executable hľadá helper cez manipulovateľný PATH ,`, `interpreter dostane capability a následne vykoná ľubovoľný script.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "25. Capability leakage cez child proces",
+      "line": 404,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "25. Capability leakage cez child proces",
+      "line": 404,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "25. Capability leakage cez child proces",
+      "line": 404,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PATH`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "26. Interpreters a scripts",
+      "line": 418,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capability na malom auditovanom native helperi,`, `helper vykoná jednu presne validovanú privilegovanú operáciu,`, `hlavná aplikácia komunikuje cez úzky interface,`, `helper nespúšťa shell ani pluginy.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "26. Interpreters a scripts",
+      "line": 418,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "27. Capability revocation",
+      "line": 431,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "27. Capability revocation",
+      "line": 431,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "27. Capability revocation",
+      "line": 431,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "17. Bezpečnostné riziká",
-      "line": 355,
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "29. Troubleshooting: bind na port 80 zlyhá",
+      "line": 472,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `CAP`, `NET`, `BIND`, `SERVICE`, `EADDRINUSE`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "30. Troubleshooting: capability zmizla po deploymente",
+      "line": 485,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "30. Troubleshooting: capability zmizla po deploymente",
+      "line": 485,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "30. Troubleshooting: capability zmizla po deploymente",
+      "line": 485,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "30. Troubleshooting: capability zmizla po deploymente",
+      "line": 485,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "30. Troubleshooting: capability zmizla po deploymente",
+      "line": 485,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "30. Troubleshooting: capability zmizla po deploymente",
+      "line": 485,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "31. Troubleshooting: kontajner funguje iba s privileged",
+      "line": 496,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `ALL`, `policy`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/linux-capabilities.md",
+      "section": "32. Časté omyly",
+      "line": 510,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -16301,8 +16571,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Široké capabilities",
-      "line": 357,
+      "section": "„File capability zostane po každom deploymente“",
+      "line": 524,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -16310,8 +16580,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Capability leakage",
-      "line": 361,
+      "section": "„Root v kontajneri má všetky host capabilities“",
+      "line": 528,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -16319,48 +16589,21 @@
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Privileged helper",
-      "line": 365,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "34. Zhrnutie",
+      "line": 555,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "Package upgrade",
-      "line": 369,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "18. Časté omyly",
-      "line": 373,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "„Keď capability pridám do permitted setu, process ju používa“",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/linux-capabilities.md",
-      "section": "„Permission denied znamená chýbajúcu capability“",
-      "line": 391,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "34. Zhrnutie",
+      "line": 555,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/linux-networking.md",

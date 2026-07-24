@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10639**
-- Total words: **469,461**
-- Findings: **23442** (critical 8117, high 9227, medium 3100, low 2998)
+- Audited conceptual sections: **10645**
+- Total words: **471,474**
+- Findings: **23469** (critical 8115, high 9223, medium 3098, low 3033)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -230,9 +230,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
-| D | 360 | 13 | 20 | 8 | 9 | 1351 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 353 | 13 | 13 | 10 | 46 | 3589 | `docs/01-linux-and-systems/cgroups.md` |
 | D | 342 | 11 | 24 | 5 | 2 | 1507 | `docs/03-git-and-automation/bash-automation.md` |
+| D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
 | D | 331 | 9 | 27 | 3 | 0 | 821 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 319 | 11 | 23 | 2 | 0 | 816 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -767,37 +767,31 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Problém, ktorý rieši**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `web server potrebuje bind na port 80,`, `network daemon potrebuje meniť interface alebo route,`, `backup nástroj potrebuje čítať vybrané filesystems,`, `debugger potrebuje inspectovať iný proces.`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Problém, ktorý rieši**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 108, `bare-bullet-items` — **6. Root a capabilities**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `securebits,`, `user namespaces,`, `file capabilities,`, `bounding set,`.
-- **CRITICAL** line 122, `bare-bullet-items` — **7. File capabilities**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filesystem podporu extended attributes,`, `kopírovanie a archiváciu,`, `package upgrades,`, `container image layers,`.
-- **CRITICAL** line 157, `bare-bullet-items` — **8. execve() a transformácia sets**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process permitted/inheritable/ambient sets,`, `file permitted/inheritable metadata,`, `bounding set,`, `privileged-file pravidiel,`.
-- **CRITICAL** line 157, `outline-instead-of-explanation` — **8. execve() a transformácia sets**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 313, `empty-section` — **15. SUID vs. file capabilities**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 325, `bare-bullet-items` — **16. Capability-aware troubleshooting**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Má process CAP NET BIND SERVICE effective?`, `Je capability v bounding set?`, `Nezablokoval ju NoNewPrivileges pri exec transition?`, `Beží process v inom user namespace?`.
-- **CRITICAL** line 325, `outline-instead-of-explanation` — **16. Capability-aware troubleshooting**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 355, `empty-section` — **17. Bezpečnostné riziká**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 373, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 186, `outline-instead-of-explanation` — **12. Filesystem a deployment dôsledky file capabilities**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 276, `bare-bullet-items` — **18. Root v kontajneri**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host UID 0 v rovnakom user namespace,`, `obmedzený runtime capability allowlistom,`, `ďalej obmedzený seccomp, LSM a read-only mountmi.`.
+- **CRITICAL** line 289, `outline-instead-of-explanation` — **19. Systemd capability policy**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 324, `bare-bullet-items` — **20. Service startup: root then drop verzus direct least privilege**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť socket alebo dodať capability,`, `spustiť aplikáciu priamo pod neprivilegovaným UID,`, `odstrániť všetky ostatné capabilities,`, `aplikovať sandbox pred prvou aplikačnou inštrukciou.`.
+- **CRITICAL** line 418, `bare-bullet-items` — **26. Interpreters a scripts**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capability na malom auditovanom native helperi,`, `helper vykoná jednu presne validovanú privilegovanú operáciu,`, `hlavná aplikácia komunikuje cez úzky interface,`, `helper nespúšťa shell ani pluginy.`.
+- **CRITICAL** line 472, `outline-instead-of-explanation` — **29. Troubleshooting: bind na port 80 zlyhá**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 485, `outline-instead-of-explanation` — **30. Troubleshooting: capability zmizla po deploymente**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 496, `outline-instead-of-explanation` — **31. Troubleshooting: kontajner funguje iba s privileged**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 510, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 28, `list-first-introduction` — **3. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 28, `single-sentence-concept` — **3. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 61, `single-sentence-concept` — **5. Capability sets procesu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 65, `single-sentence-concept` — **Permitted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 69, `single-sentence-concept` — **Effective**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 73, `single-sentence-concept` — **Inheritable**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 81, `single-sentence-concept` — **Ambient**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 108, `list-heavy-section` — **6. Root a capabilities**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 122, `list-heavy-section` — **7. File capabilities**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 357, `single-sentence-concept` — **Široké capabilities**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 361, `single-sentence-concept` — **Capability leakage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 365, `single-sentence-concept` — **Privileged helper**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 369, `single-sentence-concept` — **Package upgrade**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 387, `single-sentence-concept` — **„Keď capability pridám do permitted setu, process ju používa“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 391, `single-sentence-concept` — **„Permission denied znamená chýbajúcu capability“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 289, `single-sentence-concept` — **19. Systemd capability policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 404, `bare-bullet-items` — **25. Capability leakage cez child proces**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia s ambient capability spustí shell hook,`, `executable hľadá helper cez manipulovateľný PATH ,`, `interpreter dostane capability a následne vykoná ľubovoľný script.`.
+- **HIGH** line 472, `single-sentence-concept` — **29. Troubleshooting: bind na port 80 zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 485, `list-first-introduction` — **30. Troubleshooting: capability zmizla po deploymente**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 496, `single-sentence-concept` — **31. Troubleshooting: kontajner funguje iba s privileged**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 524, `single-sentence-concept` — **„File capability zostane po každom deploymente“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 528, `single-sentence-concept` — **„Root v kontajneri má všetky host capabilities“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 325, `term-before-explanation` — **16. Capability-aware troubleshooting**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`
-- **HIGH** line 325, `thin-concept-section` — **16. Capability-aware troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 289, `thin-concept-section` — **19. Systemd capability policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 472, `term-before-explanation` — **29. Troubleshooting: bind na port 80 zlyhá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `CAP`, `NET`, `BIND`, `SERVICE`, `EADDRINUSE`, `scope`
+- **HIGH** line 472, `thin-concept-section` — **29. Troubleshooting: bind na port 80 zlyhá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 485, `thin-concept-section` — **30. Troubleshooting: capability zmizla po deploymente**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 496, `term-before-explanation` — **31. Troubleshooting: kontajner funguje iba s privileged**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `ALL`, `policy`, `workload`
+- **HIGH** line 496, `thin-concept-section` — **31. Troubleshooting: kontajner funguje iba s privileged**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/linux-networking.md`
 
@@ -18394,19 +18388,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4084 | 0 | 0 | 4084 |
-| `bare-bullet-items` | 3701 | 330 | 0 | 0 | 4031 |
-| `outline-instead-of-explanation` | 3633 | 0 | 0 | 0 | 3633 |
-| `thin-concept-section` | 0 | 3326 | 0 | 0 | 3326 |
-| `term-before-explanation` | 0 | 355 | 2232 | 0 | 2587 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1295 | 1295 |
-| `example-not-explicit` | 0 | 0 | 0 | 1143 | 1143 |
+| `single-sentence-concept` | 0 | 4077 | 0 | 0 | 4077 |
+| `bare-bullet-items` | 3699 | 331 | 0 | 0 | 4030 |
+| `outline-instead-of-explanation` | 3635 | 0 | 0 | 0 | 3635 |
+| `thin-concept-section` | 0 | 3329 | 0 | 0 | 3329 |
+| `term-before-explanation` | 0 | 356 | 2232 | 0 | 2588 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1305 | 1305 |
+| `example-not-explicit` | 0 | 0 | 0 | 1154 | 1154 |
 | `list-first-introduction` | 0 | 911 | 0 | 0 | 911 |
-| `short-concept-section` | 0 | 0 | 868 | 0 | 868 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 560 | 560 |
-| `empty-section` | 489 | 0 | 0 | 0 | 489 |
+| `short-concept-section` | 0 | 0 | 866 | 0 | 866 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 574 | 574 |
+| `empty-section` | 487 | 0 | 0 | 0 | 487 |
 | `no-prose-concept` | 294 | 0 | 0 | 0 | 294 |
-| `list-heavy-section` | 0 | 221 | 0 | 0 | 221 |
+| `list-heavy-section` | 0 | 219 | 0 | 0 | 219 |
 
 ## Required remediation pattern
 
