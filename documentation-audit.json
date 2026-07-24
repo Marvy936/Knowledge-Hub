@@ -1053,15 +1053,15 @@
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "title": "Performance, load a stress tests",
-      "words": 1167,
-      "headings": 36,
-      "sections": 36,
-      "findings": 75,
-      "critical": 28,
-      "high": 33,
-      "medium": 8,
-      "low": 6,
-      "score": 628,
+      "words": 3041,
+      "headings": 66,
+      "sections": 66,
+      "findings": 148,
+      "critical": 53,
+      "high": 56,
+      "medium": 16,
+      "low": 23,
+      "score": 1161,
       "grade": "D"
     },
     {
@@ -65263,24 +65263,6 @@
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.",
@@ -65290,51 +65272,6 @@
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency distribúciu,`, `throughput,`, `concurrency,`, `resource utilization a saturation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "1. Definícia",
-      "line": 9,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -65342,17 +65279,62 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "1. Definícia",
-      "line": 9,
+      "section": "1. Mentálny model výkonu",
+      "line": 20,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "1. Mentálny model výkonu",
+      "line": 20,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "1. Mentálny model výkonu",
+      "line": 20,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "1. Mentálny model výkonu",
+      "line": 20,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "1. Mentálny model výkonu",
+      "line": 20,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "2. Základné druhy testov",
-      "line": 24,
+      "section": "2. Experiment contract",
+      "line": 32,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "3. Druhy performance testov",
+      "line": 59,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -65361,7 +65343,16 @@
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "section": "Performance test",
-      "line": 26,
+      "line": 61,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "Stress test",
+      "line": 69,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65370,7 +65361,7 @@
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "section": "Capacity test",
-      "line": 46,
+      "line": 81,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65378,8 +65369,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "3. Workload model",
-      "line": 54,
+      "section": "4. Workload model",
+      "line": 89,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65387,53 +65378,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "4. Latency distribúcia",
-      "line": 80,
+      "section": "4. Workload model",
+      "line": 89,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "4. Latency distribúcia",
-      "line": 80,
+      "section": "4. Workload model",
+      "line": 89,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `median alebo p50,`, `p90,`, `p95,`, `p99,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation mix,`, `arrival rate a burstiness,`, `concurrency,`, `payload-size distribution,`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "4. Latency distribúcia",
-      "line": 80,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "5. Coordinated omission",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "5. Coordinated omission",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať arrival-rate model,`, `zaznamenávať intended send time,`, `reportovať corrected latency,`, `validovať generator capacity.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "5. Coordinated omission",
-      "line": 101,
+      "section": "4. Workload model",
+      "line": 89,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -65441,8 +65405,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "5. Coordinated omission",
-      "line": 101,
+      "section": "4. Workload model",
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -65450,80 +65414,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "6. Throughput a concurrency",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "6. Throughput a concurrency",
-      "line": 112,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "6. Throughput a concurrency",
-      "line": 112,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connections,`, `threads alebo event-loop tasks,`, `memory,`, `queue depth,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "6. Throughput a concurrency",
-      "line": 112,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU utilization, run queue a throttling,`, `memory, GC, page faults a OOM,`, `disk latency, IOPS a queue depth,`, `network bandwidth, retransmissions a connection states,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
+      "section": "4. Workload model",
+      "line": 89,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -65531,26 +65423,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "7. Bottleneck a saturation",
-      "line": 128,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `GC`, `OOM`, `IOPS`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "9. Testovacie prostredie",
-      "line": 160,
+      "section": "6. Arrival rate, concurrency a completed throughput",
+      "line": 122,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65558,26 +65432,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "9. Testovacie prostredie",
-      "line": 160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "9. Testovacie prostredie",
-      "line": 160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hardware alebo instance type,`, `CPU/memory limits,`, `replica count,`, `autoscaling policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "9. Testovacie prostredie",
-      "line": 160,
+      "section": "6. Arrival rate, concurrency a completed throughput",
+      "line": 122,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -65585,8 +65441,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "9. Testovacie prostredie",
-      "line": 160,
+      "section": "6. Arrival rate, concurrency a completed throughput",
+      "line": 122,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -65594,35 +65450,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "9. Testovacie prostredie",
-      "line": 160,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `policy`",
-      "score": 4
+      "section": "9. Výber workload modelu",
+      "line": 150,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "10. Load generator",
-      "line": 177,
+      "section": "9. Výber workload modelu",
+      "line": 150,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "10. Load generator",
-      "line": 177,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU a network utilization generatora,`, `connection a file descriptor limity,`, `timer precision,`, `dropped samples,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "10. Load generator",
-      "line": 177,
+      "section": "9. Výber workload modelu",
+      "line": 150,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -65630,8 +65477,107 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "10. Load generator",
-      "line": 177,
+      "section": "9. Výber workload modelu",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "9. Výber workload modelu",
+      "line": 150,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "9. Výber workload modelu",
+      "line": 150,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "10. Littleho zákon",
+      "line": 161,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "14. Coordinated omission",
+      "line": 208,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `arrival-rate generator,`, `intended start timestamps,`, `corrected latency histogram,`, `generator s dostatočnou rezervou,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "14. Coordinated omission",
+      "line": 208,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "14. Coordinated omission",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "14. Coordinated omission",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "15. Queueing a saturation",
+      "line": 222,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "15. Queueing a saturation",
+      "line": 222,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU run queue a throttling,`, `worker alebo thread queue,`, `event-loop lag,`, `connection-pool wait time,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "15. Queueing a saturation",
+      "line": 222,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "15. Queueing a saturation",
+      "line": 222,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
@@ -65639,8 +65585,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "11. Success criteria",
-      "line": 191,
+      "section": "17. Load profile",
+      "line": 255,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65648,8 +65594,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "12. Baseline a porovnávanie",
-      "line": 207,
+      "section": "18. Warm-up",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `throughput a latency sa ustálili v tolerancii,`, `cache hit rate dosiahla reprezentatívnu hodnotu,`, `požadovaný počet connections je otvorený,`, `replicas sú ready,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "18. Warm-up",
+      "line": 271,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "18. Warm-up",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "21. Recovery observation",
+      "line": 297,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65657,8 +65630,485 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "12. Baseline a porovnávanie",
-      "line": 207,
+      "section": "21. Recovery observation",
+      "line": 297,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "21. Recovery observation",
+      "line": 297,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyprázdnenie backlogu,`, `návrat latency a error rate,`, `scale-down,`, `uvoľnenie connections a memory,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "21. Recovery observation",
+      "line": 297,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "22. Test environment provenance",
+      "line": 312,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "22. Test environment provenance",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest a configuration,`, `instance alebo hardware type,`, `CPU/memory requests a limits,`, `replica count,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "22. Test environment provenance",
+      "line": 312,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "22. Test environment provenance",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "22. Test environment provenance",
+      "line": 312,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "23. Dataset representatívnosť",
+      "line": 330,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "23. Dataset representatívnosť",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tabuľkovou veľkosťou,`, `index selectivity,`, `cardinality,`, `hot/cold distribúciou,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "23. Dataset representatívnosť",
+      "line": 330,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "24. Load generator calibration",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "24. Load generator calibration",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU a network headroom,`, `file descriptor a ephemeral-port limits,`, `timer resolution,`, `max connections,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "24. Load generator calibration",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "24. Load generator calibration",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `DNS`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "25. Client-side a server-side errors",
+      "line": 361,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "25. Client-side a server-side errors",
+      "line": 361,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "25. Client-side a server-side errors",
+      "line": 361,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generator nestihol iteration naplánovať,`, `connection nebola vytvorená,`, `request timeoutol na klientovi,`, `proxy request odmietla,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "25. Client-side a server-side errors",
+      "line": 361,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "26. Success criteria",
+      "line": 375,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "27. Abort criteria",
+      "line": 393,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "27. Abort criteria",
+      "line": 393,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "27. Abort criteria",
+      "line": 393,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neočakávanom smerovaní na produkciu,`, `error rate alebo latency nad bezpečnú hranicu,`, `ohrození shared dependency,`, `nekontrolovanom cost raste,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "27. Abort criteria",
+      "line": 393,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "28. Baseline",
+      "line": 407,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "28. Baseline",
+      "line": 407,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a source revision,`, `environment a configuration,`, `dataset fingerprint,`, `workload definition,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "28. Baseline",
+      "line": 407,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "28. Baseline",
+      "line": 407,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "28. Baseline",
+      "line": 407,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "29. Porovnávanie výsledkov",
+      "line": 423,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "29. Porovnávanie výsledkov",
+      "line": 423,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absolútneho SLO,`, `relatívnej zmeny voči baseline,`, `confidence intervalov alebo variability opakovaní,`, `zmeny workloadu a environmentu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "29. Porovnávanie výsledkov",
+      "line": 423,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "29. Porovnávanie výsledkov",
+      "line": 423,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "30. Performance noise",
+      "line": 436,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "30. Performance noise",
+      "line": 436,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "30. Performance noise",
+      "line": 436,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolované alebo zaznamenané prostredie,`, `viac opakovaní,`, `randomizované alebo striedané poradie A/B behov,`, `stabilný dataset,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "30. Performance noise",
+      "line": 436,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "32. Spike test",
+      "line": 468,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "32. Spike test",
+      "line": 468,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počiatočný steady workload,`, `amplitúdu a rýchlosť nárastu,`, `dĺžku spike-u,`, `opakovanie spike-ov,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "32. Spike test",
+      "line": 468,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "32. Spike test",
+      "line": 468,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "33. Soak test",
+      "line": 481,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "33. Soak test",
+      "line": 481,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "33. Soak test",
+      "line": 481,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory po GC,`, `open files a sockets,`, `goroutines, threads alebo tasks,`, `queue depth,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "33. Soak test",
+      "line": 481,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "35. Graceful degradation",
+      "line": 512,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "35. Graceful degradation",
+      "line": 512,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "35. Graceful degradation",
+      "line": 512,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `admission control,`, `bounded queues,`, `rate limiting,`, `prioritization,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "35. Graceful degradation",
+      "line": 512,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "36. Retry amplification",
+      "line": 528,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "36. Retry amplification",
+      "line": 528,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `max attempts,`, `retryable errors,`, `backoff a jitter,`, `retry budget,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "36. Retry amplification",
+      "line": 528,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "37. Databázové performance testy",
+      "line": 542,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "37. Databázové performance testy",
+      "line": 542,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
@@ -65666,17 +66116,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "12. Baseline a porovnávanie",
-      "line": 207,
+      "section": "37. Databázové performance testy",
+      "line": 542,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit alebo artifact version,`, `konfiguráciu,`, `dataset,`, `workload profile,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read/write mix,`, `transaction length,`, `isolation level,`, `lock contention,`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "12. Baseline a porovnávanie",
-      "line": 207,
+      "section": "37. Databázové performance testy",
+      "line": 542,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -65684,17 +66134,179 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "12. Baseline a porovnávanie",
-      "line": 207,
+      "section": "38. Queue a broker systémy",
+      "line": 560,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "38. Queue a broker systémy",
+      "line": 560,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `arrival a consume rate,`, `backlog a oldest-message age,`, `consumer concurrency,`, `redelivery a duplicate rate,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "38. Queue a broker systémy",
+      "line": 560,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "38. Queue a broker systémy",
+      "line": 560,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "39. Cache performance",
+      "line": 575,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "39. Cache performance",
+      "line": 575,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "39. Cache performance",
+      "line": 575,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cold cache,`, `warm steady cache,`, `partial invalidation,`, `eviction pressure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "39. Cache performance",
+      "line": 575,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "42. Bezpečnosť experimentu",
+      "line": 605,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "42. Bezpečnosť experimentu",
+      "line": 605,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "42. Bezpečnosť experimentu",
+      "line": 605,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolený environment a čas,`, `allowlist targetov,`, `maximálny arrival rate a concurrency,`, `downstream limits,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "42. Bezpečnosť experimentu",
+      "line": 605,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "42. Bezpečnosť experimentu",
+      "line": 605,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "43. Failure artifacts",
+      "line": 622,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "43. Failure artifacts",
+      "line": 622,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "43. Failure artifacts",
+      "line": 622,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load script a jeho revision,`, `resolved workload parameters,`, `artifact a environment provenance,`, `raw histograms a time series,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "43. Failure artifacts",
+      "line": 622,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "43. Failure artifacts",
+      "line": 622,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "43. Failure artifacts",
+      "line": 622,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `workload`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "13. Testovanie autoscalingu",
-      "line": 228,
+      "section": "44. Performance report",
+      "line": 639,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65702,26 +66314,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "13. Testovanie autoscalingu",
-      "line": 228,
+      "section": "44. Performance report",
+      "line": 639,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "13. Testovanie autoscalingu",
-      "line": 228,
+      "section": "44. Performance report",
+      "line": 639,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `detection delay,`, `provisioning delay,`, `readiness delay,`, `overshoot a oscillation,`.",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cieľ a hypotézu,`, `testovaný artifact a environment,`, `workload a dataset model,`, `open/closed semantics,`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "13. Testovanie autoscalingu",
-      "line": 228,
+      "section": "44. Performance report",
+      "line": 639,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -65729,143 +66341,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "14. Stress a graceful degradation",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "44. Performance report",
+      "line": 639,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "14. Stress a graceful degradation",
-      "line": 252,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `admission control,`, `bounded queues,`, `rate limiting,`, `timeouts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "14. Stress a graceful degradation",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "15. Databázy a stavové systémy",
-      "line": 268,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "15. Databázy a stavové systémy",
-      "line": 268,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "15. Databázy a stavové systémy",
-      "line": 268,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read/write ratio,`, `hot keys alebo hot partitions,`, `index selectivity,`, `transaction contention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "15. Databázy a stavové systémy",
-      "line": 268,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "16. Bezpečnosť testu",
-      "line": 284,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "16. Bezpečnosť testu",
-      "line": 284,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "16. Bezpečnosť testu",
-      "line": 284,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené prostredie a čas,`, `maximálny arrival rate,`, `emergency stop,`, `kontakty a ownership,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "16. Bezpečnosť testu",
-      "line": 284,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "17. Výstup testu",
-      "line": 298,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "17. Výstup testu",
-      "line": 298,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "17. Výstup testu",
-      "line": 298,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cieľ a hypotézu,`, `environment a artifact version,`, `workload model,`, `success criteria,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "17. Výstup testu",
-      "line": 298,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "17. Výstup testu",
-      "line": 298,
+      "section": "44. Performance report",
+      "line": 639,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `resource`",
@@ -65873,8 +66359,89 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "18. Typické omyly",
-      "line": 313,
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over, že generator dosiahol plánovaný arrival rate.`, `Potvrď artifact, environment a dataset identity.`, `Oddeľ client-side scheduling, transport a server latency.`, `Nájdite prvý rastúci queue alebo wait metric.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "45. Diagnostický workflow",
+      "line": 657,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `CPU`, `DB`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "46. Časté anti-patterny",
+      "line": 670,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -65882,8 +66449,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "„Priemer je pod limitom, test prešiel“",
-      "line": 315,
+      "section": "Priemer je pod limitom",
+      "line": 672,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65891,8 +66458,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "„Viac virtual users znamená vyšší load“",
-      "line": 319,
+      "section": "Viac virtual users znamená presne viac loadu",
+      "line": 676,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65900,8 +66467,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "„Stress test je iba väčší load test“",
-      "line": 323,
+      "section": "Stress test je iba väčší load test",
+      "line": 680,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65909,8 +66476,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "„CPU nie je 100 %, systém má rezervu“",
-      "line": 327,
+      "section": "CPU nie je 100 %, systém má rezervu",
+      "line": 684,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65918,8 +66485,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "„Test environment je polovičný, výsledok vynásobíme dvoma“",
-      "line": 331,
+      "section": "Polovičný environment vynásobíme dvoma",
+      "line": 688,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65927,12 +66494,102 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "„Autoscaling vyrieši každý spike“",
-      "line": 335,
+      "section": "Jeden run je baseline",
+      "line": 692,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "Generator report je jediný dôkaz",
+      "line": 696,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "Autoscaling vyrieši každý spike",
+      "line": 700,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotéza a rozhodnutie sú explicitné,`, `workload model reprezentuje produkčný demand,`, `open/closed semantics sú správne,`, `artifact, environment a dataset sú identifikované,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
+      "section": "47. Prevádzkový checklist",
+      "line": 704,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
