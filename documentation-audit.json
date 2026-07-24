@@ -1263,15 +1263,15 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "title": "Continuous Integration",
-      "words": 968,
-      "headings": 28,
-      "sections": 28,
-      "findings": 77,
-      "critical": 31,
-      "high": 29,
-      "medium": 11,
-      "low": 6,
-      "score": 645,
+      "words": 2355,
+      "headings": 36,
+      "sections": 36,
+      "findings": 132,
+      "critical": 30,
+      "high": 31,
+      "medium": 31,
+      "low": 40,
+      "score": 778,
       "grade": "D"
     },
     {
@@ -80932,24 +80932,6 @@
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "1. Definícia",
       "line": 9,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátkodobých branches alebo práce priamo na trunku,`, `častej integrácie,`, `automatizovaného buildu,`, `dôveryhodných testov a statických kontrol,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "1. Definícia",
-      "line": 9,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -80966,8 +80948,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "1. Definícia",
-      "line": 9,
+      "section": "2. Problém, ktorý CI rieši",
+      "line": 27,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "2. Problém, ktorý CI rieši",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "3. Hlavná línia ako integračný kontrakt",
+      "line": 49,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "3. Hlavná línia ako integračný kontrakt",
+      "line": 49,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "3. Hlavná línia ako integračný kontrakt",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "3. Hlavná línia ako integračný kontrakt",
+      "line": 49,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -80975,62 +81002,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "2. Problém, ktorý CI rieši",
-      "line": 22,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Hlavná línia ako integračný kontrakt",
+      "line": 49,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "2. Problém, ktorý CI rieši",
-      "line": 22,
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "2. Problém, ktorý CI rieši",
-      "line": 22,
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dlhodobé divergentné branches,`, `veľké merge konflikty,`, `skryté nekompatibility,`, `pomalý feedback,`.",
+      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet možných príčin failure,`, `rozsah review,`, `merge konflikty,`, `rollback blast radius,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "2. Problém, ktorý CI rieši",
-      "line": 22,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "3. Hlavná línia",
-      "line": 42,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "3. Hlavná línia",
-      "line": 42,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build je reprodukovateľný,`, `blocking checks prechádzajú,`, `artifact možno jednoznačne identifikovať,`, `failure je viditeľný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "3. Hlavná línia",
-      "line": 42,
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -81038,8 +81038,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "3. Hlavná línia",
-      "line": 42,
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -81047,53 +81047,575 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "4. Frekvencia integrácie",
-      "line": 56,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "4. Frekvencia integrácie",
-      "line": 56,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "4. Frekvencia integrácie",
-      "line": 56,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší diff,`, `jednoduchší review,`, `menší blast radius,`, `rýchlejšia diagnostika,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "4. Frekvencia integrácie",
-      "line": 56,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "4. Frekvencia integrácie",
-      "line": 56,
+      "section": "4. Častá integrácia a malý batch",
+      "line": 64,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `blast radius`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "6. Reprodukovateľný build",
-      "line": 94,
+      "section": "5. Candidate integration state",
+      "line": 87,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "5. Candidate integration state",
+      "line": 87,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source branch SHA,`, `target branch SHA,`, `synthetic merge commit SHA,`, `rebased candidate SHA,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "5. Candidate integration state",
+      "line": 87,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "5. Candidate integration state",
+      "line": 87,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "5. Candidate integration state",
+      "line": 87,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "6. Merge-result testing",
+      "line": 110,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "6. Merge-result testing",
+      "line": 110,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `textové a semantic merge konflikty,`, `kombinovaný dependency graph,`, `spoločný build a test suite,`, `zmenu generated files alebo lockfile,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "6. Merge-result testing",
+      "line": 110,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "7. Merge queue",
+      "line": 125,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "7. Merge queue",
+      "line": 125,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poradie a fairness,`, `maximálnu veľkosť batchu,`, `invalidáciu po failure,`, `či sa neúspešný batch rozdeľuje,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "7. Merge queue",
+      "line": 125,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "7. Merge queue",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "7. Merge queue",
+      "line": 125,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "9. Reprodukovateľný build",
+      "line": 170,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "9. Reprodukovateľný build",
+      "line": 170,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit a submodules,`, `dependency lockfiles,`, `compiler, SDK a build image,`, `build flags a environment variables,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "9. Reprodukovateľný build",
+      "line": 170,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "9. Reprodukovateľný build",
+      "line": 170,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "9. Reprodukovateľný build",
+      "line": 170,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "9. Reprodukovateľný build",
+      "line": 170,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "10. Build once a immutable artifact",
+      "line": 188,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "10. Build once a immutable artifact",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable identifikátor alebo digest,`, `source commit a build-run väzbu,`, `toolchain a dependency metadata,`, `SBOM podľa potreby,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "10. Build once a immutable artifact",
+      "line": 188,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "10. Build once a immutable artifact",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "10. Build once a immutable artifact",
+      "line": 188,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "11. Test evidence a provenance",
+      "line": 213,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "11. Test evidence a provenance",
+      "line": 213,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test reports a first-attempt výsledky,`, `coverage a mutation reports,`, `contract compatibility,`, `SAST/SCA/secret findings,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "11. Test evidence a provenance",
+      "line": 213,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "11. Test evidence a provenance",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "11. Test evidence a provenance",
+      "line": 213,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `SCA`, `SBOM`, `SHA`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "12. Cache nie je source of truth",
+      "line": 232,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "12. Cache nie je source of truth",
+      "line": 232,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a architecture,`, `toolchain version,`, `dependency lock hash,`, `build flags,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "12. Cache nie je source of truth",
+      "line": 232,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "12. Cache nie je source of truth",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "12. Cache nie je source of truth",
+      "line": 232,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "12. Cache nie je source of truth",
+      "line": 232,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "13. Untrusted code a trust boundaries",
+      "line": 256,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "13. Untrusted code a trust boundaries",
+      "line": 256,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `untrusted verification jobs bez citlivých secrets,`, `trusted jobs nad akceptovaným commitom,`, `artifact verification bez produkčných práv,`, `deployment jobs s environment-scoped identity.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "13. Untrusted code a trust boundaries",
+      "line": 256,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "13. Untrusted code a trust boundaries",
+      "line": 256,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "13. Untrusted code a trust boundaries",
+      "line": 256,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "13. Untrusted code a trust boundaries",
+      "line": 256,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "14. Runner isolation",
+      "line": 280,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "14. Runner isolation",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hosted ephemeral VM alebo container,`, `self-hosted persistent host,`, `autoscalovaný VM pool,`, `Kubernetes pod,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "14. Runner isolation",
+      "line": 280,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "14. Runner isolation",
+      "line": 280,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "14. Runner isolation",
+      "line": 280,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "15. Quality gates",
+      "line": 303,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "15. Quality gates",
+      "line": 303,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný,`, `reprodukovateľný,`, `kompletný,`, `akčný,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "15. Quality gates",
+      "line": 303,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "15. Quality gates",
+      "line": 303,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "15. Quality gates",
+      "line": 303,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "16. Failure taxonomy",
+      "line": 326,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "16. Failure taxonomy",
+      "line": 326,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "16. Failure taxonomy",
+      "line": 326,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "16. Failure taxonomy",
+      "line": 326,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "16. Failure taxonomy",
+      "line": 326,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "17. Flaky tests a retries",
+      "line": 342,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "17. Flaky tests a retries",
+      "line": 342,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate,`, `pass-after-retry rate,`, `failure signatures,`, `quarantine age,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "17. Flaky tests a retries",
+      "line": 342,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "17. Flaky tests a retries",
+      "line": 342,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "18. Broken main",
+      "line": 357,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
@@ -81101,17 +81623,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "6. Reprodukovateľný build",
-      "line": 94,
+      "section": "18. Broken main",
+      "line": 357,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinned toolchain,`, `dependency lock,`, `explicitné environment variables,`, `timezone a locale,`.",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj first bad candidate a failure class;`, `rozhodni medzi revertom a rýchlou opravou;`, `obnov green state čo najmenším changeom;`, `over artifact a downstream consumers;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "6. Reprodukovateľný build",
-      "line": 94,
+      "section": "18. Broken main",
+      "line": 357,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -81119,71 +81641,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "8. Quality gates",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "8. Quality gates",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compile error,`, `unit failure,`, `contract incompatibility,`, `high-confidence secret finding,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "8. Quality gates",
-      "line": 125,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "8. Quality gates",
-      "line": 125,
+      "section": "18. Broken main",
+      "line": 357,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "8. Quality gates",
-      "line": 125,
+      "section": "18. Broken main",
+      "line": 357,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "9. Pull request CI",
-      "line": 148,
+      "section": "19. Pipeline performance",
+      "line": 371,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "9. Pull request CI",
-      "line": 148,
-      "severity": "critical",
+      "section": "19. Pipeline performance",
+      "line": 371,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge commit simuláciu,`, `merge queue,`, `affected test selection,`, `ephemeral environment,`.",
-      "score": 12
+      "detail": "8 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Time to first useful feedback — prvý akčný failure;`, `bezpečný affected-test selection,`, `paralelizácia nezávislých jobs,`, `test sharding podľa historického času,`.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "9. Pull request CI",
-      "line": 148,
+      "section": "19. Pipeline performance",
+      "line": 371,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -81191,35 +81686,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "9. Pull request CI",
-      "line": 148,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "19. Pipeline performance",
+      "line": 371,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "11. Caching",
-      "line": 178,
+      "section": "19. Pipeline performance",
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "19. Pipeline performance",
+      "line": 371,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "20. Observability CI systému",
+      "line": 396,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "11. Caching",
-      "line": 178,
+      "section": "20. Observability CI systému",
+      "line": 396,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downloaded dependencies,`, `compiler cache,`, `intermediate build outputs,`, `package-manager metadata.`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline a job success podľa failure class,`, `queue time a runner utilization,`, `p50/p95 time to first feedback,`, `total a critical-path duration,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "11. Caching",
-      "line": 178,
+      "section": "20. Observability CI systému",
+      "line": 396,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -81227,8 +81740,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "12. Artifacts a test evidence",
-      "line": 199,
+      "section": "20. Observability CI systému",
+      "line": 396,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "20. Observability CI systému",
+      "line": 396,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "20. Observability CI systému",
+      "line": 396,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "21. Diagnostický postup",
+      "line": 416,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -81236,107 +81776,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "12. Artifacts a test evidence",
-      "line": 199,
+      "section": "21. Diagnostický postup",
+      "line": 416,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "12. Artifacts a test evidence",
-      "line": 199,
-      "severity": "critical",
+      "section": "21. Diagnostický postup",
+      "line": 416,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build artifact,`, `test reports,`, `logs,`, `coverage report,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "12. Artifacts a test evidence",
-      "line": 199,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "12. Artifacts a test evidence",
-      "line": 199,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "13. Secrets v CI",
-      "line": 214,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "13. Secrets v CI",
-      "line": 214,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `least privilege,`, `short-lived identity,`, `environment-scoped secrets,`, `zákaz secrets pre nedôveryhodné fork pipelines,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "13. Secrets v CI",
-      "line": 214,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "13. Secrets v CI",
-      "line": 214,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "14. Runner isolation",
-      "line": 231,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `rozlíš product, test, tool, infrastructure a incomplete-evidence failu`, `over runner image, architecture, resources a network;`, `skontroluj dependency lock, cache key a cold-cache reprodukciu;`, `zopakuj najmenší relevantný job s rovnakými vstupmi;`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "14. Runner isolation",
-      "line": 231,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "14. Runner isolation",
-      "line": 231,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared,`, `dedicated,`, `ephemeral,`, `self-hosted,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "14. Runner isolation",
-      "line": 231,
+      "section": "21. Diagnostický postup",
+      "line": 416,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -81344,125 +81803,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "14. Runner isolation",
-      "line": 231,
+      "section": "21. Diagnostický postup",
+      "line": 416,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "21. Diagnostický postup",
+      "line": 416,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "21. Diagnostický postup",
+      "line": 416,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM-`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "15. Broken main",
-      "line": 251,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "15. Broken main",
-      "line": 251,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "15. Broken main",
-      "line": 251,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalšiu integráciu podľa policy,`, `identifikovať first bad change,`, `revertovať alebo opraviť,`, `obnoviť green stav,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "15. Broken main",
-      "line": 251,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "15. Broken main",
-      "line": 251,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "16. Flaky tests",
-      "line": 263,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "16. Flaky tests",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rerun-until-green,`, `obchádzanie gates,`, `dlhé queue times,`, `nejasnú diagnostiku.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "16. Flaky tests",
-      "line": 263,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "17. Pipeline performance",
-      "line": 274,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "17. Pipeline performance",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "17. Pipeline performance",
-      "line": 274,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue time,`, `time to first failure,`, `total duration,`, `cache hit rate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "17. Pipeline performance",
-      "line": 274,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "18. CI anti-patterny",
-      "line": 289,
+      "section": "22. Typické anti-patterny",
+      "line": 431,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -81470,8 +81839,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "CI iba raz denne",
-      "line": 291,
+      "section": "CI ako nočný build",
+      "line": 433,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -81479,26 +81848,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "Build iba na developer notebooku",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "Každá kontrola blokuje",
-      "line": 299,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "Main je často červený",
-      "line": 303,
+      "section": "Testovanie iba source branch",
+      "line": 437,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -81507,7 +81858,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "Rebuild pre každý environment",
-      "line": 307,
+      "line": 441,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -81515,8 +81866,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "Tajomstvá v repository alebo logu",
-      "line": 311,
+      "section": "Cache ako povinný skrytý vstup",
+      "line": 445,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -81524,8 +81875,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "19. Metriky CI",
-      "line": 315,
+      "section": "Všetky failures sú „retry“",
+      "line": 449,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -81533,26 +81884,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "19. Metriky CI",
-      "line": 315,
+      "section": "Persistent privileged runner pre untrusted PRs",
+      "line": 453,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "Main môže zostať červený",
+      "line": 457,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "Gate bez vlastníka",
+      "line": 461,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "19. Metriky CI",
-      "line": 315,
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integration frequency,`, `PR lead time,`, `time to first useful feedback,`, `main branch health,`.",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý presný integračný stav testujeme?`, `Sú source, dependencies, toolchain a build environment explicitné?`, `Vzniká jeden immutable artifact s provenance?`, `Ktoré checks sú blocking a aké riziko chránia?`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "19. Metriky CI",
-      "line": 315,
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -81560,8 +81947,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "19. Metriky CI",
-      "line": 315,
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "23. Praktický rozhodovací rámec",
+      "line": 465,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `candidate a merge-result SHA sú explicitné;`, `required checks sú čerstvé voči aktuálnemu targetu;`, `build funguje v čistom prostredí;`, `dependencies a toolchain sú pinované;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -81569,12 +82028,48 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
-      "section": "19. Metriky CI",
-      "line": 315,
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "24. Kontrolný checklist",
+      "line": 482,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `identity`",
       "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "Summary",
+      "line": 517,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-integration.md",
+      "section": "Summary",
+      "line": 517,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
