@@ -1,315 +1,511 @@
 # Feature flags
 
-Feature flag oddeľuje deployment kódu od release capability. Runtime rozhodnutie určuje, kto alebo čo používa konkrétnu vetvu správania bez potreby nového buildu alebo deploymentu.
+## Metadata
 
-## 1. Základný model
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
+
+## 1. Definícia
+
+Feature flag je versionovaný runtime control, ktorý oddeľuje nasadenie kódu od aktivácie konkrétneho behavioru. Aplikácia obsahuje viac ciest a evaluation rozhodne, ktorú cestu daný request, používateľ, tenant alebo workload použije.
 
 ```text
-deploy code with old and new path
-→ evaluate flag for request/context
-→ execute selected behavior
-→ observe outcome
-→ expand or reduce exposure
-→ remove obsolete path and flag
+code deployed
+→ flag context evaluated
+→ variant selected
+→ behavior executed
+→ exposure observed
+→ state expanded/reduced
+→ obsolete path and flag removed
 ```
 
-Flag je dočasný control-plane mechanizmus. Nie je náhradou za version control, konfiguráciu bez lifecycle ani trvalý permission systém.
+Flag je produkčný control-plane mechanizmus. Nie je náhradou authorization, secret managera, version controlu ani trvalej konfigurácie bez ownershipu.
 
-## 2. Typy feature flags
+## 2. Typy flagov
 
-### Release flag
+- **Release flag —** dočasne oddeľuje deploy a release.
+- **Experiment flag —** stabilne priraďuje control/treatment variants.
+- **Operational flag —** mení prevádzkový behavior alebo slúži ako kill switch.
+- **Migration flag —** riadi read/write, dependency alebo data migration fázu.
+- **Entitlement flag —** dlhodobý business contract podľa plánu alebo licencie.
+- **Permission-like control —** môže ovplyvniť UI alebo capability discovery, ale nesmie nahradiť server-side authorization.
 
-Dočasne skrýva nedokončenú alebo ešte neuvoľnenú capability.
+Každý typ potrebuje iný lifecycle, default a approval model.
 
-### Experiment flag
-
-Rozdeľuje používateľov do control/treatment variantov a musí zachovať experimentálnu konzistenciu.
-
-### Operational flag
-
-Umožňuje vypnúť drahú alebo rizikovú runtime funkciu počas incidentu.
-
-### Permission alebo entitlement flag
-
-Riadi dostupnosť podľa plánu, role alebo zmluvy. Ide skôr o dlhodobý business control než dočasný release flag.
-
-### Migration flag
-
-Riadi prechod medzi implementáciami, dátovými cestami alebo dependencies.
-
-Každý typ potrebuje iný ownership, expiry a audit model.
-
-## 3. Flag evaluation
-
-Evaluation môže používať:
-
-- boolean value,
-- percent rollout,
-- stable subject ID,
-- tenant,
-- region,
-- application version,
-- device capability,
-- environment,
-- custom attributes.
-
-Rozhodnutie musí byť deterministické pre workflow, kde zmena variantu počas session vytvára nekonzistenciu.
-
-## 4. Server-side vs. client-side
-
-### Server-side
-
-Flag sa vyhodnocuje na serveri. Lepšie chráni pravidlá a secrets, ale pridáva dependency na flag service alebo lokálnu cache.
-
-### Client-side
-
-Klient dostane flag configuration alebo výsledok. Vhodné pre UI behavior, ale pravidlá a neaktívny kód môžu byť viditeľné. Client-side flag nikdy nesmie byť jedinou authorization kontrolou.
-
-## 5. Control plane a data plane
+## 3. Mental model: versionovaný distribuovaný control plane
 
 Flag platforma typicky obsahuje:
 
-- authoring API/UI,
-- policy a approvals,
-- versionovaný flag state,
-- distribution stream,
-- SDK alebo evaluation engine,
-- local cache,
-- audit log,
-- telemetry.
+```text
+authoring/control plane
+→ config version
+→ distribution
+→ SDK/cache
+→ evaluation
+→ behavior/exposure
+→ telemetry
+```
 
-Data plane musí mať definované správanie pri nedostupnosti control plane.
+Control plane môže byť nedostupný, distribution môže meškať a jednotlivé instances môžu krátko vyhodnocovať rozdielnu verziu. Návrh preto musí explicitne riešiť consistency a failure semantics.
 
-## 6. Default a failure behavior
+## 4. Flag contract
 
 Pre každý flag definuj:
 
+- key a type,
+- ownera,
+- účel a risk,
+- allowed environments,
+- variants a payload schema,
+- targeting inputs,
 - code default,
 - remote default,
-- behavior pri timeout-e,
-- behavior pri stale cache,
-- fail-open/fail-closed rozhodnutie,
-- maximum staleness,
-- startup behavior.
+- failure behavior,
+- creation a expiry date,
+- final intended state,
+- cleanup issue,
+- approval policy,
+- telemetry a success criteria.
 
-Kritický kill switch nesmie závisieť od jedinej nedostupnej služby bez lokálnej fallback policy.
+Flag bez contractu je anonymná mutable production config.
 
-## 7. Stable percentage rollout
+## 5. Flag identity a configuration version
 
-Použi stabilný hashing:
+Runtime rozhodnutie má byť spätne vysvetliteľné cez:
+
+- flag key,
+- flag config version/revision,
+- evaluated variant,
+- matched rule,
+- subject/context identity,
+- application version,
+- environment,
+- evaluation timestamp,
+- cache/source age.
+
+Samotná hodnota `true` nestačí na incidentnú rekonštrukciu.
+
+## 6. Evaluation context
+
+Context môže obsahovať:
+
+- stable user/tenant/device ID,
+- region,
+- plan alebo entitlement,
+- client/application version,
+- environment,
+- capability,
+- request attributes.
+
+Minimalizuj citlivé attributes. Evaluation rules nemajú potrebovať údaje, ktoré flag platforma nemusí spracúvať.
+
+## 7. Deterministická percentage assignment
 
 ```text
-bucket = hash(flag_key + subject_id + salt) mod 10000
+bucket = hash(flag_key + flag_version + subject_id + salt) mod N
 ```
 
 Požiadavky:
 
-- rozšírenie z 5 % na 20 % zachová pôvodných 5 %, ak je to žiaduce,
-- rovnaký subject má rovnaký výsledok naprieč instances,
-- salt/version zmeny sú kontrolované,
-- anonymous identity má explicitný lifecycle.
+- konzistentný result naprieč instances,
+- stabilný subject počas workflowu,
+- kontrolovaný reshuffle pri zmene salt/version,
+- predvídateľná expanzia percenta,
+- explicitný anonymous identity lifecycle,
+- auditovateľné rule precedence.
 
-## 8. Flag dependencies
+## 8. Rule precedence
 
-Flagy môžu mať závislosti:
+Definuj poradie napríklad:
 
 ```text
-new-checkout-ui requires new-checkout-api
+emergency override
+→ explicit subject/tenant rule
+→ prerequisite flags
+→ segment rule
+→ percentage rollout
+→ environment remote default
+→ code default
 ```
 
-Skryté kombinácie spôsobujú neotestovaný stavový priestor. Preferuj:
+Nejasná precedence vytvára odlišné výsledky medzi SDK alebo services. Resolved evaluation reason má byť dostupný v debug telemetry.
 
-- minimálny počet závislostí,
-- explicitné prerequisites,
-- validáciu neplatných kombinácií,
-- matrix testy relevantných variantov,
-- spoločný release plan.
+## 9. Server-side verzus client-side
 
-## 9. Flag debt
+### Server-side
 
-Každý flag zvyšuje:
+- pravidlá a citlivý context zostávajú na serveri,
+- jednoduchšie server-side enforcement,
+- dependency na SDK/cache alebo service.
 
-- počet code paths,
-- test matrix,
-- observability cardinality,
-- incident complexity,
-- cognitive load,
-- riziko stale configu.
+### Client-side
 
-Release flag má mať už pri vytvorení:
+- vhodné pre UI behavior,
+- config môže byť verejne viditeľná,
+- offline a stale clients predlžujú propagation,
+- používateľ môže local state manipulovať.
 
-- ownera,
-- creation date,
-- expiry/removal date,
-- success criteria,
-- cleanup issue,
-- default final state.
+Client-side flag nikdy nie je authorization boundary. Server musí oprávnenie overiť nezávisle.
 
-## 10. Cleanup lifecycle
+## 10. Local verzus remote evaluation
+
+- **Local evaluation —** SDK stiahne versionovanú config a rozhoduje bez network callu per request. Rýchle, ale môže byť stale.
+- **Remote evaluation —** central service vyhodnotí request. Konzistentnejšie rules, ale pridáva latency a dependency.
+
+Hybridný model používa streaming/polling config a local evaluation. Definuj maximum staleness a startup behavior.
+
+## 11. Failure defaults
+
+Pre každý flag rozhodni:
+
+- pri chýbajúcej config,
+- pri timeout-e,
+- pri stale cache,
+- pri invalid payload,
+- pri neznámom variante,
+- pri startup bez snapshotu,
+- pri rozdielnej SDK schema verzii.
+
+`Fail open` a `fail closed` závisia od risku. Operational kill switch môže potrebovať lokálny bezpečný snapshot; entitlement alebo security behavior musí používať konzervatívny default.
+
+## 12. Distribution a consistency
+
+Sleduj:
+
+- config publish revision,
+- propagation lag,
+- percent instances na latest revision,
+- stale SDK caches,
+- offline clients,
+- out-of-order updates,
+- reconnect behavior,
+- invalid config rejection.
+
+Pri incompatible flag payload schema používaj version negotiation a backward-compatible config rollout.
+
+## 13. Atomic multi-flag changes
+
+Viac flagov môže tvoriť jeden invariant. Samostatné postupné update-y môžu krátko vytvoriť neplatnú kombináciu.
+
+Možnosti:
+
+- transakčná config revision,
+- release manifest s viacerými flags,
+- prerequisite rules,
+- application-side invariant validation,
+- dvojfázový compatible transition.
+
+## 14. Flag dependencies
 
 ```text
-create
-→ deploy both paths
-→ limited exposure
-→ full release
-→ observe
-→ make final behavior default
+new-ui requires new-api
+```
+
+Závislosti musia byť explicitné a acyklické. Validuj:
+
+- prerequisite availability,
+- fallback pri mismatchi,
+- test matrix relevantných combinations,
+- cleanup order,
+- cross-service consistency.
+
+Hlboké dependency trees vytvárajú nečitateľný stavový priestor.
+
+## 15. Release lifecycle
+
+```text
+create contract
+→ deploy both paths with safe default
+→ validate flag-off
+→ limited flag-on exposure
+→ expand
+→ accept final behavior
+→ make final code default
 → remove evaluation
-→ remove old path
-→ delete flag metadata
+→ remove obsolete path
+→ delete metadata after rollback window
 ```
 
-Samotné nastavenie na 100 % nie je dokončenie lifecycle.
+`100 % on` nie je dokončenie. Old path a evaluation zostávajú technickým dlhom.
 
-## 11. Kill switch
+## 16. Cleanup a rollback window
 
-Operational flag môže rýchlo obmedziť dopad bez rollbacku. Musí byť:
+Old path neodstraňuj okamžite, ak rollback staršieho artifactu ešte očakáva flag alebo old data semantics. Cleanup musí koordinovať:
 
-- rýchlo dostupný,
-- auditovaný,
-- chránený RBAC a approvals podľa rizika,
-- testovaný pred incidentom,
-- zdokumentovaný v runbooku,
-- naviazaný na observability.
+- supported artifact versions,
+- database migration phase,
+- client skew,
+- event compatibility,
+- rollback window.
 
-Kill switch, ktorý nikto nikdy nevyskúšal, nie je spoľahlivý recovery mechanizmus.
+Po uzavretí odstráň code branch, tests, config, dashboards a ownership metadata.
 
-## 12. Security
+## 17. Operational kill switch
+
+Kill switch musí byť:
+
+- nízko-latentný,
+- dostupný mimo failure domainu feature,
+- least-privilege a auditovaný,
+- otestovaný game dayom alebo controlled exercise,
+- dokumentovaný v runbooku,
+- viazaný na konkrétny failure behavior,
+- schopný fungovať pri degraded control plane podľa návrhu.
+
+Vypnutie flagu nemusí kompenzovať už vykonané side effects.
+
+## 18. Migration flags
+
+Použitia:
+
+- read-old/read-new,
+- shadow read,
+- dual write,
+- new dependency client,
+- backfill worker,
+- verification mode,
+- contract cleanup.
+
+Flag koordinuje fázy, ale nevytvára compatibility sám. Old/new readers a writers musia rozumieť shared state počas overlapu.
+
+## 19. Experiment flags
+
+Experiment flag potrebuje navyše:
+
+- experiment version,
+- stable assignment,
+- exposure event,
+- control/treatment payload,
+- eligibility,
+- metric a retention contract,
+- experiment end a cleanup.
+
+Zmena treatment payloadu bez experiment version invaliduje interpretáciu.
+
+## 20. Entitlements a permissions
+
+Entitlement môže byť dlhodobý a auditovaný business state. Stále však oddeľuj:
+
+- capability discovery/UI,
+- licensing/entitlement decision,
+- security authorization.
+
+Flag platforma môže informovať behavior, ale resource access musí vynútiť autoritatívny server-side policy systém.
+
+## 21. Security
 
 Riziká:
 
-- client-side bypass,
-- neoprávnená zmena produkčného flagu,
-- targeting podľa citlivých údajov,
-- secrets v flag values,
-- neauditované emergency zmeny,
-- flag service supply-chain compromise.
+- neoprávnená production flag zmena,
+- client manipulation,
+- secrets v values,
+- supply-chain compromise SDK/platformy,
+- targeting podľa citlivých dát,
+- neauditovaný break-glass,
+- flag injection cez user-controlled attributes.
 
-Použi least privilege, protected environments, short-lived identity, approvals, encryption, audit log a signed/versioned configuration podľa kritickosti.
+Ochrany:
 
-## 13. Privacy
+- scoped RBAC,
+- protected environments,
+- approvals podľa risku,
+- short-lived workload identity,
+- signed/versioned config,
+- audit a alerting,
+- zákaz secrets v payloads.
 
-Targeting attributes môžu byť osobné alebo citlivé. Minimalizuj:
+## 22. Privacy a fairness
 
-- údaje posielané flag platforme,
-- retention evaluation logs,
-- persistent cross-device identifiers,
-- segmenty s diskriminačným dopadom.
+Targeting rules môžu vytvárať profilovanie alebo diskriminačný dopad. Minimalizuj attributes, definuj retention evaluation logs, rešpektuj consent/opt-out a audituj segment changes.
 
-Experiment a targeting pravidlá musia rešpektovať privacy a compliance policy.
-
-## 14. Testing
+## 23. Testing
 
 Testuj:
 
-- oba hlavné code paths,
-- default behavior bez flag služby,
-- stale a invalid config,
+- code default bez platformy,
+- remote default,
+- oba hlavné paths,
+- rule precedence,
 - percentage boundaries,
-- targeting rules,
-- dependencies,
-- permission boundaries,
-- cleanup migration,
-- kill-switch activation.
+- stale/invalid config,
+- SDK version mismatch,
+- dependency combinations,
+- server/client consistency,
+- kill switch,
+- migration cleanup,
+- authorization nezávisle od flagu.
 
-Nie je realistické testovať všetky kombinácie desiatok flagov; redukuj stavový priestor a používaj risk-based pairwise alebo targeted testing.
+Všetky kombinácie desiatok flags nie sú realistické. Znižuj počet flags a používaj risk-based pairwise/targeted tests.
 
-## 15. Observability
+## 24. Observability
 
-Telemetry potrebuje:
+Zaznamenávaj primerane:
 
-- flag key a version,
-- evaluated variant,
-- reason/rule,
+- flag key a config version,
+- variant,
+- evaluation reason,
 - application version,
-- environment,
-- exposure event pre experimenty,
-- zmenu flag state ako deployment marker.
-
-Nekontrolovaná kombinácia flag labels môže spôsobiť vysokú metric cardinality. Používaj agregáciu a sampling podľa potreby.
-
-## 16. Configuration consistency
-
-V distribuovanom systéme sa flag update neprejaví všade naraz. Sleduj:
-
+- environment/ring,
 - propagation lag,
-- SDK cache version,
-- stale instances,
-- ordering zmien,
-- reconnect behavior,
-- offline clients.
+- flag state-change marker,
+- exposure event pre experiment.
 
-Pri nekompatibilnej zmene nemožno predpokladať okamžitý globálny switch.
+Nedávaj unconstrained flag dimensions do každej metric label set; používaj logs/traces, sampling alebo curated dimensions.
 
-## 17. Databázové a API migrácie
+## 25. Flag inventory a debt
 
-Flag môže riadiť:
+Inventory má obsahovať:
 
-- read-old/read-new,
-- dual write,
-- shadow read,
-- new API client,
-- migration worker,
-- cleanup fázu.
+- ownera,
+- type,
+- creation/expiry,
+- active environments,
+- rollout state,
+- dependencies,
+- code references,
+- cleanup ticket,
+- last evaluation/change.
 
-Flag však nevyrieši chýbajúcu backward compatibility. Počas overlapu musia staré aj nové komponenty rozumieť shared state.
+Metriky:
 
-## 18. Troubleshooting
+- stale/expired flags,
+- median flag age,
+- flags without owner,
+- cleanup lead time,
+- evaluation/config incidents,
+- kill-switch test freshness.
 
-### Používateľ vidí varianty striedavo
+## 26. Change workflow
 
-Over stable identity, hashing salt, cache, session a evaluation na viacerých services.
+Flag change je production change. Potrebuje:
 
-### Flag zmena sa neprejavila všade
+- subject/environment,
+- old/new resolved state,
+- risk classification,
+- approval podľa policy,
+- scheduled alebo emergency reason,
+- expected metrics,
+- rollback value,
+- audit timestamp a actor.
 
-Skontroluj distribution stream, SDK version, polling interval, stale cache a offline clients.
+## 27. Concurrent config changes
 
-### Incident pokračuje po vypnutí flagu
+Súbežné edits môžu stratiť update. Použi revision compare-and-swap, transakčný publish a change diff.
 
-Nie všetky code paths flag vyhodnocujú, side effects už vznikli alebo je config stale. Aktivuj ďalší recovery plán.
+Emergency override musí byť časovo obmedzený a po incidente premenený na riadny config alebo odstránený.
 
-### Po odstránení starého pathu rollback zlyhá
+## 28. Failure taxonomy
 
-Starší artifact očakáva flag alebo nekompatibilný state. Cleanup musí rešpektovať rollback window.
+- control-plane outage,
+- distribution lag,
+- stale cache,
+- invalid config,
+- SDK compatibility failure,
+- inconsistent identity/assignment,
+- dependency-cycle alebo invalid combination,
+- unauthorized change,
+- cleanup/rollback incompatibility,
+- side effects pokračujúce po disable.
 
-## 19. Anti-patterny
+## 29. Diagnostický postup
+
+1. Over application version a flag key.
+2. Zisti resolved config revision na konkrétnej instance/clientovi.
+3. Skontroluj context, matched rule a precedence.
+4. Porovnaj expected a actual assignment.
+5. Over propagation a SDK cache age.
+6. Skontroluj prerequisite flags a payload schema.
+7. Pri incidente potvrď, že všetky code paths flag vyhodnocujú.
+8. Over, či side effects už nevznikli.
+9. Posúď compatibility staršieho artifactu pred rollbackom.
+10. Aktualizuj inventory a cleanup action.
+
+## 30. Typické anti-patterny
 
 ### Feature flag ako authorization
 
-Client alebo používateľ môže flag obísť; authorization musí byť vynútená nezávisle.
+Client alebo request môže evaluation obísť.
 
 ### Flag bez ownera a expiry
 
-Mení sa na permanentný nezdokumentovaný branch.
+Mení sa na permanentný branch.
 
-### Secrets vo flag values
+### Secrets vo flag payloads
 
-Flag platforma nie je automaticky secret manager.
+Flag store nie je secret manager.
 
-### Desiatky vnorených flagov
+### Remote default bez code fallbacku
 
-Stavový priestor a diagnostika sa stávajú neudržateľné.
+Startup alebo outage platformy znefunkční aplikáciu.
 
-### Emergency zmeny bez audit trailu
+### Desiatky vnorených flags
 
-Rýchlosť nesmie odstrániť rekonštruovateľnosť rozhodnutia.
+Stavový priestor je neudržateľný.
 
-## 20. Kontrolné otázky
+### `100 % on` sa považuje za cleanup
 
-1. Aké typy feature flags poznáš?
-2. Aký je rozdiel medzi server-side a client-side evaluation?
-3. Prečo feature flag nie je authorization mechanizmus?
-4. Ako navrhnúť failure default pri nedostupnosti platformy?
-5. Ako funguje stabilný percentage rollout?
-6. Čo vytvára flag debt?
-7. Ako vyzerá úplný cleanup lifecycle?
-8. Čo musí spĺňať kill switch?
-9. Ako flagy ovplyvňujú test matrix a observability?
-10. Prečo flag nevyrieši nekompatibilnú databázovú zmenu?
+Old path a evaluation zostávajú.
+
+### Immediate removal pred rollback window
+
+Starší artifact alebo client stratí očakávaný control.
+
+### Emergency change bez expiry
+
+Dočasný override sa stane neviditeľným defaultom.
+
+## 31. Rozhodovací rámec
+
+1. Aký typ flagu a lifecycle potrebujeme?
+2. Aký subject/context je minimálne potrebný?
+3. Aký je code a remote default?
+4. Čo sa stane pri outage, stale alebo invalid config?
+5. Ako je assignment stabilný?
+6. Aká rule precedence platí?
+7. Potrebujeme atomic multi-flag transition?
+8. Aké security/privacy constraints platia?
+9. Ako sa meria exposure a success?
+10. Kedy sa final behavior stane code defaultom?
+11. Kedy končí rollback window?
+12. Ako sa vynúti cleanup?
+
+## 32. Kontrolný checklist
+
+- flag má type, ownera a expiry,
+- key, variants a payload schema sú versionované,
+- code default je bezpečný,
+- outage/staleness behavior je explicitný,
+- assignment a precedence sú deterministické,
+- client-side flag nie je authorization,
+- distribution lag je pozorovateľný,
+- dependencies a invalid combinations sú validované,
+- security/privacy policy je aplikovaná,
+- kill switch je otestovaný,
+- telemetry používa config version,
+- rollback window a cleanup order sú známe,
+- stale flag inventory je meraný.
+
+## 33. Kontrolné otázky
+
+1. Prečo je feature flag produkčný control plane?
+2. Aký je rozdiel medzi release, experiment, operational a entitlement flagom?
+3. Ako sa určuje effective flag result?
+4. Aké failure defaults treba definovať?
+5. Prečo distribution nie je okamžite konzistentná?
+6. Kedy treba atomic multi-flag update?
+7. Prečo flag nenahrádza authorization?
+8. Ako migration flag súvisí s compatibility?
+9. Prečo `100 % on` nie je koniec lifecycle?
+10. Ako cleanup súvisí s rollback window a client skew?
+
+## Summary
+
+Feature flag oddeľuje deployment od runtime behavioru, ale zároveň vytvára distribuovaný a privilegovaný control plane. Dôveryhodný flag potrebuje versionovaný contract, deterministickú evaluation a precedence, bezpečné code/remote defaults, definované správanie pri outage a staleness, auditované changes a telemetry s config revision. Release, experiment, operational, migration a entitlement flags majú rozdielne lifecycles. Hodnota sa uzatvára až odstránením obsolete pathu a metadata po skončení compatibility a rollback window.
 
 ## Glossary impact
 
-Relevantné pojmy: feature flag, release flag, experiment flag, operational flag, kill switch, flag evaluation, targeting rule, stable bucketing, flag dependency, flag debt, flag cleanup, propagation lag a stale flag state.
+Relevantné pojmy: feature flag, flag contract, flag configuration revision, local evaluation, remote evaluation, targeting rule, stable bucketing, rule precedence, flag dependency, atomic flag update, operational kill switch, flag debt, stale flag, propagation lag a flag cleanup.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
