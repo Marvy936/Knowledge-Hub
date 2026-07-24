@@ -41,7 +41,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Package management](docs/01-linux-and-systems/package-management.md)
 - [x] [journald a logging](docs/01-linux-and-systems/journald-and-logging.md)
 - [x] [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md)
-- [x] [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md)
+- [ ] Memory a CPU fundamentals
 - [x] [Linux networking](docs/01-linux-and-systems/linux-networking.md)
 - [x] [SSH](docs/01-linux-and-systems/ssh.md)
 - [x] [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md)

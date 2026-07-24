@@ -334,5 +334,5 @@ Snapshot zdieľa storage account, credentials alebo fyzický failure domain s pr
 
 **Navigácia**
 
-[← Predchádzajúca: journald a logging](journald-and-logging.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Memory a CPU fundamentals →](cpu-and-memory-fundamentals.md)
+[← Predchádzajúca: journald a logging](journald-and-logging.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CPU a memory fundamentals →](cpu-and-memory-fundamentals.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

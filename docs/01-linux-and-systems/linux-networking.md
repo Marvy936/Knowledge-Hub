@@ -431,5 +431,5 @@ Jeden interface dostane menšie MTU, ale tunnel alebo peer zostane nekonzistentn
 
 **Navigácia**
 
-[← Predchádzajúca: Memory a CPU fundamentals](cpu-and-memory-fundamentals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SSH →](ssh.md)
+[← Predchádzajúca: CPU a memory fundamentals](cpu-and-memory-fundamentals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SSH →](ssh.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
