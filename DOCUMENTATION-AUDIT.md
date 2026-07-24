@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10749**
-- Total words: **488,049**
-- Findings: **23708** (critical 8081, high 9189, medium 3132, low 3306)
+- Audited conceptual sections: **10772**
+- Total words: **490,043**
+- Findings: **23773** (critical 8084, high 9211, medium 3146, low 3332)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -129,6 +129,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 748 | 36 | 36 | 10 | 4 | 1078 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 747 | 34 | 40 | 7 | 4 | 1104 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 747 | 26 | 47 | 14 | 8 | 1566 | `docs/09-kubernetes/ingress-gateway-api.md` |
+| D | 745 | 25 | 42 | 22 | 28 | 3225 | `docs/02-networking-and-web/nat.md` |
 | D | 740 | 35 | 37 | 7 | 7 | 1222 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 740 | 36 | 36 | 9 | 1 | 1014 | `docs/04-testing-and-quality/static-analysis-linting-type-checking.md` |
 | D | 739 | 32 | 41 | 7 | 6 | 1424 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
@@ -214,7 +215,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
-| D | 449 | 22 | 20 | 8 | 2 | 1231 | `docs/02-networking-and-web/nat.md` |
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -1661,46 +1661,71 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 17, `bare-bullet-items` — **2. Prečo NAT existuje**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zdieľanie jednej verejnej IPv4 adresy viacerými internými hostmi,`, `publikovanie internej služby cez externú adresu alebo port,`, `prepojenie sietí s overlapping addressing,`, `zachovanie alebo skrytie interného adresného plánu,`.
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Prečo NAT existuje**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 29, `empty-section` — **3. Základné typy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 113, `bare-bullet-items` — **7. Conntrack**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľký počet krátkych spojení,`, `retry storm,`, `UDP flows s dlhými timeoutmi,`, `útok alebo scan,`.
-- **CRITICAL** line 113, `outline-instead-of-explanation` — **7. Conntrack**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 199, `bare-bullet-items` — **13. Port forwarding**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IP forwarding,`, `FORWARD chain policy,`, `backend route,`, `listener na target porte,`.
-- **CRITICAL** line 199, `outline-instead-of-explanation` — **13. Port forwarding**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `bare-bullet-items` — **14. Container networking**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container listener,`, `bridge network,`, `host port,`, `host firewall,`.
-- **CRITICAL** line 219, `outline-instead-of-explanation` — **14. Container networking**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 239, `bare-bullet-items` — **15. Cloud NAT**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet dostupných source ports,`, `počet public IP adries,`, `per-destination limits,`, `connection count,`.
-- **CRITICAL** line 239, `outline-instead-of-explanation` — **15. Cloud NAT**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `bare-bullet-items` — **16. NAT exhaustion**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové outbound spojenia timeoutujú,`, `existujúce spojenia fungujú,`, `problém sa objaví iba pri vysokej concurrency,`, `niektoré destinations zlyhávajú viac než iné.`.
-- **CRITICAL** line 255, `outline-instead-of-explanation` — **16. NAT exhaustion**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 275, `bare-bullet-items` — **17. NAT traversal**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `static port forwarding,`, `UPnP/NAT-PMP/PCP,`, `STUN na zistenie external mappingu,`, `TURN relay,`.
-- **CRITICAL** line 275, `outline-instead-of-explanation` — **17. NAT traversal**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 297, `bare-bullet-items` — **19. Security trade-offs**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `široký port forwarding,`, `skrytá source identity,`, `nedostatočný logging mappings,`, `vyčerpanie state table,`.
-- **CRITICAL** line 297, `outline-instead-of-explanation` — **19. Security trade-offs**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 312, `bare-bullet-items` — **20. Diagnostický postup**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient má správnu route na NAT gateway,`, `packet príde na inside interface,`, `forwarding je povolený,`, `NAT pravidlo sa zhoduje,`.
-- **CRITICAL** line 312, `outline-instead-of-explanation` — **20. Diagnostický postup**: 8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 336, `empty-section` — **21. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 62, `bare-bullet-items` — **3. Tuple a translation mapping**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transportný protokol,`, `pôvodný a preložený source endpoint,`, `pôvodný a preložený destination endpoint,`, `connection alebo pseudo-connection state,`.
+- **CRITICAL** line 105, `empty-section` — **4. SNAT, DNAT, PAT a statické mapovanie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 154, `no-prose-concept` — **Prvý packet**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 154, `outline-instead-of-explanation` — **Prvý packet**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 163, `outline-instead-of-explanation` — **Ďalšie packets**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 172, `bare-bullet-items` — **6. Outbound SNAT lifecycle**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route klienta na gateway,`, `IP forwarding na gateway,`, `SNAT alebo masquerade policy,`, `povolený forward traffic,`.
+- **CRITICAL** line 172, `outline-instead-of-explanation` — **6. Outbound SNAT lifecycle**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 210, `bare-bullet-items` — **7. Inbound DNAT lifecycle**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend default route,`, `policy routing,`, `asymmetric paths,`, `stateful firewall symmetry,`.
+- **CRITICAL** line 335, `outline-instead-of-explanation` — **11. UDP state a timeouty**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 358, `empty-section` — **12. MASQUERADE verzus explicitný SNAT**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 384, `bare-bullet-items` — **13. Port allocation a NAT exhaustion**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transportný protokol,`, `rezervované a používané porty,`, `mapping behavior zariadenia,`, `destination endpoint,`.
+- **CRITICAL** line 446, `bare-bullet-items` — **15. Port forwarding**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IP forwarding,`, `FORWARD allow policy,`, `listener na 10.0.1.20:8443 ,`, `funkčný backend route,`.
+- **CRITICAL** line 470, `bare-bullet-items` — **16. NAT a firewall**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `translation vysvetľuje, aké endpoint fields packet má,`, `filter vysvetľuje, či packet smie pokračovať,`, `routing vysvetľuje, kam packet smeruje,`, `application vysvetľuje, čo sa po doručení stane.`.
+- **CRITICAL** line 493, `bare-bullet-items` — **17. Asymetria a return path**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reverse translation sa nevykoná,`, `source alebo destination tuple nebude sedieť,`, `stateful firewall môže packet zahodiť,`, `multiple default routes,`.
+- **CRITICAL** line 493, `outline-instead-of-explanation` — **17. Asymetria a return path**: 12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 523, `bare-bullet-items` — **18. HA a state synchronization**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúce TCP connections môžu byť resetnuté alebo timeoutovať,`, `UDP mappings sa stratia,`, `nový node nevie vykonať reverse translation,`, `aplikačné retries môžu vytvoriť burst.`.
+- **CRITICAL** line 557, `bare-bullet-items` — **20. NAT a aplikačné protokoly**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvyšujú parser attack surface,`, `musia rozumieť protokolu,`, `zlyhávajú pri šifrovanom payloade,`, `komplikujú state a troubleshooting.`.
+- **CRITICAL** line 570, `bare-bullet-items` — **21. NAT v kontajneroch a Kubernetes**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application listener,`, `Pod alebo container network namespace,`, `Pod IP,`, `container port metadata,`.
+- **CRITICAL** line 604, `bare-bullet-items` — **22. Cloud NAT**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source-port kapacitu na public IP,`, `per-destination mapping limit,`, `počet súbežných flows,`, `idle timeouty,`.
+- **CRITICAL** line 692, `bare-bullet-items` — **26. Diagnostický postup: outbound flow**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over klientský destination a source selection:`, `Zachyť original packet na inside interface translation pointu.`, `Over IP forwarding a FORWARD policy.`, `Over, že packet zodpovedá NAT pravidlu.`.
+- **CRITICAL** line 692, `outline-instead-of-explanation` — **26. Diagnostický postup: outbound flow**: 10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 748, `bare-bullet-items` — **28. Bezpečnostné trade-offy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `široké DNAT pravidlo publikuje nechcenú službu,`, `source translation skrýva pôvod klienta pred backendom,`, `chýbajúce mapping logy znemožnia atribúciu,`, `state exhaustion vytvorí denial of service,`.
+- **CRITICAL** line 765, `empty-section` — **29. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 59, `single-sentence-concept` — **Static one-to-one NAT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 77, `list-first-introduction` — **5. Packet flow pri outbound SNAT**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 77, `single-sentence-concept` — **5. Packet flow pri outbound SNAT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 199, `single-sentence-concept` — **13. Port forwarding**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 219, `single-sentence-concept` — **14. Container networking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 255, `single-sentence-concept` — **16. NAT exhaustion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **20. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `single-sentence-concept` — **„DNAT automaticky sprístupní službu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 11, `list-heavy-section` — **1. Definícia**: 6 odrážok a iba 58 slov súvislého vysvetlenia.
+- **HIGH** line 36, `single-sentence-concept` — **2. Prečo NAT existuje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 62, `list-heavy-section` — **3. Tuple a translation mapping**: 8 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 150, `single-sentence-concept` — **5. Prvý packet a ďalšie packets**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 154, `bare-bullet-items` — **Prvý packet**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Routing a NAT pravidlá určia preklad.`, `Zvolí sa preložená adresa a prípadne port.`, `Vytvorí sa obojsmerný mapping.`, `Packet pokračuje cez firewall a forwarding path.`.
+- **HIGH** line 154, `list-first-introduction` — **Prvý packet**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 163, `bare-bullet-items` — **Ďalšie packets**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Conntrack ich priradí k existujúcemu flowu.`, `Translation sa aplikuje podľa uloženého mappingu.`.
+- **HIGH** line 163, `list-first-introduction` — **Ďalšie packets**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 163, `single-sentence-concept` — **Ďalšie packets**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 172, `single-sentence-concept` — **6. Outbound SNAT lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 246, `bare-bullet-items` — **8. NAT hook ordering v Linuxe**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `v ktorom hooku sa preklad aplikuje,`, `či ide o local alebo forwarded traffic,`, `či packet mení route po DNAT,`.
+- **HIGH** line 289, `bare-bullet-items` — **9. Conntrack a NAT state**: 5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `listener beží,`, `route existuje,`, `CPU nie je vyťažené,`, `aplikácia nemá vysokú latency,`.
+- **HIGH** line 289, `list-heavy-section` — **9. Conntrack a NAT state**: 9 odrážok a iba 54 slov súvislého vysvetlenia.
+- **HIGH** line 335, `bare-bullet-items` — **11. UDP state a timeouty**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `mapping môže zaniknúť bez upozornenia,`, `timeouty sa líšia medzi zariadeniami,`, `inbound reachability závisí od konkrétneho NAT behavioru.`.
+- **HIGH** line 384, `list-heavy-section` — **13. Port allocation a NAT exhaustion**: 15 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 446, `list-heavy-section` — **15. Port forwarding**: 8 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 493, `single-sentence-concept` — **17. Asymetria a return path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 523, `list-heavy-section` — **18. HA a state synchronization**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 570, `list-heavy-section` — **21. NAT v kontajneroch a Kubernetes**: 14 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 604, `list-heavy-section` — **22. Cloud NAT**: 8 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 645, `bare-bullet-items` — **24. Checksums a offload**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `kernel ešte neodovzdal finálny výpočet NIC offloadu,`, `capture prebehla pred alebo po inom dataplane kroku,`, `packet je logical large segment pred segmentation offloadom.`.
+- **HIGH** line 657, `single-sentence-concept` — **25. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 661, `single-sentence-concept` — **Original flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 665, `single-sentence-concept` — **Translated flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 669, `single-sentence-concept` — **Conntrack mapping**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 692, `single-sentence-concept` — **26. Diagnostický postup: outbound flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 731, `bare-bullet-items` — **27. Diagnostický postup: publikovaná služba**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over DNAT counter a translated destination.`, `Skontroluj routing decision k backendu.`, `Over FORWARD policy a backend listener.`, `Zachyť packet pri backende.`.
+- **HIGH** line 731, `list-heavy-section` — **27. Diagnostický postup: publikovaná služba**: 10 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 748, `list-heavy-section` — **28. Bezpečnostné trade-offy**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 17, `thin-concept-section` — **2. Prečo NAT existuje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 199, `thin-concept-section` — **13. Port forwarding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 219, `thin-concept-section` — **14. Container networking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 239, `thin-concept-section` — **15. Cloud NAT**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 255, `thin-concept-section` — **16. NAT exhaustion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 275, `term-before-explanation` — **17. NAT traversal**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT-PMP`, `PCP`, `STUN`, `TURN`, `ICE`
-- **HIGH** line 275, `thin-concept-section` — **17. NAT traversal**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 297, `thin-concept-section` — **19. Security trade-offs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 312, `thin-concept-section` — **20. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 11, `term-before-explanation` — **1. Definícia**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INPUT`, `OUTPUT`, `FORWARD`, `policy`, `identity`
+- **HIGH** line 154, `thin-concept-section` — **Prvý packet**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 163, `thin-concept-section` — **Ďalšie packets**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 172, `thin-concept-section` — **6. Outbound SNAT lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 289, `term-before-explanation` — **9. Conntrack a NAT state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NEW`, `ESTABLISHED`, `RELATED`, `INVALID`, `CPU`
+- **HIGH** line 335, `thin-concept-section` — **11. UDP state a timeouty**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 493, `thin-concept-section` — **17. Asymetria a return path**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 543, `term-before-explanation` — **19. NAT traversal**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT-PMP`, `PCP`, `STUN`, `TURN`, `ICE`
+- **HIGH** line 692, `term-before-explanation` — **26. Diagnostický postup: outbound flow**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `FORWARD`, `NAT`, `SYN`, `policy`
+- **HIGH** line 692, `thin-concept-section` — **26. Diagnostický postup: outbound flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/network-troubleshooting.md`
 
@@ -18320,19 +18345,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4020 | 0 | 0 | 4020 |
-| `bare-bullet-items` | 3685 | 326 | 0 | 0 | 4011 |
-| `outline-instead-of-explanation` | 3627 | 0 | 0 | 0 | 3627 |
-| `thin-concept-section` | 0 | 3307 | 0 | 0 | 3307 |
-| `term-before-explanation` | 0 | 379 | 2241 | 0 | 2620 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1394 | 1394 |
-| `example-not-explicit` | 0 | 0 | 0 | 1262 | 1262 |
-| `list-first-introduction` | 0 | 913 | 0 | 0 | 913 |
-| `short-concept-section` | 0 | 0 | 891 | 0 | 891 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 650 | 650 |
-| `empty-section` | 468 | 0 | 0 | 0 | 468 |
-| `no-prose-concept` | 301 | 0 | 0 | 0 | 301 |
-| `list-heavy-section` | 0 | 244 | 0 | 0 | 244 |
+| `single-sentence-concept` | 0 | 4023 | 0 | 0 | 4023 |
+| `bare-bullet-items` | 3689 | 333 | 0 | 0 | 4022 |
+| `outline-instead-of-explanation` | 3624 | 0 | 0 | 0 | 3624 |
+| `thin-concept-section` | 0 | 3305 | 0 | 0 | 3305 |
+| `term-before-explanation` | 0 | 382 | 2249 | 0 | 2631 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1397 | 1397 |
+| `example-not-explicit` | 0 | 0 | 0 | 1271 | 1271 |
+| `list-first-introduction` | 0 | 914 | 0 | 0 | 914 |
+| `short-concept-section` | 0 | 0 | 897 | 0 | 897 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 664 | 664 |
+| `empty-section` | 469 | 0 | 0 | 0 | 469 |
+| `no-prose-concept` | 302 | 0 | 0 | 0 | 302 |
+| `list-heavy-section` | 0 | 254 | 0 | 0 | 254 |
 
 ## Required remediation pattern
 
