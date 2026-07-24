@@ -1417,15 +1417,15 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "title": "Ring deployment",
-      "words": 923,
-      "headings": 29,
-      "sections": 29,
-      "findings": 67,
-      "critical": 28,
-      "high": 30,
-      "medium": 9,
-      "low": 0,
-      "score": 599,
+      "words": 1524,
+      "headings": 42,
+      "sections": 42,
+      "findings": 136,
+      "critical": 59,
+      "high": 52,
+      "medium": 17,
+      "low": 8,
+      "score": 1179,
       "grade": "D"
     },
     {
@@ -99893,8 +99893,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "1. Základný model",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -99902,8 +99911,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "2. Canary vs. rings",
-      "line": 17,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "2. Ring verzus canary",
+      "line": 23,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "2. Ring verzus canary",
+      "line": 23,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interní používatelia,`, `pilotní zákazníci,`, `región,`, `device update channel,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "2. Ring verzus canary",
+      "line": 23,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -99911,8 +99965,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "3. Návrh ringov",
-      "line": 28,
+      "section": "4. Ring identity a membership contract",
+      "line": 49,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99920,26 +99974,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "3. Návrh ringov",
-      "line": 28,
+      "section": "4. Ring identity a membership contract",
+      "line": 49,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "3. Návrh ringov",
-      "line": 28,
+      "section": "4. Ring identity a membership contract",
+      "line": 49,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interní vs. externí používatelia,`, `customer tier,`, `tenant kritickosť,`, `región a data residency,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable ring ID,`, `membership rule version,`, `member inventory alebo deterministické pravidlo,`, `artifact/config identity,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "3. Návrh ringov",
-      "line": 28,
+      "section": "4. Ring identity a membership contract",
+      "line": 49,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99947,35 +100001,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "3. Návrh ringov",
-      "line": 28,
+      "section": "4. Ring identity a membership contract",
+      "line": 49,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "4. Ring 0",
-      "line": 45,
+      "section": "5. Návrh poradia",
+      "line": 64,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "4. Ring 0",
-      "line": 45,
+      "section": "5. Návrh poradia",
+      "line": 64,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vývojový tím,`, `test accounts,`, `interné workflows,`, `synthetic traffic,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `workload a data distribution,`, `integration complexity,`, `support coverage,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "4. Ring 0",
-      "line": 45,
+      "section": "5. Návrh poradia",
+      "line": 64,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99983,188 +100037,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "5. Early adopters",
-      "line": 57,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Návrh poradia",
+      "line": 64,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "5. Early adopters",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "5. Early adopters",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasné očakávania,`, `support channel,`, `opt-in/opt-out,`, `privacy a compliance kontrolu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "5. Early adopters",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "6. Stable membership",
-      "line": 70,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "6. Stable membership",
-      "line": 70,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "6. Stable membership",
-      "line": 70,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický,`, `auditovateľný,`, `versionovaný,`, `konzistentný naprieč services,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "6. Stable membership",
-      "line": 70,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "7. Promotion contract",
-      "line": 83,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "7. Promotion contract",
-      "line": 83,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "7. Promotion contract",
-      "line": 83,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entry criteria,`, `minimálnu duration,`, `minimálnu sample size,`, `technické a business metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "7. Promotion contract",
-      "line": 83,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "8. Observation windows",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "8. Observation windows",
-      "line": 99,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "8. Observation windows",
-      "line": 99,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zriedkavé workflows,`, `batch procesy,`, `mesačné alebo denné cykly,`, `väčšie dátové objemy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "8. Observation windows",
-      "line": 99,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "9. Regionálne ringy",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "9. Regionálne ringy",
-      "line": 112,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "9. Regionálne ringy",
-      "line": 112,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regionálny workload a latency,`, `data residency,`, `failover topology,`, `dependency endpoints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "9. Regionálne ringy",
-      "line": 112,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "9. Regionálne ringy",
-      "line": 112,
+      "section": "5. Návrh poradia",
+      "line": 64,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
@@ -100172,8 +100055,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "10. Device a client rings",
-      "line": 126,
+      "section": "6. Stable membership",
+      "line": 79,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "6. Stable membership",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický,`, `konzistentný naprieč services,`, `odolný proti náhodnému reshuffle,`, `dostupný pre telemetry,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "6. Stable membership",
+      "line": 79,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "7. Ring state machine",
+      "line": 92,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100181,26 +100091,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "10. Device a client rings",
-      "line": 126,
+      "section": "8. Entry contract",
+      "line": 118,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "8. Entry contract",
+      "line": 118,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "10. Device a client rings",
-      "line": 126,
+      "section": "8. Entry contract",
+      "line": 118,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `update eligibility,`, `download integrity,`, `compatibility matrix,`, `offline clients,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predchádzajúci ring verdict,`, `evidence freshness,`, `immutable artifact a config,`, `compatibility s ringmi na staršej verzii,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "10. Device a client rings",
-      "line": 126,
+      "section": "8. Entry contract",
+      "line": 118,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -100208,35 +100127,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "10. Device a client rings",
-      "line": 126,
+      "section": "8. Entry contract",
+      "line": 118,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "11. Tenant rings",
-      "line": 151,
+      "section": "9. Observation contract",
+      "line": 132,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "9. Observation contract",
+      "line": 132,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "11. Tenant rings",
-      "line": 151,
+      "section": "9. Observation contract",
+      "line": 132,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izoláciu konfigurácie,`, `shared database compatibility,`, `noisy-neighbor effects,`, `tenant-specific integrations,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu vzorku,`, `minimálnu a maximálnu duration,`, `technické a business guardrails,`, `ring-specific workflows,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "11. Tenant rings",
-      "line": 151,
+      "section": "9. Observation contract",
+      "line": 132,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -100244,35 +100172,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "12. Ring-specific configuration",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "12. Ring-specific configuration",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `config revision,`, `feature flag state,`, `policy version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "12. Ring-specific configuration",
-      "line": 165,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "12. Ring-specific configuration",
-      "line": 165,
+      "section": "9. Observation contract",
+      "line": 132,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -100280,26 +100181,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "13. Version skew",
-      "line": 180,
+      "section": "10. Ring 0 a interné používanie",
+      "line": 146,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "13. Version skew",
-      "line": 180,
+      "section": "10. Ring 0 a interné používanie",
+      "line": 146,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API,`, `events,`, `database schema,`, `cache a session formats,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development a operations tímy,`, `synthetic identities,`, `interné workflows,`, `test tenants.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "13. Version skew",
-      "line": 180,
+      "section": "10. Ring 0 a interné používanie",
+      "line": 146,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -100307,53 +100208,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "13. Version skew",
-      "line": 180,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "14. Observability",
-      "line": 194,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "14. Observability",
-      "line": 194,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ring ID,`, `release version/digest,`, `tenant alebo region cohort,`, `client channel,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "14. Observability",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "14. Observability",
-      "line": 194,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "15. Support a communication",
-      "line": 207,
+      "section": "11. Early-adopter ring",
+      "line": 157,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100361,8 +100217,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "15. Support a communication",
-      "line": 207,
+      "section": "11. Early-adopter ring",
+      "line": 157,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "11. Early-adopter ring",
+      "line": 157,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `informed opt-in alebo zmluvný model,`, `support channel,`, `known-issues komunikáciu,`, `opt-out/recovery,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "11. Early-adopter ring",
+      "line": 157,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "11. Early-adopter ring",
+      "line": 157,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "12. Tenant rings",
+      "line": 170,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "12. Tenant rings",
+      "line": 170,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requestom,`, `dátam,`, `custom integrations,`, `queue volume,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "12. Tenant rings",
+      "line": 170,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "13. Regionálne ringy",
+      "line": 182,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "13. Regionálne ringy",
+      "line": 182,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
@@ -100370,17 +100298,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "15. Support a communication",
-      "line": 207,
+      "section": "13. Regionálne ringy",
+      "line": 182,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `support readiness,`, `release notes podľa audience,`, `known-issues channel,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data residency,`, `latency a traffic pattern,`, `region-specific dependencies,`, `failover topology,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "15. Support a communication",
-      "line": 207,
+      "section": "13. Regionálne ringy",
+      "line": 182,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -100388,8 +100316,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "16. Emergency changes",
-      "line": 221,
+      "section": "13. Regionálne ringy",
+      "line": 182,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "14. Device a client rings",
+      "line": 196,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100397,26 +100334,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "16. Emergency changes",
-      "line": 221,
+      "section": "14. Device a client rings",
+      "line": 196,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "16. Emergency changes",
-      "line": 221,
+      "section": "14. Device a client rings",
+      "line": 196,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact identity,`, `minimálne safety checks,`, `explicitný risk acceptance,`, `observability,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `update eligibility,`, `podpis a download integrity,`, `offline clients,`, `auto-update cadence,`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "16. Emergency changes",
-      "line": 221,
+      "section": "14. Device a client rings",
+      "line": 196,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -100424,8 +100361,224 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "16. Emergency changes",
-      "line": 221,
+      "section": "14. Device a client rings",
+      "line": 196,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "15. Ring-specific configuration",
+      "line": 217,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "15. Ring-specific configuration",
+      "line": 217,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `rendered config revision,`, `flags,`, `membership policy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "15. Ring-specific configuration",
+      "line": 217,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "15. Ring-specific configuration",
+      "line": 217,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "16. Version skew contract",
+      "line": 230,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "16. Version skew contract",
+      "line": 230,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API a clients,`, `event producers/consumers,`, `DB schema,`, `cache/session formatov,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "16. Version skew contract",
+      "line": 230,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "16. Version skew contract",
+      "line": 230,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "17. Shared mutable state",
+      "line": 244,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "17. Shared mutable state",
+      "line": 244,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "17. Shared mutable state",
+      "line": 244,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať expand-contract,`, `udržiavať forward-tolerant consumers,`, `versionovať cache keys,`, `oddeliť irreversible mutations,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "17. Shared mutable state",
+      "line": 244,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "18. Ring promotion",
+      "line": 255,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "18. Ring promotion",
+      "line": 255,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `promote next ring,`, `extend observation,`, `pause,`, `abort current ring,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "18. Ring promotion",
+      "line": 255,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "19. Partial rollback",
+      "line": 269,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "19. Partial rollback",
+      "line": 269,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "19. Partial rollback",
+      "line": 269,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novšia verzia zmenila shared state,`, `cross-ring workflow posiela nové events,`, `clients komunikujú medzi ringmi,`, `schema contract sa už posunul.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "19. Partial rollback",
+      "line": 269,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "21. Support a communication",
+      "line": 286,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "21. Support a communication",
+      "line": 286,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "21. Support a communication",
+      "line": 286,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `support readiness,`, `audience-specific release notes,`, `known-issues channel,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "21. Support a communication",
+      "line": 286,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "21. Support a communication",
+      "line": 286,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -100433,8 +100586,71 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "Ring 1 je zdravý, ring 2 zlyháva",
-      "line": 236,
+      "section": "22. Observability",
+      "line": 300,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "22. Observability",
+      "line": 300,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ring ID,`, `artifact/release version,`, `membership policy version,`, `deployment wave,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "22. Observability",
+      "line": 300,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "22. Observability",
+      "line": 300,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "23. Delayed validation",
+      "line": 313,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "23. Delayed validation",
+      "line": 313,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rare operations,`, `mesačné cycles,`, `regulované workflows,`, `high-scale data,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "23. Delayed validation",
+      "line": 313,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "24. Emergency release",
+      "line": 325,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100442,8 +100658,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "Používatelia preskakujú medzi ringmi",
-      "line": 240,
+      "section": "24. Emergency release",
+      "line": 325,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "24. Emergency release",
+      "line": 325,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact,`, `minimálne safety gates,`, `explicitný risk acceptance,`, `bounded first exposure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "24. Emergency release",
+      "line": 325,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "25. Ring retirement a cleanup",
+      "line": 338,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100451,8 +100694,143 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "Ringy sú iba názvy prostredí",
-      "line": 254,
+      "section": "25. Ring retirement a cleanup",
+      "line": 338,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "25. Ring retirement a cleanup",
+      "line": 338,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráň staré membership výnimky,`, `zjednoť config/flags,`, `ukonči old support state,`, `aktualizuj inventory,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "25. Ring retirement a cleanup",
+      "line": 338,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "26. Failure taxonomy",
+      "line": 351,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "26. Failure taxonomy",
+      "line": 351,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "26. Failure taxonomy",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "26. Failure taxonomy",
+      "line": 351,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership inconsistency,`, `ring-specific config drift,`, `workload representativeness failure,`, `compatibility/skew failure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "26. Failure taxonomy",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "26. Failure taxonomy",
+      "line": 351,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "27. Metriky stratégie",
+      "line": 363,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "27. Metriky stratégie",
+      "line": 363,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "27. Metriky stratégie",
+      "line": 363,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "27. Metriky stratégie",
+      "line": 363,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time per ring,`, `promotion/abort rate,`, `ring-specific change fail rate,`, `maximum version skew age,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "27. Metriky stratégie",
+      "line": 363,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "28. Typické anti-patterny",
+      "line": 376,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Ring je iba environment name",
+      "line": 378,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100460,8 +100838,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "Každý ring má iný artifact build",
-      "line": 258,
+      "section": "Každý ring dostane iný build",
+      "line": 382,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100469,8 +100847,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "Najkritickejší zákazník je prvý ring",
-      "line": 262,
+      "section": "Membership sa mení bez versioningu",
+      "line": 386,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100478,8 +100856,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
-      "section": "Membership sa mení bez auditu",
-      "line": 266,
+      "section": "Percento tenantov = percento trafficu",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Najkritickejší zákazník prvý",
+      "line": 394,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -100488,11 +100875,245 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "Rollout ostane mesiace v polovici",
-      "line": 270,
+      "line": 398,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Partial rollback bez shared-state analýzy",
+      "line": 402,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over ring membership policy a konkrétny subject.`, `Zisti artifact/config identity v každom ring-u.`, `Skontroluj version skew a rollout generation.`, `Over telemetry dimensions a sample sufficiency.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "29. Diagnostický postup",
+      "line": 406,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké failure risks odlišujú jednotlivé ringy?`, `Ako je membership stabilný a auditovateľný?`, `Aký workload a business impact každý ring reprezentuje?`, `Aký je maximálny podporovaný version skew?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "30. Rozhodovací rámec",
+      "line": 419,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ring IDs a membership sú versionované,`, `release inventory je úplný,`, `rovnaký immutable artifact sa promuje,`, `config rozdiely sú explicitné,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "31. Kontrolný checklist",
+      "line": 432,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Summary",
+      "line": 460,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ring-deployment.md",
+      "section": "Summary",
+      "line": 460,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
