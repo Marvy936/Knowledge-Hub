@@ -264,5 +264,5 @@ DORA metriky poskytujú spoločný outcome model pre throughput a instability so
 
 **Navigácia**
 
-[← Predchádzajúca: Value stream mapping](value-stream-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps anti-patterny →](devops-anti-patterns.md)
+[← Predchádzajúca: Value stream mapping](value-stream-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps anti-patterns →](devops-anti-patterns.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

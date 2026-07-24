@@ -115,15 +115,15 @@
     {
       "path": "docs/00-foundations/dora-metrics.md",
       "title": "DORA Metrics",
-      "words": 1266,
-      "headings": 32,
-      "sections": 32,
-      "findings": 55,
-      "critical": 26,
-      "high": 24,
-      "medium": 4,
-      "low": 1,
-      "score": 509,
+      "words": 1815,
+      "headings": 34,
+      "sections": 34,
+      "findings": 21,
+      "critical": 4,
+      "high": 4,
+      "medium": 0,
+      "low": 13,
+      "score": 98,
       "grade": "D"
     },
     {
@@ -8012,35 +8012,17 @@
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "2. Prečo tieto metriky existujú",
+      "section": "2. Prečo nestačí jedna metrika",
       "line": 29,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "2. Prečo tieto metriky existujú",
-      "line": 29,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ako dlho zmena prechádza systémom,`, `ako často tím dokáže nasadiť,`, `ako často deployment spôsobí problém,`, `ako rýchlo sa tím zotaví zo zlyhaného deploymentu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "2. Prečo tieto metriky existujú",
-      "line": 29,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "2. Prečo tieto metriky existujú",
-      "line": 29,
+      "section": "4. Scope merania",
+      "line": 49,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -8048,296 +8030,71 @@
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "3. Change lead time",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Change lead time",
+      "line": 55,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "3. Change lead time",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "6. Event pravidlá pre change lead time",
+      "line": 65,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "3. Change lead time",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čakanie na review,`, `CI build a testy,`, `čakanie vo fronte runnerov,`, `approval,`.",
-      "score": 12
+      "section": "7. Čo dlhý lead time odhaľuje",
+      "line": 71,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "3. Change lead time",
-      "line": 41,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "7. Čo dlhý lead time odhaľuje",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "3. Change lead time",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
+      "section": "15. Čo vysoký change fail rate odhaľuje",
+      "line": 131,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 59,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "17. Planned a corrective classification",
+      "line": 147,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 59,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "19. Zdroje dát",
+      "line": 168,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 59,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké batch sizes,`, `dlhé review queues,`, `pomalé alebo flaky testy,`, `manuálne approvals,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 59,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pracovať v menších dávkach,`, `automatizovať delivery,`, `oddeliť deployment od release pomocou feature flags,`, `rýchlo doručiť opravu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "5. Failed deployment recovery time",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "5. Failed deployment recovery time",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "5. Failed deployment recovery time",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollback,`, `roll-forward,`, `hotfix,`, `patch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "5. Failed deployment recovery time",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 122,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `slabú observability,`, `nejasný ownership,`, `chýbajúci rollback,`, `veľké alebo nekompatibilné zmeny,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "6. Change fail rate",
-      "line": 134,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `slabé testy,`, `veľké batch sizes,`, `nekonzistentné prostredia,`, `chýbajúce canary overenie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Čo odhaľuje",
-      "line": 150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "10. Zber údajov",
-      "line": 212,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "10. Zber údajov",
-      "line": 212,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "10. Zber údajov",
-      "line": 212,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git commits a merge requests,`, `CI/CD pipeline events,`, `deployment platforma,`, `incident management systém,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "10. Zber údajov",
-      "line": 212,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "10. Zber údajov",
-      "line": 212,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CD`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "11. Príklad dátového modelu",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "11. Príklad dátového modelu",
-      "line": 232,
+      "section": "20. Minimálny dátový model",
+      "line": 174,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -8345,35 +8102,35 @@
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "12. Metriky a príčina",
-      "line": 250,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "23. DORA ako diagnostický trigger",
+      "line": 204,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "12. Metriky a príčina",
-      "line": 250,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `review waiting time,`, `pipeline duration,`, `flaky test rate,`, `queue time,`.",
-      "score": 12
+      "section": "23. DORA ako diagnostický trigger",
+      "line": 204,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "12. Metriky a príčina",
-      "line": 250,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "24. Reliability a delivery performance",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "13. Anti-gaming pravidlá",
-      "line": 276,
+      "section": "25. Anti-gaming pravidlá",
+      "line": 216,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -8381,75 +8138,12 @@
     },
     {
       "path": "docs/00-foundations/dora-metrics.md",
-      "section": "Nemeň definíciu pri každom zhoršení",
-      "line": 286,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "14. Reliability nie je totožná s delivery metrikami",
-      "line": 294,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "14. Reliability nie je totožná s delivery metrikami",
-      "line": 294,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLI,`, `SLO,`, `error budgets,`, `availability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "14. Reliability nie je totožná s delivery metrikami",
-      "line": 294,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "14. Reliability nie je totožná s delivery metrikami",
-      "line": 294,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `availability`, `durability`",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "15. Praktický lab",
-      "line": 308,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "15. Praktický lab",
-      "line": 308,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet produkčných deploymentov,`, `commit a deployment timestamp každej zmeny,`, `deploymenty vyžadujúce okamžitú nápravu,`, `čas obnovenia po týchto deploymentoch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/dora-metrics.md",
-      "section": "15. Praktický lab",
-      "line": 308,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "27. Troubleshooting merania",
+      "line": 240,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/feedback-loops.md",
