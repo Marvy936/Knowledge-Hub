@@ -9,9 +9,9 @@
 - Súvisiace témy: CI/CD, deployment strategies, SRE, observability, flow metrics
 - Model: aktuálny päťmetrikový model DORA
 
-## 1. Definícia
+## 1. Čo DORA metriky merajú
 
-DORA software delivery performance metrics merajú schopnosť tímu dodávať softvérové zmeny rýchlo a bezpečne. Aktuálny model používa päť metrík rozdelených na **throughput** a **instability**.
+DORA software delivery performance metrics merajú schopnosť tímu dodávať softvérové zmeny rýchlo a bezpečne. Aktuálny model používa päť metrík rozdelených na throughput a instability.
 
 ```text
 Throughput
@@ -24,324 +24,245 @@ Instability
 └── Deployment rework rate
 ```
 
-Historicky sa bežne používal pojem „Four Keys“. DORA model sa vyvinul na päť metrík pridaním deployment rework rate a spresnením recovery metriky.
+Historický pojem „Four Keys“ už nevystihuje celý model. Deployment rework rate pridáva pohľad na kapacitu spotrebovanú neplánovanými opravnými deploymentmi a recovery metrika sa presnejšie viaže na zlyhanie spôsobené deploymentom.
 
-## 2. Prečo tieto metriky existujú
+## 2. Prečo nestačí jedna metrika
 
-Samotný počet pipeline jobov, Kubernetes clusterov alebo automatizačných skriptov nehovorí, či delivery systém funguje dobre. DORA metriky sledujú výsledky toku:
+Delivery systém môže zrýchliť deploymenty za cenu vyššieho failure rate, alebo znížiť počet incidentov tým, že prestane nasadzovať. Preto sa throughput a instability musia vyhodnocovať spoločne.
 
-- ako dlho zmena prechádza systémom,
-- ako často tím dokáže nasadiť,
-- ako často deployment spôsobí problém,
-- ako rýchlo sa tím zotaví zo zlyhaného deploymentu,
-- koľko deploymentov tvorí neplánovaný rework.
+Metriky nepredstavujú cieľ samy osebe. Sú outcome signals, ktoré ukazujú, že systém sa správa určitým spôsobom; príčinu treba hľadať cez value stream, pipeline, architecture a operational evidence.
 
-Metriky sa majú používať spolu. Jedna metrika izolovane môže viesť k nesprávnemu správaniu.
+## 3. Event contract
 
-## 3. Change lead time
+Každá metrika potrebuje stabilnú definíciu udalostí, času, scope-u a klasifikácie. Bez event contractu môžu dva tímy vypočítať rovnaký názov metriky úplne odlišne.
 
-**Change lead time** je čas od commitu zmeny do version control po jej úspešné nasadenie do produkcie.
+Minimálny model prepája zmenu s artifactom, deploymentom a prípadným incidentom:
 
 ```text
-Change lead time = production deployment time - commit time
+commit_sha
+→ build_id a artifact_digest
+→ deployment_id a service
+→ user impact
+→ remediation deployment alebo recovery
 ```
 
-Zahŕňa napríklad:
+## 4. Scope merania
 
-- čakanie na review,
-- CI build a testy,
-- čakanie vo fronte runnerov,
-- approval,
-- packaging,
-- deployment,
-- prípadné rework cykly pred úspešným nasadením.
+DORA metriky sa majú primárne počítať pre konkrétnu službu alebo homogénny value stream. Agregácia experimentálneho interného nástroja a regulovanej platobnej služby môže vytvoriť priemer, ktorý neopisuje ani jeden systém.
 
-### Čo odhaľuje
+Najhodnotnejšie je sledovať trend rovnakej služby v čase a interpretovať ho spolu s kontextom kritickosti, architektúry a release modelu. Benchmark môže poskytnúť orientáciu, ale nemá nahradiť vlastný improvement target.
 
-Dlhý lead time môže znamenať:
+## 5. Change lead time
 
-- veľké batch sizes,
-- dlhé review queues,
-- pomalé alebo flaky testy,
-- manuálne approvals,
-- nedostatok prostredí,
-- závislosť od iného tímu,
-- komplikovaný release proces.
-
-### Pozor na definíciu začiatku
-
-Produktový lead time od nápadu po používateľa je širšia metrika. DORA change lead time začína commitom, preto primárne meria software delivery časť value streamu.
-
-## 4. Deployment frequency
-
-**Deployment frequency** vyjadruje, ako často tím nasadzuje zmeny do produkcie alebo ich sprístupňuje používateľom.
-
-Môže sa merať ako:
+**Change lead time** je čas od commitu zmeny do version control po jej úspešné nasadenie do produkcie. Meria software delivery časť value streamu, nie celý produktový čas od nápadu po používateľa.
 
 ```text
-počet deploymentov za deň / týždeň / mesiac
+change lead time = successful production deployment time - commit time
 ```
 
-alebo ako priemerný čas medzi deploymentmi.
+Lead time zahŕňa review queue, CI, čakanie na runner, schválenia, packaging, deployment a rework pred úspešným nasadením. Preto krátky build job automaticky neznamená krátky delivery flow.
 
-### Čo odhaľuje
+## 6. Event pravidlá pre change lead time
 
-Vyššia deployment frequency často súvisí so schopnosťou:
+Začiatok musí byť konzistentne viazaný na commit alebo inú presne definovanú version-control udalosť. Pri merge commit, squash merge a viacerých commitoch v jednom deploymente treba určiť, či sa používa najstarší commit, merge timestamp alebo iný dohodnutý bod.
 
-- pracovať v menších dávkach,
-- automatizovať delivery,
-- oddeliť deployment od release pomocou feature flags,
-- rýchlo doručiť opravu,
-- znížiť riziko jednotlivého deploymentu.
+Koniec nastáva až pri úspešnom produkčnom nasadení definovaného artifactu. Vytvorenie release tagu alebo dokončenie staging deploymentu nie je production outcome.
 
-### Čo sa počíta ako deployment
+## 7. Čo dlhý lead time odhaľuje
 
-Tím musí mať konzistentnú definíciu. Samostatný restart bez zmeny artifactu alebo automatický rescheduling Podu typicky nie je nový software deployment. Definícia má reprezentovať zmenu releasovanú do produkčného systému.
+Dlhý lead time často vzniká vo frontoch, nie počas aktívneho výpočtu. Review wait, environment provisioning, manuálne approvals a veľké batchy môžu dominovať aj v technicky rýchlej pipeline.
 
-## 5. Failed deployment recovery time
+Metrika preto vedie k diagnostickým otázkam: ktorá fáza obsahuje najviac wait time, kde vzniká rework a či sa práca pohybuje v príliš veľkých dávkach. Odpoveď poskytuje VSM, nie samotná DORA hodnota.
 
-**Failed deployment recovery time** je čas potrebný na obnovenie služby po produkčnej zmene, ktorá spôsobila degradáciu alebo výpadok a vyžaduje nápravu.
+## 8. Deployment frequency
+
+**Deployment frequency** vyjadruje, ako často tím nasadzuje zmeny do produkcie alebo ich sprístupňuje používateľom podľa dohodnutého release modelu. Môže sa vyjadriť počtom deploymentov za obdobie alebo časom medzi deploymentmi.
 
 ```text
-Recovery time = service restored time - failed deployment impact time
+deployment frequency = počet kvalifikovaných production deploymentov / obdobie
 ```
 
-Náprava môže byť:
+Vyššia frekvencia často signalizuje malé dávky a automatizovaný tok, ale iba vtedy, keď jednotlivé deploymenty predstavujú reálne zmeny a nie umelo vytvorené technické udalosti.
 
-- rollback,
-- roll-forward,
-- hotfix,
-- patch,
-- deaktivácia feature flagu,
-- oprava konfigurácie.
+## 9. Čo sa počíta ako deployment
 
-### Prečo nejde o všeobecné MTTR
+Nová verzia artifactu, konfigurácie alebo infraštruktúry, ktorá mení produkčné správanie, typicky predstavuje deployment. Automatický rescheduling rovnakého Podu alebo restart bez zmeny deklarovaného release state-u sa zvyčajne nepočíta.
 
-Táto metrika sa sústreďuje na zlyhanie spôsobené deploymentom. Výpadok elektriny, externého providera alebo fyzického zariadenia môže patriť do širšieho incident managementu, ale nemá sa automaticky miešať s výkonom software delivery procesu.
+Pri feature flags treba explicitne rozhodnúť, či release používateľom tvorí samostatnú udalosť. Deployment a release môžu byť oddelené, preto event contract musí zodpovedať tomu, čo organizácia skutočne chce merať.
 
-### Čo odhaľuje
+## 10. Failed deployment recovery time
 
-Dlhý recovery time môže znamenať:
+**Failed deployment recovery time** je čas od používateľského dopadu zlyhaného deploymentu po obnovenie definovaného service outcome-u. Nejde iba o čas spustenia rollback príkazu.
 
-- slabú observability,
-- nejasný ownership,
-- chýbajúci rollback,
-- veľké alebo nekompatibilné zmeny,
-- pomalý emergency change proces,
-- chýbajúce runbooky,
-- nemožnosť reprodukovať artifact.
+```text
+failed deployment recovery time = verified service restored time - deployment impact time
+```
 
-## 6. Change fail rate
+Recovery môže prebehnúť rollbackom, roll-forwardom, hotfixom, zmenou konfigurácie alebo deaktiváciou feature flagu. Koniec sa má potvrdiť používateľským alebo service-level evidence, nie iba zeleným pipeline jobom.
+
+## 11. Prečo nejde o všeobecné MTTR
+
+Táto DORA metrika sa viaže na zlyhania spôsobené software deploymentom. Výpadok externého providera, fyzickej infraštruktúry alebo útok bez väzby na deployment patrí do širšieho incident-management modelu.
+
+Miešanie všetkých incidentov do jednej recovery metriky znižuje schopnosť posúdiť delivery systém. Organizácia môže paralelne sledovať všeobecný incident recovery time, ale musí udržať odlišný denominator a scope.
+
+## 12. Čo dlhý recovery time odhaľuje
+
+Dlhý recovery time môže odhaliť slabú observability, nejasný ownership, chýbajúci rollback alebo nekompatibilnú databázovú migráciu. Často tiež ukazuje, že emergency path má rovnaké pomalé approvals ako bežný release.
+
+Diagnostika má rozdeliť recovery na detection, triage, decision, remediation, deployment a validation. Až potom je možné určiť, či dominantný problém predstavuje technický mechanizmus alebo organizačné rozhodovanie.
+
+## 13. Change fail rate
 
 **Change fail rate** je podiel produkčných deploymentov, ktoré spôsobia degradáciu a vyžadujú bezprostrednú nápravu.
 
 ```text
-Change fail rate = failed deployments / all deployments × 100 %
+change fail rate = failed deployments / všetky kvalifikované deployments × 100 %
 ```
 
-Príklad:
+Denominator je kritický. Štyri zlyhania pri tisíc deploymentoch opisujú iný systém než štyri zlyhania pri ôsmich deploymentoch.
+
+## 14. Klasifikácia failed deploymentu
+
+Failed deployment musí byť definovaný podľa používateľského alebo service-level dopadu. Samotný neúspešný pipeline job pred produkciou nie je change failure, pretože ochranný mechanizmus zmenu správne zastavil.
+
+Za failure sa typicky považuje deployment vyžadujúci rollback, urgentný hotfix, konfiguráciu alebo inú neplánovanú mitigáciu. Minor bug bez okamžitej nápravy môže patriť do defect metriky, ale nemusí spĺňať dohodnutú DORA klasifikáciu.
+
+## 15. Čo vysoký change fail rate odhaľuje
+
+Vysoká hodnota môže súvisieť s veľkými batchmi, slabými testami, environment driftom, chýbajúcim canary overením alebo nebezpečnými migráciami. Môže tiež odhaliť, že deployment eventy sa klasifikujú nekonzistentne.
+
+Zníženie fail rate zákazom deploymentov nie je zlepšenie. Metriku treba posudzovať spolu s deployment frequency a lead time, aby sa stabilita nedosahovala stagnáciou.
+
+## 16. Deployment rework rate
+
+**Deployment rework rate** je podiel deploymentov, ktoré nepredstavujú plánovanú hodnotovú zmenu, ale neplánovanú opravu používateľsky viditeľnej chyby.
 
 ```text
-100 deploymentov
-8 vyžadovalo rollback, hotfix alebo inú okamžitú nápravu
-Change fail rate = 8 %
+deployment rework rate = corrective deployments / všetky kvalifikované deployments × 100 %
 ```
 
-### Čo odhaľuje
+Metrika zviditeľňuje kapacitu spotrebovanú opravovaním predchádzajúcej práce. Jeden failed deployment môže vytvoriť viac opravných deploymentov, preto rework rate zachytáva iný aspekt instability než change fail rate.
 
-Vysoká hodnota môže poukazovať na:
+## 17. Planned a corrective classification
 
-- slabé testy,
-- veľké batch sizes,
-- nekonzistentné prostredia,
-- chýbajúce canary overenie,
-- nebezpečné databázové migrácie,
-- manuálny a neštandardný deployment,
-- nedostatočné release readiness kritériá.
+Každý deployment potrebuje klasifikáciu plánovanej hodnotovej zmeny alebo neplánovaného corrective work. Klasifikáciu nemožno spoľahlivo odvodiť iba z názvu branche; mala by vychádzať z release alebo incident eventu a byť auditovateľná.
 
-### Dôležitý denominator
+Ak tímy označia každý hotfix ako plánovanú zmenu, rework zmizne iba z reportu. Stabilná taxonomy a občasný sample review znižujú gaming a neúmyselné rozdiely medzi tímami.
 
-Počet incidentov bez počtu deploymentov je zavádzajúci. Tím so štyrmi zlyhaniami pri 1 000 deploymentoch má iný profil než tím so štyrmi zlyhaniami pri ôsmich deploymentoch.
+## 18. Throughput a instability spolu
 
-## 7. Deployment rework rate
-
-**Deployment rework rate** je podiel deploymentov, ktoré neboli plánovanou hodnotovou zmenou, ale neplánovanou opravou používateľsky viditeľnej chyby.
+Throughput opisuje schopnosť dostať zmenu do produkcie a obnoviť službu po zlyhaní. Instability opisuje, akú časť zmien a deploymentov tvorí failure alebo corrective work.
 
 ```text
-Deployment rework rate = unplanned corrective deployments / all deployments × 100 %
+rýchly flow + nízka instability
+→ malé zmeny, skorý feedback a efektívny recovery
+
+rýchly flow + vysoká instability
+→ systém dodáva a opravuje problémy vysokou rýchlosťou
+
+pomalý flow + nízka instability
+→ stabilita môže byť výsledkom zriedkavých zmien
 ```
 
-Táto metrika zviditeľňuje kapacitu spotrebovanú opravovaním predchádzajúcej práce.
+## 19. Zdroje dát
 
-### Rozdiel oproti change fail rate
+Version control poskytuje commit identity, CI/CD systém build a deployment events a artifact registry stabilnú identitu nasadeného výstupu. Incident systém poskytuje impact a recovery timestamps, zatiaľ čo feature-flag platforma môže doložiť oddelený release používateľom.
 
-Change fail rate sa pýta, koľko deploymentov priamo spôsobilo degradáciu vyžadujúcu nápravu.
+Tieto zdroje sa musia prepájať spoločnými identifikátormi. Manuálne párovanie podľa názvu služby alebo času je náchylné na chyby a s rastom objemu sa stáva neudržateľné.
 
-Deployment rework rate sa pýta, koľko vykonaných deploymentov bolo neplánovanou opravnou prácou.
-
-Jeden failed deployment môže vyvolať viac opravných deploymentov. Metriky preto zachytávajú rozdielne aspekty instability.
-
-## 8. Throughput a instability
-
-DORA metriky nemajú vytvárať konflikt „rýchlosť verzus stabilita“.
-
-```text
-Throughput bez stability
-→ veľa rýchlo dodaných problémov
-
-Stability bez throughputu
-→ stabilita dosiahnutá tým, že sa takmer nič nemení
-```
-
-Cieľom je schopnosť vykonávať malé, bezpečné a rýchlo overiteľné zmeny s efektívnym recovery.
-
-## 9. Scope merania
-
-Metriky sa majú primárne vyhodnocovať pre konkrétnu aplikáciu alebo službu v konkrétnom kontexte.
-
-Nevhodné agregácie môžu skryť realitu:
-
-```text
-Tím A: 20 deploymentov denne
-Tím B: 1 deployment za štvrťrok
-Priemer organizácie: číslo, ktoré neopisuje ani jeden tím
-```
-
-Porovnanie medzi veľmi odlišnými systémami bez kontextu je slabšie než sledovanie trendu jednej služby v čase.
-
-## 10. Zber údajov
-
-Možné zdroje:
-
-- Git commits a merge requests,
-- CI/CD pipeline events,
-- deployment platforma,
-- incident management systém,
-- feature flag platforma,
-- observability a alerting,
-- change management záznamy.
-
-Potrebné je prepojiť identitu zmeny:
-
-```text
-commit → build artifact → deployment → incident / recovery
-```
-
-Bez spoločných identifikátorov vzniká nepresná manuálna korelácia.
-
-## 11. Príklad dátového modelu
+## 20. Minimálny dátový model
 
 ```text
 deployment_id: deploy-2026-00482
 service: payments-api
 commit_sha: a12bc34
-artifact: payments-api:2.18.4
+artifact_digest: sha256:...
 started_at: 10:00
 completed_at: 10:08
-result: failed
 user_impact_at: 10:05
 restored_at: 10:22
+classification: failed
 remediation: rollback
 planned_change: true
 ```
 
-Z takýchto udalostí možno vypočítať delivery a recovery metriky konzistentnejšie než z ručne vedených tabuliek.
+Dátový model musí zachytiť aj source system, environment a versioning taxonomy. Bez nich nie je možné spätne overiť, prečo bol deployment zahrnutý alebo vylúčený.
 
-## 12. Metriky a príčina
+## 21. Data-quality failure modes
 
-DORA metriky sú výsledkové signály. Samy nevysvetlia root cause.
+Chýbajúci artifact digest môže spojiť incident s nesprávnou verziou. Nesynchronizované hodiny môžu vytvoriť záporný duration a nejednotné názvy služieb rozdelia jeden value stream na viac zdanlivo nezávislých systémov.
 
-```text
-Dlhý change lead time
-  ↓
-Value Stream Mapping
-  ↓
-zistenie: 70 % času tvorí čakanie na review
-  ↓
-experiment: review rotation a WIP limit
-  ↓
-nové meranie
-```
+Ďalším problémom je survivorship bias: úspešné deploymenty sa automaticky zaznamenajú, ale manuálne hotfixy mimo pipeline chýbajú. Audit musí preto hľadať aj emergency a out-of-band paths.
 
-Na hľadanie príčin treba doplnkové diagnostické metriky:
+## 22. Percentily a distribúcie
 
-- review waiting time,
-- pipeline duration,
-- flaky test rate,
-- queue time,
-- batch size,
-- approval wait time,
-- rollback success rate.
+Pri duration metrikách nestačí iba priemer. Median ukazuje typický tok, zatiaľ čo p90 alebo p95 odhaľuje dlhý chvost zmien, ktoré čakajú extrémne dlho.
 
-## 13. Anti-gaming pravidlá
+Segmentácia podľa service, change type alebo risk class môže byť užitočná, ak zostane stabilná. Príliš jemné delenie však znižuje počet pozorovaní a vytvára nestabilné trendy.
 
-### Nepoužívaj DORA metriky na hodnotenie jednotlivcov
+## 23. DORA ako diagnostický trigger
 
-Software delivery je vlastnosť socio-technického systému. Individuálny target môže motivovať k rozdeľovaniu commitov, umelým deploymentom alebo skrývaniu zlyhaní.
+DORA metrika ukazuje zmenu výsledku, ale nie root cause. Dlhý lead time má viesť k VSM; vysoký change fail rate k analýze batch size, test coverage, migrations a progressive-delivery evidence.
 
-### Neoptimalizuj jednu metriku izolovane
+Doplnkové diagnostické metriky zahŕňajú review wait, pipeline duration, queue time, flaky-test rate, batch size, rollback success a approval wait. Tieto metriky sa vyberajú podľa hypotézy, nie ako univerzálny dashboard všetkého.
 
-Deployment frequency možno umelo zvýšiť bez zlepšenia hodnoty. Change fail rate možno znížiť tým, že tím prestane nasadzovať.
+## 24. Reliability a delivery performance
 
-### Nemeň definíciu pri každom zhoršení
+DORA metriky nemerajú kompletnú reliability služby. SLI, SLO, error budgets, latency, correctness a durability zostávajú potrebné na posúdenie runtime outcome-u.
 
-Definície a zdroje dát musia byť stabilné, inak trend nie je porovnateľný.
+Tím môže mať kvalitný deployment proces a pritom zle navrhnutú službu. Naopak spoľahlivá služba môže mať pomalý delivery systém, ktorý bráni bezpečným opravám a evolúcii.
 
-### Nezamieňaj benchmark za cieľ
+## 25. Anti-gaming pravidlá
 
-Kontext kritickej bankovej služby a interného experimentálneho nástroja je rozdielny. Cieľom je zlepšenie vlastného systému, nie slepé kopírovanie cudzieho čísla.
+### Nemerať jednotlivcov
 
-## 14. Reliability nie je totožná s delivery metrikami
+Delivery performance je vlastnosť socio-technického systému. Individuálne targety motivujú k umelému deleniu commitov, skrývaniu zlyhaní a optimalizácii viditeľnej aktivity namiesto hodnoty.
 
-DORA delivery metriky merajú tok a instability zmien. Prevádzková reliability potrebuje aj:
+### Neoptimalizovať jednu metriku
 
-- SLI,
-- SLO,
-- error budgets,
-- availability,
-- latency,
-- correctness,
-- durability podľa typu služby.
+Deployment frequency bez fail rate môže odmeňovať nebezpečnú rýchlosť. Change fail rate bez throughputu môže odmeňovať nulovú zmenu.
 
-Tím môže mať dobrý deployment proces a zároveň nevhodne navrhnutú alebo poddimenzovanú službu.
+### Nemeníť definície podľa výsledku
 
-## 15. Praktický lab
+Event contract a taxonomy musia byť verzované a zmeny spätne zdokumentované. Inak trend odráža zmenu výpočtu, nie zmenu systému.
 
-Pre jednu službu a obdobie posledných 30 dní zozbieraj:
+### Nepoužívať benchmark ako univerzálny cieľ
 
-1. počet produkčných deploymentov,
-2. commit a deployment timestamp každej zmeny,
-3. deploymenty vyžadujúce okamžitú nápravu,
-4. čas obnovenia po týchto deploymentoch,
-5. neplánované opravné deploymenty.
+Kritickosť, release model a architektúra ovplyvňujú vhodný target. Cieľom je zlepšenie vlastného value streamu, nie leaderboard medzi neporovnateľnými službami.
 
-Vypočítaj päť metrík a následne vyber jednu hypotézu, ktorá môže vysvetľovať najslabší výsledok. Hypotézu over pomocou detailnejšej flow alebo quality metriky.
+## 26. Praktický lab
 
-## 16. Kontrolné otázky
+Pre jednu službu zozbieraj za posledných 30 dní všetky production deployment events, ich commit a artifact identity a prípadné failed-deployment incidents. Explicitne označ corrective deploymenty.
 
-1. Ktorých päť metrík používa aktuálny DORA delivery model?
-2. Prečo je failed deployment recovery time presnejší než všeobecné MTTR pre hodnotenie delivery?
-3. Aký je rozdiel medzi change fail rate a deployment rework rate?
-4. Prečo počet incidentov bez počtu deploymentov nestačí?
-5. Prečo sa DORA metriky nemajú používať na hodnotenie jednotlivca?
-6. Ako Value Stream Mapping dopĺňa change lead time?
-7. Prečo dobré DORA metriky automaticky negarantujú dobré SLO?
+Vypočítaj všetkých päť metrík, pri duration metrikách uveď median a p95. Potom vyber jednu zhoršujúcu sa metriku, vytvor value-stream alebo incident breakdown a navrhni jednu testovateľnú hypotézu.
 
-## 17. Zhrnutie
+## 27. Troubleshooting merania
 
-Aktuálny DORA model používa päť metrík: change lead time, deployment frequency, failed deployment recovery time, change fail rate a deployment rework rate. Spoločne vyjadrujú throughput a instability delivery systému. Ich hodnotou nie je leaderboard, ale merateľná spätná väzba pre priebežné zlepšovanie konkrétnej služby.
+Ak deployment frequency vyzerá neprirodzene vysoká, skontroluj restarty, rescheduling a automatické infra udalosti. Ak change fail rate vyzerá príliš nízka, porovnaj incidenty a emergency changes s deployment datasetom.
 
-## 18. Zdroje
+Ak recovery time chýba, problém môže byť v neprepojenom incidentnom systéme alebo v absencii jednoznačného restored eventu. Najprv oprav data contract; nepresné číslo nie je lepšie než transparentne neúplné meranie.
 
-- DORA: Software delivery performance metrics
-- DORA: History of software delivery metrics
-- DORA Quick Check
-- DORA: Value stream mapping for software delivery
+## 28. Kontrolné otázky
+
+1. Prečo sa DORA metriky musia vyhodnocovať spoločne?
+2. Aký event contract potrebuje change lead time?
+3. Čo sa nemá počítať ako production deployment?
+4. Prečo failed deployment recovery time nie je všeobecné MTTR?
+5. Prečo je denominator change fail rate kritický?
+6. Ako sa deployment rework rate líši od change fail rate?
+7. Prečo artifact identity zlepšuje kvalitu merania?
+8. Ako sa DORA dopĺňa s VSM a SLO?
+9. Aké gaming správanie môže vyvolať individuálny target?
+
+## 29. Zhrnutie
+
+DORA metriky poskytujú spoločný outcome model pre throughput a instability software delivery systému. Ich hodnota závisí od stabilných event definitions, kvalitnej identity zmeny, správneho scope-u a následnej diagnostiky mechanizmov, ktoré výsledok vytvárajú.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
 
 **Navigácia**
 
-[← Predchádzajúca: Value stream mapping](value-stream-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps anti-patterns →](devops-anti-patterns.md)
+[← Predchádzajúca: Value stream mapping](value-stream-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps anti-patterny →](devops-anti-patterns.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
