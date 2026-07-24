@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11484**
-- Total words: **543,610**
-- Findings: **25760** (critical 8643, high 9688, medium 3511, low 3918)
+- Audited conceptual sections: **11500**
+- Total words: **544,921**
+- Findings: **25815** (critical 8650, high 9695, medium 3520, low 3950)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -99,6 +99,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 932 | 43 | 40 | 26 | 4 | 1525 | `docs/13-security-and-identity/active-directory.md` |
 | D | 924 | 44 | 42 | 18 | 5 | 1351 | `docs/04-testing-and-quality/chaos-testing.md` |
 | D | 922 | 46 | 44 | 10 | 0 | 1347 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
+| D | 918 | 42 | 40 | 15 | 34 | 2375 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 916 | 38 | 44 | 23 | 22 | 2247 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 908 | 42 | 46 | 13 | 3 | 1304 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
@@ -163,7 +164,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 697 | 28 | 25 | 28 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 696 | 35 | 30 | 13 | 0 | 1145 | `docs/06-gitlab/variables-and-secrets.md` |
 | D | 695 | 28 | 40 | 13 | 1 | 1252 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
-| D | 694 | 35 | 33 | 6 | 2 | 1064 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 690 | 36 | 29 | 11 | 0 | 1123 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 684 | 34 | 32 | 8 | 2 | 1006 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | D | 684 | 28 | 37 | 14 | 6 | 1530 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
@@ -4707,74 +4707,88 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/smoke-and-regression-tests.md`
 
-- **CRITICAL** line 10, `bare-bullet-items` — **1. Smoke test**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proces sa spustil,`, `health endpoint odpovedá,`, `databázové pripojenie funguje,`, `kritický endpoint vracia validnú odpoveď,`.
-- **CRITICAL** line 10, `outline-instead-of-explanation` — **1. Smoke test**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 30, `bare-bullet-items` — **2. Build verification test**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact je spustiteľný,`, `povinné súbory sú prítomné,`, `konfigurácia sa načíta,`, `migrácie sa dajú aplikovať,`.
-- **CRITICAL** line 30, `outline-instead-of-explanation` — **2. Build verification test**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 44, `bare-bullet-items` — **3. Deployment smoke test**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správnu version alebo commit SHA,`, `readiness,`, `routing,`, `TLS a DNS,`.
-- **CRITICAL** line 44, `outline-instead-of-explanation` — **3. Deployment smoke test**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **6. Regression test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `požiadavky,`, `historickej chyby,`, `incidentu,`, `kritického invariantu,`.
-- **CRITICAL** line 90, `outline-instead-of-explanation` — **6. Regression test**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 105, `bare-bullet-items` — **7. Functional regression**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ceny a dane,`, `oprávnenia,`, `state transitions,`, `API responses,`.
-- **CRITICAL** line 105, `outline-instead-of-explanation` — **7. Functional regression**: 6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 118, `bare-bullet-items` — **8. Non-functional regression**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency,`, `throughput,`, `memory usage,`, `startup time,`.
-- **CRITICAL** line 118, `outline-instead-of-explanation` — **8. Non-functional regression**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 133, `bare-bullet-items` — **9. Visual regression**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fonty,`, `antialiasing,`, `browser version,`, `dynamic content,`.
-- **CRITICAL** line 133, `outline-instead-of-explanation` — **9. Visual regression**: 11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 156, `bare-bullet-items` — **10. Snapshot testing**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AST,`, `rendered configuration,`, `serializer output,`, `CLI help,`.
-- **CRITICAL** line 156, `outline-instead-of-explanation` — **10. Snapshot testing**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 175, `bare-bullet-items` — **11. Regression suite selection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected tests podľa dependency graphu,`, `path-based selection,`, `risk-based tags,`, `historical test impact analysis,`.
-- **CRITICAL** line 175, `outline-instead-of-explanation` — **11. Regression suite selection**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 190, `bare-bullet-items` — **12. Risk-based regression**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `change scope,`, `failure history,`, `complexity,`.
-- **CRITICAL** line 190, `outline-instead-of-explanation` — **12. Risk-based regression**: 7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 213, `bare-bullet-items` — **13. Test tagging**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `smoke ,`, `critical ,`, `regression ,`, `slow ,`.
-- **CRITICAL** line 213, `outline-instead-of-explanation` — **13. Test tagging**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 228, `bare-bullet-items` — **14. Post-deployment smoke**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-only alebo bezpečne idempotentný,`, `tenantovo izolovaný,`, `jasne označený v logoch,`, `rýchly,`.
-- **CRITICAL** line 228, `outline-instead-of-explanation` — **14. Post-deployment smoke**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 241, `bare-bullet-items` — **15. Synthetic monitoring**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test identity,`, `test data cleanup,`, `rate limits,`, `alert threshold,`.
-- **CRITICAL** line 241, `outline-instead-of-explanation` — **15. Synthetic monitoring**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 257, `bare-bullet-items` — **16. Regression test po incidente**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrent retries,`, `response loss po commit-e,`, `rovnaký idempotency key,`, `recovery po process restart,`.
-- **CRITICAL** line 257, `outline-instead-of-explanation` — **16. Regression test po incidente**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 281, `bare-bullet-items` — **17. Regression suite health**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duration,`, `failure rate,`, `flaky rate,`, `retry rate,`.
-- **CRITICAL** line 281, `outline-instead-of-explanation` — **17. Regression suite health**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 297, `bare-bullet-items` — **18. Baseline management**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto baseline schvaľuje,`, `na akej platforme vzniká,`, `ako sa versionuje,`, `kedy sa regeneruje,`.
-- **CRITICAL** line 297, `outline-instead-of-explanation` — **18. Baseline management**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 363, `bare-bullet-items` — **21. Rozhodovací rámec**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké minimum dokazuje, že build je použiteľný?`, `Ktoré workflow sú kritické pre deployment smoke?`, `Je smoke bezpečný a idempotentný?`, `Akú regresiu má konkrétny test chrániť?`.
-- **CRITICAL** line 363, `no-prose-concept` — **21. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 363, `outline-instead-of-explanation` — **21. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 10, `single-sentence-concept` — **1. Smoke test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 44, `single-sentence-concept` — **3. Deployment smoke test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 105, `single-sentence-concept` — **7. Functional regression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 118, `single-sentence-concept` — **8. Non-functional regression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 156, `single-sentence-concept` — **10. Snapshot testing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 190, `single-sentence-concept` — **12. Risk-based regression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 228, `single-sentence-concept` — **14. Post-deployment smoke**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 297, `single-sentence-concept` — **18. Baseline management**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **Smoke suite trvá hodinu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **Smoke overuje iba /health**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 320, `single-sentence-concept` — **Full regression pri každom keystroke**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 324, `single-sentence-concept` — **Regression suite bez pruning-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 328, `single-sentence-concept` — **Bug fix bez reprodukčného testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 332, `single-sentence-concept` — **Rerun-until-green**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 336, `single-sentence-concept` — **20. Pipeline placement**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 363, `list-first-introduction` — **21. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 10, `thin-concept-section` — **1. Smoke test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 30, `thin-concept-section` — **2. Build verification test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 44, `thin-concept-section` — **3. Deployment smoke test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 90, `thin-concept-section` — **6. Regression test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 105, `thin-concept-section` — **7. Functional regression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 118, `thin-concept-section` — **8. Non-functional regression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 133, `thin-concept-section` — **9. Visual regression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 156, `thin-concept-section` — **10. Snapshot testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 175, `thin-concept-section` — **11. Regression suite selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 190, `thin-concept-section` — **12. Risk-based regression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 213, `thin-concept-section` — **13. Test tagging**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 228, `thin-concept-section` — **14. Post-deployment smoke**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 241, `thin-concept-section` — **15. Synthetic monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 257, `thin-concept-section` — **16. Regression test po incidente**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 281, `thin-concept-section` — **17. Regression suite health**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 297, `thin-concept-section` — **18. Baseline management**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 363, `thin-concept-section` — **21. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 15, `outline-instead-of-explanation` — **1. Mentálny model**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 39, `outline-instead-of-explanation` — **3. Smoke gate contract**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 54, `bare-bullet-items` — **4. Build Verification Test**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact sa dá načítať a spustiť,`, `package obsahuje povinné files a metadata,`, `entrypoint a základná konfigurácia fungujú,`, `databázové migrácie sa dajú načítať alebo bezpečne naplánovať,`.
+- **CRITICAL** line 86, `bare-bullet-items` — **6. Deployment smoke test**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávanú version alebo digest,`, `readiness a počet zdravých instances,`, `DNS, TLS a routing z relevantného client pathu,`, `kritický read request,`.
+- **CRITICAL** line 86, `outline-instead-of-explanation` — **6. Deployment smoke test**: 9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 144, `bare-bullet-items` — **10. Bezpečný write smoke**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test-only tenant alebo account,`, `unikátny correlation prefix,`, `idempotency key,`, `minimálny business dopad,`.
+- **CRITICAL** line 144, `outline-instead-of-explanation` — **10. Bezpečný write smoke**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 159, `outline-instead-of-explanation` — **11. Smoke timeout a failure semantics**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 170, `bare-bullet-items` — **12. Rollback a smoke**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `smoke spoľahlivo rozlišuje product failure,`, `predchádzajúci artifact je známy a dostupný,`, `ďalší rollback nevytvorí väčší incident,`, `výsledok a rozhodnutie sú auditované.`.
+- **CRITICAL** line 170, `outline-instead-of-explanation` — **12. Rollback a smoke**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 182, `bare-bullet-items` — **13. Regression test**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requirement alebo acceptance criterion,`, `kritický invariant,`, `opravený bug,`, `incident alebo near miss,`.
+- **CRITICAL** line 182, `outline-instead-of-explanation` — **13. Regression test**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 212, `bare-bullet-items` — **15. Bug fix a reprodukčný test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukuje failure v automatizovanom teste,`, `potvrdí, že test pred opravou zlyhá správnym dôvodom,`, `implementuje opravu,`, `overí úspech testu a súvisiace invariants,`.
+- **CRITICAL** line 212, `outline-instead-of-explanation` — **15. Bug fix a reprodukčný test**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 225, `bare-bullet-items` — **16. Incident-to-regression príklad**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit test idempotency state machine,`, `integration test uniqueness constraintu,`, `API test rovnakého idempotency key,`, `concurrency test paralelných retries,`.
+- **CRITICAL** line 225, `outline-instead-of-explanation` — **16. Incident-to-regression príklad**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 246, `bare-bullet-items` — **17. Functional regression**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `výpočet cien, daní a rounding,`, `authorization a tenant isolation,`, `state transitions,`, `API semantics,`.
+- **CRITICAL** line 246, `outline-instead-of-explanation` — **17. Functional regression**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 272, `bare-bullet-items` — **20. Snapshot testing**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je príliš veľký na zmysluplný review,`, `obsahuje timestampy alebo náhodné IDs,`, `kritické assertions sa stratia v rozsiahlej zmene,`, `reviewer iba stlačí „update all“ bez porozumenia.`.
+- **CRITICAL** line 272, `outline-instead-of-explanation` — **20. Snapshot testing**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 285, `bare-bullet-items` — **21. Baseline lifecycle**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoritatívne prostredie a toolchain,`, `verzia baseline a väzba na artifact,`, `owner a approval pravidlo,`, `tolerancia a comparison algorithm,`.
+- **CRITICAL** line 285, `outline-instead-of-explanation` — **21. Baseline lifecycle**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 299, `bare-bullet-items` — **22. Regression suite selection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency graph,`, `changed paths,`, `test-to-code mapping,`, `risk tags,`.
+- **CRITICAL** line 299, `outline-instead-of-explanation` — **22. Regression suite selection**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 313, `bare-bullet-items` — **23. Test Impact Analysis**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysvetliť, prečo bol test vybraný alebo vynechaný,`, `konzervatívne zahrnúť neznáme alebo dynamické dependencies,`, `sledovať false-green escapes,`, `pravidelne spúšťať širšiu suite na validáciu modelu,`.
+- **CRITICAL** line 313, `outline-instead-of-explanation` — **23. Test Impact Analysis**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 370, `bare-bullet-items` — **26. Test tagging governance**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `význam,`, `ownera,`, `trigger,`, `time budget,`.
+- **CRITICAL** line 370, `outline-instead-of-explanation` — **26. Test tagging governance**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 390, `bare-bullet-items` — **28. Flaky regression a retries**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prvý výsledok,`, `všetky pokusy,`, `failure signature,`, `worker a environment,`.
+- **CRITICAL** line 390, `outline-instead-of-explanation` — **28. Flaky regression a retries**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 403, `bare-bullet-items` — **29. Regression suite health**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate,`, `flaky a retry rate,`, `p50/p95 duration,`, `queue time,`.
+- **CRITICAL** line 403, `outline-instead-of-explanation` — **29. Regression suite health**: 11 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 421, `bare-bullet-items` — **30. Suite maintenance a retirement**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či chránené behavior ešte existuje,`, `či test nie je duplicitný,`, `či baseline stále predstavuje správne očakávanie,`, `či maintenance cost neprevyšuje dôkaznú hodnotu,`.
+- **CRITICAL** line 421, `outline-instead-of-explanation` — **30. Suite maintenance a retirement**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 434, `bare-bullet-items` — **31. Diagnostika smoke failure**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over artifact digest a environment revision.`, `Zisti prvý neúspešný observation point.`, `Koreluj request ID, trace a server logs.`, `Over, či fixture a test identity boli platné.`.
+- **CRITICAL** line 434, `no-prose-concept` — **31. Diagnostika smoke failure**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 434, `outline-instead-of-explanation` — **31. Diagnostika smoke failure**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 445, `no-prose-concept` — **32. Diagnostika regression failure**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 445, `outline-instead-of-explanation` — **32. Diagnostika regression failure**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 456, `empty-section` — **33. Časté anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 490, `bare-bullet-items` — **34. Prevádzkový checklist**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target artifact a environment sú jednoznačné,`, `suite má explicitný time budget,`, `smoke pokrýva relevantný client path,`, `write smoke je bezpečný a izolovaný,`.
+- **CRITICAL** line 490, `outline-instead-of-explanation` — **34. Prevádzkový checklist**: 12 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **HIGH** line 15, `single-sentence-concept` — **1. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 39, `single-sentence-concept` — **3. Smoke gate contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 54, `list-heavy-section` — **4. Build Verification Test**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 70, `single-sentence-concept` — **5. Artifact provenance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 197, `single-sentence-concept` — **14. Regression provenance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 212, `single-sentence-concept` — **15. Bug fix a reprodukčný test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 225, `single-sentence-concept` — **16. Incident-to-regression príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 246, `single-sentence-concept` — **17. Functional regression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 285, `single-sentence-concept` — **21. Baseline lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 325, `single-sentence-concept` — **24. Risk-based regression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 338, `single-sentence-concept` — **25. Suite vrstvy a časové rozpočty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 403, `single-sentence-concept` — **29. Regression suite health**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 434, `list-first-introduction` — **31. Diagnostika smoke failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 445, `bare-bullet-items` — **32. Diagnostika regression failure**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identifikuj chránený kontrakt a pôvod testu.`, `Over first-attempt failure bez automatického rerunu.`, `Porovnaj artifact, toolchain, environment a baseline.`, `Rozlíš očakávanú behavior zmenu od neplánovanej regresie.`.
+- **HIGH** line 445, `list-first-introduction` — **32. Diagnostika regression failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 458, `single-sentence-concept` — **Smoke suite trvá hodinu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 462, `single-sentence-concept` — **Smoke overuje iba /health**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 466, `single-sentence-concept` — **Smoke používa iný artifact než release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 470, `single-sentence-concept` — **Full regression pri každej malej zmene**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 474, `single-sentence-concept` — **Selection bez pravidelného full runu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 478, `single-sentence-concept` — **Bug fix bez reprodukčného testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 482, `single-sentence-concept` — **Update-all baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 486, `single-sentence-concept` — **Rerun-until-green**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 490, `single-sentence-concept` — **34. Prevádzkový checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 39, `thin-concept-section` — **3. Smoke gate contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 144, `thin-concept-section` — **10. Bezpečný write smoke**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 159, `thin-concept-section` — **11. Smoke timeout a failure semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 212, `thin-concept-section` — **15. Bug fix a reprodukčný test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 225, `thin-concept-section` — **16. Incident-to-regression príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 246, `thin-concept-section` — **17. Functional regression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 285, `thin-concept-section` — **21. Baseline lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 299, `thin-concept-section` — **22. Regression suite selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 313, `thin-concept-section` — **23. Test Impact Analysis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 390, `thin-concept-section` — **28. Flaky regression a retries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 403, `thin-concept-section` — **29. Regression suite health**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 421, `thin-concept-section` — **30. Suite maintenance a retirement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 434, `term-before-explanation` — **31. Diagnostika smoke failure**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `ID`, `identity`
+- **HIGH** line 434, `thin-concept-section` — **31. Diagnostika smoke failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 445, `thin-concept-section` — **32. Diagnostika regression failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 490, `thin-concept-section` — **34. Prevádzkový checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/static-analysis-linting-type-checking.md`
 
@@ -19381,19 +19395,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3984 | 386 | 0 | 0 | 4370 |
-| `single-sentence-concept` | 0 | 4096 | 0 | 0 | 4096 |
-| `outline-instead-of-explanation` | 3852 | 0 | 0 | 0 | 3852 |
-| `thin-concept-section` | 0 | 3476 | 0 | 0 | 3476 |
-| `term-before-explanation` | 0 | 422 | 2437 | 0 | 2859 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1613 | 1613 |
-| `example-not-explicit` | 0 | 0 | 0 | 1504 | 1504 |
-| `short-concept-section` | 0 | 0 | 1074 | 0 | 1074 |
-| `list-first-introduction` | 0 | 963 | 0 | 0 | 963 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 801 | 801 |
-| `empty-section` | 481 | 0 | 0 | 0 | 481 |
-| `list-heavy-section` | 0 | 345 | 0 | 0 | 345 |
-| `no-prose-concept` | 326 | 0 | 0 | 0 | 326 |
+| `bare-bullet-items` | 3985 | 387 | 0 | 0 | 4372 |
+| `single-sentence-concept` | 0 | 4101 | 0 | 0 | 4101 |
+| `outline-instead-of-explanation` | 3856 | 0 | 0 | 0 | 3856 |
+| `thin-concept-section` | 0 | 3474 | 0 | 0 | 3474 |
+| `term-before-explanation` | 0 | 423 | 2439 | 0 | 2862 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1628 | 1628 |
+| `example-not-explicit` | 0 | 0 | 0 | 1516 | 1516 |
+| `short-concept-section` | 0 | 0 | 1081 | 0 | 1081 |
+| `list-first-introduction` | 0 | 964 | 0 | 0 | 964 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 806 | 806 |
+| `empty-section` | 482 | 0 | 0 | 0 | 482 |
+| `list-heavy-section` | 0 | 346 | 0 | 0 | 346 |
+| `no-prose-concept` | 327 | 0 | 0 | 0 | 327 |
 
 ## Required remediation pattern
 
