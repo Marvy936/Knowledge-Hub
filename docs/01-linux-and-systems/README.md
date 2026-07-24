@@ -18,7 +18,7 @@ Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md
 8. [Package management](package-management.md)
 9. [journald a logging](journald-and-logging.md)
 10. [Storage, mounty a filesystems](storage-mounts-and-filesystems.md)
-11. [Memory a CPU fundamentals](cpu-and-memory-fundamentals.md)
+11. [CPU a memory fundamentals](cpu-and-memory-fundamentals.md)
 12. [Linux networking](linux-networking.md)
 13. [SSH](ssh.md)
 14. [Cron a systemd timers](cron-and-systemd-timers.md)
@@ -68,7 +68,7 @@ Po dokončení sekcie má byť možné:
 | Package management | Learning | L2 |
 | journald a logging | Learning | L2 |
 | Storage, mounty a filesystems | Learning | L2 |
-| Memory a CPU fundamentals | Learning | L2 |
+| CPU a memory fundamentals | Learning | L2 |
 | Linux networking | Learning | L2 |
 | SSH | Learning | L2 |
 | Cron a systemd timers | Learning | L2 |
