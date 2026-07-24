@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10511**
-- Total words: **445,838**
-- Findings: **23323** (critical 8253, high 9354, medium 3113, low 2603)
+- Audited conceptual sections: **10535**
+- Total words: **448,629**
+- Findings: **23356** (critical 8249, high 9351, medium 3115, low 2641)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -256,8 +256,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
-| D | 234 | 10 | 11 | 4 | 8 | 876 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
+| D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 209 | 7 | 6 | 12 | 27 | 3036 | `docs/00-foundations/feedback-loops.md` |
 | D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
 | D | 191 | 5 | 16 | 1 | 0 | 587 | `docs/03-git-and-automation/reset-revert-restore.md` |
@@ -1129,24 +1129,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Kernel a user space`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Proces**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtuálny adresný priestor,`, `otvorené file descriptors,`, `credentials a capabilities,`, `current working directory,`.
-- **CRITICAL** line 11, `outline-instead-of-explanation` — **1. Proces**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 55, `bare-bullet-items` — **4. Thread**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `adresný priestor,`, `heap,`, `otvorené file descriptors,`, `väčšinu process-wide state.`.
-- **CRITICAL** line 153, `bare-bullet-items` — **10. /proc**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command line — argumenty pri spustení,`, `environment — /proc/<pid /environ ,`, `open descriptors — /proc/<pid /fd .`.
-- **CRITICAL** line 153, `outline-instead-of-explanation` — **10. /proc**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `empty-section` — **12. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **13. Troubleshooting scenár**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 277, `outline-instead-of-explanation` — **26. /proc ako kernelový process view**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 307, `outline-instead-of-explanation` — **28. Diagnostické nástroje a čo dokazujú**: 5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 369, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 55, `list-heavy-section` — **4. Thread**: 9 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 153, `single-sentence-concept` — **10. /proc**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 174, `list-first-introduction` — **11. Diagnostické príkazy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 174, `single-sentence-concept` — **11. Diagnostické príkazy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 202, `bare-bullet-items` — **13. Troubleshooting scenár**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Zisti main PID a cgroup služby.`, `Skontroluj process states a thready.`, `Pozri logy pred odoslaním SIGTERM a po ňom.`, `SIGKILL použi až po získaní diagnostických údajov.`.
-- **HIGH** line 202, `single-sentence-concept` — **13. Troubleshooting scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 26, `list-heavy-section` — **2. Čo tvorí process context**: 7 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 307, `list-first-introduction` — **28. Diagnostické nástroje a čo dokazujú**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 307, `single-sentence-concept` — **28. Diagnostické nástroje a čo dokazujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Proces**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 153, `thin-concept-section` — **10. /proc**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 202, `thin-concept-section` — **13. Troubleshooting scenár**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 26, `term-before-explanation` — **2. Čo tvorí process context**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `Resource`, `policy`
+- **HIGH** line 277, `thin-concept-section` — **26. /proc ako kernelový process view**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 307, `thin-concept-section` — **28. Diagnostické nástroje a čo dokazujú**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/selinux-and-apparmor.md`
 
@@ -18657,17 +18650,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4150 | 0 | 0 | 4150 |
-| `bare-bullet-items` | 3781 | 344 | 0 | 0 | 4125 |
-| `outline-instead-of-explanation` | 3677 | 0 | 0 | 0 | 3677 |
-| `thin-concept-section` | 0 | 3361 | 0 | 0 | 3361 |
-| `term-before-explanation` | 0 | 343 | 2227 | 0 | 2570 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1192 | 1192 |
-| `example-not-explicit` | 0 | 0 | 0 | 989 | 989 |
+| `single-sentence-concept` | 0 | 4148 | 0 | 0 | 4148 |
+| `bare-bullet-items` | 3778 | 343 | 0 | 0 | 4121 |
+| `outline-instead-of-explanation` | 3676 | 0 | 0 | 0 | 3676 |
+| `thin-concept-section` | 0 | 3360 | 0 | 0 | 3360 |
+| `term-before-explanation` | 0 | 344 | 2228 | 0 | 2572 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1199 | 1199 |
+| `example-not-explicit` | 0 | 0 | 0 | 1002 | 1002 |
 | `list-first-introduction` | 0 | 943 | 0 | 0 | 943 |
-| `short-concept-section` | 0 | 0 | 886 | 0 | 886 |
+| `short-concept-section` | 0 | 0 | 887 | 0 | 887 |
 | `empty-section` | 507 | 0 | 0 | 0 | 507 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 422 | 422 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 440 | 440 |
 | `no-prose-concept` | 288 | 0 | 0 | 0 | 288 |
 | `list-heavy-section` | 0 | 213 | 0 | 0 | 213 |
 

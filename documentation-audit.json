@@ -451,15 +451,15 @@
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
       "title": "Procesy, thready, PID a signals",
-      "words": 876,
-      "headings": 18,
-      "sections": 18,
-      "findings": 33,
-      "critical": 10,
-      "high": 11,
-      "medium": 4,
-      "low": 8,
-      "score": 234,
+      "words": 3667,
+      "headings": 42,
+      "sections": 42,
+      "findings": 66,
+      "critical": 6,
+      "high": 8,
+      "medium": 6,
+      "low": 46,
+      "score": 215,
       "grade": "D"
     },
     {
@@ -18398,71 +18398,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "1. Proces",
-      "line": 11,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "1. Proces",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtuálny adresný priestor,`, `otvorené file descriptors,`, `credentials a capabilities,`, `current working directory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "1. Proces",
-      "line": 11,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "1. Proces",
+      "section": "1. Program, proces a thread",
       "line": 11,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "2. PID a hierarchia procesov",
-      "line": 25,
+      "section": "1. Program, proces a thread",
+      "line": 11,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "4. Thread",
-      "line": 55,
+      "section": "2. Čo tvorí process context",
+      "line": 26,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "4. Thread",
-      "line": 55,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `adresný priestor,`, `heap,`, `otvorené file descriptors,`, `väčšinu process-wide state.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "4. Thread",
-      "line": 55,
+      "section": "2. Čo tvorí process context",
+      "line": 26,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -18470,17 +18434,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "4. Thread",
-      "line": 55,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "5. Process states",
-      "line": 74,
+      "section": "2. Čo tvorí process context",
+      "line": 26,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -18488,8 +18443,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "5. Process states",
-      "line": 74,
+      "section": "2. Čo tvorí process context",
+      "line": 26,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -18497,62 +18452,278 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "6. Zombie a orphan",
-      "line": 90,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "8. Signals",
-      "line": 114,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "8. Signals",
-      "line": 114,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "10. /proc",
-      "line": 153,
+      "section": "2. Čo tvorí process context",
+      "line": 26,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `Resource`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "10. /proc",
-      "line": 153,
+      "section": "3. PID, TID a process identity",
+      "line": 40,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "3. PID, TID a process identity",
+      "line": 40,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "4. Parent, child a procesový strom",
+      "line": 54,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "5. Vznik procesu: clone alebo fork",
+      "line": 62,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "8. Thread a zdieľaný process state",
+      "line": 99,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "9. Synchronizácia threadov",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "11. Running nie je to isté ako používa CPU",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "12. Interruptible a uninterruptible sleep",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "13. Exit a exit status",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "14. wait a reaping child procesu",
+      "line": 159,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "14. wait a reaping child procesu",
+      "line": 159,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "15. Zombie proces",
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "15. Zombie proces",
+      "line": 167,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "16. Orphan a subreaper",
+      "line": 175,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "16. Orphan a subreaper",
+      "line": 175,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "17. PID 1 má špeciálne správanie",
+      "line": 183,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "18. Signal ako asynchrónna udalosť",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "18. Signal ako asynchrónna udalosť",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "19. Signal disposition, mask a pending state",
+      "line": 199,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "19. Signal disposition, mask a pending state",
+      "line": 199,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "19. Signal disposition, mask a pending state",
+      "line": 199,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "20. Dôležité signaly a ich skutočný význam",
+      "line": 207,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "22. Graceful shutdown ako lifecycle",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "23. Prečo SIGKILL nie je bežný restart mechanizmus",
+      "line": 247,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "23. Prečo SIGKILL nie je bežný restart mechanizmus",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "24. Process groups, sessions a terminal job control",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "24. Process groups, sessions a terminal job control",
+      "line": 255,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "25. systemd a cgroup ownership procesu",
+      "line": 263,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "26. /proc ako kernelový process view",
+      "line": 277,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "10. /proc",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command line — argumenty pri spustení,`, `environment — /proc/<pid /environ ,`, `open descriptors — /proc/<pid /fd .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "10. /proc",
-      "line": 153,
+      "section": "26. /proc ako kernelový process view",
+      "line": 277,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -18560,8 +18731,71 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "11. Diagnostické príkazy",
-      "line": 174,
+      "section": "26. /proc ako kernelový process view",
+      "line": 277,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "26. /proc ako kernelový process view",
+      "line": 277,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "26. /proc ako kernelový process view",
+      "line": 277,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "26. /proc ako kernelový process view",
+      "line": 277,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "27. Open deleted files",
+      "line": 299,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "27. Open deleted files",
+      "line": 299,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "27. Open deleted files",
+      "line": 299,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -18569,8 +18803,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "11. Diagnostické príkazy",
-      "line": 174,
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -18578,44 +18812,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "12. Časté omyly",
-      "line": 188,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "13. Troubleshooting scenár",
-      "line": 202,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "13. Troubleshooting scenár",
-      "line": 202,
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "13. Troubleshooting scenár",
-      "line": 202,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Zisti main PID a cgroup služby.`, `Skontroluj process states a thready.`, `Pozri logy pred odoslaním SIGTERM a po ňom.`, `SIGKILL použi až po získaní diagnostických údajov.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "13. Troubleshooting scenár",
-      "line": 202,
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -18623,8 +18830,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "13. Troubleshooting scenár",
-      "line": 202,
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -18632,12 +18839,102 @@
     },
     {
       "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
-      "section": "13. Troubleshooting scenár",
-      "line": 202,
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "28. Diagnostické nástroje a čo dokazujú",
+      "line": 307,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `SIGTERM`, `SIGKILL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `identity`, `scope`",
       "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "29. Troubleshooting: služba nereaguje na stop",
+      "line": 327,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "29. Troubleshooting: služba nereaguje na stop",
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "29. Troubleshooting: služba nereaguje na stop",
+      "line": 327,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "29. Troubleshooting: služba nereaguje na stop",
+      "line": 327,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGTERM`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "30. Troubleshooting: rast zombie procesov",
+      "line": 349,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "31. Troubleshooting: vysoké CPU jedného procesu",
+      "line": 361,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "32. Časté omyly",
+      "line": 369,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/processes-threads-pid-signals.md",
+      "section": "35. Zhrnutie",
+      "line": 430,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/selinux-and-apparmor.md",
