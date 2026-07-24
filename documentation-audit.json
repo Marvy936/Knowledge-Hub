@@ -1025,15 +1025,15 @@
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
       "title": "Flaky tests a test data",
-      "words": 1063,
-      "headings": 43,
-      "sections": 43,
-      "findings": 123,
-      "critical": 54,
-      "high": 57,
-      "medium": 12,
-      "low": 0,
-      "score": 1128,
+      "words": 2785,
+      "headings": 56,
+      "sections": 56,
+      "findings": 157,
+      "critical": 48,
+      "high": 37,
+      "medium": 32,
+      "low": 40,
+      "score": 1049,
       "grade": "D"
     },
     {
@@ -63958,9 +63958,18 @@
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
       "section": "Metadata",
       "line": 3,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.",
       "score": 8
     },
     {
@@ -63983,827 +63992,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "1. Flaky test",
-      "line": 9,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Mentálny model",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "1. Flaky test",
-      "line": 9,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samotnom teste,`, `testovanom systéme,`, `prostredí,`, `dátach,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "1. Flaky test",
-      "line": 9,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "1. Flaky test",
-      "line": 9,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "2. Prečo je flakiness kritický problém",
-      "line": 22,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "2. Prečo je flakiness kritický problém",
-      "line": 22,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "2. Prečo je flakiness kritický problém",
-      "line": 22,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rerun-until-green,`, `ignorovaniu reálnych regresií,`, `dlhšiemu feedbacku,`, `náhodným blokáciám,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "2. Prečo je flakiness kritický problém",
-      "line": 22,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "2. Prečo je flakiness kritický problém",
-      "line": 22,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "3. Hlavné príčiny",
-      "line": 36,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Timing a race conditions",
-      "line": 38,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Timing a race conditions",
-      "line": 38,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Timing a race conditions",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Timing a race conditions",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixed sleeps,`, `nedokončená asynchronous operácia,`, `polling bez deadline,`, `race medzi setupom a consumerom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Timing a race conditions",
-      "line": 38,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Shared mutable state",
-      "line": 46,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Shared mutable state",
-      "line": 46,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Shared mutable state",
-      "line": 46,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Shared mutable state",
-      "line": 46,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spoločná databáza,`, `rovnaký user alebo resource name,`, `global cache,`, `shared filesystem path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Shared mutable state",
-      "line": 46,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Shared mutable state",
-      "line": 46,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Order dependence",
-      "line": 54,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Environment dependence",
-      "line": 58,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Environment dependence",
-      "line": 58,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Environment dependence",
-      "line": 58,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Environment dependence",
-      "line": 58,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timezone,`, `locale,`, `clock,`, `CPU speed,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Environment dependence",
-      "line": 58,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Environment dependence",
-      "line": 58,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `OS`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "External dependencies",
-      "line": 69,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "External dependencies",
-      "line": 69,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "External dependencies",
-      "line": 69,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "External dependencies",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rate limits,`, `service outages,`, `DNS,`, `uncontrolled data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "External dependencies",
-      "line": 69,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "External dependencies",
-      "line": 69,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Randomness",
-      "line": 77,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "4. Fixed sleep anti-pattern",
-      "line": 81,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "4. Fixed sleep anti-pattern",
-      "line": 81,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "4. Fixed sleep anti-pattern",
-      "line": 81,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `príliš dlhý, keď systém reaguje rýchlo,`, `príliš krátky, keď je CI pomalšie.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "4. Fixed sleep anti-pattern",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "4. Fixed sleep anti-pattern",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "5. Eventual consistency",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "5. Eventual consistency",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "5. Eventual consistency",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operácia bola prijatá,`, `stav sa propaguje,`, `read model je aktualizovaný,`, `side effect bol doručený.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "5. Eventual consistency",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "6. Deterministický čas",
-      "line": 119,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "6. Deterministický čas",
-      "line": 119,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `injected clock,`, `fixed instant,`, `explicit timezone,`, `monotonic clock pre durations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "6. Deterministický čas",
-      "line": 119,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "7. Randomness a seeds",
-      "line": 131,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "7. Randomness a seeds",
-      "line": 131,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "7. Randomness a seeds",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `seed,`, `generated input,`, `shrinknutý minimal failing example,`, `tool/version.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "7. Randomness a seeds",
-      "line": 131,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "8. Paralelné testy",
-      "line": 142,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "8. Paralelné testy",
-      "line": 142,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database schema alebo tenant,`, `resource names,`, `ports,`, `temp directories,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "8. Paralelné testy",
-      "line": 142,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "8. Paralelné testy",
-      "line": 142,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "9. Port a network collisions",
-      "line": 156,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "9. Port a network collisions",
-      "line": 156,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS-assigned ephemeral port,`, `isolated network namespace/container,`, `per-test server lifecycle,`, `readiness signal pred client requestom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "9. Port a network collisions",
-      "line": 156,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "9. Port a network collisions",
-      "line": 156,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS-`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "10. Test data kategórie",
-      "line": 167,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Hand-crafted fixtures",
-      "line": 169,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Factories/builders",
-      "line": 173,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Golden alebo snapshot data",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Synthetic datasets",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Production-derived data",
-      "line": 185,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "11. Test data factory",
-      "line": 189,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "11. Test data factory",
-      "line": 189,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "11. Test data factory",
-      "line": 189,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvára minimálny validný objekt,`, `má stabilné defaults,`, `umožňuje explicitné overrides,`, `neskrýva kritické business vlastnosti,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "11. Test data factory",
-      "line": 189,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "12. Fixtures a coupling",
-      "line": 207,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "12. Fixtures a coupling",
-      "line": 207,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "12. Fixtures a coupling",
-      "line": 207,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasný setup,`, `závislosť na poradí,`, `pomalé tests,`, `neúmyselné prepojenie scenárov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "12. Fixtures a coupling",
-      "line": 207,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "13. Database isolation",
-      "line": 219,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "13. Database isolation",
-      "line": 219,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "13. Database isolation",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction rollback,`, `schema/database per test worker,`, `container per suite alebo test,`, `deterministic cleanup,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "13. Database isolation",
-      "line": 219,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "14. Cleanup",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "14. Cleanup",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finally ,`, `fixtures teardown,`, `context managers,`, `TTL/garbage collector pre orphan resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "14. Cleanup",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "14. Cleanup",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "15. Idempotentný setup",
-      "line": 248,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "15. Idempotentný setup",
-      "line": 248,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "15. Idempotentný setup",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource už existuje,`, `predchádzajúci run zlyhal,`, `retry rovnakého jobu,`, `partial creation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "15. Idempotentný setup",
-      "line": 248,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "16. Quarantine",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "16. Quarantine",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "16. Quarantine",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pravidelné spúšťanie,`, `viditeľný failure report,`, `ownera,`, `issue,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "16. Quarantine",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "17. Retry policy",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "17. Retry policy",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate,`, `pass-after-retry rate,`, `failure signature,`, `test ownera.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "17. Retry policy",
-      "line": 272,
+      "section": "2. Flaky test verzus intermittent product defect",
+      "line": 25,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -64811,179 +64010,71 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "18. Flaky test detection",
-      "line": 285,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Flaky test verzus intermittent product defect",
+      "line": 25,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "18. Flaky test detection",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "18. Flaky test detection",
-      "line": 285,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované runs rovnakého commitu,`, `randomizované test order,`, `paralelné a serial porovnanie,`, `environment matrix,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "18. Flaky test detection",
-      "line": 285,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "19. Failure artifacts",
-      "line": 299,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "19. Failure artifacts",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "19. Failure artifacts",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stdout/stderr,`, `structured logs,`, `timestamps,`, `screenshots/video pri UI,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "19. Failure artifacts",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "19. Failure artifacts",
-      "line": 299,
+      "section": "2. Flaky test verzus intermittent product defect",
+      "line": 25,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "20. Flakiness metrics",
-      "line": 316,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "20. Flakiness metrics",
-      "line": 316,
+      "section": "3. Prečo flakiness poškodzuje delivery",
+      "line": 38,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "20. Flakiness metrics",
-      "line": 316,
+      "section": "3. Prečo flakiness poškodzuje delivery",
+      "line": 38,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-run failure rate,`, `retry recovery rate,`, `flaky tests podľa ownershipu,`, `quarantine age,`.",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálne regresie sa zamieňajú za „známy flaky test“;`, `blocking gates strácajú autoritu;`, `lead time rastie o queue a rerun čas;`, `vznikajú manual bypassy;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "20. Flakiness metrics",
-      "line": 316,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "3. Prečo flakiness poškodzuje delivery",
+      "line": 38,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "21. Test data privacy",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "3. Prečo flakiness poškodzuje delivery",
+      "line": 38,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "21. Test data privacy",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synthetic data ako default,`, `anonymization/pseudonymization,`, `data minimization,`, `access control,`.",
-      "score": 12
+      "section": "3. Prečo flakiness poškodzuje delivery",
+      "line": 38,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "21. Test data privacy",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "22. Test data versioning",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "22. Test data versioning",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input fixtures,`, `expected outputs,`, `migrations,`, `contract versions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "22. Test data versioning",
-      "line": 345,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "23. Typické omyly",
-      "line": 357,
+      "section": "5. Taxonómia príčin",
+      "line": 73,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -64991,17 +64082,1151 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "„Stačí test rerunúť“",
-      "line": 359,
+      "section": "Timing a race conditions",
+      "line": 75,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "Shared mutable state",
+      "line": 79,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "Environment dependence",
+      "line": 87,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "External dependency",
+      "line": 91,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "Randomness",
+      "line": 95,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "Test orchestration",
+      "line": 103,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "6. Fixed sleep anti-pattern",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "7. Condition-based waiting",
+      "line": 130,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "7. Condition-based waiting",
+      "line": 130,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétnu success condition;`, `deadline, nie neobmedzený retry;`, `interval alebo bounded backoff;`, `terminal failure states;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "7. Condition-based waiting",
+      "line": 130,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "7. Condition-based waiting",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "7. Condition-based waiting",
+      "line": 130,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "9. Deterministický čas",
+      "line": 161,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "9. Deterministický čas",
+      "line": 161,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pevný instant;`, `timezone;`, `DST transition;`, `koniec mesiaca a leap day;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "9. Deterministický čas",
+      "line": 161,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "9. Deterministický čas",
+      "line": 161,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DST`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "10. Randomness a property-based tests",
+      "line": 178,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "10. Randomness a property-based tests",
+      "line": 178,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `seed;`, `pôvodný generated input;`, `minimalizovaný counterexample;`, `generator a framework version;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "10. Randomness a property-based tests",
+      "line": 178,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "10. Randomness a property-based tests",
+      "line": 178,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "11. Order dependence",
+      "line": 193,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "11. Order dependence",
+      "line": 193,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spúšťať test samostatne;`, `randomizovať order a ukladať seed;`, `spustiť suite v opačnom poradí;`, `rozdeliť tests do rôznych shardov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "11. Order dependence",
+      "line": 193,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "11. Order dependence",
+      "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "12. Paralelná izolácia",
+      "line": 206,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "12. Paralelná izolácia",
+      "line": 206,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database/schema/tenant per worker;`, `OS-assigned ephemeral port;`, `temp directory per test;`, `queue/topic namespace;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "12. Paralelná izolácia",
+      "line": 206,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "12. Paralelná izolácia",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "12. Paralelná izolácia",
+      "line": 206,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `OS-`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "13. Port a startup race",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "14. Environment saturation",
+      "line": 232,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "14. Environment saturation",
+      "line": 232,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU throttling;`, `memory pressure alebo OOM;`, `file-descriptor exhaustion;`, `connection-pool saturation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "14. Environment saturation",
+      "line": 232,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "14. Environment saturation",
+      "line": 232,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `OOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "15. External dependencies",
+      "line": 248,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "15. External dependencies",
+      "line": 248,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupnosť a maintenance window;`, `rate limit;`, `test tenant a credentials;`, `data ownership;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "15. External dependencies",
+      "line": 248,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "15. External dependencies",
+      "line": 248,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "17. Hand-crafted fixtures",
+      "line": 280,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "18. Factories a builders",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "18. Factories a builders",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má stabilné, validné defaults;`, `nepoužíva náhodnosť bez reprodukovateľného seedu;`, `umožňuje explicitné overrides;`, `neskrýva security alebo business-critical fields;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "18. Factories a builders",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "18. Factories a builders",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "19. Golden a snapshot data",
+      "line": 310,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "19. Golden a snapshot data",
+      "line": 310,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordering;`, `timestamps;`, `random IDs;`, `newline a encoding;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "19. Golden a snapshot data",
+      "line": 310,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "19. Golden a snapshot data",
+      "line": 310,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "20. Synthetic datasets",
+      "line": 326,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "20. Synthetic datasets",
+      "line": 326,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hot keys;`, `skewed tenant sizes;`, `Unicode a locale variants;`, `sparse aj dense records;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "20. Synthetic datasets",
+      "line": 326,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "20. Synthetic datasets",
+      "line": 326,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "20. Synthetic datasets",
+      "line": 326,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "21. Production-derived data",
+      "line": 341,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "21. Production-derived data",
+      "line": 341,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `právny základ a schválenie;`, `data minimization;`, `anonymizáciu alebo pseudonymizáciu;`, `re-identification risk;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "21. Production-derived data",
+      "line": 341,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "21. Production-derived data",
+      "line": 341,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "21. Production-derived data",
+      "line": 341,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "22. Fixture provenance",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "22. Fixture provenance",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixture alebo dataset version;`, `schema/migration version;`, `factory/generator version;`, `seed a parameters;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "22. Fixture provenance",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "22. Fixture provenance",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "22. Fixture provenance",
+      "line": 360,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "23. Database isolation",
+      "line": 375,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "23. Database isolation",
+      "line": 375,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction rollback;`, `schema alebo database per worker;`, `disposable container;`, `snapshot restore;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "23. Database isolation",
+      "line": 375,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "23. Database isolation",
+      "line": 375,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "25. Idempotentný setup",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "25. Idempotentný setup",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource už existuje;`, `predchádzajúci run skončil pred registráciou ownershipu;`, `create request bol commitnutý, ale response sa stratila;`, `rovnaký job ID sa spustil znova;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "25. Idempotentný setup",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "25. Idempotentný setup",
+      "line": 403,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "25. Idempotentný setup",
+      "line": 403,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "25. Idempotentný setup",
+      "line": 403,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "26. Cleanup ownership",
+      "line": 415,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "26. Cleanup ownership",
+      "line": 415,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finally alebo fixture teardown;`, `explicitný cleanup job;`, `TTL na dočasných resources;`, `periodický garbage collector;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "26. Cleanup ownership",
+      "line": 415,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "27. Resource leaks",
+      "line": 430,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "27. Resource leaks",
+      "line": 430,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "27. Resource leaks",
+      "line": 430,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neuzavreté sockets;`, `processes a containers;`, `database connections;`, `temp files;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "27. Resource leaks",
+      "line": 430,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "28. Retry ako diagnostický nástroj",
+      "line": 444,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "28. Retry ako diagnostický nástroj",
+      "line": 444,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attempt number;`, `first failure signature;`, `artifacts každého pokusu;`, `rovnaký commit a vstupy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "28. Retry ako diagnostický nástroj",
+      "line": 444,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "28. Retry ako diagnostický nástroj",
+      "line": 444,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "29. First-attempt pass rate",
+      "line": 464,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "29. First-attempt pass rate",
+      "line": 464,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt failure rate per test;`, `recovery-on-retry rate;`, `repeated-failure rate;`, `unique failure signatures;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "29. First-attempt pass rate",
+      "line": 464,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "29. First-attempt pass rate",
+      "line": 464,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "29. First-attempt pass rate",
+      "line": 464,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test sa naďalej pravidelne spúšťa;`, `failure zostáva viditeľný;`, `existuje owner a issue;`, `je uvedený dôvod a failure signature;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "30. Quarantine lifecycle",
+      "line": 480,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "32. Detekčné stratégie",
+      "line": 502,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "32. Detekčné stratégie",
+      "line": 502,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované runs rovnakého commitu;`, `randomizované order;`, `serial verzus parallel comparison;`, `test samostatne verzus full suite;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "32. Detekčné stratégie",
+      "line": 502,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "32. Detekčné stratégie",
+      "line": 502,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "32. Detekčné stratégie",
+      "line": 502,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "32. Detekčné stratégie",
+      "line": 502,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "33. Failure artifacts",
+      "line": 520,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "33. Failure artifacts",
+      "line": 520,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stdout a stderr;`, `structured logs;`, `timestamps a timeline;`, `test seed a order seed;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "33. Failure artifacts",
+      "line": 520,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "33. Failure artifacts",
+      "line": 520,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "33. Failure artifacts",
+      "line": 520,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovaj prvý failure a candidate revision;`, `klasifikuj assertion, setup, cleanup, environment alebo orchestration `, `reprodukuj s rovnakým fixture, seed a order;`, `spusti test samostatne a vo full suite;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "34. Root-cause workflow",
+      "line": 542,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukčný test pred fixom konzistentne zlyhal;`, `root cause je zdokumentovaný;`, `fix odstraňuje nekontrolovaný vstup alebo product race;`, `test prejde opakovane v serial aj parallel režime;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "35. Exit criteria po oprave",
+      "line": 559,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "36. Flakiness metrics",
+      "line": 572,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "36. Flakiness metrics",
+      "line": 572,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate;`, `pass-after-retry rate;`, `flaky tests podľa ownera a vrstvy;`, `failure signature distribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "36. Flakiness metrics",
+      "line": 572,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "36. Flakiness metrics",
+      "line": 572,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "36. Flakiness metrics",
+      "line": 572,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "37. Časté omyly",
+      "line": 590,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
       "section": "„Test je flaky iba v CI“",
-      "line": 363,
+      "line": 596,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65009,8 +65234,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "„Sleep zvýšime z 5 na 30 sekúnd“",
-      "line": 367,
+      "section": "„Zvýšime sleep alebo timeout“",
+      "line": 600,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65018,8 +65243,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "„Quarantined test už neblokuje, problém je vyriešený“",
-      "line": 371,
+      "section": "„Production dump je najrealistickejšia fixture“",
+      "line": 608,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65027,8 +65252,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "„Test data môžu byť production dump, repository je private“",
-      "line": 375,
+      "section": "„Cleanup failure nevadí, test už skončil“",
+      "line": 612,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -65036,12 +65261,93 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "„Random test bez reprodukovateľného seedu je dostatočný“",
-      "line": 379,
+      "section": "„Final pipeline pass rate je dostatočná metrika“",
+      "line": 616,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ukladá sa first failure pred rerunom?`, `Rozlišuje pipeline assertion, setup, cleanup a infrastructure failure?`, `Používajú async tests condition-based waits s deadline?`, `Je clock, timezone a random seed kontrolovaný?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
+      "section": "38. Prevádzkový checklist",
+      "line": 620,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `TTL`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",

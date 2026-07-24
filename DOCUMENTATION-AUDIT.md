@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11584**
-- Total words: **554,431**
-- Findings: **26079** (critical 8692, high 9697, medium 3588, low 4102)
+- Audited conceptual sections: **11597**
+- Total words: **556,153**
+- Findings: **26113** (critical 8686, high 9677, medium 3608, low 4142)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -67,7 +67,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1161 | 53 | 56 | 16 | 23 | 3041 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 1148 | 57 | 51 | 15 | 11 | 1728 | `docs/12-observability/metrics-logs-traces-events.md` |
 | D | 1137 | 52 | 55 | 21 | 10 | 1623 | `docs/09-kubernetes/upgrades.md` |
-| D | 1128 | 54 | 57 | 12 | 0 | 1063 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
 | D | 1123 | 52 | 52 | 21 | 12 | 1692 | `docs/12-observability/instrumentation-telemetry.md` |
 | D | 1119 | 54 | 46 | 25 | 14 | 1792 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | D | 1119 | 48 | 58 | 16 | 21 | 2203 | `docs/12-observability/loki.md` |
@@ -77,6 +76,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1078 | 46 | 56 | 20 | 13 | 1986 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | D | 1060 | 48 | 57 | 10 | 5 | 1798 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | D | 1057 | 48 | 52 | 18 | 11 | 1353 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
+| D | 1049 | 48 | 37 | 32 | 40 | 2785 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
 | D | 1049 | 46 | 53 | 19 | 14 | 1688 | `docs/11-cloud-and-aws/systems-manager.md` |
 | D | 1019 | 46 | 50 | 17 | 16 | 1894 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | D | 1005 | 49 | 44 | 17 | 9 | 1820 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
@@ -4214,116 +4214,90 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/04-testing-and-quality/flaky-tests-and-test-data.md`
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 9, `bare-bullet-items` — **1. Flaky test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samotnom teste,`, `testovanom systéme,`, `prostredí,`, `dátach,`.
-- **CRITICAL** line 9, `outline-instead-of-explanation` — **1. Flaky test**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 22, `bare-bullet-items` — **2. Prečo je flakiness kritický problém**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rerun-until-green,`, `ignorovaniu reálnych regresií,`, `dlhšiemu feedbacku,`, `náhodným blokáciám,`.
-- **CRITICAL** line 22, `outline-instead-of-explanation` — **2. Prečo je flakiness kritický problém**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 36, `empty-section` — **3. Hlavné príčiny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 38, `bare-bullet-items` — **Timing a race conditions**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixed sleeps,`, `nedokončená asynchronous operácia,`, `polling bez deadline,`, `race medzi setupom a consumerom,`.
-- **CRITICAL** line 38, `no-prose-concept` — **Timing a race conditions**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 38, `outline-instead-of-explanation` — **Timing a race conditions**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 46, `bare-bullet-items` — **Shared mutable state**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spoločná databáza,`, `rovnaký user alebo resource name,`, `global cache,`, `shared filesystem path,`.
-- **CRITICAL** line 46, `no-prose-concept` — **Shared mutable state**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 46, `outline-instead-of-explanation` — **Shared mutable state**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 58, `bare-bullet-items` — **Environment dependence**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timezone,`, `locale,`, `clock,`, `CPU speed,`.
-- **CRITICAL** line 58, `no-prose-concept` — **Environment dependence**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 58, `outline-instead-of-explanation` — **Environment dependence**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 69, `bare-bullet-items` — **External dependencies**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rate limits,`, `service outages,`, `DNS,`, `uncontrolled data,`.
-- **CRITICAL** line 69, `no-prose-concept` — **External dependencies**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 69, `outline-instead-of-explanation` — **External dependencies**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 101, `bare-bullet-items` — **5. Eventual consistency**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operácia bola prijatá,`, `stav sa propaguje,`, `read model je aktualizovaný,`, `side effect bol doručený.`.
-- **CRITICAL** line 101, `outline-instead-of-explanation` — **5. Eventual consistency**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 119, `bare-bullet-items` — **6. Deterministický čas**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `injected clock,`, `fixed instant,`, `explicit timezone,`, `monotonic clock pre durations,`.
-- **CRITICAL** line 119, `outline-instead-of-explanation` — **6. Deterministický čas**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 131, `bare-bullet-items` — **7. Randomness a seeds**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `seed,`, `generated input,`, `shrinknutý minimal failing example,`, `tool/version.`.
-- **CRITICAL** line 131, `outline-instead-of-explanation` — **7. Randomness a seeds**: 4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 142, `bare-bullet-items` — **8. Paralelné testy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database schema alebo tenant,`, `resource names,`, `ports,`, `temp directories,`.
-- **CRITICAL** line 142, `outline-instead-of-explanation` — **8. Paralelné testy**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 156, `bare-bullet-items` — **9. Port a network collisions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS-assigned ephemeral port,`, `isolated network namespace/container,`, `per-test server lifecycle,`, `readiness signal pred client requestom.`.
-- **CRITICAL** line 156, `outline-instead-of-explanation` — **9. Port a network collisions**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 167, `empty-section` — **10. Test data kategórie**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 189, `bare-bullet-items` — **11. Test data factory**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvára minimálny validný objekt,`, `má stabilné defaults,`, `umožňuje explicitné overrides,`, `neskrýva kritické business vlastnosti,`.
-- **CRITICAL** line 189, `outline-instead-of-explanation` — **11. Test data factory**: 5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 207, `bare-bullet-items` — **12. Fixtures a coupling**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nejasný setup,`, `závislosť na poradí,`, `pomalé tests,`, `neúmyselné prepojenie scenárov,`.
-- **CRITICAL** line 207, `outline-instead-of-explanation` — **12. Fixtures a coupling**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `bare-bullet-items` — **13. Database isolation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction rollback,`, `schema/database per test worker,`, `container per suite alebo test,`, `deterministic cleanup,`.
-- **CRITICAL** line 219, `outline-instead-of-explanation` — **13. Database isolation**: 9 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `bare-bullet-items` — **14. Cleanup**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finally ,`, `fixtures teardown,`, `context managers,`, `TTL/garbage collector pre orphan resources,`.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **14. Cleanup**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 248, `bare-bullet-items` — **15. Idempotentný setup**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource už existuje,`, `predchádzajúci run zlyhal,`, `retry rovnakého jobu,`, `partial creation.`.
-- **CRITICAL** line 248, `outline-instead-of-explanation` — **15. Idempotentný setup**: 4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `bare-bullet-items` — **16. Quarantine**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pravidelné spúšťanie,`, `viditeľný failure report,`, `ownera,`, `issue,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **16. Quarantine**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `bare-bullet-items` — **17. Retry policy**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate,`, `pass-after-retry rate,`, `failure signature,`, `test ownera.`.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **17. Retry policy**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 285, `bare-bullet-items` — **18. Flaky test detection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované runs rovnakého commitu,`, `randomizované test order,`, `paralelné a serial porovnanie,`, `environment matrix,`.
-- **CRITICAL** line 285, `outline-instead-of-explanation` — **18. Flaky test detection**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 299, `bare-bullet-items` — **19. Failure artifacts**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stdout/stderr,`, `structured logs,`, `timestamps,`, `screenshots/video pri UI,`.
-- **CRITICAL** line 299, `outline-instead-of-explanation` — **19. Failure artifacts**: 10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 316, `bare-bullet-items` — **20. Flakiness metrics**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-run failure rate,`, `retry recovery rate,`, `flaky tests podľa ownershipu,`, `quarantine age,`.
-- **CRITICAL** line 316, `outline-instead-of-explanation` — **20. Flakiness metrics**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **21. Test data privacy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synthetic data ako default,`, `anonymization/pseudonymization,`, `data minimization,`, `access control,`.
-- **CRITICAL** line 330, `outline-instead-of-explanation` — **21. Test data privacy**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 345, `bare-bullet-items` — **22. Test data versioning**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input fixtures,`, `expected outputs,`, `migrations,`, `contract versions,`.
-- **CRITICAL** line 345, `outline-instead-of-explanation` — **22. Test data versioning**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 357, `empty-section` — **23. Typické omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 38, `bare-bullet-items` — **3. Prečo flakiness poškodzuje delivery**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálne regresie sa zamieňajú za „známy flaky test“;`, `blocking gates strácajú autoritu;`, `lead time rastie o queue a rerun čas;`, `vznikajú manual bypassy;`.
+- **CRITICAL** line 38, `outline-instead-of-explanation` — **3. Prečo flakiness poškodzuje delivery**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 73, `empty-section` — **5. Taxonómia príčin**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 130, `bare-bullet-items` — **7. Condition-based waiting**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétnu success condition;`, `deadline, nie neobmedzený retry;`, `interval alebo bounded backoff;`, `terminal failure states;`.
+- **CRITICAL** line 130, `outline-instead-of-explanation` — **7. Condition-based waiting**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 161, `bare-bullet-items` — **9. Deterministický čas**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pevný instant;`, `timezone;`, `DST transition;`, `koniec mesiaca a leap day;`.
+- **CRITICAL** line 178, `bare-bullet-items` — **10. Randomness a property-based tests**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `seed;`, `pôvodný generated input;`, `minimalizovaný counterexample;`, `generator a framework version;`.
+- **CRITICAL** line 193, `bare-bullet-items` — **11. Order dependence**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spúšťať test samostatne;`, `randomizovať order a ukladať seed;`, `spustiť suite v opačnom poradí;`, `rozdeliť tests do rôznych shardov;`.
+- **CRITICAL** line 193, `outline-instead-of-explanation` — **11. Order dependence**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 206, `bare-bullet-items` — **12. Paralelná izolácia**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database/schema/tenant per worker;`, `OS-assigned ephemeral port;`, `temp directory per test;`, `queue/topic namespace;`.
+- **CRITICAL** line 206, `outline-instead-of-explanation` — **12. Paralelná izolácia**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 232, `bare-bullet-items` — **14. Environment saturation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU throttling;`, `memory pressure alebo OOM;`, `file-descriptor exhaustion;`, `connection-pool saturation;`.
+- **CRITICAL** line 232, `outline-instead-of-explanation` — **14. Environment saturation**: 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 248, `bare-bullet-items` — **15. External dependencies**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupnosť a maintenance window;`, `rate limit;`, `test tenant a credentials;`, `data ownership;`.
+- **CRITICAL** line 288, `bare-bullet-items` — **18. Factories a builders**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má stabilné, validné defaults;`, `nepoužíva náhodnosť bez reprodukovateľného seedu;`, `umožňuje explicitné overrides;`, `neskrýva security alebo business-critical fields;`.
+- **CRITICAL** line 288, `outline-instead-of-explanation` — **18. Factories a builders**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 310, `bare-bullet-items` — **19. Golden a snapshot data**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordering;`, `timestamps;`, `random IDs;`, `newline a encoding;`.
+- **CRITICAL** line 326, `bare-bullet-items` — **20. Synthetic datasets**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hot keys;`, `skewed tenant sizes;`, `Unicode a locale variants;`, `sparse aj dense records;`.
+- **CRITICAL** line 341, `bare-bullet-items` — **21. Production-derived data**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `právny základ a schválenie;`, `data minimization;`, `anonymizáciu alebo pseudonymizáciu;`, `re-identification risk;`.
+- **CRITICAL** line 341, `outline-instead-of-explanation` — **21. Production-derived data**: 10 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 360, `bare-bullet-items` — **22. Fixture provenance**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixture alebo dataset version;`, `schema/migration version;`, `factory/generator version;`, `seed a parameters;`.
+- **CRITICAL** line 360, `outline-instead-of-explanation` — **22. Fixture provenance**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 375, `bare-bullet-items` — **23. Database isolation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction rollback;`, `schema alebo database per worker;`, `disposable container;`, `snapshot restore;`.
+- **CRITICAL** line 375, `outline-instead-of-explanation` — **23. Database isolation**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 403, `bare-bullet-items` — **25. Idempotentný setup**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource už existuje;`, `predchádzajúci run skončil pred registráciou ownershipu;`, `create request bol commitnutý, ale response sa stratila;`, `rovnaký job ID sa spustil znova;`.
+- **CRITICAL** line 403, `outline-instead-of-explanation` — **25. Idempotentný setup**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 415, `bare-bullet-items` — **26. Cleanup ownership**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finally alebo fixture teardown;`, `explicitný cleanup job;`, `TTL na dočasných resources;`, `periodický garbage collector;`.
+- **CRITICAL** line 430, `bare-bullet-items` — **27. Resource leaks**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neuzavreté sockets;`, `processes a containers;`, `database connections;`, `temp files;`.
+- **CRITICAL** line 430, `outline-instead-of-explanation` — **27. Resource leaks**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 444, `bare-bullet-items` — **28. Retry ako diagnostický nástroj**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attempt number;`, `first failure signature;`, `artifacts každého pokusu;`, `rovnaký commit a vstupy;`.
+- **CRITICAL** line 444, `outline-instead-of-explanation` — **28. Retry ako diagnostický nástroj**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 464, `bare-bullet-items` — **29. First-attempt pass rate**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt failure rate per test;`, `recovery-on-retry rate;`, `repeated-failure rate;`, `unique failure signatures;`.
+- **CRITICAL** line 480, `bare-bullet-items` — **30. Quarantine lifecycle**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test sa naďalej pravidelne spúšťa;`, `failure zostáva viditeľný;`, `existuje owner a issue;`, `je uvedený dôvod a failure signature;`.
+- **CRITICAL** line 502, `bare-bullet-items` — **32. Detekčné stratégie**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované runs rovnakého commitu;`, `randomizované order;`, `serial verzus parallel comparison;`, `test samostatne verzus full suite;`.
+- **CRITICAL** line 502, `outline-instead-of-explanation` — **32. Detekčné stratégie**: 11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 520, `bare-bullet-items` — **33. Failure artifacts**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stdout a stderr;`, `structured logs;`, `timestamps a timeline;`, `test seed a order seed;`.
+- **CRITICAL** line 520, `outline-instead-of-explanation` — **33. Failure artifacts**: 13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 542, `bare-bullet-items` — **34. Root-cause workflow**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovaj prvý failure a candidate revision;`, `klasifikuj assertion, setup, cleanup, environment alebo orchestration `, `reprodukuj s rovnakým fixture, seed a order;`, `spusti test samostatne a vo full suite;`.
+- **CRITICAL** line 542, `outline-instead-of-explanation` — **34. Root-cause workflow**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 559, `bare-bullet-items` — **35. Exit criteria po oprave**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukčný test pred fixom konzistentne zlyhal;`, `root cause je zdokumentovaný;`, `fix odstraňuje nekontrolovaný vstup alebo product race;`, `test prejde opakovane v serial aj parallel režime;`.
+- **CRITICAL** line 559, `outline-instead-of-explanation` — **35. Exit criteria po oprave**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 572, `bare-bullet-items` — **36. Flakiness metrics**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate;`, `pass-after-retry rate;`, `flaky tests podľa ownera a vrstvy;`, `failure signature distribution;`.
+- **CRITICAL** line 572, `outline-instead-of-explanation` — **36. Flakiness metrics**: 11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 590, `empty-section` — **37. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 620, `no-prose-concept` — **38. Prevádzkový checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 620, `outline-instead-of-explanation` — **38. Prevádzkový checklist**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 22, `single-sentence-concept` — **2. Prečo je flakiness kritický problém**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 38, `list-first-introduction` — **Timing a race conditions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 46, `list-first-introduction` — **Shared mutable state**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 54, `single-sentence-concept` — **Order dependence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 58, `list-first-introduction` — **Environment dependence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 69, `list-first-introduction` — **External dependencies**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 77, `single-sentence-concept` — **Randomness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 81, `bare-bullet-items` — **4. Fixed sleep anti-pattern**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `príliš dlhý, keď systém reaguje rýchlo,`, `príliš krátky, keď je CI pomalšie.`.
-- **HIGH** line 81, `list-first-introduction` — **4. Fixed sleep anti-pattern**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 81, `single-sentence-concept` — **4. Fixed sleep anti-pattern**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 101, `single-sentence-concept` — **5. Eventual consistency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 131, `single-sentence-concept` — **7. Randomness a seeds**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 169, `single-sentence-concept` — **Hand-crafted fixtures**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 173, `single-sentence-concept` — **Factories/builders**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 177, `single-sentence-concept` — **Golden alebo snapshot data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **Synthetic datasets**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 185, `single-sentence-concept` — **Production-derived data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 189, `single-sentence-concept` — **11. Test data factory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 207, `single-sentence-concept` — **12. Fixtures a coupling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 219, `single-sentence-concept` — **13. Database isolation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 248, `single-sentence-concept` — **15. Idempotentný setup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **16. Quarantine**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 285, `single-sentence-concept` — **18. Flaky test detection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 299, `single-sentence-concept` — **19. Failure artifacts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **20. Flakiness metrics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 359, `single-sentence-concept` — **„Stačí test rerunúť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 363, `single-sentence-concept` — **„Test je flaky iba v CI“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 367, `single-sentence-concept` — **„Sleep zvýšime z 5 na 30 sekúnd“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 371, `single-sentence-concept` — **„Quarantined test už neblokuje, problém je vyriešený“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 375, `single-sentence-concept` — **„Test data môžu byť production dump, repository je private“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 379, `single-sentence-concept` — **„Random test bez reprodukovateľného seedu je dostatočný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 75, `single-sentence-concept` — **Timing a race conditions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 79, `single-sentence-concept` — **Shared mutable state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 87, `single-sentence-concept` — **Environment dependence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 91, `single-sentence-concept` — **External dependency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 95, `single-sentence-concept` — **Randomness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 103, `single-sentence-concept` — **Test orchestration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 161, `list-heavy-section` — **9. Deterministický čas**: 8 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 178, `list-heavy-section` — **10. Randomness a property-based tests**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 248, `list-heavy-section` — **15. External dependencies**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 310, `list-heavy-section` — **19. Golden a snapshot data**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 326, `list-heavy-section` — **20. Synthetic datasets**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 415, `list-heavy-section` — **26. Cleanup ownership**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 430, `single-sentence-concept` — **27. Resource leaks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 464, `list-heavy-section` — **29. First-attempt pass rate**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 480, `list-heavy-section` — **30. Quarantine lifecycle**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 542, `single-sentence-concept` — **34. Root-cause workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 559, `single-sentence-concept` — **35. Exit criteria po oprave**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 596, `single-sentence-concept` — **„Test je flaky iba v CI“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 600, `single-sentence-concept` — **„Zvýšime sleep alebo timeout“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 608, `single-sentence-concept` — **„Production dump je najrealistickejšia fixture“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 612, `single-sentence-concept` — **„Cleanup failure nevadí, test už skončil“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 616, `single-sentence-concept` — **„Final pipeline pass rate je dostatočná metrika“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 620, `bare-bullet-items` — **38. Prevádzkový checklist**: 9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ukladá sa first failure pred rerunom?`, `Rozlišuje pipeline assertion, setup, cleanup a infrastructure failure?`, `Používajú async tests condition-based waits s deadline?`, `Je clock, timezone a random seed kontrolovaný?`.
+- **HIGH** line 620, `list-first-introduction` — **38. Prevádzkový checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 9, `thin-concept-section` — **1. Flaky test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 22, `thin-concept-section` — **2. Prečo je flakiness kritický problém**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 38, `thin-concept-section` — **Timing a race conditions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 46, `thin-concept-section` — **Shared mutable state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 58, `thin-concept-section` — **Environment dependence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 69, `thin-concept-section` — **External dependencies**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 81, `thin-concept-section` — **4. Fixed sleep anti-pattern**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 101, `thin-concept-section` — **5. Eventual consistency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 119, `thin-concept-section` — **6. Deterministický čas**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 131, `thin-concept-section` — **7. Randomness a seeds**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 142, `thin-concept-section` — **8. Paralelné testy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 156, `thin-concept-section` — **9. Port a network collisions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 189, `thin-concept-section` — **11. Test data factory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 207, `thin-concept-section` — **12. Fixtures a coupling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 219, `thin-concept-section` — **13. Database isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 236, `thin-concept-section` — **14. Cleanup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 248, `thin-concept-section` — **15. Idempotentný setup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **16. Quarantine**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 285, `thin-concept-section` — **18. Flaky test detection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 299, `thin-concept-section` — **19. Failure artifacts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 316, `thin-concept-section` — **20. Flakiness metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 330, `thin-concept-section` — **21. Test data privacy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 345, `thin-concept-section` — **22. Test data versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 130, `thin-concept-section` — **7. Condition-based waiting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 288, `thin-concept-section` — **18. Factories a builders**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 360, `thin-concept-section` — **22. Fixture provenance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 375, `thin-concept-section` — **23. Database isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 403, `thin-concept-section` — **25. Idempotentný setup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 502, `thin-concept-section` — **32. Detekčné stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 542, `thin-concept-section` — **34. Root-cause workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 559, `thin-concept-section` — **35. Exit criteria po oprave**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 572, `thin-concept-section` — **36. Flakiness metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 620, `thin-concept-section` — **38. Prevádzkový checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/mocks-stubs-fakes.md`
 
@@ -19439,19 +19413,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4017 | 388 | 0 | 0 | 4405 |
-| `single-sentence-concept` | 0 | 4080 | 0 | 0 | 4080 |
-| `outline-instead-of-explanation` | 3868 | 0 | 0 | 0 | 3868 |
-| `thin-concept-section` | 0 | 3463 | 0 | 0 | 3463 |
-| `term-before-explanation` | 0 | 428 | 2468 | 0 | 2896 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1691 | 1691 |
-| `example-not-explicit` | 0 | 0 | 0 | 1578 | 1578 |
-| `short-concept-section` | 0 | 0 | 1120 | 0 | 1120 |
-| `list-first-introduction` | 0 | 967 | 0 | 0 | 967 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 833 | 833 |
-| `empty-section` | 477 | 0 | 0 | 0 | 477 |
-| `list-heavy-section` | 0 | 371 | 0 | 0 | 371 |
-| `no-prose-concept` | 330 | 0 | 0 | 0 | 330 |
+| `bare-bullet-items` | 4019 | 388 | 0 | 0 | 4407 |
+| `single-sentence-concept` | 0 | 4069 | 0 | 0 | 4069 |
+| `outline-instead-of-explanation` | 3864 | 0 | 0 | 0 | 3864 |
+| `thin-concept-section` | 0 | 3450 | 0 | 0 | 3450 |
+| `term-before-explanation` | 0 | 428 | 2473 | 0 | 2901 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1711 | 1711 |
+| `example-not-explicit` | 0 | 0 | 0 | 1594 | 1594 |
+| `short-concept-section` | 0 | 0 | 1135 | 0 | 1135 |
+| `list-first-introduction` | 0 | 963 | 0 | 0 | 963 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 837 | 837 |
+| `empty-section` | 476 | 0 | 0 | 0 | 476 |
+| `list-heavy-section` | 0 | 379 | 0 | 0 | 379 |
+| `no-prose-concept` | 327 | 0 | 0 | 0 | 327 |
 
 ## Required remediation pattern
 
