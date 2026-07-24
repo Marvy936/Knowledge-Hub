@@ -1,61 +1,76 @@
-# SELinux and AppArmor
+# SELinux a AppArmor
 
 ## Metadata
 
 - Status: Learning
 - Úroveň: L2 — rozumiem mechanizmu
 - Doména: Linux and Systems
-- Predpoklady: [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md), [Linux Capabilities](linux-capabilities.md), [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md)
-- Súvisiace témy: mandatory access control, least privilege, containers, systemd hardening, audit logging
+- Predpoklady: [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md), [Linux capabilities](linux-capabilities.md), [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md)
+- Súvisiace témy: mandatory access control, least privilege, containers, systemd hardening, audit logging, seccomp
 
 ## 1. Definícia
 
-SELinux a AppArmor sú Linux Security Modules, ktoré implementujú Mandatory Access Control — MAC.
+SELinux a AppArmor sú Linux Security Modules, ktoré implementujú Mandatory Access Control — MAC. Kernel nimi vynucuje systémovú politiku nezávislú od toho, čo povoľujú owner, group, mode bits alebo POSIX ACL.
 
-MAC pridáva bezpečnostnú politiku nad tradičný model UID/GID, mode bits a ACL. Operácia musí prejsť všetkými relevantnými kontrolami; úspech v discretionary access control vrstve neznamená automatické povolenie v MAC vrstve.
-
-## 2. Problém, ktorý riešia
-
-Tradičné oprávnenia odpovedajú najmä na otázku:
+Discretionary Access Control — DAC — umožňuje vlastníkovi alebo privilegovanému procesu meniť veľkú časť oprávnení objektu. MAC pridáva pravidlá, ktoré môže zmeniť iba správca politiky a ktoré platia aj pre kompromitovaný proces s legitímnym UID.
 
 ```text
-Môže tento používateľ alebo proces pristúpiť k tomuto objektu?
-```
-
-Ak je proces kompromitovaný, používa oprávnenia svojho účtu. MAC politika môže jeho správanie ďalej obmedziť podľa identity programu, labelu, profilu a typu operácie.
-
-Príklad:
-
-- web server beží ako `www-data`,
-- vlastní alebo vie čítať niektoré súbory,
-- DAC by prístup povolil,
-- MAC politika stále môže zakázať čítanie SSH keys alebo zápis mimo povolených paths.
-
-## 3. Vrstvený permission model
-
-```text
-system call
+syscall
   ↓
-namespace a mount context
+namespace a pathname/object resolution
   ↓
-DAC: UID/GID, mode bits, ACL
+DAC a ACL
   ↓
 capability checks
   ↓
-LSM: SELinux alebo AppArmor
+SELinux alebo AppArmor policy
   ↓
-ďalšie kontroly: seccomp, read-only mount, application policy
+mount, seccomp a subsystem-specific policy
+  ↓
+operation alebo denial
 ```
 
-Ak ktorákoľvek povinná vrstva operáciu zamietne, výsledok môže byť `EACCES` alebo `EPERM`.
+Operácia musí prejsť všetkými povinnými vrstvami. `chmod 777` preto nevyrieši SELinux alebo AppArmor denial a zároveň zbytočne oslabí DAC.
 
-Preto „permissions vyzerajú správne“ nie je úplná diagnostika.
+## 2. Threat model
 
-## 4. SELinux mentálny model
+MAC obmedzuje, čo môže proces vykonať po kompromitácii. Web server môže mať DAC právo čítať viac súborov pod spoločným service accountom, ale MAC policy mu dovolí iba web content a zakáže SSH keys, databázové secrets alebo zápis do systémovej konfigurácie.
 
-SELinux je label-based MAC systém. Subjects a objects majú security context.
+```text
+compromised httpd process
+  ├── môže čítať označený web content
+  ├── môže zapisovať iba do určeného runtime pathu
+  ├── nemôže čítať user SSH keys
+  └── nemôže otvoriť ľubovoľný outbound socket bez policy
+```
 
-Typický context:
+MAC nie je ochrana pred všetkým. Kernel vulnerability, príliš široká policy, privileged container alebo writable executable môže boundary oslabiť.
+
+## 3. DAC verzus MAC
+
+DAC rozhoduje primárne podľa UID/GID, mode bits a ACL. Root alebo capability ako `CAP_DAC_OVERRIDE` môže veľkú časť DAC checks obísť.
+
+MAC rozhoduje podľa security labelov alebo profilov a povahy operácie. Root proces môže byť stále zamietnutý, ak jeho SELinux domain alebo AppArmor profile nemá požadované pravidlo.
+
+```text
+DAC allow + MAC deny = deny
+DAC deny  + MAC allow = deny
+DAC allow + MAC allow = operácia pokračuje k ďalším kontrolám
+```
+
+Pri diagnostike treba najprv zistiť, ktorá vrstva zamietla operáciu. Náhodné zmeny DAC môžu zamaskovať pôvodný problém a vytvoriť nový bezpečnostný incident.
+
+## 4. Linux Security Modules
+
+LSM je kernel framework pre security hooks v objektoch a operáciách, napríklad file open, inode permission, process transition, socket create alebo mount. SELinux a AppArmor používajú tieto hooks na policy decision.
+
+LSM nefunguje ako externý antivirus po vykonaní operácie. Decision prebieha v kernelovej ceste pred povolením chráneného action.
+
+Moderný kernel môže podporovať stacking niektorých LSMs, ale distribúcia typicky používa jeden hlavný MAC systém. Aktívny stav treba overiť na konkrétnom hoste, nie predpokladať podľa názvu distribúcie.
+
+## 5. SELinux security context
+
+SELinux priraďuje subjects a objects security context. Typický context:
 
 ```text
 system_u:system_r:httpd_t:s0
@@ -63,61 +78,78 @@ system_u:system_r:httpd_t:s0
 
 Časti:
 
-- user,
-- role,
-- type,
-- level/range pri MLS/MCS.
+- **SELinux user** — policy identity odlišná od Unix username.
+- **Role** — používa sa pri role-based transitions, najmä pre používateľské sessions.
+- **Type/domain** — najdôležitejšia časť bežného serverového Type Enforcement modelu.
+- **MLS/MCS level alebo range** — bezpečnostné levely a categories používané napríklad pri kontajnerovej izolácii.
 
-V bežnom serverovom policy modeli je najdôležitejší **type enforcement**.
+Procesný type sa často nazýva domain. Súbor, socket alebo port má target type a policy rozhoduje, či source domain smie vykonať konkrétnu permission nad object class.
+
+## 6. SELinux Type Enforcement
+
+Zjednodušené policy pravidlo:
 
 ```text
-process type httpd_t
-  + file type httpd_sys_content_t
-  + operation read
-  → policy decision
+allow httpd_t httpd_sys_content_t:file { open read getattr map };
 ```
 
-SELinux nehodnotí iba pathname. Politika pracuje primárne s labels a classes objektov.
+Rozhodnutie používa:
 
-## 5. SELinux režimy
+```text
+source context: httpd_t
+target context: httpd_sys_content_t
+object class:   file
+permission:     read
+```
+
+Pathname nie je primárna security identity. Kernel po pathname resolution pracuje s labelom inode alebo iného objektu.
+
+Dva súbory s rovnakým názvom v rôznych adresároch môžu mať rovnaký type a dostať rovnakú policy. Naopak, súbor presunutý na netypický path si môže zachovať nevhodný label a správať sa odlišne od susedných súborov.
+
+## 7. SELinux režimy
 
 ```bash
 getenforce
 sestatus
 ```
 
-Režimy:
+- **Enforcing** — policy denials sa blokujú a auditujú.
+- **Permissive** — policy vypočíta denial a audituje ho, ale operáciu globálne nezablokuje.
+- **Disabled** — SELinux hooks a labeling model nie sú aktívne v normálnom enforcement režime.
 
-- `Enforcing` — zamietnutia sa vynucujú a auditujú,
-- `Permissive` — zamietnutia sa auditujú, ale globálne sa nevynútia,
-- `Disabled` — SELinux nie je aktívny.
+Permissive je diagnostický režim, nie oprava. Globálny permissive mení failure model celého hosta a môže skryť útok alebo inú súbežnú chybu.
 
-Permissive mode je diagnostický nástroj, nie cieľový produkčný stav.
+Bezpečnejšie je použiť per-domain permissive iba pre skúmanú domain, ak to nástroje a policy podporujú. Aj vtedy treba experiment časovo obmedziť a audit logy vyhodnotiť.
 
-Možno použiť aj per-domain permissive policy namiesto vypnutia ochrany pre celý host.
+## 8. Aktuálny label a očakávaný label
 
-## 6. SELinux contexts a labels
+Aktuálny file label je typicky uložený v extended attribute `security.selinux`. Očakávaný label vychádza z file-context rules distribuovanej alebo lokálnej policy.
 
 Zobrazenie:
 
 ```bash
-ls -Z /var/www/html
+ls -Zd /srv/site /srv/site/index.html
 ps -eZ | grep httpd
 id -Z
 ```
 
-Dočasná zmena labelu:
+Dočasná zmena:
 
 ```bash
 sudo chcon -t httpd_sys_content_t /srv/site/index.html
 ```
 
-`chcon` mení aktuálny xattr, ale relabel alebo `restorecon` môže zmenu prepísať.
+`chcon` mení aktuálny label, ale nevytvára trvalé path-to-label pravidlo. `restorecon` alebo full relabel ho môže prepísať.
 
-Trvalejší policy mapping pathu:
+## 9. Trvalé file-context mapping
+
+Netypický aplikačný path treba pridať do lokálnej file-context policy:
 
 ```bash
-sudo semanage fcontext -a -t httpd_sys_content_t '/srv/site(/.*)?'
+sudo semanage fcontext -a \
+  -t httpd_sys_content_t \
+  '/srv/site(/.*)?'
+
 sudo restorecon -Rv /srv/site
 ```
 
@@ -125,137 +157,205 @@ Mentálny model:
 
 ```text
 semanage fcontext
-  → upraví očakávané file-context pravidlo
+  → desired path-label mapping
+
 restorecon
-  → zosúladí aktuálny label s pravidlom
+  → reconciliation aktuálneho inode labelu s mappingom
 ```
 
-## 7. SELinux policy decisions
+Tento model je reprodukovateľný a prežije relabel. Samotné `chcon` je vhodné na krátky diagnostický test, nie ako finálna konfigurácia.
 
-Politika typicky definuje pravidlá typu:
+## 10. Copy, move a label inheritance
+
+Nový súbor typicky dostane label podľa parent directory a policy transition rules. Presun na tom istom filesysteme však často mení iba directory entry a inode si zachová pôvodný label.
+
+To vytvára častý incident:
 
 ```text
-allow source_type target_type:object_class permissions;
+súbor vytvorený v /tmp s tmp_t
+  ↓ mv na /var/www/html
+inode si zachová tmp_t
+  ↓
+httpd_t dostane denial
 ```
 
-Príklad konceptu:
+Copy vytvorí nový inode a môže dostať label cieľového directory. Move a copy preto nemajú rovnakú label semantics.
+
+Po presune contentu do spravovaného pathu je vhodné použiť `restorecon`, nie ručne hádať type.
+
+## 11. SELinux process transitions
+
+Executable file type a policy môžu pri `execve()` spôsobiť prechod procesu do novej domain. Service spustená z označeného executable tak nemusí zostať v domain launcheru.
 
 ```text
-allow httpd_t httpd_sys_content_t:file { open read getattr };
+init_t / systemd
+  + executable type httpd_exec_t
+  + domain transition policy
+  → httpd_t
 ```
 
-V skutočnej policy sú pravidlá kompilované a spravované modulmi. Bežný administrátor nemá riešiť každý problém vytvorením širokého custom `allow` pravidla.
+Ak executable dostane nesprávny label, proces môže zostať v neočakávanej domain alebo execution zlyhá. Kontrola iba `User=` v systemd unit preto nevysvetľuje celý security context.
 
-Najprv treba zistiť, či:
+Procesný context treba overiť po štarte:
 
-- súbor má správny label,
-- proces beží v očakávanom domain,
-- existuje určený boolean,
-- path nie je netypický bez fcontext mappingu,
-- aplikácia nevykonáva neočakávanú operáciu.
+```bash
+ps -eZ | grep <process>
+cat /proc/<pid>/attr/current
+```
 
-## 8. SELinux booleans
+## 12. SELinux object classes
 
-Booleans umožňujú zapnúť podporovaný variant policy bez kompilácie vlastného modulu.
+SELinux nerozhoduje iba nad files. Policy rozlišuje object classes a permissions, napríklad:
+
+- file, dir, symlink a filesystem,
+- process a capability,
+- TCP/UDP socket a node,
+- network port,
+- message queue alebo shared memory,
+- service-specific kernel objects.
+
+Permission `name_connect` nad `tcp_socket` nie je to isté ako file `read`. Pri denial logu treba čítať `tclass` a denied permission, nie iba pathname.
+
+Network denial nemusí mať target file. Môže sa týkať port type, remote node alebo socket class.
+
+## 13. SELinux port labels
+
+SELinux môže priraďovať types aj TCP/UDP portom. Web server domain preto nemusí bindnúť ľubovoľný port, hoci má Unix capability a port je voľný.
+
+```bash
+sudo semanage port -l | grep http_port_t
+```
+
+Pridanie podporovaného alternatívneho portu:
+
+```bash
+sudo semanage port -a -t http_port_t -p tcp 8088
+```
+
+Port labeling dopĺňa network firewall. Firewall rozhoduje o packet flow; SELinux rozhoduje, ktorá domain môže daný port bindnúť alebo používať podľa policy.
+
+## 14. SELinux booleans
+
+Booleans zapínajú vopred pripravené voliteľné vetvy policy. Umožňujú podporiť bežný variant bez tvorby vlastného modulu.
 
 ```bash
 getsebool -a | grep httpd
 sudo setsebool -P httpd_can_network_connect on
 ```
 
-`-P` zapíše persistentnú zmenu.
+`-P` zapíše persistent policy stav a môže trvať dlhšie pre rebuild policy store.
 
-Boolean treba zapnúť iba vtedy, keď jeho rozsah zodpovedá požadovanému správaniu. Názov môže byť širší, než sa na prvý pohľad zdá.
+Boolean môže byť širší než konkrétny incident. `httpd_can_network_connect` nepovoľuje iba jeden hostname; povoľuje definovanú kategóriu network connect správania pre domain.
 
-## 9. SELinux audit a diagnostika
+Pred zapnutím treba:
 
-Typické zdroje:
+- prečítať význam booleanu,
+- potvrdiť legitímnu aplikačnú potrebu,
+- porovnať užšiu alternatívu,
+- zapísať rozhodnutie do source of truth.
+
+## 15. SELinux policy modules
+
+Custom policy module je vhodný, keď aplikácia legitímne potrebuje správanie, ktoré distribučná policy nepokrýva a ktoré nemožno vyriešiť správnym labelom alebo booleanom.
+
+Module má byť úzky:
+
+- konkrétna source domain,
+- konkrétny target type,
+- konkrétna object class,
+- minimálne permissions,
+- verziovaný source a build process,
+- test v enforcing režime.
+
+Široké pravidlá typu „allow domain všetko nad unconfined object“ ničia MAC boundary. Policy code sa má reviewovať podobne ako firewall alebo IAM policy.
+
+## 16. AVC audit evidence
+
+SELinux denial sa typicky zaznamená ako AVC — Access Vector Cache — event.
 
 ```bash
 sudo ausearch -m AVC,USER_AVC -ts recent
-sudo journalctl -t setroubleshoot
 sudo journalctl --since '10 minutes ago' | grep -i avc
 ```
 
-AVC znamená Access Vector Cache decision.
-
 Dôležité fields:
 
-- `scontext` — source process context,
-- `tcontext` — target object context,
-- `tclass` — object class,
-- denied permissions,
-- process command,
-- path alebo inode metadata.
+- **`scontext`** — source process context.
+- **`tcontext`** — target object context.
+- **`tclass`** — object class.
+- **Denied permission** — presná operácia, napríklad `read`, `write`, `name_connect` alebo `execute`.
+- **Process metadata** — command, PID a executable.
+- **Target metadata** — pathname, inode, port alebo ďalšia identita.
 
-Príklad diagnostického toku:
+Audit event treba korelovať s časom reprodukcie. Starý denial inej domain nie je dôkaz root cause aktuálneho incidentu.
 
-1. reprodukuj problém,
-2. nájdi časovo zodpovedajúci AVC denial,
-3. over source a target contexts,
-4. porovnaj s očakávanou distribučnou politikou,
-5. oprav label, boolean alebo application design,
-6. custom policy vytvor až po potvrdení legitímnej potreby.
+## 17. Bezpečný SELinux troubleshooting
 
-## 10. `audit2allow` riziko
+Odporúčaný postup:
 
-```bash
-audit2allow -a
-```
+1. **Reprodukuj jednu konkrétnu operáciu** — minimalizuj šum v audit logoch.
+2. **Potvrď syscall a errno** — odlíš LSM denial od aplikačnej validácie.
+3. **Nájdi zodpovedajúci AVC** — rovnaký čas, process a target.
+4. **Over source domain** — proces môže bežať mimo očakávaného transitionu.
+5. **Over target label** — porovnaj `ls -Z` a `matchpathcon`.
+6. **Over podporovaný boolean alebo port type** — preferuj existujúcu policy vetvu.
+7. **Oprav desired label mapping** — `semanage fcontext` a `restorecon`.
+8. **Custom module vytvor až po threat analýze** — denial môže odhaľovať exploit alebo chybný design.
+9. **Testuj v enforcing režime** — permissive test nepotvrdzuje, že neexistujú ďalšie denials.
 
-vie navrhnúť policy pravidlo z audit logov. Nevie však posúdiť, či zamietnutá operácia bola bezpečná a zámerná.
+## 18. `audit2allow` a jeho riziko
 
-Nebezpečný postup:
+`audit2allow` preloží denial events na syntakticky možné allow rules. Nevie rozhodnúť, či bola operácia legitímna.
 
-```text
-incident
-→ zhromaždi všetky denials
-→ automaticky vytvor allow policy
-→ nasadiť
-```
-
-Tým možno zakódovať exploit attempt alebo chybnú konfiguráciu ako trvalé povolenie.
-
-Správny postup začína root cause analýzou.
-
-## 11. AppArmor mentálny model
-
-AppArmor je profile-based MAC systém. Profil je typicky viazaný na executable path a definuje povolené paths, capabilities, network operácie a ďalšie správanie.
+Nebezpečný tok:
 
 ```text
-/usr/sbin/example
-  → AppArmor profile
-  → povolené file paths, capabilities a network rules
+všetky AVC events
+  ↓ audit2allow
+široký custom module
+  ↓
+trvalé povolenie chýb, útokov a nesúvisiacich operácií
 ```
 
-AppArmor sa často opisuje ako path-based, ale implementácia a pravidlá majú viac detailov než jednoduchý string match. Rename, mounts, aliases a namespaces môžu ovplyvniť výsledok.
+Nástroj je vhodný ako analytická pomôcka po root-cause potvrdení. Výstup treba minimalizovať, reviewovať po jednotlivých object classes a porovnať s distribučnými interfaces.
 
-## 12. AppArmor režimy
+`audit2why` alebo troubleshooting tooling môže vysvetliť policy context, ale tiež nenahrádza security rozhodnutie.
 
-Profily môžu byť:
+## 19. AppArmor mentálny model
 
-- `enforce` — porušenia sa blokujú,
-- `complain` — porušenia sa logujú bez blokovania,
-- unloaded — profil sa neuplatňuje.
+AppArmor priraďuje procesom profily a policy typicky vyjadruje povolené path operácie, capabilities, network family/protocol a execute transitions.
 
-Stav:
+```text
+executable alebo attachment condition
+  ↓
+AppArmor profile
+  ↓
+file/network/capability/exec rules
+  ↓
+allow alebo deny
+```
+
+AppArmor sa často označuje ako path-based. Kernel však pracuje s resolved objek­tmi, mount namespaces a mediation state, takže model nie je iba textový regex nad pathname.
+
+Path aliases, bind mounts, hard links a namespace views môžu meniť, ktorý rule sa použije. Profil treba testovať v reálnom deployment filesystem layout-e.
+
+## 20. AppArmor profile modes
 
 ```bash
 sudo aa-status
 ```
 
-Zmena režimu:
+- **Enforce** — profile pravidlá sa blokujú a audituje sa violation.
+- **Complain** — porušenia sa auditu­jú, ale väčšina sa nevynúti.
+- **Unconfined alebo unloaded** — proces nemá príslušný loaded profile.
 
-```bash
-sudo aa-complain /usr/sbin/example
-sudo aa-enforce /usr/sbin/example
-```
+Complain mode je vhodný na učenie workloadu a generovanie návrhov. Nie je bezpečný finálny stav pre službu, ktorá má byť confined.
 
-Complain mode má slúžiť na učenie a diagnostiku. Nemá nahradiť dokončenú policy.
+Profil môže byť v enforce režime, ale proces pod ním nemusí bežať, ak attachment alebo execute transition neprebehli. Stav profilu a runtime confinement sú dve odlišné otázky.
 
-## 13. AppArmor profil
+## 21. AppArmor profile anatomy
 
-Zjednodušený príklad:
+Zjednodušený profil:
 
 ```text
 #include <tunables/global>
@@ -275,29 +375,58 @@ Zjednodušený príklad:
 }
 ```
 
-Pravidlá rozlišujú typ operácie, napríklad:
+Pravidlá rozlišujú operácie:
 
-- read,
-- write,
-- memory map,
-- execute transition,
-- lock,
-- link.
+- **`r`** — čítanie dát alebo metadata podľa pravidla.
+- **`w`** — zápis.
+- **`m`** — memory map s executable alebo ďalšími relevantnými flags.
+- **`k`** — file locking.
+- **`l`** — link operation.
+- **`x` varianty** — execute a profile transition semantics.
 
-Presná syntax a abstractions závisia od distribúcie a AppArmor verzie.
+Široký glob ako `/** rw` ničí confinement podobne ako široký SELinux allow rule.
 
-## 14. AppArmor tools a logs
+## 22. AppArmor execute transitions
 
-Typické nástroje:
+Spustenie child executable môže:
+
+- zostať v current profile,
+- prejsť do named child profile,
+- použiť profile attached k executable,
+- bežať unconfined podľa konkrétneho execute rule.
+
+Execute mode je bezpečnostne kritický. Program môže mať úzky filesystem access, ale spustiť shell alebo helper s voľnejším profilom.
+
+Transitívny execution graph treba auditovať:
+
+```text
+main service
+  → shell wrapper
+  → helper
+  → interpreter
+  → plugin
+```
+
+Každý prechod musí mať zámerný profile behavior.
+
+## 23. AppArmor abstractions a tunables
+
+Abstractions sú zdieľané rule fragments pre bežné potreby, napríklad DNS resolver alebo base libraries. Znižujú duplicitu, ale môžu povoliť viac paths než konkrétna aplikácia potrebuje.
+
+Tunables umožňujú environment-specific path definitions. Uľahčujú portabilitu profilov, ale výsledný expanded profile treba stále reviewovať.
+
+Include nie je iba dokumentačný import. Rozširuje efektívne povolenia profilu a zmena distribučnej abstraction môže zmeniť behavior viacerých services.
+
+## 24. AppArmor tooling a logs
 
 ```bash
 sudo apparmor_parser -r /etc/apparmor.d/usr.local.bin.example
+sudo aa-status
 sudo aa-logprof
 sudo aa-genprof /usr/local/bin/example
-sudo aa-status
 ```
 
-Logy:
+Audit events:
 
 ```bash
 journalctl -k | grep -i apparmor
@@ -306,168 +435,187 @@ journalctl | grep 'apparmor="DENIED"'
 
 Dôležité fields:
 
-- profile,
-- operation,
-- requested mask,
-- denied mask,
-- name/path,
-- process identity.
+- **Profile** — confinement identity procesu.
+- **Operation** — file open, capability, network, mount alebo exec transition.
+- **Requested a denied mask** — požadované a zamietnuté permissions.
+- **Name/path** — objekt v aktuálnom namespace view.
+- **Process metadata** — PID, command a parent.
 
-`aa-logprof` pomáha vytvárať pravidlá, ale administrátor musí rozhodnúť, či je požadovaný access legitímny.
+`aa-logprof` môže navrhnúť pravidlo, ale nevie rozhodnúť, či workload nemal vykonávať nebezpečnú operáciu.
 
-## 15. SELinux vs. AppArmor
+## 25. Bezpečný AppArmor troubleshooting
+
+1. **Potvrď, že proces má očakávaný profil** — loaded profile nestačí.
+2. **Reprodukuj konkrétny denial** — oddelíš incident od historického šumu.
+3. **Čítaj operation a denied mask** — path sám nestačí.
+4. **Over mount namespace a resolved path** — kontajner môže mať iný filesystem view.
+5. **Over execute transition chain** — denial môže pochádzať z helper profilu.
+6. **Použi complain iba dočasne a čo najužšie** — zachovaj audit evidence.
+7. **Reviewuj návrh `aa-logprof`** — nepovoľuj celý directory tree pre jednu missing file.
+8. **Reloadni profil a testuj v enforce režime** — vrátane negatívnych testov.
+
+## 26. SELinux verzus AppArmor
 
 | Vlastnosť | SELinux | AppArmor |
 |---|---|---|
-| Primárny model | labels a type enforcement | profiles viazané typicky na executable/path rules |
-| Identita objektu | security context | pravidlá podľa paths a ďalších atribútov |
-| Policy ekosystém | rozsiahle distribučné policies, booleans, modules | profily, abstractions, parser tools |
-| Diagnostika | AVC/audit logs, contexts | kernel audit logs, profile a operation |
-| Bežné distribúcie | Fedora/RHEL rodina a ďalšie | Ubuntu/SUSE rodina a ďalšie |
+| Primárna identita | labels a security contexts | profile attachment a path-oriented rules |
+| Hlavný policy model | Type Enforcement, role/MLS/MCS vrstvy | per-program profiles a execute transitions |
+| File policy | inode/object label | resolved path a profile rule |
+| Bežná flexibilita | file contexts, booleans, policy modules | abstractions, tunables, child profiles |
+| Audit evidence | AVC records so source/target contexts | profile, operation, path a masks |
+| Prevádzková sila | nezávislosť od pathname po labeling | ľahšie čitateľný path-centric profil pre mnohé use cases |
+| Prevádzkové riziko | nesprávne labels alebo príliš široký module | path aliases/mounty a príliš široké globs/transitions |
 
-Nie je korektné tvrdiť, že jeden systém je všeobecne „lepší“. Rozhoduje distribučná integrácia, policy maturity, operational model a tímová znalosť.
+Jeden systém nie je univerzálne lepší. Dôležitá je distribučná integrácia, kvalita dostupných policies, workload model a schopnosť tímu správne udržiavať a diagnostikovať enforcement.
 
-## 16. Containers
+## 27. Kontajnery a SELinux
 
-Container proces môže byť súčasne obmedzený:
+Kontajnerový proces môže bežať v spoločnom container domain type, ale dostať odlišné MCS categories. Categories bránia, aby dva kontajnery s rovnakým všeobecným type čítali navzájom označené dáta.
 
-- host DAC,
-- user namespace,
-- capabilities,
-- seccomp,
-- SELinux type/MCS labels alebo AppArmor profilom,
-- read-only mounts.
+```text
+container A: container_t:s0:c1,c2
+container B: container_t:s0:c3,c4
+```
 
-SELinux pri kontajneroch často používa oddelené MCS categories, aby dva containers s rovnakým všeobecným type nemohli čítať navzájom označené dáta.
+Bind mount musí mať label kompatibilný s container domain a sharing modelom. Runtime voľby typu `:z` a `:Z` môžu meniť labels:
 
-Bind mount na SELinux hoste môže potrebovať správny relabeling model. Runtime options typu `:z` alebo `:Z` majú rozdielny sharing význam a nesmú sa používať naslepo.
+- **Shared relabel** — path môže používať viac kontajnerov.
+- **Private relabel** — path dostane label pre jeden izolovaný workload.
 
-Kubernetes môže vyberať SELinux options alebo AppArmor profiles cez security context a platform policy. Presné API závisí od Kubernetes verzie.
+Použitie naslepo môže relabelovať hostový directory a narušiť inú službu. Produkčný volume labeling má byť súčasťou storage a security designu.
 
-## 17. MAC a systemd
+## 28. Kontajnery a AppArmor
 
-Systemd môže spustiť službu s dodatočnými security nastaveniami, ale nenahrádza LSM policy.
+Kontajner runtime môže priradiť profile procesu pri štarte. Profil môže obmedziť mount, capabilities, file paths a network behavior aj vtedy, keď je kontajnerový UID root.
 
-Relevantné properties môžu zahŕňať:
+Path rules sa vyhodnocujú vo filesystem view procesu. Profil preto musí zohľadňovať image layout, bind mounts a runtime-generated paths.
+
+Default runtime profile je defense-in-depth baseline, nie workload-specific least privilege. Citlivá aplikácia potrebuje vlastný profil a negatívne testy.
+
+## 29. Kubernetes integration
+
+Kubernetes security context môže vyberať SELinux options alebo AppArmor profile. Exact fields a support závisia od verzie clusteru, node OS a runtime.
+
+Policy musí byť dostupná na node, kde Pod pristane. Manifest odkazujúci na neexistujúci profil môže viesť k odmietnutiu alebo inému runtime behavior podľa integrácie.
+
+Pri incidentnej diagnostike treba korelovať:
+
+- Pod security context,
+- node runtime config,
+- process context/profile na konkrétnom node,
+- volume labels a mount options,
+- audit events host kernelu.
+
+Cluster-level YAML sám nie je dôkaz efektívnej hostovej policy.
+
+## 30. Systemd a MAC
+
+Systemd vie explicitne nastaviť SELinux context alebo AppArmor profile pre service, ale bežnejšie sa používa policy-driven executable transition a distribučná integrácia.
+
+Relevantné unit properties môžu zahŕňať:
 
 ```ini
 [Service]
-NoNewPrivileges=yes
-ProtectSystem=strict
-ProtectHome=yes
-PrivateTmp=yes
-AppArmorProfile=example-profile
 SELinuxContext=system_u:system_r:example_t:s0
+AppArmorProfile=example-profile
 ```
 
-Podpora konkrétnych directives závisí od build a verzie systemd. Pri bežnej službe sa často používa distribučná policy a labels namiesto manuálneho nastavovania contextu v unit.
+Dostupnosť a vhodnosť závisia od systemd a platformy. Nesprávne explicitné context nastavenie môže obísť očakávaný domain transition alebo zlyhať pred spustením aplikácie.
 
-## 18. Troubleshooting scenár: správne UNIX permissions, stále denied
+Systemd sandboxing a MAC sa dopĺňajú. `ProtectSystem=strict` zmení mount view, zatiaľ čo SELinux/AppArmor rozhoduje o object access; obidve vrstvy môžu nezávisle zamietnuť tú istú operáciu.
 
-Aplikácia nevie čítať `/srv/app/config.yaml`.
+## 31. Policy maintenance lifecycle
 
-### Krok 1: DAC
+MAC policy nie je jednorazový súbor. Mení sa spolu s executable paths, dependencies, deployment layoutom a workload behavior.
 
-```bash
-namei -l /srv/app/config.yaml
-getfacl /srv/app/config.yaml
-sudo -u app cat /srv/app/config.yaml
-```
+Bezpečný lifecycle:
 
-### Krok 2: process a MAC stav
+1. **Definuj očakávané správanie** — files, network endpoints, capabilities a child processes.
+2. **Použi distribučnú policy alebo abstraction** — znižuje custom maintenance.
+3. **Pridaj lokálne mappingy alebo úzke pravidlá** — verziované v source of truth.
+4. **Testuj pozitívne use cases** — legitímna prevádzka musí fungovať v enforce režime.
+5. **Testuj negatívne use cases** — zakázaný path alebo operation musí zostať blokovaný.
+6. **Monitoruj denials po deploymente** — nový code path môže odhaliť chýbajúcu policy alebo regresiu.
+7. **Odstraňuj zastarané pravidlá** — policy iba rastúca o nové allow rules postupne stráca hodnotu.
 
-SELinux:
+## 32. Časté omyly
 
-```bash
-ps -eZ | grep app
-ls -Z /srv/app/config.yaml
-ausearch -m AVC -ts recent
-```
+### „Keď mode bits povoľujú prístup, kernel ho musí povoliť“
 
-AppArmor:
+MAC, read-only mount, capabilities a ďalšie vrstvy môžu operáciu stále zamietnuť.
 
-```bash
-aa-status
-journalctl -k | grep -i apparmor
-```
+### „Root obíde SELinux alebo AppArmor“
 
-### Krok 3: oprava
+Root môže meniť policy iba s príslušnou authority, ale bežná operácia root procesu je stále subject MAC enforcementu.
 
-- nesprávny SELinux label → `semanage fcontext` + `restorecon`,
-- podporovaný variant → vhodný boolean,
-- AppArmor profil chýba path rule → úzka oprava profilu,
-- aplikácia číta neočakávaný path → oprava konfigurácie alebo designu.
+### „`setenforce 0` je oprava“
 
-Nevypínaj globálne MAC iba preto, že operácia po vypnutí funguje. To iba potvrdzuje vrstvu, nie správnu nápravu.
+Je to globálny diagnostický experiment, ktorý vypína enforcement pre celý host. Root cause a bezpečná policy zostávajú nevyriešené.
 
-## 19. Troubleshooting scenár: služba funguje ručne, nie cez systemd
+### „`chcon` je trvalá SELinux konfigurácia“
 
-Možné rozdiely:
+Mení aktuálny label inode. `restorecon` alebo relabel ho môže vrátiť podľa file-context mappingu.
 
-- iný SELinux domain pri systemd transition,
-- AppArmor profil viazaný na executable,
-- iný path alebo symlink resolution,
-- systemd sandboxing navyše,
-- rozdielne environment a working directory.
+### „Každý AVC denial treba povoliť“
 
-Porovnaj:
+Denial môže znamenať exploit attempt, chybný path, zlý domain transition alebo zbytočnú aplikačnú operáciu.
 
-```bash
-ps -eZ
-systemctl cat example.service
-systemctl show example.service
-journalctl -u example.service
-journalctl -k
-```
+### „Complain mode znamená, že profil je hotový“
 
-## 20. Bezpečná práca s policy
+Complain iba loguje väčšinu porušení. Finálna policy musí fungovať a byť testovaná v enforce režime.
 
-1. Reprodukuj presný use case.
-2. Identifikuj subject, object a operation.
-3. Over, či je súčasný access legitímny.
-4. Preferuj distribučný label, boolean alebo abstraction.
-5. Zúž pravidlo na minimálny scope.
-6. Otestuj normálny aj zakázaný scenár.
-7. Udržuj policy vo version control.
-8. Monitoruj nové denials po nasadení.
+### „AppArmor profil je iba zoznam paths“
 
-## 21. Časté omyly
+Obsahuje operation masks, capabilities, network rules a execute transitions; mount namespace a aliases ovplyvňujú resolved objekty.
 
-### „chmod 777 vyrieši permission denied“
+### „Container label/profile nahrádza ostatné kontroly“
 
-Nie pri MAC zamietnutí. Navyše zbytočne oslabí DAC.
+Kontajner stále potrebuje bezpečné capabilities, seccomp, user mapping, mounts a runtime policy.
 
-### „SELinux/AppArmor stačí vypnúť“
+## 33. Troubleshooting: služba nevie čítať nový data path
 
-Tým sa odstráni bezpečnostná hranica a zakryje root cause.
+1. **Potvrď syscall a pathname** — `strace` alebo aplikačný log.
+2. **Over DAC/ACL a traversal** — MAC denial nemusí byť jediná chyba.
+3. **Zisti process context/profile** — runtime stav, nie iba config file.
+4. **Zisti target label alebo resolved AppArmor path** — porovnaj s očakávaným deployment layoutom.
+5. **Nájdi audit event v rovnakom čase** — source, target, class a operation.
+6. **SELinux: porovnaj `matchpathcon` a `restorecon`** — netypický path potrebuje `semanage fcontext`.
+7. **AppArmor: over include, glob a execute transition** — helper môže mať iný profil.
+8. **Testuj úzku opravu v enforce režime** — nepovoľuj širší directory tree, než workload potrebuje.
 
-### „Permissive alebo complain je bezpečný produkčný režim“
+## 34. Troubleshooting: aplikácia funguje iba po vypnutí MAC
 
-Je primárne diagnostický. Operácie sa neblokujú.
+Tento výsledok potvrdzuje involvement policy layer, ale neurčuje správnu opravu.
 
-### „audit2allow alebo aa-logprof vie rozhodnúť, čo je bezpečné“
+1. Reprodukuj denial s enforcementom zapnutým.
+2. Získaj presný audit record.
+3. Over, či aplikácia beží v správnej domain/profile.
+4. Over, či target object má správny label/path a či nebol presunutý z temporary directory.
+5. Skontroluj podporovaný boolean, port type alebo abstraction.
+6. Preskúmaj, či požadovaná operácia patrí do legitímneho threat modelu aplikácie.
+7. Vytvor minimálnu policy zmenu a negatívny test.
+8. Odstráň diagnostický permissive/complain stav.
 
-Nástroj vidí požadované operácie, nie business a threat kontext.
-
-### „SELinux rozhoduje podľa pathname“
-
-Primárne rozhoduje podľa security labels a policy.
-
-### „AppArmor je iba jednoduchý file allowlist“
-
-Profily zahŕňajú execute transitions, capabilities, network a ďalšie pravidlá.
-
-## 22. Kontrolné otázky
+## 35. Kontrolné otázky
 
 1. Aký je rozdiel medzi DAC a MAC?
-2. Čo znamená SELinux type enforcement?
-3. Aký je rozdiel medzi `chcon` a `semanage fcontext` + `restorecon`?
-4. Načo slúžia SELinux booleans?
-5. Prečo je automatické použitie `audit2allow` rizikové?
-6. Aký je rozdiel medzi AppArmor enforce a complain mode?
-7. Ako sa líši mentálny model SELinux a AppArmor?
-8. Prečo `chmod 777` nemusí vyriešiť denied operáciu?
-9. Ako by si diagnostikoval službu, ktorá funguje ručne, ale nie pod systemd?
+2. Prečo môže root proces dostať SELinux/AppArmor denial?
+3. Z akých častí sa skladá SELinux security context?
+4. Prečo je type/domain najdôležitejší v bežnom Type Enforcement modeli?
+5. Aký je rozdiel medzi `chcon` a `semanage fcontext` plus `restorecon`?
+6. Prečo môže `mv` zachovať nesprávny SELinux label?
+7. Čo znamenajú `scontext`, `tcontext`, `tclass` a denied permission v AVC evente?
+8. Prečo boolean môže byť širší než konkrétny incident?
+9. Prečo sa `audit2allow` nesmie používať bez security review?
+10. Ako AppArmor execute transitions ovplyvňujú child proces?
+11. Prečo loaded AppArmor profile nedokazuje, že ním je proces confined?
+12. Ako sa MAC dopĺňa so systemd sandboxingom a kontajnerovými controls?
+
+## 36. Zhrnutie
+
+SELinux a AppArmor pridávajú kernelom vynucovanú Mandatory Access Control policy nad UID/GID, mode bits, ACL a capabilities. SELinux používa security contexts a Type Enforcement; AppArmor používa programové profily s path, operation, capability, network a execute-transition pravidlami.
+
+Bezpečný troubleshooting začína presným audit eventom, process security identity a target object state. Oprava má používať správny label mapping, existujúci boolean/profile abstraction alebo minimálnu verziovanú policy; globálny permissive režim a automatické povoľovanie denialov iba odstraňujú ochranu bez vyriešenia root cause.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
