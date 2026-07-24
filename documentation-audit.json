@@ -590,16 +590,16 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "title": "Firewalls",
-      "words": 1368,
-      "headings": 41,
-      "sections": 41,
-      "findings": 74,
-      "critical": 30,
-      "high": 32,
-      "medium": 7,
-      "low": 5,
-      "score": 638,
+      "title": "Firewally",
+      "words": 3068,
+      "headings": 60,
+      "sections": 60,
+      "findings": 144,
+      "critical": 42,
+      "high": 43,
+      "medium": 31,
+      "low": 28,
+      "score": 996,
       "grade": "D"
     },
     {
@@ -26043,247 +26043,31 @@
       "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `NAT`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `NAT`, `WAF`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "2. Základný mentálny model",
-      "line": 17,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "16 odrážok a iba 43 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "2. Základný mentálny model",
-      "line": 17,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "3. Stateless vs. stateful firewall",
-      "line": 31,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateless",
-      "line": 33,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateless",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateless",
-      "line": 33,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchší model,`, `nižšie state nároky,`, `vhodné pre niektoré vysokovýkonné alebo hraničné filtre.`, `policy musí explicitne riešiť oba smery,`.",
+      "detail": "12 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accept — traffic smie pokračovať,`, `log — udalosť sa zaznamená,`, `rate-limit — traffic sa obmedzí,`, `v host kernel-i,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateless",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateless",
-      "line": 33,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateful",
-      "line": 48,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateful",
-      "line": 48,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NEW ,`, `ESTABLISHED ,`, `RELATED ,`, `INVALID .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateful",
-      "line": 48,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Stateful",
-      "line": 48,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NEW`, `ESTABLISHED`, `RELATED`, `INVALID`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "4. Allow, drop a reject",
-      "line": 61,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Allow",
-      "line": 63,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Reject",
-      "line": 71,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Reject",
-      "line": 71,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "5. Default policy",
-      "line": 80,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "6. Rule matching a poradie",
-      "line": 96,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "6. Rule matching a poradie",
-      "line": 96,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačné,`, `minimálne široké,`, `zdokumentované ownerom a účelom,`, `časovo obmedzené pri výnimkách,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "6. Rule matching a poradie",
-      "line": 96,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "7. Packet direction a hooks",
-      "line": 118,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "7. Packet direction a hooks",
-      "line": 118,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `OUTPUT : lokálne generovaný traffic,`, `NAT hooks ako PREROUTING a POSTROUTING .`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "7. Packet direction a hooks",
-      "line": 118,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "7. Packet direction a hooks",
-      "line": 118,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OUTPUT`, `NAT`, `PREROUTING`, `POSTROUTING`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "12. ICMP a IPv6",
-      "line": 208,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "12. ICMP a IPv6",
-      "line": 208,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Path MTU Discovery,`, `error reporting,`, `troubleshooting,`, `IPv6 Neighbor Discovery a Router Advertisements.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "12. ICMP a IPv6",
-      "line": 208,
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -26291,35 +26075,71 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "12. ICMP a IPv6",
-      "line": 208,
+      "section": "1. Definícia",
+      "line": 11,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "1. Definícia",
+      "line": 11,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `CNI`, `WAF`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "13. Cloud security groups",
-      "line": 221,
+      "section": "2. Policy-decision lifecycle",
+      "line": 48,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "2. Policy-decision lifecycle",
+      "line": 48,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "13. Cloud security groups",
-      "line": 221,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pravidlá sú allow-only,`, `implicitný deny platí pre nezhodný traffic,`, `return traffic je povolený stavovo,`, `policy sa vyhodnocuje na virtualizovanej network vrstve.`.",
-      "score": 12
+      "section": "2. Policy-decision lifecycle",
+      "line": 48,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "13. Cloud security groups",
-      "line": 221,
+      "section": "2. Policy-decision lifecycle",
+      "line": 48,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "2. Policy-decision lifecycle",
+      "line": 48,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "3. Observation point a direction",
+      "line": 78,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -26327,8 +26147,8 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "13. Cloud security groups",
-      "line": 221,
+      "section": "3. Observation point a direction",
+      "line": 78,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -26336,170 +26156,8 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "15. Distributed firewalling",
-      "line": 252,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "15. Distributed firewalling",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "15. Distributed firewalling",
-      "line": 252,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypervisor virtual switch,`, `Kubernetes CNI policy,`, `service mesh L7 authorization,`, `cloud security groups.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "15. Distributed firewalling",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "15. Distributed firewalling",
-      "line": 252,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "15. Distributed firewalling",
-      "line": 252,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`, `L7`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "16. L3/L4 vs. L7 firewall",
-      "line": 276,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "L3/L4",
-      "line": 278,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "L3/L4",
-      "line": 278,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "L3/L4",
-      "line": 278,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/destination address,`, `protocol,`, `port,`, `connection state.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "L3/L4",
-      "line": 278,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "17. Egress filtering",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "17. Egress filtering",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedzenie data exfiltration,`, `kontrolu command-and-control trafficu,`, `povolenie iba potrebných dependencies,`, `vynútenie proxy alebo inspection path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "17. Egress filtering",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "18. Logging",
-      "line": 307,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "18. Logging",
-      "line": 307,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logovať denied flows s rate limitom,`, `agregovať counters,`, `evidovať rule identifier,`, `korelovať source, destination, interface a timestamp,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "18. Logging",
-      "line": 307,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "18. Logging",
-      "line": 307,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "18. Logging",
-      "line": 307,
+      "section": "3. Observation point a direction",
+      "line": 78,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -26507,8 +26165,26 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "19. Bezpečný rollout",
-      "line": 328,
+      "section": "3. Observation point a direction",
+      "line": 78,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "3. Observation point a direction",
+      "line": 78,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INPUT`, `FORWARD`, `OUTPUT`, `WAF`, `TCP`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "4. Stateless firewall",
+      "line": 105,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -26516,26 +26192,26 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "19. Bezpečný rollout",
-      "line": 328,
+      "section": "4. Stateless firewall",
+      "line": 105,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "16 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "19. Bezpečný rollout",
-      "line": 328,
+      "section": "4. Stateless firewall",
+      "line": 105,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrdiť out-of-band alebo console recovery,`, `identifikovať management source addresses,`, `pridať allow pravidlo pred default deny,`, `použiť časovaný rollback alebo testovaciu session,`.",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination IP,`, `transportný protokol,`, `source a destination port,`, `interface,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "19. Bezpečný rollout",
-      "line": 328,
+      "section": "4. Stateless firewall",
+      "line": 105,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -26543,44 +26219,8 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "20. Diagnostický postup",
-      "line": 342,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "20. Diagnostický postup",
-      "line": 342,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "20. Diagnostický postup",
-      "line": 342,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient používa správnu destination IP a port,`, `packet opustí klienta,`, `route a upstream ACL ho doručia,`, `packet príde na server interface,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "20. Diagnostický postup",
-      "line": 342,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "20. Diagnostický postup",
-      "line": 342,
+      "section": "4. Stateless firewall",
+      "line": 105,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -26588,17 +26228,116 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "20. Diagnostický postup",
-      "line": 342,
+      "section": "4. Stateless firewall",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "4. Stateless firewall",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "4. Stateless firewall",
+      "line": 105,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ACL`, `L7`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `ICMP`, `DSCP`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "21. Typické symptómy",
-      "line": 365,
+      "section": "5. Stateful firewall",
+      "line": 141,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "5. Stateful firewall",
+      "line": 141,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NEW`, `ESTABLISHED`, `RELATED`, `INVALID`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "6. Conntrack nie je aplikačný health",
+      "line": 162,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS handshake uspel,`, `HTTP request bol autorizovaný,`, `databáza odpovedala,`, `application worker nie je zaseknutý,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "6. Conntrack nie je aplikačný health",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "6. Conntrack nie je aplikačný health",
+      "line": 162,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "7. Conntrack capacity a failure mode",
+      "line": 180,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "7. Conntrack capacity a failure mode",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúce flows pokračujú,`, `nové flows timeoutujú alebo sa zahadzujú,`, `listener a route vyzerajú zdravo,`, `problém rastie s concurrency alebo scanom,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "7. Conntrack capacity a failure mode",
+      "line": 180,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "7. Conntrack capacity a failure mode",
+      "line": 180,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`, `HA`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "8. Allow, drop a reject",
+      "line": 214,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -26606,8 +26345,125 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Timeout",
-      "line": 367,
+      "section": "Reject",
+      "line": 226,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `TCP RST,`, `ICMP destination unreachable,`, `ICMP administratively prohibited.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Reject",
+      "line": 226,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Reject",
+      "line": 226,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `RST`, `ICMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "9. Default policy",
+      "line": 240,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "9. Default policy",
+      "line": 240,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventár legitímnych flows,`, `ownership každej výnimky,`, `správne return traffic pravidlá,`, `IPv4 aj IPv6 policy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "9. Default policy",
+      "line": 240,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "9. Default policy",
+      "line": 240,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "9. Default policy",
+      "line": 240,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `NTP`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "10. Rule ordering a precedence",
+      "line": 268,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "10. Rule ordering a precedence",
+      "line": 268,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-match semantics,`, `priority-based chains,`, `kombináciu jumpov a returnov,`, `explicitný terminating alebo non-terminating verdict,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "10. Rule ordering a precedence",
+      "line": 268,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "10. Rule ordering a precedence",
+      "line": 268,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "10. Rule ordering a precedence",
+      "line": 268,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "12. nftables model",
+      "line": 327,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -26615,8 +26471,746 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "12. nftables model",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "12. nftables model",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IPv4 aj IPv6,`, `loopback,`, `management access,`, `potrebné ICMP/ICMPv6,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "12. nftables model",
+      "line": 327,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "12. nftables model",
+      "line": 327,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "13. Sets, maps a dynamická policy",
+      "line": 380,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "13. Sets, maps a dynamická policy",
+      "line": 380,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale inventory,`, `neatomická externá automatizácia,`, `neočakávaná expirácia dynamického prvku,`, `rozdiel medzi desired a effective state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "13. Sets, maps a dynamická policy",
+      "line": 380,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "13. Sets, maps a dynamická policy",
+      "line": 380,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "14. iptables compatibility a viac managerov",
+      "line": 402,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "14. iptables compatibility a viac managerov",
+      "line": 402,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw nftables konfigurácia,`, `firewalld,`, `Docker alebo container runtime,`, `Kubernetes komponent,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "14. iptables compatibility a viac managerov",
+      "line": 402,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "14. iptables compatibility a viac managerov",
+      "line": 402,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "15. firewalld a zones",
+      "line": 430,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "16. ICMP a ICMPv6",
+      "line": 464,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "16. ICMP a ICMPv6",
+      "line": 464,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination unreachable,`, `time exceeded,`, `fragmentation needed alebo packet too big,`, `parameter problem,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "16. ICMP a ICMPv6",
+      "line": 464,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "16. ICMP a ICMPv6",
+      "line": 464,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "16. ICMP a ICMPv6",
+      "line": 464,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "16. ICMP a ICMPv6",
+      "line": 464,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "17. Fragmenty a firewall policy",
+      "line": 494,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "17. Fragmenty a firewall policy",
+      "line": 494,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "18. Cloud security groups",
+      "line": 504,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allow rules,`, `implicit deny pre nezhodný traffic,`, `stateful return traffic,`, `policy vyhodnotená vo virtualizovanej network vrstve.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "18. Cloud security groups",
+      "line": 504,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "18. Cloud security groups",
+      "line": 504,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "20. Distributed firewalling",
+      "line": 553,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "20. Distributed firewalling",
+      "line": 553,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypervisor vNIC policy,`, `Kubernetes CNI NetworkPolicy,`, `eBPF dataplane,`, `service mesh authorization,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "20. Distributed firewalling",
+      "line": 553,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "20. Distributed firewalling",
+      "line": 553,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "20. Distributed firewalling",
+      "line": 553,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "21. Kubernetes NetworkPolicy",
+      "line": 583,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "21. Kubernetes NetworkPolicy",
+      "line": 583,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "21. Kubernetes NetworkPolicy",
+      "line": 583,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "21. Kubernetes NetworkPolicy",
+      "line": 583,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "21. Kubernetes NetworkPolicy",
+      "line": 583,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "22. L3/L4 firewall verzus L7 firewall a WAF",
+      "line": 598,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L3/L4 firewall",
+      "line": 600,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L3/L4 firewall",
+      "line": 600,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L3/L4 firewall",
+      "line": 600,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IP adresy,`, `protokolu,`, `portu,`, `interface,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L3/L4 firewall",
+      "line": 600,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L3/L4 firewall",
+      "line": 600,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L7 firewall alebo WAF",
+      "line": 612,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L7 firewall alebo WAF",
+      "line": 612,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP host a path,`, `method,`, `headers,`, `request body,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L7 firewall alebo WAF",
+      "line": 612,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "L7 firewall alebo WAF",
+      "line": 612,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "23. Egress filtering",
+      "line": 626,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "23. Egress filtering",
+      "line": 626,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedzenie data exfiltration,`, `blokovanie command-and-control trafficu,`, `vynútenie egress proxy,`, `povolenie iba potrebných dependencies,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "23. Egress filtering",
+      "line": 626,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "23. Egress filtering",
+      "line": 626,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "23. Egress filtering",
+      "line": 626,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `NTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "24. Source identity a spoofing",
+      "line": 651,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 58 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "24. Source identity a spoofing",
+      "line": 651,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingress filtering,`, `reverse path validation,`, `cloud source/destination checks,`, `switch source guard,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "24. Source identity a spoofing",
+      "line": 651,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "24. Source identity a spoofing",
+      "line": 651,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "25. Logging, counters a flow logs",
+      "line": 668,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "15 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "25. Logging, counters a flow logs",
+      "line": 668,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule counters,`, `rate-limited deny logs,`, `flow logs,`, `conntrack metrics,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "25. Logging, counters a flow logs",
+      "line": 668,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "25. Logging, counters a flow logs",
+      "line": 668,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "25. Logging, counters a flow logs",
+      "line": 668,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "26. Rate limiting a DoS ochrana",
+      "line": 701,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "26. Rate limiting a DoS ochrana",
+      "line": 701,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové connections,`, `ICMP probes,`, `packets per second,`, `source-specific bursts,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "26. Rate limiting a DoS ochrana",
+      "line": 701,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "26. Rate limiting a DoS ochrana",
+      "line": 701,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`, `NAT`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "27. Bezpečný rollout",
+      "line": 721,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "27. Bezpečný rollout",
+      "line": 721,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď out-of-band console alebo recovery mechanizmus.`, `Exportuj aktuálny efektívny ruleset.`, `Identifikuj management source a return path.`, `Pridaj explicitný management allow pred default deny.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "27. Bezpečný rollout",
+      "line": 721,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "27. Bezpečný rollout",
+      "line": 721,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "27. Bezpečný rollout",
+      "line": 721,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "28. Policy lifecycle",
+      "line": 742,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "28. Policy lifecycle",
+      "line": 742,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owner,`, `business alebo technický účel,`, `source požiadavky,`, `test,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "28. Policy lifecycle",
+      "line": 742,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "29. Diagnostický postup",
+      "line": 759,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 1: potvrď endpoint",
+      "line": 763,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 1: potvrď endpoint",
+      "line": 763,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 2: potvrď route",
+      "line": 772,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 2: potvrď route",
+      "line": 772,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 3: zachyť packet na každom relevantnom bode",
+      "line": 781,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 3: zachyť packet na každom relevantnom bode",
+      "line": 781,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 4: over efektívnu policy",
+      "line": 789,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 4: over efektívnu policy",
+      "line": 789,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 5: odlíš failure typ",
+      "line": 798,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Krok 6: over nový flow",
+      "line": 817,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "30. Typické symptómy",
+      "line": 821,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
       "section": "Okamžité connection refused",
-      "line": 371,
+      "line": 827,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -26625,7 +27219,7 @@
     {
       "path": "docs/02-networking-and-web/firewalls.md",
       "section": "Funguje z jedného subnetu, nie z druhého",
-      "line": 375,
+      "line": 831,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -26633,8 +27227,8 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "Existujúce spojenia fungujú, nové nie",
-      "line": 379,
+      "section": "Existujúce connections fungujú, nové nie",
+      "line": 835,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -26643,7 +27237,7 @@
     {
       "path": "docs/02-networking-and-web/firewalls.md",
       "section": "IPv4 funguje, IPv6 nie",
-      "line": 383,
+      "line": 839,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -26651,12 +27245,48 @@
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
-      "section": "22. Časté omyly",
-      "line": 387,
+      "section": "Host firewall ukazuje allow, packet neprichádza",
+      "line": 843,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "Counter na očakávanom pravidle nerastie",
+      "line": 847,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "31. Časté omyly",
+      "line": 851,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "„Stateful firewall nepotrebuje outbound policy“",
+      "line": 861,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/firewalls.md",
+      "section": "„Default deny stačí zapnúť a potom dopĺňať výnimky“",
+      "line": 881,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/http.md",
