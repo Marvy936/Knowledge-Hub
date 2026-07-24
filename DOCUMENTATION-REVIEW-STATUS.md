@@ -18,6 +18,7 @@ Nie je náhradou za [`DOCUMENTATION-AUDIT.md`](DOCUMENTATION-AUDIT.md). Ten je g
 | `01-linux-and-systems` — Linux and Systems | 19/19 | Ready for user review | 2026-07-24 | Overený Linux lifecycle, troubleshooting coverage, navigation a prechod do Networking and Web Fundamentals. |
 | `02-networking-and-web` — Networking and Web Fundamentals | 16/16 | Ready for user review | 2026-07-24 | Overený end-to-end network model, terminology, navigation a prechod do Git and Automation Basics. |
 | `03-git-and-automation` — Git and Automation Basics | 14/14 | Ready for user review | 2026-07-24 | Overený Git state/graph model, automation contracts, structured-data safety, navigation a prechod do Testing and Software Quality. |
+| `04-testing-and-quality` — Testing and Software Quality | 15/15 | Ready for user review | 2026-07-24 | Overený risk-to-evidence testing model, test scopes, quality gates, production feedback, chaos/resilience lifecycle, navigation a prechod do CI/CD and Release Engineering. |
 
 ## Section-level completion criteria
 
