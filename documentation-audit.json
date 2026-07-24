@@ -296,16 +296,16 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "title": "CPU and Memory Fundamentals",
-      "words": 1152,
-      "headings": 27,
-      "sections": 27,
-      "findings": 52,
-      "critical": 18,
-      "high": 20,
+      "title": "CPU a memory fundamentals",
+      "words": 2608,
+      "headings": 31,
+      "sections": 31,
+      "findings": 63,
+      "critical": 5,
+      "high": 9,
       "medium": 9,
-      "low": 5,
-      "score": 412,
+      "low": 40,
+      "score": 216,
       "grade": "D"
     },
     {
@@ -13106,80 +13106,17 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "1. Definícia",
+      "section": "1. Mentálny model",
       "line": 11,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "3. Scheduler a context switch",
-      "line": 36,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduler overhead,`, `cache disruption,`, `TLB effects,`, `migration medzi cores.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "3. Scheduler a context switch",
-      "line": 36,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "3. Scheduler a context switch",
-      "line": 36,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "3. Scheduler a context switch",
-      "line": 36,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLB`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "4. CPU usage nie je load average",
-      "line": 56,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "4. CPU usage nie je load average",
-      "line": 56,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `us user space,`, `sy kernel/system,`, `id idle,`, `wa iowait,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "4. CPU usage nie je load average",
-      "line": 56,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "4. CPU usage nie je load average",
-      "line": 56,
+      "section": "2. Task execution a scheduler",
+      "line": 29,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -13187,107 +13124,8 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "6. Virtual memory",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "6. Virtual memory",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolácia procesov,`, `zdieľanie knižníc,`, `memory mapping files,`, `demand paging,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "6. Virtual memory",
-      "line": 100,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "7. RSS, VSZ a PSS",
-      "line": 122,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `VSZ/VIRT: veľkosť virtuálneho address space,`, `RSS/RES: resident pages v RAM,`, `PSS: zdieľané pages rozdelené pomerne medzi procesy.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "7. RSS, VSZ a PSS",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "7. RSS, VSZ a PSS",
-      "line": 122,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VSZ`, `RSS`, `RES`, `PSS`",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "9. Anonymous a file-backed memory",
-      "line": 158,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "9. Anonymous a file-backed memory",
-      "line": 158,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "10. Swap a reclaim",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "10. Swap a reclaim",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drop clean file cache,`, `writeback dirty pages,`, `swap anonymous pages,`, `compact memory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "10. Swap a reclaim",
-      "line": 165,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "10. Swap a reclaim",
-      "line": 165,
+      "section": "4. Context switches",
+      "line": 57,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -13295,35 +13133,26 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "10. Swap a reclaim",
-      "line": 165,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
-      "score": 4
+      "section": "4. Context switches",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "12. Memory leak vs. cache growth",
-      "line": 212,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Context switches",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "12. Memory leak vs. cache growth",
-      "line": 212,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime môže držať allocator arenas,`, `application cache môže byť zámerná,`, `page cache je kernel cache,`, `workload môže mať väčšiu pracovnú množinu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "12. Memory leak vs. cache growth",
-      "line": 212,
+      "section": "5. CPU time states",
+      "line": 73,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -13331,8 +13160,35 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "12. Memory leak vs. cache growth",
-      "line": 212,
+      "section": "5. CPU time states",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "5. CPU time states",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "5. CPU time states",
+      "line": 73,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "6. Load average",
+      "line": 91,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -13340,44 +13196,98 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "14. Základné diagnostické nástroje",
-      "line": 237,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "6. Load average",
+      "line": 91,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "14. Základné diagnostické nástroje",
-      "line": 237,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "7. CPU affinity a topology",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "14. Základné diagnostické nástroje",
-      "line": 237,
+      "section": "8. NUMA",
+      "line": 122,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "9. Virtual address space",
+      "line": 134,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "9. Virtual address space",
+      "line": 134,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "10. Page fault",
+      "line": 150,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "10. Page fault",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "10. Page fault",
+      "line": 150,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "10. Page fault",
+      "line": 150,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGSEGV`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "11. VIRT, RSS a PSS",
+      "line": 166,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "14. Základné diagnostické nástroje",
-      "line": 237,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je systém CPU-bound, memory-bound alebo I/O-bound?`, `Je problém globálny alebo v jednom procese/cgroup?`, `Ide o utilization, queueing alebo stalling?`, `Zmenila sa workload intensity alebo konfigurácia?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "14. Základné diagnostické nástroje",
-      "line": 237,
+      "section": "11. VIRT, RSS a PSS",
+      "line": 166,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -13385,125 +13295,269 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "14. Základné diagnostické nástroje",
-      "line": 237,
-      "severity": "medium",
+      "section": "11. VIRT, RSS a PSS",
+      "line": 166,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "11. VIRT, RSS a PSS",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "11. VIRT, RSS a PSS",
+      "line": 166,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "11. VIRT, RSS a PSS",
+      "line": 166,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU-`, `O-`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "15. Troubleshooting scenáre",
-      "line": 259,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Vysoký load, nízke CPU usage",
-      "line": 261,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Vysoký load, nízke CPU usage",
-      "line": 261,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Vysoký load, nízke CPU usage",
-      "line": 261,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tasks v uninterruptible I/O wait,`, `storage latency,`, `NFS hang,`, `kernel lock alebo device problém.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Vysoký load, nízke CPU usage",
-      "line": 261,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VIRT`, `VSZ`, `RAM`, `PSS`, `USS`",
       "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Vysoký load, nízke CPU usage",
-      "line": 261,
+      "section": "12. Anonymous a file-backed memory",
+      "line": 183,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "13. Page cache",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "14. Reclaim",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "15. Swap",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "15. Swap",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "15. Swap",
+      "line": 227,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "16. Memory overcommit",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "17. Cgroup CPU limits",
+      "line": 256,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "17. Cgroup CPU limits",
+      "line": 256,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "18. Cgroup memory limits",
+      "line": 270,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NFS`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Jeden core na 100 %, ostatné idle",
-      "line": 279,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "18. Cgroup memory limits",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Jeden core na 100 %, ostatné idle",
-      "line": 279,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "18. Cgroup memory limits",
+      "line": 270,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Jeden core na 100 %, ostatné idle",
-      "line": 279,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-threaded workload,`, `CPU affinity,`, `lock serialization,`, `jedna hot queue.`.",
-      "score": 12
+      "section": "18. Cgroup memory limits",
+      "line": 270,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Jeden core na 100 %, ostatné idle",
-      "line": 279,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "19. OOM handling",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "Jeden core na 100 %, ostatné idle",
-      "line": 279,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "16. Časté omyly",
-      "line": 296,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "„Free RAM je dobrá RAM“",
+      "section": "20. Memory leak, cache a allocator behavior",
       "line": 302,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "20. Memory leak, cache a allocator behavior",
+      "line": 302,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "20. Memory leak, cache a allocator behavior",
+      "line": 302,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "20. Memory leak, cache a allocator behavior",
+      "line": 302,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `Workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "21. Pressure Stall Information",
+      "line": 313,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "21. Pressure Stall Information",
+      "line": 313,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "22. Diagnostika vysokého loadu pri nízkom CPU",
+      "line": 329,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "22. Diagnostika vysokého loadu pri nízkom CPU",
+      "line": 329,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "22. Diagnostika vysokého loadu pri nízkom CPU",
+      "line": 329,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "22. Diagnostika vysokého loadu pri nízkom CPU",
+      "line": 329,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "22. Diagnostika vysokého loadu pri nízkom CPU",
+      "line": 329,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `NFS`",
+      "score": 4
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -13511,12 +13565,57 @@
     },
     {
       "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
-      "section": "„OOM killer je príčina incidentu“",
-      "line": 314,
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/01-linux-and-systems/cpu-and-memory-fundamentals.md",
+      "section": "24. Diagnostika memory incidentu",
+      "line": 358,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`, `RSS`, `PSS`, `OOM`, `scope`",
+      "score": 7
     },
     {
       "path": "docs/01-linux-and-systems/cron-and-systemd-timers.md",

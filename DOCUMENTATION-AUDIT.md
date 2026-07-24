@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10591**
-- Total words: **459,352**
-- Findings: **23366** (critical 8182, high 9274, medium 3102, low 2808)
+- Audited conceptual sections: **10595**
+- Total words: **460,808**
+- Findings: **23377** (critical 8169, high 9263, medium 3102, low 2843)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -224,7 +224,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 417 | 21 | 18 | 6 | 2 | 1394 | `docs/01-linux-and-systems/cgroups.md` |
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
-| D | 412 | 18 | 20 | 9 | 5 | 1152 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 407 | 17 | 24 | 4 | 1 | 812 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 405 | 12 | 32 | 3 | 0 | 905 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
@@ -250,6 +249,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 246 | 3 | 26 | 1 | 0 | 914 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
+| D | 216 | 5 | 9 | 9 | 40 | 2608 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 209 | 7 | 6 | 12 | 27 | 3036 | `docs/00-foundations/feedback-loops.md` |
 | D | 207 | 7 | 9 | 7 | 21 | 2280 | `docs/00-foundations/t-shaped-engineer.md` |
@@ -687,42 +687,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 36, `bare-bullet-items` — **3. Scheduler a context switch**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduler overhead,`, `cache disruption,`, `TLB effects,`, `migration medzi cores.`.
-- **CRITICAL** line 56, `bare-bullet-items` — **4. CPU usage nie je load average**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `us user space,`, `sy kernel/system,`, `id idle,`, `wa iowait,`.
-- **CRITICAL** line 100, `bare-bullet-items` — **6. Virtual memory**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolácia procesov,`, `zdieľanie knižníc,`, `memory mapping files,`, `demand paging,`.
-- **CRITICAL** line 100, `outline-instead-of-explanation` — **6. Virtual memory**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 165, `bare-bullet-items` — **10. Swap a reclaim**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drop clean file cache,`, `writeback dirty pages,`, `swap anonymous pages,`, `compact memory,`.
-- **CRITICAL** line 165, `outline-instead-of-explanation` — **10. Swap a reclaim**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 212, `bare-bullet-items` — **12. Memory leak vs. cache growth**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime môže držať allocator arenas,`, `application cache môže byť zámerná,`, `page cache je kernel cache,`, `workload môže mať väčšiu pracovnú množinu.`.
-- **CRITICAL** line 212, `outline-instead-of-explanation` — **12. Memory leak vs. cache growth**: 4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 237, `bare-bullet-items` — **14. Základné diagnostické nástroje**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je systém CPU-bound, memory-bound alebo I/O-bound?`, `Je problém globálny alebo v jednom procese/cgroup?`, `Ide o utilization, queueing alebo stalling?`, `Zmenila sa workload intensity alebo konfigurácia?`.
-- **CRITICAL** line 237, `outline-instead-of-explanation` — **14. Základné diagnostické nástroje**: 5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `empty-section` — **15. Troubleshooting scenáre**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 261, `bare-bullet-items` — **Vysoký load, nízke CPU usage**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tasks v uninterruptible I/O wait,`, `storage latency,`, `NFS hang,`, `kernel lock alebo device problém.`.
-- **CRITICAL** line 261, `outline-instead-of-explanation` — **Vysoký load, nízke CPU usage**: 4 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 279, `bare-bullet-items` — **Jeden core na 100 %, ostatné idle**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-threaded workload,`, `CPU affinity,`, `lock serialization,`, `jedna hot queue.`.
-- **CRITICAL** line 279, `outline-instead-of-explanation` — **Jeden core na 100 %, ostatné idle**: 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `empty-section` — **16. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 166, `outline-instead-of-explanation` — **11. VIRT, RSS a PSS**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 329, `outline-instead-of-explanation` — **22. Diagnostika vysokého loadu pri nízkom CPU**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 358, `outline-instead-of-explanation` — **24. Diagnostika memory incidentu**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 56, `list-heavy-section` — **4. CPU usage nie je load average**: 6 odrážok a iba 54 slov súvislého vysvetlenia.
-- **HIGH** line 122, `bare-bullet-items` — **7. RSS, VSZ a PSS**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `VSZ/VIRT: veľkosť virtuálneho address space,`, `RSS/RES: resident pages v RAM,`, `PSS: zdieľané pages rozdelené pomerne medzi procesy.`.
-- **HIGH** line 158, `list-first-introduction` — **9. Anonymous a file-backed memory**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 237, `list-first-introduction` — **14. Základné diagnostické nástroje**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 237, `single-sentence-concept` — **14. Základné diagnostické nástroje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 261, `single-sentence-concept` — **Vysoký load, nízke CPU usage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 279, `single-sentence-concept` — **Jeden core na 100 %, ostatné idle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 302, `single-sentence-concept` — **„Free RAM je dobrá RAM“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 314, `single-sentence-concept` — **„OOM killer je príčina incidentu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 358, `single-sentence-concept` — **24. Diagnostika memory incidentu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 11, `thin-concept-section` — **1. Definícia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 122, `term-before-explanation` — **7. RSS, VSZ a PSS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VSZ`, `RSS`, `RES`, `PSS`
-- **HIGH** line 122, `thin-concept-section` — **7. RSS, VSZ a PSS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 158, `thin-concept-section` — **9. Anonymous a file-backed memory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 165, `thin-concept-section` — **10. Swap a reclaim**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 237, `thin-concept-section` — **14. Základné diagnostické nástroje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 261, `thin-concept-section` — **Vysoký load, nízke CPU usage**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 279, `thin-concept-section` — **Jeden core na 100 %, ostatné idle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 166, `term-before-explanation` — **11. VIRT, RSS a PSS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VIRT`, `VSZ`, `RAM`, `PSS`, `USS`
+- **HIGH** line 166, `thin-concept-section` — **11. VIRT, RSS a PSS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 329, `thin-concept-section` — **22. Diagnostika vysokého loadu pri nízkom CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 358, `term-before-explanation` — **24. Diagnostika memory incidentu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`, `RSS`, `PSS`, `OOM`, `scope`
+- **HIGH** line 358, `thin-concept-section` — **24. Diagnostika memory incidentu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/cron-and-systemd-timers.md`
 
@@ -18506,19 +18482,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `single-sentence-concept` | 0 | 4114 | 0 | 0 | 4114 |
-| `bare-bullet-items` | 3737 | 332 | 0 | 0 | 4069 |
-| `outline-instead-of-explanation` | 3652 | 0 | 0 | 0 | 3652 |
-| `thin-concept-section` | 0 | 3344 | 0 | 0 | 3344 |
-| `term-before-explanation` | 0 | 346 | 2231 | 0 | 2577 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1244 | 1244 |
-| `example-not-explicit` | 0 | 0 | 0 | 1064 | 1064 |
-| `list-first-introduction` | 0 | 923 | 0 | 0 | 923 |
-| `short-concept-section` | 0 | 0 | 871 | 0 | 871 |
-| `empty-section` | 500 | 0 | 0 | 0 | 500 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 500 | 500 |
+| `single-sentence-concept` | 0 | 4110 | 0 | 0 | 4110 |
+| `bare-bullet-items` | 3729 | 331 | 0 | 0 | 4060 |
+| `outline-instead-of-explanation` | 3649 | 0 | 0 | 0 | 3649 |
+| `thin-concept-section` | 0 | 3340 | 0 | 0 | 3340 |
+| `term-before-explanation` | 0 | 347 | 2230 | 0 | 2577 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1254 | 1254 |
+| `example-not-explicit` | 0 | 0 | 0 | 1077 | 1077 |
+| `list-first-introduction` | 0 | 921 | 0 | 0 | 921 |
+| `short-concept-section` | 0 | 0 | 872 | 0 | 872 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 512 | 512 |
+| `empty-section` | 498 | 0 | 0 | 0 | 498 |
 | `no-prose-concept` | 293 | 0 | 0 | 0 | 293 |
-| `list-heavy-section` | 0 | 215 | 0 | 0 | 215 |
+| `list-heavy-section` | 0 | 214 | 0 | 0 | 214 |
 
 ## Required remediation pattern
 
