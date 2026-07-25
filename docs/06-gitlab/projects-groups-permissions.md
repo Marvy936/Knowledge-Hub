@@ -1,108 +1,196 @@
 # Projects, groups a permissions
 
-GitLab organizuje source code, CI/CD, issues, security a deployment metadata do projektov, ktoré sú uložené v namespaces. Groups a subgroups poskytujú spoločné členstvo, policy, billing a organizačnú hierarchiu pre viac projektov.
+GitLab spája source code, merge requests, CI/CD, registries, security findings a deployment metadata do projektov uložených v namespaces. Group hierarchy pritom nie je iba navigačný strom. Určuje inheritance membershipu, policy scope, identity dosah, ownership, billing, audit a blast radius administratívnej zmeny.
 
-## 1. Namespace model
+Cieľom permission modelu nie je iba priradiť používateľovi rolu. Cieľom je vedieť dokázať:
+
+```text
+kto alebo čo
+→ získalo akú capability
+→ cez ktorý membership alebo token path
+→ nad ktorým resource scope
+→ na aký čas
+→ s akým vlastníkom a auditom
+```
+
+Konkrétne názvy rolí, capabilities a dostupnosť custom roles sa môžu meniť podľa verzie, offeringu, tieru a konfigurácie GitLab inštancie. Pri produkčnom návrhu preto over aktuálnu permission matrix konkrétnej inštancie.
+
+## 1. Mental model: resources, subjects a access paths
+
+GitLab access vzniká kombináciou troch vrstiev:
+
+- **Resource —** project, group, subgroup, branch, tag, environment, registry, package alebo iný chránený objekt.
+- **Subject —** človek, external user, service account, access token, CI job identity alebo integrácia.
+- **Access path —** direct membership, inherited membership, group sharing, token scope, administrator capability alebo policy viazaná na konkrétny resource.
+
+Efektívne oprávnenie preto nemožno spoľahlivo určiť pohľadom na jednu obrazovku project members.
+
+```text
+subject
+├─ direct project membership
+├─ parent-group inheritance
+├─ shared-group membership
+├─ custom-role capability
+├─ token alebo CI identity
+└─ instance-level privilege
+
+→ effective access nad konkrétnym resource
+```
+
+Pri audite sa nepýtaj iba „akú rolu používateľ vidí“. Pýtaj sa „cez ktorý path získal capability, ktorú práve vykonal“.
+
+## 2. Namespace model
+
+Namespace poskytuje adresu a organizačný kontext pre project alebo group.
 
 ```text
 top-level group
-├── subgroup
-│   ├── project A
-│   └── project B
-└── project C
+├── platform
+│   ├── payments
+│   │   ├── api
+│   │   └── worker
+│   └── observability
+└── product
+    └── storefront
 ```
 
-Project path je odvodený od namespace hierarchy:
+Project path je odvodený od hierarchy:
 
 ```text
 gitlab.example.com/platform/payments/api
 ```
 
-Presun projektu alebo zmena group path môže meniť clone URL, registry paths, package coordinates a integračné odkazy. Redirects nemajú nahrádzať riadenú migráciu consumers.
+Namespace ovplyvňuje viac než clone URL. Môže meniť alebo určovať:
 
-## 2. Project
+- **Inheritance —** členstvo a niektoré settings sa prenášajú z parent groups.
+- **Registry coordinates —** container a package paths často obsahujú namespace.
+- **Policy scope —** security, compliance, runners, variables alebo templates môžu byť definované vyššie v strome.
+- **Ownership —** group môže reprezentovať tím, platformu, produkt alebo regulačnú boundary.
+- **Lifecycle —** transfer alebo rename zasahuje consumers, integrations a deployment automation.
 
-Project je základná pracovná jednotka obsahujúca podľa zapnutých features napríklad:
+Hierarchy navrhuj podľa dlhodobého ownershipu a security boundaries, nie podľa dočasného organizačného diagramu. Príliš hlboký strom sťažuje vysvetlenie inheritance; príliš plytký strom vedie k príliš širokým permissions a policy scope-u.
 
-- Git repository,
-- merge requests,
-- issues a planning,
-- CI/CD pipelines,
-- variables,
-- environments a deployments,
-- container/package registry,
-- security findings,
-- wiki a snippets,
-- project members a access policy.
+## 3. Project ako delivery boundary
 
-Project boundary má zodpovedať ownershipu, release unit, security boundary a lifecycle komponentu, nie iba náhodnému priečinku zdrojového kódu.
+Project je základná pracovná jednotka, ktorá môže obsahovať:
 
-## 3. Group a subgroup
+- Git repository a refs,
+- merge requests, approvals a discussions,
+- issues a planning metadata,
+- CI/CD pipelines, schedules a variables,
+- runners a job artifacts,
+- environments, deployments a releases,
+- container a package registry,
+- security findings a vulnerability records,
+- wiki, snippets a Pages,
+- project members, tokens a integrations.
 
-Group poskytuje spoločný kontext pre projekty a ďalšie subgroups:
+Project boundary má zodpovedať kombinácii:
 
-- membership a inherited access,
-- group-level settings,
-- shared runners a variables,
-- compliance/security policy podľa tieru,
-- group access tokens a service accounts podľa dostupnosti,
-- project templates,
-- audit a billing boundary.
+- **Ownershipu —** jeden tím vie rozumne rozhodovať o source, pipeline a release lifecycle.
+- **Release unit —** artifact alebo komponent možno versionovať a nasadzovať s jasnou identitou.
+- **Security boundary —** citlivé variables, runners a environments majú primeraný scope.
+- **Lifecycle —** archivácia, transfer alebo deletion nevyžaduje neprimerane koordinovaný zásah.
+- **Failure blast radiusu —** chybná project-level konfigurácia neohrozí nesúvisiace služby.
 
-Subgroups umožňujú delegovať ownership, ale príliš hlboká hierarchy komplikuje inheritance, discovery a policy reasoning.
+Project nevytvára automaticky bezpečnostnú izoláciu všetkých runtime systémov. CI identity, shared runners, group variables alebo external integrations môžu hranicu prekračovať.
 
-## 4. Visibility
+## 4. Group a subgroup ako policy boundary
 
-GitLab podporuje visibility úrovne podľa konfigurácie inštancie:
+Group poskytuje spoločný kontext pre projekty a ďalšie subgroups. Môže centralizovať:
 
-- private,
-- internal,
-- public.
+- membership a inherited roles,
+- spoločné settings a templates,
+- runners, variables alebo access tokens,
+- compliance a security policy podľa dostupných features,
+- audit, billing a usage governance,
+- service accounts a organizačné integrations,
+- project creation a transfer policy.
 
-Private project je dostupný iba oprávneným členom; samotná znalosť URL neposkytuje prístup. Visibility nie je náhradou za správne membership a protected-resource pravidlá.
+Subgroup je vhodná, keď treba delegovať ownership alebo oddeliť policy scope. Nie je vhodná iba preto, aby URL kopírovala org chart.
 
-Pri návrhu visibility zohľadni:
+Príklad rozumného rozdelenia:
+
+```text
+company
+├─ shared-platform       # centrálne platformové capabilities
+├─ regulated-products   # prísnejšie policy a audit
+└─ product-teams        # delegované ownership
+```
+
+Každá group má mať definované:
+
+- účel a ownera,
+- kto môže vytvárať projekty a subgroups,
+- ktoré settings sa majú dediť,
+- maximum prijateľného access scope-u,
+- policy pre external users a sharing,
+- lifecycle rename, transfer, archive a deletion.
+
+## 5. Visibility nie je permission model
+
+GitLab môže podľa konfigurácie podporovať private, internal alebo public visibility. Visibility určuje základný discovery a access model, ale neodpovedá na všetky otázky ochrany.
+
+Pri visibility rozhodnutí zohľadni:
 
 - source confidentiality,
-- artifact a registry exposure,
-- issue/MR metadata,
-- pipeline logs,
-- public forks,
-- compliance,
-- externých spolupracovníkov.
+- issue a merge-request metadata,
+- pipeline logs a job artifacts,
+- container/package registry exposure,
+- Pages, wiki a snippets,
+- forks a downstream pipelines,
+- security findings,
+- externých spolupracovníkov a compliance.
 
-## 5. Membership sources
+Public project nemusí znamenať, že každý smie pushovať alebo deployovať. Private project zase nie je automaticky bezpečný, ak široká parent group udeľuje Maintainer access alebo CI job publikuje citlivý artifact verejne.
 
-Používateľ môže získať access:
+## 6. Membership sources
 
-- priamym členstvom v projekte,
-- členstvom v group,
-- zdedením z parent group,
-- zdieľaním projektu alebo group s inou group,
-- custom role podľa licencie a konfigurácie,
-- dočasným membershipom s expiration.
+Subjekt môže získať project access viacerými cestami:
 
-Pri audite nestačí pozerať iba direct project members. Potrebné je zistiť origin membershipu a všetky inherited paths.
+- direct project membership,
+- direct group membership,
+- inheritance z parent group,
+- project alebo group sharing s inou group,
+- custom role naviazaná na základnú rolu,
+- administrator alebo instance-level capability,
+- dočasný membership s expiration,
+- token alebo CI identity s konkrétnym scope-om.
 
-## 6. Role model
+Access review musí zachytiť minimálne:
 
-GitLab role definujú rastúce oprávnenia. Aktuálny model môže podľa verzie a tieru zahŕňať napríklad:
+```text
+subject
++ source membershipu
++ granted role/capabilities
++ resource scope
++ expiration
++ granting actor
++ business owner
++ last use
+```
 
-- Guest,
-- Planner,
-- Reporter,
-- Developer,
-- Maintainer,
-- Owner,
-- Security Manager alebo custom roles tam, kde sú dostupné.
+Direct membership list bez inherited a shared paths je neúplný dôkaz.
 
-Konkrétne permissions sa môžu meniť medzi GitLab verziami a tiers. Pri citlivom návrhu over aktuálnu permissions matrix inštancie.
+## 7. Built-in role verzus konkrétna capability
 
-## 7. Highest effective role
+Built-in role je balík capabilities. Nie je univerzálnym popisom všetkého, čo subjekt môže vykonať v každom kontexte.
 
-Ak používateľ získa viac membershipov, efektívne oprávnenia zodpovedajú najvyššiemu prístupu, ktorý sa na resource vzťahuje.
+GitLab môže podľa verzie a konfigurácie obsahovať role ako Guest, Planner, Reporter, Developer, Maintainer a Owner, prípadne custom alebo špecializované role. Konkrétne oprávnenia sa musia overiť v aktuálnej matrix.
 
-Príklad:
+Pri návrhu používaj tento postup:
+
+1. Urči presnú operáciu, napríklad merge do protected branch alebo deployment do production.
+2. Urči resource boundary, na ktorej sa operácia vykonáva.
+3. Zisti, či capability vyplýva z role, protected-resource pravidla, token scope-u alebo kombinácie.
+4. Vyber najnižší dostatočný access.
+5. Zaveď expiration, audit a revocation cestu.
+
+„Potrebuje Maintainer, lebo pipeline nefunguje“ je symptóm neanalyzovaného capability modelu.
+
+## 8. Highest effective access
+
+Keď subjekt získava prístup viacerými cestami, nižšia direct rola spravidla neobmedzí vyšší prístup získaný iným pathom.
 
 ```text
 parent group: Maintainer
@@ -110,222 +198,398 @@ project direct membership: Developer
 → effective project access: Maintainer
 ```
 
-Nižšia direct role neobmedzí vyšší inherited access. Na skutočné zníženie oprávnení treba odstrániť alebo zmeniť zdroj vyššieho membershipu.
+Preto odobranie direct membershipu nemusí zmeniť reálne oprávnenia. Treba identifikovať všetky paths:
 
-## 8. Owner a Maintainer
+```text
+project direct
++ subgroup
++ parent group
++ shared group
++ custom role
++ administrator state
+→ effective capabilities
+```
 
-### Owner
+Dôležitý dôsledok: deny-like očakávanie nemožno automaticky odvodiť z nižšej role. Permission model treba navrhovať tak, aby široký parent access nevytváral potrebu „odoberania“ na každom child projekte.
 
-Owner je najvyššia business/administrative rola pre group alebo project ownership podľa modelu GitLabu. Má sa prideľovať obmedzenému počtu dôveryhodných identít.
+## 9. Owner a Maintainer blast radius
 
-### Maintainer
+Najvyššie role majú veľký organizačný a supply-chain blast radius. Môžu ovplyvniť members, protected resources, pipeline settings, integrations, variables alebo release proces podľa konkrétnej konfigurácie.
 
-Maintainer typicky spravuje repository, merge requests, CI/CD nastavenia a project members, ale nemá automaticky predstavovať plnú organizačnú administráciu.
+Owner používaj iba pre obmedzený počet dôveryhodných human alebo riadených non-human identities. Maintainer tiež nemá byť default rola celého tímu, ak vývojári potrebujú iba bežný source workflow.
 
-Nedávaj Owner iba preto, že používateľ potrebuje jednu chýbajúcu operáciu. Použi delegáciu, custom role alebo automatizačnú identitu s užším scope-om.
+Pri elevated access definuj:
 
-## 9. Human a non-human identities
+- business dôvod,
+- resource scope,
+- permanentný alebo dočasný charakter,
+- schvaľujúceho ownera,
+- expiration alebo review interval,
+- break-glass alternatívu,
+- audit kritických operácií.
 
-Rozlišuj:
+Jedna chýbajúca capability nemá viesť k parent-group Owner roli.
 
-- bežných používateľov,
-- external users,
-- administrators,
-- service accounts,
-- project/group access tokens,
-- deploy tokens,
-- CI job identities,
-- OAuth/application integrations.
+## 10. Group membership verzus direct membership
 
-Osobný access token vývojára nie je vhodná dlhodobá produkčná service identity.
+Group membership je vhodný pre stabilné tímy a opakovateľné access patterns. Prináša:
 
-## 10. Least privilege
-
-Praktický postup:
-
-1. definuj potrebnú operáciu,
-2. urč resource scope,
-3. vyber najnižšiu dostačujúcu rolu alebo token scope,
-4. obmedz environment/branch/tag podľa potreby,
-5. nastav expiration,
-6. zapni audit a rotation,
-7. pravidelne reviewuj nevyužité oprávnenia.
-
-„Developer pre istotu“ alebo „Maintainer pre pipeline“ často skrýva nepochopený permission model.
-
-## 11. Group-level membership
-
-Výhody:
-
-- centrálna správa tímu,
-- konzistentný access vo viacerých projektoch,
-- jednoduchší onboarding/offboarding,
-- menší počet direct memberships.
+- centrálne onboarding/offboarding,
+- konzistentný prístup vo viacerých projektoch,
+- menší počet individuálnych assignments,
+- jednoduchšiu pravidelnú recertifikáciu.
 
 Riziká:
 
-- nečakaný inherited access,
-- príliš široká parent-group rola,
-- zdieľané projekty mimo pôvodnej hierarchy,
-- ťažšie vysvetlenie efektívneho prístupu.
+- príliš široká parent rola,
+- nečakaný inherited access do nových projektov,
+- access cez sharing mimo pôvodnej hierarchy,
+- veľký blast radius nesprávnej membership zmeny.
 
-Preferuj group membership pre stabilné tímy a direct project membership pre explicitné výnimky s ownerom a expiry.
+Direct project membership používaj pre explicitnú výnimku alebo úzky scope. Každá výnimka má mať ownera, dôvod a podľa potreby expiration.
 
-## 12. Group sharing
+## 11. Group sharing
 
-Project alebo group možno zdieľať s inou group. Pred zdieľaním over:
+Project alebo group možno sprístupniť členom inej group. Sharing je druhý access graph, ktorý môže obísť očakávania založené iba na namespace strome.
 
-- kto sú direct members cieľovej group,
-- aký maximum access level sa udeľuje,
-- či sa access propaguje ďalej,
-- viditeľnosť membershipu,
-- external users,
-- expiration a audit.
+Pred sharingom over:
 
-Zdieľanie s veľkou organizačnou group môže neúmyselne sprístupniť resource stovkám ľudí.
+- členstvo cieľovej group vrátane inherited a external users,
+- maximálny udeľovaný access level,
+- kto môže meniť membership cieľovej group,
+- expiration a pravidelný review,
+- citlivosť source, logs, artifacts a registry,
+- možnosť ďalšieho nepriameho exposure,
+- audit a revocation postup.
 
-## 13. Custom roles
+Zdieľanie s veľkou organizačnou group môže jedným kliknutím rozšíriť access na stovky identít. Preto má byť group sharing inventory súčasťou access review.
 
-Custom role môže oddeliť konkrétne permission od širokej built-in role. Použi ju, keď:
+## 12. Custom roles
 
-- potrebuješ opakovateľnú organizačnú rolu,
-- built-in rola je príliš široká,
-- permission je podporovaná custom-role modelom,
-- lifecycle a ownership role sú jasné.
+Custom role môže oddeliť konkrétnu capability od príliš širokej built-in role, ak ju daná GitLab verzia a tier podporujú.
 
-Custom roles zvyšujú governance komplexitu. Každá potrebuje dokumentovaný účel, ownera, versionovanie a pravidelný review.
+Použi ju, keď:
 
-## 14. Expiration
+- potreba je opakovateľná vo viacerých projektoch,
+- built-in role udeľuje neprimerané capabilities,
+- custom capability je platformou podporovaná a testovaná,
+- existuje owner, dokumentácia a migration policy.
 
-Dočasný prístup má mať dátum skončenia. Typické prípady:
+Custom role je vlastné security API. Potrebuje:
+
+- stabilný názov a účel,
+- versionovaný capability set,
+- test nad reprezentatívnym projektom,
+- pravidelný access review,
+- kontrolu zmien a backward compatibility,
+- postup pri zániku alebo nahradení role.
+
+Neudržiavané custom roles môžu byť menej zrozumiteľné než opatrne použitá built-in rola.
+
+## 13. Human a non-human identities
+
+Rozlišuj minimálne:
+
+- **Human user —** osobná identita viazaná na človeka, jeho lifecycle a MFA/SSO policy.
+- **External user —** obmedzená identita mimo bežnej organizačnej dôveryhodnej populácie.
+- **Service account —** riadená non-human identita s explicitným ownerom a účelom.
+- **Project/group access token —** token viazaný na resource scope a definované token capabilities.
+- **Deploy token —** identita určená na obmedzený registry/package alebo deployment prístup podľa konfigurácie.
+- **CI job identity —** krátkodobý runtime subject odvodený od pipeline contextu.
+- **OAuth alebo application integration —** externá aplikácia s delegovaným scope-om.
+
+Osobný token vývojára nepoužívaj ako dlhodobú produkčnú integráciu. Offboarding človeka, zmena role alebo expirácia tokenu by inak nepredvídateľne zastavili službu.
+
+## 14. Token lifecycle
+
+Token je autentifikačný materiál a zároveň identity contract. Pre každý token eviduj:
+
+- typ a resource scope,
+- capabilities/scopes,
+- ownera a účel,
+- vytvorenie a expiration,
+- rotation postup,
+- posledné použitie,
+- storage location,
+- revocation a incident response.
+
+Preferovaný model:
+
+```text
+pipeline/job identity
+→ short-lived federated credential
+→ minimum-scope external role
+→ automatická expirácia
+```
+
+Dlhodobý static token používaj iba tam, kde nie je dostupná bezpečnejšia federácia, a zaveď kratšiu expiráciu, rotation a usage monitoring.
+
+## 15. CI identities a fork trust boundary
+
+Pipeline kód môže byť nedôveryhodný, najmä pri merge requestoch z fork-u alebo pri branches, ktoré menia CI konfiguráciu.
+
+Threat model musí odpovedať:
+
+- ktorá pipeline definícia sa vykonáva,
+- v ktorom project kontexte,
+- aké variables a tokens sú dostupné,
+- či runner obsahuje persistentný state,
+- kto môže spustiť pipeline v parent projekte,
+- či job smie writeovať repository, registry alebo environment,
+- ako sa odlišuje protected a unprotected ref.
+
+Fork nesmie automaticky zdediť produkčné secrets alebo privileged runner context. Trust decision má byť vynútený platformovou policy, nie iba očakávaním reviewera.
+
+## 16. Expiration a just-in-time access
+
+Dočasný access má mať automatický koniec. Typické prípady:
 
 - externý dodávateľ,
-- incident support,
-- audit,
-- migration project,
-- dočasná elevated rola.
+- incident alebo migration support,
+- krátkodobý audit,
+- elevated troubleshooting,
+- zastupovanie ownera.
 
-Expiration nenahrádza okamžité odobratie kompromitovaného alebo už nepotrebného accessu.
+Expiration nie je náhrada okamžitej revokácie pri kompromitovaní. Ide o ochranu proti zabudnutému oprávneniu.
 
-## 15. Project transfer a namespace zmeny
+Pre citlivé capabilities preferuj just-in-time alebo time-bounded elevation:
 
-Pred presunom projektu over:
+```text
+request
+→ approval podľa rizika
+→ krátky elevated access
+→ audit operácií
+→ automatické odobratie
+→ následný review pri break-glass použití
+```
 
-- permissions v target group,
-- inherited CI variables,
-- runner availability,
-- registry/package paths,
+## 17. Onboarding, role change a offboarding
+
+Identity lifecycle musí pokrývať viac než prvotné pridanie používateľa.
+
+### Onboarding
+
+- priraď access cez správnu group,
+- over least privilege,
+- nastav SSO/MFA a external-user status podľa policy,
+- urč ownera výnimiek,
+- nedávaj permanentný direct access „dočasne“.
+
+### Role alebo team change
+
+- odstráň staré group memberships,
+- znovu vyhodnoť direct access a tokens,
+- over ownership projektov a approvals,
+- skontroluj inherited permissions z bývalej organizačnej vetvy.
+
+### Offboarding
+
+- deaktivuj human identity podľa identity-provider procesu,
+- revokuj personal tokens a sessions,
+- prenes ownership schedules, bots a integrations,
+- nahraď osobné credentials service identities,
+- over audit kritických operácií pred odchodom.
+
+## 18. Project transfer a rename
+
+Transfer alebo namespace rename je identity, security a delivery migrácia.
+
+Pred zmenou vytvor inventory:
+
+- clone a API URLs,
+- container/package coordinates,
+- Pages a external URLs,
+- inherited variables a runners,
+- project/group access tokens,
 - webhooks a integrations,
-- protected branches/environments,
-- security/compliance policies,
-- Pages alebo external URLs,
-- access tokens a deploy credentials.
+- protected branches, tags a environments,
+- security/compliance policy,
+- deployment identities a OIDC claims,
+- downstream/upstream pipeline references,
+- CODEOWNERS a approval groups.
 
-Transfer je security a delivery zmena, nie iba organizačné upratanie.
+Bezpečný lifecycle:
 
-## 16. Forks
+```text
+inventory a dependency map
+→ target-group permission review
+→ migration plan
+→ controlled transfer/rename
+→ update consumers
+→ verify CI, registry a deployment
+→ monitor redirects
+→ remove legacy references
+```
 
-Fork môže mať odlišnú visibility, members, CI trust a secrets boundary. Pri merge requestoch z fork-u:
+Redirect je transition aid, nie trvalý dependency contract.
 
-- nedôveruj automaticky source pipeline kódu,
-- neexponuj protected variables nedôveryhodnému refu,
-- používaj target-project policy,
-- kontroluj, kto môže spustiť pipeline v parent kontexte.
+## 19. Effective-access review
 
-Fork workflow musí byť súčasťou threat modelu.
+Pravidelný review má začínať citlivými capabilities, nie abecedným zoznamom používateľov.
 
-## 17. Audit
+Kontroluj:
 
-Pre citlivé groups/projects sleduj:
+- Owner a Maintainer identities,
+- kto môže meniť protected refs a environments,
+- kto môže používať production credentials,
+- group sharing a inherited access,
+- external a dormant users,
+- direct memberships bez ownera,
+- custom roles a ich aktuálny capability set,
+- service accounts a tokens bez expiration,
+- nepoužívané credentials,
+- projects s nejasným business ownerom.
+
+Výstup reviewu musí byť akčný:
+
+```text
+remove
+| reduce
+| expire
+| rotate
+| document risk acceptance
+| retain with evidence
+```
+
+Samotný export zoznamu členov nie je access review.
+
+## 20. Audit a provenance administratívnej zmeny
+
+Pre citlivé namespaces sleduj minimálne:
 
 - membership add/remove/change,
 - role elevation,
 - group sharing,
-- token creation/revocation,
-- visibility changes,
-- project transfer,
-- protected-resource policy changes,
-- owner count,
-- expired a dormant access.
+- token creation, rotation a revocation,
+- visibility change,
+- project transfer/rename,
+- protected-resource policy zmenu,
+- owner count a custom-role zmenu,
+- use of break-glass alebo administrator capability.
 
-Audit log bez review procesu iba uchováva udalosti.
+Audit event potrebuje ownera, retention a review proces. Log, ktorý nikto nevyhodnocuje, nepôsobí ako preventívny ani detekčný control.
 
-## 18. Access review
-
-Pravidelne vyhodnocuj:
-
-- kto má Owner/Maintainer,
-- odkiaľ sa access dedí,
-- nepoužívané direct memberships,
-- service identities bez ownera,
-- tokens bez expiry,
-- external users,
-- zdieľané groups,
-- users po zmene tímu,
-- citlivé projekty s príliš širokým scope-om.
-
-Výstup review má viesť ku konkrétnym removals alebo risk acceptance.
-
-## 19. Troubleshooting
+## 21. Troubleshooting effective permissions
 
 ### Používateľ má vyšší access než project membership ukazuje
 
-Skontroluj parent groups, shared groups, custom roles a administrator status. Platí highest effective role.
+1. Skontroluj parent a ancestor groups.
+2. Skontroluj group sharing.
+3. Skontroluj custom role a špecializované capabilities.
+4. Over administrator alebo instance-level state.
+5. Zisti presný resource, na ktorom bola operácia vykonaná.
+
+### Odobraná direct rola neznížila access
+
+Vyšší inherited alebo shared path zostal aktívny. Odstráň zdroj vyššej capability; nižšia direct rola ho neprepisuje.
 
 ### Používateľ nevidí private project
 
-Over membership source, expiration, external-user obmedzenia, group visibility a project sharing.
+Over membership source, expiration, external-user policy, group visibility, sharing a prípadné SSO/group-sync obmedzenia.
 
-### Po presune projektu pipeline stratila variables
+### Pipeline po transfere stratila variables alebo runner
 
-Variables alebo runners boli zdedené zo starej group. Zmapuj dependencies pred transferom.
+Pôvodný project dedil group-level resources. Porovnaj starý a nový effective environment: variables, runner scope, policies, tokens a OIDC claims.
 
-### Odobratá direct rola neznížila access
+### Integrácia prestala po offboardingu človeka
 
-Vyšší access zostal inherited z group alebo sharingu.
+Pravdepodobne používala personal token alebo osobnú OAuth identity. Nahraď ju riadenou non-human identitou a rotuj credentials.
 
-### Service integration používa osobný token bývalého člena
-
-Nahraď ho explicitnou non-human identity, rotuj secret a audituj použitie.
-
-## 20. Anti-patterny
+## 22. Typické anti-patterny
 
 ### Všetci sú Maintainers
 
-Ruší separation of duties a zvyšuje blast radius chybnej alebo kompromitovanej identity.
+Ruší least privilege a separation of duties. Kompromitovaný účet môže zasiahnuť source, CI/CD aj deployment controls.
 
 ### Direct membership v každom projekte
 
-Onboarding/offboarding a audit sa stávajú nekonzistentné.
+Onboarding, offboarding a recertifikácia sa rozídu. Stabilné tímy spravuj cez groups a výnimky cez expirovateľný direct access.
 
-### Parent group Owner pre jednu úlohu
+### Parent-group Owner kvôli jednej operácii
 
-Príliš široký scope vzhľadom na potrebu.
+Resource scope je neprimeraný potrebe. Použi užšiu rolu, custom capability alebo riadený workflow.
 
-### Token bez ownera a expiry
+### Group sharing bez membership inventory
 
-Nie je jasné, kto ho smie rotovať alebo zrušiť.
+Nie je známe, koľko a akých identít prístup získalo.
 
-### Visibility sa považuje za jedinú security kontrolu
+### Osobný token ako produkčný service account
 
-Nechráni protected refs, CI secrets ani deployment permissions.
+Identity lifecycle človeka sa stáva skrytou availability dependency.
 
-## 21. Kontrolné otázky
+### Token bez ownera, expiration a usage monitoringu
 
-1. Aký je rozdiel medzi projectom, group a subgroup?
-2. Ako vzniká effective role pri viacerých memberships?
-3. Prečo nižšia direct rola nezníži vyšší inherited access?
-4. Kedy používať group a kedy direct project membership?
-5. Aké riziká má group sharing?
-6. Kedy má zmysel custom role?
-7. Ako odlíšiť human a non-human identities?
-8. Čo treba overiť pred project transferom?
-9. Prečo sú fork pipelines samostatná trust boundary?
-10. Čo má obsahovať pravidelný access review?
+Nie je jasné, kto ho môže rotovať, či je ešte potrebný ani ako reagovať pri úniku.
+
+### Visibility ako jediný security control
+
+Visibility nechráni protected refs, CI secrets, registry writes ani production deployment permissions.
+
+### Audit bez remediation procesu
+
+Udalosti sa ukladajú, ale nevedú k revokácii, oprave policy ani risk acceptance.
+
+## 23. Praktický rozhodovací rámec
+
+Pri návrhu GitLab namespace a access modelu odpovedz:
+
+1. Aký resource a lifecycle má project reprezentovať?
+2. Ktoré boundaries patria na top-level group a ktoré na subgroup?
+3. Aké policies a resources sa dedia?
+4. Ktoré stabilné tímy majú group membership?
+5. Ktoré direct memberships sú výnimky a kedy expirujú?
+6. Ako sa počíta effective access cez všetky paths?
+7. Ktoré capabilities sú najcitlivejšie?
+8. Je built-in rola primeraná alebo treba custom role/workflow?
+9. Ktoré non-human identities existujú a kto ich vlastní?
+10. Môžu sa static credentials nahradiť federovanou job identity?
+11. Ako sa oddelí trusted a untrusted pipeline context?
+12. Čo sa stane pri team change a offboardingu?
+13. Aký audit a review interval zodpovedá riziku?
+14. Ako sa bezpečne vykoná transfer alebo rename?
+
+## 24. Kontrolný checklist
+
+- namespace hierarchy zodpovedá ownershipu a security boundaries;
+- project boundary má jasný release a lifecycle model;
+- effective access sa vyhodnocuje cez direct, inherited aj shared paths;
+- Owner a Maintainer sú obmedzené a pravidelne reviewované;
+- stable teams používajú group membership;
+- direct výnimky majú ownera a expiration;
+- custom roles majú versionovaný capability contract;
+- external users majú explicitnú policy;
+- non-human identities nie sú osobné účty vývojárov;
+- tokens majú scope, ownera, expiration, rotation a usage audit;
+- fork/branch pipeline nemá implicitný production trust;
+- onboarding, role change a offboarding sú zdokumentované;
+- project transfer má dependency inventory a validation plán;
+- audit events vedú k remediation alebo risk decision.
+
+## 25. Kontrolné otázky
+
+1. Aký je rozdiel medzi projectom, group, subgroup a namespace?
+2. Prečo group hierarchy predstavuje security a policy boundary?
+3. Ako vzniká effective access pri viacerých membership paths?
+4. Prečo nižšia direct rola neobmedzí vyšší inherited access?
+5. Kedy je vhodnejší group membership a kedy direct membership?
+6. Aké riziká vytvára group sharing?
+7. Čo je rozdiel medzi built-in rolou a konkrétnou capability?
+8. Kedy má zmysel custom role?
+9. Prečo osobný token nie je vhodná service identity?
+10. Čo musí obsahovať token lifecycle?
+11. Prečo je fork pipeline samostatná trust boundary?
+12. Čo sa musí vykonať pri zmene tímu alebo offboardingu?
+13. Prečo je project transfer delivery a security migrácia?
+14. Ako má vyzerať akčný access review?
+15. Prečo audit log bez review procesu nestačí?
+
+## Summary
+
+GitLab permission model je graf subjects, resources a access paths, nie jednoduchý zoznam project roles. Group hierarchy určuje inheritance, policy scope a administratívny blast radius; effective access môže vzniknúť direct membershipom, parent groups, sharingom, custom role alebo non-human identitou. Dôveryhodný model vyžaduje least privilege, oddelenie human a service identities, expirovateľný access, token lifecycle, fork-pipeline trust policy, pravidelný effective-access review a auditovateľné transfery. Každú capability treba vedieť spätne vysvetliť konkrétnym access pathom a ownerom.
 
 ## Glossary impact
 
-Relevantné pojmy: GitLab project, GitLab group, subgroup, namespace, direct membership, inherited membership, effective role, group sharing, custom role, external user, service account, project access token, group access token a project transfer.
+Relevantné pojmy: GitLab project, group, subgroup, namespace, resource scope, subject, direct membership, inherited membership, effective access, highest effective role, group sharing, built-in role, custom role, external user, service account, project access token, group access token, deploy token, CI job identity, access review a project transfer.
 
 ## Oficiálna dokumentácia
 
