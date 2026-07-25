@@ -3,15 +3,15 @@
     {
       "path": "docs/00-foundations/automation-mindset.md",
       "title": "Automation Mindset",
-      "words": 3823,
-      "headings": 51,
-      "sections": 51,
-      "findings": 85,
-      "critical": 15,
-      "high": 15,
-      "medium": 13,
-      "low": 42,
-      "score": 395,
+      "words": 2750,
+      "headings": 34,
+      "sections": 34,
+      "findings": 42,
+      "critical": 4,
+      "high": 6,
+      "medium": 9,
+      "low": 23,
+      "score": 158,
       "grade": "D"
     },
     {
@@ -3615,7 +3615,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -3641,9 +3641,9 @@
       "section": "Metadata",
       "line": 3,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
@@ -3665,188 +3665,206 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "2. Problém manuálnych procesov",
-      "line": 19,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "2. Problém manuálnych procesov",
-      "line": 19,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "3. Riziká manuálnej práce",
-      "line": 35,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "3. Riziká manuálnej práce",
-      "line": 35,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "3. Riziká manuálnej práce",
-      "line": 35,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "3. Riziká manuálnej práce",
-      "line": 35,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "3. Riziká manuálnej práce",
-      "line": 35,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "3. Riziká manuálnej práce",
-      "line": 35,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "5. Kedy je úloha dobrý kandidát",
-      "line": 63,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "5. Kedy je úloha dobrý kandidát",
-      "line": 63,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "5. Kedy je úloha dobrý kandidát",
-      "line": 63,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "5. Kedy je úloha dobrý kandidát",
-      "line": 63,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "5. Kedy je úloha dobrý kandidát",
-      "line": 63,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "6. Typické automation domains",
-      "line": 76,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "6. Typické automation domains",
-      "line": 76,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "6. Typické automation domains",
-      "line": 76,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "6. Typické automation domains",
-      "line": 76,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "6. Typické automation domains",
-      "line": 76,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "6. Typické automation domains",
-      "line": 76,
+      "section": "3. Problém, ktorý automatizácia rieši",
+      "line": 36,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "7. Kedy automatizácia nemusí byť vhodná",
-      "line": 89,
+      "section": "4. Mentálny model automation lifecycle-u",
+      "line": 49,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "4. Mentálny model automation lifecycle-u",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "5. Najprv pozoruj skutočný proces",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "7. Definuj outcome a authoritative state",
+      "line": 100,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "7. Definuj outcome a authoritative state",
+      "line": 100,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "7. Definuj outcome a authoritative state",
+      "line": 100,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "8. Automation contract: input → plan → apply → verify → recover",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "9. Vyber primeranú úroveň automatizácie",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "9. Vyber primeranú úroveň automatizácie",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "12. Partial failure a recovery",
+      "line": 198,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "13. Error classification a retry",
+      "line": 212,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "13. Error classification a retry",
+      "line": 212,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "14. Concurrency a locking",
+      "line": 232,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `resource lock serializuje mutation rovnakého scope-u;`, `deduplication key zlúči opakované eventy s rovnakým intentom.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "14. Concurrency a locking",
+      "line": 232,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "14. Concurrency a locking",
+      "line": 232,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "14. Concurrency a locking",
+      "line": 232,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "15. Guardrails a security boundary",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "16. Human in the loop",
+      "line": 266,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "16. Human in the loop",
+      "line": 266,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "17. Observability automation systému",
+      "line": 284,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "7. Kedy automatizácia nemusí byť vhodná",
-      "line": 89,
+      "section": "17. Observability automation systému",
+      "line": 284,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačný run ID;`, `input a workflow version;`, `actor a authorization context;`, `retry, queue a lock metrics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "17. Observability automation systému",
+      "line": 284,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -3854,44 +3872,17 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "7. Kedy automatizácia nemusí byť vhodná",
-      "line": 89,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "7. Kedy automatizácia nemusí byť vhodná",
-      "line": 89,
+      "section": "17. Observability automation systému",
+      "line": 284,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "8. Cost model",
-      "line": 102,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "9. Break-even a sensitivity",
-      "line": 120,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "12. Declarative automation",
-      "line": 180,
+      "section": "18. Diagnostika worked failure-u",
+      "line": 300,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -3899,125 +3890,8 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "13. Idempotency",
-      "line": 190,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "14. Partial failure",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "14. Partial failure",
-      "line": 202,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "14. Partial failure",
-      "line": 202,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "14. Partial failure",
-      "line": 202,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "15. Error classification",
-      "line": 214,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "15. Error classification",
-      "line": 214,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "15. Error classification",
-      "line": 214,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "15. Error classification",
-      "line": 214,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "15. Error classification",
-      "line": 214,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "16. Retry contract",
-      "line": 225,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "16. Retry contract",
-      "line": 225,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "16. Retry contract",
-      "line": 225,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "16. Retry contract",
-      "line": 225,
+      "section": "18. Diagnostika worked failure-u",
+      "line": 300,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -4025,196 +3899,7 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "17. Validation",
-      "line": 238,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "18. Dry-run, plan a preview",
-      "line": 244,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "19. Guardrails",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "19. Guardrails",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "19. Guardrails",
-      "line": 252,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`, `identity`, `Policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "20. Human in the loop",
-      "line": 265,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "22. Observability automation",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "22. Observability automation",
-      "line": 285,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "22. Observability automation",
-      "line": 285,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "22. Observability automation",
-      "line": 285,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "22. Observability automation",
-      "line": 285,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "22. Observability automation",
-      "line": 285,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "23. Security automation",
-      "line": 298,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "23. Security automation",
-      "line": 298,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "23. Security automation",
-      "line": 298,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "23. Security automation",
-      "line": 298,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "24. State management",
-      "line": 311,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "24. State management",
-      "line": 311,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "25. Concurrency a locking",
-      "line": 319,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "25. Concurrency a locking",
-      "line": 319,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "25. Concurrency a locking",
-      "line": 319,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "26. Versioning a compatibility",
+      "section": "19. Rollout a adoption automation capability",
       "line": 328,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -4223,35 +3908,8 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "27. Ownership a support",
-      "line": 336,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "27. Ownership a support",
-      "line": 336,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "27. Ownership a support",
-      "line": 336,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "27. Ownership a support",
-      "line": 336,
+      "section": "20. Versioning, support a retirement",
+      "line": 348,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -4259,80 +3917,35 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "27. Ownership a support",
-      "line": 336,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "29. Build, buy alebo platform decision",
-      "line": 368,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "29. Build, buy alebo platform decision",
-      "line": 368,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "29. Build, buy alebo platform decision",
-      "line": 368,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "29. Build, buy alebo platform decision",
-      "line": 368,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "29. Build, buy alebo platform decision",
-      "line": 368,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/automation-mindset.md",
-      "section": "30. Automation adoption",
+      "section": "Infinite retry",
       "line": 378,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "33. Troubleshooting automation systému",
-      "line": 424,
+      "section": "22. Troubleshooting automation systému",
+      "line": 386,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/automation-mindset.md",
+      "section": "22. Troubleshooting automation systému",
+      "line": 386,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "33. Troubleshooting automation systému",
-      "line": 424,
+      "section": "22. Troubleshooting automation systému",
+      "line": 386,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -4340,8 +3953,8 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "33. Troubleshooting automation systému",
-      "line": 424,
+      "section": "22. Troubleshooting automation systému",
+      "line": 386,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -4349,17 +3962,17 @@
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "33. Troubleshooting automation systému",
-      "line": 424,
+      "section": "22. Troubleshooting automation systému",
+      "line": 386,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `blast radius`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`, `blast radius`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/automation-mindset.md",
-      "section": "35. Zhrnutie",
-      "line": 454,
+      "section": "24. Zhrnutie",
+      "line": 429,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

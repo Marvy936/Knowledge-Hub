@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12117**
-- Total words: **603,692**
-- Findings: **28587** (critical 9289, high 10205, medium 4048, low 5045)
+- Audited conceptual sections: **12100**
+- Total words: **602,619**
+- Findings: **28544** (critical 9278, high 10196, medium 4044, low 5026)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -228,7 +228,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 414 | 15 | 26 | 7 | 1 | 1230 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 408 | 5 | 39 | 9 | 5 | 2246 | `docs/03-git-and-automation/reset-revert-restore.md` |
-| D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 361 | 15 | 15 | 7 | 32 | 2828 | `docs/04-testing-and-quality/verification-vs-validation.md` |
@@ -260,6 +259,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 173 | 4 | 5 | 8 | 47 | 4119 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
 | D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
+| D | 158 | 4 | 6 | 9 | 23 | 2750 | `docs/00-foundations/automation-mindset.md` |
 | D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 153 | 5 | 6 | 5 | 19 | 2652 | `docs/00-foundations/devops-lifecycle.md` |
@@ -287,35 +287,15 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/automation-mindset.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: Continuous Improvement, Ownership Mindset`.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 35, `outline-instead-of-explanation` — **3. Riziká manuálnej práce**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 63, `outline-instead-of-explanation` — **5. Kedy je úloha dobrý kandidát**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 76, `outline-instead-of-explanation` — **6. Typické automation domains**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **14. Partial failure**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `outline-instead-of-explanation` — **15. Error classification**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 225, `outline-instead-of-explanation` — **16. Retry contract**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 252, `outline-instead-of-explanation` — **19. Guardrails**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 285, `outline-instead-of-explanation` — **22. Observability automation**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 298, `outline-instead-of-explanation` — **23. Security automation**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 319, `outline-instead-of-explanation` — **25. Concurrency a locking**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 336, `outline-instead-of-explanation` — **27. Ownership a support**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 368, `outline-instead-of-explanation` — **29. Build, buy alebo platform decision**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 424, `outline-instead-of-explanation` — **33. Troubleshooting automation systému**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 284, `bare-bullet-items` — **17. Observability automation systému**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačný run ID;`, `input a workflow version;`, `actor a authorization context;`, `retry, queue a lock metrics;`.
+- **CRITICAL** line 386, `outline-instead-of-explanation` — **22. Troubleshooting automation systému**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 35, `single-sentence-concept` — **3. Riziká manuálnej práce**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 76, `single-sentence-concept` — **6. Typické automation domains**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 89, `list-heavy-section` — **7. Kedy automatizácia nemusí byť vhodná**: 6 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 35, `thin-concept-section` — **3. Riziká manuálnej práce**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 63, `thin-concept-section` — **5. Kedy je úloha dobrý kandidát**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 76, `thin-concept-section` — **6. Typické automation domains**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 214, `thin-concept-section` — **15. Error classification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 252, `term-before-explanation` — **19. Guardrails**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`, `identity`, `Policy`
-- **HIGH** line 252, `thin-concept-section` — **19. Guardrails**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 285, `thin-concept-section` — **22. Observability automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 298, `thin-concept-section` — **23. Security automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 319, `thin-concept-section` — **25. Concurrency a locking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 336, `thin-concept-section` — **27. Ownership a support**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 424, `thin-concept-section` — **33. Troubleshooting automation systému**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 232, `bare-bullet-items` — **14. Concurrency a locking**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `resource lock serializuje mutation rovnakého scope-u;`, `deduplication key zlúči opakované eventy s rovnakým intentom.`.
+- **HIGH** line 284, `list-heavy-section` — **17. Observability automation systému**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 378, `single-sentence-concept` — **Infinite retry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 386, `single-sentence-concept` — **22. Troubleshooting automation systému**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 386, `thin-concept-section` — **22. Troubleshooting automation systému**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/calms.md`
 
@@ -20544,16 +20524,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4302 | 432 | 0 | 0 | 4734 |
+| `bare-bullet-items` | 4303 | 433 | 0 | 0 | 4736 |
 | `single-sentence-concept` | 0 | 4159 | 0 | 0 | 4159 |
-| `outline-instead-of-explanation` | 4076 | 0 | 0 | 0 | 4076 |
-| `thin-concept-section` | 0 | 3602 | 0 | 0 | 3602 |
-| `term-before-explanation` | 0 | 460 | 2728 | 0 | 3188 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2077 | 2077 |
-| `example-not-explicit` | 0 | 0 | 0 | 1954 | 1954 |
-| `short-concept-section` | 0 | 0 | 1320 | 0 | 1320 |
+| `outline-instead-of-explanation` | 4064 | 0 | 0 | 0 | 4064 |
+| `thin-concept-section` | 0 | 3593 | 0 | 0 | 3593 |
+| `term-before-explanation` | 0 | 459 | 2726 | 0 | 3185 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2069 | 2069 |
+| `example-not-explicit` | 0 | 0 | 0 | 1950 | 1950 |
+| `short-concept-section` | 0 | 0 | 1318 | 0 | 1318 |
 | `list-first-introduction` | 0 | 1057 | 0 | 0 | 1057 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1014 | 1014 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1007 | 1007 |
 | `empty-section` | 504 | 0 | 0 | 0 | 504 |
 | `list-heavy-section` | 0 | 495 | 0 | 0 | 495 |
 | `no-prose-concept` | 407 | 0 | 0 | 0 | 407 |
