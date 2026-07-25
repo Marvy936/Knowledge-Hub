@@ -17,15 +17,15 @@
     {
       "path": "docs/00-foundations/calms.md",
       "title": "CALMS Framework",
-      "words": 2991,
-      "headings": 37,
-      "sections": 37,
-      "findings": 68,
-      "critical": 15,
-      "high": 17,
-      "medium": 11,
-      "low": 25,
-      "score": 386,
+      "words": 2649,
+      "headings": 48,
+      "sections": 48,
+      "findings": 40,
+      "critical": 7,
+      "high": 13,
+      "medium": 3,
+      "low": 17,
+      "score": 226,
       "grade": "D"
     },
     {
@@ -4380,7 +4380,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -4396,10 +4396,19 @@
       "path": "docs/00-foundations/calms.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/00-foundations/calms.md",
@@ -4412,7 +4421,7 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "1. Definícia",
+      "section": "1. CALMS nie je zoznam piatich nezávislých iniciatív",
       "line": 13,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -4421,17 +4430,8 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "1. Definícia",
-      "line": 13,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "4. Culture",
-      "line": 58,
+      "section": "2. Priebežný scenár: mesačný štvorhodinový deployment",
+      "line": 37,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4439,44 +4439,17 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "5. Culture failure modes",
-      "line": 74,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "5. Culture failure modes",
-      "line": 74,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "6. Automation",
-      "line": 85,
+      "section": "3. Culture: kto vlastní výsledok a môže konať",
+      "line": 54,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `development odovzdá čo najviac zmien do mesačného balíka;`, `Ops obmedzuje frekvenciu deploymentov, pretože nesie recovery risk;`.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "6. Automation",
-      "line": 85,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "6. Automation",
-      "line": 85,
+      "section": "4. Psychological safety má technický dôsledok",
+      "line": 69,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4484,215 +4457,8 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "6. Automation",
-      "line": 85,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "6. Automation",
-      "line": 85,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "6. Automation",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Policy`, `enforcement`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "8. Lean",
-      "line": 116,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "8. Lean",
-      "line": 116,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "8. Lean",
-      "line": 116,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "8. Lean",
-      "line": 116,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "8. Lean",
-      "line": 116,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`, `blast radius`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "9. Small batch sizes a WIP limits",
-      "line": 129,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "10. Value stream a bottleneck",
-      "line": 142,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "10. Value stream a bottleneck",
-      "line": 142,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "11. Measurement",
-      "line": 150,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "11. Measurement",
-      "line": 150,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "11. Measurement",
-      "line": 150,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`, `SLI`, `SLO`, `recovery time`, `Reliability`, `availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "13. Sharing",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "13. Sharing",
-      "line": 171,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "13. Sharing",
-      "line": 171,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "13. Sharing",
-      "line": 171,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "15. Vzájomné zlyhania CALMS oblastí",
-      "line": 193,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "15. Vzájomné zlyhania CALMS oblastí",
-      "line": 193,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "15. Vzájomné zlyhania CALMS oblastí",
-      "line": 193,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "15. Vzájomné zlyhania CALMS oblastí",
-      "line": 193,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "15. Vzájomné zlyhania CALMS oblastí",
-      "line": 193,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "17. Praktické auditné otázky",
-      "line": 218,
+      "section": "5. Culture audit v priebežnom scenári",
+      "line": 77,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -4700,35 +4466,26 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
+      "section": "5. Culture audit v priebežnom scenári",
+      "line": 77,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
+      "section": "5. Culture audit v priebežnom scenári",
+      "line": 77,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Kto môže release zastaviť a podľa akých signálov?`, `Kto rozhoduje o rollbacku alebo roll-forwarde?`, `Kto vlastní službu po skončení deployment okna?`.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
+      "section": "5. Culture audit v priebežnom scenári",
+      "line": 77,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -4736,8 +4493,8 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
+      "section": "5. Culture audit v priebežnom scenári",
+      "line": 77,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4745,8 +4502,35 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
+      "section": "5. Culture audit v priebežnom scenári",
+      "line": 77,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "6. Lean: najprv nájdi hlavné obmedzenie flowu",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "8. WIP limits chránia dokončovanie práce",
+      "line": 128,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "8. WIP limits chránia dokončovanie práce",
+      "line": 128,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -4754,53 +4538,71 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Culture",
-      "line": 222,
+      "section": "9. Automation: štandardizovaný proces, nie elektronický checklist",
+      "line": 136,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "10. Automation contract v priebežnom scenári",
+      "line": 153,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "10. Automation contract v priebežnom scenári",
+      "line": 153,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "10. Automation contract v priebežnom scenári",
+      "line": 153,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "10. Automation contract v priebežnom scenári",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "10. Automation contract v priebežnom scenári",
+      "line": 153,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "10. Automation contract v priebežnom scenári",
+      "line": 153,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `resource`",
       "score": 4
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Automation",
-      "line": 229,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Automation",
-      "line": 229,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Automation",
-      "line": 229,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Automation",
-      "line": 229,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Automation",
-      "line": 229,
+      "section": "11. Idempotencia a partial failure",
+      "line": 166,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4808,44 +4610,17 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Lean",
-      "line": 236,
+      "section": "12. Measurement: číslo musí meniť rozhodnutie",
+      "line": 181,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečo release čakal tri týždne;`, `koľko manuálnych zásahov bolo potrebných;`, `či nasadenie poškodilo objednávkovú cestu;`, `ako dlho trvala obnova po chybe;`.",
       "score": 12
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Lean",
-      "line": 236,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Lean",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Lean",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Lean",
-      "line": 236,
+      "section": "13. DORA metrics ako prepojený systém",
+      "line": 208,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4853,53 +4628,8 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Lean",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Measurement",
-      "line": 243,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Measurement",
-      "line": 243,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Measurement",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Measurement",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Measurement",
-      "line": 243,
+      "section": "15. Sharing: knowledge ako udržiavané rozhranie",
+      "line": 224,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4907,53 +4637,8 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "Measurement",
-      "line": 243,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Sharing",
-      "line": 250,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Sharing",
-      "line": 250,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Sharing",
-      "line": 250,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Sharing",
-      "line": 250,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/calms.md",
-      "section": "Sharing",
-      "line": 250,
+      "section": "16. Sharing sa overuje použitím",
+      "line": 240,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -4961,8 +4646,35 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "19. Časté omyly",
-      "line": 275,
+      "section": "17. Ako sa oblasti navzájom blokujú",
+      "line": 248,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "Measurement bez Culture",
+      "line": 264,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "19. Praktický CALMS audit",
+      "line": 299,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "20. Diagnostické symptómy",
+      "line": 323,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -4970,11 +4682,47 @@
     },
     {
       "path": "docs/00-foundations/calms.md",
-      "section": "21. Zhrnutie",
-      "line": 306,
+      "section": "Veľa dashboardov, no žiadne zlepšenie",
+      "line": 333,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "Rovnaké incidenty sa opakujú",
+      "line": 337,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "21. Časté omyly",
+      "line": 345,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "Sharing znamená vytvoriť dokument",
+      "line": 367,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/calms.md",
+      "section": "23. Zhrnutie",
+      "line": 388,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {

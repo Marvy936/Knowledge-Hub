@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12106**
-- Total words: **604,034**
-- Findings: **28615** (critical 9297, high 10209, medium 4056, low 5053)
+- Audited conceptual sections: **12117**
+- Total words: **603,692**
+- Findings: **28587** (critical 9289, high 10205, medium 4048, low 5045)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -229,7 +229,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 408 | 5 | 39 | 9 | 5 | 2246 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 395 | 15 | 15 | 13 | 42 | 3823 | `docs/00-foundations/automation-mindset.md` |
-| D | 386 | 15 | 17 | 11 | 25 | 2991 | `docs/00-foundations/calms.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 361 | 15 | 15 | 7 | 32 | 2828 | `docs/04-testing-and-quality/verification-vs-validation.md` |
@@ -245,6 +244,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
+| D | 226 | 7 | 13 | 3 | 17 | 2649 | `docs/00-foundations/calms.md` |
 | D | 226 | 6 | 12 | 5 | 33 | 3073 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 224 | 7 | 7 | 11 | 31 | 3481 | `docs/00-foundations/continuous-improvement.md` |
 | D | 216 | 5 | 9 | 9 | 40 | 2608 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
@@ -320,37 +320,25 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/calms.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps, DevOps Lifecycle`.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 171, `outline-instead-of-explanation` — **13. Sharing**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 193, `outline-instead-of-explanation` — **15. Vzájomné zlyhania CALMS oblastí**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 222, `no-prose-concept` — **Culture**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 222, `outline-instead-of-explanation` — **Culture**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 229, `no-prose-concept` — **Automation**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 229, `outline-instead-of-explanation` — **Automation**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `no-prose-concept` — **Lean**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **Lean**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 243, `no-prose-concept` — **Measurement**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 243, `outline-instead-of-explanation` — **Measurement**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 250, `no-prose-concept` — **Sharing**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 250, `outline-instead-of-explanation` — **Sharing**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 275, `empty-section` — **19. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 77, `outline-instead-of-explanation` — **5. Culture audit v priebežnom scenári**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 153, `outline-instead-of-explanation` — **10. Automation contract v priebežnom scenári**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 181, `bare-bullet-items` — **12. Measurement: číslo musí meniť rozhodnutie**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečo release čakal tri týždne;`, `koľko manuálnych zásahov bolo potrebných;`, `či nasadenie poškodilo objednávkovú cestu;`, `ako dlho trvala obnova po chybe;`.
+- **CRITICAL** line 323, `empty-section` — **20. Diagnostické symptómy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 345, `empty-section` — **21. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 85, `list-heavy-section` — **6. Automation**: 9 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 116, `list-heavy-section` — **8. Lean**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 218, `single-sentence-concept` — **17. Praktické auditné otázky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `list-first-introduction` — **Culture**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 229, `list-first-introduction` — **Automation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 236, `list-first-introduction` — **Lean**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 243, `list-first-introduction` — **Measurement**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 250, `list-first-introduction` — **Sharing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 150, `term-before-explanation` — **11. Measurement**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`, `SLI`, `SLO`, `recovery time`, `Reliability`, `availability`
-- **HIGH** line 193, `thin-concept-section` — **15. Vzájomné zlyhania CALMS oblastí**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 222, `thin-concept-section` — **Culture**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 229, `thin-concept-section` — **Automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 236, `thin-concept-section` — **Lean**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 243, `thin-concept-section` — **Measurement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 250, `thin-concept-section` — **Sharing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 54, `bare-bullet-items` — **3. Culture: kto vlastní výsledok a môže konať**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `development odovzdá čo najviac zmien do mesačného balíka;`, `Ops obmedzuje frekvenciu deploymentov, pretože nesie recovery risk;`.
+- **HIGH** line 77, `bare-bullet-items` — **5. Culture audit v priebežnom scenári**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Kto môže release zastaviť a podľa akých signálov?`, `Kto rozhoduje o rollbacku alebo roll-forwarde?`, `Kto vlastní službu po skončení deployment okna?`.
+- **HIGH** line 77, `single-sentence-concept` — **5. Culture audit v priebežnom scenári**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 153, `single-sentence-concept` — **10. Automation contract v priebežnom scenári**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 248, `single-sentence-concept` — **17. Ako sa oblasti navzájom blokujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 264, `single-sentence-concept` — **Measurement bez Culture**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 299, `single-sentence-concept` — **19. Praktický CALMS audit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 333, `single-sentence-concept` — **Veľa dashboardov, no žiadne zlepšenie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 337, `single-sentence-concept` — **Rovnaké incidenty sa opakujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 367, `single-sentence-concept` — **Sharing znamená vytvoriť dokument**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 77, `thin-concept-section` — **5. Culture audit v priebežnom scenári**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 153, `thin-concept-section` — **10. Automation contract v priebežnom scenári**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/continuous-improvement.md`
 
@@ -20556,19 +20544,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4301 | 430 | 0 | 0 | 4731 |
-| `single-sentence-concept` | 0 | 4152 | 0 | 0 | 4152 |
-| `outline-instead-of-explanation` | 4081 | 0 | 0 | 0 | 4081 |
-| `thin-concept-section` | 0 | 3607 | 0 | 0 | 3607 |
-| `term-before-explanation` | 0 | 461 | 2733 | 0 | 3194 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2075 | 2075 |
-| `example-not-explicit` | 0 | 0 | 0 | 1960 | 1960 |
-| `short-concept-section` | 0 | 0 | 1323 | 0 | 1323 |
-| `list-first-introduction` | 0 | 1062 | 0 | 0 | 1062 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1018 | 1018 |
-| `empty-section` | 503 | 0 | 0 | 0 | 503 |
-| `list-heavy-section` | 0 | 497 | 0 | 0 | 497 |
-| `no-prose-concept` | 412 | 0 | 0 | 0 | 412 |
+| `bare-bullet-items` | 4302 | 432 | 0 | 0 | 4734 |
+| `single-sentence-concept` | 0 | 4159 | 0 | 0 | 4159 |
+| `outline-instead-of-explanation` | 4076 | 0 | 0 | 0 | 4076 |
+| `thin-concept-section` | 0 | 3602 | 0 | 0 | 3602 |
+| `term-before-explanation` | 0 | 460 | 2728 | 0 | 3188 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2077 | 2077 |
+| `example-not-explicit` | 0 | 0 | 0 | 1954 | 1954 |
+| `short-concept-section` | 0 | 0 | 1320 | 0 | 1320 |
+| `list-first-introduction` | 0 | 1057 | 0 | 0 | 1057 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1014 | 1014 |
+| `empty-section` | 504 | 0 | 0 | 0 | 504 |
+| `list-heavy-section` | 0 | 495 | 0 | 0 | 495 |
+| `no-prose-concept` | 407 | 0 | 0 | 0 | 407 |
 
 ## Required remediation pattern
 
