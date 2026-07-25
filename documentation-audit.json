@@ -87,15 +87,15 @@
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
       "title": "DevOps Lifecycle",
-      "words": 3510,
-      "headings": 40,
-      "sections": 40,
-      "findings": 61,
-      "critical": 7,
-      "high": 11,
-      "medium": 12,
-      "low": 31,
-      "score": 253,
+      "words": 2652,
+      "headings": 36,
+      "sections": 36,
+      "findings": 35,
+      "critical": 5,
+      "high": 6,
+      "medium": 5,
+      "low": 19,
+      "score": 153,
       "grade": "D"
     },
     {
@@ -6412,24 +6412,6 @@
       "path": "docs/00-foundations/devops-lifecycle.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: SDLC, DevOps`.",
@@ -6439,10 +6421,19 @@
       "path": "docs/00-foundations/devops-lifecycle.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
@@ -6450,57 +6441,12 @@
       "line": 3,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `SDLC`, `CI`, `CD`, `DORA`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`, `DORA`",
       "score": 7
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "1. Definícia",
-      "line": 13,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "2. Problém, ktorý lifecycle rieši",
-      "line": 19,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 64 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "2. Problém, ktorý lifecycle rieši",
-      "line": 19,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "2. Problém, ktorý lifecycle rieši",
-      "line": 19,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "5. Code",
-      "line": 67,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "5. Code",
+      "section": "4. Plan: zmena začína overiteľným zámerom",
       "line": 67,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -6509,17 +6455,8 @@
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "6. Build",
-      "line": 80,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "6. Build",
-      "line": 80,
+      "section": "4. Plan: zmena začína overiteľným zámerom",
+      "line": 67,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -6527,26 +6464,44 @@
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "8. Test",
-      "line": 102,
+      "section": "6. Build: source revision sa mení na artifact",
+      "line": 100,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "7. Test: evidence musí zodpovedať pomenovanému riziku",
+      "line": 116,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 61 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "8. Test",
-      "line": 102,
+      "section": "11. Operate: zmena vstupuje do dlhodobého runtime contractu",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "12. Monitor a validate: technický health nie je user outcome",
+      "line": 191,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`, `workload`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "9. Release",
-      "line": 118,
+      "section": "12. Monitor a validate: technický health nie je user outcome",
+      "line": 191,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -6554,17 +6509,35 @@
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "9. Release",
-      "line": 118,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "12. Monitor a validate: technický health nie je user outcome",
+      "line": 191,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "9. Release",
-      "line": 118,
+      "section": "13. Feedback sa musí vrátiť k správnemu rozhodnutiu",
+      "line": 206,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálny linter vracia chybu autorovi ešte pred commitom;`, `CI contract test zastaví promotion konkrétneho revisionu;`, `canary telemetry zastaví alebo obmedzí exposure konkrétneho release-u;`, `incident ukáže slabinu runtime a recovery modelu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "13. Feedback sa musí vrátiť k správnemu rozhodnutiu",
+      "line": 206,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "13. Feedback sa musí vrátiť k správnemu rozhodnutiu",
+      "line": 206,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -6572,8 +6545,161 @@
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "9. Release",
-      "line": 118,
+      "section": "13. Feedback sa musí vrátiť k správnemu rozhodnutiu",
+      "line": 206,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "14. Learning mení systém, nie iba jeden ticket",
+      "line": 218,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "16. Lead time vzniká najmä medzi aktívnymi krokmi",
+      "line": 247,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "16. Lead time vzniká najmä medzi aktívnymi krokmi",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "16. Lead time vzniká najmä medzi aktívnymi krokmi",
+      "line": 247,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "17. Fázy nie sú organizačné silá ani povinné pipeline stages",
+      "line": 259,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "17. Fázy nie sú organizačné silá ani povinné pipeline stages",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "17. Fázy nie sú organizačné silá ani povinné pipeline stages",
+      "line": 259,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "Pipeline je zelená, ale produkcia zlyháva",
+      "line": 281,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "Nie je jasné, čo je nasadené",
+      "line": 285,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "Canary nevie rozhodnúť",
+      "line": 289,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký bol change intent a success metric?`, `Ktorý source revision ho implementoval?`, `Ktorý artifact digest z revisionu vznikol?`, `Aké evidence boli viazané na tento artifact?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-lifecycle.md",
+      "section": "19. Praktický audit jednej zmeny",
+      "line": 305,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
@@ -6581,368 +6707,8 @@
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "10. Deploy",
-      "line": 132,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "10. Deploy",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `identity`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "11. Rollout a exposure control",
-      "line": 146,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "12. Operate",
-      "line": 152,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "12. Operate",
-      "line": 152,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "12. Operate",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`, `elasticity`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "13. Monitor, observe a validate",
-      "line": 167,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 56 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "13. Monitor, observe a validate",
-      "line": 167,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `SLO`, `Availability`, `reliability`",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "14. Fázy nie sú organizačné silá",
-      "line": 182,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "14. Fázy nie sú organizačné silá",
-      "line": 182,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "14. Fázy nie sú organizačné silá",
-      "line": 182,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "15. Lifecycle nie je waterfall",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "15. Lifecycle nie je waterfall",
-      "line": 198,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "15. Lifecycle nie je waterfall",
-      "line": 198,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "15. Lifecycle nie je waterfall",
-      "line": 198,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "16. Gates a feedback loops",
-      "line": 210,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "17. Lead time, processing time a wait time",
-      "line": 224,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "17. Lead time, processing time a wait time",
-      "line": 224,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "17. Lead time, processing time a wait time",
-      "line": 224,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "18. Shift-left a shift-right",
-      "line": 242,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "18. Shift-left a shift-right",
-      "line": 242,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "18. Shift-left a shift-right",
-      "line": 242,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `Policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "19. Automation lifecycle-u",
-      "line": 255,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "19. Automation lifecycle-u",
-      "line": 255,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "19. Automation lifecycle-u",
-      "line": 255,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "20. Build once, promote the same artifact",
-      "line": 269,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "21. End-to-end príklad",
-      "line": 275,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "22. Produkčný lifecycle contract",
-      "line": 302,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "22. Produkčný lifecycle contract",
-      "line": 302,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "22. Produkčný lifecycle contract",
-      "line": 302,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "22. Produkčný lifecycle contract",
-      "line": 302,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "22. Produkčný lifecycle contract",
-      "line": 302,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "22. Produkčný lifecycle contract",
-      "line": 302,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "24. Troubleshooting lifecycle-u",
-      "line": 338,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "24. Troubleshooting lifecycle-u",
-      "line": 338,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "24. Troubleshooting lifecycle-u",
-      "line": 338,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "24. Troubleshooting lifecycle-u",
-      "line": 338,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "24. Troubleshooting lifecycle-u",
-      "line": 338,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WIP`",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "25. Praktické pozorovanie existujúceho procesu",
-      "line": 350,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "25. Praktické pozorovanie existujúceho procesu",
-      "line": 350,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "26. Časté omyly",
-      "line": 365,
+      "section": "20. Časté omyly",
+      "line": 322,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -6950,11 +6716,11 @@
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",
-      "section": "28. Zhrnutie",
-      "line": 398,
+      "section": "22. Zhrnutie",
+      "line": 361,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {

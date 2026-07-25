@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12110**
-- Total words: **604,892**
-- Findings: **28641** (critical 9299, high 10214, medium 4063, low 5065)
+- Audited conceptual sections: **12106**
+- Total words: **604,034**
+- Findings: **28615** (critical 9297, high 10209, medium 4056, low 5053)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -243,7 +243,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
-| D | 253 | 7 | 11 | 12 | 31 | 3510 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
 | D | 226 | 6 | 12 | 5 | 33 | 3073 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
@@ -263,6 +262,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
 | D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
+| D | 153 | 5 | 6 | 5 | 19 | 2652 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 145 | 6 | 6 | 3 | 15 | 2392 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
@@ -404,23 +404,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/devops-lifecycle.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: SDLC, DevOps`.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 198, `outline-instead-of-explanation` — **15. Lifecycle nie je waterfall**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 302, `outline-instead-of-explanation` — **22. Produkčný lifecycle contract**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 338, `outline-instead-of-explanation` — **24. Troubleshooting lifecycle-u**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 350, `outline-instead-of-explanation` — **25. Praktické pozorovanie existujúceho procesu**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 365, `empty-section` — **26. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 19, `list-heavy-section` — **2. Problém, ktorý lifecycle rieši**: 8 odrážok a iba 64 slov súvislého vysvetlenia.
-- **HIGH** line 102, `list-heavy-section` — **8. Test**: 7 odrážok a iba 53 slov súvislého vysvetlenia.
-- **HIGH** line 152, `list-heavy-section` — **12. Operate**: 6 odrážok a iba 48 slov súvislého vysvetlenia.
-- **HIGH** line 167, `list-heavy-section` — **13. Monitor, observe a validate**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
-- **HIGH** line 242, `list-heavy-section` — **18. Shift-left a shift-right**: 6 odrážok a iba 54 slov súvislého vysvetlenia.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `SDLC`, `CI`, `CD`, `DORA`
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 167, `term-before-explanation` — **13. Monitor, observe a validate**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `SLO`, `Availability`, `reliability`
-- **HIGH** line 302, `thin-concept-section` — **22. Produkčný lifecycle contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 338, `thin-concept-section` — **24. Troubleshooting lifecycle-u**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 206, `bare-bullet-items` — **13. Feedback sa musí vrátiť k správnemu rozhodnutiu**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálny linter vracia chybu autorovi ešte pred commitom;`, `CI contract test zastaví promotion konkrétneho revisionu;`, `canary telemetry zastaví alebo obmedzí exposure konkrétneho release-u;`, `incident ukáže slabinu runtime a recovery modelu;`.
+- **CRITICAL** line 305, `bare-bullet-items` — **19. Praktický audit jednej zmeny**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký bol change intent a success metric?`, `Ktorý source revision ho implementoval?`, `Ktorý artifact digest z revisionu vznikol?`, `Aké evidence boli viazané na tento artifact?`.
+- **CRITICAL** line 305, `outline-instead-of-explanation` — **19. Praktický audit jednej zmeny**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `empty-section` — **20. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 116, `list-heavy-section` — **7. Test: evidence musí zodpovedať pomenovanému riziku**: 6 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 281, `single-sentence-concept` — **Pipeline je zelená, ale produkcia zlyháva**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 285, `single-sentence-concept` — **Nie je jasné, čo je nasadené**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 289, `single-sentence-concept` — **Canary nevie rozhodnúť**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 305, `single-sentence-concept` — **19. Praktický audit jednej zmeny**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`, `DORA`
 
 ### `docs/00-foundations/devops.md`
 
@@ -20563,18 +20556,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4299 | 430 | 0 | 0 | 4729 |
-| `single-sentence-concept` | 0 | 4148 | 0 | 0 | 4148 |
-| `outline-instead-of-explanation` | 4085 | 0 | 0 | 0 | 4085 |
-| `thin-concept-section` | 0 | 3610 | 0 | 0 | 3610 |
-| `term-before-explanation` | 0 | 462 | 2739 | 0 | 3201 |
+| `bare-bullet-items` | 4301 | 430 | 0 | 0 | 4731 |
+| `single-sentence-concept` | 0 | 4152 | 0 | 0 | 4152 |
+| `outline-instead-of-explanation` | 4081 | 0 | 0 | 0 | 4081 |
+| `thin-concept-section` | 0 | 3607 | 0 | 0 | 3607 |
+| `term-before-explanation` | 0 | 461 | 2733 | 0 | 3194 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 2075 | 2075 |
-| `example-not-explicit` | 0 | 0 | 0 | 1971 | 1971 |
-| `short-concept-section` | 0 | 0 | 1324 | 0 | 1324 |
-| `list-first-introduction` | 0 | 1063 | 0 | 0 | 1063 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1019 | 1019 |
+| `example-not-explicit` | 0 | 0 | 0 | 1960 | 1960 |
+| `short-concept-section` | 0 | 0 | 1323 | 0 | 1323 |
+| `list-first-introduction` | 0 | 1062 | 0 | 0 | 1062 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1018 | 1018 |
 | `empty-section` | 503 | 0 | 0 | 0 | 503 |
-| `list-heavy-section` | 0 | 501 | 0 | 0 | 501 |
+| `list-heavy-section` | 0 | 497 | 0 | 0 | 497 |
 | `no-prose-concept` | 412 | 0 | 0 | 0 | 412 |
 
 ## Required remediation pattern
