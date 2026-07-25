@@ -1,385 +1,673 @@
 # Protected branches a environments
 
-Protected branches a protected environments sú dve odlišné GitLab policy boundaries. Prvá chráni Git refs a merge flow. Druhá chráni deployment do citlivého runtime targetu. Bez oboch môže byť source history chránená, ale produkcia stále nasaditeľná neoprávneným jobom alebo používateľom.
+Protected branches, protected tags a protected environments chránia rozdielne časti delivery systému. Branch a tag policy chráni Git refs a source-to-build trust. Environment policy chráni runtime mutation a production exposure. Bez oboch môže byť mainline dôsledne reviewovaná, ale neoprávnený job alebo používateľ stále dokáže nasadiť ľubovoľný artifact do produkcie.
 
-## 1. Protected branch
+```text
+protected branch/tag
+→ kto smie meniť dôveryhodný source alebo release ref
 
-Protected branch riadi najmä:
+protected environment
+→ kto smie meniť citlivý runtime target
+```
 
-- kto môže pushovať,
-- kto môže mergeovať,
-- či je povolený force push,
-- či sa vyžaduje Code Owner approval,
-- ochranu kritických refs pred náhodnou zmenou alebo deletion,
-- väzbu na approval a security policy.
+Konkrétne capabilities, rule precedence a dostupnosť environment approvals sa môžu meniť podľa GitLab verzie, offeringu, tieru a konfigurácie. Produkčná policy musí byť overená na konkrétnej inštancii.
 
-Default branch je v GitLabe typicky chránená už pri vytvorení projektu, ale konkrétne pravidlá treba overiť.
+## 1. Mental model: dve authorization boundaries
 
-## 2. Branch rules
+Source a runtime authorization sú samostatné:
 
-Aktuálne GitLab UI sústreďuje ochranu branches do branch rules. Rule môže cieliť:
+```text
+source actor
+→ push alebo merge do protected ref
+→ pipeline vytvorí immutable artifact
 
-- presný branch name,
-- wildcard pattern,
-- default branch,
-- všetky protected branches podľa konkrétnej policy.
+runtime actor/job identity
+→ promotion evidence
+→ deployment do protected environmentu
+```
 
-Pri viacerých matching rules treba rozumieť ich kombinačnému správaniu. Pre niektoré nastavenia môže výsledok byť najviac permissive kombinácia, preto prekrývajúce sa group a project pravidlá audituj explicitne.
+Dôležitý dôsledok: používateľ oprávnený mergeovať source nemusí byť oprávnený nasadiť produkciu. Naopak, deployment automation nemá automaticky dostať právo meniť source alebo branch policy.
 
-## 3. Push vs. merge permission
+## 2. Protected branch subject
 
-Rozlišuj:
+Protected branch rule sa vzťahuje na konkrétny ref alebo pattern. Chráni najmä:
 
-### Allowed to push and merge
+- priamy push,
+- merge do branchu,
+- force push a history rewrite,
+- deletion alebo neúmyselnú zmenu kritického refu,
+- Code Owner alebo approval enforcement v kombinácii s MR policy,
+- dôveryhodný trigger pre pipeline, variables alebo release flow.
 
-Umožňuje priamo aktualizovať protected ref a môže obísť merge request review flow.
+Protection nie je vlastnosť názvu `main`. Je to výsledok aktuálne aplikovateľných branch rules.
+
+## 3. Branch-rule resolution
+
+Rule môže cieliť presný branch, default branch alebo wildcard pattern. Pri viacerých matching rules treba explicitne určiť effective policy.
+
+Auditný postup:
+
+```text
+branch name
+→ všetky matching project rules
+→ všetky relevantné group/inherited rules
+→ capability-specific combination
+→ effective push/merge/force/unprotect behavior
+```
+
+Nespoliehaj sa na intuitívne „najprísnejšie pravidlo určite vyhrá“. Kombinačná semantics sa môže líšiť podľa settingu a GitLab verzie. Prekrývajúce patterns preto testuj reprezentatívnymi identities.
+
+Príklad rizikového overlapu:
+
+```text
+release/* → iba release managers
+*         → Developers môžu pushovať
+```
+
+Ak effective combination ostane príliš permissive, všeobecné pravidlo môže oslabiť zamýšľanú release ochranu.
+
+## 4. Allowed to push verzus allowed to merge
+
+Tieto capabilities majú rozdielny význam.
+
+### Allowed to push
+
+Umožňuje aktualizovať protected ref priamo. Môže obísť:
+
+- merge-request review,
+- approval rules,
+- unresolved discussions,
+- merge-result pipeline,
+- merge train alebo queue,
+- path-based ownership controls.
 
 ### Allowed to merge
 
-Umožňuje dokončiť MR do protected branch po splnení ďalších podmienok.
+Umožňuje dokončiť MR po splnení ostatných policy podmienok. Neznamená automaticky právo pushovať priamo.
 
-Bezpečný default pre hlavný branch je často:
+Bezpečný default pre kritický mainline:
 
 ```text
-direct push: nobody alebo veľmi obmedzené automation identities
-merge: Maintainers/eligible roles cez MR
+direct push: nobody alebo úzko scoped automation
+merge: eligible role cez MR
 force push: disabled
+unprotect: silne obmedzené
 ```
 
-Konkrétna policy závisí od veľkosti tímu a incident/release modelu.
+Automation identity s direct-push právom musí mať explicitný účel, immutable input, audit a obmedzenie na konkrétny workflow.
 
-## 4. Force push
+## 5. Direct-push bypass
 
-Force push prepisuje ref history a môže odstrániť commits, approvals alebo auditovateľnú väzbu. Povolenie má byť výnimočné a viazané na:
+Ak actor smie pushovať priamo, branch protection môže formálne existovať, ale review lifecycle je obíditeľný.
 
-- konkrétny use case,
-- obmedzené identities,
-- audit,
-- incident postup,
-- ochranu tags a release refs.
+Pre každú direct-push výnimku eviduj:
 
-Rutinný force push na default branch je anti-pattern.
+- identity a jej ownera,
+- povolený use case,
+- branch scope,
+- token alebo workload-identity scope,
+- allowed commit/source provenance,
+- audit a alerting,
+- expiration alebo pravidelnú recertifikáciu.
 
-## 5. Protected tags
+Príklady legitímnej automation:
 
-Branch a tag môžu mať rovnaký názov. Ak chrániš release branch alebo pattern, zváž zodpovedajúcu ochranu tagov.
+- bot aktualizujúci striktne definovaný generated file,
+- release automation vytvárajúca chránený manifest,
+- mirror alebo synchronization workflow s overeným source.
 
-Protected tags riadia, kto môže vytvárať alebo meniť refs používané na:
+Aj vtedy môže byť bezpečnejšie vytvoriť bot MR než priamy push.
 
-- release pipelines,
-- artifact versioning,
-- production deployment,
-- package publishing,
-- compliance evidence.
+## 6. Force push a history rewrite
 
-Mutable alebo neautorizovaný release tag môže spustiť deployment iných bytes, než boli schválené.
-
-## 6. Group-level branch protection
-
-Top-level group môže podľa GitLab capability definovať branch rules platné pre projekty v group. Výhody:
-
-- konzistentný default,
-- centrálna governance,
-- menší configuration drift,
-- jednoduchší audit.
+Force push môže zmeniť commit graph, odstrániť commits a narušiť väzbu medzi approval, pipeline a source identity.
 
 Riziká:
 
-- nečakané prekrývanie s project rules,
-- príliš všeobecný wildcard,
-- nemožnosť lokálne opraviť nesprávnu group policy,
-- rozdielne potreby legacy a moderných projektov.
+- schválený SHA prestane byť reachable,
+- release tag alebo artifact provenance ukazuje na odstránenú históriu,
+- audit a incident reconstruction sa skomplikujú,
+- downstream branches a forks sa rozídu,
+- malicious actor môže skryť predchádzajúcu zmenu.
 
-Group policy potrebuje versionovaný rollout a exception lifecycle.
-
-## 7. Code Owner approval
-
-Protected branch môže vyžadovať approval od Code Owners pre zmenené paths. Fungovanie závisí od:
-
-- správneho `CODEOWNERS` matchu,
-- eligible Code Owner membershipu a role,
-- protected target branch,
-- branch-rule nastavenia,
-- approval rules a tieru.
-
-CODEOWNERS file bez branch enforcementu môže poskytovať iba reviewer suggestion.
-
-## 8. Merge request enforcement
-
-Ak chceš všetky zmeny viesť cez MR:
-
-- zakáž direct push na protected branch,
-- nastav required approvals podľa rizika,
-- vyžaduj úspešnú pipeline,
-- rieš unresolved discussions,
-- obmedz force push,
-- používaj merge train/queue pri concurrency,
-- chráň automation tokeny.
-
-Branch protection sama nemusí vyžadovať kvalitný review; musí byť kombinovaná s merge policy.
-
-## 9. Unprotect permission
-
-Používateľ schopný branch unprotect môže následne obísť ochranu. Preto audituj:
-
-- kto môže meniť/unprotect rules,
-- group vs. project ownership,
-- API automation,
-- custom roles,
-- break-glass identities,
-- audit events.
-
-Pri regulovaných projektoch môže byť potrebné obmedziť unprotect na úzky okruh alebo central automation.
-
-## 10. Protected environment
-
-Protected environment obmedzuje, kto môže deployovať do konkrétneho environmentu, napríklad production.
-
-Typicky riadi:
-
-- allowed to deploy users/groups/roles,
-- deployment approvals podľa dostupnosti,
-- environment-specific permissions,
-- access k protected variables v spojení s ref policy,
-- production deployment boundary.
-
-Protected environments sú podľa aktuálnej GitLab dokumentácie Premium/Ultimate capability.
-
-## 11. Environment nie je branch
-
-Branch reprezentuje source/ref state. Environment reprezentuje runtime target a deployment history.
-
-Nesprávny model:
+Ak je force push výnimočne potrebný:
 
 ```text
-main branch = production environment
+incident/change record
+→ úzky actor scope
+→ backup pôvodného refu
+→ vykonanie a audit
+→ validation nového refu
+→ obnova ochrany
+→ downstream communication
 ```
 
-Lepší model:
+Rutinný force push na default alebo release branch je anti-pattern.
+
+## 7. Unprotect ako capability escalation
+
+Actor schopný odstrániť protection môže následne vykonať operáciu, ktorú pôvodná policy zakazovala. Unprotect je preto vyššia capability než samotný push alebo merge.
+
+Audituj:
+
+- project a group Owners,
+- custom roles s policy-management capabilities,
+- API automation tokens,
+- administrator identities,
+- break-glass accounts,
+- kto môže zmeniť branch rules a znovu ich aplikovať.
+
+Dočasný unprotect musí mať:
+
+- explicitný dôvod a subject,
+- schválenie podľa rizika,
+- automatický alebo overený restoration krok,
+- audit refs zmenených počas okna,
+- post-event review.
+
+Unprotect bez dôkazu opätovného zapnutia vytvára configuration drift.
+
+## 8. Protected tags
+
+Tag môže byť release trigger, package version alebo auditný pointer. Protected tags riadia, kto smie vytvárať alebo meniť relevantné tag refs.
+
+Chráň najmä tags používané na:
+
+- production release pipelines,
+- artifact/package publication,
+- version a changelog automation,
+- signing alebo provenance workflows,
+- support a backport lines.
+
+Tag nie je content identity. Release record má stále zachovať commit SHA a artifact digest.
+
+Bezpečný tag lifecycle:
 
 ```text
-commit/artifact digest
-→ pipeline evidence
-→ deploy job
-→ protected production environment
-→ deployment record
+validated release subject
+→ authorized tag creation
+→ tag pipeline overí subject a policy
+→ immutable artifact publication
+→ release record
 ```
 
-Ten istý branch môže produkovať deploymenty do viacerých environmentov a rovnaký environment môže prijímať artifacts z riadeného promotion flow.
+Prepísateľný alebo široko vytvárateľný release tag môže nasadiť iné bytes, než boli reviewované.
 
-## 12. Allowed to deploy
+## 9. Code Owner enforcement
 
-Allowed-to-deploy policy má zohľadniť:
+CODEOWNERS súbor sám osebe nemusí blokovať merge. Blocking behavior závisí od:
 
-- human vs. CI identity,
-- environment tier,
-- change risk,
-- protected ref,
-- manual job ownership,
-- group membership inheritance,
-- service account scope,
-- emergency process.
+- target branch protection,
+- matching path patternu,
+- eligible Code Owner membershipu,
+- branch/approval rule nastavenia,
+- dostupnej GitLab capability.
 
-Používateľ schopný spustiť pipeline nemusí automaticky dostať právo deployovať production job.
+Testuj aspoň:
 
-## 13. Protected variables
+- bežný source path,
+- nested a wildcard path,
+- rename/delete operáciu,
+- samotný CODEOWNERS súbor,
+- absent ownera,
+- viac matching ownership rules.
 
-CI/CD variable môže byť označená protected, aby bola dostupná iba pipelines na protected refs podľa GitLab trust modelu.
+Ak owner nie je dostupný, policy potrebuje riadený fallback, nie Maintainer bypass bez evidence.
 
-Ochrana variable nerieši všetko:
+## 10. Protected environment subject
 
-- malicious pipeline code na trusted ref,
-- príliš široké runner permissions,
-- log leakage,
-- downstream job artifacts,
-- environment scope,
-- long-lived cloud credentials.
+Environment je runtime target a deployment-history boundary, nie synonymum branchu.
 
-Preferuj short-lived federation a environment-scoped identity pred statickým produkčným secretom.
+```text
+artifact digest
++ config revision
++ deployment job identity
++ target environment
++ rollout policy
+→ deployment subject
+```
 
-## 14. Environment-scoped variables
+Protected environment obmedzuje, kto alebo čo smie vykonať runtime mutation. Môže zahŕňať allowed deployers, deployment approvals alebo ďalšie controls podľa dostupných features.
 
-Environment scope môže obmedziť variable napríklad na:
+```text
+main branch ≠ production environment
+```
+
+Rovnaký mainline artifact môže prechádzať stagingom a produkciou. Produkčný environment môže prijímať iba konkrétny promoted digest bez ohľadu na branch name.
+
+## 11. Environment identity a názov
+
+GitLab environment identity vzniká z názvu deklarovaného deployment jobom. Nekonzistentné alebo útočne zvolené názvy môžu obísť očakávanú policy.
+
+Rizikové varianty:
 
 ```text
 production
-review/*
-staging
+prod
+Production
+production-new
+prod/us-east
 ```
 
-Over wildcard precedence, matching a fallback. Nesprávny scope môže:
+Preto definuj:
 
-- odhaliť production secret review app,
-- spôsobiť deployment s chýbajúcou hodnotou,
-- použiť staging credential v produkcii.
+- kanonické environment naming rules,
+- environment tier metadata,
+- allowed patterns v shared deployment template,
+- lint/policy kontrolu job definitions,
+- zákaz ľubovoľného runtime mena z nedôveryhodného inputu,
+- inventory aktívnych environments.
 
-Variable scope musí byť testovaný ako policy.
+Protected `production` nepomôže, ak job nasadí rovnaký runtime pod novým neprotected názvom.
 
-## 15. Deployment approvals
+## 12. Allowed to deploy
 
-Deployment approval má byť použitý pre neautomatizovateľné alebo vysokorizikové rozhodnutia. Potrebuje:
+Allowed-to-deploy policy odpovedá, ktorá human alebo CI identity môže vykonať deployment do konkrétneho environmentu.
 
-- jasného eligible approvera,
-- evidence summary,
-- separation of duties,
-- väzbu na artifact digest a environment,
-- expiry/freshness,
-- audit trail,
-- emergency override.
+Vyhodnocuj:
 
-Mechanické kliknutie bez evidence nepridáva významnú bezpečnosť.
+- actor alebo job identity,
+- project/group membership path,
+- protected ref context,
+- environment name match,
+- manual job ownership,
+- service-account scope,
+- approval state,
+- emergency policy.
 
-## 16. Deployment jobs
+Právo spustiť pipeline alebo manual job nie je automaticky právo deployovať. Deployment job musí prejsť protected-environment authorization pri reálnom targete.
 
-Deployment job má deklarovať environment a zachovať:
+## 13. Deploy job ako privileged program
 
-- artifact digest,
-- environment name/tier,
-- external URL podľa potreby,
-- action a deployment status,
-- pipeline/job identity,
-- config revision,
-- rollout strategy.
+Deployment job je privilegovaný program. Jeho trust závisí od:
 
-Job, ktorý mení produkciu bez GitLab environment metadata, oslabuje deployment history a audit.
+- pipeline definition revision,
+- source/ref contextu,
+- included templates a scripts,
+- runner/executor trustu,
+- effective variables a credentials,
+- artifact digestu,
+- environment declaration,
+- cloud alebo cluster identity.
 
-## 17. Review apps
-
-Dynamic environments pre branches/MRs potrebujú:
-
-- unique names a URLs,
-- izolované credentials,
-- quotas,
-- auto-stop/cleanup,
-- safe test data,
-- network isolation,
-- protection pred untrusted fork code.
-
-Review app nesmie zdediť production secrets iba preto, že používa rovnaký deployment template.
-
-## 18. Environment tiers
-
-Environment names môžu byť ľubovoľné, preto environment tier pomáha klasifikovať production, staging, testing, development a ďalšie targety.
-
-Tier ovplyvňuje interpretáciu deployment metrics a governance. Nekonzistentné názvy/tier metadata znižujú spoľahlivosť reportingu.
-
-## 19. Deployment freeze
-
-Freeze window môže zabrániť plánovaným deploymentom počas citlivého obdobia. Nemá nahrádzať:
-
-- branch protection,
-- protected environment,
-- quality gates,
-- emergency process,
-- recovery capability.
-
-Freeze bez break-glass postupu môže blokovať kritickú opravu.
-
-## 20. Separation of duties
-
-Možný model:
+Bezpečný model oddeľuje:
 
 ```text
-Developer: vytvára zmenu a MR
-Reviewer/Code Owner: schvaľuje source zmenu
-Pipeline: vytvára a overuje artifact
-Release/Operations identity: promotionuje artifact
-Protected environment approver: povoľuje high-risk production exposure
+untrusted branch/MR verification
+→ immutable artifact
+→ trusted deployment entrypoint
+→ short-lived environment identity
+→ protected environment
 ```
 
-Nie každý tím potrebuje päť ľudí, ale jedna kompromitovaná identita by nemala nekontrolovane meniť source, policy, secrets aj production.
+Branch pipeline nemá dostať produkčné cloud credentials len preto, že obsahuje job s názvom `deploy-production`.
 
-## 21. Emergency access
+## 14. Protected variables
 
-Break-glass workflow potrebuje:
+Protected variable je dostupná iba v určenom trusted ref context-e podľa GitLab semantics. Nie je to univerzálny secret-isolation mechanizmus.
 
-- úzky scope,
-- strong authentication,
-- explicitný dôvod,
-- časové obmedzenie,
-- audit a alert,
-- povinný post-event review,
-- následnú rotation/revocation.
+Stále existujú riziká:
 
-Dočasné unprotect bez obnovenia policy je závažný configuration drift.
+- malicious pipeline code na trusted ref,
+- kompromitovaný included template alebo action,
+- log, artifact alebo cache leakage,
+- príliš široký runner host access,
+- downstream pipeline forwarding,
+- static credential s veľkým external scope-om.
 
-## 22. Policy as Code
+Protected variable chráni distribution context, nie následné použitie hodnoty. Preferuj short-lived workload identity a external secret manager pred dlhodobým cloud key.
 
-GitLab API alebo security/compliance policy možno použiť na audit a enforcement:
+## 15. Environment-scoped variables
 
-- protected branches/tags,
-- approval rules,
-- environment protection,
+Environment scope obmedzuje, pre ktoré environment names je variable dostupná.
+
+```text
+production
+staging
+review/*
+```
+
+Treba overiť:
+
+- exact a wildcard matching,
+- precedence pri viacerých variables s rovnakým key,
+- fallback na broader scope,
+- environment name vytvorený jobom,
+- child/downstream pipeline behavior,
+- protected-status kombináciu.
+
+Effective variable resolution model:
+
+```text
+variable key
++ source level
++ protected status
++ environment scope
++ pipeline/ref context
++ precedence
+→ effective value alebo absence
+```
+
+Nesprávny scope môže odhaliť production credential review app alebo nasadiť produkciu so staging hodnotou.
+
+## 16. Deployment approval
+
+Deployment approval má hodnotu pri vysokorizikovom alebo neautomatizovateľnom rozhodnutí. Approval packet má obsahovať:
+
+- immutable artifact digest,
+- configuration/infrastructure revision,
+- target environment,
+- risk classification,
+- test/security/promotion evidence,
+- rollout a observation plan,
+- rollback/roll-forward eligibility,
+- known exceptions,
+- maximálny blast radius.
+
+Approval musí mať freshness policy. Zmena digestu, configu, deployment jobu alebo environment state môže rozhodnutie invalidovať.
+
+Manuálne kliknutie bez decision contextu je ceremónia, nie control.
+
+## 17. Deployment record
+
+Deployment job má vytvoriť alebo zachovať záznam:
+
+```text
+artifact digest
++ source/release identity
++ environment
++ config revision
++ pipeline/job ID
++ deployer identity
++ timestamps
++ result
++ previous/next deployment relation
++ release exposure
+```
+
+Job, ktorý mení produkciu mimo GitLab environment/deployment metadata, oslabuje audit, outdated-deployment prevenciu a incident reconstruction.
+
+## 18. Deployment concurrency
+
+Dva pipeline runs môžu súčasne meniť ten istý environment:
+
+```text
+run A deployuje version A
+run B deployuje version B
+run A dokončí neskôr
+→ environment sa vráti na starší desired state
+```
+
+Ochrany:
+
+- resource group alebo deployment lock,
+- serialized environment mutation,
+- cancellation superseded runs,
+- optimistic check current deployment generation,
+- prevention outdated deployment,
+- idempotentný deployment workflow.
+
+Lock musí mať ownera, timeout a recovery pri stuck jobe.
+
+## 19. Outdated deployment prevention
+
+Deployment musí overiť, či jeho subject je stále aktuálny. Starší pipeline run nemá po dlhom čakaní prepísať novší úspešný release.
+
+Model:
+
+```text
+candidate generation G
+→ acquire environment lock
+→ compare with current generation
+→ deploy only if still eligible
+→ record new generation
+```
+
+Retry starého deployment jobu musí rešpektovať aktuálny environment state, nie slepo zopakovať mutation.
+
+## 20. Review apps
+
+Review app je dynamic environment pre branch alebo MR. Je to runtime boundary pre nedôveryhodný alebo ešte neschválený code.
+
+Potrebuje:
+
+- unique a nefalšovateľné environment/resource names,
+- izolované namespaces/accounts,
+- žiadne production credentials,
+- obmedzené network egress a dependencies,
+- synthetic alebo anonymizované test data,
+- quotas a resource limits,
+- TTL, auto-stop a idempotentný teardown,
+- ownership a cleanup audit,
+- ochranu pred fork pipeline code.
+
+Použitie rovnakého deployment template neznamená, že review app má dostať rovnaké identity ako production.
+
+## 21. Environment tiers
+
+Environment tier klasifikuje runtime význam nezávisle od voľného názvu. Pomáha:
+
+- interpretovať deployment metrics,
+- aplikovať governance a reporting,
+- rozlíšiť review/testing/staging/production targets,
+- analyzovať frequency a change-failure rate.
+
+Tier metadata musí zodpovedať realite. Environment nazvaný `customer-live` označený ako development vytvára reporting a policy blind spot.
+
+## 22. Deployment freeze
+
+Freeze window obmedzuje plánované deploymenty v citlivom čase. Nie je náhradou za:
+
+- protected branch a environment,
+- fresh quality gates,
+- progressive rollout,
+- recovery capability,
+- incident change process.
+
+Freeze policy potrebuje timezone, applicability a break-glass model. Dlhé freezes zvyšujú batch size a risk po ich skončení.
+
+## 23. Separation of duties
+
+Možný capability model:
+
+```text
+Developer
+→ vytvára source zmenu a MR
+
+Reviewer/Code Owner
+→ schvaľuje intent a implementation risk
+
+Build identity
+→ vytvára immutable artifact
+
+Promotion/deployment identity
+→ používa environment-scoped credentials
+
+Environment approver
+→ prijíma high-risk exposure rozhodnutie
+```
+
+Nie každý tím potrebuje samostatného človeka pre každú fázu. Dôležité je, aby jedna kompromitovaná bežná identita nemohla nekontrolovane meniť source, policy, secrets a production naraz.
+
+## 24. Break-glass lifecycle
+
+Emergency workflow nemá znamenať vypnutie všetkých ochrán.
+
+```text
+urgent risk
+→ explicitná break-glass identity alebo workflow
+→ strong authentication
+→ úzky resource a časový scope
+→ immutable change/deployment subject
+→ audit a alert
+→ stabilizácia
+→ obnova policy a rotation
+→ post-event review
+```
+
+Po incidente over:
+
+- či branch/environment ostali protected,
+- ktoré refs, variables a deployments sa zmenili,
+- či temporary tokens expirovali,
+- či chýbajúce reviews/gates boli doplnené,
+- aký root cause vyžadoval bypass.
+
+## 25. Policy as Code a drift detection
+
+Branch, tag a environment policy možno auditovať alebo vynucovať cez GitLab API a central governance mechanizmy.
+
+Kontroluj:
+
+- protected branch/tag patterns,
+- direct-push, merge a force-push capabilities,
+- Code Owner enforcement,
 - allowed deployers,
-- variable scope,
-- project settings.
+- environment protection,
+- variable scopes,
+- deployment concurrency controls,
+- exception metadata.
 
-Automatizácia musí byť idempotentná a rozlišovať intended exception od driftu.
+Automation má byť idempotentná a musí rozlišovať:
 
-## 23. Troubleshooting
+```text
+intended policy
+| approved exception
+| unauthorized drift
+```
+
+Automatické „opravenie“ bez evidence môže prepísať legitímnu emergency zmenu skôr, než sa incident stabilizuje.
+
+## 26. Troubleshooting
 
 ### Developer môže pushnúť priamo na main
 
-Over všetky matching branch rules, allowed-to-push settings, group rules a unprotect status.
+Vyhodnoť všetky matching project/group rules, exact/wildcard patterns, allowed-to-push capability a aktuálny protected status.
 
 ### Code Owner approval sa nevyžaduje
 
-Over protected target branch, CODEOWNERS match, eligible membership a require-Code-Owner setting.
+Over pattern, target branch protection, eligible ownership membership, enforcement setting a approval-rule interaction.
 
-### Production deploy job je pre používateľa nedostupný
+### Production deploy job je nedostupný
 
-Skontroluj protected environment allowed-to-deploy policy, role inheritance, manual job trigger identity a environment name match.
+Skontroluj environment name, protected-environment match, allowed deployer eligibility, manual-job actor, ref trust a current deployment approval.
 
 ### Protected variable chýba
 
-Pipeline ref nemusí byť protected, variable environment scope nesedí alebo ide o fork/untrusted context.
-
-### Group rule a project rule dávajú nečakané oprávnenie
-
-Vyhodnoť všetky matching rules a ich combinačné správanie; nepredpokladaj, že prísnejšie pravidlo automaticky vyhrá.
+Over protected ref context, environment scope, precedence, fork/downstream pipeline context a to, či job vznikol v trusted project context-e.
 
 ### Review app dostala production credential
 
-Okamžite rotuj secret, oprav environment scope a audituj všetky job logs/artifacts.
+Okamžite rotuj credential, zastav environment, audituj logs/artifacts/cache, oprav variable scope a deployment template trust model.
 
-## 24. Anti-patterny
+### Starší pipeline prepísal novší deployment
 
-### Protected main, ale production job môže spustiť každý Developer
+Chýba environment serialization alebo outdated-deployment check. Zastav súbežné jobs, obnov intended version a zaveď generation/lock control.
+
+### Break-glass skončil, ale protection je vypnutá
+
+Ide o configuration drift a otvorenú security boundary. Obnov policy, revokuj temporary access a vykonaj post-event audit refs a deployments.
+
+## 27. Typické anti-patterny
+
+### Protected main, ale production môže deployovať každý Developer
 
 Source boundary je chránená, runtime boundary nie.
 
-### Maintainer môže unprotect, push, re-protect bez auditu
+### Allowed to push a allowed to merge sa považujú za to isté
 
-Policy je ľahko obíditeľná jednou identitou.
+Direct push obchádza MR a approval lifecycle.
 
-### Production secrets na všetkých protected branches
+### Maintainer môže unprotect, push a re-protect bez auditovateľného procesu
 
-Release branch alebo kompromitovaný protected ref môže získať neprimeraný access.
+Jedna identita môže ticho obísť policy.
 
-### Environment protection podľa názvu, ktorý job nepoužíva konzistentne
+### Chránený branch, ale nechránený release tag
 
-Deployment môže vytvoriť nový neprotected environment s podobným názvom.
+Útočník alebo chyba môže spustiť release iného subjectu.
 
-### Emergency = vypnutie všetkých ochrán
+### Production secrets na každom protected ref-e
 
-Zvyšuje incident blast radius a ruší traceability.
+Kompromitovaný release/support branch získava neprimeraný external access.
 
-## 25. Kontrolné otázky
+### Protection iba podľa environment mena bez naming policy
 
-1. Aký je rozdiel medzi protected branch a protected environment?
-2. Prečo oddeliť allowed-to-push od allowed-to-merge?
-3. Aké riziko prináša force push?
-4. Prečo treba chrániť aj release tags?
-5. Ako sa kombinujú group a project branch rules?
+Job vytvorí podobný neprotected environment a obíde control.
+
+### Review app zdedí produkčné identity
+
+Untrusted code dostane produkčný blast radius.
+
+### Deployment bez serialization
+
+Staršie a novšie runs prepisujú environment v nepredvídateľnom poradí.
+
+### Emergency znamená globálne vypnutie ochrán
+
+Zvyšuje incident blast radius a ruší rekonštruovateľnosť.
+
+## 28. Praktický rozhodovací rámec
+
+1. Ktoré branches a tags sú trusted source/release boundaries?
+2. Kto smie pushovať, mergeovať, force-pushovať a meniť protection?
+3. Ako sa riešia overlapping rules?
+4. Ktoré automation identities potrebujú direct ref mutation?
+5. Ako Code Owner enforcement nadväzuje na MR policy?
+6. Aké tag patterns spúšťajú release alebo publication?
+7. Aké kanonické environment names a tiers existujú?
+8. Kto smie deployovať do každého environmentu?
+9. Aký trusted deployment entrypoint používa artifact digest?
+10. Ako sa riešia protected a environment-scoped variables?
+11. Ako sa deployment approvals invalidujú pri zmene subjectu?
+12. Ako sa serializuje environment mutation a blokuje outdated deployment?
+13. Ako sú review apps izolované a čistené?
+14. Aký break-glass proces obnoví policy a credentials?
+15. Ako sa deteguje drift group/project policy?
+
+## 29. Kontrolný checklist
+
+- critical branches a release tags majú explicitné rules;
+- direct push je zakázaný alebo úzko odôvodnený;
+- force push a unprotect sú silne obmedzené;
+- overlapping rules boli testované;
+- Code Owner enforcement je overené reprezentatívnymi paths;
+- production environment má kanonické meno a tier;
+- allowed deployers sú oddelení od bežného pipeline triggeru;
+- deployment job používa immutable artifact a trusted definition;
+- static production secrets sú minimalizované;
+- protected/environment-scoped variables majú testovanú precedence;
+- deployment approval patrí digestu, configu a environmentu;
+- environment mutations sú serializované;
+- outdated deployment nemôže prepísať novší state;
+- review apps nemajú production trust a majú TTL cleanup;
+- break-glass obnovuje protections a revokuje temporary access;
+- policy drift je auditovaný a vysvetliteľný.
+
+## 30. Kontrolné otázky
+
+1. Prečo sú protected branch a protected environment dve rozdielne boundaries?
+2. Ako sa určuje effective policy pri viacerých branch rules?
+3. Aký je rozdiel medzi allowed to push a allowed to merge?
+4. Prečo je unprotect vyššia capability než push?
+5. Prečo treba chrániť aj release tags?
 6. Kedy Code Owner approval skutočne blokuje merge?
-7. Ako fungujú protected a environment-scoped variables?
-8. Čo má obsahovať deployment approval?
-9. Prečo review apps potrebujú samostatnú trust boundary?
-10. Ako navrhnúť break-glass bez trvalého oslabenia policy?
+7. Čo tvorí deployment subject?
+8. Ako možno environment-name spoofingom obísť policy?
+9. Čo protected variable chráni a čo nechráni?
+10. Ako sa počíta effective environment-scoped variable?
+11. Čo má obsahovať deployment approval packet?
+12. Aký race rieši environment lock a outdated-deployment prevention?
+13. Prečo review app potrebuje samostatnú trust boundary?
+14. Ako má vyzerať break-glass restoration?
+15. Čo musí Policy as Code rozlíšiť od unauthorized driftu?
+
+## Summary
+
+Protected branches a tags chránia dôveryhodné Git refs; protected environments chránia runtime deployment boundary. Bezpečný GitLab model oddeľuje push, merge, force-push, unprotect a deploy capabilities, testuje effective rule resolution a viaže production deployment na immutable artifact, trusted job definition a environment-scoped identity. Protected variables nie sú úplná secret boundary a environment názov nie je bezpečný bez naming policy. Deploymenty musia byť serializované, chránené pred outdated runs a auditované. Break-glass musí po stabilizácii obnoviť policy, revokovať temporary access a uzavrieť evidence.
 
 ## Glossary impact
 
-Relevantné pojmy: protected branch, branch rule, protected tag, allowed to push, allowed to merge, force push, unprotect permission, protected environment, allowed to deploy, protected variable, environment-scoped variable, deployment approval, review app, environment tier a deployment freeze.
+Relevantné pojmy: protected branch, branch rule, protected tag, allowed to push, allowed to merge, force push, unprotect permission, protected environment, environment identity, allowed to deploy, protected variable, environment-scoped variable, deployment approval, deployment lock, outdated deployment, review app, environment tier, deployment freeze a break-glass restoration.
 
 ## Oficiálna dokumentácia
 
