@@ -1543,15 +1543,15 @@
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "title": "GitLab CI/CD syntax",
-      "words": 1343,
-      "headings": 32,
-      "sections": 32,
-      "findings": 52,
-      "critical": 26,
-      "high": 15,
-      "medium": 10,
-      "low": 1,
-      "score": 465,
+      "words": 3379,
+      "headings": 64,
+      "sections": 64,
+      "findings": 171,
+      "critical": 59,
+      "high": 46,
+      "medium": 34,
+      "low": 32,
+      "score": 1242,
       "grade": "D"
     },
     {
@@ -112016,287 +112016,35 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "1. Pipeline configuration lifecycle",
-      "line": 7,
+      "section": "2. Configuration identity",
+      "line": 51,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "1. Pipeline configuration lifecycle",
-      "line": 7,
+      "section": "2. Configuration identity",
+      "line": 51,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta root CI configuration,`, `vyrieši include dependencies,`, `expanduje reusable konfiguráciu,`, `vyhodnotí workflow:rules ,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root .gitlab-ci.yml revision,`, `všetky included project/ref/file identities,`, `CI/CD component versions,`, `remote include content alebo checksum podľa možností,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "1. Pipeline configuration lifecycle",
-      "line": 7,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "1. Pipeline configuration lifecycle",
-      "line": 7,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "2. Globálne a job-level keywords",
-      "line": 23,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "2. Globálne a job-level keywords",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workflow ,`, `stages ,`, `default ,`, `variables ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "2. Globálne a job-level keywords",
-      "line": 23,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "2. Globálne a job-level keywords",
-      "line": 23,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "3. Minimálna pipeline",
+      "section": "2. Configuration identity",
       "line": 51,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "5. Job-level rules",
-      "line": 98,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "5. Job-level rules",
-      "line": 98,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `if ,`, `changes ,`, `exists ,`, `when ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "5. Job-level rules",
-      "line": 98,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "6. rules:changes",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "6. rules:changes",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neúplný dependency graph,`, `generated files,`, `shared tooling mimo sledovaných paths,`, `odlišné správanie podľa pipeline source,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "6. rules:changes",
-      "line": 124,
-      "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "7. Stages a DAG cez needs",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "7. Stages a DAG cez needs",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing optional job,`, `artifact overwrite,`, `príliš hustý graph,`, `nejasnú failure propagation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "7. Stages a DAG cez needs",
-      "line": 147,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "12. YAML anchors a !reference",
-      "line": 247,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "12. YAML anchors a !reference",
-      "line": 247,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `výsledok nie je čitateľný bez renderovania,`, `merge semantics sú neintuitívne,`, `chyba sa šíri do mnohých jobs,`, `lokálny override môže odstrániť očakávanú hodnotu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "12. YAML anchors a !reference",
-      "line": 247,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "13. include",
-      "line": 260,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "13. include",
-      "line": 260,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local file,`, `project file,`, `remote file,`, `template,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "13. include",
-      "line": 260,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "14. CI/CD components",
-      "line": 282,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "14. CI/CD components",
-      "line": 282,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnými inputs,`, `definovanými jobs a outputs,`, `permissions dokumentáciou,`, `compatibility policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "14. CI/CD components",
-      "line": 282,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "14. CI/CD components",
-      "line": 282,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "15. Predefined variables",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "15. Predefined variables",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI PROJECT PATH ,`, `CI COMMIT SHA ,`, `CI COMMIT REF SLUG ,`, `CI PIPELINE SOURCE ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "15. Predefined variables",
-      "line": 295,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "15. Predefined variables",
-      "line": 295,
+      "section": "2. Configuration identity",
+      "line": 51,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -112304,80 +112052,188 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "15. Predefined variables",
-      "line": 295,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `PROJECT`, `PATH`, `COMMIT`, `SHA`, `REF`, `SLUG`, `PIPELINE`",
-      "score": 7
+      "section": "2. Configuration identity",
+      "line": 51,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "18. Timeouts a interruptibility",
-      "line": 331,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "18. Timeouts a interruptibility",
-      "line": 331,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `job timeout,`, `command-level timeout,`, `graceful cleanup,`, `cancellation semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "18. Timeouts a interruptibility",
-      "line": 331,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "20. Dynamic a child pipelines",
-      "line": 355,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "20. Dynamic a child pipelines",
-      "line": 355,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generated configuration injection,`, `neobmedzený počet jobs,`, `nejasná parent-child failure propagation,`, `artifact identity medzi pipelines,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "20. Dynamic a child pipelines",
-      "line": 355,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "20. Dynamic a child pipelines",
-      "line": 355,
+      "section": "2. Configuration identity",
+      "line": 51,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CD`, `policy`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "21. CI Lint a merged configuration",
-      "line": 369,
+      "section": "3. Pipeline configuration lifecycle",
+      "line": 79,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "3. Pipeline configuration lifecycle",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `GitLab určí pipeline event a ref context.`, `Načíta root konfiguráciu.`, `Vyhodnotí a načíta applicable includes.`, `Zlúči configuration fragments podľa GitLab semantics.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "3. Pipeline configuration lifecycle",
+      "line": 79,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "3. Pipeline configuration lifecycle",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "3. Pipeline configuration lifecycle",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "3. Pipeline configuration lifecycle",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "4. Top-level a job-level konfigurácia",
+      "line": 98,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "18 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "4. Top-level a job-level konfigurácia",
+      "line": 98,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workflow ,`, `stages ,`, `default ,`, `globálne variables ,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "4. Top-level a job-level konfigurácia",
+      "line": 98,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "4. Top-level a job-level konfigurácia",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "4. Top-level a job-level konfigurácia",
+      "line": 98,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "5. Minimálna pipeline",
+      "line": 126,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "6. workflow:rules : vznik pipeline",
+      "line": 151,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "6. workflow:rules : vznik pipeline",
+      "line": 151,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré events majú vytvoriť pipeline,`, `či branch a MR pipeline majú odlišný účel,`, `či tag pipeline môže publikovať release,`, `ktoré manual/API inputs sú autorizované,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "6. workflow:rules : vznik pipeline",
+      "line": 151,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "6. workflow:rules : vznik pipeline",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "6. workflow:rules : vznik pipeline",
+      "line": 151,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "7. Duplicate pipelines",
+      "line": 173,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dvojnásobné CI náklady,`, `rozdielne verdicts nad rovnakou zmenou,`, `dva artifacty s nejasnou autoritou,`, `duplicitné external side effects,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "9. Rule truth tables",
+      "line": 216,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -112385,62 +112241,62 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "21. CI Lint a merged configuration",
-      "line": 369,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "21. CI Lint a merged configuration",
-      "line": 369,
+      "section": "9. Rule truth tables",
+      "line": 216,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML syntax,`, `includes,`, `resolved configuration,`, `rules behavior pre viac pipeline sources,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci fallback,`, `job dostupný v nebezpečnom context-e,`, `duplicate inclusion,`, `manual deploy v unprotected ref-e,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "21. CI Lint a merged configuration",
-      "line": 369,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "21. CI Lint a merged configuration",
-      "line": 369,
+      "section": "9. Rule truth tables",
+      "line": 216,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `DAG`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "22. Bezpečnostné hranice",
-      "line": 383,
+      "section": "9. Rule truth tables",
+      "line": 216,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "9. Rule truth tables",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "10. rules:changes a selection risk",
+      "line": 236,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "22. Bezpečnostné hranice",
-      "line": 383,
+      "section": "10. rules:changes a selection risk",
+      "line": 236,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.gitlab-ci.yml ,`, `included templates,`, `runner selection,`, `protected variables,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neúplný dependency graph,`, `shared library alebo build tool mimo patternu,`, `zmena included template bez source path zmeny,`, `generated source,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "22. Bezpečnostné hranice",
-      "line": 383,
+      "section": "10. rules:changes a selection risk",
+      "line": 236,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -112448,8 +112304,962 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "10. rules:changes a selection risk",
+      "line": 236,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "10. rules:changes a selection risk",
+      "line": 236,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "11. rules:exists",
+      "line": 263,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "11. rules:exists",
+      "line": 263,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `file existuje, ale nie je authoritative,`, `layout sa zmení bez aktualizácie rules,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "11. rules:exists",
+      "line": 263,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "11. rules:exists",
+      "line": 263,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "12. Stages verzus DAG",
+      "line": 276,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `control dependency,`, `artifact/data dependency,`, `evidence dependency,`, `policy dependency.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "12. Stages verzus DAG",
+      "line": 276,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "12. Stages verzus DAG",
+      "line": 276,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "13. needs",
+      "line": 305,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "13. needs",
+      "line": 305,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "13. needs",
+      "line": 305,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream job sa vždy vytvorí,`, `optional dependency je skutočne optional,`, `artifact identity je jednoznačná,`, `parallel jobs neprepisujú rovnaký path/name,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "13. needs",
+      "line": 305,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "13. needs",
+      "line": 305,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "15. Artifact transfer",
+      "line": 349,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `job artifact,`, `report artifact,`, `cache,`, `published release/package/container artifact.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "15. Artifact transfer",
+      "line": 349,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "16. default",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "16. default",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment sa stane interruptible ,`, `retry zopakuje non-idempotentnú mutation,`, `všeobecný image nemá potrebnú trust/provenance,`, `shared before script stiahne mutable code.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "16. default",
+      "line": 372,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "17. Runtime images a services",
+      "line": 395,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "17. Runtime images a services",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "17. Runtime images a services",
+      "line": 395,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používaj kontrolované versions alebo digesty,`, `dokumentuj architecture/platform variants,`, `minimalizuj privileged mode,`, `over image provenance a vulnerability policy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "17. Runtime images a services",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "17. Runtime images a services",
+      "line": 395,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "18. Hidden jobs a extends",
+      "line": 418,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "18. Hidden jobs a extends",
+      "line": 418,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedz depth inheritance,`, `dokumentuj contract template-u,`, `používaj resolved-config preview,`, `testuj override edge cases,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "18. Hidden jobs a extends",
+      "line": 418,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "19. YAML anchors a !reference",
+      "line": 444,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "19. YAML anchors a !reference",
+      "line": 444,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nečitateľný effective job,`, `nejasná merge precedence,`, `accidental removal array hodnoty,`, `široký blast radius lokálnej zmeny,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "19. YAML anchors a !reference",
+      "line": 444,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "19. YAML anchors a !reference",
+      "line": 444,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "20. include ako supply-chain dependency",
+      "line": 456,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "20. include ako supply-chain dependency",
+      "line": 456,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera a source trust,`, `immutable alebo controlled version,`, `compatibility policy,`, `update automation a review,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "20. include ako supply-chain dependency",
+      "line": 456,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "20. include ako supply-chain dependency",
+      "line": 456,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "20. include ako supply-chain dependency",
+      "line": 456,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "21. Include merge a precedence",
+      "line": 482,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "21. Include merge a precedence",
+      "line": 482,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer neúmyselne prepíše security job,`, `include zmení defaults všetkým jobs,`, `variables majú inú precedence než author očakáva,`, `viac includes definuje konfliktujúce fragments.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "21. Include merge a precedence",
+      "line": 482,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "21. Include merge a precedence",
+      "line": 482,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "21. Include merge a precedence",
+      "line": 482,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "22. CI/CD components",
+      "line": 505,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "22. CI/CD components",
+      "line": 505,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typed alebo dokumentované inputs,`, `jobs a output artifacts/reports,`, `required permissions a variables,`, `runner/executor požiadavky,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "22. CI/CD components",
+      "line": 505,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "22. CI/CD components",
+      "line": 505,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "22. CI/CD components",
+      "line": 505,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "22. CI/CD components",
+      "line": 505,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `failure semantics`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "23. Variables a evaluation phases",
+      "line": 521,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pre-pipeline context,`, `pipeline-creation context,`, `job-only/runtime context.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "25. before script , script a after script",
+      "line": 554,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "25. before script , script a after script",
+      "line": 554,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentný explicitný cleanup job,`, `when: always podľa potreby,`, `TTL/lifecycle controller,`, `resource owner tags,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "25. before script , script a after script",
+      "line": 554,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "25. before script , script a after script",
+      "line": 554,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "25. before script , script a after script",
+      "line": 554,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "26. Retry",
+      "line": 569,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "26. Retry",
+      "line": 569,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministic test failure,`, `compile error,`, `security finding,`, `non-idempotentný deployment,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "26. Retry",
+      "line": 569,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "26. Retry",
+      "line": 569,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "27. allow failure",
+      "line": 583,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "27. allow failure",
+      "line": 583,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experimentálny alebo advisory check,`, `nepodporovaná optional matrix kombinácia,`, `nový analyzer počas kalibrácie.`, `ownera,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "27. allow failure",
+      "line": 583,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "27. allow failure",
+      "line": 583,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "28. Timeout a interruptibility",
+      "line": 601,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "28. Timeout a interruptibility",
+      "line": 601,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue timeout podľa platformy,`, `job timeout,`, `command/dependency timeout,`, `graceful shutdown,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "28. Timeout a interruptibility",
+      "line": 601,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "28. Timeout a interruptibility",
+      "line": 601,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "29. Resource serialization",
+      "line": 624,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external actors mimo GitLabu,`, `idempotency,`, `stale/outdated deployment,`, `lock recovery,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "29. Resource serialization",
+      "line": 624,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "30. Parallel a matrix jobs",
+      "line": 645,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "30. Parallel a matrix jobs",
+      "line": 645,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačnú identity,`, `expected inventory,`, `unique artifact/report names,`, `deterministický alebo auditovateľný assignment,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "30. Parallel a matrix jobs",
+      "line": 645,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "30. Parallel a matrix jobs",
+      "line": 645,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "31. Child pipelines",
+      "line": 658,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "31. Child pipelines",
+      "line": 658,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input identity,`, `configuration artifact a digest,`, `parent-child status propagation,`, `artifact/report transfer,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "31. Child pipelines",
+      "line": 658,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "31. Child pipelines",
+      "line": 658,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "31. Child pipelines",
+      "line": 658,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "32. Dynamic pipeline generation",
+      "line": 675,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "32. Dynamic pipeline generation",
+      "line": 675,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministic pre rovnaké vstupy,`, `chránený pred injection cez filenames alebo metadata,`, `obmedzený size/job-count limits,`, `schema a policy validovaný,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "32. Dynamic pipeline generation",
+      "line": 675,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "32. Dynamic pipeline generation",
+      "line": 675,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "32. Dynamic pipeline generation",
+      "line": 675,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "33. Multi-project pipeline",
+      "line": 689,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "33. Multi-project pipeline",
+      "line": 689,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "33. Multi-project pipeline",
+      "line": 689,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný producer/consumer contract,`, `immutable input identity,`, `scoped authentication,`, `branch/ref allowlist,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "33. Multi-project pipeline",
+      "line": 689,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "33. Multi-project pipeline",
+      "line": 689,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "34. Runner scheduling context",
+      "line": 703,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "34. Runner scheduling context",
+      "line": 703,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project/group/instance runner scope,`, `protected-runner settings,`, `tags a whether untagged jobs sú povolené,`, `executor isolation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "34. Runner scheduling context",
+      "line": 703,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "34. Runner scheduling context",
+      "line": 703,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "34. Runner scheduling context",
+      "line": 703,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "35. Security boundaries",
+      "line": 716,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "35. Security boundaries",
+      "line": 716,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "35. Security boundaries",
+      "line": 716,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.gitlab-ci.yml ,`, `include/component repositories,`, `generated pipeline scripts,`, `runner tags a privileged modes,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "35. Security boundaries",
+      "line": 716,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "35. Security boundaries",
+      "line": 716,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "35. Security boundaries",
+      "line": 716,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "36. CI Lint a resolved configuration",
+      "line": 739,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "36. CI Lint a resolved configuration",
+      "line": 739,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "36. CI Lint a resolved configuration",
+      "line": 739,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML parse.`, `GitLab schema/keyword validation.`, `Include resolution.`, `Resolved configuration inspection.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "36. CI Lint a resolved configuration",
+      "line": 739,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "36. CI Lint a resolved configuration",
+      "line": 739,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `DAG`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "37. Pipeline verdict a incomplete states",
+      "line": 755,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "37. Pipeline verdict a incomplete states",
+      "line": 755,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration invalid,`, `pipeline not created by policy,`, `pipeline created with expected jobs,`, `expected job missing,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "37. Pipeline verdict a incomplete states",
+      "line": 755,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "37. Pipeline verdict a incomplete states",
+      "line": 755,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "Pipeline nevznikla",
-      "line": 399,
+      "line": 773,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -112458,7 +113268,7 @@
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "Job chýba",
-      "line": 403,
+      "line": 777,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -112466,8 +113276,8 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "Duplicate pipelines",
-      "line": 407,
+      "section": "Job stiahol nesprávny artifact",
+      "line": 789,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -112475,12 +113285,273 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "Job stiahol nesprávne artifacts",
-      "line": 415,
+      "section": "Pipeline používa nesprávnu variable hodnotu",
+      "line": 805,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "39. Typické anti-patterny",
+      "line": 809,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "YAML parse = pipeline validation",
+      "line": 811,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Floating include z main",
+      "line": 815,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "optional: true na všetkých needs",
+      "line": 823,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Hlboké extends inheritance",
+      "line": 827,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "allow failure ako oprava červeného pipeline",
+      "line": 831,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Retry všetkých failures",
+      "line": 835,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Privileged deployment script priamo z MR branchu",
+      "line": 839,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Dynamic generator bez limits a evidence",
+      "line": 843,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Parent pipeline nečaká required child",
+      "line": 847,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktoré pipeline sources podporujeme a prečo?`, `Aká truth table zabráni duplicate pipelines?`, `Ktoré variables sú dostupné v každej evaluation phase?`, `Aká je resolved-config identity?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "40. Praktický rozhodovací rámec",
+      "line": 851,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "17 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline sources majú explicitný workflow allowlist;`, `branch/MR/tag/schedule truth table je testovaná;`, `includes a components sú versionované a vlastnené;`, `resolved configuration je reviewovateľná;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "41. Kontrolný checklist",
+      "line": 869,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `DAG`, `identity`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "Summary",
+      "line": 911,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
