@@ -1529,15 +1529,15 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "title": "Environments, deployments a releases",
-      "words": 1228,
-      "headings": 39,
-      "sections": 39,
-      "findings": 81,
-      "critical": 34,
-      "high": 35,
-      "medium": 12,
-      "low": 0,
-      "score": 720,
+      "words": 2747,
+      "headings": 54,
+      "sections": 54,
+      "findings": 158,
+      "critical": 47,
+      "high": 49,
+      "medium": 26,
+      "low": 36,
+      "score": 1092,
       "grade": "D"
     },
     {
@@ -112808,71 +112808,17 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "1. Environment",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "1. Environment",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development ,`, `staging ,`, `production ,`, `review/feature-login .`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "1. Environment",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "2. Static a dynamic environments",
-      "line": 16,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Static environment",
-      "line": 18,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Dynamic environment",
-      "line": 27,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "3. Environment v jobe",
-      "line": 37,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "3. Environment v jobe",
-      "line": 37,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -112880,233 +112826,62 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "5. Deployment",
-      "line": 57,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "5. Deployment",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment,`, `commit alebo ref,`, `pipeline/job,`, `čas,`.",
-      "score": 12
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "5. Deployment",
-      "line": 57,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "5. Deployment",
-      "line": 57,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "6. Deployment job",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "6. Deployment job",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "6. Deployment job",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact input,`, `target environment,`, `configuration revision,`, `rollout strategy,`.",
-      "score": 12
+      "section": "1. Definícia",
+      "line": 9,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "6. Deployment job",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "7. Manual deployment",
-      "line": 86,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "8. Protected environment",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "8. Protected environment",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "8. Protected environment",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment job inclusion,`, `environment permission,`, `protected variables,`, `runner,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "8. Protected environment",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "8. Protected environment",
-      "line": 101,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "10. Deployment concurrency",
-      "line": 120,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "10. Deployment concurrency",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "10. Deployment concurrency",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spustiť všetky postupne,`, `zrušiť obsolete deployment,`, `preferovať najnovší pipeline,`, `nechať mutation dokončiť a potom prehodnotiť stav.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "10. Deployment concurrency",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "11. Outdated deployments",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "11. Outdated deployments",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource serialization,`, `prevent-outdated-deployment controls,`, `immutable desired version,`, `deployment controller s compare-and-set semantics.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "11. Outdated deployments",
-      "line": 136,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "11. Outdated deployments",
-      "line": 136,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "13. Review app security",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "13. Review app security",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `internú funkcionalitu,`, `test data,`, `environment variables,`, `preview URL,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "13. Review app security",
-      "line": 171,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "13. Review app security",
-      "line": 171,
+      "section": "1. Definícia",
+      "line": 9,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
@@ -113114,179 +112889,179 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "14. Stop a delete environment",
-      "line": 183,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "14. Stop a delete environment",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "14. Stop a delete environment",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stop runtime workloadu,`, `delete GitLab environment recordu,`, `delete cloud/Kubernetes resources,`, `delete DNS a storage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "14. Stop a delete environment",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "14. Stop a delete environment",
-      "line": 183,
+      "section": "2. Mental model: desired, recorded a effective state",
+      "line": 29,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "16. Deployment tracking",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "2. Mental model: desired, recorded a effective state",
+      "line": 29,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "16. Deployment tracking",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zobraziť aktuálnu a predchádzajúce versions,`, `korelovať incidents so zmenami,`, `sledovať included merge requests,`, `vytvoriť audit trail,`.",
-      "score": 12
+      "section": "2. Mental model: desired, recorded a effective state",
+      "line": 29,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "16. Deployment tracking",
-      "line": 201,
+      "section": "3. Environment identity",
+      "line": 45,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "17. Environment health",
-      "line": 213,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 43 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "17. Environment health",
-      "line": 213,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "17. Environment health",
-      "line": 213,
+      "section": "3. Environment identity",
+      "line": 45,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollout completion,`, `readiness,`, `synthetic critical path,`, `version/digest telemetry,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project alebo release unit,`, `environment name,`, `deployment tier,`, `account/subscription/cluster,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "17. Environment health",
-      "line": 213,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "17. Environment health",
-      "line": 213,
+      "section": "3. Environment identity",
+      "line": 45,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KPI`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "18. Rollback",
-      "line": 229,
+      "section": "3. Environment identity",
+      "line": 45,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "4. Static a dynamic environments",
+      "line": 72,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "18. Rollback",
-      "line": 229,
+      "section": "Dynamic environment",
+      "line": 78,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Dynamic environment",
+      "line": 78,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact availability,`, `configuration compatibility,`, `database/schema state,`, `external side effects,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačnú identity,`, `izolované credentials a data,`, `resource quota,`, `TTL alebo auto-stop,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "18. Rollback",
-      "line": 229,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "18. Rollback",
-      "line": 229,
+      "section": "Dynamic environment",
+      "line": 78,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "19. Releases",
-      "line": 241,
+      "section": "Dynamic environment",
+      "line": 78,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "7. Deployment state machine",
+      "line": 119,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "19. Releases",
-      "line": 241,
+      "section": "7. Deployment state machine",
+      "line": 119,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "7. Deployment state machine",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "7. Deployment state machine",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "7. Deployment state machine",
+      "line": 119,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "8. Deployment job contract",
+      "line": 144,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "8. Deployment job contract",
+      "line": 144,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag,`, `release name,`, `description/release notes,`, `released-at timestamp,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact input,`, `target environment identity,`, `config a infra revision,`, `required evidence a approvals,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "19. Releases",
-      "line": 241,
+      "section": "8. Deployment job contract",
+      "line": 144,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -113294,53 +113069,53 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "21. Release job",
-      "line": 261,
+      "section": "8. Deployment job contract",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "8. Deployment job contract",
+      "line": 144,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "9. Protected environment",
+      "line": 163,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "21. Release job",
-      "line": 261,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "21. Release job",
-      "line": 261,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "21. Release job",
-      "line": 261,
+      "section": "9. Protected environment",
+      "line": 163,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag policy,`, `immutable artifacts,`, `checksums/digests,`, `test a scan evidence,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dôveryhodný ref alebo release subject,`, `chránený deployment job a pipeline config,`, `allowed-to-deploy policy,`, `scoped protected/environment variables,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "21. Release job",
-      "line": 261,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "9. Protected environment",
+      "line": 163,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "21. Release job",
-      "line": 261,
+      "section": "9. Protected environment",
+      "line": 163,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -113348,8 +113123,53 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "22. Release assets",
-      "line": 285,
+      "section": "10. Manual job verzus approval",
+      "line": 180,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "10. Manual job verzus approval",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný artifact a environment subject,`, `evidence summary,`, `eligible approvera,`, `separation of duties podľa rizika,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "10. Manual job verzus approval",
+      "line": 180,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "10. Manual job verzus approval",
+      "line": 180,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "10. Manual job verzus approval",
+      "line": 180,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "11. Environment-scoped variables a identity",
+      "line": 197,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113357,26 +113177,26 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "22. Release assets",
-      "line": 285,
+      "section": "11. Environment-scoped variables a identity",
+      "line": 197,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "22. Release assets",
-      "line": 285,
+      "section": "11. Environment-scoped variables a identity",
+      "line": 197,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package registry,`, `generic package,`, `container image digest,`, `binary download,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný scope a wildcard precedence,`, `kto môže zmeniť environment:name ,`, `protected-ref kontext,`, `variable precedence,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "22. Release assets",
-      "line": 285,
+      "section": "11. Environment-scoped variables a identity",
+      "line": 197,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -113384,17 +113204,44 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "22. Release assets",
-      "line": 285,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
-      "score": 4
+      "section": "11. Environment-scoped variables a identity",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "24. Release evidence",
-      "line": 305,
+      "section": "12. Deployment concurrency",
+      "line": 221,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vykonať všetky deployments v poradí,`, `supersedovať staršie pending deployments,`, `použiť controller s compare-and-set nad aktuálnou generation.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "12. Deployment concurrency",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "12. Deployment concurrency",
+      "line": 221,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "13. Outdated deployments",
+      "line": 234,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113402,8 +113249,143 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "24. Release evidence",
-      "line": 305,
+      "section": "13. Outdated deployments",
+      "line": 234,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "13. Outdated deployments",
+      "line": 234,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `serialized resource group,`, `prevent-outdated-deployment policy,`, `desired generation alebo sequence number,`, `compare-and-set pred mutation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "13. Outdated deployments",
+      "line": 234,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "13. Outdated deployments",
+      "line": 234,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "14. Deployment freshness",
+      "line": 257,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "14. Deployment freshness",
+      "line": 257,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "14. Deployment freshness",
+      "line": 257,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact stále spĺňa policy,`, `approval sa vzťahuje na rovnaký digest a config,`, `environment nebol zmenený novším deploymentom,`, `release nebol revoked,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "14. Deployment freshness",
+      "line": 257,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "14. Deployment freshness",
+      "line": 257,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "15. Post-deployment verification",
+      "line": 271,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "15. Post-deployment verification",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime digest a config revision,`, `rollout completion,`, `readiness a healthy capacity,`, `routing/exposure state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "15. Post-deployment verification",
+      "line": 271,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "15. Post-deployment verification",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "15. Post-deployment verification",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "17. GitOps interaction",
+      "line": 306,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "17. GitOps interaction",
+      "line": 306,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
@@ -113411,17 +113393,17 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "24. Release evidence",
-      "line": 305,
+      "section": "17. GitOps interaction",
+      "line": 306,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source tag/commit,`, `artifact digests,`, `SBOM,`, `provenance/signatures,`.",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorí a publikuje immutable artifact,`, `aktualizuje desired-state repository alebo release manifest,`, `GitOps controller zmenu reconciliuje,`, `source pipeline,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "24. Release evidence",
-      "line": 305,
+      "section": "17. GitOps interaction",
+      "line": 306,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -113429,17 +113411,62 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "24. Release evidence",
-      "line": 305,
+      "section": "17. GitOps interaction",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "18. Review apps",
+      "line": 323,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "18. Review apps",
+      "line": 323,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MR/pipeline identity,`, `immutable artifact digest,`, `izolovaný namespace a URL,`, `test identity a synthetic data,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "18. Review apps",
+      "line": 323,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `CI`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "25. Freeze periods",
-      "line": 321,
+      "section": "18. Review apps",
+      "line": 323,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "18. Review apps",
+      "line": 323,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `URL`, `TTL`, `identity`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "19. Review-app cleanup",
+      "line": 343,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113447,26 +113474,26 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "25. Freeze periods",
-      "line": 321,
+      "section": "19. Review-app cleanup",
+      "line": 343,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "25. Freeze periods",
-      "line": 321,
+      "section": "19. Review-app cleanup",
+      "line": 343,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znemožniť emergency recovery,`, `nahradiť observability,`, `viesť k obrovskému batchu po skončení,`, `zostať bez ownera a exception policy.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on stop job,`, `auto-stop/TTL,`, `cloud labels s ownerom a expiry,`, `periodický garbage collector,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "25. Freeze periods",
-      "line": 321,
+      "section": "19. Review-app cleanup",
+      "line": 343,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -113474,35 +113501,62 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "25. Freeze periods",
-      "line": 321,
+      "section": "19. Review-app cleanup",
+      "line": 343,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "27. GitOps interaction",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "20. Environment drift",
+      "line": 367,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "27. GitOps interaction",
-      "line": 345,
+      "section": "20. Environment drift",
+      "line": 367,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publishnúť artifact,`, `aktualizovať environment configuration repository,`, `GitOps controller reconciliuje desired state,`, `deployment status sa spätne koreluje.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `desired-state drift,`, `configuration drift,`, `artifact drift,`, `permission drift,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "27. GitOps interaction",
-      "line": 345,
+      "section": "20. Environment drift",
+      "line": 367,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "21. Rollback a roll-forward",
+      "line": 382,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "21. Rollback a roll-forward",
+      "line": 382,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `previous artifact digest a jeho dostupnosť,`, `compatibility s aktuálnou schema a dátami,`, `config a secrets compatibility,`, `events už publikované novou verziou,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "21. Rollback a roll-forward",
+      "line": 382,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -113510,8 +113564,197 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Deployment job je zelený, environment starý",
-      "line": 358,
+      "section": "21. Rollback a roll-forward",
+      "line": 382,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "21. Rollback a roll-forward",
+      "line": 382,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "22. Deployment freeze",
+      "line": 406,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "22. Deployment freeze",
+      "line": 406,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scope a timezone,`, `ownera,`, `ktoré jobs sú blokované,`, `emergency výnimku,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "22. Deployment freeze",
+      "line": 406,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "22. Deployment freeze",
+      "line": 406,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "22. Deployment freeze",
+      "line": 406,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "23. GitLab Release",
+      "line": 422,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "23. GitLab Release",
+      "line": 422,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected tag,`, `release name a version,`, `released-at timestamp,`, `release notes,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "23. GitLab Release",
+      "line": 422,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "23. GitLab Release",
+      "line": 422,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "23. GitLab Release",
+      "line": 422,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "25. Release eligibility",
+      "line": 453,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "25. Release eligibility",
+      "line": 453,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag a version policy,`, `artifact immutability,`, `provenance a signatures,`, `SBOM completeness,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "25. Release eligibility",
+      "line": 453,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "25. Release eligibility",
+      "line": 453,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "26. Release assets",
+      "line": 470,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "26. Release assets",
+      "line": 470,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package version a checksum,`, `image digest,`, `generic package path,`, `SBOM,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "26. Release assets",
+      "line": 470,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "26. Release assets",
+      "line": 470,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "26. Release assets",
+      "line": 470,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "27. Release lifecycle",
+      "line": 485,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113519,8 +113762,8 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Starší pipeline prepísal novší deployment",
-      "line": 362,
+      "section": "Deprecation",
+      "line": 498,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113528,12 +113771,462 @@
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Production variable nie je dostupná",
-      "line": 370,
+      "section": "Yanking",
+      "line": 502,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Revocation",
+      "line": 506,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "28. Release evidence freshness",
+      "line": 516,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "28. Release evidence freshness",
+      "line": 516,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `continuous rescanning,`, `identifikáciu dotknutých release digests,`, `aktualizáciu support statusu,`, `yanking alebo revocation,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "28. Release evidence freshness",
+      "line": 516,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "29. Release a deployment nie sú totožné",
+      "line": 530,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "29. Release a deployment nie sú totožné",
+      "line": 530,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "29. Release a deployment nie sú totožné",
+      "line": 530,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publikovaný, ale ešte nenasadený,`, `nasadený iba do stagingu,`, `vystavený iba jednému ringu,`, `nasadený v niektorých regiónoch,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "29. Release a deployment nie sú totožné",
+      "line": 530,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment frequency a lead time,`, `queue a approval time,`, `outdated/superseded deployments,`, `deployment success a inconclusive rate,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "30. Observability a metriky",
+      "line": 548,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `recovery time`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "31. Diagnostický postup",
+      "line": 567,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`, `scope`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "32. Typické anti-patterny",
+      "line": 582,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Environment je iba názov v YAML",
+      "line": 584,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Zelený deploy job = zdravá produkcia",
+      "line": 588,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Manual job = approval",
+      "line": 592,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Mutable artifact tag v deployment recorde",
+      "line": 596,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Review app bez TTL",
+      "line": 600,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Stopped environment = odstránené resources",
+      "line": 604,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Release job znovu buildne artifact",
+      "line": 608,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Release asset smeruje na expirovateľný job artifact",
+      "line": 612,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Tag alebo release object = runtime deployment",
+      "line": 616,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aká je presná environment identity a runtime boundary?`, `Aký immutable artifact a config revision sú subjectom?`, `Čo je desired, recorded a effective state?`, `Ktorá identity smie deployovať a prečo?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 620,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `identity`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment names a tiers sú konzistentné;`, `production environment je protected;`, `deployment job a runner sú v trusted boundary;`, `subject obsahuje artifact digest a config revision;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "34. Kontrolný checklist",
+      "line": 639,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `SBOM`, `workload`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "Summary",
+      "line": 678,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
