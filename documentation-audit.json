@@ -1501,15 +1501,15 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "title": "Artifacts a cache",
-      "words": 1010,
-      "headings": 32,
-      "sections": 32,
-      "findings": 81,
-      "critical": 34,
-      "high": 37,
-      "medium": 10,
-      "low": 0,
-      "score": 728,
+      "words": 1995,
+      "headings": 48,
+      "sections": 48,
+      "findings": 146,
+      "critical": 61,
+      "high": 57,
+      "medium": 16,
+      "low": 12,
+      "score": 1242,
       "grade": "D"
     },
     {
@@ -109874,8 +109874,35 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "1. Základný rozdiel",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "1. Mental model",
+      "line": 11,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "1. Mental model",
+      "line": 11,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -109883,35 +109910,26 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "2. Job artifacts",
-      "line": 19,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "3. Artifact use cases",
-      "line": 36,
+      "section": "2. Artifact subject",
+      "line": 31,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "3. Artifact use cases",
-      "line": 36,
+      "section": "2. Artifact subject",
+      "line": 31,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compiled binaries,`, `packages,`, `test reports,`, `coverage reports,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project,`, `pipeline ID a source,`, `commit alebo merged-result SHA,`, `job name a attempt,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "3. Artifact use cases",
-      "line": 36,
+      "section": "2. Artifact subject",
+      "line": 31,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -109919,8 +109937,62 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "3. Artifact use cases",
-      "line": 36,
+      "section": "2. Artifact subject",
+      "line": 31,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "3. Typy artifacts",
+      "line": 46,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "3. Typy artifacts",
+      "line": 46,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "3. Typy artifacts",
+      "line": 46,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "3. Typy artifacts",
+      "line": 46,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "3. Typy artifacts",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "3. Typy artifacts",
+      "line": 46,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
@@ -109928,26 +110000,152 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "4. Report artifacts",
-      "line": 53,
+      "section": "4. Publication contract",
+      "line": 59,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "4. Publication contract",
+      "line": 59,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "4. Report artifacts",
-      "line": 53,
+      "section": "4. Publication contract",
+      "line": 59,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit,`, `coverage,`, `code quality,`, `dotenv,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné paths,`, `podmienku uploadu,`, `artifact name,`, `format,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "4. Report artifacts",
-      "line": 53,
+      "section": "4. Publication contract",
+      "line": 59,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "5. Upload pri success a failure",
+      "line": 75,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "6. Report artifacts",
+      "line": 91,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "6. Report artifacts",
+      "line": 91,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `report bol vytvorený a validný,`, `report je validný, ale obsahuje findings/failures,`, `report chýba,`, `report je neúplný,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "6. Report artifacts",
+      "line": 91,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "6. Report artifacts",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "7. Report completeness",
+      "line": 106,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "8. Producer-consumer binding",
+      "line": 118,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "8. Producer-consumer binding",
+      "line": 118,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správneho producer joba,`, `pipeline a commit identity,`, `variant/platformu,`, `digest alebo manifest,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "8. Producer-consumer binding",
+      "line": 118,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "8. Producer-consumer binding",
+      "line": 118,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "9. needs , dependencies a stages",
+      "line": 140,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "9. needs , dependencies a stages",
+      "line": 140,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stiahnuť nesprávne artifacts,`, `skryť chýbajúcu dependency,`, `blokovať job zbytočnou stage barrier,`, `vytvoriť race pri optional jobe.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "9. needs , dependencies a stages",
+      "line": 140,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -109955,44 +110153,80 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "4. Report artifacts",
-      "line": 53,
+      "section": "10. Child a downstream pipelines",
+      "line": 151,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "10. Child a downstream pipelines",
+      "line": 151,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "10. Child a downstream pipelines",
+      "line": 151,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream pipeline/project identity,`, `artifact subject a digest,`, `job a attempt,`, `access token alebo job-token policy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "10. Child a downstream pipelines",
+      "line": 151,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "10. Child a downstream pipelines",
+      "line": 151,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "10. Child a downstream pipelines",
+      "line": 151,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `DAST`, `SBOM`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "5. Artifact transfer",
-      "line": 71,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "5. Artifact transfer",
-      "line": 71,
+      "section": "11. Artifact naming",
+      "line": 165,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "5. Artifact transfer",
-      "line": 71,
+      "section": "11. Artifact naming",
+      "line": 165,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší network a disk cost,`, `jasná dependency,`, `menšie riziko filename collision,`, `rýchlejší DAG execution.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component,`, `version,`, `commit SHA,`, `platform,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "5. Artifact transfer",
-      "line": 71,
+      "section": "11. Artifact naming",
+      "line": 165,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -110000,44 +110234,35 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "5. Artifact transfer",
-      "line": 71,
+      "section": "11. Artifact naming",
+      "line": 165,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `ID`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "6. Artifact naming",
-      "line": 91,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "6. Artifact naming",
-      "line": 91,
+      "section": "12. Artifact integrity a provenance",
+      "line": 178,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "6. Artifact naming",
-      "line": 91,
+      "section": "12. Artifact integrity a provenance",
+      "line": 178,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project/component,`, `version,`, `commit SHA alebo digest,`, `platform/architecture,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `content digestom,`, `source commitom,`, `resolved pipeline configuration,`, `builder/runner identity,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "6. Artifact naming",
-      "line": 91,
+      "section": "12. Artifact integrity a provenance",
+      "line": 178,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -110045,17 +110270,89 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "6. Artifact naming",
-      "line": 91,
+      "section": "12. Artifact integrity a provenance",
+      "line": 178,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `attestation`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "13. Artifact access",
+      "line": 193,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "13. Artifact access",
+      "line": 193,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source maps,`, `scanner findings,`, `Terraform plan,`, `debug logs,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "13. Artifact access",
+      "line": 193,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "14. Retention lifecycle",
+      "line": 206,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "14. Retention lifecycle",
+      "line": 206,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "14. Retention lifecycle",
+      "line": 206,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátka pre transient diagnostics,`, `stredná pre MR/release-candidate evidence,`, `dlhšia pre audit a support,`, `registry alebo durable storage pre release artifacts,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "14. Retention lifecycle",
+      "line": 206,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "14. Retention lifecycle",
+      "line": 206,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "7. Retention",
-      "line": 103,
+      "section": "15. Retention roots",
+      "line": 218,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110063,26 +110360,26 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "7. Retention",
-      "line": 103,
+      "section": "15. Retention roots",
+      "line": 218,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "7. Retention",
-      "line": 103,
+      "section": "15. Retention roots",
+      "line": 218,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátka pre transient test diagnostics,`, `stredná pre audit a release candidates,`, `dlhšia alebo samostatný registry pre release artifacts,`, `compliance retention podľa policy.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívnym deploymentom,`, `podporovaným releaseom,`, `rollback window,`, `otvoreným incidentom,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "7. Retention",
-      "line": 103,
+      "section": "15. Retention roots",
+      "line": 218,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -110090,35 +110387,26 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "7. Retention",
-      "line": 103,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "8. Latest successful artifacts",
-      "line": 114,
+      "section": "17. Artifact collision",
+      "line": 248,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "8. Latest successful artifacts",
-      "line": 114,
+      "section": "17. Artifact collision",
+      "line": 248,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet branches,`, `artifact size,`, `pipeline frequency,`, `retention overrides,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-shard directories,`, `unique artifact names,`, `platform suffix,`, `explicitný aggregation job,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "8. Latest successful artifacts",
-      "line": 114,
+      "section": "17. Artifact collision",
+      "line": 248,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -110126,368 +110414,8 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "9. Artifact access",
-      "line": 126,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "9. Artifact access",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source map,`, `scan findings,`, `infrastructure plan,`, `test data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "9. Artifact access",
-      "line": 126,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "10. Artifact integrity",
-      "line": 139,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "10. Artifact integrity",
-      "line": 139,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "10. Artifact integrity",
-      "line": 139,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checksum alebo digest,`, `provenance,`, `signature podľa assurance modelu,`, `source commit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "10. Artifact integrity",
-      "line": 139,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "11. Cache",
-      "line": 153,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "12. Cache key",
-      "line": 168,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "12. Cache key",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "12. Cache key",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS,`, `architecture,`, `runtime/toolchain version,`, `lockfile hash,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "12. Cache key",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "12. Cache key",
-      "line": 168,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "13. Content-based keys",
-      "line": 189,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "13. Content-based keys",
-      "line": 189,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "13. Content-based keys",
-      "line": 189,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compiler version,`, `OS packages,`, `environment variables,`, `feature flags,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "13. Content-based keys",
-      "line": 189,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "13. Content-based keys",
-      "line": 189,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "14. Cache policy",
-      "line": 201,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "14. Cache policy",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "14. Cache policy",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull,`, `push,`, `pull-push.`, `trusted default-branch job publikuje shared cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "14. Cache policy",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "16. Distributed cache",
-      "line": 221,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "16. Distributed cache",
-      "line": 221,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "16. Distributed cache",
-      "line": 221,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials,`, `bucket isolation,`, `encryption,`, `lifecycle rules,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "16. Distributed cache",
-      "line": 221,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "17. Cache correctness",
-      "line": 236,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "17. Cache correctness",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "17. Cache correctness",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cache miss,`, `partial cache,`, `stale cache,`, `corrupt cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "17. Cache correctness",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "18. Cache poisoning",
-      "line": 249,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "18. Cache poisoning",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "18. Cache poisoning",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený trust namespace,`, `immutable dependency verification,`, `checksums/signatures,`, `restricted push policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "18. Cache poisoning",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "18. Cache poisoning",
-      "line": 249,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "19. Artifacts vs. package registry",
-      "line": 263,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "19. Artifacts vs. package registry",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versioned distribution,`, `dependency consumption,`, `release-oriented retention,`, `package-manager protocol,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "19. Artifacts vs. package registry",
-      "line": 263,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "19. Artifacts vs. package registry",
-      "line": 263,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "20. Failure artifacts",
-      "line": 275,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "21. Artifact collision",
-      "line": 291,
+      "section": "18. Artifact attempt identity",
+      "line": 261,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
@@ -110495,17 +110423,17 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "21. Artifact collision",
-      "line": 291,
+      "section": "18. Artifact attempt identity",
+      "line": 261,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique artifact names,`, `per-shard directories,`, `aggregation job,`, `explicitné needs ,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `job attempt,`, `first-attempt verdict,`, `digest každého pokusu,`, `policy, ktorý attempt je authoritative,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "21. Artifact collision",
-      "line": 291,
+      "section": "18. Artifact attempt identity",
+      "line": 261,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -110513,8 +110441,17 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "22. Storage governance",
-      "line": 305,
+      "section": "18. Artifact attempt identity",
+      "line": 261,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "19. Cache purpose",
+      "line": 273,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110522,26 +110459,26 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "22. Storage governance",
-      "line": 305,
+      "section": "19. Cache purpose",
+      "line": 273,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "22. Storage governance",
-      "line": 305,
+      "section": "19. Cache purpose",
+      "line": 273,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact storage podľa projektu,`, `average artifact size,`, `cache storage,`, `expiration effectiveness,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downloaded dependencies,`, `package-manager cache,`, `compiler incremental state,`, `precomputed intermediate dáta,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "22. Storage governance",
-      "line": 305,
+      "section": "19. Cache purpose",
+      "line": 273,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -110549,8 +110486,8 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "No files to upload",
-      "line": 322,
+      "section": "20. Cache key",
+      "line": 286,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110558,8 +110495,80 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Downstream job nemá artifact",
-      "line": 326,
+      "section": "20. Cache key",
+      "line": 286,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "20. Cache key",
+      "line": 286,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a architecture,`, `runtime/compiler/toolchain version,`, `lockfile alebo dependency manifest,`, `build flags,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "20. Cache key",
+      "line": 286,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "20. Cache key",
+      "line": 286,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "21. Content-derived keys",
+      "line": 301,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "21. Content-derived keys",
+      "line": 301,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base image digest,`, `compiler version,`, `package registry URL,`, `environment flag,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "21. Content-derived keys",
+      "line": 301,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "21. Content-derived keys",
+      "line": 301,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "23. Cache policy",
+      "line": 328,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110567,8 +110576,62 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Artifact z parallel jobu sa prepísal",
-      "line": 330,
+      "section": "23. Cache policy",
+      "line": 328,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "23. Cache policy",
+      "line": 328,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull — job iba obnovuje,`, `push — job publikuje,`, `trusted default-branch job ako shared writer,`, `feature jobs ako readers alebo oddelení writers,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "23. Cache policy",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "24. Cache write timing",
+      "line": 343,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "24. Cache write timing",
+      "line": 343,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podmienku write-back,`, `atomic publish alebo temporary key,`, `validation pred promotion keya,`, `concurrent-writer behavior,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "24. Cache write timing",
+      "line": 343,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "25. Protected a non-protected namespaces",
+      "line": 355,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110576,8 +110639,62 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Cache sa nikdy nepoužije",
-      "line": 334,
+      "section": "25. Protected a non-protected namespaces",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "25. Protected a non-protected namespaces",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected a non-protected refs,`, `internal a fork pipelines,`, `project/group boundaries,`, `release a development pools,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "25. Protected a non-protected namespaces",
+      "line": 355,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "26. Distributed cache",
+      "line": 367,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "26. Distributed cache",
+      "line": 367,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scoped credentials,`, `bucket/prefix isolation,`, `encryption,`, `lifecycle,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "26. Distributed cache",
+      "line": 367,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "27. Partial, stale a corrupt cache",
+      "line": 385,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110585,8 +110702,35 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Cache spôsobuje náhodné build chyby",
-      "line": 338,
+      "section": "27. Partial, stale a corrupt cache",
+      "line": 385,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "27. Partial, stale a corrupt cache",
+      "line": 385,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `miss,`, `partial archive,`, `stale entries,`, `corrupt download,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "27. Partial, stale a corrupt cache",
+      "line": 385,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "28. Cache poisoning",
+      "line": 399,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -110594,12 +110738,453 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Storage rastie",
-      "line": 342,
+      "section": "28. Cache poisoning",
+      "line": 399,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "28. Cache poisoning",
+      "line": 399,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelené trust namespaces,`, `write restrictions,`, `immutable dependency checksums/signatures,`, `content-derived keys,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "28. Cache poisoning",
+      "line": 399,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "29. Clean-build verification",
+      "line": 414,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "29. Clean-build verification",
+      "line": 414,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úplnosť dependency deklarácií,`, `reproducibility,`, `cache-independent correctness,`, `skryté workspace dependencies,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "29. Clean-build verification",
+      "line": 414,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "30. Secret a privacy safety",
+      "line": 426,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "30. Secret a privacy safety",
+      "line": 426,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.env a secret files,`, `tokens a cloud profiles,`, `kubeconfig,`, `certificates,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "30. Secret a privacy safety",
+      "line": 426,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "31. Storage governance",
+      "line": 441,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "31. Storage governance",
+      "line": 441,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "31. Storage governance",
+      "line": 441,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a cache storage podľa projektu,`, `priemernú veľkosť,`, `upload/download traffic,`, `retention effectiveness,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "31. Storage governance",
+      "line": 441,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "31. Storage governance",
+      "line": 441,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "32. Incident pri cache poisoning-u",
+      "line": 458,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "32. Incident pri cache poisoning-u",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "32. Incident pri cache poisoning-u",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav trusted consumers alebo vypni restore,`, `identifikuj namespace, keys a writers,`, `zneplatni alebo odstráň zasiahnuté entries,`, `spusti clean builds,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "32. Incident pri cache poisoning-u",
+      "line": 458,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "32. Incident pri cache poisoning-u",
+      "line": 458,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "32. Incident pri cache poisoning-u",
+      "line": 458,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "33. Diagnostický postup",
+      "line": 474,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "33. Diagnostický postup",
+      "line": 474,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "33. Diagnostický postup",
+      "line": 474,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj producer pipeline/job/attempt,`, `over, či artifact vznikol a upload prebehol,`, `over needs / dependencies a job inclusion,`, `over retention a access,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "33. Diagnostický postup",
+      "line": 474,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "33. Diagnostický postup",
+      "line": 474,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "33. Diagnostický postup",
+      "line": 474,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "34. Typické anti-patterny",
+      "line": 489,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Release binary iba ako expirovateľný job artifact",
+      "line": 491,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Chýbajúci report = čistý report",
+      "line": 495,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Všetky artifacts sa sťahujú všade",
+      "line": 499,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Shared cache pre fork a release jobs",
+      "line": 503,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Cache obsahuje build output bez validácie",
+      "line": 507,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Retry prepíše first-attempt evidence",
+      "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Cleanup podľa názvu bez retention roots",
+      "line": 515,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je to artifact, report, release output alebo cache?`, `Aký je jeho subject a producer identity?`, `Ktorý consumer ho potrebuje?`, `Ako sa overí completeness a integrity?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "35. Praktický rozhodovací rámec",
+      "line": 519,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifacts majú producer a subject identity;`, `report absence nie je pass;`, `DAG transfer je explicitný;`, `parallel outputs majú inventory a unique paths;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "36. Kontrolný checklist",
+      "line": 534,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "Summary",
+      "line": 565,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",

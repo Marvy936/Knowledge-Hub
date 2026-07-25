@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12046**
-- Total words: **597,707**
-- Findings: **28404** (critical 9270, high 10156, medium 4029, low 4949)
+- Audited conceptual sections: **12062**
+- Total words: **598,692**
+- Findings: **28469** (critical 9297, high 10176, medium 4035, low 4961)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -67,6 +67,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1267 | 63 | 50 | 22 | 33 | 3069 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
 | D | 1254 | 60 | 64 | 9 | 7 | 1692 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
+| D | 1242 | 61 | 57 | 16 | 12 | 1995 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 1242 | 59 | 46 | 34 | 32 | 3379 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 1237 | 58 | 56 | 25 | 13 | 1960 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | D | 1229 | 56 | 58 | 19 | 27 | 2572 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
@@ -166,7 +167,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 731 | 31 | 42 | 8 | 2 | 1769 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | D | 731 | 36 | 27 | 21 | 7 | 1177 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 730 | 31 | 32 | 19 | 26 | 2530 | `docs/03-git-and-automation/branching-strategies.md` |
-| D | 728 | 34 | 37 | 10 | 0 | 1010 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 728 | 30 | 44 | 6 | 3 | 1264 | `docs/09-kubernetes/statefulset.md` |
 | D | 724 | 29 | 28 | 27 | 39 | 3426 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 720 | 34 | 35 | 12 | 0 | 1228 | `docs/06-gitlab/environments-deployments-releases.md` |
@@ -7684,77 +7684,124 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/06-gitlab/artifacts-and-cache.md`
 
-- **CRITICAL** line 36, `bare-bullet-items` — **3. Artifact use cases**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compiled binaries,`, `packages,`, `test reports,`, `coverage reports,`.
-- **CRITICAL** line 36, `outline-instead-of-explanation` — **3. Artifact use cases**: 10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 53, `bare-bullet-items` — **4. Report artifacts**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit,`, `coverage,`, `code quality,`, `dotenv,`.
-- **CRITICAL** line 53, `outline-instead-of-explanation` — **4. Report artifacts**: 9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 71, `bare-bullet-items` — **5. Artifact transfer**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší network a disk cost,`, `jasná dependency,`, `menšie riziko filename collision,`, `rýchlejší DAG execution.`.
-- **CRITICAL** line 71, `outline-instead-of-explanation` — **5. Artifact transfer**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 91, `bare-bullet-items` — **6. Artifact naming**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project/component,`, `version,`, `commit SHA alebo digest,`, `platform/architecture,`.
-- **CRITICAL** line 91, `outline-instead-of-explanation` — **6. Artifact naming**: 5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 103, `bare-bullet-items` — **7. Retention**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátka pre transient test diagnostics,`, `stredná pre audit a release candidates,`, `dlhšia alebo samostatný registry pre release artifacts,`, `compliance retention podľa policy.`.
-- **CRITICAL** line 103, `outline-instead-of-explanation` — **7. Retention**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 114, `bare-bullet-items` — **8. Latest successful artifacts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet branches,`, `artifact size,`, `pipeline frequency,`, `retention overrides,`.
-- **CRITICAL** line 114, `outline-instead-of-explanation` — **8. Latest successful artifacts**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `bare-bullet-items` — **9. Artifact access**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source map,`, `scan findings,`, `infrastructure plan,`, `test data,`.
-- **CRITICAL** line 126, `outline-instead-of-explanation` — **9. Artifact access**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 139, `bare-bullet-items` — **10. Artifact integrity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checksum alebo digest,`, `provenance,`, `signature podľa assurance modelu,`, `source commit,`.
-- **CRITICAL** line 139, `outline-instead-of-explanation` — **10. Artifact integrity**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 168, `bare-bullet-items` — **12. Cache key**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS,`, `architecture,`, `runtime/toolchain version,`, `lockfile hash,`.
-- **CRITICAL** line 168, `outline-instead-of-explanation` — **12. Cache key**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 189, `bare-bullet-items` — **13. Content-based keys**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compiler version,`, `OS packages,`, `environment variables,`, `feature flags,`.
-- **CRITICAL** line 189, `outline-instead-of-explanation` — **13. Content-based keys**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 201, `bare-bullet-items` — **14. Cache policy**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull,`, `push,`, `pull-push.`, `trusted default-branch job publikuje shared cache,`.
-- **CRITICAL** line 201, `outline-instead-of-explanation` — **14. Cache policy**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 221, `bare-bullet-items` — **16. Distributed cache**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials,`, `bucket isolation,`, `encryption,`, `lifecycle rules,`.
-- **CRITICAL** line 221, `outline-instead-of-explanation` — **16. Distributed cache**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `bare-bullet-items` — **17. Cache correctness**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cache miss,`, `partial cache,`, `stale cache,`, `corrupt cache,`.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **17. Cache correctness**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 249, `bare-bullet-items` — **18. Cache poisoning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený trust namespace,`, `immutable dependency verification,`, `checksums/signatures,`, `restricted push policy,`.
-- **CRITICAL** line 249, `outline-instead-of-explanation` — **18. Cache poisoning**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 263, `bare-bullet-items` — **19. Artifacts vs. package registry**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versioned distribution,`, `dependency consumption,`, `release-oriented retention,`, `package-manager protocol,`.
-- **CRITICAL** line 263, `outline-instead-of-explanation` — **19. Artifacts vs. package registry**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 291, `bare-bullet-items` — **21. Artifact collision**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique artifact names,`, `per-shard directories,`, `aggregation job,`, `explicitné needs ,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **21. Artifact collision**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 305, `bare-bullet-items` — **22. Storage governance**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact storage podľa projektu,`, `average artifact size,`, `cache storage,`, `expiration effectiveness,`.
-- **CRITICAL** line 305, `outline-instead-of-explanation` — **22. Storage governance**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Základný rozdiel**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 19, `single-sentence-concept` — **2. Job artifacts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 71, `single-sentence-concept` — **5. Artifact transfer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 91, `single-sentence-concept` — **6. Artifact naming**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `single-sentence-concept` — **7. Retention**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 139, `single-sentence-concept` — **10. Artifact integrity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 153, `single-sentence-concept` — **11. Cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 168, `single-sentence-concept` — **12. Cache key**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 189, `single-sentence-concept` — **13. Content-based keys**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 201, `single-sentence-concept` — **14. Cache policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 221, `single-sentence-concept` — **16. Distributed cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 236, `single-sentence-concept` — **17. Cache correctness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 249, `single-sentence-concept` — **18. Cache poisoning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 275, `single-sentence-concept` — **20. Failure artifacts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `single-sentence-concept` — **22. Storage governance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 322, `single-sentence-concept` — **No files to upload**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 326, `single-sentence-concept` — **Downstream job nemá artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 330, `single-sentence-concept` — **Artifact z parallel jobu sa prepísal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 334, `single-sentence-concept` — **Cache sa nikdy nepoužije**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **Cache spôsobuje náhodné build chyby**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `single-sentence-concept` — **Storage rastie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 36, `thin-concept-section` — **3. Artifact use cases**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 71, `thin-concept-section` — **5. Artifact transfer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 91, `thin-concept-section` — **6. Artifact naming**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 103, `thin-concept-section` — **7. Retention**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 114, `thin-concept-section` — **8. Latest successful artifacts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 126, `thin-concept-section` — **9. Artifact access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 139, `thin-concept-section` — **10. Artifact integrity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 168, `thin-concept-section` — **12. Cache key**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 189, `thin-concept-section` — **13. Content-based keys**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 201, `thin-concept-section` — **14. Cache policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 221, `thin-concept-section` — **16. Distributed cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 236, `thin-concept-section` — **17. Cache correctness**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 249, `thin-concept-section` — **18. Cache poisoning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 263, `thin-concept-section` — **19. Artifacts vs. package registry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `thin-concept-section` — **21. Artifact collision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 305, `thin-concept-section` — **22. Storage governance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 31, `bare-bullet-items` — **2. Artifact subject**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project,`, `pipeline ID a source,`, `commit alebo merged-result SHA,`, `job name a attempt,`.
+- **CRITICAL** line 31, `outline-instead-of-explanation` — **2. Artifact subject**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 46, `outline-instead-of-explanation` — **3. Typy artifacts**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 59, `bare-bullet-items` — **4. Publication contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné paths,`, `podmienku uploadu,`, `artifact name,`, `format,`.
+- **CRITICAL** line 59, `outline-instead-of-explanation` — **4. Publication contract**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 91, `bare-bullet-items` — **6. Report artifacts**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `report bol vytvorený a validný,`, `report je validný, ale obsahuje findings/failures,`, `report chýba,`, `report je neúplný,`.
+- **CRITICAL** line 91, `outline-instead-of-explanation` — **6. Report artifacts**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 118, `bare-bullet-items` — **8. Producer-consumer binding**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správneho producer joba,`, `pipeline a commit identity,`, `variant/platformu,`, `digest alebo manifest,`.
+- **CRITICAL** line 118, `outline-instead-of-explanation` — **8. Producer-consumer binding**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 140, `bare-bullet-items` — **9. needs , dependencies a stages**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stiahnuť nesprávne artifacts,`, `skryť chýbajúcu dependency,`, `blokovať job zbytočnou stage barrier,`, `vytvoriť race pri optional jobe.`.
+- **CRITICAL** line 140, `outline-instead-of-explanation` — **9. needs , dependencies a stages**: 4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 151, `bare-bullet-items` — **10. Child a downstream pipelines**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream pipeline/project identity,`, `artifact subject a digest,`, `job a attempt,`, `access token alebo job-token policy,`.
+- **CRITICAL** line 151, `outline-instead-of-explanation` — **10. Child a downstream pipelines**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 165, `bare-bullet-items` — **11. Artifact naming**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component,`, `version,`, `commit SHA,`, `platform,`.
+- **CRITICAL** line 165, `outline-instead-of-explanation` — **11. Artifact naming**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 178, `bare-bullet-items` — **12. Artifact integrity a provenance**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `content digestom,`, `source commitom,`, `resolved pipeline configuration,`, `builder/runner identity,`.
+- **CRITICAL** line 178, `outline-instead-of-explanation` — **12. Artifact integrity a provenance**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 193, `bare-bullet-items` — **13. Artifact access**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source maps,`, `scanner findings,`, `Terraform plan,`, `debug logs,`.
+- **CRITICAL** line 193, `outline-instead-of-explanation` — **13. Artifact access**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 206, `bare-bullet-items` — **14. Retention lifecycle**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátka pre transient diagnostics,`, `stredná pre MR/release-candidate evidence,`, `dlhšia pre audit a support,`, `registry alebo durable storage pre release artifacts,`.
+- **CRITICAL** line 206, `outline-instead-of-explanation` — **14. Retention lifecycle**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 218, `bare-bullet-items` — **15. Retention roots**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívnym deploymentom,`, `podporovaným releaseom,`, `rollback window,`, `otvoreným incidentom,`.
+- **CRITICAL** line 218, `outline-instead-of-explanation` — **15. Retention roots**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 248, `bare-bullet-items` — **17. Artifact collision**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-shard directories,`, `unique artifact names,`, `platform suffix,`, `explicitný aggregation job,`.
+- **CRITICAL** line 248, `outline-instead-of-explanation` — **17. Artifact collision**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 261, `bare-bullet-items` — **18. Artifact attempt identity**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `job attempt,`, `first-attempt verdict,`, `digest každého pokusu,`, `policy, ktorý attempt je authoritative,`.
+- **CRITICAL** line 261, `outline-instead-of-explanation` — **18. Artifact attempt identity**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 273, `bare-bullet-items` — **19. Cache purpose**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downloaded dependencies,`, `package-manager cache,`, `compiler incremental state,`, `precomputed intermediate dáta,`.
+- **CRITICAL** line 273, `outline-instead-of-explanation` — **19. Cache purpose**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 286, `bare-bullet-items` — **20. Cache key**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a architecture,`, `runtime/compiler/toolchain version,`, `lockfile alebo dependency manifest,`, `build flags,`.
+- **CRITICAL** line 286, `outline-instead-of-explanation` — **20. Cache key**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 301, `bare-bullet-items` — **21. Content-derived keys**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base image digest,`, `compiler version,`, `package registry URL,`, `environment flag,`.
+- **CRITICAL** line 301, `outline-instead-of-explanation` — **21. Content-derived keys**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 328, `bare-bullet-items` — **23. Cache policy**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull — job iba obnovuje,`, `push — job publikuje,`, `trusted default-branch job ako shared writer,`, `feature jobs ako readers alebo oddelení writers,`.
+- **CRITICAL** line 328, `outline-instead-of-explanation` — **23. Cache policy**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 343, `bare-bullet-items` — **24. Cache write timing**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podmienku write-back,`, `atomic publish alebo temporary key,`, `validation pred promotion keya,`, `concurrent-writer behavior,`.
+- **CRITICAL** line 343, `outline-instead-of-explanation` — **24. Cache write timing**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 355, `bare-bullet-items` — **25. Protected a non-protected namespaces**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected a non-protected refs,`, `internal a fork pipelines,`, `project/group boundaries,`, `release a development pools,`.
+- **CRITICAL** line 355, `outline-instead-of-explanation` — **25. Protected a non-protected namespaces**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 367, `bare-bullet-items` — **26. Distributed cache**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scoped credentials,`, `bucket/prefix isolation,`, `encryption,`, `lifecycle,`.
+- **CRITICAL** line 367, `outline-instead-of-explanation` — **26. Distributed cache**: 9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 385, `bare-bullet-items` — **27. Partial, stale a corrupt cache**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `miss,`, `partial archive,`, `stale entries,`, `corrupt download,`.
+- **CRITICAL** line 385, `outline-instead-of-explanation` — **27. Partial, stale a corrupt cache**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 399, `bare-bullet-items` — **28. Cache poisoning**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelené trust namespaces,`, `write restrictions,`, `immutable dependency checksums/signatures,`, `content-derived keys,`.
+- **CRITICAL** line 399, `outline-instead-of-explanation` — **28. Cache poisoning**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 414, `bare-bullet-items` — **29. Clean-build verification**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úplnosť dependency deklarácií,`, `reproducibility,`, `cache-independent correctness,`, `skryté workspace dependencies,`.
+- **CRITICAL** line 414, `outline-instead-of-explanation` — **29. Clean-build verification**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 426, `bare-bullet-items` — **30. Secret a privacy safety**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.env a secret files,`, `tokens a cloud profiles,`, `kubeconfig,`, `certificates,`.
+- **CRITICAL** line 426, `outline-instead-of-explanation` — **30. Secret a privacy safety**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 441, `bare-bullet-items` — **31. Storage governance**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a cache storage podľa projektu,`, `priemernú veľkosť,`, `upload/download traffic,`, `retention effectiveness,`.
+- **CRITICAL** line 441, `outline-instead-of-explanation` — **31. Storage governance**: 10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 458, `bare-bullet-items` — **32. Incident pri cache poisoning-u**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav trusted consumers alebo vypni restore,`, `identifikuj namespace, keys a writers,`, `zneplatni alebo odstráň zasiahnuté entries,`, `spusti clean builds,`.
+- **CRITICAL** line 458, `outline-instead-of-explanation` — **32. Incident pri cache poisoning-u**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 474, `bare-bullet-items` — **33. Diagnostický postup**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj producer pipeline/job/attempt,`, `over, či artifact vznikol a upload prebehol,`, `over needs / dependencies a job inclusion,`, `over retention a access,`.
+- **CRITICAL** line 474, `outline-instead-of-explanation` — **33. Diagnostický postup**: 10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 489, `empty-section` — **34. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 519, `bare-bullet-items` — **35. Praktický rozhodovací rámec**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je to artifact, report, release output alebo cache?`, `Aký je jeho subject a producer identity?`, `Ktorý consumer ho potrebuje?`, `Ako sa overí completeness a integrity?`.
+- **CRITICAL** line 519, `outline-instead-of-explanation` — **35. Praktický rozhodovací rámec**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 534, `bare-bullet-items` — **36. Kontrolný checklist**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifacts majú producer a subject identity;`, `report absence nie je pass;`, `DAG transfer je explicitný;`, `parallel outputs majú inventory a unique paths;`.
+- **CRITICAL** line 534, `no-prose-concept` — **36. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 534, `outline-instead-of-explanation` — **36. Kontrolný checklist**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.
+- **HIGH** line 11, `list-first-introduction` — **1. Mental model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 11, `single-sentence-concept` — **1. Mental model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 46, `single-sentence-concept` — **3. Typy artifacts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 59, `single-sentence-concept` — **4. Publication contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 75, `single-sentence-concept` — **5. Upload pri success a failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 106, `single-sentence-concept` — **7. Report completeness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 151, `single-sentence-concept` — **10. Child a downstream pipelines**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 206, `single-sentence-concept` — **14. Retention lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 218, `single-sentence-concept` — **15. Retention roots**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 273, `single-sentence-concept` — **19. Cache purpose**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 286, `single-sentence-concept` — **20. Cache key**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 328, `single-sentence-concept` — **23. Cache policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 355, `single-sentence-concept` — **25. Protected a non-protected namespaces**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 385, `single-sentence-concept` — **27. Partial, stale a corrupt cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 399, `single-sentence-concept` — **28. Cache poisoning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 441, `single-sentence-concept` — **31. Storage governance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 458, `single-sentence-concept` — **32. Incident pri cache poisoning-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 474, `single-sentence-concept` — **33. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 491, `single-sentence-concept` — **Release binary iba ako expirovateľný job artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 495, `single-sentence-concept` — **Chýbajúci report = čistý report**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 499, `single-sentence-concept` — **Všetky artifacts sa sťahujú všade**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 503, `single-sentence-concept` — **Shared cache pre fork a release jobs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 507, `single-sentence-concept` — **Cache obsahuje build output bez validácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 511, `single-sentence-concept` — **Retry prepíše first-attempt evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 515, `single-sentence-concept` — **Cleanup podľa názvu bez retention roots**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 519, `single-sentence-concept` — **35. Praktický rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 534, `list-first-introduction` — **36. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 31, `thin-concept-section` — **2. Artifact subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 46, `thin-concept-section` — **3. Typy artifacts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 59, `thin-concept-section` — **4. Publication contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 91, `thin-concept-section` — **6. Report artifacts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 118, `thin-concept-section` — **8. Producer-consumer binding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 151, `thin-concept-section` — **10. Child a downstream pipelines**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 165, `thin-concept-section` — **11. Artifact naming**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 178, `term-before-explanation` — **12. Artifact integrity a provenance**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `attestation`, `policy`
+- **HIGH** line 178, `thin-concept-section` — **12. Artifact integrity a provenance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 193, `thin-concept-section` — **13. Artifact access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 206, `thin-concept-section` — **14. Retention lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 218, `thin-concept-section` — **15. Retention roots**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 248, `thin-concept-section` — **17. Artifact collision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 261, `thin-concept-section` — **18. Artifact attempt identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 273, `thin-concept-section` — **19. Cache purpose**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 286, `thin-concept-section` — **20. Cache key**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 301, `thin-concept-section` — **21. Content-derived keys**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 328, `thin-concept-section` — **23. Cache policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 343, `thin-concept-section` — **24. Cache write timing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 355, `thin-concept-section` — **25. Protected a non-protected namespaces**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 385, `thin-concept-section` — **27. Partial, stale a corrupt cache**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 399, `thin-concept-section` — **28. Cache poisoning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 414, `thin-concept-section` — **29. Clean-build verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 426, `thin-concept-section` — **30. Secret a privacy safety**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 441, `thin-concept-section` — **31. Storage governance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 458, `thin-concept-section` — **32. Incident pri cache poisoning-u**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 474, `thin-concept-section` — **33. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 519, `thin-concept-section` — **35. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 534, `thin-concept-section` — **36. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/06-gitlab/container-and-package-registry.md`
 
@@ -20476,19 +20523,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4284 | 426 | 0 | 0 | 4710 |
-| `single-sentence-concept` | 0 | 4120 | 0 | 0 | 4120 |
-| `outline-instead-of-explanation` | 4076 | 0 | 0 | 0 | 4076 |
-| `thin-concept-section` | 0 | 3599 | 0 | 0 | 3599 |
-| `term-before-explanation` | 0 | 460 | 2720 | 0 | 3180 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2032 | 2032 |
-| `example-not-explicit` | 0 | 0 | 0 | 1924 | 1924 |
-| `short-concept-section` | 0 | 0 | 1309 | 0 | 1309 |
-| `list-first-introduction` | 0 | 1062 | 0 | 0 | 1062 |
+| `bare-bullet-items` | 4296 | 427 | 0 | 0 | 4723 |
+| `single-sentence-concept` | 0 | 4125 | 0 | 0 | 4125 |
+| `outline-instead-of-explanation` | 4089 | 0 | 0 | 0 | 4089 |
+| `thin-concept-section` | 0 | 3611 | 0 | 0 | 3611 |
+| `term-before-explanation` | 0 | 461 | 2725 | 0 | 3186 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2039 | 2039 |
+| `example-not-explicit` | 0 | 0 | 0 | 1929 | 1929 |
+| `short-concept-section` | 0 | 0 | 1310 | 0 | 1310 |
+| `list-first-introduction` | 0 | 1063 | 0 | 0 | 1063 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 993 | 993 |
-| `empty-section` | 501 | 0 | 0 | 0 | 501 |
+| `empty-section` | 502 | 0 | 0 | 0 | 502 |
 | `list-heavy-section` | 0 | 489 | 0 | 0 | 489 |
-| `no-prose-concept` | 409 | 0 | 0 | 0 | 409 |
+| `no-prose-concept` | 410 | 0 | 0 | 0 | 410 |
 
 ## Required remediation pattern
 
