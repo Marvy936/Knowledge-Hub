@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11955**
-- Total words: **589,241**
-- Findings: **28017** (critical 9190, high 10099, medium 3947, low 4781)
+- Audited conceptual sections: **11964**
+- Total words: **590,808**
+- Findings: **28074** (critical 9200, high 10106, medium 3955, low 4813)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -126,6 +126,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 899 | 37 | 48 | 16 | 17 | 1871 | `docs/11-cloud-and-aws/lambda.md` |
 | D | 896 | 38 | 48 | 17 | 4 | 1759 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | D | 894 | 40 | 47 | 11 | 8 | 1597 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
+| D | 890 | 41 | 36 | 19 | 38 | 2759 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 882 | 47 | 34 | 15 | 3 | 1344 | `docs/06-gitlab/security-scanning.md` |
 | D | 876 | 38 | 35 | 24 | 38 | 2193 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | D | 876 | 41 | 42 | 13 | 4 | 1916 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
@@ -188,7 +189,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 664 | 32 | 29 | 15 | 3 | 1280 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | D | 652 | 32 | 30 | 7 | 6 | 1750 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | D | 650 | 27 | 32 | 16 | 11 | 1415 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
-| D | 648 | 31 | 29 | 11 | 6 | 1192 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 644 | 29 | 29 | 14 | 10 | 1651 | `docs/09-kubernetes/requests-limits-qos.md` |
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 640 | 27 | 25 | 18 | 41 | 3216 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
@@ -8020,66 +8020,83 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/06-gitlab/projects-groups-permissions.md`
 
-- **CRITICAL** line 23, `bare-bullet-items` — **2. Project**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git repository,`, `merge requests,`, `issues a planning,`, `CI/CD pipelines,`.
-- **CRITICAL** line 23, `outline-instead-of-explanation` — **2. Project**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 40, `bare-bullet-items` — **3. Group a subgroup**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership a inherited access,`, `group-level settings,`, `shared runners a variables,`, `compliance/security policy podľa tieru,`.
-- **CRITICAL** line 40, `outline-instead-of-explanation` — **3. Group a subgroup**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 54, `bare-bullet-items` — **4. Visibility**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private,`, `internal,`, `public.`, `source confidentiality,`.
-- **CRITICAL** line 54, `outline-instead-of-explanation` — **4. Visibility**: 10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 74, `bare-bullet-items` — **5. Membership sources**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priamym členstvom v projekte,`, `členstvom v group,`, `zdedením z parent group,`, `zdieľaním projektu alebo group s inou group,`.
-- **CRITICAL** line 74, `outline-instead-of-explanation` — **5. Membership sources**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 87, `bare-bullet-items` — **6. Role model**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Guest,`, `Planner,`, `Reporter,`, `Developer,`.
-- **CRITICAL** line 87, `outline-instead-of-explanation` — **6. Role model**: 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 115, `empty-section` — **8. Owner a Maintainer**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 127, `bare-bullet-items` — **9. Human a non-human identities**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bežných používateľov,`, `external users,`, `administrators,`, `service accounts,`.
-- **CRITICAL** line 127, `outline-instead-of-explanation` — **9. Human a non-human identities**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 142, `bare-bullet-items` — **10. Least privilege**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definuj potrebnú operáciu,`, `urč resource scope,`, `vyber najnižšiu dostačujúcu rolu alebo token scope,`, `obmedz environment/branch/tag podľa potreby,`.
-- **CRITICAL** line 142, `outline-instead-of-explanation` — **10. Least privilege**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 156, `bare-bullet-items` — **11. Group-level membership**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centrálna správa tímu,`, `konzistentný access vo viacerých projektoch,`, `jednoduchší onboarding/offboarding,`, `menší počet direct memberships.`.
-- **CRITICAL** line 156, `outline-instead-of-explanation` — **11. Group-level membership**: 8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 174, `bare-bullet-items` — **12. Group sharing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto sú direct members cieľovej group,`, `aký maximum access level sa udeľuje,`, `či sa access propaguje ďalej,`, `viditeľnosť membershipu,`.
-- **CRITICAL** line 174, `outline-instead-of-explanation` — **12. Group sharing**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 187, `bare-bullet-items` — **13. Custom roles**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potrebuješ opakovateľnú organizačnú rolu,`, `built-in rola je príliš široká,`, `permission je podporovaná custom-role modelom,`, `lifecycle a ownership role sú jasné.`.
-- **CRITICAL** line 187, `outline-instead-of-explanation` — **13. Custom roles**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 198, `bare-bullet-items` — **14. Expiration**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `externý dodávateľ,`, `incident support,`, `audit,`, `migration project,`.
-- **CRITICAL** line 198, `outline-instead-of-explanation` — **14. Expiration**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 210, `bare-bullet-items` — **15. Project transfer a namespace zmeny**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `permissions v target group,`, `inherited CI variables,`, `runner availability,`, `registry/package paths,`.
-- **CRITICAL** line 210, `outline-instead-of-explanation` — **15. Project transfer a namespace zmeny**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 226, `bare-bullet-items` — **16. Forks**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nedôveruj automaticky source pipeline kódu,`, `neexponuj protected variables nedôveryhodnému refu,`, `používaj target-project policy,`, `kontroluj, kto môže spustiť pipeline v parent kontexte.`.
-- **CRITICAL** line 226, `outline-instead-of-explanation` — **16. Forks**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 237, `bare-bullet-items` — **17. Audit**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership add/remove/change,`, `role elevation,`, `group sharing,`, `token creation/revocation,`.
-- **CRITICAL** line 237, `outline-instead-of-explanation` — **17. Audit**: 9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 253, `bare-bullet-items` — **18. Access review**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto má Owner/Maintainer,`, `odkiaľ sa access dedí,`, `nepoužívané direct memberships,`, `service identities bez ownera,`.
-- **CRITICAL** line 253, `outline-instead-of-explanation` — **18. Access review**: 9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Namespace model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 23, `single-sentence-concept` — **2. Project**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 40, `single-sentence-concept` — **3. Group a subgroup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 127, `single-sentence-concept` — **9. Human a non-human identities**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 142, `single-sentence-concept` — **10. Least privilege**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 156, `single-sentence-concept` — **11. Group-level membership**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 210, `single-sentence-concept` — **15. Project transfer a namespace zmeny**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **17. Audit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 253, `single-sentence-concept` — **18. Access review**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 275, `single-sentence-concept` — **Používateľ nevidí private project**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 283, `single-sentence-concept` — **Odobratá direct rola neznížila access**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 287, `single-sentence-concept` — **Service integration používa osobný token bývalého člena**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 293, `single-sentence-concept` — **Všetci sú Maintainers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 297, `single-sentence-concept` — **Direct membership v každom projekte**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `single-sentence-concept` — **Parent group Owner pre jednu úlohu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `single-sentence-concept` — **Token bez ownera a expiry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 309, `single-sentence-concept` — **Visibility sa považuje za jedinú security kontrolu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 40, `thin-concept-section` — **3. Group a subgroup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 74, `thin-concept-section` — **5. Membership sources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 127, `thin-concept-section` — **9. Human a non-human identities**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 142, `thin-concept-section` — **10. Least privilege**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 156, `thin-concept-section` — **11. Group-level membership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 174, `thin-concept-section` — **12. Group sharing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 187, `thin-concept-section` — **13. Custom roles**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 198, `thin-concept-section` — **14. Expiration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 210, `thin-concept-section` — **15. Project transfer a namespace zmeny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 226, `thin-concept-section` — **16. Forks**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 237, `thin-concept-section` — **17. Audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 253, `thin-concept-section` — **18. Access review**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 73, `outline-instead-of-explanation` — **3. Project ako delivery boundary**: 15 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 98, `bare-bullet-items` — **4. Group a subgroup ako policy boundary**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership a inherited roles,`, `spoločné settings a templates,`, `runners, variables alebo access tokens,`, `compliance a security policy podľa dostupných features,`.
+- **CRITICAL** line 130, `bare-bullet-items` — **5. Visibility nie je permission model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source confidentiality,`, `issue a merge-request metadata,`, `pipeline logs a job artifacts,`, `container/package registry exposure,`.
+- **CRITICAL** line 147, `bare-bullet-items` — **6. Membership sources**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct project membership,`, `direct group membership,`, `inheritance z parent group,`, `project alebo group sharing s inou group,`.
+- **CRITICAL** line 147, `outline-instead-of-explanation` — **6. Membership sources**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 215, `bare-bullet-items` — **9. Owner a Maintainer blast radius**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business dôvod,`, `resource scope,`, `permanentný alebo dočasný charakter,`, `schvaľujúceho ownera,`.
+- **CRITICAL** line 233, `bare-bullet-items` — **10. Group membership verzus direct membership**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centrálne onboarding/offboarding,`, `konzistentný prístup vo viacerých projektoch,`, `menší počet individuálnych assignments,`, `jednoduchšiu pravidelnú recertifikáciu.`.
+- **CRITICAL** line 233, `outline-instead-of-explanation` — **10. Group membership verzus direct membership**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 251, `bare-bullet-items` — **11. Group sharing**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `členstvo cieľovej group vrátane inherited a external users,`, `maximálny udeľovaný access level,`, `kto môže meniť membership cieľovej group,`, `expiration a pravidelný review,`.
+- **CRITICAL** line 267, `bare-bullet-items` — **12. Custom roles**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potreba je opakovateľná vo viacerých projektoch,`, `built-in role udeľuje neprimerané capabilities,`, `custom capability je platformou podporovaná a testovaná,`, `existuje owner, dokumentácia a migration policy.`.
+- **CRITICAL** line 289, `outline-instead-of-explanation` — **13. Human a non-human identities**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `bare-bullet-items` — **14. Token lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typ a resource scope,`, `capabilities/scopes,`, `ownera a účel,`, `vytvorenie a expiration,`.
+- **CRITICAL** line 303, `outline-instead-of-explanation` — **14. Token lifecycle**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 327, `bare-bullet-items` — **15. CI identities a fork trust boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorá pipeline definícia sa vykonáva,`, `v ktorom project kontexte,`, `aké variables a tokens sú dostupné,`, `či runner obsahuje persistentný state,`.
+- **CRITICAL** line 343, `bare-bullet-items` — **16. Expiration a just-in-time access**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `externý dodávateľ,`, `incident alebo migration support,`, `krátkodobý audit,`, `elevated troubleshooting,`.
+- **CRITICAL** line 343, `outline-instead-of-explanation` — **16. Expiration a just-in-time access**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 370, `bare-bullet-items` — **Onboarding**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priraď access cez správnu group,`, `over least privilege,`, `nastav SSO/MFA a external-user status podľa policy,`, `urč ownera výnimiek,`.
+- **CRITICAL** line 370, `no-prose-concept` — **Onboarding**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 370, `outline-instead-of-explanation` — **Onboarding**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 378, `bare-bullet-items` — **Role alebo team change**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráň staré group memberships,`, `znovu vyhodnoť direct access a tokens,`, `over ownership projektov a approvals,`, `skontroluj inherited permissions z bývalej organizačnej vetvy.`.
+- **CRITICAL** line 378, `no-prose-concept` — **Role alebo team change**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **Role alebo team change**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 385, `bare-bullet-items` — **Offboarding**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deaktivuj human identity podľa identity-provider procesu,`, `revokuj personal tokens a sessions,`, `prenes ownership schedules, bots a integrations,`, `nahraď osobné credentials service identities,`.
+- **CRITICAL** line 385, `no-prose-concept` — **Offboarding**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 385, `outline-instead-of-explanation` — **Offboarding**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 393, `bare-bullet-items` — **18. Project transfer a rename**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `clone a API URLs,`, `container/package coordinates,`, `Pages a external URLs,`, `inherited variables a runners,`.
+- **CRITICAL** line 393, `outline-instead-of-explanation` — **18. Project transfer a rename**: 11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 426, `bare-bullet-items` — **19. Effective-access review**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Owner a Maintainer identities,`, `kto môže meniť protected refs a environments,`, `kto môže používať production credentials,`, `group sharing a inherited access,`.
+- **CRITICAL** line 426, `outline-instead-of-explanation` — **19. Effective-access review**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 456, `bare-bullet-items` — **20. Audit a provenance administratívnej zmeny**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership add/remove/change,`, `role elevation,`, `group sharing,`, `token creation, rotation a revocation,`.
+- **CRITICAL** line 456, `outline-instead-of-explanation` — **20. Audit a provenance administratívnej zmeny**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 472, `empty-section` — **21. Troubleshooting effective permissions**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 474, `bare-bullet-items` — **Používateľ má vyšší access než project membership ukazuje**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Skontroluj parent a ancestor groups.`, `Skontroluj group sharing.`, `Skontroluj custom role a špecializované capabilities.`, `Over administrator alebo instance-level state.`.
+- **CRITICAL** line 474, `no-prose-concept` — **Používateľ má vyšší access než project membership ukazuje**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 474, `outline-instead-of-explanation` — **Používateľ má vyšší access než project membership ukazuje**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 498, `empty-section` — **22. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 532, `bare-bullet-items` — **23. Praktický rozhodovací rámec**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký resource a lifecycle má project reprezentovať?`, `Aké policies a resources sa dedia?`, `Ktoré stabilné tímy majú group membership?`, `Ktoré direct memberships sú výnimky a kedy expirujú?`.
+- **CRITICAL** line 532, `outline-instead-of-explanation` — **23. Praktický rozhodovací rámec**: 14 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 551, `bare-bullet-items` — **24. Kontrolný checklist**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace hierarchy zodpovedá ownershipu a security boundaries;`, `project boundary má jasný release a lifecycle model;`, `Owner a Maintainer sú obmedzené a pravidelne reviewované;`, `stable teams používajú group membership;`.
+- **CRITICAL** line 551, `no-prose-concept` — **24. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 551, `outline-instead-of-explanation` — **24. Kontrolný checklist**: 14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 73, `bare-bullet-items` — **3. Project ako delivery boundary**: 10 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Git repository a refs,`, `merge requests, approvals a discussions,`, `issues a planning metadata,`, `CI/CD pipelines, schedules a variables,`.
+- **HIGH** line 98, `list-heavy-section` — **4. Group a subgroup ako policy boundary**: 13 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 130, `list-heavy-section` — **5. Visibility nie je permission model**: 8 odrážok a iba 58 slov súvislého vysvetlenia.
+- **HIGH** line 147, `single-sentence-concept` — **6. Membership sources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 175, `bare-bullet-items` — **7. Built-in role verzus konkrétna capability**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči resource boundary, na ktorej sa operácia vykonáva.`, `Vyber najnižší dostatočný access.`, `Zaveď expiration, audit a revocation cestu.`.
+- **HIGH** line 215, `list-heavy-section` — **9. Owner a Maintainer blast radius**: 7 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 251, `list-heavy-section` — **11. Group sharing**: 7 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 267, `list-heavy-section` — **12. Custom roles**: 10 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 327, `list-heavy-section` — **15. CI identities a fork trust boundary**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 366, `single-sentence-concept` — **17. Onboarding, role change a offboarding**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 370, `list-first-introduction` — **Onboarding**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 378, `list-first-introduction` — **Role alebo team change**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 385, `list-first-introduction` — **Offboarding**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 474, `list-first-introduction` — **Používateľ má vyšší access než project membership ukazuje**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 486, `single-sentence-concept` — **Používateľ nevidí private project**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 512, `single-sentence-concept` — **Group sharing bez membership inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 516, `single-sentence-concept` — **Osobný token ako produkčný service account**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 520, `single-sentence-concept` — **Token bez ownera, expiration a usage monitoringu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 524, `single-sentence-concept` — **Visibility ako jediný security control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 528, `single-sentence-concept` — **Audit bez remediation procesu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 532, `single-sentence-concept` — **23. Praktický rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 551, `list-first-introduction` — **24. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 18, `term-before-explanation` — **1. Mental model: resources, subjects a access paths**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `Resource`, `identity`, `scope`, `policy`
+- **HIGH** line 147, `thin-concept-section` — **6. Membership sources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 289, `term-before-explanation` — **13. Human a non-human identities**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `SSO`, `CI`, `policy`, `resource`, `scope`, `identity`
+- **HIGH** line 289, `thin-concept-section` — **13. Human a non-human identities**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 370, `thin-concept-section` — **Onboarding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 378, `thin-concept-section` — **Role alebo team change**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 385, `thin-concept-section` — **Offboarding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 393, `term-before-explanation` — **18. Project transfer a rename**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `OIDC`, `CODEOWNERS`, `policy`
+- **HIGH** line 393, `thin-concept-section` — **18. Project transfer a rename**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 426, `thin-concept-section` — **19. Effective-access review**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 456, `thin-concept-section` — **20. Audit a provenance administratívnej zmeny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 474, `thin-concept-section` — **Používateľ má vyšší access než project membership ukazuje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 532, `thin-concept-section` — **23. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 551, `thin-concept-section` — **24. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/06-gitlab/protected-branches-and-environments.md`
 
@@ -20339,19 +20356,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4241 | 423 | 0 | 0 | 4664 |
-| `single-sentence-concept` | 0 | 4115 | 0 | 0 | 4115 |
+| `bare-bullet-items` | 4245 | 425 | 0 | 0 | 4670 |
+| `single-sentence-concept` | 0 | 4108 | 0 | 0 | 4108 |
 | `outline-instead-of-explanation` | 4056 | 0 | 0 | 0 | 4056 |
-| `thin-concept-section` | 0 | 3593 | 0 | 0 | 3593 |
-| `term-before-explanation` | 0 | 451 | 2677 | 0 | 3128 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1969 | 1969 |
-| `example-not-explicit` | 0 | 0 | 0 | 1854 | 1854 |
-| `short-concept-section` | 0 | 0 | 1270 | 0 | 1270 |
-| `list-first-introduction` | 0 | 1050 | 0 | 0 | 1050 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 958 | 958 |
-| `empty-section` | 496 | 0 | 0 | 0 | 496 |
-| `list-heavy-section` | 0 | 467 | 0 | 0 | 467 |
-| `no-prose-concept` | 397 | 0 | 0 | 0 | 397 |
+| `thin-concept-section` | 0 | 3592 | 0 | 0 | 3592 |
+| `term-before-explanation` | 0 | 454 | 2680 | 0 | 3134 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1973 | 1973 |
+| `example-not-explicit` | 0 | 0 | 0 | 1867 | 1867 |
+| `short-concept-section` | 0 | 0 | 1275 | 0 | 1275 |
+| `list-first-introduction` | 0 | 1054 | 0 | 0 | 1054 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 973 | 973 |
+| `empty-section` | 497 | 0 | 0 | 0 | 497 |
+| `list-heavy-section` | 0 | 473 | 0 | 0 | 473 |
+| `no-prose-concept` | 402 | 0 | 0 | 0 | 402 |
 
 ## Required remediation pattern
 
