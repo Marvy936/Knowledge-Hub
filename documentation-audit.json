@@ -1515,15 +1515,15 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "title": "Container a package registry",
-      "words": 1123,
-      "headings": 33,
-      "sections": 33,
-      "findings": 76,
-      "critical": 36,
-      "high": 29,
-      "medium": 11,
-      "low": 0,
-      "score": 690,
+      "words": 2255,
+      "headings": 51,
+      "sections": 51,
+      "findings": 180,
+      "critical": 70,
+      "high": 67,
+      "medium": 27,
+      "low": 16,
+      "score": 1474,
       "grade": "D"
     },
     {
@@ -111188,26 +111188,17 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "1. Registry model",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "2. Container Registry",
-      "line": 21,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `registry host,`, `image repository path,`, `job-scoped authentication údaje.`.",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "2. Container Registry",
-      "line": 21,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -111215,71 +111206,17 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "3. Image identity",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "3. Image identity",
-      "line": 33,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository,`, `tag,`, `manifest,`, `manifest list/index,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "3. Image identity",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "4. Tagging strategy",
-      "line": 53,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "4. Tagging strategy",
-      "line": 53,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release version, napríklad 2.4.1 ,`, `commit SHA,`, `branch alebo channel tag,`, `release candidate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "4. Tagging strategy",
-      "line": 53,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "4. Tagging strategy",
-      "line": 53,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "5. Build once, promote many",
-      "line": 65,
+      "section": "1. Mental model",
+      "line": 11,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -111287,314 +111224,44 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "6. Authentication",
-      "line": 79,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "6. Authentication",
-      "line": 79,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deploy token,`, `project/group access token,`, `personal access token,`, `cloud/runtime workload identity podľa integration modelu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "6. Authentication",
-      "line": 79,
+      "section": "1. Mental model",
+      "line": 11,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "6. Authentication",
-      "line": 79,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "7. Push a pull permissions",
-      "line": 90,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "7. Push a pull permissions",
-      "line": 90,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "2. Registry namespaces",
+      "line": 27,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "7. Push a pull permissions",
-      "line": 90,
+      "section": "2. Registry namespaces",
+      "line": 27,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie publishovať,`, `kto smie pullovať,`, `kto smie mazať,`, `kto spravuje retention,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership boundary,`, `authorization scope,`, `naming scope,`, `lifecycle boundary,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "7. Push a pull permissions",
-      "line": 90,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "8. Image build security",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "8. Image build security",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rootless BuildKit/Buildah/Kaniko podľa platformy,`, `dedicated ephemeral runner,`, `zákaz host Docker socketu,`, `pinned base images,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "8. Image build security",
-      "line": 102,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "8. Image build security",
-      "line": 102,
+      "section": "2. Registry namespaces",
+      "line": 27,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "9. Base images",
-      "line": 116,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "9. Base images",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `digest pinning,`, `controlled update bot,`, `rebuild cadence,`, `vulnerability monitoring,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "9. Base images",
-      "line": 116,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "9. Base images",
-      "line": 116,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Container scanning",
-      "line": 143,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Container scanning",
-      "line": 143,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS packages,`, `language packages podľa capability scanneru,`, `base image,`, `severity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Container scanning",
-      "line": 143,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Container scanning",
-      "line": 143,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "12. Signing a verification",
-      "line": 157,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "12. Signing a verification",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image signature,`, `provenance attestation,`, `SBOM,`, `policy verification pred deploymentom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "12. Signing a verification",
-      "line": 157,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "12. Signing a verification",
-      "line": 157,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `attestation`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "13. Cleanup policy",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "13. Cleanup policy",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production digests,`, `supported releases,`, `rollback candidates,`, `active release candidates,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "13. Cleanup policy",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "15. Package Registry",
-      "line": 189,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "15. Package Registry",
-      "line": 189,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interné libraries,`, `CLI binaries,`, `application packages,`, `Maven/NuGet/npm/PyPI a ďalšie ekosystémy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "15. Package Registry",
-      "line": 189,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "15. Package Registry",
-      "line": 189,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "16. Package coordinates",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "16. Package coordinates",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry/project/group scope,`, `package name,`, `version,`, `variant/classifier,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "16. Package coordinates",
-      "line": 202,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "16. Package coordinates",
-      "line": 202,
+      "section": "2. Registry namespaces",
+      "line": 27,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -111602,35 +111269,26 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "17. Publish workflow",
-      "line": 214,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "17. Publish workflow",
-      "line": 214,
+      "section": "3. Artifact identity",
+      "line": 40,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "14 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "17. Publish workflow",
-      "line": 214,
+      "section": "3. Artifact identity",
+      "line": 40,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected ref alebo release policy,`, `version ešte neexistuje,`, `source a artifact identity,`, `test/scan evidence,`.",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry host,`, `repository path,`, `tag,`, `manifest,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "17. Publish workflow",
-      "line": 214,
+      "section": "3. Artifact identity",
+      "line": 40,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -111638,35 +111296,35 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "17. Publish workflow",
-      "line": 214,
+      "section": "3. Artifact identity",
+      "line": 40,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `scope`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "18. Dependency Proxy",
-      "line": 228,
+      "section": "5. Package version immutability",
+      "line": 77,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "18. Dependency Proxy",
-      "line": 228,
+      "section": "5. Package version immutability",
+      "line": 77,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižší upstream rate-limit dopad,`, `rýchlejšie pulls,`, `centralizovaný endpoint,`, `menšia závislosť na krátkodobej upstream dostupnosti.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepíš nové bytes pod 2.4.1 ,`, `označ verziu ako deprecated/yanked podľa ecosystemu,`, `publikuj 2.4.2 alebo novú pre-release verziu,`, `aktualizuj advisories a consumers.`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "18. Dependency Proxy",
-      "line": 228,
+      "section": "5. Package version immutability",
+      "line": 77,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -111674,8 +111332,8 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "19. Virtual registry",
-      "line": 241,
+      "section": "6. Publication subject",
+      "line": 90,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -111683,26 +111341,26 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "19. Virtual registry",
-      "line": 241,
+      "section": "6. Publication subject",
+      "line": 90,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "19. Virtual registry",
-      "line": 241,
+      "section": "6. Publication subject",
+      "line": 90,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré upstream registries sú povolené,`, `ako sa rieši namespace confusion,`, `ako sa cache invaliduje,`, `ktoré packages sa mirrorujú,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo merged-result SHA,`, `resolved pipeline configuration,`, `build job a attempt,`, `artifact digest,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "19. Virtual registry",
-      "line": 241,
+      "section": "6. Publication subject",
+      "line": 90,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -111710,8 +111368,17 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "20. Dependency confusion",
-      "line": 253,
+      "section": "6. Publication subject",
+      "line": 90,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `SBOM`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "7. Publish eligibility",
+      "line": 106,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -111719,26 +111386,26 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "20. Dependency confusion",
-      "line": 253,
+      "section": "7. Publish eligibility",
+      "line": 106,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "20. Dependency confusion",
-      "line": 253,
+      "section": "7. Publish eligibility",
+      "line": 106,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scoped namespaces,`, `explicit registry priority,`, `private package reservation,`, `lockfiles a checksums,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline context je oprávnený,`, `ref/tag je chránený podľa policy,`, `version alebo immutable tag ešte neexistuje,`, `artifact digest zodpovedá schválenému build outputu,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "20. Dependency confusion",
-      "line": 253,
+      "section": "7. Publish eligibility",
+      "line": 106,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -111746,8 +111413,71 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "21. Job token access",
-      "line": 266,
+      "section": "7. Publish eligibility",
+      "line": 106,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "7. Publish eligibility",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "7. Publish eligibility",
+      "line": 106,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `identity`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "8. Atomic publication",
+      "line": 121,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "8. Atomic publication",
+      "line": 121,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrent publishers,`, `duplicate version race,`, `partial manifests,`, `retry idempotency,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "8. Atomic publication",
+      "line": 121,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "8. Atomic publication",
+      "line": 121,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "9. Build once, promote many",
+      "line": 146,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -111755,25 +111485,286 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "21. Job token access",
+      "section": "9. Build once, promote many",
+      "line": 146,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "9. Build once, promote many",
+      "line": 146,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridanie release tagu k rovnakému digestu,`, `kopírovanie immutable contentu do chráneného namespace,`, `vytvorenie release manifestu,`, `zmenu channel aliasu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "9. Build once, promote many",
+      "line": 146,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "10. Publisher identity",
+      "line": 167,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "10. Publisher identity",
+      "line": 167,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "10. Publisher identity",
+      "line": 167,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development/branch publish,`, `release publish,`, `signing,`, `cleanup/deletion,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "10. Publisher identity",
+      "line": 167,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "10. Publisher identity",
+      "line": 167,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "11. Push, pull, delete a policy administration",
+      "line": 188,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "11. Push, pull, delete a policy administration",
+      "line": 188,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "11. Push, pull, delete a policy administration",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publish content,`, `move mutable alias,`, `pull content,`, `delete tag/version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "11. Push, pull, delete a policy administration",
+      "line": 188,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "11. Push, pull, delete a policy administration",
+      "line": 188,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "12. Untrusted pipelines",
+      "line": 202,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "12. Untrusted pipelines",
+      "line": 202,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "12. Untrusted pipelines",
+      "line": 202,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publishovať do release namespace,`, `vytvárať chránené version tags,`, `používať signing identity,`, `prepísať shared package version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "12. Untrusted pipelines",
+      "line": 202,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "12. Untrusted pipelines",
+      "line": 202,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "13. Container build trust",
+      "line": 214,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "13. Container build trust",
+      "line": 214,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rootless builder,`, `dedikovaný ephemeral pool,`, `žiadny host Docker socket,`, `pinned base images,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "13. Container build trust",
+      "line": 214,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "13. Container build trust",
+      "line": 214,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "14. Base images",
+      "line": 230,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "14. Base images",
+      "line": 230,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pin digest,`, `používaj approved catalog,`, `automatizuj kontrolované updates,`, `rebuildni dependent images pri security patchi,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "14. Base images",
+      "line": 230,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "15. Multi-platform images",
+      "line": 245,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "15. Multi-platform images",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "15. Multi-platform images",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky required variants existujú,`, `každá patrí rovnakému source/release subjectu,`, `platform metadata je správna,`, `scan/test evidence existuje per variant,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "15. Multi-platform images",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "16. SBOM",
       "line": 266,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "21. Job token access",
+      "section": "16. SBOM",
       "line": 266,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source project identity,`, `target project permissions,`, `protected ref,`, `token lifetime,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `format/version,`, `generator identity,`, `source artifact identity,`, `component inventory,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "21. Job token access",
+      "section": "16. SBOM",
       "line": 266,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -111782,7 +111773,7 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "21. Job token access",
+      "section": "16. SBOM",
       "line": 266,
       "severity": "medium",
       "rule": "term-before-explanation",
@@ -111791,8 +111782,8 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "22. Retention a support lifecycle",
-      "line": 278,
+      "section": "17. Provenance a attestations",
+      "line": 279,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -111800,26 +111791,26 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "22. Retention a support lifecycle",
-      "line": 278,
+      "section": "17. Provenance a attestations",
+      "line": 279,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "22. Retention a support lifecycle",
-      "line": 278,
+      "section": "17. Provenance a attestations",
+      "line": 279,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `supportovaných versions,`, `downstream consumers,`, `legal/compliance požiadaviek,`, `rollback window,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto build vykonal,`, `z akého source,`, `akou pipeline konfiguráciou,`, `na akom runner/toolchain-e,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "22. Retention a support lifecycle",
-      "line": 278,
+      "section": "17. Provenance a attestations",
+      "line": 279,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -111827,26 +111818,26 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "23. Registry availability",
-      "line": 291,
+      "section": "18. Signing a verification",
+      "line": 292,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "23. Registry availability",
-      "line": 291,
+      "section": "18. Signing a verification",
+      "line": 292,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `push/pull latency,`, `error rate,`, `storage capacity,`, `object storage health,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesmie byť dostupná untrusted jobom,`, `má byť krátkodobá alebo izolovaná,`, `potrebuje audit,`, `má podpisovať presný digest,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "23. Registry availability",
-      "line": 291,
+      "section": "18. Signing a verification",
+      "line": 292,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -111854,8 +111845,116 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "unauthorized pri push/pull",
-      "line": 308,
+      "section": "18. Signing a verification",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "19. Container scanning",
+      "line": 306,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "19. Container scanning",
+      "line": 306,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `analyzer success,`, `database freshness,`, `OS a language package coverage,`, `findings,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "19. Container scanning",
+      "line": 306,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "19. Container scanning",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `freshness`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "20. Package publishing",
+      "line": 320,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "20. Package publishing",
+      "line": 320,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version syntax,`, `package coordinates,`, `version non-existence,`, `checksum,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "20. Package publishing",
+      "line": 320,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "20. Package publishing",
+      "line": 320,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "21. Generic packages",
+      "line": 336,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "21. Generic packages",
+      "line": 336,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `názov a immutable version,`, `digest/checksum,`, `platform/variant,`, `content type,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "21. Generic packages",
+      "line": 336,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "22. Dependency resolution",
+      "line": 352,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -111863,12 +111962,849 @@
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "Multi-platform pull zlyhá",
-      "line": 316,
+      "section": "22. Dependency resolution",
+      "line": 352,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "22. Dependency resolution",
+      "line": 352,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed registries,`, `priority/order,`, `package scope,`, `version range alebo pin,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "22. Dependency resolution",
+      "line": 352,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "22. Dependency resolution",
+      "line": 352,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "23. Dependency confusion",
+      "line": 367,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "23. Dependency confusion",
+      "line": 367,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "23. Dependency confusion",
+      "line": 367,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scoped namespaces,`, `explicitný registry endpoint a priority,`, `interná rezervácia názvov,`, `lockfiles a checksums,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "23. Dependency confusion",
+      "line": 367,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "23. Dependency confusion",
+      "line": 367,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "24. Dependency Proxy a virtual registries",
+      "line": 382,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "24. Dependency Proxy a virtual registries",
+      "line": 382,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené upstreams,`, `cache identity a invalidáciu,`, `provenance pôvodu,`, `mutable upstream tags,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "24. Dependency Proxy a virtual registries",
+      "line": 382,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "24. Dependency Proxy a virtual registries",
+      "line": 382,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "25. Cross-project access",
+      "line": 398,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "25. Cross-project access",
+      "line": 398,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "25. Cross-project access",
+      "line": 398,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source project,`, `target registry/package scope,`, `read verzus write,`, `protected context,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "25. Cross-project access",
+      "line": 398,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "25. Cross-project access",
+      "line": 398,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "26. Mutable aliases a channels",
+      "line": 412,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "26. Mutable aliases a channels",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "26. Mutable aliases a channels",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `allowed publishera,`, `atomic movement,`, `audit old→new digest,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "26. Mutable aliases a channels",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "26. Mutable aliases a channels",
+      "line": 412,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "27. Yanking, deprecation a revocation",
+      "line": 426,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "27. Yanking, deprecation a revocation",
+      "line": 426,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "27. Yanking, deprecation a revocation",
+      "line": 426,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "27. Yanking, deprecation a revocation",
+      "line": 426,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "27. Yanking, deprecation a revocation",
+      "line": 426,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "27. Yanking, deprecation a revocation",
+      "line": 426,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "28. Revocation propagation",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "28. Revocation propagation",
+      "line": 437,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "28. Revocation propagation",
+      "line": 437,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj všetky tags/versions a digests,`, `zablokuj nový pull/deploy podľa policy,`, `zisti aktívne deployments a consumers,`, `publikuj opravenú version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "28. Revocation propagation",
+      "line": 437,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "28. Revocation propagation",
+      "line": 437,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "28. Revocation propagation",
+      "line": 437,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "29. Cleanup roots",
+      "line": 452,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "29. Cleanup roots",
+      "line": 452,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "29. Cleanup roots",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívnym deploymentom,`, `podporovaným releaseom,`, `rollback window,`, `release manifestom,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "29. Cleanup roots",
+      "line": 452,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "30. Tags, manifests a garbage collection",
+      "line": 467,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "30. Tags, manifests a garbage collection",
+      "line": 467,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `soft-delete/retention obdobie,`, `concurrent pulls/pushes,`, `active manifests/indexes,`, `registry replication,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "30. Tags, manifests a garbage collection",
+      "line": 467,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "31. Consumer inventory",
+      "line": 482,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "31. Consumer inventory",
+      "line": 482,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "31. Consumer inventory",
+      "line": 482,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré pipelines package používajú,`, `ktoré lockfiles/verzie sú aktívne,`, `ktoré deployments používajú digest,`, `ktoré offline clients ešte potrebujú package,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "31. Consumer inventory",
+      "line": 482,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "31. Consumer inventory",
+      "line": 482,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "32. Registry availability",
+      "line": 495,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "32. Registry availability",
+      "line": 495,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `push/pull latency a error rate,`, `authentication failures,`, `storage a object-store health,`, `manifest/blob consistency,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "32. Registry availability",
+      "line": 495,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "32. Registry availability",
+      "line": 495,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GC`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "33. Backup a replication",
+      "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "33. Backup a replication",
+      "line": 511,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "33. Backup a replication",
+      "line": 511,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata a blob backup,`, `konzistenciu medzi databázou a object storage,`, `encryption keys,`, `restore test,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "33. Backup a replication",
+      "line": 511,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "33. Backup a replication",
+      "line": 511,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav alebo obmedz publishing,`, `revokuj publisher a signing identities,`, `identifikuj zmenené tags/versions a digests,`, `porovnaj audit log, provenance a trusted manifests,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "34. Registry compromise response",
+      "line": 526,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "35. Diagnostický postup",
+      "line": 543,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "35. Diagnostický postup",
+      "line": 543,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "35. Diagnostický postup",
+      "line": 543,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj registry host, namespace a artifact coordinates,`, `over token type, scope, expiration a subject,`, `over protected pipeline context,`, `rozlíš tag, version, manifest a digest,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "35. Diagnostický postup",
+      "line": 543,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "35. Diagnostický postup",
+      "line": 543,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "35. Diagnostický postup",
+      "line": 543,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "36. Typické anti-patterny",
+      "line": 558,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Rebuild pod rovnakým release tagom",
+      "line": 560,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Prepísateľná package version",
+      "line": 564,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Untrusted pipeline publikuje do release namespace",
+      "line": 568,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Signing key na shared runneri",
+      "line": 572,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Multi-platform tag bez completeness checku",
+      "line": 576,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Cleanup iba podľa veku alebo regexu",
+      "line": 580,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Delete kompromitovaného tagu bez revocation",
+      "line": 584,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Personal token ako runtime pull identity",
+      "line": 588,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je artifact subject a immutable identity?`, `Kto smie publishovať, aliasovať, mazať a meniť policy?`, `Ako sa zabráni prepísaniu version/tagu?`, `Je publication atomická a retry-safe?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "37. Praktický rozhodovací rámec",
+      "line": 592,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry paths zodpovedajú ownershipu;`, `release versions a immutable tags sú write-once;`, `deployment používa digest;`, `publication používa oprávnenú non-human identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "38. Kontrolný checklist",
+      "line": 609,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/container-and-package-registry.md",
+      "section": "Summary",
+      "line": 643,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",

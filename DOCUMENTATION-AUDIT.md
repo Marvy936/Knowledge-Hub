@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12062**
-- Total words: **598,692**
-- Findings: **28469** (critical 9297, high 10176, medium 4035, low 4961)
+- Audited conceptual sections: **12080**
+- Total words: **599,824**
+- Findings: **28573** (critical 9331, high 10214, medium 4051, low 4977)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -45,6 +45,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1499 | 65 | 79 | 21 | 21 | 2459 | `docs/12-observability/alertmanager.md` |
 | D | 1492 | 72 | 69 | 20 | 18 | 3731 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | D | 1482 | 65 | 62 | 42 | 46 | 3462 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
+| D | 1474 | 70 | 67 | 27 | 16 | 2255 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 1470 | 71 | 64 | 27 | 18 | 2384 | `docs/12-observability/fluent-bit.md` |
 | D | 1465 | 70 | 64 | 23 | 28 | 2503 | `docs/12-observability/elasticsearch-opensearch.md` |
 | D | 1456 | 59 | 82 | 24 | 17 | 4318 | `docs/03-git-and-automation/bash-automation.md` |
@@ -177,7 +178,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 697 | 28 | 25 | 28 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 696 | 31 | 24 | 20 | 40 | 2764 | `docs/04-testing-and-quality/code-coverage-and-quality-gates.md` |
 | D | 695 | 28 | 40 | 13 | 1 | 1252 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
-| D | 690 | 36 | 29 | 11 | 0 | 1123 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 684 | 28 | 37 | 14 | 6 | 1530 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
 | D | 683 | 29 | 39 | 9 | 1 | 1190 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | D | 679 | 31 | 35 | 7 | 6 | 1441 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -7805,71 +7805,143 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/06-gitlab/container-and-package-registry.md`
 
-- **CRITICAL** line 33, `bare-bullet-items` — **3. Image identity**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository,`, `tag,`, `manifest,`, `manifest list/index,`.
-- **CRITICAL** line 33, `outline-instead-of-explanation` — **3. Image identity**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 53, `bare-bullet-items` — **4. Tagging strategy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release version, napríklad 2.4.1 ,`, `commit SHA,`, `branch alebo channel tag,`, `release candidate,`.
-- **CRITICAL** line 53, `outline-instead-of-explanation` — **4. Tagging strategy**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 79, `bare-bullet-items` — **6. Authentication**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deploy token,`, `project/group access token,`, `personal access token,`, `cloud/runtime workload identity podľa integration modelu.`.
-- **CRITICAL** line 79, `outline-instead-of-explanation` — **6. Authentication**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **7. Push a pull permissions**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie publishovať,`, `kto smie pullovať,`, `kto smie mazať,`, `kto spravuje retention,`.
-- **CRITICAL** line 90, `outline-instead-of-explanation` — **7. Push a pull permissions**: 5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 102, `bare-bullet-items` — **8. Image build security**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rootless BuildKit/Buildah/Kaniko podľa platformy,`, `dedicated ephemeral runner,`, `zákaz host Docker socketu,`, `pinned base images,`.
-- **CRITICAL** line 102, `outline-instead-of-explanation` — **8. Image build security**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 116, `bare-bullet-items` — **9. Base images**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `digest pinning,`, `controlled update bot,`, `rebuild cadence,`, `vulnerability monitoring,`.
-- **CRITICAL** line 116, `outline-instead-of-explanation` — **9. Base images**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 143, `bare-bullet-items` — **11. Container scanning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS packages,`, `language packages podľa capability scanneru,`, `base image,`, `severity,`.
-- **CRITICAL** line 143, `outline-instead-of-explanation` — **11. Container scanning**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 157, `bare-bullet-items` — **12. Signing a verification**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image signature,`, `provenance attestation,`, `SBOM,`, `policy verification pred deploymentom.`.
-- **CRITICAL** line 157, `outline-instead-of-explanation` — **12. Signing a verification**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 168, `bare-bullet-items` — **13. Cleanup policy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production digests,`, `supported releases,`, `rollback candidates,`, `active release candidates,`.
-- **CRITICAL** line 168, `outline-instead-of-explanation` — **13. Cleanup policy**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 189, `bare-bullet-items` — **15. Package Registry**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interné libraries,`, `CLI binaries,`, `application packages,`, `Maven/NuGet/npm/PyPI a ďalšie ekosystémy,`.
-- **CRITICAL** line 189, `outline-instead-of-explanation` — **15. Package Registry**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 202, `bare-bullet-items` — **16. Package coordinates**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry/project/group scope,`, `package name,`, `version,`, `variant/classifier,`.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **16. Package coordinates**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `bare-bullet-items` — **17. Publish workflow**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected ref alebo release policy,`, `version ešte neexistuje,`, `source a artifact identity,`, `test/scan evidence,`.
-- **CRITICAL** line 214, `outline-instead-of-explanation` — **17. Publish workflow**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 228, `bare-bullet-items` — **18. Dependency Proxy**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižší upstream rate-limit dopad,`, `rýchlejšie pulls,`, `centralizovaný endpoint,`, `menšia závislosť na krátkodobej upstream dostupnosti.`.
-- **CRITICAL** line 228, `outline-instead-of-explanation` — **18. Dependency Proxy**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 241, `bare-bullet-items` — **19. Virtual registry**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré upstream registries sú povolené,`, `ako sa rieši namespace confusion,`, `ako sa cache invaliduje,`, `ktoré packages sa mirrorujú,`.
-- **CRITICAL** line 241, `outline-instead-of-explanation` — **19. Virtual registry**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 253, `bare-bullet-items` — **20. Dependency confusion**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scoped namespaces,`, `explicit registry priority,`, `private package reservation,`, `lockfiles a checksums,`.
-- **CRITICAL** line 253, `outline-instead-of-explanation` — **20. Dependency confusion**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 266, `bare-bullet-items` — **21. Job token access**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source project identity,`, `target project permissions,`, `protected ref,`, `token lifetime,`.
-- **CRITICAL** line 266, `outline-instead-of-explanation` — **21. Job token access**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 278, `bare-bullet-items` — **22. Retention a support lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `supportovaných versions,`, `downstream consumers,`, `legal/compliance požiadaviek,`, `rollback window,`.
-- **CRITICAL** line 278, `outline-instead-of-explanation` — **22. Retention a support lifecycle**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 291, `bare-bullet-items` — **23. Registry availability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `push/pull latency,`, `error rate,`, `storage capacity,`, `object storage health,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **23. Registry availability**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `single-sentence-concept` — **1. Registry model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 21, `bare-bullet-items` — **2. Container Registry**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `registry host,`, `image repository path,`, `job-scoped authentication údaje.`.
-- **HIGH** line 65, `single-sentence-concept` — **5. Build once, promote many**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 90, `single-sentence-concept` — **7. Push a pull permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 214, `single-sentence-concept` — **17. Publish workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 241, `single-sentence-concept` — **19. Virtual registry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 253, `single-sentence-concept` — **20. Dependency confusion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 266, `single-sentence-concept` — **21. Job token access**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 278, `single-sentence-concept` — **22. Retention a support lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 308, `single-sentence-concept` — **unauthorized pri push/pull**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **Multi-platform pull zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 33, `thin-concept-section` — **3. Image identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 53, `thin-concept-section` — **4. Tagging strategy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 79, `thin-concept-section` — **6. Authentication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 90, `thin-concept-section` — **7. Push a pull permissions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 102, `thin-concept-section` — **8. Image build security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 116, `thin-concept-section` — **9. Base images**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 143, `thin-concept-section` — **11. Container scanning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 157, `thin-concept-section` — **12. Signing a verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 168, `thin-concept-section` — **13. Cleanup policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 189, `thin-concept-section` — **15. Package Registry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 202, `thin-concept-section` — **16. Package coordinates**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 214, `thin-concept-section` — **17. Publish workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 228, `thin-concept-section` — **18. Dependency Proxy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 241, `thin-concept-section` — **19. Virtual registry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 253, `thin-concept-section` — **20. Dependency confusion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 266, `thin-concept-section` — **21. Job token access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 278, `thin-concept-section` — **22. Retention a support lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `thin-concept-section` — **23. Registry availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 27, `bare-bullet-items` — **2. Registry namespaces**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership boundary,`, `authorization scope,`, `naming scope,`, `lifecycle boundary,`.
+- **CRITICAL** line 40, `bare-bullet-items` — **3. Artifact identity**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry host,`, `repository path,`, `tag,`, `manifest,`.
+- **CRITICAL** line 40, `outline-instead-of-explanation` — **3. Artifact identity**: 14 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 77, `bare-bullet-items` — **5. Package version immutability**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepíš nové bytes pod 2.4.1 ,`, `označ verziu ako deprecated/yanked podľa ecosystemu,`, `publikuj 2.4.2 alebo novú pre-release verziu,`, `aktualizuj advisories a consumers.`.
+- **CRITICAL** line 77, `outline-instead-of-explanation` — **5. Package version immutability**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 90, `bare-bullet-items` — **6. Publication subject**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo merged-result SHA,`, `resolved pipeline configuration,`, `build job a attempt,`, `artifact digest,`.
+- **CRITICAL** line 90, `outline-instead-of-explanation` — **6. Publication subject**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 106, `bare-bullet-items` — **7. Publish eligibility**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline context je oprávnený,`, `ref/tag je chránený podľa policy,`, `version alebo immutable tag ešte neexistuje,`, `artifact digest zodpovedá schválenému build outputu,`.
+- **CRITICAL** line 106, `outline-instead-of-explanation` — **7. Publish eligibility**: 10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 121, `bare-bullet-items` — **8. Atomic publication**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrent publishers,`, `duplicate version race,`, `partial manifests,`, `retry idempotency,`.
+- **CRITICAL** line 121, `outline-instead-of-explanation` — **8. Atomic publication**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 146, `bare-bullet-items` — **9. Build once, promote many**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridanie release tagu k rovnakému digestu,`, `kopírovanie immutable contentu do chráneného namespace,`, `vytvorenie release manifestu,`, `zmenu channel aliasu.`.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **9. Build once, promote many**: 4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 167, `bare-bullet-items` — **10. Publisher identity**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development/branch publish,`, `release publish,`, `signing,`, `cleanup/deletion,`.
+- **CRITICAL** line 167, `outline-instead-of-explanation` — **10. Publisher identity**: 11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 188, `bare-bullet-items` — **11. Push, pull, delete a policy administration**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publish content,`, `move mutable alias,`, `pull content,`, `delete tag/version,`.
+- **CRITICAL** line 188, `outline-instead-of-explanation` — **11. Push, pull, delete a policy administration**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 202, `bare-bullet-items` — **12. Untrusted pipelines**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publishovať do release namespace,`, `vytvárať chránené version tags,`, `používať signing identity,`, `prepísať shared package version,`.
+- **CRITICAL** line 202, `outline-instead-of-explanation` — **12. Untrusted pipelines**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 214, `bare-bullet-items` — **13. Container build trust**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rootless builder,`, `dedikovaný ephemeral pool,`, `žiadny host Docker socket,`, `pinned base images,`.
+- **CRITICAL** line 214, `outline-instead-of-explanation` — **13. Container build trust**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 230, `bare-bullet-items` — **14. Base images**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pin digest,`, `používaj approved catalog,`, `automatizuj kontrolované updates,`, `rebuildni dependent images pri security patchi,`.
+- **CRITICAL** line 230, `outline-instead-of-explanation` — **14. Base images**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 245, `bare-bullet-items` — **15. Multi-platform images**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky required variants existujú,`, `každá patrí rovnakému source/release subjectu,`, `platform metadata je správna,`, `scan/test evidence existuje per variant,`.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **15. Multi-platform images**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 266, `bare-bullet-items` — **16. SBOM**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `format/version,`, `generator identity,`, `source artifact identity,`, `component inventory,`.
+- **CRITICAL** line 266, `outline-instead-of-explanation` — **16. SBOM**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 279, `bare-bullet-items` — **17. Provenance a attestations**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto build vykonal,`, `z akého source,`, `akou pipeline konfiguráciou,`, `na akom runner/toolchain-e,`.
+- **CRITICAL** line 279, `outline-instead-of-explanation` — **17. Provenance a attestations**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 292, `bare-bullet-items` — **18. Signing a verification**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesmie byť dostupná untrusted jobom,`, `má byť krátkodobá alebo izolovaná,`, `potrebuje audit,`, `má podpisovať presný digest,`.
+- **CRITICAL** line 292, `outline-instead-of-explanation` — **18. Signing a verification**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 306, `bare-bullet-items` — **19. Container scanning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `analyzer success,`, `database freshness,`, `OS a language package coverage,`, `findings,`.
+- **CRITICAL** line 306, `outline-instead-of-explanation` — **19. Container scanning**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 320, `bare-bullet-items` — **20. Package publishing**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version syntax,`, `package coordinates,`, `version non-existence,`, `checksum,`.
+- **CRITICAL** line 320, `outline-instead-of-explanation` — **20. Package publishing**: 9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 336, `bare-bullet-items` — **21. Generic packages**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `názov a immutable version,`, `digest/checksum,`, `platform/variant,`, `content type,`.
+- **CRITICAL** line 336, `outline-instead-of-explanation` — **21. Generic packages**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 352, `bare-bullet-items` — **22. Dependency resolution**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed registries,`, `priority/order,`, `package scope,`, `version range alebo pin,`.
+- **CRITICAL** line 352, `outline-instead-of-explanation` — **22. Dependency resolution**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 367, `bare-bullet-items` — **23. Dependency confusion**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scoped namespaces,`, `explicitný registry endpoint a priority,`, `interná rezervácia názvov,`, `lockfiles a checksums,`.
+- **CRITICAL** line 367, `outline-instead-of-explanation` — **23. Dependency confusion**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 382, `bare-bullet-items` — **24. Dependency Proxy a virtual registries**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené upstreams,`, `cache identity a invalidáciu,`, `provenance pôvodu,`, `mutable upstream tags,`.
+- **CRITICAL** line 382, `outline-instead-of-explanation` — **24. Dependency Proxy a virtual registries**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 398, `bare-bullet-items` — **25. Cross-project access**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source project,`, `target registry/package scope,`, `read verzus write,`, `protected context,`.
+- **CRITICAL** line 398, `outline-instead-of-explanation` — **25. Cross-project access**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 412, `bare-bullet-items` — **26. Mutable aliases a channels**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `allowed publishera,`, `atomic movement,`, `audit old→new digest,`.
+- **CRITICAL** line 412, `outline-instead-of-explanation` — **26. Mutable aliases a channels**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 426, `outline-instead-of-explanation` — **27. Yanking, deprecation a revocation**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 437, `bare-bullet-items` — **28. Revocation propagation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj všetky tags/versions a digests,`, `zablokuj nový pull/deploy podľa policy,`, `zisti aktívne deployments a consumers,`, `publikuj opravenú version,`.
+- **CRITICAL** line 437, `outline-instead-of-explanation` — **28. Revocation propagation**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 452, `bare-bullet-items` — **29. Cleanup roots**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívnym deploymentom,`, `podporovaným releaseom,`, `rollback window,`, `release manifestom,`.
+- **CRITICAL** line 452, `outline-instead-of-explanation` — **29. Cleanup roots**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 467, `bare-bullet-items` — **30. Tags, manifests a garbage collection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `soft-delete/retention obdobie,`, `concurrent pulls/pushes,`, `active manifests/indexes,`, `registry replication,`.
+- **CRITICAL** line 467, `outline-instead-of-explanation` — **30. Tags, manifests a garbage collection**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 482, `bare-bullet-items` — **31. Consumer inventory**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré pipelines package používajú,`, `ktoré lockfiles/verzie sú aktívne,`, `ktoré deployments používajú digest,`, `ktoré offline clients ešte potrebujú package,`.
+- **CRITICAL** line 482, `outline-instead-of-explanation` — **31. Consumer inventory**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 495, `bare-bullet-items` — **32. Registry availability**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `push/pull latency a error rate,`, `authentication failures,`, `storage a object-store health,`, `manifest/blob consistency,`.
+- **CRITICAL** line 495, `outline-instead-of-explanation` — **32. Registry availability**: 9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 511, `bare-bullet-items` — **33. Backup a replication**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata a blob backup,`, `konzistenciu medzi databázou a object storage,`, `encryption keys,`, `restore test,`.
+- **CRITICAL** line 511, `outline-instead-of-explanation` — **33. Backup a replication**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 526, `bare-bullet-items` — **34. Registry compromise response**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav alebo obmedz publishing,`, `revokuj publisher a signing identities,`, `identifikuj zmenené tags/versions a digests,`, `porovnaj audit log, provenance a trusted manifests,`.
+- **CRITICAL** line 526, `outline-instead-of-explanation` — **34. Registry compromise response**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 543, `bare-bullet-items` — **35. Diagnostický postup**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj registry host, namespace a artifact coordinates,`, `over token type, scope, expiration a subject,`, `over protected pipeline context,`, `rozlíš tag, version, manifest a digest,`.
+- **CRITICAL** line 543, `outline-instead-of-explanation` — **35. Diagnostický postup**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 558, `empty-section` — **36. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 592, `bare-bullet-items` — **37. Praktický rozhodovací rámec**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký je artifact subject a immutable identity?`, `Kto smie publishovať, aliasovať, mazať a meniť policy?`, `Ako sa zabráni prepísaniu version/tagu?`, `Je publication atomická a retry-safe?`.
+- **CRITICAL** line 592, `outline-instead-of-explanation` — **37. Praktický rozhodovací rámec**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 609, `bare-bullet-items` — **38. Kontrolný checklist**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry paths zodpovedajú ownershipu;`, `release versions a immutable tags sú write-once;`, `deployment používa digest;`, `publication používa oprávnenú non-human identity;`.
+- **CRITICAL** line 609, `no-prose-concept` — **38. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 609, `outline-instead-of-explanation` — **38. Kontrolný checklist**: 14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.
+- **HIGH** line 11, `list-first-introduction` — **1. Mental model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 11, `single-sentence-concept` — **1. Mental model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 27, `list-heavy-section` — **2. Registry namespaces**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 90, `single-sentence-concept` — **6. Publication subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 106, `single-sentence-concept` — **7. Publish eligibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 146, `single-sentence-concept` — **9. Build once, promote many**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 167, `single-sentence-concept` — **10. Publisher identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 188, `single-sentence-concept` — **11. Push, pull, delete a policy administration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 202, `single-sentence-concept` — **12. Untrusted pipelines**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `single-sentence-concept` — **15. Multi-platform images**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 279, `single-sentence-concept` — **17. Provenance a attestations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 352, `single-sentence-concept` — **22. Dependency resolution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 367, `single-sentence-concept` — **23. Dependency confusion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 398, `single-sentence-concept` — **25. Cross-project access**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 412, `single-sentence-concept` — **26. Mutable aliases a channels**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 426, `single-sentence-concept` — **27. Yanking, deprecation a revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 437, `single-sentence-concept` — **28. Revocation propagation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 452, `single-sentence-concept` — **29. Cleanup roots**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 482, `single-sentence-concept` — **31. Consumer inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 511, `single-sentence-concept` — **33. Backup a replication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 526, `single-sentence-concept` — **34. Registry compromise response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 543, `single-sentence-concept` — **35. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 560, `single-sentence-concept` — **Rebuild pod rovnakým release tagom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 564, `single-sentence-concept` — **Prepísateľná package version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 568, `single-sentence-concept` — **Untrusted pipeline publikuje do release namespace**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 572, `single-sentence-concept` — **Signing key na shared runneri**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 576, `single-sentence-concept` — **Multi-platform tag bez completeness checku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 580, `single-sentence-concept` — **Cleanup iba podľa veku alebo regexu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 584, `single-sentence-concept` — **Delete kompromitovaného tagu bez revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 588, `single-sentence-concept` — **Personal token ako runtime pull identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 592, `single-sentence-concept` — **37. Praktický rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 609, `list-first-introduction` — **38. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 40, `thin-concept-section` — **3. Artifact identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 77, `thin-concept-section` — **5. Package version immutability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 90, `thin-concept-section` — **6. Publication subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 106, `term-before-explanation` — **7. Publish eligibility**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `identity`, `scope`
+- **HIGH** line 106, `thin-concept-section` — **7. Publish eligibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 146, `thin-concept-section` — **9. Build once, promote many**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 167, `thin-concept-section` — **10. Publisher identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 188, `thin-concept-section` — **11. Push, pull, delete a policy administration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 202, `thin-concept-section` — **12. Untrusted pipelines**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 214, `thin-concept-section` — **13. Container build trust**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 230, `thin-concept-section` — **14. Base images**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `thin-concept-section` — **15. Multi-platform images**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 266, `thin-concept-section` — **16. SBOM**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 279, `thin-concept-section` — **17. Provenance a attestations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 292, `thin-concept-section` — **18. Signing a verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 306, `thin-concept-section` — **19. Container scanning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 320, `thin-concept-section` — **20. Package publishing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 336, `thin-concept-section` — **21. Generic packages**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 352, `thin-concept-section` — **22. Dependency resolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 367, `thin-concept-section` — **23. Dependency confusion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 382, `thin-concept-section` — **24. Dependency Proxy a virtual registries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 398, `thin-concept-section` — **25. Cross-project access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 412, `thin-concept-section` — **26. Mutable aliases a channels**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 426, `thin-concept-section` — **27. Yanking, deprecation a revocation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 437, `thin-concept-section` — **28. Revocation propagation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 452, `thin-concept-section` — **29. Cleanup roots**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 467, `thin-concept-section` — **30. Tags, manifests a garbage collection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 482, `thin-concept-section` — **31. Consumer inventory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 495, `thin-concept-section` — **32. Registry availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 511, `thin-concept-section` — **33. Backup a replication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 526, `thin-concept-section` — **34. Registry compromise response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 543, `thin-concept-section` — **35. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 592, `thin-concept-section` — **37. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 609, `thin-concept-section` — **38. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/06-gitlab/environments-deployments-releases.md`
 
@@ -20523,19 +20595,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4296 | 427 | 0 | 0 | 4723 |
-| `single-sentence-concept` | 0 | 4125 | 0 | 0 | 4125 |
-| `outline-instead-of-explanation` | 4089 | 0 | 0 | 0 | 4089 |
-| `thin-concept-section` | 0 | 3611 | 0 | 0 | 3611 |
-| `term-before-explanation` | 0 | 461 | 2725 | 0 | 3186 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2039 | 2039 |
-| `example-not-explicit` | 0 | 0 | 0 | 1929 | 1929 |
-| `short-concept-section` | 0 | 0 | 1310 | 0 | 1310 |
-| `list-first-introduction` | 0 | 1063 | 0 | 0 | 1063 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 993 | 993 |
-| `empty-section` | 502 | 0 | 0 | 0 | 502 |
-| `list-heavy-section` | 0 | 489 | 0 | 0 | 489 |
-| `no-prose-concept` | 410 | 0 | 0 | 0 | 410 |
+| `bare-bullet-items` | 4312 | 427 | 0 | 0 | 4739 |
+| `single-sentence-concept` | 0 | 4144 | 0 | 0 | 4144 |
+| `outline-instead-of-explanation` | 4105 | 0 | 0 | 0 | 4105 |
+| `thin-concept-section` | 0 | 3626 | 0 | 0 | 3626 |
+| `term-before-explanation` | 0 | 462 | 2739 | 0 | 3201 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2047 | 2047 |
+| `example-not-explicit` | 0 | 0 | 0 | 1936 | 1936 |
+| `short-concept-section` | 0 | 0 | 1312 | 0 | 1312 |
+| `list-first-introduction` | 0 | 1065 | 0 | 0 | 1065 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 994 | 994 |
+| `empty-section` | 503 | 0 | 0 | 0 | 503 |
+| `list-heavy-section` | 0 | 490 | 0 | 0 | 490 |
+| `no-prose-concept` | 411 | 0 | 0 | 0 | 411 |
 
 ## Required remediation pattern
 
