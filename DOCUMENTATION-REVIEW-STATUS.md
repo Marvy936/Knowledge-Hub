@@ -20,7 +20,7 @@ Nie je náhradou za [`DOCUMENTATION-AUDIT.md`](DOCUMENTATION-AUDIT.md). Ten je g
 | `03-git-and-automation` — Git and Automation Basics | 14/14 | Ready for user review | 2026-07-24 | Overený Git state/graph model, automation contracts, structured-data safety, navigation a prechod do Testing and Software Quality. |
 | `04-testing-and-quality` — Testing and Software Quality | 15/15 | Ready for user review | 2026-07-24 | Overený risk-to-evidence testing model, test scopes, quality gates, production feedback, chaos/resilience lifecycle, navigation a prechod do CI/CD and Release Engineering. |
 | `05-ci-cd-and-release` — CI/CD and Release Engineering | 23/23 | Ready for user review | 2026-07-24 | Overený source-to-artifact pipeline model, promotion evidence, release/versioning lifecycle, rollout state machines, exposure controls, recovery, database compatibility, navigation a prechod do GitLabu. |
-| `06-gitlab` — GitLab | 10/10 | Ready for user review | 2026-07-25 | Overený namespace a effective-access model, MR/approval freshness, protected source/runtime boundaries, resolved pipeline configuration, runner a secret trust model, artifact/registry lifecycle, deployment/release evidence, security scanning coverage, navigation a prechod do Infrastructure as Code. |
+| `06-gitlab` — GitLab | 2/10 pedagogický re-pass | In progress | 2026-07-25 | Používateľská kontrola odhalila príliš referenčný a list-heavy štýl. `Projects, groups a permissions` a `Merge requests a approvals` už prešli novým passom so súvislým mechanizmom, priebežným scenárom a kauzálnym výkladom; zostáva 8 kapitol. |
 
 ## Section-level completion criteria
 
