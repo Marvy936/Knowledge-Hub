@@ -14,7 +14,7 @@ Nie je náhradou za [`DOCUMENTATION-AUDIT.md`](DOCUMENTATION-AUDIT.md). Ten je g
 
 | Sekcia | Dokončené kapitoly | Stav | Posledný manuálny pass | Poznámka |
 |---|---:|---|---|---|
-| `00-foundations` — DevOps Foundations | 20/20 | Ready for user review | 2026-07-24 | Overený section ordering, navigation a prechod do Linux and Systems. |
+| `00-foundations` — DevOps Foundations | 20/20 | Ready for user review | 2026-07-25 | Opätovne preverených všetkých 20 kapitol podľa kalibrovaného pedagogického štandardu: súvislý mechanizmus, kauzálne príklady, vysvetlené zoznamy, failure boundaries a diagnostický kontext. Obsahové zásahy neboli potrebné; ordering, navigation a prechod do Linux and Systems ostávajú správne. |
 | `01-linux-and-systems` — Linux and Systems | 19/19 | Ready for user review | 2026-07-24 | Overený Linux lifecycle, troubleshooting coverage, navigation a prechod do Networking and Web Fundamentals. |
 | `02-networking-and-web` — Networking and Web Fundamentals | 16/16 | Ready for user review | 2026-07-24 | Overený end-to-end network model, terminology, navigation a prechod do Git and Automation Basics. |
 | `03-git-and-automation` — Git and Automation Basics | 14/14 | Ready for user review | 2026-07-24 | Overený Git state/graph model, automation contracts, structured-data safety, navigation a prechod do Testing and Software Quality. |
