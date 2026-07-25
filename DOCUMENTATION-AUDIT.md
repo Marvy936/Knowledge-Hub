@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12113**
-- Total words: **604,449**
-- Findings: **28719** (critical 9326, high 10233, medium 4084, low 5076)
+- Audited conceptual sections: **12110**
+- Total words: **604,892**
+- Findings: **28641** (critical 9299, high 10214, medium 4063, low 5065)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -130,7 +130,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 916 | 38 | 44 | 23 | 22 | 2247 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | D | 914 | 33 | 47 | 23 | 48 | 3260 | `docs/04-testing-and-quality/shift-right.md` |
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
-| D | 910 | 39 | 37 | 27 | 37 | 2807 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | D | 899 | 37 | 48 | 16 | 17 | 1871 | `docs/11-cloud-and-aws/lambda.md` |
 | D | 896 | 38 | 48 | 17 | 4 | 1759 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | D | 894 | 40 | 47 | 11 | 8 | 1597 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
@@ -235,6 +234,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 361 | 15 | 15 | 7 | 32 | 2828 | `docs/04-testing-and-quality/verification-vs-validation.md` |
 | D | 353 | 13 | 13 | 10 | 46 | 3589 | `docs/01-linux-and-systems/cgroups.md` |
+| D | 339 | 12 | 18 | 6 | 26 | 3250 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 337 | 15 | 13 | 6 | 26 | 2850 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
@@ -8152,82 +8152,36 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/06-gitlab/merge-requests-and-approvals.md`
 
-- **CRITICAL** line 37, `bare-bullet-items` — **2. Merge request identity**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source project a source branch,`, `target project a target branch,`, `autora a ďalších účastníkov,`, `source commit set,`.
-- **CRITICAL** line 37, `outline-instead-of-explanation` — **2. Merge request identity**: 10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 97, `bare-bullet-items` — **5. Draft stav**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architektonickú diskusiu pred dokončením,`, `zviditeľnenie rozpracovanej zmeny,`, `skoré CI a static-analysis výsledky,`, `koordináciu dependencies,`.
-- **CRITICAL** line 125, `bare-bullet-items` — **7. Approval rule contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `názov a chránené riziko,`, `applicable target branches alebo project scope,`, `eligible users, groups alebo ownership sources,`, `počet požadovaných approvals,`.
-- **CRITICAL** line 125, `outline-instead-of-explanation` — **7. Approval rule contract**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 157, `bare-bullet-items` — **8. Applicable rule a changed paths**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `glob patterns a precedence,`, `renamed a deleted files,`, `generated manifests,`, `symlinks alebo submodules podľa workflowu,`.
-- **CRITICAL** line 172, `bare-bullet-items` — **9. Eligible approver resolution**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct alebo inherited membershipu,`, `effective role,`, `explicitného user/group assignmentu,`, `Code Owner matchu,`.
-- **CRITICAL** line 172, `outline-instead-of-explanation` — **9. Eligible approver resolution**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 198, `bare-bullet-items` — **10. Independence a separation of duties**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autor nebol jediným approverom,`, `používateľ, ktorý pridal commit, nebol jediným nezávislým reviewerom,`, `security risk neprijal autor zmeny,`, `production policy zmenu schválil iný capability owner,`.
-- **CRITICAL** line 198, `outline-instead-of-explanation` — **10. Independence a separation of duties**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 210, `bare-bullet-items` — **11. Approval freshness graph**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo diff,`, `conflict resolution,`, `rebase result,`, `target branch a merged-result SHA,`.
-- **CRITICAL** line 233, `bare-bullet-items` — **12. Pipeline freshness**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch pipeline,`, `merge-request pipeline,`, `merged-results pipeline,`, `merge-train pipeline,`.
-- **CRITICAL** line 233, `outline-instead-of-explanation` — **12. Pipeline freshness**: 11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 254, `outline-instead-of-explanation` — **13. Pipeline verdict taxonomy**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 268, `bare-bullet-items` — **14. Discussions a unresolved threads**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autor uzavrie thread bez opravy alebo dohody,`, `komentár je viazaný na outdated line,`, `diff sa zmení bez upozornenia pôvodného reviewera,`, `dôležitý risk sa presunie do neformálneho chatu,`.
-- **CRITICAL** line 291, `bare-bullet-items` — **15. Code Owners**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `security-sensitive source,`, `deployment a infrastructure manifests,`, `database migrations,`, `shared CI templates,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **15. Code Owners**: 12 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 313, `bare-bullet-items` — **16. Mergeability verdict**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci alebo neplatný approval,`, `pipeline failure alebo incomplete evidence,`, `source branch za targetom podľa policy,`, `konflikt,`.
-- **CRITICAL** line 313, `outline-instead-of-explanation` — **16. Mergeability verdict**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 358, `bare-bullet-items` — **Rebase pred merge**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `desired mainline topology,`, `potreby signed commit traceability,`, `backport a cherry-pick workflowu,`, `release-note automation,`.
-- **CRITICAL** line 358, `outline-instead-of-explanation` — **Rebase pred merge**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `bare-bullet-items` — **19. Merge when pipeline succeeds**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fresh pipeline nad správnym subjectom,`, `aktuálny target context,`, `nezastaralé approvals,`, `cancellation pri novom pushi,`.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **19. Merge when pipeline succeeds**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 399, `bare-bullet-items` — **20. Merge train**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `candidate/result SHA,`, `queue ordering,`, `invalidáciu pri target zmene,`, `failure attribution,`.
-- **CRITICAL** line 399, `outline-instead-of-explanation` — **20. Merge train**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 424, `bare-bullet-items` — **21. Security approval evidence**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `analyzer coverage a supported paths,`, `tool/infrastructure failure,`, `report provenance,`, `target/base comparison,`.
-- **CRITICAL** line 424, `outline-instead-of-explanation` — **21. Security approval evidence**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 449, `bare-bullet-items` — **22. Approval exception a bypass**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny MR, finding alebo rule scope,`, `dôvod a risk ownera,`, `nezávislého approvera podľa policy,`, `compensating controls,`.
-- **CRITICAL** line 449, `outline-instead-of-explanation` — **22. Approval exception a bypass**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 475, `bare-bullet-items` — **23. Review quality model**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `intent a requirement traceability,`, `correctness a failure modes,`, `security, authorization a data handling,`, `API, event a database compatibility,`.
-- **CRITICAL** line 475, `outline-instead-of-explanation` — **23. Review quality model**: 9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 524, `bare-bullet-items` — **26. MR observability a governance metrics**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time to first review,`, `total review/merge lead time,`, `approval wait podľa rule,`, `stale approval resets,`.
-- **CRITICAL** line 524, `outline-instead-of-explanation` — **26. MR observability a governance metrics**: 11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 572, `empty-section` — **28. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 606, `bare-bullet-items` — **29. Praktický rozhodovací rámec**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký presný subject sa reviewuje a testuje?`, `Ktoré zmeny invalidujú approvals a pipeline evidence?`, `Aké risks chránia jednotlivé approval rules?`, `Ako sa rieši approver eligibility a neprítomnosť?`.
-- **CRITICAL** line 606, `outline-instead-of-explanation` — **29. Praktický rozhodovací rámec**: 14 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 625, `bare-bullet-items` — **30. Kontrolný checklist**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MR intent a scope sú explicitné;`, `current source SHA a target context sú známe;`, `required evidence patrí aktuálnemu subjectu;`, `approvals majú definovanú freshness policy;`.
-- **CRITICAL** line 625, `no-prose-concept` — **30. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 625, `outline-instead-of-explanation` — **30. Kontrolný checklist**: 14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 20, `single-sentence-concept` — **1. Mental model: subject, evidence a decision**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 125, `single-sentence-concept` — **7. Approval rule contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 157, `list-heavy-section` — **8. Applicable rule a changed paths**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 210, `list-heavy-section` — **11. Approval freshness graph**: 8 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 233, `single-sentence-concept` — **12. Pipeline freshness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **16. Mergeability verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `single-sentence-concept` — **17. Merge strategy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 350, `single-sentence-concept` — **Fast-forward alebo semi-linear model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 424, `single-sentence-concept` — **21. Security approval evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 449, `single-sentence-concept` — **22. Approval exception a bypass**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 544, `single-sentence-concept` — **MR má approvals, ale nemožno ho mergeovať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 552, `single-sentence-concept` — **Používateľ je v approver group, ale approval sa nepočíta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 560, `single-sentence-concept` — **Code Owner approval sa nevyžaduje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 574, `single-sentence-concept` — **Approval od autora ako jediný control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 578, `single-sentence-concept` — **Approval count bez definovaného rizika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 582, `single-sentence-concept` — **Approval zostáva po zásadnej zmene**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 586, `single-sentence-concept` — **Review iba podľa zelenej pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 590, `single-sentence-concept` — **Required Code Owners bez dostupného fallbacku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 594, `single-sentence-concept` — **Maintainer bypass ako bežný postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 598, `single-sentence-concept` — **Branch pipeline považovaná za merge-result dôkaz**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 602, `single-sentence-concept` — **Resolved thread bez outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 606, `single-sentence-concept` — **29. Praktický rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 625, `list-first-introduction` — **30. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 20, `thin-concept-section` — **1. Mental model: subject, evidence a decision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 125, `thin-concept-section` — **7. Approval rule contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 233, `thin-concept-section` — **12. Pipeline freshness**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 254, `thin-concept-section` — **13. Pipeline verdict taxonomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `term-before-explanation` — **15. Code Owners**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `API`, `policy`, `enforcement`
-- **HIGH** line 313, `thin-concept-section` — **16. Mergeability verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 358, `thin-concept-section` — **Rebase pred merge**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 424, `thin-concept-section` — **21. Security approval evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 449, `thin-concept-section` — **22. Approval exception a bypass**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 475, `thin-concept-section` — **23. Review quality model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 524, `thin-concept-section` — **26. MR observability a governance metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 606, `thin-concept-section` — **29. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 625, `term-before-explanation` — **30. Kontrolný checklist**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `SHA`, `scope`, `freshness`, `policy`
-- **HIGH** line 625, `thin-concept-section` — **30. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 218, `bare-bullet-items` — **13. Zelená pipeline musí patriť správnemu subjectu**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý SHA bol testovaný;`, `aký target context sa použil;`, `ktoré jobs boli povinné;`, `či dokončili všetky shards a child pipelines;`.
+- **CRITICAL** line 218, `outline-instead-of-explanation` — **13. Zelená pipeline musí patriť správnemu subjectu**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 231, `outline-instead-of-explanation` — **14. Pipeline nemá iba green a red stav**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 260, `bare-bullet-items` — **16. Code Owners**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patterns zodpovedajú reálnemu layoutu;`, `owners majú platný a dostatočný access;`, `target branch policy Code Owner approval skutočne vyžaduje;`, `existuje fallback pri neprítomnosti ľudí;`.
+- **CRITICAL** line 369, `bare-bullet-items` — **23. Čo má reviewer skutočne posudzovať**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `intent a requirement;`, `correctness a error handling;`, `security, authorization a data handling;`, `API, event a databázovú kompatibilitu;`.
+- **CRITICAL** line 426, `outline-instead-of-explanation` — **27. Kompletný príklad merge rozhodnutia**: 10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 473, `empty-section` — **29. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 507, `bare-bullet-items` — **30. Praktický rozhodovací rámec**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký presný subject sa reviewuje a testuje?`, `Ktoré zmeny invalidujú approvals a pipelines?`, `Aký risk chráni každá approval rule?`, `Ako sa určuje eligible approver a fallback?`.
+- **CRITICAL** line 507, `outline-instead-of-explanation` — **30. Praktický rozhodovací rámec**: 12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 524, `bare-bullet-items` — **31. Kontrolný checklist**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MR intent a scope sú explicitné;`, `current source SHA a target context sú známe;`, `required evidence patrí aktuálnemu subjectu;`, `approvals majú definovanú reset a freshness policy;`.
+- **CRITICAL** line 524, `no-prose-concept` — **31. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 524, `outline-instead-of-explanation` — **31. Kontrolný checklist**: 14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 369, `list-heavy-section` — **23. Čo má reviewer skutočne posudzovať**: 9 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 461, `single-sentence-concept` — **Code Owner approval sa nevyžaduje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 475, `single-sentence-concept` — **Approval od autora ako jediný control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `single-sentence-concept` — **Approval count bez definovaného rizika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `single-sentence-concept` — **Approval zostáva po zásadnej zmene**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 487, `single-sentence-concept` — **Review iba podľa zelenej pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 491, `single-sentence-concept` — **Required Code Owners bez fallbacku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 495, `single-sentence-concept` — **Maintainer bypass ako normálny workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 499, `single-sentence-concept` — **Branch pipeline považovaná za merge-result dôkaz**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 503, `single-sentence-concept` — **Resolved thread bez outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 507, `single-sentence-concept` — **30. Praktický rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 524, `list-first-introduction` — **31. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 218, `thin-concept-section` — **13. Zelená pipeline musí patriť správnemu subjectu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 426, `term-before-explanation` — **27. Kompletný príklad merge rozhodnutia**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `CI`, `SHA`, `ID`, `policy`
+- **HIGH** line 426, `thin-concept-section` — **27. Kompletný príklad merge rozhodnutia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 507, `thin-concept-section` — **30. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 524, `term-before-explanation` — **31. Kontrolný checklist**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `SHA`, `scope`, `freshness`, `policy`
+- **HIGH** line 524, `thin-concept-section` — **31. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/06-gitlab/projects-groups-permissions.md`
 
@@ -20609,18 +20563,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4314 | 430 | 0 | 0 | 4744 |
-| `single-sentence-concept` | 0 | 4158 | 0 | 0 | 4158 |
-| `outline-instead-of-explanation` | 4097 | 0 | 0 | 0 | 4097 |
-| `thin-concept-section` | 0 | 3618 | 0 | 0 | 3618 |
-| `term-before-explanation` | 0 | 462 | 2752 | 0 | 3214 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2083 | 2083 |
-| `example-not-explicit` | 0 | 0 | 0 | 1978 | 1978 |
-| `short-concept-section` | 0 | 0 | 1332 | 0 | 1332 |
+| `bare-bullet-items` | 4299 | 430 | 0 | 0 | 4729 |
+| `single-sentence-concept` | 0 | 4148 | 0 | 0 | 4148 |
+| `outline-instead-of-explanation` | 4085 | 0 | 0 | 0 | 4085 |
+| `thin-concept-section` | 0 | 3610 | 0 | 0 | 3610 |
+| `term-before-explanation` | 0 | 462 | 2739 | 0 | 3201 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2075 | 2075 |
+| `example-not-explicit` | 0 | 0 | 0 | 1971 | 1971 |
+| `short-concept-section` | 0 | 0 | 1324 | 0 | 1324 |
 | `list-first-introduction` | 0 | 1063 | 0 | 0 | 1063 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1015 | 1015 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1019 | 1019 |
 | `empty-section` | 503 | 0 | 0 | 0 | 503 |
-| `list-heavy-section` | 0 | 502 | 0 | 0 | 502 |
+| `list-heavy-section` | 0 | 501 | 0 | 0 | 501 |
 | `no-prose-concept` | 412 | 0 | 0 | 0 | 412 |
 
 ## Required remediation pattern
