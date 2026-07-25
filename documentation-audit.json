@@ -1627,15 +1627,15 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "title": "Variables a secrets",
-      "words": 1145,
-      "headings": 32,
-      "sections": 32,
-      "findings": 78,
-      "critical": 35,
-      "high": 30,
-      "medium": 13,
-      "low": 0,
-      "score": 696,
+      "words": 2165,
+      "headings": 46,
+      "sections": 46,
+      "findings": 146,
+      "critical": 58,
+      "high": 43,
+      "medium": 26,
+      "low": 19,
+      "score": 1149,
       "grade": "D"
     },
     {
@@ -119360,44 +119360,53 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "1. Kategórie hodnôt",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "1. Kategórie hodnôt",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public configuration,`, `non-secret internal configuration,`, `secret material,`, `identity token,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "1. Kategórie hodnôt",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "1. Kategórie hodnôt",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "2. Variable sources",
-      "line": 19,
+      "section": "1. Mental model",
+      "line": 11,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "2. Kategórie hodnôt",
+      "line": 26,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -119405,26 +119414,17 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "2. Variable sources",
-      "line": 19,
+      "section": "2. Kategórie hodnôt",
+      "line": 26,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "2. Variable sources",
-      "line": 19,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.gitlab-ci.yml ,`, `predefined variables,`, `project settings,`, `group settings,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "2. Variable sources",
-      "line": 19,
+      "section": "2. Kategórie hodnôt",
+      "line": 26,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -119432,305 +119432,71 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "3. Precedence",
-      "line": 36,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "2. Kategórie hodnôt",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "3. Precedence",
-      "line": 36,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepoužívaj rovnaký názov pre rozdielne významy,`, `dokumentuj povolené override body,`, `validuj critical values,`, `nepredpokladaj, že YAML default zostane výslednou hodnotou.`.",
-      "score": 12
+      "section": "2. Kategórie hodnôt",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "3. Precedence",
-      "line": 36,
+      "section": "2. Kategórie hodnôt",
+      "line": 26,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "3. Precedence",
-      "line": 36,
-      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `URL`, `Identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "3. Variable sources",
+      "line": 40,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "3. Variable sources",
+      "line": 40,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.gitlab-ci.yml ,`, `predefined variables,`, `project, group alebo instance settings,`, `pipeline policy alebo triggera,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "3. Variable sources",
+      "line": 40,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "4. Variable type",
-      "line": 47,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Variable sources",
+      "line": 40,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "4. Variable type",
-      "line": 47,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "4. Variable type",
-      "line": 47,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CA bundle,`, `kubeconfig,`, `certificate,`, `JSON credential document,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "4. Variable type",
-      "line": 47,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "4. Variable type",
-      "line": 47,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `JSON`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "5. Masked variable",
-      "line": 64,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "5. Masked variable",
-      "line": 64,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transformáciu alebo encoding,`, `rozdelenie na časti,`, `artifact,`, `cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "5. Masked variable",
-      "line": 64,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "7. Protected variable",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "7. Protected variable",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chránený ref,`, `kontrolované merge permissions,`, `dôveryhodný pipeline code,`, `bezpečný runner,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "7. Protected variable",
-      "line": 85,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "12. Logs",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "12. Logs",
-      "line": 135,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "12. Logs",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `set -x ,`, `PowerShell verbose/debug dump,`, `environment dump,`, `HTTP debug headers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "12. Logs",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "12. Logs",
-      "line": 135,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "13. Secrets v artifacts a cache",
-      "line": 148,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "13. Secrets v artifacts a cache",
-      "line": 148,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.env files,`, `credentials directories,`, `cloud CLI config,`, `kubeconfig,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "13. Secrets v artifacts a cache",
-      "line": 148,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "13. Secrets v artifacts a cache",
-      "line": 148,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "14. External secret providers",
-      "line": 162,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "14. External secret providers",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "14. External secret providers",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HashiCorp Vault,`, `AWS Secrets Manager,`, `Azure Key Vault,`, `Google Cloud Secret Manager,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "14. External secret providers",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "14. External secret providers",
-      "line": 162,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `OIDC-`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "15. OIDC a ID tokens",
-      "line": 174,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "15. OIDC a ID tokens",
-      "line": 174,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "15. OIDC a ID tokens",
-      "line": 174,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bez dlhodobého static key v GitLabe,`, `krátka platnosť,`, `audience restriction,`, `claims viazané na project/ref/environment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "15. OIDC a ID tokens",
-      "line": 174,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "15. OIDC a ID tokens",
-      "line": 174,
+      "section": "3. Variable sources",
+      "line": 40,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -119738,170 +119504,215 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "16. CI JOB TOKEN",
-      "line": 195,
+      "section": "4. Effective value",
+      "line": 57,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "16. CI JOB TOKEN",
-      "line": 195,
+      "section": "4. Effective value",
+      "line": 57,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `príliš široký allowlist,`, `použitie v nedôveryhodnom jobe,`, `logovanie tokenu,`, `downstream project s neočakávanými permissions,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventarizuj všetky možné sources,`, `urč povolené override body,`, `zisti, ktorá hodnota vyhrá,`, `over scope a pipeline source,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "16. CI JOB TOKEN",
-      "line": 195,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "17. Deploy tokens a access tokens",
-      "line": 209,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "17. Deploy tokens a access tokens",
-      "line": 209,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `personal access token,`, `project access token,`, `group access token,`, `deploy token,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "17. Deploy tokens a access tokens",
-      "line": 209,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "18. Secret rotation",
-      "line": 222,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "18. Secret rotation",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "18. Secret rotation",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `consumer inventory,`, `dual-validity alebo cutover model,`, `aktualizáciu provideru,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "18. Secret rotation",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "19. Expiration",
-      "line": 237,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "19. Expiration",
-      "line": 237,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "19. Expiration",
-      "line": 237,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `účel,`, `ownera,`, `minimum scope,`, `expiration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "19. Expiration",
-      "line": 237,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "19. Expiration",
-      "line": 237,
+      "section": "4. Effective value",
+      "line": 57,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "20. Fork a merge-request pipelines",
-      "line": 251,
+      "section": "4. Effective value",
+      "line": 57,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "5. Override authorization",
+      "line": 72,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "20. Fork a merge-request pipelines",
-      "line": 251,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "20. Fork a merge-request pipelines",
-      "line": 251,
+      "section": "5. Override authorization",
+      "line": 72,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neposkytuj protected secrets,`, `nepoužívaj privileged runner,`, `oddeľ validation pipeline od trusted post-merge pipeline,`, `kontroluj parent-project pipeline execution,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `deployment environment,`, `image alebo template reference,`, `cloud role/identity,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "20. Fork a merge-request pipelines",
-      "line": 251,
+      "section": "5. Override authorization",
+      "line": 72,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "5. Override authorization",
+      "line": 72,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "6. Availability phases",
+      "line": 89,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "6. Availability phases",
+      "line": 89,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pri pipeline creation,`, `pri job graph construction,`, `pri runner execution,`, `po upstream jobe,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "6. Availability phases",
+      "line": 89,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "7. Variable type",
+      "line": 101,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "7. Variable type",
+      "line": 101,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CA bundle,`, `certificate,`, `kubeconfig,`, `JSON credential document,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "7. Variable type",
+      "line": 101,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "7. Variable type",
+      "line": 101,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `JSON`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "8. Masked value",
+      "line": 116,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "8. Masked value",
+      "line": 116,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encoding alebo hash fragmenty,`, `rozdelenie na časti,`, `process arguments,`, `artifact alebo cache,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "8. Masked value",
+      "line": 116,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "8. Masked value",
+      "line": 116,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "8. Masked value",
+      "line": 116,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "8. Masked value",
+      "line": 116,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "10. Protected variable",
+      "line": 140,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "10. Protected variable",
+      "line": 140,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protection branchu alebo tagu,`, `allowed-to-push a allowed-to-merge policy,`, `pipeline code a included templates,`, `runner poolu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "10. Protected variable",
+      "line": 140,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -119909,17 +119720,629 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "20. Fork a merge-request pipelines",
-      "line": 251,
+      "section": "10. Protected variable",
+      "line": 140,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `policy`, `scope`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "21. Manual pipeline variables",
-      "line": 261,
+      "section": "11. Environment scope",
+      "line": 156,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "11. Environment scope",
+      "line": 156,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `job deklaruje podobný, ale nechránený názov,`, `wildcard match je širší než očakávanie,`, `staging fallback vyhrá nad production-specific hodnotou,`, `review app sa pomenuje ako produkčný scope,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "11. Environment scope",
+      "line": 156,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "11. Environment scope",
+      "line": 156,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "11. Environment scope",
+      "line": 156,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "12. Group a instance variables",
+      "line": 170,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "12. Group a instance variables",
+      "line": 170,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočne patrí celej group boundary,`, `všetky dedičné projekty majú rovnakú dôveru,`, `owner a consumers sú známi,`, `environment/protected scopes obmedzujú exposure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "12. Group a instance variables",
+      "line": 170,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "13. Variable expansion a composition",
+      "line": 182,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "13. Variable expansion a composition",
+      "line": 182,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasné atomic values,`, `explicitné composition v kontrolovanom scripte,`, `validované enumy,`, `pevné command templates,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "13. Variable expansion a composition",
+      "line": 182,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "14. Manual a trigger inputs",
+      "line": 196,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "14. Manual a trigger inputs",
+      "line": 196,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `type,`, `enum alebo allowlist,`, `dĺžku,`, `format,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "14. Manual a trigger inputs",
+      "line": 196,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "14. Manual a trigger inputs",
+      "line": 196,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "15. Downstream a child pipelines",
+      "line": 212,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "15. Downstream a child pipelines",
+      "line": 212,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré keys sú potrebné,`, `či sú secrets,`, `aký je target-project trust,`, `kto môže meniť downstream pipeline code,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "15. Downstream a child pipelines",
+      "line": 212,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "15. Downstream a child pipelines",
+      "line": 212,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "16. Dotenv report",
+      "line": 225,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `version,`, `environment URL,`, `deployment ID,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "16. Dotenv report",
+      "line": 225,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "16. Dotenv report",
+      "line": 225,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "17. Predefined variables",
+      "line": 237,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "17. Predefined variables",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline source,`, `ref a jeho protected stav,`, `source/target project,`, `commit SHA,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "17. Predefined variables",
+      "line": 237,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "17. Predefined variables",
+      "line": 237,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `identity`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "18. CI JOB TOKEN",
+      "line": 253,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "18. CI JOB TOKEN",
+      "line": 253,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný inbound allowlist target projektu,`, `minimum required endpoints,`, `source-project trust,`, `protected-ref podmienku podľa rizika,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "18. CI JOB TOKEN",
+      "line": 253,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "19. ID tokens a OIDC federation",
+      "line": 269,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "19. ID tokens a OIDC federation",
+      "line": 269,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issuer,`, `audience,`, `project alebo namespace,`, `ref a protection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "19. ID tokens a OIDC federation",
+      "line": 269,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "20. External secret provider",
+      "line": 295,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "20. External secret provider",
+      "line": 295,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kratšia životnosť,`, `centrálna rotácia,`, `presnejší access policy,`, `usage logs,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "20. External secret provider",
+      "line": 295,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "20. External secret provider",
+      "line": 295,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "21. Token taxonomy",
+      "line": 321,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "21. Token taxonomy",
+      "line": 321,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `personal access token,`, `project access token,`, `group access token,`, `deploy token,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "21. Token taxonomy",
+      "line": 321,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "21. Token taxonomy",
+      "line": 321,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `JOB`, `TOKEN`, `ID`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "22. Secret rotation",
+      "line": 336,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "22. Secret rotation",
+      "line": 336,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "22. Secret rotation",
+      "line": 336,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj secret a ownera,`, `inventarizuj consumers,`, `vytvor novú hodnotu alebo key version,`, `zabezpeč dual-validity alebo kontrolovaný cutover,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "22. Secret rotation",
+      "line": 336,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "22. Secret rotation",
+      "line": 336,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "23. Expiration a revocation",
+      "line": 352,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "23. Expiration a revocation",
+      "line": 352,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `účel,`, `ownera,`, `scope,`, `expiration,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "23. Expiration a revocation",
+      "line": 352,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "23. Expiration a revocation",
+      "line": 352,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "24. Secret cleanup",
+      "line": 366,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "24. Secret cleanup",
+      "line": 366,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file-type variable files,`, `temporary certificates a keys,`, `cloud CLI profiles,`, `kubeconfig,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "24. Secret cleanup",
+      "line": 366,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "24. Secret cleanup",
+      "line": 366,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "25. Logs, traces a debugging",
+      "line": 381,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "25. Logs, traces a debugging",
+      "line": 381,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shell tracing,`, `environment dumps,`, `HTTP debug headers,`, `PowerShell verbose/debug output,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "25. Logs, traces a debugging",
+      "line": 381,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "25. Logs, traces a debugging",
+      "line": 381,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "26. Artifacts a cache",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "26. Artifacts a cache",
+      "line": 395,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.env ,`, `credential directories,`, `kubeconfig,`, `certificates,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "26. Artifacts a cache",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revokuj credential u zdrojového provideru,`, `zastav jobs, ktoré ho môžu ďalej používať,`, `identifikuj logs, artifacts, caches a downstream pipelines,`, `rotuj súvisiace alebo odvodené credentials,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "28. Secret leak response",
+      "line": 425,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "29. Committed secret",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "29. Committed secret",
+      "line": 441,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
@@ -119927,17 +120350,17 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "21. Manual pipeline variables",
-      "line": 261,
+      "section": "29. Committed secret",
+      "line": 441,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolený environment,`, `artifact digest,`, `version format,`, `boolean a enum values,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `okamžite ho revokuj,`, `urč, kde bol pushnutý alebo mirrorovaný,`, `prehľadaj pipelines, artifacts a packages,`, `rotuj dependent credentials,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "21. Manual pipeline variables",
-      "line": 261,
+      "section": "29. Committed secret",
+      "line": 441,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -119945,80 +120368,116 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "21. Manual pipeline variables",
-      "line": 261,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
+      "section": "29. Committed secret",
+      "line": 441,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "22. Dotenv reports",
-      "line": 274,
+      "section": "30. Observability a inventory",
+      "line": 454,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "22. Dotenv reports",
-      "line": 274,
+      "section": "30. Observability a inventory",
+      "line": 454,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generated version,`, `review URL,`, `artifact digest,`, `deployment identifier.`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet secrets podľa scope-u,`, `credentials bez ownera alebo expiry,`, `blížiace sa expirácie,`, `group-wide secret exposure,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "22. Dotenv reports",
-      "line": 274,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "30. Observability a inventory",
+      "line": 454,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "22. Dotenv reports",
-      "line": 274,
+      "section": "30. Observability a inventory",
+      "line": 454,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `scope`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "23. Secret detection",
-      "line": 287,
+      "section": "31. Diagnostický postup",
+      "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "31. Diagnostický postup",
+      "line": 470,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "23. Secret detection",
-      "line": 287,
+      "section": "31. Diagnostický postup",
+      "line": 470,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret manager,`, `prevention controls,`, `rotation,`, `access review,`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj pipeline source a job,`, `zisti všetky sources rovnakého key,`, `aplikuj precedence,`, `over protected ref a environment scope,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "23. Secret detection",
-      "line": 287,
+      "section": "31. Diagnostický postup",
+      "line": 470,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "31. Diagnostický postup",
+      "line": 470,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "31. Diagnostický postup",
+      "line": 470,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `availability`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Variable je prázdna",
-      "line": 301,
+      "section": "32. Typické anti-patterny",
+      "line": 485,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "Všetko je uložené ako variable",
+      "line": 487,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -120026,8 +120485,8 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Masked variable sa nedá uložiť",
-      "line": 305,
+      "section": "Masked znamená bezpečný",
+      "line": 491,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -120035,8 +120494,8 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Secret je dostupný v nesprávnom jobe",
-      "line": 309,
+      "section": "Group secret pre jednu službu",
+      "line": 495,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -120044,8 +120503,8 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "OIDC authentication zlyháva",
-      "line": 313,
+      "section": "Personal token ako produkčná automation identity",
+      "line": 499,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -120053,12 +120512,165 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Job používa starý secret po rotácii",
-      "line": 317,
+      "section": "Free-text manual deployment input",
+      "line": 503,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "Forward všetkých variables downstream",
+      "line": 507,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "Rotácia bez revokácie starej hodnoty",
+      "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je to configuration, secret alebo identity assertion?`, `Kde je source of truth?`, `Ktoré sources ju môžu prepísať?`, `V ktorej fáze je dostupná?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "33. Praktický rozhodovací rámec",
+      "line": 515,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hodnoty sú klasifikované;`, `effective-value precedence je známa;`, `critical keys nemožno ľubovoľne override-nuť;`, `protected a environment scopes sú testované;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "34. Kontrolný checklist",
+      "line": 530,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
