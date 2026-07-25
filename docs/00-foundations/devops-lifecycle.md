@@ -8,402 +8,365 @@
 - Predpoklady: [SDLC](sdlc.md), [DevOps](devops.md)
 - Súvisiace témy: CI/CD, testing, observability, incident management, DORA metrics
 
-Metadata opisuje miesto kapitoly v učebnej ceste. DevOps lifecycle nie je názov jednej pipeline, ale model celého toku zmeny vrátane rozhodnutí pred commitom a učenia po nasadení.
+Táto kapitola neopakuje celý SDLC. SDLC opisuje univerzálny život softvéru od potreby po retirement, zatiaľ čo DevOps lifecycle vysvetľuje, ako sa jedna konkrétna zmena pohybuje cez delivery systém, aké identity a dôkazy pri tom vznikajú a ako sa produkčné zistenie vráti späť do ďalšieho rozhodnutia.
 
-## 1. Definícia
+## 1. DevOps lifecycle ako uzavretá regulačná slučka
 
-DevOps lifecycle je nepretržitý tok, ktorým zmena prechádza od identifikácie potreby cez implementáciu, overenie, release a deployment až po prevádzku, pozorovanie a ďalšie rozhodnutie. Prepája product, engineering a operations aktivity do jedného value streamu.
+DevOps lifecycle je nepretržitý tok zmeny od formulovania zámeru cez source, artifact, release a runtime až po produkčný feedback a učenie. Jeho cieľom nie je iba dostať kód do produkcie, ale skrátiť čas medzi rozhodnutím a dôveryhodným dôkazom, či zmena priniesla očakávaný výsledok.
 
-Lifecycle nemá definitívny koniec. Produkčné signály, incidenty, používateľský feedback a zmeny business prostredia vytvárajú nové vstupy do plánovania a môžu zmeniť pôvodnú požiadavku, testy alebo architecture.
-
-## 2. Problém, ktorý lifecycle rieši
-
-Samotný commit alebo dokončená backlog položka ešte nevytvára používateľskú hodnotu. Zmena musí byť správne pochopená, bezpečne transformovaná na artifact, nasadená, prevádzkovaná a overená na reálnom outcome-e.
-
-Keď jednotlivé kroky vlastnia izolované tímy, zmena čaká vo frontoch a stráca kontext. Lifecycle model umožňuje zmerať celý tok, určiť ownership a identifikovať, kde vzniká waiting, rework, risk alebo oneskorený feedback.
-
-Každá časť lifecycle-u znižuje iný typ neistoty:
-
-- **Plan — neistota o probléme a hodnote**: tím určuje, čo má zmena dosiahnuť, pre koho a podľa akého dôkazu sa vyhodnotí úspech.
-- **Code — neistota o realizovateľnosti**: návrh sa premieňa na verzovaný software, configuration, infrastructure a tests.
-- **Build — neistota o reprodukovateľnom výstupe**: source inputs sa transformujú na jednoznačne identifikovaný artifact.
-- **Test — neistota o správnosti a regresii**: automatizované a manuálne evidence preverujú contract a významné failure paths.
-- **Release — neistota o pripravenosti verzie**: organizácia rozhoduje, či konkrétny artifact spĺňa risk a compatibility požiadavky.
-- **Deploy — neistota o zmene prostredia**: artifact a configuration sa aplikujú v správnom poradí a s kontrolovaným failure behaviorom.
-- **Operate — neistota o dlhodobom runtime stave**: služba sa škáluje, patchuje, zálohuje, chráni a obnovuje.
-- **Monitor a learn — neistota o reálnom výsledku**: telemetry a feedback potvrdzujú alebo vyvracajú pôvodné predpoklady.
-
-## 3. Mentálny model troch tokov
-
-Klasický diagram zobrazuje smer zmeny k produkcii, ale lifecycle obsahuje tri súčasné toky. Ak jeden z nich chýba, systém môže dodávať rýchlo bez učenia alebo zbierať množstvo dát bez schopnosti reagovať.
+Základný model obsahuje tri súčasné toky:
 
 ```text
-Plan → Code → Build → Test → Release → Deploy → Operate → Monitor
-  ↑                                                        ↓
-  └────────────────────── feedback ────────────────────────┘
+flow of work
+change intent → source revision → artifact → release → runtime
+
+flow of feedback
+lokálna kontrola ← CI evidence ← rollout telemetry ← user outcome
+
+flow of learning
+incident alebo výsledok → zmena testu, návrhu, platformy alebo priority
 ```
 
-- **Flow of work — presun hodnoty smerom k používateľovi**: source, artifact, configuration a rozhodnutia postupujú cez jednotlivé control points do runtime-u.
-- **Flow of feedback — návrat evidence k tvorcom zmeny**: chyby kompilácie, tests, canary signals, incidents a user behavior ovplyvňujú ďalší krok.
-- **Flow of learning — úprava samotného systému práce**: opakované zistenia menia architecture, platform capabilities, policies, test strategy a ownership.
+Flow of work posúva zmenu k používateľovi. Flow of feedback vracia informáciu o technickom a používateľskom výsledku. Flow of learning mení samotný delivery systém, aby rovnaká chyba alebo čakanie nevznikali opakovane. Ak tretí tok chýba, organizácia síce zbiera incidenty a metriky, ale jej spôsob práce zostáva rovnaký.
 
-Feedback bez learningu vedie k opakovaným incidentom. Learning bez flowu zostáva v postmortem dokumentoch, ktoré nemenia delivery systém.
+## 2. Štyri identity jednej zmeny
 
-## 4. Plan
+Jedna zmena počas lifecycle-u mení formu. Aby zostala auditovateľná, musia sa zachovať väzby medzi štyrmi identitami.
 
-Plan definuje problém, požadovaný outcome, priority, constraints a spôsob merania úspechu. Nejde iba o vytvorenie ticketu; plán musí poskytnúť dostatočný contract pre design, testing, rollout a produkčnú validáciu.
+```text
+change intent
+    ↓ implementuje sa ako
+source revision
+    ↓ build transformuje na
+artifact identity
+    ↓ release a deployment sprístupnia ako
+runtime release identity
+```
 
-Dobrý plan vysvetlí používateľa alebo systém, ktorý zmenu potrebuje, a pomenuje najväčšie riziká a dependencies. Neznáme sa nemajú zakryť presným dátumom, ale premeniť na experiment, spike alebo menší inkrement.
+**Change intent** vysvetľuje, prečo zmena vznikla, aký outcome má dosiahnuť a podľa čoho sa bude hodnotiť. **Source revision** je konkrétny verzovaný stav kódu, konfigurácie, infraštruktúry a testov. **Artifact identity** označuje nemenný výstup buildu, napríklad image digest alebo package version. **Runtime release identity** spája artifact s použitou konfiguráciou, prostredím, cohortom a časom nasadenia.
 
-Plan typicky vytvára tieto prepojené výstupy:
+Pri incidente nestačí vedieť, že „beží verzia 2.4“. Tím musí vedieť dohľadať, ktorý change intent ju vytvoril, z ktorého revisionu vznikol artifact, aké evidence ho schválili a v akom runtime scope-e bol vystavený trafficu.
 
-- **Change intent — presný dôvod zmeny**: vysvetľuje problém a zabraňuje tomu, aby implementácia optimalizovala iba technickú úlohu bez business outcome-u.
-- **Acceptance criteria — pozorovateľný úspech**: určujú správanie, ktoré musí preukázať test alebo produkčný signal.
-- **Non-functional requirements — prevádzkové hranice**: definujú reliability, security, latency, data a recovery požiadavky, ktoré ovplyvnia architecture.
-- **Risk a rollout hypothesis — kontrola expozície**: pomenúva najnebezpečnejšie failure modes a spôsob, ako ich odhaliť pri malom blast radiuse.
+## 3. Priebežný scenár: nový parameter objednávkového API
 
-Slabé plánovanie vedie k efektívnej implementácii nesprávnej veci. Príliš detailný plan bez feedbacku zase vytvára drahé záväzky založené na neoverených predpokladoch.
+Objednávkové API má dostať nový voliteľný parameter `delivery_window`. Starší klienti ho neposielajú a nesmú prestať fungovať. Nový parameter zároveň ovplyvní downstream fulfillment service, databázový model a používateľské potvrdenie objednávky.
 
-## 5. Code
+Tento scenár bude sprevádzať celý lifecycle. Ukazuje, že zmena nie je iba riadok v API handleri:
 
-Vo fáze Code vzniká verzovaná zmena application kódu, infrastructure, configuration, tests alebo dokumentácie. Source control uchováva nielen výsledné bytes, ale aj históriu rozhodnutí, review a väzbu na požiadavku.
+```text
+produktový zámer
+→ backward-compatible contract
+→ source revision s kódom, migráciou, testmi a telemetry
+→ immutable image
+→ release candidate s evidence
+→ canary runtime
+→ produkčné rozhodnutie
+→ learning späť do backlogu a platformy
+```
 
-Zmena má zostať malá a zrozumiteľná. Veľký commit kombinuje viac príčin a sťažuje review, test selection, rollback aj incident diagnosis.
+## 4. Plan: zmena začína overiteľným zámerom
 
-Praktiky v tejto fáze majú konkrétnu úlohu:
+Plan znižuje neistotu o probléme, používateľovi a požadovanom výsledku. Slabý plan vytvorí iba ticket „pridať parameter“, takže implementácia môže byť technicky správna, ale bez definovanej compatibility, rollout stratégie alebo signálu úspechu.
 
-- **Krátko žijúca vetva alebo trunk-based integrácia** — obmedzuje divergence od spoločného source-u a skracuje čas od vzniku konfliktu po jeho odhalenie.
-- **Code review — kontrola change intentu a systémového dopadu**: reviewer overuje nielen syntax, ale aj assumptions, failure behavior, test coverage a operability.
-- **Lokálne testy a linting — najrýchlejší feedback**: odhaľujú lacné chyby pred spustením vzdialenej pipeline a šetria shared compute aj čas ostatných ľudí.
-- **Versioning configuration a infrastructure** — zachováva audit a reprodukovateľnosť všetkého, čo mení runtime, nie iba application source-u.
+Pre `delivery_window` musí plan určiť:
 
-## 6. Build
+- **Change intent — používateľ si môže zvoliť preferované časové okno**: táto veta vysvetľuje business dôvod, nie iba technickú úpravu API.
+- **Compatibility contract — parameter je voliteľný a staršie requesty zostávajú platné**: určuje správanie producerov, consumerov aj databázovej migrácie.
+- **Success signal — adoption, úspešné objednávky a fulfillment errors**: definuje, aké produkčné evidence rozhodnú o pokračovaní rollout-u.
+- **Failure hypothesis — nový field môže rozbiť starého consumera alebo zvýšiť latency**: pomenúva riziká, ktoré musia pokryť tests a telemetry.
+- **Exposure plan — najprv interní používatelia a malý percentuálny cohort**: obmedzuje blast radius pri chybe, ktorú pre-production prostredie neodhalilo.
 
-Build transformuje deklarované source inputs na spustiteľný alebo distribuovateľný artifact. Môže kompilovať kód, získavať dependencies, generovať súbory, vytvárať package alebo container image a pripájať metadata o pôvode.
+Výstupom planningu nie je úplný design každej funkcie. Je ním dostatočný contract, aby ďalšie kroky vedeli, čo majú vytvoriť a aký dôkaz potrebujú.
 
-Dôveryhodný build je reprodukovateľný a izolovaný od náhodného stavu developer laptopu. Rovnaký revision a rovnaké deklarované dependencies majú vytvoriť ekvivalentný výstup alebo aspoň jednoznačne vysvetliteľný rozdiel.
+## 5. Code: zámer sa mení na verzovaný change set
 
-Artifact types majú odlišný deployment contract:
+Code fáza vytvára source revision, ktorý obsahuje všetko potrebné na bezpečnú zmenu správania. V scenári nejde iba o application kód. Revision zahŕňa API schema, backward-compatible database migration, fulfillment mapping, testy, telemetry fields a deployment configuration.
 
-- **Binary alebo JAR — application runtime artifact**: obsahuje skompilovaný program, ktorý stále potrebuje kompatibilný OS, runtime a configuration.
-- **Container image — filesystem a process contract**: balí application dependencies a startup metadata, ale nie external state, secrets ani orchestrator policy.
-- **Helm chart — Kubernetes release template**: balí templates a defaults; výsledný runtime závisí od chart version, values a cluster capabilities.
-- **Terraform module package — reusable infrastructure definition**: poskytuje versioned interface, no skutočnú zmenu určuje provider version, variables, state a target APIs.
-- **Static web bundle — client artifact**: môže byť nemenný, ale CDN caching a backend compatibility ovplyvňujú reálny rollout.
+Malý change set skracuje review a znižuje počet súčasných hypotéz. Ak sa nový parameter spojí s nesúvisiacim refactoringom a upgrade-om frameworku, zlyhanie počas canary má viac možných príčin a rollback môže odstrániť aj zdravé zmeny.
 
-Build success nepreukazuje runtime correctness. Potvrdzuje iba to, že deklarovaný transformačný proces vytvoril artifact.
+Code review má preto sledovať celý contract:
 
-## 7. Artifact identity a provenance
+```text
+change intent
+→ implementation diff
+→ compatibility assumptions
+→ failure behavior
+→ test evidence plan
+→ operability a rollout readiness
+```
 
-Artifact musí mať stabilnú identitu, napríklad package version a content digest. Mutable tag typu `latest` nestačí na audit, pretože rovnaký názov môže neskôr ukazovať na iné bytes.
+Reviewer nekontroluje iba syntax. Overuje, či source revision naozaj reprezentuje pôvodný zámer a či obsahuje mechanizmy potrebné na jeho neskoršie overenie.
 
-Provenance prepája artifact so source revisionom, build workflowom a použitými vstupmi. Pri incidente umožňuje zistiť, čo presne bolo nasadené, a pri promotion zabraňuje zámene testovaného výstupu za neskorší rebuild.
+## 6. Build: source revision sa mení na artifact
 
-## 8. Test
+Build je deterministická transformačná hranica. Z konkrétneho revisionu a deklarovaných dependencies vytvorí artifact, ktorý možno jednoznačne identifikovať a neskôr promovať.
 
-Testovanie poskytuje evidence, že zmena spĺňa contract a že významné existujúce správanie zostalo zachované. Každý test pokrýva určitú boundary a môže zlyhať aj falošne uspieť, ak používa nereprezentatívne mocks, data alebo environment.
+```text
+source revision + locked dependencies + build definition
+                         ↓
+                immutable artifact
+                         ↓
+              digest + provenance
+```
 
-Test strategy kombinuje rýchlosť a realistickosť:
+Pre objednávkové API vznikne container image s digestom. Provenance zaznamená revision, build workflow, base image a ďalšie relevantné vstupy. Build môže súčasne vytvoriť SBOM alebo podpis, ale samotný úspech buildu ešte nehovorí, že API contract funguje.
 
-- **Unit test — izolovaná logika**: poskytuje rýchly feedback a presnú lokalizáciu chyby, ale nepreukazuje kompatibilitu s reálnou dependency.
-- **Integration test — spolupráca komponentov**: overuje protocol, schema, authentication a state transitions na konkrétnej boundary.
-- **Contract test — kompatibilita producer/consumer rozhrania**: odhaľuje breaking API alebo event zmenu bez potreby plného end-to-end prostredia.
-- **Security scanning — známe supply-chain a code risks**: identifikuje vulnerability alebo policy violation, ale potrebuje triage a runtime context.
-- **Infrastructure validation — syntax, plan a policy evidence**: ukazuje zamýšľanú zmenu resources, no nepreukazuje dostupnosť cloud capacity ani správne runtime správanie.
-- **Performance a resilience test — správanie pod záťažou alebo faultom**: skúma saturation a recovery, ale výsledok platí iba pre testovaný workload a environment.
-- **Smoke test — minimálna post-deployment funkčnosť**: rýchlo odhaľuje zásadný startup alebo routing failure, no nie kompletnú business correctness.
+Kritická hranica je **build once, promote the same artifact**. Staging a production majú používať rovnaké bytes. Ak sa image pre produkciu znovu zostaví, staging evidence sa vzťahuje na iný artifact a medzi buildmi sa môže zmeniť base image alebo transitívna dependency.
 
-Testy nezaručujú absenciu chýb. Znižujú neistotu a musia byť doplnené progressive delivery a produkčným feedbackom.
+## 7. Test: evidence musí zodpovedať pomenovanému riziku
 
-## 9. Release
+Testovanie znižuje neistotu o správnosti a compatibility, ale každý test vidí iba určitú boundary. Pre `delivery_window` nestačí unit test parsera. Hlavné riziká ležia medzi producerom, API, databázou a fulfillment consumerom.
 
-Release je rozhodnutie, že konkrétny artifact je pripravený na určené použitie. Môže zahŕňať version assignment, approval, signature, release notes, compatibility evidence a označenie artifactu ako promotable.
+Evidence chain môže vyzerať takto:
 
-Release je logický a governance stav, nie nutne runtime zmena. Artifact môže byť vydaný ako kandidát, ale deployment sa môže uskutočniť neskôr alebo iba pre vybraného zákazníka.
+- **Unit test — lokálna validačná logika**: overí povolený formát a default správanie bez externých dependencies.
+- **Contract test — starý a nový client contract**: dokáže, že request bez nového fieldu zostáva platný a response schema sa nezmenila nekompatibilne.
+- **Migration test — expand krok databázy**: overí, že nová schema vznikne bez požiadavky na okamžité nasadenie novej application verzie.
+- **Integration test — API a fulfillment boundary**: preverí serializáciu, event alebo downstream request so starým aj novým variantom.
+- **Failure test — neplatné okno a nedostupný fulfillment**: ukáže, či API vracia správnu chybu a či retry nevytvára duplicitnú objednávku.
+- **Security evidence — autorizácia a input handling**: overí, že nový field nemení access contract ani nevytvára injection boundary.
 
-Release contract má vysvetliť:
+Zelená pipeline znamená iba to, že definované kontroly prešli. Ak test suite neobsahuje hlavný compatibility risk, zelený výsledok je slabý dôkaz, nie dôkaz bezpečnej zmeny.
 
-- **čo bolo schválené** — presný digest, chart version alebo package identity;
-- **na základe akých dôkazov** — tests, scans, review, migration a risk evidence;
-- **pre aký scope** — environment, Region, tenant alebo feature cohort;
-- **s akými obmedzeniami** — known issues, compatibility a required configuration;
-- **kto môže rozhodnutie zmeniť** — release owner, rollback authority a exception process.
+## 8. Release: rozhodnutie nad konkrétnym artifactom
 
-## 10. Deploy
+Release je rozhodnutie, že konkrétny artifact môže postúpiť do určeného scope-u. Release nie je synonymom buildu ani deploymentu.
 
-Deployment mení runtime alebo infrastructure state tak, aby prostredie používalo požadovanú verziu. Operácia zahŕňa viac než kopírovanie artifactu: musí riešiť configuration, identities, migrations, ordering, health a failure recovery.
+Release record pre scenár musí spájať:
 
-Deployment je úspešný technicky vtedy, keď orchestration dokončí požadované kroky. Business úspech sa potvrdzuje až validáciou služby na používateľskom alebo SLO outcome-e.
+```text
+artifact digest
++ test a security evidence
++ known limitations
++ supported configuration schema
++ rollout policy
++ rollback alebo roll-forward authority
+```
 
-Bezpečný deployment vysvetľuje:
+Ak approval odkazuje iba na branch alebo mutable tag, jeho predmet sa môže zmeniť. Schválenie musí byť viazané na artifact identity a evidence, ktoré boli vytvorené pre tento artifact.
 
-- **ordering — poradie závislých zmien**: napríklad backward-compatible schema sa aplikuje pred code verziou, ktorá ju používa;
-- **availability — správanie počas výmeny replicas**: minimum healthy capacity a draining chránia existujúci traffic;
-- **configuration identity — presné runtime nastavenia**: deployment musí vedieť, ktoré values a secrets boli použité, nie iba artifact version;
-- **verification — dôkaz po každom kritickom kroku**: readiness, smoke a synthetic test odlišujú vytvorený resource od fungujúcej služby;
-- **rollback alebo roll-forward — cesta po failure**: strategy musí rešpektovať data compatibility a nesmie predpokladať, že všetko možno jednoducho vrátiť.
+Manuálny gate môže byť správny pri vysokom riziku, ale musí prinášať rozhodnutie, ktoré automation nevie vykonať. Ak človek iba znovu kontroluje, že zelené jobs sú zelené, gate pridáva wait time bez novej risk evidence.
 
-## 11. Rollout a exposure control
+## 9. Deploy: runtime state sa mení kontrolovanou operáciou
 
-Rollout určuje, ako sa nasadená verzia sprístupňuje trafficu alebo používateľom. Rolling update, canary, blue-green a feature flag kontrolujú odlišné vrstvy a nemožno ich považovať za zameniteľné názvy.
+Deployment aplikuje artifact a konfiguráciu do cieľového prostredia. V objednávkovom scenári musí rešpektovať poradie kompatibilných zmien:
 
-Canary rollout znižuje blast radius iba vtedy, keď malý cohort reprezentuje hlavný workload a telemetry rozlišuje canary od baseline. Bez abort conditions a automatického alebo jasného manuálneho rozhodnutia je postupné nasadenie iba pomalší deployment.
+```text
+1. expand databázovú schema
+2. nasadiť code, ktorý vie starý aj nový model
+3. zapnúť telemetry a interný feature scope
+4. až neskôr začať používať nový field vo väčšom rozsahu
+```
 
-## 12. Operate
+Toto poradie znižuje riziko, že stará application verzia narazí na nekompatibilnú schema alebo nový consumer začne produkovať dáta, ktoré starý backend nevie spracovať.
 
-Operate zahŕňa každodennú správu služby po release-i. Tím udržiava availability, capacity, security, data protection, dependency compatibility a schopnosť obnovy počas celého života systému.
+Deployment job má overiť, že resources vznikli, Pods alebo procesy sú ready a minimálny smoke flow funguje. Nemôže však potvrdiť používateľský outcome ani compatibility všetkých clients; na to slúži rollout a produkčný feedback.
 
-Operations capabilities riešia odlišné failure classes:
+## 10. Rollout: deployment a exposure nie sú to isté
 
-- **Capacity management — dostatok resources pre demand a failover**: sleduje saturation, quotas, growth a provisioning latency.
-- **Patching a dependency lifecycle — kontrola zastarávania a vulnerabilities**: plánuje upgrade, compatibility test a rollback skôr než skončí support window.
-- **Certificate a secret lifecycle — zachovanie identity a trustu**: rotation musí prebehnúť pred expiráciou a bez prerušenia komunikácie.
-- **Backup a restore — ochrana authoritative state-u**: backup success sa dopĺňa pravidelnou obnovou a application validation.
-- **Incident response — obmedzenie dopadu a obnova služby**: on-call potrebuje telemetry, authority, runbook a bezpečné remediation mechanizmy.
-- **Cost a resource hygiene — udržateľnosť služby**: nepoužívané resources, nebounded telemetry a zlá elasticity môžu meniť ekonomický contract produktu.
+Rollout riadi, koľko reálneho trafficu alebo používateľov nová runtime release obsluhuje. Canary znižuje blast radius iba vtedy, keď je cohort reprezentatívny a telemetry rozlišuje baseline a canary.
 
-Prevádzka nie je fáza po dokončení vývoja. Každý incident, upgrade alebo capacity problém vytvára ďalšiu software a platform prácu.
+Pre `delivery_window` môže exposure postupovať takto:
 
-## 13. Monitor, observe a validate
+```text
+interní používatelia
+→ 1 % nových objednávok
+→ 10 %
+→ 50 %
+→ plné sprístupnenie
+```
 
-Monitoring sleduje vopred definované signály a conditions. Observability poskytuje širšie telemetry a context potrebný na skúmanie neznámych failure modes a prechod od symptómu ku konkrétnej request alebo dependency path.
+Každý krok potrebuje abort conditions, napríklad rast fulfillment errors, zhoršenie p95 latency alebo duplicitné objednávky. Bez thresholdov je canary iba pomalší deployment a rozhodnutie sa zmení na subjektívne sledovanie dashboardu.
 
-Produkčná validácia musí kombinovať technické aj business signály:
+Feature flag môže oddeliť code deployment od business exposure. Neodstraňuje však potrebu kompatibility, cleanup plánu a vlastníka, ktorý flag po ukončení experimentu odstráni.
 
-- **Latency — čas na relevantnej user boundary**: ukazuje výkon, ale musí oddeľovať úspešné, neúspešné a queued operations.
-- **Traffic — množstvo demandu**: poskytuje denominator a odlišuje reálny pokles používania od telemetry failure-u.
-- **Errors — porušenie contractu**: zahŕňa timeout, invalid result alebo nedokončený async workflow, nie iba HTTP 5xx.
-- **Saturation — čakanie a blízkosť limitu**: odhaľuje capacity risk skôr, než vznikne rozsiahly user impact.
-- **Availability a SLO — podiel úspešných valid operations**: spája technický signal s reliability cieľom.
-- **Business outcome — skutočná hodnota zmeny**: napríklad dokončené objednávky alebo spracované dokumenty potvrdzujú, že technicky zdravá služba robí správnu vec.
+## 11. Operate: zmena vstupuje do dlhodobého runtime contractu
 
-Telemetry uzatvára feedback loop iba vtedy, keď má ownera, decision threshold a cestu späť do backlogu alebo rollout controlu.
+Po rollout-e sa zmena stáva súčasťou služby. Operations rieši capacity, dependencies, certificate a secret lifecycle, backup, incident response, cost aj postupné zastarávanie.
 
-## 14. Fázy nie sú organizačné silá
+Nový field môže zvýšiť počet fulfillment calculations alebo vytvoriť nerovnomerný workload počas obľúbených časových okien. To je prevádzkový dôsledok pôvodne produktovej funkcie. Service team preto potrebuje sledovať queue depth, processing latency, rejection rate a downstream capacity, nie iba HTTP availability API.
 
-Diagram lifecycle-u nehovorí, že každú fázu musí vlastniť iné oddelenie. Špecialisti môžu vykonávať rôznu prácu, ale value stream potrebuje spoločný outcome, spoločné metriky a jasné interfaces.
+Ownership sa deploymentom nekončí. Tím, ktorý zmenu navrhol, musí zostať zapojený do runtime výsledku a mať prístup k telemetry, runbooku a recovery mechanizmom.
+
+## 12. Monitor a validate: technický health nie je user outcome
+
+Produkčná validácia má odpovedať na dve odlišné otázky:
+
+1. **Je runtime technicky zdravý?** Sleduje errors, latency, saturation, availability a dependency failures.
+2. **Prináša zmena očakávaný výsledok?** Sleduje adoption, dokončené objednávky, zrušenia, nesplnené okná a používateľský feedback.
+
+```text
+healthy Pods + nízky HTTP error rate
+≠
+úspešné doručenie v zvolenom časovom okne
+```
+
+Release metadata musí byť prítomná v logs, metrics a traces, aby bolo možné porovnať novú runtime release s baseline. Bez tejto väzby tím vidí celkovú zmenu metriky, ale nevie ju priradiť konkrétnemu artifactu alebo cohortu.
+
+## 13. Feedback sa musí vrátiť k správnemu rozhodnutiu
+
+Feedback loop má hodnotu iba vtedy, keď jeho výsledok môže zmeniť ďalší krok. Jednotlivé observation points poskytujú odlišnú informáciu:
+
+- lokálny linter vracia chybu autorovi ešte pred commitom;
+- CI contract test zastaví promotion konkrétneho revisionu;
+- canary telemetry zastaví alebo obmedzí exposure konkrétneho release-u;
+- incident ukáže slabinu runtime a recovery modelu;
+- user outcome môže vyvrátiť samotný product predpoklad.
+
+Ak adoption nového fieldu rastie, ale úspešnosť doručenia sa nezlepšuje, ďalším krokom nemusí byť technická optimalizácia. Learning môže zmeniť product model alebo viesť k odstráneniu capability.
+
+## 14. Learning mení systém, nie iba jeden ticket
+
+Predstav si, že canary odhalí duplicitné objednávky po timeout-e fulfillment service. Okamžitá oprava môže pridať idempotency key. Skutočný learning však musí preskúmať aj širší systém:
+
+```text
+incident evidence
+→ nový regression test
+→ API retry contract
+→ shared platform guidance pre idempotentné operácie
+→ aktualizovaný review checklist
+→ telemetry pre duplicate detection
+```
+
+Takto sa lokálny incident premieňa na opakovateľnú capability. Ak sa uzavrie iba hotfix ticket, rovnaký failure pattern môže vzniknúť v ďalšej službe.
+
+## 15. Gates a feedback loops plnia odlišnú úlohu
+
+Gate je decision point, ktorý na základe evidence povolí, obmedzí alebo zastaví postup zmeny. Feedback loop je cesta, ktorou sa evidence vráti k actorovi alebo automation schopnej upraviť ďalšie rozhodnutie.
+
+```text
+contract test zlyhá
+→ gate nepovolí release
+→ report ukáže konkrétnu nekompatibilnú schema
+→ autor upraví source alebo contract
+→ nový revision vytvorí nové evidence
+```
+
+Gate bez vysvetliteľného feedbacku iba blokuje. Feedback bez decision boundary môže zostať nepoužitý. Zdravý lifecycle potrebuje oboje.
+
+## 16. Lead time vzniká najmä medzi aktívnymi krokmi
+
+End-to-end lead time nie je súčet duration pipeline jobs. Zahŕňa active processing, waiting, rework a opakované cykly.
+
+```text
+lead time = active work + waiting + rework
+```
+
+Objednávková zmena môže mať osemminútový build, ale čakať dva dni na review, týždeň na test environment a ďalšie tri dni na release window. Zrýchlenie buildu o dve minúty vtedy nemení hlavný systémový výsledok.
+
+Pri audite treba merať, kde change intent, revision, artifact alebo approval čakajú bez progresu. Každá fronta má ownera, kapacitu a policy; bez ich pomenovania zostane „pomalý delivery“ neurčitým symptómom.
+
+## 17. Fázy nie sú organizačné silá ani povinné pipeline stages
+
+Plan, Code, Build, Test, Release, Deploy, Operate a Monitor sú responsibilities a evidence boundaries. Nemusia ich vlastniť samostatné oddelenia a nemusia byť implementované ako osem sekvenčných jobs.
+
+Tests, threat modeling, observability a deployment design vznikajú súbežne s kódom. Cross-functional ownership neznamená, že každý človek ovláda každú technológiu. Znamená, že hranica špecializácie nie je hranicou zodpovednosti za service outcome.
 
 Chybný handoff model vyzerá takto:
 
 ```text
-Product naplánuje
-→ Development napíše
-→ QA schváli
-→ DevOps nasadí
-→ Operations nesie incident
+Product vytvorí ticket
+→ Development odovzdá kód
+→ QA odovzdá approval
+→ DevOps odovzdá deployment
+→ Operations zdedí incident
 ```
 
-V tomto modeli sa feedback vracia cez tickety a každý tím optimalizuje svoju frontu. Cross-functional ownership neznamená, že každý ovláda všetko; znamená, že product a service tím zostáva zapojený do production výsledku a platform alebo security tím poskytuje self-service capabilities a expertízu.
+V takomto modeli sa feedback vracia pomaly cez tickety a každý tím optimalizuje vlastnú frontu.
 
-## 15. Lifecycle nie je waterfall
+## 18. Diagnostika lifecycle-u cez stratenú identitu alebo dôkaz
 
-Lineárny diagram je orientačný model dependency, nie povinné časové poradie všetkej práce. Tests, observability, security a deployment strategy sa navrhujú súbežne s application zmenou.
+Pri probléme nehľadaj automaticky najpomalší job. Najprv zisti, kde sa prerušila väzba medzi change intentom, revisionom, artifactom, runtime release-om a feedbackom.
 
-Prekrytie aktivít skracuje spätnú väzbu:
+### Pipeline je zelená, ale produkcia zlyháva
 
-- **Threat modeling počas planningu** — mení design predtým, než vznikne zraniteľná implementation.
-- **Test design spolu s contractom** — odhaľuje neoveriteľnú alebo nejasnú požiadavku ešte pred code review.
-- **Observability spolu s feature** — zabezpečí, že rollout bude mať signal potrebný na rozhodnutie.
-- **Deployment rehearsal pred release-om** — overí migrations, permissions a rollback skôr než production window.
-- **Production experiment ako discovery input** — reálny feedback môže zmeniť ďalší product plán namiesto iba potvrdenia technickej stability.
+Over, či test evidence pokrýva failure class z incidentu, či bol do produkcie promovaný rovnaký artifact a či deployment validation merala iba resource health namiesto user flowu.
 
-## 16. Gates a feedback loops
+### Nie je jasné, čo je nasadené
 
-Gate je decision point, ktorý na základe evidence povolí, zastaví alebo obmedzí pokračovanie zmeny. Feedback loop prenesie informáciu späť k miestu, kde možno príčinu opraviť alebo zmeniť predpoklad.
+Skontroluj mutable tags, environment-specific rebuild, chýbajúcu configuration identity a absenciu release metadata v runtime telemetry.
 
-```text
-failed integration test
-→ gate zastaví promotion
-→ report ukáže nekompatibilný contract
-→ developer opraví source alebo test expectation
-→ nový revision prejde lifecycle-om
-```
+### Canary nevie rozhodnúť
 
-Gate bez kvalitného feedbacku iba blokuje. Ak výsledkom je neurčité „policy failed“ bez pravidla, resource-u a remediation, ľudia hľadajú obchádzku namiesto opravy.
+Hľadaj chýbajúcu baseline, nerozlíšený cohort, malý sample, nevhodné thresholdy alebo business signal, ktorý nebol instrumentovaný spolu s feature.
 
-## 17. Lead time, processing time a wait time
+### Rollback nefunguje
 
-Lead time meria end-to-end čas zmeny od definovaného začiatku po požadovaný výsledok. Skladá sa z active processingu, čakania, reworku a opakovaných cyklov.
+Over database a event compatibility, migration direction, configuration schema a external side effects. Návrat starého image nemusí obnoviť predchádzajúci data state.
 
-```text
-lead time = processing time + wait time + rework time
-```
+### Lead time je dlhý, hoci pipeline je rýchla
 
-V mnohých organizáciách je samotné písanie kódu menšia časť celku. Najväčšie fronty vznikajú pri review, environment provisioning, manuálnych approvals, coordinated testovaní a release windows.
+Rozdeľ waiting na review, environment, approval, release window a coordinated dependency. Optimalizácia compute nepomôže, ak bottleneck leží v organizačnom interface.
 
-Typické waits treba vysvetľovať mechanizmom:
+### Incidenty sa opakujú
 
-- **Čakanie na review — nedostatok reviewer capacity alebo príliš veľký change**: ďalšie paralelné rozpracovanie zvýši WIP a problém ešte zhorší.
-- **Čakanie na environment — ticketový provisioning alebo zdieľané nestabilné prostredie**: self-service ephemeral environment môže odstrániť frontu, ale potrebuje cost a data guardrails.
-- **Manuálne schválenie — governance bez automatizovaného evidence**: approval môže byť opodstatnený pri vysokom risku, ale nemá opakovať kontroly, ktoré už systém vykonal.
-- **Front na testovanie — neskorá alebo centralizovaná quality ownership**: testability a automation sa musia presunúť do tímu a skorších fáz.
-- **Deployment okno — strach z failure alebo shared dependency**: menšie batch sizes, progressive delivery a compatibility môžu znížiť potrebu koordinovanej udalosti.
+Over, či post-incident actions vytvorili regression test, guardrail, platform capability alebo architecture zmenu. Dokument bez ownera a termínu nie je uzavretý learning loop.
 
-## 18. Shift-left a shift-right
+## 19. Praktický audit jednej zmeny
 
-Shift-left presúva určité kontroly bližšie k vzniku zmeny, aby chyba vznikla aj bola odhalená v kratšom intervale. Neznamená, že vývojár sám preberá všetky security a operations povinnosti; platforma a expertíza majú poskytnúť použiteľné skoré mechanizmy.
+Vyber jednu nedávnu production zmenu a rekonštruuj ju bez preskakovania vrstiev:
 
-Shift-right pokračuje vo validácii v runtime, pretože production traffic, scale a dependencies nemožno úplne simulovať. Obe stratégie sa dopĺňajú.
+1. Aký bol change intent a success metric?
+2. Ktorý source revision ho implementoval?
+3. Ktorý artifact digest z revisionu vznikol?
+4. Aké evidence boli viazané na tento artifact?
+5. Kto a na základe čoho vytvoril release decision?
+6. Aká configuration a secrets identity bola použitá pri deploymente?
+7. Ktorý runtime scope dostal novú verziu ako prvý?
+8. Aké abort conditions riadili rollout?
+9. Ktoré technické a business signály potvrdili výsledok?
+10. Čo sa na základe výsledku zmenilo v backlogu, testoch alebo platforme?
 
-- **Threat modeling pri design-e — skorá kontrola trust boundaries**: môže zmeniť architecture ešte pred implementáciou.
-- **Linting a unit tests pred commitom — okamžitý code feedback**: zachytia lacné chyby bez čakania na shared pipeline.
-- **Policy checks v CI — opakovateľné governance evidence**: blokujú známy nepovolený configuration pred deploymentom.
-- **Canary analysis po nasadení — runtime porovnanie verzií**: odhalí regresiu na reálnom trafficu pri malom blast radiuse.
-- **Real user monitoring — user-experience evidence**: zachytí geografické, browser alebo network podmienky, ktoré synthetic test nemusí pokryť.
-- **Chaos alebo fault experiments — overenie recovery assumptions**: testujú správanie pri zlyhaní, ale potrebujú hypotézu a kontrolovaný scope.
+Ak niektorú väzbu nemožno dohľadať, lifecycle má traceability alebo ownership medzeru aj vtedy, keď deployment technicky prebehol.
 
-## 19. Automation lifecycle-u
+## 20. Časté omyly
 
-Automation má znižovať variabilitu a feedback latency, nie zakrývať nejasné rozhodnutie. Pred automatizáciou sa definuje source of truth, input contract, success, failure, retry a rollback behavior.
+### DevOps lifecycle je názov CI/CD pipeline
 
-Vyspelá automation poskytuje:
+Pipeline automatizuje časť transformačného a deployment toku. Lifecycle zahŕňa aj change intent, production operation, user outcome a učenie, ktoré môže zmeniť pôvodný plán.
 
-- **konzistentné vykonanie — rovnaký proces pre rovnaké vstupy**;
-- **auditovateľnosť — väzbu medzi actorom, revisionom, artifactom a zmenou runtime-u**;
-- **rýchly feedback — presný error a remediation pri najbližšom relevantnom kroku**;
-- **bezpečné opakovanie — idempotency alebo explicitnú compensation po partial failure**;
-- **kontrolu blast radiusu — environment, tenant alebo percentage scope a abort condition**.
+### Monitorovanie je posledný krok
 
-Ak proces obsahuje zbytočný handoff alebo neurčitý approval, automatizácia jeho formulára nevyrieši príčinu čakania.
+Telemetry uzatvára slučku iba vtedy, keď ovplyvní rollout, backlog, testy alebo architecture. Dashboard bez decision contractu je pasívny report.
 
-## 20. Build once, promote the same artifact
+### Zelený deployment znamená úspešnú zmenu
 
-Princíp znamená, že build vytvorí artifact raz a ten istý digest sa presúva cez test, staging a production. Environment-specific hodnoty sa dodávajú cez configuration a secret contract, nie novou kompiláciou.
+Deployment potvrdzuje vykonanie runtime mutation. Úspech zmeny vyžaduje production validation a používateľský outcome.
 
-Tým sa zachováva platnosť test evidence: bytes overené v stagingu sú bytes nasadené do produkcie. Rebuild pre každé prostredie môže načítať inú dependency, base image alebo timestamp-generated obsah a vytvoriť nepozorovanú odchýlku.
+### Viac gates automaticky zvyšuje bezpečnosť
 
-## 21. End-to-end príklad
+Gate znižuje risk iba vtedy, keď používa relevantné evidence a poskytuje rýchly, vysvetliteľný feedback. Redundantné approvals predlžujú lead time bez nového dôkazu.
 
-API má dostať nový voliteľný parameter bez porušenia starších clients. Plan preto definuje backward compatibility a signal, ktorý ukáže adoption a errors.
+### Rollback je vždy návrat predchádzajúceho image
 
-```text
-Plan
-  contract, compatibility a success metric
-→ Code
-  API, documentation, telemetry a tests
-→ Build
-  immutable image s digestom
-→ Test
-  unit, contract, integration, security a migration evidence
-→ Release
-  schválený digest a rollout policy
-→ Deploy
-  canary instance s rovnakou configuration schema
-→ Operate
-  capacity, logs, dependency a rollback readiness
-→ Monitor
-  error ratio, p95 latency, parameter adoption a old-client success
-→ Learn
-  pokračovať, zastaviť, upraviť contract alebo odstrániť feature
-```
+Data migrations, external side effects a protocol changes môžu byť nevratné. Lifecycle musí navrhovať backward compatibility, compensation alebo roll-forward skôr než vznikne incident.
 
-Každá fáza znižuje inú neistotu a vytvára evidence pre ďalšie rozhodnutie. Ak contract test chýba, canary môže ukázať failures až po vystavení reálnych clients; ak telemetry nerozlišuje novú operáciu, rollout nemá spoľahlivý decision signal.
+## 21. Kontrolné otázky
 
-## 22. Produkčný lifecycle contract
+1. Čím sa DevOps lifecycle líši od všeobecného SDLC?
+2. Aké štyri identity spájajú change intent so stavom v produkcii?
+3. Ako sa líšia flow of work, flow of feedback a flow of learning?
+4. Prečo build success nepreukazuje runtime correctness?
+5. Prečo sa má rovnaký artifact promovať bez rebuildu?
+6. Aký je rozdiel medzi release, deploymentom a rolloutom?
+7. Ktoré evidence by si požadoval pre backward-compatible API zmenu?
+8. Prečo canary potrebuje baseline, cohort identity a abort conditions?
+9. Ako sa technický health líši od business outcome-u?
+10. Prečo gate bez remediation feedbacku podporuje obchádzanie procesu?
+11. Kde typicky vzniká väčšina lead time-u?
+12. Prečo návrat starého artifactu nemusí byť funkčný rollback?
+13. Ako sa incident zmení na organizačné learning namiesto jedného hotfixu?
+14. Ako by si dohľadal konkrétnu production verziu až k pôvodnému change intentu?
 
-Vyspelý lifecycle má konzistentné interfaces medzi source, artifact, release a runtime. Nejde o povinný zoznam produktov, ale o capabilities, ktoré musia spolupracovať.
+## 22. Zhrnutie
 
-- **Versioning pravidlá — jednoznačná identita source-u a release-u**: umožňujú audit, dependency compatibility a presný rollback target.
-- **Immutable artifacts — stabilný obsah počas promotion**: zabraňujú zámene testovaných a nasadených bytes.
-- **Environment promotion bez rebuildu — zachovanie test evidence**: oddelí application artifact od environment configuration.
-- **Automatizované quality gates — opakovateľné rozhodnutia podľa risku**: znižujú manuálne čakanie, ale musia poskytovať vysvetliteľný failure.
-- **Spravované secrets — krátkodobé a scope-nuté runtime credentials**: zabraňujú tomu, aby environment values boli zabudované v artifacte alebo logoch.
-- **Audit trail — trace source-to-runtime**: spája commit, build, approval, deployment actor a production version.
-- **Progressive delivery — obmedzený exposure a meranie**: umožňuje zastaviť chybnú zmenu pred plným blast radiusom.
-- **Observability naviazaná na release — porovnateľný runtime evidence**: version a deployment metadata umožňujú odlíšiť regresiu od všeobecného incidentu.
-- **Rollback a incident postupy — pripravená recovery cesta**: tím pozná authority, data compatibility a validation po návrate alebo roll-forwarde.
+DevOps lifecycle opisuje pohyb konkrétnej zmeny cez delivery systém. Change intent sa mení na source revision, revision na immutable artifact a artifact spolu s configuration na identifikovateľnú runtime release. Flow of feedback vracia technické a používateľské evidence a flow of learning mení testy, platformu, architecture alebo priority.
 
-## 23. Anti-patterny
-
-### Lineárny handoff model
-
-Každá fáza patrí inému tímu a zmena sa odovzdáva cez frontu bez spoločného ownershipu. Context sa stráca a chyba sa vracia cez rovnaký pomalý reťazec.
-
-### Deployment ako koniec procesu
-
-Pipeline označí job ako úspešný a backlog položka sa uzavrie bez production validation. Tím potom nevie, či sa feature používa, či zhoršila reliability alebo či vôbec rieši pôvodný problém.
-
-### Monitoring bez spätnej väzby
-
-Dashboardy a alerts existujú, ale zistenia nemenia tests, backlog ani architecture. Telemetry sa stáva nákladným archívom namiesto riadiaceho vstupu.
-
-### Veľké batch releases
-
-Mnoho nezávislých zmien sa kombinuje do jednej udalosti. Blast radius, coordination a počet možných príčin rastú a rollback môže odstrániť aj zdravé capabilities.
-
-### Environment-specific rebuild
-
-Každé prostredie dostane iné bytes, takže staging evidence sa nevzťahuje na production artifact. Rozdiel môže vzniknúť aj bez source zmeny cez mutable dependency alebo base image.
-
-## 24. Troubleshooting lifecycle-u
-
-Pri audite nehodnoť iba trvanie pipeline. Zmeraj cestu change requestu, source revisionu, artifactu, approvalu, deploymentu a produkčného feedbacku.
-
-Typické symptómy treba mapovať na konkrétny flow problem:
-
-- **Veľa práce je „takmer hotovej“ — vysoký WIP a handoff queues**: obmedz nové začiatky a dokonči review, test alebo deployment bottleneck.
-- **Pipeline je zelená, incidenty rastú — gates nekorelujú s production riskom**: porovnaj test coverage, failure classes a release verification s reálnymi incidentmi.
-- **Release čaká na jeden tím — centralizovaný decision alebo environment interface**: zaveď self-service, delegated ownership alebo risk-based automation namiesto presunu ďalších ticketov.
-- **Canary nevie rozhodnúť — chýba baseline, version metadata alebo business signal**: instrumentation musí byť súčasťou feature a rollout plánu.
-- **Rollback zlyháva — data alebo configuration nie sú backward-compatible**: lifecycle musí uprednostniť expand/contract, roll-forward a testovanú recovery cestu.
-
-## 25. Praktické pozorovanie existujúceho procesu
-
-Value-stream audit má vytvoriť merateľný model, nie iba pekný diagram. Pri každom kroku zaznamenaj ownera, vstup, výstup, active time, wait time, failure rate a feedback destination.
-
-Otázky vedú k odhaleniu konkrétnej medzery:
-
-1. Kde zmena vzniká a kedy sa začína merať lead time?
-2. V ktorých frontoch čaká a kto riadi ich kapacitu?
-3. Ktoré manuálne kroky pridávajú rozhodnutie a ktoré iba prepisujú údaje?
-4. Ktoré kontroly odhaľujú chybu až po veľkom množstve ďalšej práce?
-5. Kde vzniká artifact a či sa jeho obsah medzi prostrediami mení?
-6. Aký dôkaz potvrdzuje deployment a aký potvrdzuje user outcome?
-7. Kam sa produkčné zistenia zapisujú a kto vlastní následnú zmenu?
-8. Kto rozhoduje o službe po nasadení a počas incidentu?
-
-## 26. Časté omyly
-
-### Lifecycle je názov CI pipeline
-
-Pipeline automatizuje časť build, test a deployment toku. Lifecycle zahŕňa aj discovery, ownership, production operation, incidenty, user feedback a zmenu samotného systému práce.
-
-### Monitor je posledný krok
-
-Monitorovanie vytvára vstup do ďalšieho rozhodnutia. Ak telemetry nemení rollout, backlog alebo architecture, regulačná slučka zostala otvorená.
-
-### Každá fáza musí byť pipeline stage
-
-Fázy sú konceptuálne responsibilities a evidence boundaries. Konkrétna pipeline môže niektoré kroky kombinovať alebo vykonávať paralelne podľa architecture a risku.
-
-### Čím viac gates, tým bezpečnejší proces
-
-Gate znižuje risk iba vtedy, keď používa relevantné evidence a poskytuje rýchly feedback. Redundantné alebo nepresné gates predlžujú lead time a motivujú ľudí hľadať obchádzky.
-
-## 27. Kontrolné otázky
-
-1. Prečo DevOps lifecycle nekončí deploymentom?
-2. Aké tri toky predstavujú work, feedback a learning?
-3. Aký je rozdiel medzi buildom, release-om, deploymentom a rolloutom?
-4. Prečo rovnaký artifact treba promovať medzi prostrediami bez rebuildu?
-5. Ktorý typ neistoty znižuje každá hlavná fáza lifecycle-u?
-6. Ako sa líši gate od feedback loopu?
-7. Prečo fázy nemajú byť mapované na izolované tímy?
-8. Ktoré časti lead time-u typicky vznikajú čakaním?
-9. Ako sa shift-left a shift-right dopĺňajú pri tej istej zmene?
-10. Aké evidence potrebuje canary rollout na dôveryhodné rozhodnutie?
-11. Prečo zelená pipeline nemusí znamenať zdravý delivery lifecycle?
-12. Ako by si auditoval existujúci value stream bez optimalizácie nesprávneho kroku?
-
-## 28. Zhrnutie
-
-DevOps lifecycle pokrýva celý tok od potreby po produkčné učenie. Plan, Code, Build, Test, Release, Deploy, Operate a Monitor sú responsibilities a evidence boundaries, nie povinné organizačné silá alebo názvy pipeline stages.
-
-Zmena smeruje k používateľovi, feedback sa vracia k tvorcom a learning mení celý systém. Zdravý lifecycle zmenšuje batch sizes, podporuje promotion rovnakého artifactu, kontroluje exposure a meria end-to-end lead time aj production outcome.
+Zdravý lifecycle preto nekončí zelenou pipeline ani deploymentom. Zachováva traceability, promuje rovnaký artifact, kontroluje exposure, odlišuje technický health od user outcome-u a premieňa produkčné zistenia na trvalú zmenu systému.
 
 ## Glossary impact
 
-Relevantné pojmy: DevOps lifecycle, flow of work, flow of feedback, flow of learning, change intent, artifact identity, provenance, release, deployment, rollout, gate, feedback loop, lead time, processing time, wait time, shift-left, shift-right a artifact promotion.
+Relevantné pojmy: DevOps lifecycle, flow of work, flow of feedback, flow of learning, change intent, source revision, artifact identity, provenance, runtime release identity, release, deployment, rollout, evidence chain, gate, feedback loop, lead time, wait time, progressive delivery a artifact promotion.
 
 ## Primárne zdroje
 
