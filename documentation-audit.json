@@ -73,15 +73,15 @@
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
       "title": "DevOps Anti-patterns",
-      "words": 1614,
-      "headings": 27,
-      "sections": 27,
-      "findings": 22,
-      "critical": 3,
-      "high": 3,
-      "medium": 0,
+      "words": 2481,
+      "headings": 22,
+      "sections": 22,
+      "findings": 31,
+      "critical": 6,
+      "high": 5,
+      "medium": 4,
       "low": 16,
-      "score": 82,
+      "score": 144,
       "grade": "D"
     },
     {
@@ -5575,15 +5575,6 @@
       "path": "docs/00-foundations/devops-anti-patterns.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -5595,7 +5586,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
@@ -5611,10 +5602,19 @@
       "path": "docs/00-foundations/devops-anti-patterns.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
@@ -5627,8 +5627,17 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "1. Čo je anti-pattern",
-      "line": 11,
+      "section": "7. Fáza 5: DevSecOps ako neskorá bezpečnostná brána",
+      "line": 112,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threat modeling a data classification vstupujú pri návrhu;`, `bezpečné defaults a policy-as-code kontrolujú opakovateľné pravidlá;`, `expert review zostáva pre nejasné alebo vysokorizikové rozhodnutie.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "7. Fáza 5: DevSecOps ako neskorá bezpečnostná brána",
+      "line": 112,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -5636,8 +5645,8 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "3. Tool-first transformation",
-      "line": 28,
+      "section": "7. Fáza 5: DevSecOps ako neskorá bezpečnostná brána",
+      "line": 112,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -5645,26 +5654,8 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. DevOps ako premenovaný Ops tím",
-      "line": 36,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. DevOps ako premenovaný Ops tím",
-      "line": 36,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "4. DevOps ako premenovaný Ops tím",
-      "line": 36,
+      "section": "9. Fáza 7: automate everything a copy-paste reuse",
+      "line": 146,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -5672,17 +5663,8 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "5. You build it, you run it bez podpory",
-      "line": 44,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "5. You build it, you run it bez podpory",
-      "line": 44,
+      "section": "10. Fáza 8: you build it, you run it bez podpory",
+      "line": 164,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -5690,8 +5672,17 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "6. Ticket-driven operations",
-      "line": 50,
+      "section": "12. Fáza 10: no-blame bez accountability",
+      "line": 200,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "12. Fáza 10: no-blame bez accountability",
+      "line": 200,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -5699,8 +5690,17 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "9. Hero culture",
-      "line": 68,
+      "section": "12. Fáza 10: no-blame bez accountability",
+      "line": 200,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "13. Fáza 11: vanity metrics a DORA leaderboard",
+      "line": 212,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -5708,8 +5708,8 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "10. Shared responsibility bez accountability",
-      "line": 76,
+      "section": "16. Audit anti-patternu cez jeden symptóm",
+      "line": 259,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -5717,8 +5717,26 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "10. Shared responsibility bez accountability",
-      "line": 76,
+      "section": "17. Korekčný model",
+      "line": 297,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "17. Korekčný model",
+      "line": 297,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "17. Korekčný model",
+      "line": 297,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -5726,8 +5744,44 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "11. DevSecOps ako finálna security gate",
-      "line": 82,
+      "section": "17. Korekčný model",
+      "line": 297,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "17. Korekčný model",
+      "line": 297,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `failure semantics`, `reliability`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "18. Kedy podobný pattern nemusí byť chybou",
+      "line": 310,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "18. Kedy podobný pattern nemusí byť chybou",
+      "line": 310,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "18. Kedy podobný pattern nemusí byť chybou",
+      "line": 310,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -5735,8 +5789,44 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "12. One-size-fits-all platform",
-      "line": 88,
+      "section": "18. Kedy podobný pattern nemusí byť chybou",
+      "line": 310,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "18. Kedy podobný pattern nemusí byť chybou",
+      "line": 310,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NOC`, `SLO`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "19. Troubleshooting transformačného programu",
+      "line": 322,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "19. Troubleshooting transformačného programu",
+      "line": 322,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/00-foundations/devops-anti-patterns.md",
+      "section": "19. Troubleshooting transformačného programu",
+      "line": 322,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -5744,30 +5834,21 @@
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "14. Environment snowflakes",
-      "line": 100,
+      "section": "19. Troubleshooting transformačného programu",
+      "line": 322,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "19. No-blame ako no-accountability",
-      "line": 130,
+      "section": "21. Zhrnutie",
+      "line": 352,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/00-foundations/devops-anti-patterns.md",
-      "section": "24. Troubleshooting organizačnej zmeny",
-      "line": 160,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/00-foundations/devops-lifecycle.md",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12100**
-- Total words: **602,619**
-- Findings: **28544** (critical 9278, high 10196, medium 4044, low 5026)
+- Audited conceptual sections: **12095**
+- Total words: **603,486**
+- Findings: **28553** (critical 9281, high 10198, medium 4048, low 5026)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -265,6 +265,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 153 | 5 | 6 | 5 | 19 | 2652 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 145 | 6 | 6 | 3 | 15 | 2392 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
+| D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
@@ -274,7 +275,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
-| D | 82 | 3 | 3 | 0 | 16 | 1614 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
@@ -363,11 +363,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 ### `docs/00-foundations/devops-anti-patterns.md`
 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: DevOps Foundations`, `Predpoklady: DevOps, Systems Thinking, Ownership Mindset`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 112, `bare-bullet-items` — **7. Fáza 5: DevSecOps ako neskorá bezpečnostná brána**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threat modeling a data classification vstupujú pri návrhu;`, `bezpečné defaults a policy-as-code kontrolujú opakovateľné pravidlá;`, `expert review zostáva pre nejasné alebo vysokorizikové rozhodnutie.`.
+- **CRITICAL** line 297, `outline-instead-of-explanation` — **17. Korekčný model**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 310, `outline-instead-of-explanation` — **18. Kedy podobný pattern nemusí byť chybou**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `outline-instead-of-explanation` — **19. Troubleshooting transformačného programu**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`, `SRE`
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 297, `term-before-explanation` — **17. Korekčný model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `failure semantics`, `reliability`, `scope`
+- **HIGH** line 297, `thin-concept-section` — **17. Korekčný model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 322, `thin-concept-section` — **19. Troubleshooting transformačného programu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/00-foundations/devops-lifecycle.md`
 
@@ -20524,19 +20529,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4303 | 433 | 0 | 0 | 4736 |
+| `bare-bullet-items` | 4304 | 433 | 0 | 0 | 4737 |
 | `single-sentence-concept` | 0 | 4159 | 0 | 0 | 4159 |
-| `outline-instead-of-explanation` | 4064 | 0 | 0 | 0 | 4064 |
-| `thin-concept-section` | 0 | 3593 | 0 | 0 | 3593 |
-| `term-before-explanation` | 0 | 459 | 2726 | 0 | 3185 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2069 | 2069 |
+| `outline-instead-of-explanation` | 4067 | 0 | 0 | 0 | 4067 |
+| `thin-concept-section` | 0 | 3594 | 0 | 0 | 3594 |
+| `term-before-explanation` | 0 | 460 | 2728 | 0 | 3188 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2065 | 2065 |
 | `example-not-explicit` | 0 | 0 | 0 | 1950 | 1950 |
-| `short-concept-section` | 0 | 0 | 1318 | 0 | 1318 |
+| `short-concept-section` | 0 | 0 | 1320 | 0 | 1320 |
 | `list-first-introduction` | 0 | 1057 | 0 | 0 | 1057 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1007 | 1007 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1011 | 1011 |
 | `empty-section` | 504 | 0 | 0 | 0 | 504 |
 | `list-heavy-section` | 0 | 495 | 0 | 0 | 495 |
-| `no-prose-concept` | 407 | 0 | 0 | 0 | 407 |
+| `no-prose-concept` | 406 | 0 | 0 | 0 | 406 |
 
 ## Required remediation pattern
 
