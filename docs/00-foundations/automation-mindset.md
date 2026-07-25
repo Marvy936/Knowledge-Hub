@@ -8,458 +8,433 @@
 - Predpoklady: [Continuous Improvement](continuous-improvement.md), [Ownership Mindset](ownership-mindset.md)
 - Súvisiace témy: idempotency, Infrastructure as Code, CI/CD, scripting, platform engineering, toil
 
-Metadata zaraďuje automation mindset za ownership a continuous improvement. Automatizácia nie je cieľom sama osebe; je to spôsob premeny stabilného, hodnotného a pochopeného procesu na bezpečne vykonateľnú capability.
+Metadata zaraďuje automation mindset za ownership a continuous improvement. Automatizácia nie je cieľom sama osebe; je to spôsob, ako z opakovanej a pochopenej práce vytvoriť bezpečne opakovateľnú capability s explicitným contractom, evidence a ownerom.
 
 ## 1. Definícia
 
-Automation mindset je spôsob uvažovania, pri ktorom sa opakovateľná práca navrhuje s explicitnými vstupmi, výstupmi, failure semantics, evidence a ownershipom. Človek sa nespolieha na neformálnu pamäť, ručné poradie krokov a individuálne prostredie tam, kde stroj môže proces vykonať konzistentnejšie.
+Automation mindset je spôsob uvažovania, pri ktorom človek najprv rozloží opakovanú prácu na vstupy, rozhodnutia, zmeny state-u, failure boundaries a dôkaz výsledku. Až potom rozhoduje, ktoré časti má vykonať stroj, ktoré zostanú ľudským rozhodnutím a aký lifecycle bude mať výsledná capability.
 
-Automation mindset neznamená automatizovať všetko. Rozlišuje činnosti vhodné pre deterministic execution, decisions vyžadujúce ľudský context a hybridné flows, v ktorých automation pripraví evidence a človek urobí risk decision.
+Neznamená to automatizovať všetko. Nejasná jednorazová úloha môže byť vhodnejšia pre dokumentovaný manuálny postup, zatiaľ čo stabilný a často opakovaný proces môže odôvodniť script, pipeline, reusable component alebo self-service platformu.
 
-## 2. Problém manuálnych procesov
+## 2. Priebežný scenár: environment cez ticket a wiki
 
-Manuálny proces môže byť primeraný pri jednorazovej alebo nejasnej úlohe, no pri opakovaní vytvára variabilitu a skrytú dependence na skúsenosti konkrétneho operátora. Rovnaký checklist môže byť vykonaný iným poradím, s inou environment configuration alebo bez verification posledného kroku.
-
-Typický manuálny deployment vyzerá jednoducho:
+Predstav si tím, ktorý potrebuje nové testovacie prostredie. Developer vyplní ticket, administrátor podľa wiki ručne vytvorí VM, network rules, účty a configuration a po dvoch dňoch pošle IP adresu späť.
 
 ```text
-prihlásiť sa na server
-→ stiahnuť package
-→ upraviť configuration
-→ reštartovať service
-→ pozrieť log
+request v ticket-e
+→ čakanie na administrátora
+→ ručné vytvorenie network a VM
+→ ručná configuration a secrets
+→ neformálny smoke test
+→ odovzdanie environmentu
 ```
 
-Každý krok však skrýva decisions: ktorý package digest, aký configuration source, čo sa stane pri partial download-e, či restart preruší traffic a ktorý log line potvrdzuje user outcome. Automatizácia musí tieto implicitné assumptions najprv zviditeľniť.
+Proces funguje, ale každý execution obsahuje skryté rozhodnutia. Nie je jasné, ktorý image a package version sa použili, ktoré network rules sú povolené, čo sa stane po partial failure ani čo presne znamená „environment je hotový“.
 
-## 3. Riziká manuálnej práce
+Ak sa tento postup iba prepíše do dlhého scriptu, chaos sa zrýchli, ale nezmizne. Automation mindset preto začína modelom procesu, nie výberom nástroja.
 
-Manuálnosť nie je problém iba preto, že trvá dlhšie. Vytvára viac druhov prevádzkového risku:
+## 3. Problém, ktorý automatizácia rieši
 
-- **Variabilita — rovnaký intent vytvára rozdielny výsledok**: operátori používajú iné commandy, poradie alebo local defaults.
-- **Pamäťová závislosť — critical knowledge nie je executable ani reviewovateľný**: odchod alebo nedostupnosť experta zablokuje change a recovery.
-- **Neúplný audit — dôvod, inputs a vykonané kroky sa nedajú spätne rekonštruovať**: incident review nevie spojiť runtime state s konkrétnym actorom a revisionom.
-- **Skipped verification — proces skončí po execution**: service môže bežať, ale neposkytovať správny user outcome.
-- **Nízka scale — práca rastie s počtom environments a services**: rovnaký počet ľudí spravuje čoraz viac opakovaných tasks a toil vytlačí improvement work.
-- **Inconsistent security — permissions a secrets sa riešia ad hoc**: broad access a copy-paste credentials vytvárajú compromise a leakage risk.
+Manuálnosť nie je problém iba preto, že je pomalšia. Pri opakovaní vytvára variability, waiting, neúplný audit a závislosť od pamäte konkrétneho človeka.
+
+V environment scenári vznikajú štyri dominantné riziká:
+
+- **Variabilita výsledku — rovnaký intent vytvára odlišný environment**: administrátori používajú iné defaults, package versions alebo network rules.
+- **Waiting — execution trvá minúty, ale queue dni**: hlavný lead time nevzniká technickou prácou, ale ticketovým handoffom.
+- **Knowledge dependency — critical path žije v hlave operátora**: wiki nezachytáva všetky exceptions a recovery decisions.
+- **Verification gap — execution sa zamieňa za outcome**: vytvorená VM ešte nepreukazuje, že application path, access a cleanup fungujú.
+
+Automatizácia má hodnotu iba vtedy, keď tieto mechanizmy skutočne zmení. Elektronický formulár pred rovnakou manuálnou queue nie je výrazné systémové zlepšenie.
 
 ## 4. Mentálny model automation lifecycle-u
 
-Automatizácia je produkt s vlastným lifecycle-om. Začína pozorovaním opakovanej práce, pokračuje štandardizáciou a končí prevádzkou, meraním, údržbou alebo retirementom capability.
+Automation je produkt s vlastným lifecycle-om. Vzniká z pozorovanej práce, mení current state cieľového systému a musí zostať prevádzkovateľná až do svojho retirementu.
 
 ```text
-opakovaná práca a evidence o toil-e
-→ pochopenie outcome-u a failure modes
-→ odstránenie nepotrebných krokov
-→ explicitný input/output contract
-→ automation implementation
-→ tests, guardrails a telemetry
-→ bounded rollout a adoption
-→ maintenance, versioning a decommission
+pozorovať reálny manuálny proces
+→ definovať outcome a authoritative state
+→ odstrániť zbytočné kroky
+→ vytvoriť input, plan, apply, verify a recovery contract
+→ implementovať bounded automation
+→ testovať a obmedziť blast radius
+→ nasadiť, merať adoption a support load
+→ verziovať, udržiavať alebo retire-nuť capability
 ```
 
-Preskočenie prvých krokov vedie k „automation of chaos“. Systém vykonáva nejasný proces rýchlejšie, ale failure zostáva ťažšie pochopiteľný a blast radius môže byť väčší.
+Každá fáza odpovedá na inú otázku. Observation ukáže, čo ľudia skutočne robia. Contract určí, čo má systém garantovať. Implementation vykoná state change. Verification uzavrie feedback loop a ownership zabezpečí, že capability po prvom release-i nezostane bez údržby.
 
-## 5. Kedy je úloha dobrý kandidát
+## 5. Najprv pozoruj skutočný proces
 
-Silný kandidát má stabilný behavior a merateľný výsledok. Viacero charakteristík zvyšuje hodnotu automation, ale žiadna jednotlivá vlastnosť nie je absolútna podmienka.
+Pred automatizáciou treba sledovať reálne executions vrátane workaroundov a failures. Wiki často opisuje iba happy path, zatiaľ čo operátor pri každom treťom requeste manuálne opravuje DNS, čaká na IP pool alebo obchádza neaktuálny image.
 
-- **Vysoká frekvencia — opakovaný cumulative cost**: aj krátky manuálny krok môže spotrebovať veľkú kapacitu pri stovkách vykonaní.
-- **Stabilné pravidlá — možnosť explicitného decision contractu**: vstupy a outcomes sa dajú formalizovať bez neustáleho human judgmentu.
-- **Náchylnosť na ľudskú chybu — variabilita poradia alebo hodnoty**: machine execution znižuje skipped steps a typo risk.
-- **Významný waiting alebo coordination time — odstránenie queue**: self-service môže skrátiť dva dni ticketového čakania na minúty.
-- **Audit requirement — potreba preukázať actor, input a result**: versioned workflow zachováva evidence pre incident a compliance.
-- **Environment consistency — rovnaký desired outcome vo viacerých scopes**: automation znižuje configuration drift a snowflake state.
-- **Vysoký failure impact — potreba guardrails a verification**: controlled workflow môže obmedziť destructive operation a vyžadovať relevantné evidence.
-- **Automaticky overiteľný výsledok — schopnosť uzavrieť loop**: smoke, query alebo state comparison odlíši execution od úspešného outcome-u.
+V environment scenári treba zistiť:
 
-## 6. Typické automation domains
+```text
+aký je vstup requestu
+→ ktoré rozhodnutia robí administrátor
+→ ktoré systémy sa menia
+→ kde vzniká waiting
+→ ktoré failures sú bežné
+→ ako sa overuje výsledok
+→ ako sa environment neskôr zruší
+```
 
-Príklady nie sú iba zoznamom populárnych nástrojov. Každá doména má konkrétny opakovaný contract:
+Tento krok oddeľuje stabilný proces od tacitného expert judgmentu. Stabilné pravidlá možno automatizovať; nejasné decisions treba najprv spresniť alebo ponechať človeku s lepším evidence.
 
-- **Build a test — reprodukovateľná transformácia source-u na evidence a artifact**: workflow pinne dependencies, uchová logs a priradí výsledok revisionu.
-- **Infrastructure provisioning — desired resources a policy**: plan a apply nahrádzajú console clicks a podporujú review a recovery.
-- **Deployment — riadená zmena runtime state-u**: ordering, health, rollout a rollback znižujú variabilitu production change-u.
-- **Certificate rotation — time-bound identity lifecycle**: automation obnoví credential pred expiráciou, distribuuje ho a overí nový trust path.
-- **Backup verification — pravidelný recovery dôkaz**: nestačí vytvoriť copy; workflow vykoná restore a application validation.
-- **Policy validation — konzistentný control na definovanej boundary**: známe nepovolené configuration sa zablokujú pri source, plan alebo admission kroku.
-- **Environment vending — self-service standardized scope**: používateľ deklaruje potrebu a platforma aplikuje identity, network, cost a cleanup guardrails.
-- **Dependency scanning a updates — lifecycle známych components**: automation identifikuje findings alebo vytvorí bounded update, ale človek môže stále posúdiť compatibility a risk.
+## 6. Je proces vhodný na automatizáciu?
 
-## 7. Kedy automatizácia nemusí byť vhodná
-
-Nie každá práca má dostatočne stabilný contract alebo opakovateľnosť. Automatizácia môže vytvoriť väčší cost a rigidity než pôvodná manuálna operácia.
-
-- **Jednorazový nejasný task — learning je ešte dominantný**: najprv môže byť vhodný dokumentovaný a auditovaný script alebo manual procedure.
-- **Rýchlo sa meniace pravidlá — interface nie je stabilný**: general framework by vyžadoval neustálu údržbu a komplikovaný abstraction layer.
-- **High-context decision — risk závisí od neštruktúrovaných informácií**: automation má pripraviť evidence, nie predstierať deterministic judgment.
-- **Neprimeraný implementation cost — návratnosť je slabá**: development, testing, support a incident risk môžu prevýšiť ušetrený toil.
-- **Neoveriteľný outcome — chýba autoritatívny signal**: automation môže skončiť `success`, ale nevie preukázať, že cieľový systém je správny.
-- **Príliš veľký blast radius — jedna chyba zasiahne mnoho scopes**: najprv treba partitioning, canary, rate limit a kill switch.
-
-Jednorazová migration môže stále používať automation kvôli auditovateľnosti a retry. Nemusí sa však premeniť na permanentnú multi-tenant platformu.
-
-## 8. Cost model
-
-Automation má počiatočný aj priebežný cost. Rozhodnutie musí zahŕňať ownership a lifecycle, nie iba odhad času na prvý script.
+Environment provisioning je silný kandidát, pretože sa opakuje, má podobné vstupy, vytvára merateľný state a jeho manuálna variabilita je drahá. Dôležitý je však celý cost model, nie iba počet minút execution.
 
 ```text
 automation cost =
-analysis + implementation + testing + security + operation + support + maintenance + migration + retirement
-```
+analysis + implementation + testing + security + operation + support + maintenance + retirement
 
-Manuálny process má tiež širšiu cenu:
-
-```text
 manual cost =
 frequency × active time + waiting + coordination + error impact + audit effort + opportunity cost
 ```
 
-Najväčší benefit môže vzniknúť odstránením waitingu a risku, nie iba úsporou operator minutes. Self-service environment môže ušetriť desať minút execution a zároveň dva dni queue latency.
+V scenári môže administrátor pracovať iba tridsať minút, ale developer čaká dva dni. Najväčšou hodnotou self-service preto nie je úspora tridsiatich minút, ale odstránenie queue a vytvorenie konzistentného, auditovateľného výsledku.
 
-## 9. Break-even a sensitivity
+Automatizácia nemusí byť vhodná, ak je request jednorazový, pravidlá sa každý týždeň menia, výsledok nemožno overiť alebo by jedna chyba zasiahla príliš veľký scope. V takom prípade môže byť správnym medzikrokom dokumentovaný script s human reviewom, nie okamžitá organization-wide platforma.
 
-Jednoduchý break-even odhad porovná investíciu s opakovanou úsporou. Musí však zohľadniť neistotu frekvencie, maintenance a error costu.
+## 7. Definuj outcome a authoritative state
+
+Slabý cieľ znie „vytvoriť VM“. Silnejší outcome znie „poskytnúť izolovaný test environment s definovanou sieťou, identitou, expiry, ownerom a úspešným application smoke testom“.
+
+Automation potrebuje vedieť, ktorý systém je autoritatívny pre jednotlivé časti state-u:
+
+- request a owner môžu byť uložené v portal-e alebo Git-e;
+- infrastructure state môže vlastniť Terraform backend alebo cloud API;
+- secrets má vlastniť secret manager;
+- inventory a expiry má vlastniť service catalog alebo environment registry;
+- application readiness má potvrdiť smoke alebo synthetic test.
+
+Bez authoritative state-u sa pri retry alebo manuálnej zmene nedá rozhodnúť, či automation pokračuje, opravuje drift alebo prepisuje legitímny zásah iného actor-a.
+
+## 8. Automation contract: input → plan → apply → verify → recover
+
+Environment vending capability potrebuje jeden súvislý contract.
 
 ```text
-break-even runs ≈ initial automation cost / average saving per run
+typed request
+→ validation
+→ deterministic plan
+→ bounded apply
+→ postcondition verification
+→ structured result
+→ recovery alebo cleanup
 ```
 
-Ak sa proces vykoná iba päťkrát, robustná platforma nemusí dávať zmysel. Ak destructive chyba raz za rok spôsobí veľký incident, automation s guardrails môže byť hodnotná aj pri nízkej frekvencii.
+**Input** určuje environment name, ownera, expiry, veľkosť, region a povolený network profile. Hodnoty sa validujú skôr než workflow získa production credentials.
 
-Sensitivity analysis skúma, čo sa stane pri nižšej adoption, vyššom support coste alebo zmene API. Automation decision nemá byť založený iba na najoptimistickejšom scenári.
+**Plan** vysvetlí, ktoré resources vzniknú, ktoré policies sa použijú a aký scope sa zmení. Pri high-risk requeste sa approval viaže na konkrétny plan a input digest, nie na mutable branch alebo neurčitý ticket.
 
-## 10. Úrovne automation
+**Apply** vykonáva zmeny s explicitným actorom, timeoutom a concurrency policy. Nemá skrývať ručný console krok mimo source of truth.
 
-Automation môže dozrievať podľa opakovateľnosti a počtu consumers. Vyššia úroveň nie je automaticky lepšia; zvyšuje interface, compatibility a support povinnosti.
+**Verify** kontroluje výsledný state. Nestačí API response `created`; environment musí mať správny access, DNS, secrets, application smoke a inventory record.
 
-### Dokumentovaný manuálny proces
+**Recover** definuje, čo sa stane po partial failure. Workflow môže pokračovať, reconcile-nuť stav, rollbacknúť reverzibilnú časť alebo eskalovať ambiguous state človeku.
 
-Dokumentovaný process explicitne zachytáva steps, preconditions a verification. Stále závisí od človeka, ale znižuje knowledge silo a poskytuje základ na pozorovanie variability.
+## 9. Vyber primeranú úroveň automatizácie
 
-Je vhodný pri novom alebo zriedkavom tasku. Dokument musí byť testovaný, pretože neaktuálny checklist poskytuje falošnú dôveru.
+Automation môže dozrievať spolu so stabilitou contractu a počtom používateľov.
 
-### Script
+```text
+dokumentovaný manuálny proces
+→ bounded script
+→ shared pipeline
+→ reusable component
+→ self-service platform capability
+```
 
-Script automatizuje bounded sekvenciu pre konkrétny use case. Môže dramaticky znížiť typo risk a execution time, ale často má úzky input contract a slabší multi-user lifecycle.
+Dokumentovaný proces je vhodný, keď sa tím ešte učí reálne variants. Script odstraňuje opakované typo a poradie krokov pre jeden use case. Pipeline pridáva shared execution, audit, secrets a concurrency. Reusable component vytvára versioned interface pre viac tímov. Platform capability má zmysel až vtedy, keď existuje stabilný spoločný contract, viac consumers a owner schopný poskytovať support a roadmapu.
 
-Production-critical script potrebuje repository, tests, ownera, logging a versioning. Osobný súbor v home directory nie je organization capability.
+Vyššia úroveň nie je automaticky lepšia. Premature platforma môže pre jeden nestabilný use case vytvoriť drahý API, compatibility a support surface.
 
-### Pipeline alebo workflow
+## 10. Imperatívny a deklaratívny model v tom istom scenári
 
-Pipeline koordinuje viac steps, artifacts, gates a environments. Poskytuje shared execution, audit, concurrency a secrets integration, ale potrebuje failure isolation a diagnosability.
-
-Pipeline stage nemá existovať iba preto, že ho podporuje tool. Každý krok musí pridať evidence, transformation alebo risk decision.
-
-### Reusable component
-
-Shared action, module alebo template znižuje duplicitu medzi tímami. Vytvára však versioned interface a compatibility obligation voči consumers.
-
-Reusable component potrebuje release notes, deprecation a test matrix. Breaking change v shared workflow môže zastaviť desiatky repositories naraz.
-
-### Self-service platform capability
-
-Platform capability umožňuje používateľovi deklarovať potrebu a bezpečne vykoná komplexný process cez stable API alebo portal. Je to interný produkt s users, SLO, roadmapou, supportom a security modelom.
-
-Platform level má zmysel pri mnohých opakovaných consumers. Premature platform abstraction môže zmeniť jeden use case na drahý organization-wide dependency.
-
-## 11. Imperative automation
-
-Imperative model opisuje poradie commands potrebných na zmenu state-u. Je vhodný pri procedural workflow, migration alebo operation, kde sequence a intermediate state majú význam.
+Imperatívna automation opisuje poradie operácií:
 
 ```text
 vytvor network
 → vytvor subnet
 → vytvor VM
-→ nainštaluj package
-→ spusti service
+→ nastav identity
+→ nainštaluj application
 ```
 
-Imperative automation musí sledovať, ktoré kroky už prebehli a ako sa zotaví po partial failure. Opakované spustenie bez state awareness môže vytvoriť duplicates alebo zmeniť správny state nesprávnym spôsobom.
+Je vhodná, keď sequence a intermediate state majú business alebo migration význam. Musí však vedieť, ktoré kroky už prebehli a ako pokračovať po failure.
 
-## 12. Declarative automation
-
-Declarative model opisuje požadovaný výsledný state a controller porovná desired a observed state. Reconciliation opakovane vykonáva potrebnú korekciu, kým sa stav nepriblíži deklarácii alebo nevznikne explicitný failure.
+Deklaratívny model opisuje požadovaný výsledok:
 
 ```text
-existuje network, subnet, VM a service s definovanými properties
+existuje environment E
+s network profilom N,
+ownerom O,
+expiry T
+a application health = ready
 ```
 
-Deklaratívny model podporuje drift detection a safe re-execution, ale nie je bez complexity. Controller potrebuje authoritative state, provider behavior, dependency graph a jasné semantics pre resources, ktoré nemožno meniť in-place.
+Controller porovná desired a observed state a vykoná potrebné korekcie. Tento model podporuje drift detection a safe re-execution, ale stále potrebuje provider semantics, dependency ordering a explicitné správanie pri resources, ktoré nemožno meniť in-place.
 
-## 13. Idempotency
+V praxi sa modely kombinujú. Terraform môže deklaratívne spravovať infraštruktúru, zatiaľ čo databázová migration alebo bootstrap zostáva riadenou imperatívnou sekvenciou.
 
-Idempotentná operation pri opakovaní rovnakého intentu vedie k rovnakému požadovanému výslednému state-u. Neznamená, že interné execution je identické alebo že nevznikne žiadny side effect; znamená, že caller bezpečne opakuje request bez nekontrolovanej duplicity.
+## 11. Idempotency a stabilná identita operácie
+
+Predstav si, že workflow po vytvorení VM stratí network connection a caller nedostane response. Výsledok je nejasný: request mohol zlyhať pred execution alebo mohol uspieť a stratiť iba odpoveď.
+
+Naivný retry vytvorí druhú VM. Idempotentný model používa stabilnú environment identity, napríklad `team-a-pr-142`, a pred mutation načíta observed state.
 
 ```text
-ensure user alice exists
-prvé spustenie  → user sa vytvorí
-druhé spustenie → automation zistí zhodu a nevytvorí ďalšiu identity
+request environment team-a-pr-142
+→ state neexistuje: vytvor
+→ timeout
+→ retry s rovnakou identity
+→ state už existuje: pokračuj vo verification
 ```
 
-Idempotency je kritická pri timeout-e. Caller nemusí vedieť, či server operation nevykonal alebo vykonal a stratil response; retry preto potrebuje stable operation identity alebo state comparison.
+Idempotency neznamená, že sa pri každom pokuse vykonajú rovnaké interné kroky. Znamená, že opakovanie rovnakého intentu nevedie k nekontrolovanej duplicite ani k poškodeniu správneho výsledného state-u.
 
-## 14. Partial failure
+## 12. Partial failure a recovery
 
-Complex automation môže uspieť v prvých krokoch a zlyhať neskôr. Binary `success/failed` bez uloženého progressu a reconciliation pathu nehovorí, ktorý state zostal v cieľovom systéme.
+Environment vzniká cez viac externých systémov. Network môže byť vytvorená, VM môže existovať a secret delivery môže zlyhať. Binary status `failed` nehovorí, čo zostalo aktívne ani čo je bezpečné opakovať.
 
-Partial failure strategy môže použiť:
+Recovery decision vychádza z observed state-u:
 
-- **Resume — pokračovanie od bezpečného checkpointu**: vyžaduje versioned state a overenie, že predchádzajúce kroky sú stále validné.
-- **Reconcile — porovnanie desired a observed state-u**: controller vykoná iba chýbajúce alebo odlišné operations.
-- **Rollback — návrat predchádzajúceho state-u**: funguje iba pri reverzibilných zmenách a compatible data.
-- **Compensation — opačný business side effect**: pri distribuovanej transakcii môže zrušiť rezerváciu namiesto technického undo všetkých krokov.
-- **Manual escalation — kontrolovaný vstup človeka**: používa sa pri ambiguous alebo high-risk state-e s dostatočným evidence.
+- **Resume** pokračuje od overeného checkpointu, ak predchádzajúce kroky zostávajú validné.
+- **Reconcile** porovná desired a observed state a vykoná iba chýbajúce zmeny.
+- **Rollback** odstráni reverzibilné resources, ak návrat nevytvorí data alebo dependency problém.
+- **Compensation** vykoná opačný business side effect, keď technické undo nie je možné.
+- **Manual escalation** zastaví automatické zásahy pri ambiguous alebo high-risk state-e a poskytne človeku presné evidence.
 
-## 15. Error classification
+Najhorší model je automaticky spustiť celý workflow od začiatku bez znalosti partial state-u.
 
-Automation musí rozlíšiť, či chyba je transientná, permanentná, policy-related alebo neznáma. Rovnaký retry behavior pre všetky classes vytvára noise, delay alebo amplification.
+## 13. Error classification a retry
 
-- **Invalid input — permanentný caller problem**: workflow má rýchlo zlyhať s field-level vysvetlením a nesmie slepo retryovať.
-- **Authentication alebo authorization failure — identity alebo policy problem**: retry bez zmeny credentialu alebo policy iba predlžuje queue.
-- **Rate limit alebo temporary unavailability — možný transient failure**: bounded exponential backoff a jitter môžu umožniť recovery.
-- **Partial success — ambiguous target state**: pred ďalším pokusom sa musí zistiť, čo už bolo vykonané.
-- **Invariant violation — system state nie je bezpečný pre pokračovanie**: workflow sa zastaví a zachová evidence pre human decision.
-- **Unknown error — neklasifikovaný failure contract**: nemá sa automaticky považovať za transient; potrebuje safe default a ownera.
+Retry má zmysel iba vtedy, keď ďalší pokus môže uspieť a opakovanie je bezpečné. Invalid input, chýbajúce permission alebo policy deny sa bez zmeny podmienok nezlepšia.
 
-## 16. Retry contract
+```text
+invalid input
+→ fail fast s field-level vysvetlením
 
-Retry je vhodný iba vtedy, keď ďalší pokus môže uspieť a opakovanie je bezpečné. Musí byť ohraničený časom alebo počtom attempts a zosúladený s celkovým deadline-om workflowu.
+authorization deny
+→ fail a ukáž identity/policy boundary
 
-Bezpečný retry používa:
+transient provider outage
+→ bounded backoff + jitter
 
-- **Error allowlist — presné retryable classes**: permanentné syntax, permission a validation failures sa rýchlo ukončia.
-- **Exponential backoff — rastúci interval**: dependency dostane čas na recovery a nie je zahltená okamžitými attempts.
-- **Jitter — rozloženie clients v čase**: tisíce workflows nereagujú na outage v rovnakom okamihu.
-- **Attempt a time budget — limit amplification**: workflow neblokuje queue nekonečne a caller dostane deterministický výsledok.
-- **Idempotency alebo deduplication — ochrana side effects**: retry nevytvorí duplicate account, payment alebo deployment.
-- **Final evidence — zachovanie poslednej chyby a state-u**: operator vie, prečo retries skončili a čo zostalo vykonané.
+unknown partial result
+→ najprv discover observed state
+```
 
-## 17. Validation
+Retry contract potrebuje presný allowlist retryable errors, exponential backoff, jitter, attempt alebo deadline budget a idempotency alebo deduplication. Bez týchto controls môže outage vyvolať retry storm a zhoršiť recovery providera.
 
-Input validation kontroluje syntax, types, ranges, relationships a policy ešte pred destructive execution. Čím bližšie k vstupu sa chyba odhalí, tým menší cost a blast radius vytvorí.
+## 14. Concurrency a locking
 
-Validation nesmie predstierať úplné guarantees. Terraform plan môže ukázať intended changes, ale cloud capacity, race alebo external policy sa môžu zmeniť pred apply; workflow preto potrebuje aj runtime verification.
+Dva runs môžu súčasne meniť rovnaký environment alebo shared network. Oba vytvoria plan z rovnakého starého state-u a následne sa navzájom prepíšu.
 
-## 18. Dry-run, plan a preview
+Automation preto potrebuje concurrency model:
 
-Dry-run alebo plan zobrazí zamýšľanú zmenu bez plného vykonania. Je hodnotný iba vtedy, keď reprezentuje skutočný target state a reviewer rozumie diffu a risku.
+- resource lock serializuje mutation rovnakého scope-u;
+- optimistic concurrency porovná version pred zápisom a zlyhá pri zmene;
+- partitioning dovolí paralelné runs pre nezávislé accounts alebo environments;
+- deduplication key zlúči opakované eventy s rovnakým intentom.
 
-Plan môže zastarať medzi review a apply. High-risk workflow preto môže viazať approval na konkrétny plan digest, krátku validity window a unchanged inputs.
+Lock nie je bez nákladov. Môže vytvoriť queue a potrebuje timeout, ownership metadata a recovery stale locku.
 
-Preview nie je náhradou rollbacku. Niektoré side effects alebo provider behavior sa prejavia až počas execution.
+## 15. Guardrails a security boundary
 
-## 19. Guardrails
+Automation vykonáva zmeny rýchlo a často s výkonnou identity. Rovnaká vlastnosť zvyšuje hodnotu aj blast radius chyby.
 
-Automation zrýchľuje správne aj nesprávne actions a môže zväčšiť blast radius. Guardrails musia byť navrhnuté podľa konkrétneho threatu alebo failure boundary.
+Environment vending workflow preto používa viac vrstiev ochrany:
 
-- **Input validation — blokovanie neplatného intentu pred execution**: zabraňuje destructive alebo inconsistent parameters.
-- **Least privilege — obmedzenie možných actions a resources**: compromise alebo bug nemôže meniť celý organization scope.
-- **Environment protection — odlišné risk boundaries**: production apply môže vyžadovať silnejšiu identity, plan a rollout než ephemeral test.
-- **Policy as code — repeatable organization controls**: známe rules sa vyhodnotia konzistentne a report vysvetlí porušenie.
-- **Rate a concurrency limits — kontrola systemic loadu**: automation nevytvorí API storm alebo paralelnú mutáciu rovnakého state-u.
-- **Canary alebo staged rollout — obmedzený exposure**: zmena sa overí na malom scope-e pred rozšírením.
-- **Audit log — reconstruction actor, input a decisionu**: incident review vie spojiť workflow s runtime outcome-om.
-- **Kill switch — okamžité zastavenie ďalšieho execution**: používa sa pri nepredvídanom behavior-e a musí byť dostupný nezávisle od failed pathu.
+```text
+schema validation
+→ policy nad requestom a planom
+→ short-lived scoped credential
+→ environment/resource limit
+→ locked state
+→ staged rollout capability
+→ postcondition verification
+→ immutable audit
+```
 
-## 20. Human in the loop
+Least privilege obmedzí accounts, regions a resource types, ktoré workflow smie meniť. Untrusted pull request nesmie získať production secret. Artifacty, actions a image references majú byť pinned alebo overené digestom. Logs musia redigovať credentials a audit identity nesmie mať nekontrolovanú možnosť odstrániť vlastný trail.
 
-Human approval má hodnotu pri ambiguous alebo high-impact decisione, ktoré nemožno bezpečne vyjadriť policy. Človek má posudzovať risk a exception, nie mechanicky potvrdzovať každý green plan.
+Kill switch musí vedieť zastaviť nové executions nezávisle od zlyhávajúceho workflow pathu.
+
+## 16. Human in the loop
+
+Človek má rozhodovať tam, kde je potrebný širší risk context, nie mechanicky potvrdzovať každý green plan.
+
+Nízko-riskový ephemeral environment môže prejsť automaticky v rámci policy. Environment s public ingressom, vysokým costom alebo production data accessom môže vyžadovať explicitný review.
 
 ```text
 automation vytvorí immutable plan a risk context
-→ reviewer posúdi affected resources, policy exceptions a rollback
-→ approval sa viaže na konkrétny input digest
-→ system vykoná apply
-→ automated verification potvrdí outcome
+→ reviewer posúdi exception, blast radius a recovery
+→ approval sa viaže na konkrétny digest
+→ apply vykoná automation
+→ verification potvrdí outcome
 ```
 
-Approval bez contextu je formálny gate a vytvára diffusion of responsibility. Reviewer musí mať čas, expertise a authority zmenu odmietnuť alebo žiadať úpravu.
+Approval bez relevantného contextu iba pridáva waiting a diffusion of responsibility. Reviewer musí mať expertise, authority a možnosť zmenu odmietnuť.
 
-## 21. Human override a break-glass
+Break-glass path je určený pre incident alebo control-plane outage. Musí byť auditovaný, časovo obmedzený a po zásahu sa manual state musí reconcile-nuť späť do managed source of truth.
 
-Incident môže vyžadovať odlišný path než bežný workflow. Override musí byť explicitný, auditovaný, časovo obmedzený a nasledovaný reviewom a návratom do managed state-u.
+## 17. Observability automation systému
 
-Break-glass nemá znamenať ručné zmeny, ktoré automation neskôr nepozná. Po urgentnom zásahu treba reconcile source of truth, zachovať evidence a rozhodnúť, či sa override zmení na supported capability alebo odstráni.
+Automation je production system. Zelený UI status alebo exit code 0 nestačia na diagnosis ani na meranie hodnoty.
 
-## 22. Observability automation
+Každý run potrebuje:
 
-Automation je production system a potrebuje vlastnú telemetry. Exit code alebo zelený UI status nestačí na diagnosis ani measurement value.
+- jednoznačný run ID;
+- input a workflow version;
+- actor a authorization context;
+- structured phase events pre validation, plan, apply a verify;
+- retry, queue a lock metrics;
+- result artifacts a target state reference;
+- end-to-end outcome, napríklad `environment ready and smoke passed`.
 
-- **Run ID — jednoznačná execution identity**: spája logs, artifacts, approvals a target changes.
-- **Structured step events — čas a outcome jednotlivých phases**: ukazujú bottleneck a failure boundary.
-- **Input a version metadata — presný execution contract**: operator vie, ktorý revision, parameters a dependency versions boli použité.
-- **Retry a queue metrics — backpressure a instability**: vysoký retry môže maskovať provider outage alebo flaky step.
-- **Result artifacts — plan, report, manifest alebo state reference**: evidence zostáva dostupné pre audit a verification.
-- **Actor a authorization context — kto a s akou role spustil workflow**: incident analysis rozlišuje user intent, automation identity a delegated action.
-- **Success a failure rate — reliability capability**: owner vidí, či workflow dlhodobo znižuje toil alebo vytvára ďalší support load.
-- **End-to-end outcome — skutočná hodnota**: environment exists and passes smoke, nie iba `apply` exit code 0.
+Ak apply skončí úspešne, ale smoke zlyhá, workflow musí reportovať verification failure, nie successful environment creation.
 
-## 23. Security automation
+## 18. Diagnostika worked failure-u
 
-Automation identity často vlastní powerful permissions a spracúva secrets, artifacts a production configuration. Security design musí oddeliť user intent, workflow identity a target authorization.
+Developer spustí environment request. Workflow po cloud API timeout-e retryuje a neskôr skončí chybou `resource already exists`. V inventory sú dve VM a žiadny environment nemá správne secrets.
 
-Dôležité controls:
-
-- **Short-lived credentials — zníženie leak windowu**: workflow získava scoped session pre konkrétny run namiesto statického access keyu.
-- **Input trust — ochrana pred untrusted code alebo parameters**: pull request z fork-u nesmie automaticky získať production secret.
-- **Artifact integrity — overenie toho, čo sa vykonáva**: pinned actions, signed images a digest references znižujú supply-chain substitution.
-- **Secret redaction — ochrana logs a errors**: structured telemetry nesmie kopírovať tokens alebo sensitive payload.
-- **Separation of duties — high-risk decision a execution boundaries**: podľa risku môže iný actor schváliť plan, pričom automation vykoná deterministický apply.
-- **Audit immutability — ochrana evidence**: workflow s production rights nemá zároveň nekontrolovanú možnosť odstrániť vlastný audit trail.
-
-## 24. State management
-
-Automation potrebuje vedieť, čo už vykonala a aký state je autoritatívny. Bez state modelu sa pri retry alebo concurrency opiera o náhodné pozorovanie a môže prepísať legitímnu zmenu.
-
-State môže byť uložený v Terraform backend-e, workflow database, Kubernetes API alebo target resource metadata. Musí mať locking alebo optimistic concurrency, backup, access control a recovery plan primeraný criticality.
-
-State drift vzniká, keď cieľ zmení iný actor alebo manual override. Automation má drift reportovať a reconcile-nuť podľa policy, nie ho neviditeľne prepísať bez contextu.
-
-## 25. Concurrency a locking
-
-Dve automation executions meniace rovnaký resource môžu vytvoriť race, stale plan alebo conflicting side effects. Concurrency control preto patrí do workflow designu.
-
-- **Global alebo resource lock — serializácia critical state mutation**: znižuje race, ale môže vytvoriť queue a potrebuje stale-lock recovery.
-- **Optimistic concurrency — compare version before write**: umožňuje paralelné reads a zlyhá, ak sa state medzitým zmenil.
-- **Partitioned ownership — paralelné independent scopes**: jobs pre odlišné accounts alebo clusters sa neblokujú, ak nemajú shared dependency.
-- **Deduplication key — zlúčenie rovnakého intentu**: opakované eventy nespustia duplicate deployment alebo environment create.
-
-## 26. Versioning a compatibility
-
-Automation code, configuration, runtime, APIs a consumers sa menia nezávisle. Reusable capability potrebuje versioned interface a migration strategy.
-
-Breaking update shared pipeline môže zastaviť mnoho repositories. Safe rollout používa semantic alebo explicitné versions, canary consumers, deprecation window a compatibility tests.
-
-Pinning navždy nie je riešenie. Stará version accumuluje vulnerabilities a incompatibility; platform owner potrebuje inventory adopcie a controlled upgrade path.
-
-## 27. Ownership a support
-
-Každá production automation potrebuje ownera. Owner riadi roadmapu, incidenty, dependencies, security findings, support, metrics a retirement.
-
-Ownership contract má obsahovať:
-
-- **Supported use cases — čo capability garantuje**: zabraňuje nekonečnému extension cez hidden special cases.
-- **SLO alebo response expectation — reliability a support boundary**: consumers vedia, čo robiť pri outage.
-- **Change a deprecation process — lifecycle interface-u**: upgrade nepríde ako nekomunikovaný breaking change.
-- **Incident a escalation — kto vedie recovery**: workflow failure sa nepresúva medzi tool, cloud a product tímom bez lead ownera.
-- **Adoption a value metrics — či automation rieši pôvodný toil**: existence scriptu nie je dôkazom používania alebo výsledku.
-
-## 28. End-to-end príklad environment vendingu
-
-Pôvodný process používa ticket a wiki. Administrátor po dvoch dňoch ručne vytvorí VM, network rules a accounts, pričom environmenty sa odlišujú podľa človeka.
-
-Automation lifecycle:
+Diagnostika sleduje lifecycle namiesto náhodného opakovania:
 
 ```text
-Git alebo portal request s typed parameters
-→ schema a policy validation
-→ Terraform plan viazaný na input digest
-→ production risk approval podľa scope-u
-→ apply s locked remote state
-→ configuration a secret delivery
-→ smoke a security verification
-→ inventory, owner a expiry registration
-→ telemetry a automatic cleanup
+1. Input
+   bol environment key stabilný a rovnaký pri retry?
+
+2. Plan
+   obsahoval create alebo ensure semantics?
+
+3. Apply
+   ktorý API call dostal timeout a aký request ID mal provider?
+
+4. State
+   čo už existuje v cloud API a Terraform/workflow state-e?
+
+5. Retry
+   bola chyba klasifikovaná ako bezpečne opakovateľná?
+
+6. Verify
+   prečo workflow nezistil chýbajúce secrets pred success/failure výsledkom?
 ```
 
-Každý krok odstraňuje inú medzeru. Typed input znižuje ambiguity, plan poskytuje decision evidence, locked state chráni concurrency a inventory s expiry zabraňuje orphaned resources.
+Root cause nie je iba timeout. Systém nemal stabilnú operation identity, po ambiguous result-e nevykonal discovery a retry opakoval create side effect. Náprava preto zahŕňa idempotency key, reconcile pred retry, state lock a explicitnú verification fázu.
 
-## 29. Build, buy alebo platform decision
+## 19. Rollout a adoption automation capability
 
-Pred vlastným riešením treba posúdiť existujúcu capability, managed service, open-source component, shared internal module a bounded script. Výber sa opiera o differentiating value, compliance, integration, lifecycle a total cost.
+Nový workflow sa nemá okamžite vynútiť pre všetky tímy. Najprv sa použije na obmedzenom scope-e, kde možno porovnať duration, queue time, failure rate, support load a výslednú konzistenciu s manuálnym baseline-om.
 
-- **Built-in alebo managed capability — menší ownership scope**: provider preberá časť maintenance, no customer stále vlastní configuration, access a outcome.
-- **Open-source tool — kontrola a community ecosystem**: organization vlastní deployment, security patching, integration a support risk.
-- **Internal shared component — reuse s menším product surface**: vhodný pri stabilnom common contracte bez potreby full self-service platformy.
-- **One-off script — bounded audit a repeatability**: primeraný pri malej migration, ak má ownera a safe execution.
-- **Internal platform — organization product**: oprávnený pri mnohých consumers a strategic workflowe, ale potrebuje dedicated roadmap a support.
+Adoption je súčasť výsledku. Capability, ktorú users obchádzajú pre dlhú latency, nejasný error alebo chýbajúci use case, neznižuje toil. Mandatory use môže iba skryť shadow scripts.
 
-## 30. Automation adoption
+Platform owner preto sleduje:
 
-Capability bez adoption neznižuje toil. Users ju môžu obchádzať pre zlý interface, dlhú latency, chýbajúci use case alebo nedôveru v failure behavior.
+```text
+relevant flows cez automation
++ bypass rate
++ time-to-ready
++ failure a retry rate
++ support volume
++ user feedback
++ cost per environment
+```
 
-Adoption evidence zahŕňa percentage relevantných flows, time saved, support volume, bypass rate a user feedback. Mandatory use môže skryť dissatisfaction a vytvoriť shadow scripts, preto platform team potrebuje product discovery a explicitný exception path.
+Tieto signály ukážu, či automation rieši pôvodný problem alebo iba presunula prácu z administrátora na support tím platformy.
 
-## 31. Retirement automation
+## 20. Versioning, support a retirement
 
-Automation sa má odstrániť, keď source process zanikne, capability nahradí platforma alebo maintenance cost prevýši value. Orphaned workflow môže držať broad credentials, outdated dependencies a confusing alternative path.
+Shared automation vytvára interface voči consumers. Zmena input schema, workflow runtime, provider API alebo default policy môže byť breaking change.
 
-Retirement zahŕňa inventory consumers, migration, removal schedules, credential revocation, state archival a documentation update. Vypnutie jobu bez cleanup-u môže ponechať resources a ownership gaps.
+Safe lifecycle používa explicitné versions, compatibility tests, canary consumers, deprecation window a inventory adopcie. Pinning starej verzie navždy nie je bezpečné, pretože dependencies a security requirements sa menia.
 
-## 32. Anti-patterny
+Capability potrebuje ownera, support boundary, incident path, roadmap a retirement plan. Environment workflow sa retire-ne, keď ho nahradí iná platforma alebo pôvodný proces zanikne. Retirement zahŕňa migration consumers, credential revocation, state archival, cleanup resources a odstránenie alternatívneho execution pathu.
+
+## 21. Anti-patterny
 
 ### Automation zlého procesu
 
-Komplexný approval workflow sa presunie do pipeline bez overenia, ktoré decisiony sú skutočne potrebné. Execution je elektronický, ale wait time a diffusion of responsibility zostanú.
+Ticketový approval chain sa iba prepíše do pipeline. Execution je elektronický, ale waiting a nejasné decision rights zostanú.
 
 ### Script bez ownera
 
-Critical tool existuje v osobnom repository alebo serveri a nikto nevie jeho dependencies a failure behavior. Pri odchode autora sa z automation stane incident risk.
+Critical tool žije v osobnom repository alebo na jednom serveri. Po odchode autora nikto nepozná jeho dependencies, permissions ani recovery path.
 
-### Premature abstraction
+### Premature platform
 
-Jeden use case sa generalizuje do frameworku s množstvom configuration options. Product surface, tests a support rastú skôr, než existuje druhý stabilný consumer.
+Jeden nestabilný use case sa zmení na organization-wide framework s desiatkami options. Support a compatibility cost vzniknú skôr než stabilný common contract.
 
 ### Hidden manual step
 
-Pipeline vyzerá automated, ale vyžaduje console change alebo local file mimo source of truth. Audit a reproducibility sa prerušia na najcitlivejšej boundary.
+Workflow vyžaduje console change alebo lokálny súbor mimo source of truth. Reproducibility a audit sa prerušia práve na najcitlivejšej boundary.
 
-### Automation sprawl
+### Success bez verification
 
-Tímy vytvoria rozdielne scripts pre rovnaký process. Security, behavior a ownership sa rozídu a incident responder nevie, ktorý path je authoritative.
-
-### Success without verification
-
-Workflow skončí exit code 0 po API acknowledgement-e, ale neoverí resulting state ani user outcome. Execution success sa zamieňa za operation success.
+API prijme request a job skončí green, ale resulting environment nemá správny access alebo application health. Execution success sa zamieňa za outcome success.
 
 ### Infinite retry
 
-Permanentný invalid input blokuje queue a opakuje side effect. Retry policy nemá error classification, budget ani dead-letter path.
+Permanentný invalid input alebo permission failure blokuje queue a opakuje side effects bez error classification a budgetu.
 
-### Platform as universal answer
+### Platform bez adoption
 
-Organization vytvorí internal product pre malú alebo nestabilnú potrebu. Roadmap a support cost následne prevýšia ušetrenú manuálnu prácu.
+Capability technicky existuje, ale users ju obchádzajú. Tím meria počet features platformy namiesto odstráneného waitingu, toil-u a variability.
 
-## 33. Troubleshooting automation systému
+## 22. Troubleshooting automation systému
 
-Pri failure najprv urč, či problém vznikol v inpute, workflow execution, dependency alebo target verification. Neopakuj celý run bez poznania partial state-u.
+Pri incidente najprv urč, v ktorej fáze lifecycle-u sa dôkaz odchýlil:
 
-- **Workflow zlyháva po update-e — version alebo compatibility boundary**: porovnaj runtime, action, API a consumer versions a použité immutable references.
-- **Retry vytvára duplicates — chýba idempotency alebo deduplication**: identifikuj stable operation key a server-side result state.
-- **Runs čakajú v queue — concurrency alebo capacity constraint**: rozlíš runner shortage, global lock a long-running blocked job.
-- **Apply je green, service nefunguje — verification gap**: doplň application smoke, dependency a business outcome signal.
-- **Users automation obchádzajú — product interface alebo latency problem**: analyzuj bypass paths, support tickets a missing use cases.
-- **State sa nezhoduje so source-om — drift alebo competing actor**: zisti authoritative state, manual changes a locking pred reconcile.
-- **Automation incident má veľký blast radius — scope a guardrail gap**: pridaj partitioning, canary, rate limits, least privilege a kill switch.
+```text
+input
+→ validation
+→ plan
+→ apply
+→ dependency response
+→ state persistence
+→ verification
+→ result delivery
+```
 
-## 34. Kontrolné otázky
+Typické symptom-to-boundary mapovanie:
 
-1. Prečo automation mindset neznamená automatizovať všetko?
-2. Aké vlastnosti robia process dobrým automation kandidátom?
-3. Ako sa porovnáva total manual cost s automation lifecycle costom?
-4. Kedy je vhodný script a kedy self-service platform capability?
-5. Aký je rozdiel medzi imperative a declarative automation?
-6. Prečo idempotency rieši ambiguous timeout behavior?
-7. Aké strategies existujú pri partial failure?
-8. Prečo retry potrebuje error classification, backoff, jitter a budget?
-9. Čo musí človek reálne posudzovať pri human-in-the-loop approvale?
-10. Aké guardrails znižujú automation blast radius?
-11. Ktoré telemetry potrebuje production workflow?
-12. Ako state management a locking chránia concurrent execution?
-13. Prečo shared automation potrebuje versioning a deprecation?
+- workflow zlyháva po update-e: porovnaj workflow, runtime, provider API a consumer versions;
+- retry vytvára duplicates: over stable identity, idempotency a server-side result state;
+- runs čakajú v queue: odlíš runner capacity, global lock a blocked dependency;
+- apply je green, service nefunguje: verification neoveruje application outcome;
+- source a runtime state sa líšia: hľadaj manual actor, drift alebo stale state;
+- users workflow obchádzajú: analyzuj interface, latency, missing use cases a failure trust;
+- incident má veľký blast radius: skontroluj partitioning, least privilege, rate limits, staged rollout a kill switch.
+
+## 23. Kontrolné otázky
+
+1. Prečo automation mindset nezačína výberom scripting jazyka alebo platformy?
+2. Ktoré časti manuálneho environment procesu treba pozorovať pred automatizáciou?
+3. Ako sa odlišuje execution success od outcome success?
+4. Kedy je vhodný dokumentovaný process, script, pipeline a self-service platforma?
+5. Aký je rozdiel medzi imperatívnym a deklaratívnym modelom?
+6. Prečo ambiguous timeout vyžaduje discovery state-u pred retry?
+7. Ako stable operation identity podporuje idempotency?
+8. Aké recovery možnosti existujú pri partial failure?
+9. Prečo retry potrebuje error classification, backoff, jitter a budget?
+10. Ako concurrency control chráni shared state?
+11. Čo má človek reálne posudzovať pri approvale?
+12. Ktoré security boundaries vznikajú pri automation identity?
+13. Aké telemetry odlišujú workflow failure od target verification failure-u?
 14. Ako sa meria adoption a skutočná hodnota automation?
-15. Kedy a ako sa automation bezpečne retire-ne?
+15. Čo musí obsahovať retirement automation capability?
 
-## 35. Zhrnutie
+## 24. Zhrnutie
 
-Automation mindset začína pochopením outcome-u, variability, failure modes a total costu. Až potom štandardizuje a automatizuje process s explicitným input contractom, idempotency, error handlingom, guardrails, security a verification.
+Automation mindset premieňa opakovanú prácu na explicitný lifecycle. Najprv odhalí reálny proces a outcome, potom definuje authoritative state a contract `input → plan → apply → verify → recover` a až následne vyberie primeranú úroveň automation.
 
-Automation je production product s ownerom, versioningom, telemetry, supportom a retirementom. Jej cieľom je znižovať toil, waiting a risk bez vytvorenia neprimeraného blast radiusu, rigidnej platformy alebo skrytých manuálnych boundaries.
+Bez idempotency, state discovery, error classification, guardrails a verification môže automation iba zrýchliť chaos a zväčšiť blast radius. Zdravá capability je versionovaný produkčný produkt s ownerom, telemetry, adoption evidence, supportom a retirementom.
 
 ## Glossary impact
 
-Relevantné pojmy: automation mindset, automation candidate, break-even, automation level, imperative automation, declarative automation, idempotency, partial failure, compensation, retry contract, dry-run, guardrail, human in the loop, break-glass, workflow state, concurrency control, deduplication, automation product a adoption.
+Relevantné pojmy: automation mindset, automation candidate, authoritative state, automation contract, imperative automation, declarative automation, idempotency, partial failure, compensation, retry contract, dry-run, guardrail, human in the loop, break-glass, workflow state, concurrency control, deduplication, automation product a adoption.
 
 ## Primárne zdroje
 
