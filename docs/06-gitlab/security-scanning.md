@@ -1,440 +1,808 @@
 # Security scanning
 
-GitLab security scanning integruje viac typov detekcie do CI/CD, merge requestov a vulnerability-management workflowu. Jediný scanner nepokrýva celý attack surface. Potrebný je vrstvený model pre source code, dependencies, secrets, container images, Infrastructure as Code a runtime behavior.
+## Metadata
 
-Dostupnosť konkrétnych analyzers, UI reports, policies a governance funkcionality závisí od GitLab verzie, offeringu a tieru. Pri produkčnom návrhu over aktuálnu oficiálnu dokumentáciu.
+- Status: Learning
+- Level: L2
+- Domain: GitLab
 
-## 1. Security scanning lifecycle
+## 1. Definícia
+
+GitLab security scanning prepája analyzers, CI/CD jobs, machine-readable reporty, merge-request feedback, vulnerability records a security policies. Jeho cieľom nie je iba „spustiť scanner“, ale vytvoriť dôveryhodný lifecycle:
 
 ```text
-source/dependency/image/application
-→ scanner job alebo push-time kontrola
-→ machine-readable report artifact
-→ merge-request a pipeline feedback
-→ vulnerability record alebo finding
-→ triage
-→ remediation/exception
+attack surface a subject
+→ applicable scanners
+→ valid execution a reporty
+→ findings
+→ risk triage
+→ gate alebo remediation decision
 → verification
+→ continuous rescanning nasadených artifacts
 ```
 
-Scanner output nie je automaticky risk decision. Potrebuje kontext, ownership a lifecycle.
+Žiadny scanner nepokrýva celý systém. Dôveryhodný program vrství source, dependencies, secrets, container images, API/runtime behavior a Infrastructure as Code a zároveň explicitne eviduje, čo nebolo skenované.
 
-## 2. Typy skenovania
+Konkrétne GitLab analyzers, templates, UI a policy capabilities sa menia podľa verzie, offeringu a tieru. Návrh preto nesmie stáť iba na predpoklade, že určitá karta v UI existuje; musí definovať subject, evidence, verdict a failure semantics nezávisle od produktu.
 
-Bežné vrstvy:
+## 2. Mental model: coverage, evidence a decision
 
-- SAST,
-- dependency scanning,
-- secret detection,
-- container scanning,
-- DAST,
-- API security testing,
-- Infrastructure as Code scanning,
-- SBOM generation a analysis,
-- license/compliance controls podľa dostupnej funkcionality.
+Security scanning má tri samostatné otázky:
 
-## 3. SAST
+1. **Coverage —** ktoré časti attack surface boli skutočne analyzované?
+2. **Evidence —** prebehli relevantné analyzers kompletne a vytvorili validné reporty pre správny subject?
+3. **Decision —** aký risk findings predstavujú a čo policy povoľuje?
 
-Static Application Security Testing analyzuje source code bez potreby útoku na bežiacu aplikáciu.
+```text
+0 findings
+```
 
-Môže hľadať napríklad:
+môže znamenať:
 
-- injection paths,
-- insecure deserialization,
+- subject je čistý,
+- scanner nepodporuje daný jazyk,
+- job bol vylúčený cez `rules`,
+- scanner nenašiel build input,
+- report sa nevytvoril,
+- report schema nebola spracovaná,
+- analyzoval sa nesprávny image tag,
+- vulnerability databáza bola neaktuálna.
+
+Absencia findings je bezpečnostný dôkaz iba vtedy, keď je coverage a execution validita známa.
+
+## 3. Security subject identity
+
+Každý scan musí byť viazaný na presný subject.
+
+Možné subjects:
+
+- source commit alebo merged-result SHA,
+- dependency graph/lockfile revision,
+- SBOM digest,
+- container image digest,
+- package version a checksum,
+- IaC source alebo rendered plan,
+- API schema revision,
+- environment URL plus deployment digest/config,
+- GitLab Release manifest.
+
+Tag, branch alebo URL bez immutable revision je slabá identity. Container scan nad `app:latest` nemusí analyzovať bytes, ktoré sa neskôr nasadia.
+
+## 4. Attack-surface a scanner coverage model
+
+Vytvor explicitnú mapu:
+
+| Attack surface | Primárna kontrola | Doplnková kontrola | Typický limit |
+|---|---|---|---|
+| Source data flow | SAST | review, tests, DAST | framework/runtime context |
+| Dependencies | dependency scanning/SBOM | container scan | neúplný resolution graph |
+| Committed secrets | secret detection/push protection | provider audit | neznáme custom formats |
+| Runtime image | container scan | signature/provenance policy | packages mimo databázy |
+| Web/API runtime | DAST/API testing | manual pentest | route/auth coverage |
+| IaC deklarácia | IaC scanning | plan/runtime policy | effective cloud drift |
+| Licenses/supply chain | SBOM/license policy | supplier review | metadata kvalita |
+
+Coverage model má byť prispôsobený jazykom, build systému, deployment architektúre a threat modelu projektu.
+
+## 5. Expected scanner inventory
+
+Pre každý project alebo release class definuj očakávané scanners, napríklad:
+
+```text
+backend service:
+- SAST
+- dependency/SBOM
+- secret detection
+- container scanning
+- API scan v stagingu
+- IaC scan pre deployment manifests
+```
+
+Pipeline má vedieť dokázať:
+
+- ktoré scanners boli applicable,
+- ktoré jobs vznikli,
+- ktoré sa dokončili,
+- ktoré reporty boli prijaté,
+- ktoré boli zámerne skipped,
+- ktoré zlyhali technicky,
+- ktoré neboli podporované.
+
+Chýbajúci expected scanner je `incomplete evidence`, nie čistý výsledok.
+
+## 6. Scan execution contexts
+
+Scans môžu bežať v rôznych kontextoch:
+
+- **Pre-commit/push protection —** okamžitá prevencia vybraných secret alebo policy chýb.
+- **Merge-request pipeline —** diff-oriented feedback pred merge.
+- **Merged-results alebo merge-train pipeline —** evidence nad kandidátnym integračným stavom.
+- **Default-branch pipeline —** autoritatívny baseline po integrácii.
+- **Artifact/release pipeline —** scan výsledného package alebo image digestu.
+- **Scheduled scan —** nové advisories a hlbšie pravidlá bez source zmeny.
+- **Environment/DAST scan —** runtime behavior konkrétneho deploymentu.
+- **Continuous rescan —** prehodnotenie SBOM alebo image inventory podľa novej intelligence.
+
+Výsledky z rôznych contexts nie sú automaticky zameniteľné. Source scan feature branchu nie je scan release image digestu.
+
+## 7. Execution validity
+
+Scanner job je platný iba ak:
+
+- dostal očakávaný subject,
+- mal potrebné source/build metadata,
+- analyzer image a ruleset sú známe,
+- vulnerability/advisory data boli dostupné,
+- job dokončil analýzu bez skrytého fallbacku,
+- report vznikol,
+- report schema je podporovaná,
+- report bol uploadnutý a spracovaný,
+- všetky shards alebo components sú zahrnuté.
+
+Rozlišuj verdicty:
+
+- **Clean —** platný scan nenašiel findings v deklarovanom coverage.
+- **Findings —** platný scan našiel výsledky.
+- **Incomplete —** chýba subject, component, shard alebo report.
+- **Invalid —** scan bežal nad nesprávnym inputom alebo nepoužiteľným configom.
+- **Tool error —** analyzer, registry, runner alebo advisory service zlyhal.
+- **Unsupported —** attack surface nemá podporovaný analyzer.
+- **Skipped by policy —** zámerné vynechanie s dôvodom a ownerom.
+
+## 8. Security report artifacts
+
+GitLab analyzers publikujú machine-readable reporty. Report je kontrakt medzi scannerom a GitLab processing vrstvou.
+
+Report evidence má obsahovať alebo umožniť odvodiť:
+
+- scanner a version,
+- ruleset/config revision,
+- subject identity,
+- scan timestamp,
+- report schema version,
+- component inventory,
+- finding identifiers a locations,
+- execution status,
+- artifact checksum.
+
+Zelený job s neprijatým reportom nesmie byť interpretovaný ako úspešný security gate.
+
+## 9. SAST
+
+Static Application Security Testing analyzuje source alebo build representation bez útoku na bežiaci systém. Môže používať syntax, AST, data-flow, call graph alebo taint analysis.
+
+SAST typicky hľadá:
+
+- injection flows,
 - path traversal,
-- weak cryptography,
-- unsafe APIs,
-- authorization mistakes podľa analyzera,
-- taint flow.
+- insecure deserialization,
+- nebezpečné API použitie,
+- hardcoded cryptography alebo weak algorithms,
+- source-to-sink taint,
+- niektoré authorization a validation chyby.
 
-SAST má obmedzenia:
+Limity:
 
-- false positives,
-- language/framework coverage,
-- build/generated-code requirements,
-- neúplný runtime context,
-- custom frameworks,
-- konfigurácia mimo repository.
+- nepodporovaný jazyk/framework,
+- chýbajúci generated code alebo build context,
+- dynamické dispatch a metaprogramming,
+- konfigurácia mimo repository,
+- custom sanitizers,
+- runtime identity a deployment policy.
 
-## 4. Basic a advanced SAST
+SAST coverage eviduj podľa languages, directories, excluded paths a analyzer applicability.
 
-GitLab môže podľa tieru poskytovať základné analyzers a pokročilejšiu cross-file/cross-function analýzu.
+## 10. Dependency scanning
 
-Návrhový princíp:
+Dependency scanning hľadá známe vulnerabilities v direct a transitive dependencies.
 
-- over supported languages,
-- sleduj analyzer lifecycle,
-- pinuj alebo riadene aktualizuj templates/analyzers,
-- testuj scan completeness,
-- nezamieňaj absence findings za absence vulnerabilities.
+Dôveryhodný input je resolved dependency graph, nie iba voľný manifest. Potrebné môžu byť:
 
-## 5. Dependency scanning
-
-Dependency scanning identifikuje známe vulnerabilities v direct a transitive dependencies.
-
-Potrebné vstupy:
-
-- manifest,
 - lockfile,
-- resolved dependency graph,
+- package-manager metadata,
+- vendored components,
+- generated dependency graph,
 - SBOM,
-- advisory database.
+- advisory database revision.
 
-GitLab aktuálne smeruje dependency scanning k SBOM-first workflowu. Legacy analyzers môžu mať deprecation lifecycle, preto pravidelne over aktuálnu odporúčanú metódu.
+Kontroluj:
 
-## 6. SBOM
+- či sa analyzovali production aj relevantné build dependencies,
+- private registries,
+- platform-specific variants,
+- optional a peer dependencies,
+- monorepo workspaces,
+- package aliases a overrides.
 
-Software Bill of Materials eviduje components, versions a vzťahy.
+## 11. SBOM
+
+Software Bill of Materials eviduje components, versions, package identifiers a relationships.
 
 SBOM pomáha pri:
 
 - vulnerability matching,
 - incident response,
 - release evidence,
-- dependency inventory,
+- supplier inventory,
 - continuous rescanning,
-- supplier risk.
+- dependency a license governance.
 
-SBOM nie je dôkaz bezpečnosti ani provenance. Chybný alebo neúplný build môže vytvoriť neúplný SBOM.
+SBOM nie je dôkaz bezpečnosti ani provenance. Musí byť:
 
-## 7. Container scanning
+- viazaný na konkrétny artifact digest,
+- generovaný z relevantného build alebo final image contextu,
+- kontrolovaný na completeness,
+- chránený pred neautorizovanou zmenou,
+- doplnený build provenance.
 
-Container scanning analyzuje image obsah, najmä OS packages a podľa capability aj ďalšie dependencies.
+Dva SBOM-y pre rovnaký source môžu byť rozdielne pre rôzne platformy alebo build variants.
 
-Scan musí byť viazaný na digest:
+## 12. Container scanning
 
-```text
-image@sha256:...
-```
-
-Tag sa môže zmeniť a znehodnotiť evidence.
+Container scanning má analyzovať konkrétny OCI image digest alebo platform manifest.
 
 Rozlišuj:
 
-- vulnerabilities v application dependencies,
-- vulnerabilities v OS packages,
-- base-image findings,
-- packages prítomné iba v build stage,
-- runtime image obsah.
+- OS packages,
+- language dependencies vo final image,
+- base-image lineage,
+- packages iba v build stage,
+- static binaries a embedded libraries,
+- multi-platform variants.
 
-## 8. Dependency vs. container scanning
+Pri multi-platform image musí expected inventory potvrdiť, že každý podporovaný manifest bol analyzovaný alebo má explicitne zdokumentované coverage.
 
-Tieto kontroly sa dopĺňajú.
+Tag môže slúžiť na lookup, ale report a policy musia byť viazané na digest.
 
-Dependency scanning pracuje primárne z project dependency declarations alebo SBOM modelu. Container scanning vidí obsah výsledného image.
+## 13. Dependency verzus container scanning
 
-Rozdiel môže odhaliť:
+Tieto kontroly odpovedajú na odlišné otázky:
 
-- package nainštalovaný mimo lockfile,
-- build-stage dependency neprítomnú v runtime image,
-- OS package vulnerability,
-- nesprávny alebo neúplný SBOM.
+- dependency scan skúma deklarovaný/resolved software graph,
+- container scan skúma obsah výsledného runtime artifactu.
 
-## 9. Secret detection
+Rozdiely odhaľujú:
 
-Secret detection hľadá credential-like hodnoty v repository a podľa dostupných features aj pri pushi alebo v UI obsahu.
+- dependency pridanú mimo lockfile,
+- package odstránený multi-stage buildom,
+- OS-level vulnerability,
+- neúplný SBOM,
+- rozdiel build a runtime variantu.
 
-Vrstvy môžu zahŕňať:
+Release gate môže vyžadovať obe evidence, ak sa distribuuje container image.
 
-- client-side detection,
+## 14. Secret detection
+
+Secret detection hľadá credential-like patterns v source history, diff-e alebo ďalších podporovaných contexts.
+
+Vrstvenie:
+
+- IDE/pre-commit kontrola,
 - push protection,
-- pipeline secret detection,
-- automatic response pre podporované secret types.
+- MR/default-branch scan,
+- historical scan,
+- provider-side usage/anomaly monitoring.
 
-Ak bol real secret commitnutý, okamžitá reakcia je:
+Pri reálnom secre­te:
 
-1. revokovať,
-2. rotovať,
-3. identifikovať exposure window,
-4. auditovať použitie,
-5. až potom čistiť history podľa potreby.
+```text
+revoke alebo disable
+→ rotate
+→ identifikuj exposure window
+→ audituj použitie
+→ oprav source/config
+→ vyčisti history podľa potreby
+→ pridaj prevention/regression
+```
 
-## 10. DAST
+Dismissal findingu nie je revokácia credentialu. Vymazanie z posledného commitu neruší kópie v histórii, artifacts, logs alebo klonoch.
 
-Dynamic Application Security Testing testuje bežiacu aplikáciu prostredníctvom requests a simulated attacks.
+## 15. DAST
 
-Potrebuje:
+Dynamic Application Security Testing posiela requests na bežiacu aplikáciu a pozoruje runtime behavior.
 
-- stabilný test target,
-- seed/authentication,
-- scope,
-- rate limits,
-- safe test data,
+DAST contract obsahuje:
+
+- presný environment a deployment digest,
+- allowed scope a routes,
+- test identity a role,
+- seed/test data,
+- authentication lifecycle,
+- rate a concurrency limits,
+- povolené mutation typy,
 - cleanup,
-- ochranu pred scanom production side effects.
+- abort criteria,
+- network origin,
+- evidence retention.
 
-DAST nenahrádza SAST. Vidí runtime behavior, ale nemusí pokryť neaktivované paths alebo internú logiku.
+DAST nesmie neúmyselne testovať produkčné payments, emaily alebo deštruktívne operácie. Environment musí byť pripravený na scan workload.
 
-## 11. API security testing
+## 16. API security testing
 
-API scanner potrebuje machine-readable alebo explicitný API surface, napríklad OpenAPI, GraphQL schema alebo recorded traffic podľa nástroja.
+API security test potrebuje explicitný surface:
 
-Testuj:
+- OpenAPI alebo GraphQL schema,
+- route inventory,
+- recorded traffic podľa nástroja,
+- authentication contexts,
+- object/tenant test data.
+
+Overuje napríklad:
 
 - authentication,
-- authorization,
-- input validation,
-- object-level access,
-- rate limiting,
-- schema deviations,
-- error leakage.
+- object-level a function-level authorization,
+- tenant isolation,
+- input a schema validation,
+- rate limits,
+- error leakage,
+- unexpected methods alebo fields.
 
-Použi test identity s minimálnymi permissions.
+Jedna privileged test identity nemôže potvrdiť authorization matrix. Potrebné sú identity s rozdielnymi scopes a negatívne scenáre.
 
-## 12. IaC scanning
+## 17. Infrastructure as Code scanning
 
-Infrastructure-as-Code scanning analyzuje deklarácie pre cloud, containers alebo orchestration.
+IaC scan analyzuje deklarácie pre cloud, Kubernetes, containers alebo automation.
 
-Môže hľadať:
+Typické findings:
 
 - public exposure,
-- weak encryption,
 - excessive IAM,
-- insecure security groups,
+- weak encryption,
 - privileged workloads,
-- missing logging,
+- chýbajúce logging controls,
+- permissive security groups,
 - risky defaults.
 
-Static IaC scan nevidí automaticky runtime drift, inherited organization policy alebo manually changed resources.
+Source scan nevidí vždy:
 
-## 13. Scan execution
+- rendered plan,
+- inherited organization policy,
+- admission mutations,
+- provider defaults,
+- runtime drift,
+- manuálne resources.
 
-Scans môžu bežať:
+Pre kritickú infra zmenu vrstvi source scan, plan policy a runtime verification.
 
-- pri pushi,
-- v merge-request pipeline,
-- na default branch,
-- podľa schedule,
-- manuálne,
-- cez security policy.
+## 18. License a compliance evidence
 
-Rôzne contexts riešia rozdielne potreby:
+License alebo compliance kontrola závisí od presného component inventory a policy.
 
-- MR scan — skorý feedback,
-- default branch — vulnerability baseline,
-- scheduled rescan — nové advisories,
-- on-demand DAST — cielená runtime validácia.
+Potrebné je rozlišovať:
 
-## 14. Security report artifacts
+- deklarovanú versus skutočne distribuovanú dependency,
+- direct a transitive packages,
+- source a binary distribution,
+- package version a license metadata kvalitu,
+- schválené exceptions.
 
-Analyzers publikujú machine-readable report artifacts, ktoré GitLab môže spracovať do MR alebo vulnerability UI.
+Neúplný SBOM môže vytvoriť false compliance pass.
 
-Over:
+## 19. Finding identity a deduplication
 
-- job reálne dobehol,
-- report vznikol,
-- report schema je podporovaná,
-- artifact neexpiroval pred downstream spracovaním,
-- scanner nepoužil neaktuálny image alebo ruleset.
+Finding identity môže byť odvodená z kombinácie:
 
-Zelený pipeline s preskočeným scannerom nie je úspešný security scan.
+- scanner/rule identifier,
+- component/package identity,
+- file/location alebo data-flow fingerprint,
+- vulnerability identifier,
+- subject revision.
 
-## 15. Findings vs. vulnerabilities
+Slabá deduplication vytvára duplicitný backlog. Príliš agresívna deduplication môže zlúčiť odlišné paths alebo artifacts.
 
-Finding je detekovaný výsledok konkrétneho scanu. Vulnerability record reprezentuje spravovaný security problém v dlhšom lifecycle.
+Pri presune kódu, dependency upgrade alebo scanner rule update zachovaj traceability medzi starým a novým findingom.
+
+## 20. Finding verzus vulnerability record
+
+- **Finding —** výsledok konkrétneho scanu konkrétneho subjectu.
+- **Vulnerability record —** dlhšie žijúci spravovaný security problém s ownerom, stavom, SLA, exception a remediation históriou.
 
 Lifecycle môže zahŕňať:
 
-- needs triage,
-- confirmed,
-- dismissed,
-- resolved,
-- re-detected.
-
-Dismissal musí mať dôvod, ownera a podľa policy expiry alebo review.
-
-## 16. Merge request feedback
-
-MR feedback má ukázať nové alebo zmenené findings relevantné pre diff.
-
-Nezakladaj gate iba na celkovom počte vulnerabilities. Rozlišuj:
-
-- existing baseline,
-- newly introduced,
-- severity,
-- reachability/validity podľa dostupnosti,
-- exploitability,
-- component exposure,
-- fix availability.
-
-## 17. Vulnerability report
-
-Default-branch scan results môžu tvoriť vulnerability inventory. Potrebné sú:
-
-- ownership,
-- SLA podľa severity/risk,
-- deduplication,
-- false-positive handling,
-- remediation tracking,
-- exceptions,
-- export/reporting.
-
-Scanner dashboard bez procesu opráv je iba backlog generator.
-
-## 18. Security policies
-
-GitLab security policies môžu podľa dostupnej funkcionality vynucovať:
-
-- execution scanner jobs,
-- scheduled scans,
-- approval behavior,
-- project/group scope,
-- vulnerability-management actions.
-
-Policy repository je citlivá governance boundary. Chráň jeho permissions, merge process a audit.
-
-## 19. Gate design
-
-Blocking gate má používať stabilný a nízko-noise signal.
-
-Príklad policy:
-
 ```text
-new critical reachable vulnerability
-→ block
-
-existing accepted medium finding
-→ visible, neblokuje
-
-scanner infrastructure outage
-→ fail-open alebo fail-closed podľa rizika a fallbacku
+needs triage
+→ confirmed
+→ remediation planned
+→ resolved
+→ verified
+→ re-detected
 ```
 
-Nejasný „block all highs“ model môže viesť k bypass kultúre.
+Dismissal musí mať kategóriu, dôvod, approvera, scope a podľa rizika expiráciu.
 
-## 20. Exceptions
+## 21. Triage a contextual risk
 
-Exception musí obsahovať:
+Severity nie je kompletný risk model. Triage zohľadňuje:
+
+- reachability,
+- exploitability,
+- internet alebo tenant exposure,
+- privilege a data sensitivity,
+- deployed status,
+- available fix,
+- compensating controls,
+- business impact,
+- active exploitation,
+- confidence scanneru.
+
+Nová critical vulnerability v nepoužitom test tooli môže mať iné priority než high vulnerability v internet-facing runtime dependency.
+
+## 22. Baseline a merge-request delta
+
+MR feedback má odlíšiť:
+
+- existing baseline,
+- newly introduced finding,
+- changed severity alebo reachability,
+- resolved finding,
+- scanner/ruleset-induced reclassification.
+
+Baseline musí byť čerstvý voči aktuálnemu target branchu. Stará alebo chýbajúca default-branch evidence môže nesprávne označiť finding ako nový alebo ho prehliadnuť.
+
+Merged-results alebo merge-train context môže byť potrebný, ak scan závisí od integrácie source a target stavu.
+
+## 23. Security gate verdicts
+
+Gate nemá používať iba `job passed/failed`. Potrebuje rozlíšiť:
+
+- evidence complete a clean,
+- evidence complete s blocking findings,
+- evidence complete s advisory findings,
+- incomplete scanner inventory,
+- invalid subject/report,
+- analyzer/tool failure,
+- stale baseline alebo intelligence,
+- exception/waiver,
+- inconclusive human triage.
+
+Príklad:
+
+```text
+new reachable critical in deployed component
+→ block
+
+existing accepted medium s platnou exception
+→ visible, neblokuje
+
+required scanner chýba
+→ incomplete, nepromovať
+
+advisory database outage
+→ policy-defined pause alebo break-glass
+```
+
+## 24. Policy composition
+
+Security policy môže určovať:
+
+- ktoré scanners sa musia spustiť,
+- pre ktoré projects/branches/environments,
+- blocking thresholds,
+- required approvers,
+- exception rules,
+- schedule rescans,
+- vulnerability-management actions.
+
+Pri viacerých policies over:
+
+- applicability,
+- precedence alebo kombináciu,
+- group/project inheritance,
+- policy repository revision,
+- effective resolved policy,
+- fallback pri nevyhodnotiteľnom stave.
+
+Policy repository je privileged governance boundary a potrebuje chránený merge proces a audit.
+
+## 25. Blocking verzus advisory režim
+
+Blocking gate je vhodný, keď:
+
+- coverage je dostatočne známa,
+- signal je stabilný,
+- finding identity a baseline fungujú,
+- remediation je akčná,
+- tool failure semantics sú definované,
+- exception proces je dostupný.
+
+Nový alebo hlučný scanner môže začať advisory režimom s baseline a tuningom. Advisory však potrebuje ownera a plán, či sa stane blocking, zostane trendovým signalom alebo sa odstráni.
+
+## 26. Exceptions a dismissals
+
+Exception obsahuje:
 
 - finding/vulnerability identity,
-- business a technical dôvod,
+- affected subject/component,
+- technický a business dôvod,
+- contextual risk,
 - compensating controls,
 - ownera,
-- expiration,
-- review interval,
-- remediation plan.
+- approvera,
+- expiration/review date,
+- remediation plan,
+- evidence odkazy.
 
-Permanent dismissal bez evidence vytvára skrytý risk debt.
+Exception musí byť prehodnotená pri:
 
-## 21. Analyzer supply chain
+- novom release,
+- zmene exposure,
+- novej exploit intelligence,
+- ruleset alebo finding zmene,
+- vypršaní compensating controlu.
 
-Scanner image a template sú executable dependencies.
+## 27. Analyzer supply chain
+
+Analyzer image, CI template, ruleset a vulnerability database sú supply-chain dependencies.
 
 Chráň:
 
-- pinned versions alebo controlled update channels,
-- registry trust,
-- analyzer provenance,
-- template ownership,
+- immutable alebo riadene versionované analyzer images,
+- template refs,
+- registry provenance,
+- signatures/checksums,
+- update ownership,
 - runner isolation,
+- source a secret access,
 - outbound network,
-- access k source a secrets.
+- advisory database integrity.
 
-Security scanner s privileged runnerom môže mať väčší blast radius než aplikácia, ktorú skenuje.
+Scanner často dostáva celý source a niekedy build credentials. Kompromitovaný analyzer môže exfiltrovať viac než aplikácia, ktorú skúma.
 
-## 22. Scan performance
+## 28. Analyzer update lifecycle
 
-Optimalizuj:
+Aktualizácia analyzera môže zmeniť:
+
+- findings,
+- severity,
+- fingerprints,
+- supported language coverage,
+- report schema,
+- runtime a memory nároky,
+- false-positive rate.
+
+Bezpečný rollout:
+
+1. pinuj current version,
+2. otestuj novú verziu na fixture projektoch,
+3. porovnaj report delta,
+4. vyhodnoť performance a compatibility,
+5. rolloutuj canary skupine projektov,
+6. aktualizuj baseline/policy,
+7. monitoruj invalid a tool-error rate.
+
+## 29. Scanner compromise response
+
+Pri podozrení na kompromitovaný analyzer/template:
+
+- zastav affected jobs alebo odpoj credentials,
+- revokuj runner/cloud/registry tokens dostupné scanneru,
+- identifikuj projekty a pipelines, kde bežal,
+- audituj outbound traffic, logs a artifacts,
+- označ evidence za nedôveryhodnú,
+- obnov trusted analyzer a ruleset,
+- znovu skenuj release subjects,
+- prehodnoť artifacts podpísané alebo publikované v tom istom trust contexte.
+
+## 30. Continuous rescanning
+
+Nová vulnerability môže vzniknúť bez source zmeny. Continuous rescan potrebuje inventory:
+
+```text
+SBOM/package/image digest
+→ release manifest
+→ deployments/environments
+→ service owner
+→ exposure a criticality
+```
+
+Pri novej advisory:
+
+1. identifikuj dotknuté component versions,
+2. nájdi release artifacts a deployed digests,
+3. zohľadni reachability a exposure,
+4. vytvor vulnerability record a ownera,
+5. rebuildni patched immutable artifact,
+6. over a redeploy,
+7. aktualizuj support/revocation stav.
+
+Skenovanie iba default branchu nestačí, ak produkcia stále používa starší release digest.
+
+## 31. Deployed-artifact correlation
+
+Security dashboard má vedieť odpovedať:
+
+- ktorý vulnerable digest je publikovaný,
+- ktorý je súčasťou podporovaného release,
+- kde je nasadený,
+- aký traffic/cohort ho používa,
+- či existuje fix,
+- kto je owner,
+- či platí exception.
+
+Source vulnerability po oprave v main môže zostať aktívna v produkcii, kým sa nevytvorí a nenasadí nový artifact.
+
+## 32. Scan performance a selection
+
+Optimalizácie:
 
 - affected-component selection,
-- parallel execution,
-- scanner cache podľa trust modelu,
-- separate fast MR a deep scheduled scans,
-- DAST scope,
-- analyzer timeout,
-- artifact size.
+- parallel scanners,
+- shallow/deep scan profily,
+- scheduled full scans,
+- scanner cache v oddelenom trust namespace,
+- reuse SBOM pri rovnakom immutable artifacte,
+- DAST scope a sampling.
 
-Nevypínaj scanner iba preto, že je pomalý. Najprv zisti critical path a coverage trade-off.
+Selection vytvára false-negative riziko. Zmena shared build image, template, lock resolution alebo generated code môže ovplyvniť komponenty mimo path diffu. Periodický full scan overuje selection assumptions.
 
-## 23. False positives a false negatives
+## 33. DAST a destructive-test safety
 
-### False positive
+Runtime scan potrebuje safety state machine:
 
-Scanner hlási problém, ktorý v reálnom context-e nie je exploitable alebo prítomný.
+```text
+prechecks
+→ authenticate
+→ scope validation
+→ scan active
+→ guardrail monitoring
+→ stop/abort
+→ cleanup
+→ environment validation
+```
 
-### False negative
+Abort criteria môžu zahŕňať:
 
-Scanner problém nezachytí.
+- error alebo latency limit,
+- neplánovaný external side effect,
+- scan mimo allowlist routes,
+- rate-limit impact,
+- test-data leakage,
+- environment instability.
 
-Znižuj ich cez:
-
-- ruleset tuning,
-- better build context,
-- threat modeling,
-- runtime tests,
-- manual review,
-- incident-derived regression tests,
-- multi-layer scanning.
-
-## 24. Continuous rescanning
-
-Nová vulnerability môže byť zverejnená po release bez zmeny source. Potrebné je:
-
-- aktualizovať advisory data,
-- znovu vyhodnotiť SBOM/images,
-- identifikovať nasadené digests,
-- prioritizovať exposed services,
-- rebuildnúť a redeploynúť patched artifacts.
-
-„Pipeline bola zelená pred tromi mesiacmi“ nie je aktuálny risk signal.
-
-## 25. Security telemetry
+## 34. Security telemetry
 
 Sleduj:
 
-- scan coverage podľa projektu/jazyka/artifactu,
-- scanner success rate,
-- missing reports,
-- time to triage,
-- time to remediate,
-- exception age,
-- reopened findings,
-- false-positive rate,
-- vulnerabilities v deployed versions,
-- percent releases so SBOM a scan evidence.
+- expected verzus executed scanner coverage,
+- scanner success/tool-error/incomplete rate,
+- missing alebo invalid reports,
+- scan duration a critical path,
+- findings podľa subject a exposure,
+- time to triage a remediate,
+- exception count a age,
+- re-detected findings,
+- false-positive a selection-miss rate,
+- percent release artifacts so SBOM/provenance/scans,
+- deployed vulnerable digests,
+- continuous-rescan latency,
+- analyzer version drift.
 
-## 26. Troubleshooting
+Počet findings bez coverage a remediation kontextu nie je dobrá metrika bezpečnosti.
 
-### Security job sa nevytvoril
+## 35. Diagnostický postup
 
-Over `rules`, pipeline source, include/template version, supported language/files a policy scope.
+Keď security výsledok chýba alebo je podozrivý:
 
-### Job je zelený, report chýba
+1. **Urči subject —** commit, image digest, package, plan alebo environment.
+2. **Urči expected scanners —** podľa languages, artifacts a attack surface.
+3. **Over pipeline creation —** `workflow`, job `rules`, policy applicability a tier/capability.
+4. **Over execution —** analyzer image, inputs, exit status, logs a advisory data.
+5. **Over report —** path, schema, checksum, upload a GitLab processing.
+6. **Over baseline —** target-branch freshness a merged-result context.
+7. **Over identity —** report sa vzťahuje na správny digest/version.
+8. **Rozlíš verdict —** clean, findings, incomplete, invalid alebo tool error.
+9. **Skontroluj policy —** effective rules, exceptions a approver eligibility.
+10. **Skontroluj deployment correlation —** či affected subject reálne beží.
+11. **Uchovaj evidence —** analyzer/ruleset version, reporty a timeline.
+12. **Oprav systémovo —** coverage, config, policy, scanner alebo remediation lifecycle.
 
-Scanner nemusel nájsť input, report path/schema je chybná alebo artifact nebol publikovaný.
+## 36. Typické anti-patterny
 
-### MR neukazuje findings
+### Zelený pipeline = bez vulnerabilities
 
-Over tier/feature availability, MR pipeline context, target branch baseline a úspešné spracovanie reportu.
+Scanner mohol byť skipped, unsupported alebo nevytvoriť report.
 
-### Container scan analyzuje zlý image
+### Jeden scanner pre celý attack surface
 
-Porovnaj digest v build outpute, scanner inpute a registry.
+SAST nevidí runtime image, DAST nevidí všetok source a IaC scan nevidí effective drift.
 
-### Secret finding bol dismissed, ale token funguje
+### Scan tagu namiesto digestu
 
-Dismissal nie je revokácia. Okamžite token revoke/rotate a audituj použitie.
+Evidence môže patriť iným bytes než deployment.
 
-### DAST poškodzuje test environment
+### Gate podľa celkového počtu findings
 
-Scan používa mutation paths bez safe data alebo scope. Zastav scan, obnov environment a uprav authentication, exclusions a rate limits.
+Legacy baseline blokuje každú zmenu alebo motivuje k permanentným bypassom.
 
-## 27. Kontrolné otázky
+### `Block all high` bez kontextu
 
-1. Aký attack surface pokrýva SAST?
-2. Prečo dependency a container scanning nie sú rovnaké?
-3. Čo poskytuje SBOM a čo neposkytuje?
-4. Ako reagovať na reálny leaked secret?
-5. Aké riziká má DAST?
-6. Aký je rozdiel medzi findingom a vulnerability recordom?
-7. Kedy má security gate blokovať?
-8. Čo musí obsahovať exception?
-9. Prečo analyzers predstavujú supply-chain dependency?
-10. Ako odhaliť, že security scan vôbec neprebehol?
+Ignoruje reachability, exposure, confidence, fix a compensating controls.
+
+### Dismissal bez expirácie
+
+Dočasné risk rozhodnutie sa stane neviditeľným permanentným debtom.
+
+### Security template na mutable branch
+
+Scanner behavior sa mení bez zmeny consumer repository a bez auditovateľného rollout-u.
+
+### Continuous rescan iba nad main
+
+Staršie produkčné releases zostávajú mimo vulnerability inventory.
+
+### DAST proti produkcii bez safe scope
+
+Scanner môže vytvoriť skutočné side effects alebo incident.
+
+## 37. Praktický rozhodovací rámec
+
+Pre každý security control odpovedz:
+
+1. Aký attack surface a threat chráni?
+2. Aký je immutable scan subject?
+3. Kedy je scanner applicable a čo nepokrýva?
+4. Aký expected scanner/report inventory sa vyžaduje?
+5. Ako sa rozlíši clean, incomplete, invalid a tool error?
+6. Aký baseline sa používa pre MR delta?
+7. Ako sa zohľadňuje severity, reachability a exposure?
+8. Kedy je gate blocking a kedy advisory?
+9. Čo sa stane pri scanner outage alebo stale intelligence?
+10. Kto vlastní finding a remediation SLA?
+11. Ako funguje exception a expirácia?
+12. Ako sa scanner/template bezpečne aktualizuje?
+13. Ako sa findings mapujú na release a deployed digest?
+14. Ako sa nové advisories spracujú bez source zmeny?
+15. Aký incident postup existuje pri kompromitovanom analyzeri?
+
+## 38. Kontrolný checklist
+
+- attack-surface coverage mapa existuje;
+- expected scanners sú definované podľa project/release class;
+- scan subject je immutable;
+- scanner jobs používajú trusted pinned/controlled dependencies;
+- report schema a upload sa validujú;
+- missing scanner/report je incomplete evidence;
+- MR baseline je čerstvý;
+- container/SBOM results sa viažu na digest;
+- multi-platform variants majú kompletný inventory;
+- secret finding spúšťa revoke/rotate workflow;
+- DAST má safe target, identity, scope a cleanup;
+- policy rozlišuje findings, tool error a unsupported coverage;
+- exceptions majú ownera a expiráciu;
+- vulnerability records majú remediation SLA;
+- deployed-artifact correlation funguje;
+- continuous rescanning zahŕňa podporované releases;
+- analyzer update a compromise postup sú testované;
+- telemetry sleduje coverage aj remediation, nie iba počet findings.
+
+## 39. Kontrolné otázky
+
+1. Aké tri otázky oddeľuje model coverage, evidence a decision?
+2. Prečo nula findings nemusí znamenať čistý subject?
+3. Čo tvorí security scan subject?
+4. Ako expected scanner inventory odhalí skipped job?
+5. Aký je rozdiel medzi incomplete, invalid a tool-error scanom?
+6. Prečo dependency a container scanning nie sú zameniteľné?
+7. Čo SBOM poskytuje a čo neposkytuje?
+8. Ako reagovať na reálne commitnutý secret?
+9. Čo musí obsahovať bezpečný DAST contract?
+10. Aký je rozdiel medzi findingom a vulnerability recordom?
+11. Ako baseline freshness ovplyvňuje MR feedback?
+12. Prečo severity nestačí na risk decision?
+13. Ako sa skladajú security policies?
+14. Čo musí obsahovať exception?
+15. Prečo analyzer predstavuje supply-chain boundary?
+16. Ako continuous rescanning nájde problém v staršom release?
+17. Prečo oprava v main neznamená opravenú produkciu?
+18. Ako sa diagnostikuje zelený job bez reportu?
+
+## Summary
+
+GitLab security scanning je lifecycle od attack-surface modelu cez applicable analyzers a validné reporty až po contextual risk decision, remediation a continuous rescanning. Dôveryhodný systém viaže scan na immutable source, package, image, plan alebo deployment subject, rozlišuje clean, findings, incomplete, invalid a tool-error stavy a eviduje očakávanú coverage. Findings sa menia na spravované vulnerability records s ownerom a exception lifecycle. Security policy musí pracovať s čerstvým baseline, reachability a exposure a continuous rescan musí mapovať nové advisories na podporované releases a skutočne nasadené digests. Analyzers a templates sú samostatná supply-chain boundary.
 
 ## Glossary impact
 
-Relevantné pojmy: GitLab SAST, dependency scanning, container scanning, secret detection, secret push protection, DAST, API security testing, security report artifact, vulnerability record, security policy, continuous rescanning a scan coverage.
+Relevantné pojmy: GitLab SAST, dependency scanning, container scanning, secret detection, DAST, API security testing, IaC scanning, security report artifact, expected scanner inventory, scan subject, scan coverage, finding, vulnerability record, security policy, exception, continuous rescanning, deployed-artifact correlation a analyzer supply chain.
 
 ## Oficiálna dokumentácia
 
