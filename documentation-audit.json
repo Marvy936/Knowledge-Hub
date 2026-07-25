@@ -1599,15 +1599,15 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "title": "Runners a executors",
-      "words": 1240,
-      "headings": 34,
-      "sections": 34,
-      "findings": 91,
-      "critical": 41,
-      "high": 35,
-      "medium": 12,
-      "low": 3,
-      "score": 808,
+      "words": 2353,
+      "headings": 44,
+      "sections": 44,
+      "findings": 146,
+      "critical": 47,
+      "high": 42,
+      "medium": 26,
+      "low": 31,
+      "score": 1031,
       "grade": "D"
     },
     {
@@ -117155,26 +117155,17 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "1. Runner model",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "2. Runner scope",
-      "line": 22,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `instance,`, `group,`, `project.`.",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "2. Runner scope",
-      "line": 22,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -117182,62 +117173,8 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "3. Runner authentication",
-      "line": 34,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "3. Runner authentication",
-      "line": 34,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuje runner,`, `musí byť chránený,`, `má mať ownera a rotation lifecycle,`, `nesmie byť uložený v repository,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "3. Runner authentication",
-      "line": 34,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "5. Protected runners",
-      "line": 61,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "5. Protected runners",
-      "line": 61,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected ref môže obsahovať zraniteľný pipeline code,`, `included template môže byť mutable,`, `runner host môže byť kompromitovaný,`, `secrets môžu uniknúť cez logs alebo artifacts.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "5. Protected runners",
-      "line": 61,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "5. Protected runners",
-      "line": 61,
+      "section": "Metadata",
+      "line": 3,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -117245,35 +117182,17 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "6. Executor",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "6. Executor",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Docker,`, `Kubernetes,`, `Docker Autoscaler,`, `Instance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "6. Executor",
-      "line": 74,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "7. Docker executor",
-      "line": 88,
+      "section": "1. Mental model",
+      "line": 11,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117281,35 +117200,17 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "7. Docker executor",
-      "line": 88,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "2. Runner, runner manager a worker",
+      "line": 29,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "7. Docker executor",
-      "line": 88,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukovateľný runtime,`, `jednoduché dependency packaging,`, `rýchly startup,`, `rozumná process a filesystem isolation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "7. Docker executor",
-      "line": 88,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "7. Docker executor",
-      "line": 88,
+      "section": "2. Runner, runner manager a worker",
+      "line": 29,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -117317,152 +117218,8 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "8. Docker socket a privileged mode",
-      "line": 109,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "8. Docker socket a privileged mode",
-      "line": 109,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rootless builders,`, `BuildKit s obmedzeným scope,`, `dedicated ephemeral runner,`, `remote builder s workload identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "8. Docker socket a privileged mode",
-      "line": 109,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "8. Docker socket a privileged mode",
-      "line": 109,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "9. Kubernetes executor",
-      "line": 127,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "9. Kubernetes executor",
-      "line": 127,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "9. Kubernetes executor",
-      "line": 127,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build container,`, `helper container,`, `service containers.`, `dynamické scheduling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "9. Kubernetes executor",
-      "line": 127,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "9. Kubernetes executor",
-      "line": 127,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "10. Kubernetes security controls",
-      "line": 153,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "10. Kubernetes security controls",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dedicated namespace,`, `least-privilege service account,`, `Pod Security controls,`, `seccomp,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "10. Kubernetes security controls",
-      "line": 153,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "10. Kubernetes security controls",
-      "line": 153,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "11. Shell executor",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "11. Shell executor",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché nastavenie,`, `prístup k host tools a hardware,`, `nízky overhead.`, `slabá isolation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "11. Shell executor",
-      "line": 171,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "11. Shell executor",
-      "line": 171,
+      "section": "2. Runner, runner manager a worker",
+      "line": 29,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -117470,278 +117227,44 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "12. Docker Autoscaler a Instance executor",
-      "line": 191,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Runner, runner manager a worker",
+      "line": 29,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "12. Docker Autoscaler a Instance executor",
-      "line": 191,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "12. Docker Autoscaler a Instance executor",
-      "line": 191,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `elastic capacity,`, `ephemeral workers,`, `nižší cross-job contamination risk,`, `scale-to-zero alebo controlled idle capacity.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "12. Docker Autoscaler a Instance executor",
-      "line": 191,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "12. Docker Autoscaler a Instance executor",
-      "line": 191,
+      "section": "2. Runner, runner manager a worker",
+      "line": 29,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "13. Ephemeral vs. persistent runners",
-      "line": 213,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Persistent runner",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Persistent runner",
-      "line": 215,
+      "section": "3. Executor",
+      "line": 39,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Persistent runner",
-      "line": 215,
+      "section": "3. Executor",
+      "line": 39,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `state leakage,`, `dependency drift,`, `stale credentials,`, `disk exhaustion,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Docker executor,`, `Kubernetes executor,`, `Docker Autoscaler,`, `Instance executor,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Persistent runner",
-      "line": 215,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Ephemeral runner",
-      "line": 227,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Ephemeral runner",
-      "line": 227,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Ephemeral runner",
-      "line": 227,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čistejší stav,`, `jednoduchší incident containment,`, `menšie cross-job riziko.`, `startup latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Ephemeral runner",
-      "line": 227,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "14. Concurrency",
-      "line": 243,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "14. Concurrency",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "14. Concurrency",
-      "line": 243,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU a memory,`, `disk I/O,`, `network throughput,`, `external API limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "14. Concurrency",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "14. Concurrency",
-      "line": 243,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "15. Resource limits",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "15. Resource limits",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "15. Resource limits",
-      "line": 257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `memory,`, `ephemeral storage,`, `process count,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "15. Resource limits",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "15. Resource limits",
-      "line": 257,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "16. Runner images",
-      "line": 270,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "16. Runner images",
-      "line": 270,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "16. Runner images",
-      "line": 270,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionované,`, `scanované,`, `minimálne,`, `pravidelne rebuildované,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "16. Runner images",
-      "line": 270,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "17. Helper image",
-      "line": 283,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "17. Helper image",
-      "line": 283,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prepare failure,`, `image pull failure,`, `checkout failure,`, `cache restore failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "17. Helper image",
-      "line": 283,
+      "section": "3. Executor",
+      "line": 39,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -117749,26 +117272,26 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "18. Network access",
-      "line": 297,
+      "section": "5. Job trust classification",
+      "line": 69,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "5. Job trust classification",
+      "line": 69,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "18. Network access",
-      "line": 297,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlist registry a package endpoints,`, `private dependency proxy,`, `blokovanie metadata service,`, `egress proxy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "18. Network access",
-      "line": 297,
+      "section": "5. Job trust classification",
+      "line": 69,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -117776,8 +117299,728 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "18. Network access",
-      "line": 297,
+      "section": "5. Job trust classification",
+      "line": 69,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "5. Job trust classification",
+      "line": 69,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "6. Runner selection",
+      "line": 82,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "6. Runner selection",
+      "line": 82,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner scope,`, `tags,`, `protected-ref eligibility,`, `runner state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "6. Runner selection",
+      "line": 82,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "6. Runner selection",
+      "line": 82,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "7. Protected runners",
+      "line": 95,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "7. Protected runners",
+      "line": 95,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutable included template,`, `príliš širokou deploy identitou,`, `kompromitovaným runner hostom,`, `únikom cez logs, artifacts alebo external egress,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "7. Protected runners",
+      "line": 95,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "8. Runner authentication identity",
+      "line": 110,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "8. Runner authentication identity",
+      "line": 110,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI JOB TOKEN ,`, `ID tokenu pre workload federation,`, `registry credentialu,`, `project alebo group access tokenu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "8. Runner authentication identity",
+      "line": 110,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "8. Runner authentication identity",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "8. Runner authentication identity",
+      "line": 110,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `JOB`, `TOKEN`, `ID`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "9. Job execution lifecycle",
+      "line": 131,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "9. Job execution lifecycle",
+      "line": 131,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "9. Job execution lifecycle",
+      "line": 131,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduler/selection failure,`, `provisioning failure,`, `image pull failure,`, `checkout failure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "9. Job execution lifecycle",
+      "line": 131,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "10. Docker executor",
+      "line": 162,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "10. Docker executor",
+      "line": 162,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný runtime image,`, `rýchly startup,`, `jednoduchšie lokálne reprodukovanie,`, `oddelený filesystem a process namespace,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "10. Docker executor",
+      "line": 162,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "10. Docker executor",
+      "line": 162,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "10. Docker executor",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "11. Docker socket a privileged builds",
+      "line": 186,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rootless BuildKit alebo Buildah,`, `dedikovaný remote builder,`, `izolovaný ephemeral worker,`, `kanonický build service,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "11. Docker socket a privileged builds",
+      "line": 186,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "11. Docker socket a privileged builds",
+      "line": 186,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "12. Kubernetes executor",
+      "line": 200,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "12. Kubernetes executor",
+      "line": 200,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ephemeral runtime,`, `scheduler a autoscaling,`, `resource requests a limits,`, `namespaces, service accounts a NetworkPolicy,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "12. Kubernetes executor",
+      "line": 200,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "12. Kubernetes executor",
+      "line": 200,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "13. Kubernetes safety baseline",
+      "line": 224,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "13. Kubernetes safety baseline",
+      "line": 224,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "13. Kubernetes safety baseline",
+      "line": 224,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dedikovaný namespace alebo cluster,`, `least-privilege service account,`, `Pod Security enforcement,`, `seccomp a dropped capabilities,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "13. Kubernetes safety baseline",
+      "line": 224,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "13. Kubernetes safety baseline",
+      "line": 224,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "14. Shell executor",
+      "line": 242,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "14. Shell executor",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared filesystem a procesy,`, `slabé oddelenie používateľov,`, `dependency drift,`, `zvyškové credentials,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "14. Shell executor",
+      "line": 242,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "14. Shell executor",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "15. Autoscaling a instance executors",
+      "line": 260,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "15. Autoscaling a instance executors",
+      "line": 260,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `golden image a jeho provenance,`, `secure bootstrap,`, `runner registration a token delivery,`, `instance identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "15. Autoscaling a instance executors",
+      "line": 260,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "15. Autoscaling a instance executors",
+      "line": 260,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "15. Autoscaling a instance executors",
+      "line": 260,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "16. Ephemeral verzus persistent workers",
+      "line": 280,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "16. Ephemeral verzus persistent workers",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čistý workspace,`, `procesový cleanup,`, `rotáciu credentials,`, `disk quotas,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "16. Ephemeral verzus persistent workers",
+      "line": 280,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "17. Workspace a helper lifecycle",
+      "line": 296,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "17. Workspace a helper lifecycle",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kompatibilitu runner/helper verzií,`, `pinned alebo kontrolované images,`, `registry dostupnosť,`, `TLS trust,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "17. Workspace a helper lifecycle",
+      "line": 296,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "17. Workspace a helper lifecycle",
+      "line": 296,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "17. Workspace a helper lifecycle",
+      "line": 296,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "19. Network boundary",
+      "line": 325,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "19. Network boundary",
+      "line": 325,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené registries a package endpoints,`, `dependency proxy,`, `blokovanie cloud metadata endpointu,`, `egress proxy a allowlist,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "19. Network boundary",
+      "line": 325,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "19. Network boundary",
+      "line": 325,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "20. Resource model",
+      "line": 340,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "20. Resource model",
+      "line": 340,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU a memory,`, `disk a inode capacity,`, `image-pull bandwidth,`, `cache backend throughput,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "20. Resource model",
+      "line": 340,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "20. Resource model",
+      "line": 340,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "20. Resource model",
+      "line": 340,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `API`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "21. Resource limits",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "21. Resource limits",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU a memory limits,`, `ephemeral storage,`, `process count,`, `job timeout,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "21. Resource limits",
+      "line": 355,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "21. Resource limits",
+      "line": 355,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "21. Resource limits",
+      "line": 355,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "22. Image a toolchain provenance",
+      "line": 369,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "22. Image a toolchain provenance",
+      "line": 369,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image digest,`, `image build provenance,`, `OS a architecture,`, `runner a executor version,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "22. Image a toolchain provenance",
+      "line": 369,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "22. Image a toolchain provenance",
+      "line": 369,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "23. Cache a shared storage",
+      "line": 383,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "23. Cache a shared storage",
+      "line": 383,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted a untrusted cache namespaces,`, `project a group boundaries,`, `protected a non-protected refs,`, `architectures a toolchains,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "23. Cache a shared storage",
+      "line": 383,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "23. Cache a shared storage",
+      "line": 383,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav prijímanie nových jobs,`, `nechaj dokončiť alebo bezpečne zruš aktívne jobs,`, `revokuj runner authentication token,`, `odstráň cloud/service identities,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "25. Runner decommissioning",
+      "line": 413,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
@@ -117785,8 +118028,8 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "19. Identity",
-      "line": 313,
+      "section": "26. Compromise response",
+      "line": 428,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117794,26 +118037,26 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "19. Identity",
-      "line": 313,
+      "section": "26. Compromise response",
+      "line": 428,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "19. Identity",
-      "line": 313,
+      "section": "26. Compromise response",
+      "line": 428,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project,`, `ref protection,`, `environment,`, `job purpose,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pause alebo revoke runner,`, `zastav citlivé pools a jobs,`, `rotuj runner tokeny a dostupné credentials,`, `identifikuj jobs, projects a artifacts, ktoré runner spracoval,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "19. Identity",
-      "line": 313,
+      "section": "26. Compromise response",
+      "line": 428,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -117821,35 +118064,26 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "20. Cache a workspace hygiene",
-      "line": 334,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "26. Compromise response",
+      "line": 428,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "20. Cache a workspace hygiene",
-      "line": 334,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `working tree,`, `temporary files,`, `generated credentials,`, `mounted secrets,`.",
-      "score": 12
+      "section": "26. Compromise response",
+      "line": 428,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "20. Cache a workspace hygiene",
-      "line": 334,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "21. Observability",
-      "line": 348,
+      "section": "27. Observability",
+      "line": 444,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117857,26 +118091,26 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "21. Observability",
-      "line": 348,
+      "section": "27. Observability",
+      "line": 444,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "21. Observability",
-      "line": 348,
+      "section": "27. Observability",
+      "line": 444,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue duration,`, `job duration,`, `runner utilization,`, `executor startup time,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue duration podľa trust poolu,`, `job a provisioning duration,`, `runner utilization a concurrency,`, `image pull latency,`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "21. Observability",
-      "line": 348,
+      "section": "27. Observability",
+      "line": 444,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -117884,8 +118118,17 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "21. Observability",
-      "line": 348,
+      "section": "27. Observability",
+      "line": 444,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "27. Observability",
+      "line": 444,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
@@ -117893,35 +118136,17 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "22. Upgrade lifecycle",
-      "line": 364,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "22. Upgrade lifecycle",
-      "line": 364,
+      "section": "28. Failure verdicty",
+      "line": 462,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "22. Upgrade lifecycle",
-      "line": 364,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over release notes,`, `test canary runner,`, `sleduj job failure signatures,`, `postupne aktualizuj pool,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "22. Upgrade lifecycle",
-      "line": 364,
+      "section": "28. Failure verdicty",
+      "line": 462,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -117929,8 +118154,35 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Job zostáva pending",
-      "line": 379,
+      "section": "28. Failure verdicty",
+      "line": 462,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "28. Failure verdicty",
+      "line": 462,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "28. Failure verdicty",
+      "line": 462,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "29. Diagnostický postup",
+      "line": 475,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117938,8 +118190,62 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Image pull zlyháva",
-      "line": 383,
+      "section": "29. Diagnostický postup",
+      "line": 475,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "29. Diagnostický postup",
+      "line": 475,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over pipeline a job inclusion,`, `over runner scope, tags a protected eligibility,`, `over runner online/paused stav a queue capacity,`, `identifikuj executor provisioning fázu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "29. Diagnostický postup",
+      "line": 475,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "29. Diagnostický postup",
+      "line": 475,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "29. Diagnostický postup",
+      "line": 475,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `scope`, `resource`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "30. Typické anti-patterny",
+      "line": 490,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "Jeden runner pre všetko",
+      "line": 492,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117947,8 +118253,8 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Job funguje lokálne, nie na runneri",
-      "line": 387,
+      "section": "Tags ako jediná security policy",
+      "line": 496,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117956,8 +118262,8 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Náhodné zlyhania pri concurrency",
-      "line": 391,
+      "section": "Persistent privileged runner pre merge requests",
+      "line": 500,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -117965,12 +118271,201 @@
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Kubernetes job nevznikne",
-      "line": 395,
+      "section": "Shared static cloud key na runner hoste",
+      "line": 504,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "Shell executor bez workspace cleanup",
+      "line": 508,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "Autoscaler bez deprovisioning evidence",
+      "line": 512,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "Release artifact z neidentifikovaného runner image",
+      "line": 516,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké job trust classes vykonáva?`, `Ktoré projects a refs sú eligible?`, `Aký executor a isolation model používa?`, `Je worker ephemeral alebo persistent?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "31. Praktický rozhodovací rámec",
+      "line": 520,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `untrusted a privileged jobs používajú oddelené pools;`, `runner scope a tags zodpovedajú trust modelu;`, `protected runner nie je jediná ochrana;`, `workers majú resource a egress limits;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "32. Kontrolný checklist",
+      "line": 537,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "Summary",
+      "line": 568,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
