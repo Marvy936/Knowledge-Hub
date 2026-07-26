@@ -1,5 +1,9 @@
 # GitLab glossary entries
 
+## Access path — GitLab
+
+Konkrétna cesta, cez ktorú subject získal capability nad resource-om, napríklad direct membership, parent-group inheritance, group sharing, custom role, protected-resource rule alebo token scope. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
 ## Approval rule — GitLab
 
 GitLab pravidlo definujúce počet required approvals, eligible users alebo groups a branch/policy scope merge requestu. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -12,9 +16,21 @@ Policy objekt aplikovaný na konkrétny branch alebo pattern, ktorý môže riad
 
 Používateľ alebo skupina priradená k paths v `CODEOWNERS`; pri správnej protected-branch konfigurácii môže byť jej approval required pred merge. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Deployment subject — GitLab
+
+Presná identity runtime mutation tvorená artifact digestom, rendered config alebo infrastructure revision, trusted deployment job definition, target environmentom, actor/job identity a rollout policy. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
 ## Direct membership — GitLab
 
 Členstvo pridané priamo na konkrétny project alebo group, na rozdiel od accessu zdedeného z parent group alebo získaného sharingom. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Effective access — GitLab
+
+Výsledná množina capabilities subjectu nad konkrétnym resource-om po vyhodnotení všetkých direct, inherited, shared, tokenových, custom-role a resource-policy access paths. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Effective branch policy — GitLab
+
+Capability-specific výsledok všetkých project a inherited group branch rules, ktoré matchujú konkrétny branch alebo pattern. Nesmie sa odhadovať iba podľa jednej viditeľnej rule. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
 ## Effective role — GitLab
 
@@ -52,6 +68,10 @@ Udelenie accessu projektu alebo group členom inej group s definovaným maximum 
 
 Access získaný cez membership v parent group alebo inom hierarchicky relevantnom namespace namiesto priameho pridania na project. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Merge decision subject — GitLab
+
+Presný obsah a context merge rozhodnutia: MR ID, source SHA, target alebo merge-base state, diff identity, merged-result alebo merge-train candidate a relevantná policy revision. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
+
 ## Merge train — GitLab
 
 Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich integrácie do target branch, aby chránil mainline health pri concurrency. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -71,6 +91,10 @@ CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa Gi
 ## Review app — GitLab
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Stale approval — GitLab
+
+Approval, ktorý bol udelený pre starší source SHA, target context, candidate alebo policy revision a už neposkytuje dôkaz pre aktuálny merge subject. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
 ## Subgroup — GitLab
 
