@@ -1151,15 +1151,15 @@
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
       "title": "Unit, integration a component tests",
-      "words": 3216,
-      "headings": 49,
-      "sections": 49,
-      "findings": 111,
-      "critical": 27,
-      "high": 25,
-      "medium": 18,
-      "low": 41,
-      "score": 640,
+      "words": 2682,
+      "headings": 43,
+      "sections": 43,
+      "findings": 123,
+      "critical": 41,
+      "high": 37,
+      "medium": 21,
+      "low": 24,
+      "score": 889,
       "grade": "D"
     },
     {
@@ -66615,7 +66615,7 @@
       "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: Test pyramid, Python for automation`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Test pyramid, Python for automation`.",
       "score": 12
     },
     {
@@ -66638,7 +66638,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "1. Definícia podľa reálnych hraníc",
+      "section": "1. Cieľ kapitoly",
       "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -66647,7 +66647,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "1. Definícia podľa reálnych hraníc",
+      "section": "1. Cieľ kapitoly",
       "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -66656,8 +66656,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "3. Unit test",
-      "line": 39,
+      "section": "2. Nosný scenár: Atlas Orders",
+      "line": 37,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -66665,143 +66665,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "3. Unit test",
-      "line": 39,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "3. Unit test",
-      "line": 39,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "6. Test seam",
-      "line": 85,
+      "section": "3. Jedna operácia, tri scopes",
+      "line": 62,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zodpovedá skutočnej architektonickej boundary;`, `umožňuje kontrolovať nedeterministický alebo drahý vstup;`, `neslúži iba na sprístupnenie private implementation detailu;`, `neumožňuje testu obísť dôležitú production logiku.`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "6. Test seam",
-      "line": 85,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "6. Test seam",
-      "line": 85,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "7. Integration test",
-      "line": 99,
+      "section": "Unit scope",
+      "line": 64,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 66 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "7. Integration test",
-      "line": 99,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `serializáciu, framing a protocol errors;`, `SQL dialect, constraints, transactions a isolation;`, `authentication, TLS a connection configuration;`, `queue ordering, acknowledgements a redelivery;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "7. Integration test",
-      "line": 99,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "8. Component test",
-      "line": 114,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "10. In-process a out-of-process execution",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packaging a missing runtime dependencies;`, `process startup a environment parsing;`, `socket, TLS a real HTTP framing;`, `signal handling a graceful shutdown;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "10. In-process a out-of-process execution",
-      "line": 135,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "10. In-process a out-of-process execution",
-      "line": 135,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "11. Reálna dependency alebo test double",
-      "line": 151,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 51 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "11. Reálna dependency alebo test double",
-      "line": 151,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SQL query a transaction behavior;`, `message acknowledgement alebo ordering;`, `serializer kompatibilitu;`, `TLS, authentication alebo protocol negotiation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "11. Reálna dependency alebo test double",
-      "line": 151,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "12. Typy test doubles",
-      "line": 174,
+      "section": "Unit scope",
+      "line": 64,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -66809,17 +66692,53 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "12. Typy test doubles",
-      "line": 174,
+      "section": "Integration scope",
+      "line": 75,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Integration scope",
+      "line": 75,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Component scope",
+      "line": 85,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "4. Subject, boundary, dependency a oracle",
+      "line": 99,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "12. Typy test doubles",
-      "line": 174,
+      "section": "4. Subject, boundary, dependency a oracle",
+      "line": 99,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `subject unit testu: CreateOrder use case;`, `subject integration testu: PostgreSQL repository a outbox transaction;`, `subject component testu: nasadený orders-api komponent;`, `oracle unit testu: doménový result a invarianty;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "4. Subject, boundary, dependency a oracle",
+      "line": 99,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -66827,8 +66746,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "12. Typy test doubles",
-      "line": 174,
+      "section": "4. Subject, boundary, dependency a oracle",
+      "line": 99,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -66836,8 +66755,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "12. Typy test doubles",
-      "line": 174,
+      "section": "4. Subject, boundary, dependency a oracle",
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -66845,8 +66764,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "12. Typy test doubles",
-      "line": 174,
+      "section": "4. Subject, boundary, dependency a oracle",
+      "line": 99,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -66854,89 +66773,71 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "13. Database integration tests",
-      "line": 185,
+      "section": "5. Unit test: izolované správanie",
+      "line": 121,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 54 slov súvislého vysvetlenia.",
+      "detail": "12 odrážok a iba 57 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "13. Database integration tests",
-      "line": 185,
+      "section": "5. Unit test: izolované správanie",
+      "line": 121,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migrácie z podporovaných predchádzajúcich verzií schémy;`, `uniqueness, foreign keys, check constraints a null semantics;`, `transaction commit, rollback a concurrent update;`, `správne query results pri reprezentatívnych edge cases;`.",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objednávka musí obsahovať aspoň jednu položku;`, `quantity musí byť kladné číslo;`, `price sa počíta cez Decimal , nie binary float;`, `total nesmie byť záporný;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "13. Database integration tests",
-      "line": 185,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "13. Database integration tests",
-      "line": 185,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "13. Database integration tests",
-      "line": 185,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "14. Izolácia databázových dát",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "14. Izolácia databázových dát",
-      "line": 202,
+      "section": "5. Unit test: izolované správanie",
+      "line": 121,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `policy`, `scope`",
       "score": 7
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "15. Message broker integration tests",
-      "line": 214,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
+      "section": "6. Solitary a sociable unit test",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "15. Message broker integration tests",
-      "line": 214,
+      "section": "6. Solitary a sociable unit test",
+      "line": 176,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "7. Test seam ako architektonická hranica",
+      "line": 194,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `topic alebo queue provisioning;`, `serialization a schema compatibility;`, `partitioning a ordering;`, `acknowledgement a redelivery;`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "15. Message broker integration tests",
-      "line": 214,
+      "section": "7. Test seam ako architektonická hranica",
+      "line": 194,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zodpovedá reálnej boundary systému;`, `ukrýva I/O alebo nedeterministický zdroj;`, `má malý, pomenovaný contract;`, `umožňuje reálnu implementáciu aj test double;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "7. Test seam ako architektonická hranica",
+      "line": 194,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -66944,17 +66845,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "15. Message broker integration tests",
-      "line": 214,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "15. Message broker integration tests",
-      "line": 214,
+      "section": "7. Test seam ako architektonická hranica",
+      "line": 194,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -66962,107 +66854,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "15. Message broker integration tests",
-      "line": 214,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "16. HTTP a API integration tests",
-      "line": 230,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "16. HTTP a API integration tests",
-      "line": 230,
+      "section": "8. Integration test: reálna boundary",
+      "line": 217,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request target, method, headers a body encoding;`, `status, response schema a content type;`, `timeout, cancellation a connection reuse;`, `authentication a authorization failures;`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "16. HTTP a API integration tests",
-      "line": 230,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "16. HTTP a API integration tests",
-      "line": 230,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "17. Filesystem integration tests",
-      "line": 247,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "17. Filesystem integration tests",
-      "line": 247,
+      "section": "8. Integration test: reálna boundary",
+      "line": 217,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path s whitespace, Unicode alebo dlhým názvom;`, `permission denied a read-only filesystem;`, `symlink a path traversal;`, `partial write a cleanup temp file;`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávny SQL dialect alebo mapping;`, `NULL , collation alebo timezone semantics;`, `chýbajúci unique constraint;`, `transaction commit a rollback;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "17. Filesystem integration tests",
-      "line": 247,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "17. Filesystem integration tests",
-      "line": 247,
+      "section": "8. Integration test: reálna boundary",
+      "line": 217,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "18. Cloud a provider integration tests",
-      "line": 263,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "18. Cloud a provider integration tests",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izolovaný account, project alebo subscription;`, `least-privilege test identity;`, `namespacing resources a tags pre garbage collection;`, `cost a quota limits;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "18. Cloud a provider integration tests",
-      "line": 263,
+      "section": "8. Integration test: reálna boundary",
+      "line": 217,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -67070,8 +66890,152 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "18. Cloud a provider integration tests",
-      "line": 263,
+      "section": "8. Integration test: reálna boundary",
+      "line": 217,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NULL`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "9. Worked integration failure: objednávka bez outbox eventu",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `order a outbox sa commitnú spolu;`, `alebo sa pri failure necommitne ani jeden;`, `retry nevytvorí duplicitnú objednávku;`, `constraint chráni identitu operácie aj pri concurrency.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "10. Databázový test lifecycle",
+      "line": 280,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "10. Databázový test lifecycle",
+      "line": 280,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "10. Databázový test lifecycle",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database alebo schema per worker;`, `unikátny tenant/operation ID;`, `disposable container;`, `snapshot/template restore;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "10. Databázový test lifecycle",
+      "line": 280,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "10. Databázový test lifecycle",
+      "line": 280,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "11. Broker a asynchronous boundary",
+      "line": 305,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "11. Broker a asynchronous boundary",
+      "line": 305,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `serialization a schema;`, `partition key a ordering;`, `acknowledgement;`, `redelivery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "11. Broker a asynchronous boundary",
+      "line": 305,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "11. Broker a asynchronous boundary",
+      "line": 305,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact obsahuje všetky runtime dependencies;`, `proces sa spustí s reálnou konfiguráciou;`, `route je správne registrovaná;`, `middleware order je správny;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -67079,8 +67043,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "18. Cloud a provider integration tests",
-      "line": 263,
+      "section": "12. Component test: celý komponent cez public boundary",
+      "line": 332,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -67088,26 +67052,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "19. Containerized dependencies",
-      "line": 279,
+      "section": "13. In-process verzus out-of-process",
+      "line": 361,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "19. Containerized dependencies",
-      "line": 279,
+      "section": "13. In-process verzus out-of-process",
+      "line": 361,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image tag drift alebo neoverený digest;`, `image pull latency a registry outage;`, `port collision pri paralelnom behu;`, `proces beží, ale služba ešte nie je ready;`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packaging;`, `process startup;`, `reálny socket a HTTP framing;`, `environment parsing;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "19. Containerized dependencies",
-      "line": 279,
+      "section": "13. In-process verzus out-of-process",
+      "line": 361,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -67115,251 +67079,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "19. Containerized dependencies",
-      "line": 279,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "19. Containerized dependencies",
-      "line": 279,
+      "section": "13. In-process verzus out-of-process",
+      "line": 361,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "20. Hermetic test",
-      "line": 295,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "20. Hermetic test",
-      "line": 295,
+      "section": "14. Worked component failure: falošne bezpečný idempotency flow",
+      "line": 382,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency versions a artifact digest;`, `clock, timezone a locale;`, `random seed a ID generator;`, `environment variables a config;`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unauthorized response neprezradí order identity;`, `vznikne presne jeden side effect v správnom tenante;`, `audit event obsahuje tenant, operation ID a výsledok.`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "20. Hermetic test",
-      "line": 295,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "20. Hermetic test",
-      "line": 295,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "20. Hermetic test",
-      "line": 295,
+      "section": "14. Worked component failure: falošne bezpečný idempotency flow",
+      "line": 382,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DNS`, `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "22. Fixtures a test builders",
-      "line": 327,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `factory, ktorá vytvorí unikátne namespaced dáta;`, `migration a seed z rovnakého artifactu ako produkcia;`, `fixture version viazaná na schema alebo API contract;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "22. Fixtures a test builders",
-      "line": 327,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "22. Fixtures a test builders",
-      "line": 327,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "22. Fixtures a test builders",
-      "line": 327,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "22. Fixtures a test builders",
-      "line": 327,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "25. Paralelizácia a isolation",
-      "line": 375,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "25. Paralelizácia a isolation",
-      "line": 375,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS-assigned alebo dynamicky alokované ports;`, `unique namespace per test alebo worker;`, `database/schema per worker;`, `correlation IDs a unique resource names;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "25. Paralelizácia a isolation",
-      "line": 375,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "25. Paralelizácia a isolation",
-      "line": 375,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "25. Paralelizácia a isolation",
-      "line": 375,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS-`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "26. Negative a failure paths",
-      "line": 391,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "26. Negative a failure paths",
-      "line": 391,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout a cancellation;`, `dependency unavailable alebo slow;`, `malformed, partial alebo semanticky chybnú odpoveď;`, `duplicate message alebo request;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "26. Negative a failure paths",
-      "line": 391,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "27. Assertions podľa scope",
-      "line": 408,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "28. Failure artifacts a observability",
-      "line": 416,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "28. Failure artifacts a observability",
-      "line": 416,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `seed a correlation ID;`, `request/response metadata s redaction;`, `logs relevantných procesov;`, `container alebo service status;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "28. Failure artifacts a observability",
-      "line": 416,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "28. Failure artifacts a observability",
-      "line": 416,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "28. Failure artifacts a observability",
-      "line": 416,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "28. Failure artifacts a observability",
-      "line": 416,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `DOM`, `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
+      "section": "15. Reálna dependency alebo double",
+      "line": 412,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -67367,26 +67115,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
+      "section": "15. Reálna dependency alebo double",
+      "line": 412,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
+      "section": "15. Reálna dependency alebo double",
+      "line": 412,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj behavior a failure mode;`, `urč boundary, v ktorej failure vzniká;`, `zvoľ najnižší scope, ktorý boundary vykoná reálne;`, `rozhodni, ktoré ostatné dependencies môžu byť doubles;`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `PostgreSQL constraints a transactions;`, `broker acknowledgement a redelivery;`, `filesystem permissions a atomic rename;`, `TLS/authentication/protocol negotiation;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
+      "section": "15. Reálna dependency alebo double",
+      "line": 412,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -67394,17 +67142,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
+      "section": "15. Reálna dependency alebo double",
+      "line": 412,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -67412,8 +67151,449 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "30. Výber správneho scope",
-      "line": 438,
+      "section": "15. Reálna dependency alebo double",
+      "line": 412,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "16. Hermeticita nie je absencia reálnych služieb",
+      "line": 437,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "16. Hermeticita nie je absencia reálnych služieb",
+      "line": 437,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image digest a version;`, `schema a seed;`, `config;`, `clock, timezone a locale;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "16. Hermeticita nie je absencia reálnych služieb",
+      "line": 437,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "16. Hermeticita nie je absencia reálnych služieb",
+      "line": 437,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "17. Setup, readiness, execute, evidence, cleanup",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentný;`, `scoped iba na resources testu;`, `bezpečný po partial setup;`, `vykonaný v finally -like lifecycle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "18. Test data a paralelizácia",
+      "line": 479,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "18. Test data a paralelizácia",
+      "line": 479,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unikátny tenant ID;`, `unikátny idempotency key;`, `schema/database per worker;`, `dynamický port;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "18. Test data a paralelizácia",
+      "line": 479,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "18. Test data a paralelizácia",
+      "line": 479,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "19. Failure paths sú produkčné správanie",
+      "line": 497,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "19. Failure paths sú produkčné správanie",
+      "line": 497,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout a cancellation;`, `dependency unavailable alebo slow;`, `malformed a semanticky chybnú odpoveď;`, `duplicate request/message;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "19. Failure paths sú produkčné správanie",
+      "line": 497,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "19. Failure paths sú produkčné správanie",
+      "line": 497,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "20. Assertions podľa scope",
+      "line": 516,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Unit",
+      "line": 518,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Unit",
+      "line": 518,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Unit",
+      "line": 518,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `returned value alebo domain error;`, `state transition;`, `invariant;`, `významný emitted command/event;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Unit",
+      "line": 518,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Integration",
+      "line": 528,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Integration",
+      "line": 528,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Integration",
+      "line": 528,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `persisted state;`, `constraint a transaction outcome;`, `serialization/protocol result;`, `retry a timeout behavior;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Integration",
+      "line": 528,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Component",
+      "line": 538,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Component",
+      "line": 538,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Component",
+      "line": 538,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public API behavior;`, `middleware a authorization;`, `state a external side effects;`, `error model;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Component",
+      "line": 538,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "Component",
+      "line": 538,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit a artifact digest;`, `test attempt/run ID;`, `seed, tenant a correlation ID;`, `dependency versions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "21. Failure artifacts",
+      "line": 551,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over subject input a initial state;`, `over artifact a dependency versions;`, `over readiness a config;`, `nájdi correlation ID v logs/traces;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "22. Diagnostický postup",
+      "line": 568,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "23. Mutation testing",
+      "line": 594,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `financial calculations;`, `authorization;`, `state machines;`, `parsers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj behavior a failure mode;`, `urč boundary, kde failure vzniká;`, `zvoľ najnižší scope, ktorý ju vykoná reálne;`, `definuj subject a ostatné dependencies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
+      "section": "24. Rozhodovací rámec",
+      "line": 608,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -67421,80 +67601,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over, či subject dostal očakávané vstupy;`, `skontroluj dependency version, readiness a config;`, `nájdi correlation ID v logs a traces;`, `over reálny persisted alebo emitted state;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "31. Diagnostika zlyhania",
-      "line": 453,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "In-memory databáza ako univerzálna náhrada",
-      "line": 487,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -67502,8 +67610,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -67511,8 +67619,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -67520,17 +67628,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `scope je definovaný reálnymi a nahradenými boundaries;`, `test overuje behavior a relevantný oracle;`, `reálne dependencies sú pinned a pripravené funkčným probe-om;`, `test data sú minimálne, namespaced a reprodukovateľné;`.",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Integration test vykonáva reálnu technickú alebo procesnú boundary.`, `Fake databáza nie je dôkaz produkčných SQL semantics.`, `Reálna dependency môže byť súčasťou hermetického testu.`, `Fixed sleep nahraď condition-based waitingom s deadline.`.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -67538,8 +67646,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -67547,8 +67655,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -67556,8 +67664,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -67565,17 +67673,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "33. Kontrolný checklist",
-      "line": 503,
+      "section": "25. Referenčné pravidlá",
+      "line": 624,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `scope`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "34. Časté omyly",
-      "line": 517,
+      "section": "26. Časté omyly",
+      "line": 638,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
