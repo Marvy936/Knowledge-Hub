@@ -4,7 +4,7 @@
 
 - Status: Learning
 - Úroveň: L2 — rozumiem mechanizmu
-- Doména: Git and Automation Basics
+- Doména: Testing and Software Quality
 - Predpoklady: [Test pyramid](test-pyramid.md), [Python for automation](../03-git-and-automation/python-for-automation.md)
 - Súvisiace témy: test seams, fixtures, hermetic tests, test doubles, ephemeral dependencies, mutation testing
 
