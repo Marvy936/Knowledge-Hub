@@ -2222,6 +2222,10 @@ Vrstva služby, ktorej configuration, patching, security, availability alebo rec
 
 Cluster-scoped Kubernetes object, ktorý pridáva nový custom resource type, group/version/schema a scope do API; sám osebe neposkytuje reconciliation logic. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Cutover transaction
+
+CAS-chránený a auditovaný prechod autoritatívneho routingu zo starej deployment farby na novú, viazaný na očakávanú routing revision, immutable release subject a idempotentné failure semantics. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
 ## Cutover window
 
 Časový interval, v ktorom sa traffic alebo ownership práce presúva zo starej deployment farby na novú a intenzívne sa sledujú promotion a abort signály. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -3406,6 +3410,10 @@ Plný časovo a pravidlami ohraničený tréning napodobňujúci performance-bas
 
 Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `raise ... from ...`. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Exclusive runtime slot
+
+Recreate deployment model, v ktorom môže konkrétny service alebo writer ownership v jednom okamihu patriť iba starej generácii, prázdnemu maintenance stavu alebo novej generácii. Odstraňuje mixed-version overlap za cenu capacity gapu. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md).
+
 ## Exec probe
 
 Kubernetes probe spúšťajúca command v container environment-e a vyhodnocujúca jeho exit status. Pozri [Probes](docs/09-kubernetes/probes.md).
@@ -3789,6 +3797,10 @@ Pod security context group identity používaná pri ownership a access nastaven
 ## Fulcio
 
 Sigstore certificate authority vydávajúca short-lived code-signing certificates pre overené OIDC identities. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Functional readiness
+
+Dôkaz, že instance alebo nová generácia dokáže bezpečne vykonať kritický service outcome vrátane relevantnej identity, dependency, read/write a idempotency cesty. Je prísnejšia než process start, liveness alebo otvorený port. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md) a [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
 ## Game day
 
@@ -5517,6 +5529,10 @@ Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní
 ## Mirror Pod
 
 API-visible reprezentácia static Podu, ktorú kubelet vytvorí pre observability; authoritative configuration zostáva na konkrétnom Node-e. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Mixed-version compatibility
+
+Schopnosť starej a novej application generácie bezpečne koexistovať nad spoločným trafficom a mutable state-om vrátane database, events, queues, cache, sessions, workers a client contractov. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
 ## Mixed-version control plane
 
