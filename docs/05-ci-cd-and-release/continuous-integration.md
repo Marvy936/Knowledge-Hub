@@ -6,521 +6,476 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Continuous Integration (CI) je pracovný a technický model, v ktorom tímy často integrujú malé zmeny do spoločnej hlavnej línie a nad každým kandidátnym integračným stavom automaticky získavajú dôveryhodný dôkaz o zostaviteľnosti, kompatibilite a kvalite.
-
-CI nie je iba server, ktorý spúšťa testy. Je to uzavretý feedback lifecycle:
+Continuous Integration (CI) je pracovný a technický model, v ktorom sa malé zmeny často skladajú do spoločnej hlavnej línie a každý kandidátny integračný stav dostane automatizovaný, reprodukovateľný a auditovateľný verdict.
 
 ```text
-malá zmena
-→ kandidátny integračný stav
-→ reprodukovateľný build
-→ automatizované kontroly
-→ immutable artifact a evidence
+malá source zmena
+→ presný candidate integration state
+→ čistý a reprodukovateľný build
+→ vrstvené verification evidence
+→ immutable artifact
 → merge alebo oprava
-→ zdravá hlavná línia
+→ zdravá mainline
 ```
 
-Základnou jednotkou CI nie je branch ani pipeline run, ale **integračné rozhodnutie**: môžeme túto konkrétnu zmenu bezpečne pridať k aktuálnemu spoločnému stavu?
+CI nie je iba server spúšťajúci testy. Jeho základnou jednotkou je **integračné rozhodnutie**: môžeme tento konkrétny výsledný tree bezpečne pridať k aktuálnemu spoločnému stavu?
 
-## 2. Problém, ktorý CI rieši
+## 1. Cieľ kapitoly
 
-Bez častej integrácie sa riziko hromadí mimo spoločného feedback systému. Dlhodobé branches sa vzďaľujú od mainline, nekompatibility zostávajú skryté a ich riešenie sa presúva do veľkej „integration phase“ pred releaseom.
-
-Mechanizmus integračného dlhu:
+Nosný model kapitoly je candidate-evidence lifecycle:
 
 ```text
-zmeny vznikajú oddelene
-→ každá je testovaná proti starému základu
-→ assumptions sa rozchádzajú
-→ merge vytvorí nový, netestovaný stav
-→ failure má veľký počet možných príčin
+source change a target main
+→ candidate identity
+→ trusted checkout a explicitné build inputs
+→ compile/test/contract/policy evidence
+→ complete aggregation
+→ immutable artifact a provenance
+→ fresh merge decision
+→ mainline health alebo urgent recovery
+→ defect escape späť do dependency/test/policy modelu
 ```
 
-CI znižuje tento dlh cez:
+Zelený branch, úspešný lokálny build ani starý pipeline run samy osebe neodpovedajú na integračnú otázku. Dôkaz musí patriť presnému kandidátovi, aktuálnemu targetu a autoritatívnej workflow policy.
 
-- **malý batch size —** menší diff má menší počet assumptions a jednoduchší rollback;
-- **krátky čas do integrácie —** zmena sa porovnáva s aktuálnym main, nie s historickým základom;
-- **automatizovaný oracle —** build, testy, contracts a policies dávajú rýchly výsledok;
-- **viditeľný spoločný stav —** tím vie, či je mainline zdravá;
-- **urgentnú opravu broken main —** červený main sa nepovažuje za normálny backlog.
+## 2. Nosný scenár: Atlas Orders 3.10.0
 
-## 3. Hlavná línia ako integračný kontrakt
+Atlas pripravuje dve paralelné zmeny:
 
-Main branch reprezentuje najnovší akceptovaný integračný stav. Nemusí byť automaticky nasadený do produkcie, ale musí byť vhodným vstupom pre ďalší delivery proces.
+- **PR A** pridáva `priority` do `OrderCreated` eventu a aktualizuje generated client;
+- **PR B** mení retry klasifikáciu workeru a jeho dependency lockfile;
+- `main` medzitým aktualizuje spoločný serialization package.
 
-Zdravá mainline má tieto invariants:
-
-- **Source consistency —** commit graph a dependency metadata tvoria konzistentný stav;
-- **Buildability —** autoritatívny build možno zopakovať v definovanom prostredí;
-- **Required evidence —** blocking checks boli kompletne vykonané a prešli;
-- **Artifact identity —** výsledný build je jednoznačne spojený s commitom a pipeline runom;
-- **No silent incompleteness —** chýbajúci shard, report alebo scanner nie je interpretovaný ako pass;
-- **Fast repair policy —** pri zlyhaní existuje jasný vlastník a reakcia.
-
-Mainline health nie je iba zelená ikona posledného jobu. Zahŕňa čerstvosť výsledku voči aktuálnemu main, úplnosť evidence a dôveryhodnosť runnera a toolchainu.
-
-## 4. Častá integrácia a malý batch
-
-CI preferuje malé, časté a kompatibilné zmeny. Menší batch znižuje:
-
-- počet možných príčin failure,
-- rozsah review,
-- merge konflikty,
-- rollback blast radius,
-- čas potrebný na opätovné overenie,
-- riziko, že sa zmena stane neoddeliteľnou od ďalších zmien.
-
-Veľkú capability možno rozdeliť pomocou:
-
-- feature flags,
-- branch by abstraction,
-- backward-compatible API a schema zmien,
-- dark code paths bez používateľskej expozície,
-- postupných refactoringov,
-- expand-contract migrácií,
-- oddelenia deploymentu od releaseu.
-
-Skrytý nedokončený kód nesmie zhoršiť existujúce behavior, bezpečnosť alebo operability. Feature flag nie je ospravedlnenie pre nekompatibilný build.
-
-## 5. Candidate integration state
-
-Pull request tip nie je vždy stav, ktorý sa reálne integruje. CI musí explicitne pomenovať, čo testuje:
-
-- source branch SHA,
-- target branch SHA,
-- synthetic merge commit SHA,
-- rebased candidate SHA,
-- merge-queue group SHA,
-- tag alebo release commit.
-
-Príklad race:
+Integračný chain je:
 
 ```text
-PR A je zelený proti main M1
-PR B je zelený proti main M1
-A sa merge-ne a vytvorí M2
-B sa merge-ne bez nového testu
-→ B nikdy nebol overený proti M2
+PR source SHA
++ aktuálny main SHA
++ workflow definition a toolchain
+→ synthetic merge candidate
+→ build orders-api a payment-worker
+→ contract a compatibility checks
+→ tests a security policy
+→ package image digest
+→ merge decision
 ```
 
-Dôveryhodné CI testuje kandidáta proti aktuálnemu cieľovému stavu a po každej relevantnej zmene targetu vie výsledok invalidovať.
+CI musí overiť výsledný spoločný stav, nie tri izolované branches testované proti starším predpokladom.
 
-## 6. Merge-result testing
+## 3. Mainline ako integračný kontrakt
 
-Merge-result pipeline vytvorí syntetický alebo skutočný merge candidate a testuje výsledný tree, nie iba source branch.
+`main` reprezentuje najnovší akceptovaný spoločný stav. Nemusí byť automaticky releasnutý, ale musí byť dôveryhodným vstupom pre ďalší delivery proces.
 
-Overuje:
+Mainline invariants:
 
-- textové a semantic merge konflikty,
-- kombinovaný dependency graph,
-- spoločný build a test suite,
-- zmenu generated files alebo lockfile,
-- kompatibilitu viacerých paralelných zmien,
-- policy nad výsledným obsahom.
+- source a dependency metadata tvoria konzistentný tree;
+- autoritatívny build sa dá zopakovať v deklarovanom prostredí;
+- required evidence je complete a fresh;
+- artifact identity je previazaná na candidate a pipeline;
+- chýbajúci shard, report alebo scanner nie je pass;
+- broken main má urgentného ownera a recovery policy.
 
-Výsledok musí byť viazaný na presný candidate SHA. „PR bol zelený včera“ nie je dôkaz pre dnešný merge, ak sa main alebo pipeline policy zmenili.
+Zelená ikona bez candidate identity, evidence completeness a workflow freshness nie je integračný kontrakt.
 
-## 7. Merge queue
+## 4. Malý batch a častá integrácia
 
-Merge queue serializuje alebo batchuje schválené zmeny a testuje ich proti predpokladanému budúcemu main.
-
-Typický lifecycle:
+Dlhodobá branch akumuluje integračný dlh:
 
 ```text
-PR schválený
-→ zaradenie do queue
-→ vytvorenie candidate merge state
-→ required checks
-→ merge pri zelenom výsledku
-→ invalidácia alebo opakovanie pri zmene predchodcu
+zmena vzniká proti starému main
+→ ďalší kód začne závisieť od lokálnych assumptions
+→ target a dependencies sa menia
+→ merge vytvorí nový neoverený stav
+→ failure má veľa možných príčin
 ```
 
-Merge queue musí definovať:
+Atlas rozdeľuje veľkú capability cez backward-compatible schema, branch by abstraction, feature flag a oddelený destructive cleanup. Menší batch znižuje počet assumptions, review scope, merge conflicts aj rollback blast radius.
 
-- poradie a fairness,
-- maximálnu veľkosť batchu,
-- invalidáciu po failure,
-- či sa neúspešný batch rozdeľuje,
-- required checks a freshness,
-- správanie pri force push alebo zmene approval,
-- ochranu pred starvation dlhého jobu.
+Skrytý feature path však stále musí byť buildable, bezpečný a kompatibilný. Flag nie je výnimka z CI invariants.
 
-Queue znižuje race medzi individuálne zelenými PRs, ale sama negarantuje správnosť. Stále potrebuje úplný dependency graph a dôveryhodné tests.
+## 5. Candidate identity
 
-## 8. CI pipeline lifecycle
+Pipeline musí explicitne rozlišovať:
 
-Autoritatívny CI flow typicky obsahuje:
+- source branch SHA;
+- target branch SHA;
+- synthetic merge alebo rebased candidate SHA;
+- merge-queue group SHA;
+- workflow definition revision;
+- tag alebo release commit, ak je relevantný.
+
+Atlas PR A môže byť zelený proti `main=M1`, ale po merge PR B vznikne `M2`. Pôvodný výsledok A už nepreukazuje kompatibilitu s M2.
 
 ```text
-resolve event a candidate SHA
-→ čistý checkout
-→ obnoviť toolchain a dependencies
-→ statické kontroly
-→ build
+A green against M1
+B green against M1
+B merged → M2
+A merged without revalidation
+→ A + B combination nikdy nebola testovaná
+```
+
+Dôveryhodný verdict sa invaliduje pri zmene targetu, candidate tree alebo required policy.
+
+## 6. Merge-result testing a merge queue
+
+Merge-result pipeline testuje tree, ktorý by po integrácii skutočne vznikol. Atlas tým overí:
+
+- kombinovaný dependency graph a lockfile;
+- generated client po event schema zmene;
+- semantic compatibility API a workeru;
+- spoločný build a test corpus;
+- policy nad výsledným repository stavom.
+
+Merge queue potom vytvára predpokladaný budúci main:
+
+```text
+approved PR
+→ queue position
+→ candidate against queue predecessor
+→ required evidence
+→ merge
+→ invalidation/rebuild ďalšieho kandidáta
+```
+
+Queue rieši race medzi paralelne zelenými PRs. Nenahrádza však úplný dependency graph ani kvalitné oracles.
+
+## 7. Autoritatívny CI lifecycle
+
+Atlas workflow:
+
+```text
+resolve event, source, target a candidate
+→ clean checkout
+→ restore pinned toolchain a dependencies
+→ fast static/schema checks
+→ build binaries
 → unit/integration/contract tests
-→ package immutable artifact
-→ security a policy verification
-→ publikovať reports, provenance a status
+→ package jeden immutable artifact
+→ artifact/SBOM/signature policy
+→ aggregate complete evidence
+→ publish candidate verdict
 ```
 
-Presné poradie sa môže paralelizovať podľa dependency DAG. Lacné a vysoko diagnostické kontroly patria na začiatok critical path, ale artifact-dependent kontroly musia pracovať s tým istým buildom, ktorý sa publikuje.
+DAG môže nezávislé kontroly paralelizovať. Artifact-dependent checks však musia pracovať s rovnakým build outputom, ktorý sa publikuje. Rebuild po testoch by vytvoril nový supply-chain event.
 
-## 9. Reprodukovateľný build
+## 8. Reprodukovateľný build
 
-Reprodukovateľný build znamená, že rovnaké deklarované vstupy vytvoria funkčne alebo bitovo ekvivalentný výstup podľa definovaného kontraktu.
+Build inputs sú širšie než source:
 
-Vstupy zahŕňajú viac než source:
+```text
+commit a submodules
++ dependency lockfiles
++ compiler/SDK/build image
++ build flags a environment
++ generated-code tools
++ architecture, locale a timezone
++ pipeline templates/actions
++ povolené network-fetched inputs
+→ artifact bytes
+```
 
-- commit a submodules,
-- dependency lockfiles,
-- compiler, SDK a build image,
-- build flags a environment variables,
-- locale, timezone a platform architecture,
-- generated-code tools,
-- network-fetched resources,
-- timestamps a ordering,
-- pipeline templates a reusable actions.
+Implicitný host toolchain, mutable base image alebo nezamknutá dependency znamenajú, že rovnaký commit nemusí vytvoriť rovnaký výsledok.
 
-Build musí minimalizovať nezdokumentované vstupy z hosta. „Funguje na mojom notebooku“ často znamená, že build používa implicitný toolchain, credentials, cache alebo filesystem state.
+Atlas pinne build image digest, package lock a schema generator. Cold build musí fungovať bez lokálneho workspace stateu.
 
-## 10. Build once a immutable artifact
+## 9. Build once a immutable artifact
 
 Odporúčaný model:
 
 ```text
-candidate commit
-→ jeden dôveryhodný build
-→ immutable artifact digest
-→ ďalšie testovanie a promotion toho istého artifactu
+candidate C
+→ build artifact digest A
+→ verify A
+→ publikovať A s provenance
+→ neskôr promovať ten istý A
 ```
 
-Rebuild pre staging a produkciu vytvára nový supply-chain event a nové bytes. Aj keď používa rovnakú verziu source, dependencies alebo base image sa mohli zmeniť.
+Artifact record obsahuje minimálne:
 
-Artifact musí mať:
+- digest a registry location;
+- source a candidate SHA;
+- build workflow a runner image;
+- dependency/toolchain metadata;
+- SBOM a signature podľa risku;
+- evidence bundle a retention;
+- verification status.
 
-- immutable identifikátor alebo digest,
-- source commit a build-run väzbu,
-- toolchain a dependency metadata,
-- SBOM podľa potreby,
-- provenance a prípadne podpis,
-- retention policy,
-- jasný stav verifikácie a promotion.
+Environment-specific konfigurácia sa od artifactu oddeľuje. Rebuild „pre staging“ alebo „pre produkciu“ ruší väzbu medzi testovanými a nasadenými bytes.
 
-Environment-specific konfigurácia má byť čo najviac oddelená od artifactu.
+## 10. Evidence a complete verdict
 
-## 11. Test evidence a provenance
+CI produkuje rozhodovací dôkaz:
 
-CI neprodukuje iba binary alebo image. Produkuje rozhodovací dôkaz.
+- compile a test reports vrátane first-attempt výsledku;
+- coverage a mutation evidence;
+- contract compatibility;
+- SAST, SCA a secret findings;
+- SBOM, checksums a provenance;
+- candidate/target identity;
+- runner, tool a policy versions;
+- očakávaný a skutočný shard manifest.
 
-Evidence môže obsahovať:
+Verdict rozlišuje:
 
-- test reports a first-attempt výsledky,
-- coverage a mutation reports,
-- contract compatibility,
-- SAST/SCA/secret findings,
-- SBOM a license report,
-- build logs a checksums,
-- candidate SHA a target SHA,
-- runner image a tool versions,
-- policy version,
-- timestamps a environment identity.
+```text
+PASS
+→ všetky required controls sa vykonali a splnili oracle
 
-Evidence musí byť dostupné bez rerunu. Rerun môže použiť iný dependency state, runner alebo external service a odstrániť pôvodný failure.
+CHANGE_FAILURE
+→ kód, contract alebo policy je porušená
 
-## 12. Cache nie je source of truth
+INCOMPLETE
+→ chýba shard, report, artifact alebo required input
 
-Cache zrýchľuje CI, ale nesmie meniť correctness.
+TOOL/INFRA_FAILURE
+→ control sa nedal dôveryhodne vykonať
 
-Cache key musí zahŕňať relevantné vstupy:
+CANCELED/SUPERSEDED
+→ run už nereprezentuje aktuálny candidate
+```
 
-- OS a architecture,
-- toolchain version,
-- dependency lock hash,
-- build flags,
-- source alebo dependency graph podľa typu cache,
-- pipeline/tool configuration.
+Chýbajúci report ani analyzer crash nie sú zelený výsledok.
+
+## 11. Cache ako optimalizácia
+
+Cache nesmie byť hidden source of truth. Kľúč musí zohľadniť relevantné inputs: OS, architecture, toolchain, lock hash, flags a config.
+
+Atlas oddelí cache namespace pre untrusted PRs od trusted buildov. Pipeline periodicky robí cold-cache build.
 
 Riziká:
 
-- stale cache po neúplnej invalidácii,
-- cache poisoning z nedôveryhodnej branch,
-- cross-project contamination,
-- obnovovanie privileged outputu v untrusted jobe,
-- rozdiel medzi warm a cold buildom,
-- tichý fallback na nekompatibilný artifact.
+- stale output po neúplnej invalidácii;
+- cache poisoning z nedôveryhodného kódu;
+- cross-project contamination;
+- warm build, ktorý maskuje chýbajúci generated step;
+- privileged artifact obnovený v untrusted jobe.
 
-Pipeline musí vedieť prejsť s prázdnou cache. Periodický cold-cache build pomáha overiť tento invariant.
+Cache miss má znížiť výkon, nie correctness.
 
-## 13. Untrusted code a trust boundaries
+## 12. Trust boundaries
 
-CI často spúšťa kód z pull requestu. Tento kód môže byť nedôveryhodný a pokúsiť sa čítať credentials, modifikovať cache alebo exfiltrovať interné dáta.
+Atlas rozdeľuje workflow:
 
-Oddeluj:
+```text
+untrusted PR verification
+→ read source, bez production secrets
 
-- untrusted verification jobs bez citlivých secrets,
-- trusted jobs nad akceptovaným commitom,
-- artifact verification bez produkčných práv,
-- deployment jobs s environment-scoped identity.
+trusted build po policy boundary
+→ write iba do candidate artifact namespace
 
-Ochrany:
+artifact verification/signing
+→ read immutable artifact, samostatná identity
 
-- ephemeral runners,
-- least-privilege tokeny,
-- short-lived workload identity,
-- zákaz production secrets vo fork pipelines,
-- oddelené cache namespaces,
-- network egress controls,
-- protected branch/environment policy,
-- pinovanie reusable actions a images digestom.
+deployment
+→ environment-scoped short-lived identity
+```
 
-CI pipeline code je privilegovaný software. Zmena workflowu musí podliehať review a ownership pravidlám.
+PR code môže meniť scripts a pokúsiť sa čítať credentials alebo poisonovať shared state. Preto sa untrusted code nespúšťa na persistent privileged runneri s produkčným network accessom.
 
-## 14. Runner isolation
+Workflow definitions a reusable actions sú privilegovaný software. Potrebujú review, pinning a ownership.
 
-Runner je execution, capacity a security boundary.
+## 13. Runner isolation a capacity
 
-Typy:
+Runner je execution, trust a capacity boundary. Atlas používa:
 
-- hosted ephemeral VM alebo container,
-- self-hosted persistent host,
-- autoscalovaný VM pool,
-- Kubernetes pod,
-- specialized hardware runner.
+- ephemeral pool pre untrusted verification;
+- samostatný trusted build pool;
+- protected deploy pool bez spúšťania PR source;
+- short-lived workload identity;
+- explicitné network egress a resource limits.
 
-Persistent runner nesie riziká:
+Container poskytuje izolovaný userspace, ale zdieľa kernel. Persistent shell runner môže zachovať workspace, procesy, credentials a poisoned cache. Executor sa volí podľa trust levelu, nie iba startup času.
 
-- zvyškový workspace,
-- tokeny v procesoch alebo filesysteme,
-- poisoned cache,
-- host-level persistence,
-- drift toolchainu,
-- cross-project leakage.
+## 14. Gates, retry a flakiness
 
-Container izoluje procesy a filesystem, ale zdieľa kernel. Shell executor na hoste poskytuje slabšiu boundary. Citlivý deploy job potrebuje samostatný trusted pool a scoped network access.
+Blocking gate musí chrániť významný risk a byť presný, reprodukovateľný, complete, akčný a vlastnený. Nový alebo heuristický signal môže začať advisory s maturity plánom.
 
-## 15. Quality gates
+Retry je vhodný pre identifikovaný transient transport alebo runner provisioning failure. Nie pre compile error, contract incompatibility alebo neznámy test failure.
 
-Blocking gate má chrániť konkrétne významné riziko a musí byť:
+Atlas zachováva každý attempt:
 
-- presný,
-- reprodukovateľný,
-- kompletný,
-- akčný,
-- vlastnený,
-- primerane rýchly,
-- auditovateľný.
+```text
+first attempt failure
+→ diagnostický rerun
+→ final classification
+```
 
-Príklady blocking failures:
+Pass-after-retry nie je pass-on-first-attempt. Quarantine mení gate policy dočasne; neodstraňuje root cause.
 
-- compile error,
-- deterministický test failure,
-- contract incompatibility,
-- high-confidence secret leak,
-- neplatný artifact signature,
-- critical policy violation.
+## 15. Worked failure: dva zelené PRs rozbili main
 
-Advisory checks sú vhodné pre nový alebo menej presný signál. Advisory výsledok potrebuje ownera a plán, nie permanentné ignorovanie.
+PR A pridal optional event field a regeneroval client. PR B aktualizoval serialization package, ale každý bol testovaný iba proti M1:
 
-## 16. Failure taxonomy
+```text
+A/M1 green
+B/M1 green
+B merged → M2
+A merged bez merge-result pipeline
+→ generated client a nový serializer vytvorili odlišný enum representation
+→ payment-worker nevedel deserializovať nové eventy
+→ main pipeline zlyhala až po merge
+```
 
-Pipeline nemá všetko zredukovať na červenú alebo zelenú.
+### Root cause
 
-Rozlišuj:
+Branch status sa zamieňal za integračný verdict. Required checks neboli viazané na synthetic merge candidate voči aktuálnemu targetu.
 
-- **Product/change failure —** kód, test, contract alebo policy je porušená;
-- **Flaky/intermittent failure —** rovnaký deklarovaný stav má nekonzistentný výsledok;
-- **Infrastructure failure —** runner, registry, network alebo control plane zlyhal;
-- **Tool failure —** analyzer alebo test framework sa nespustil alebo havaroval;
-- **Incomplete evidence —** chýba shard, artifact alebo report;
-- **Canceled/superseded —** run stratil hodnotu pre novší commit;
-- **Policy skip —** krok sa zámerne nespustil podľa explicitného pravidla.
+### Náprava
 
-Infrastructure failure nesmie byť automaticky pass. Retry je vhodný iba pre identifikovaný transient failure a prvý výsledok musí zostať viditeľný.
+- merge-result pipeline a merge queue;
+- candidate SHA v reports a artifact provenance;
+- invalidácia pri zmene target SHA;
+- contract replay s historickými aj novými event fixtures;
+- urgent broken-main revert a následná regression edge v dependency modeli.
 
-## 17. Flaky tests a retries
+## 16. Worked failure: warm cache vytvorila false green
 
-Flaky blocking test degraduje celý integračný kontrakt. Vedie k rerun-until-green, dlhým queues a strate dôvery.
+Generated API client nebol deklarovaný ako build dependency. Persistent runner ho mal zo staršieho jobu:
 
-CI má sledovať:
+```text
+warm workspace obsahoval generated client
+→ build a tests green
+→ clean release runner nemal generated output
+→ package chýbal potrebný module
+→ publication zlyhala
+```
 
-- first-attempt pass rate,
-- pass-after-retry rate,
-- failure signatures,
-- quarantine age,
-- ownera a remediation deadline,
-- environment a runner koreláciu.
+### Root cause
 
-Retry môže potvrdiť intermittency, ale nesmie prepísať historický failure. Quarantine je dočasná zmena gate policy, nie oprava testu.
+Workspace/cache boli nezdokumentovaným build inputom. Pipeline netestovala cold invariant a cleanup nebol spoľahlivý.
 
-## 18. Broken main
+### Náprava
 
-Keď autoritatívna main pipeline zlyhá:
+- ephemeral clean workspace;
+- generated step je explicitný DAG predecessor;
+- artifact transfer nahrádza implicitný filesystem state;
+- cold-cache periodic job;
+- build manifest obsahuje generated-tool version a output checksum.
 
-1. označ main ako broken a zastav ďalšie rizikové merges podľa policy;
-2. identifikuj first bad candidate a failure class;
-3. rozhodni medzi revertom a rýchlou opravou;
-4. obnov green state čo najmenším changeom;
-5. over artifact a downstream consumers;
-6. analyzuj, prečo PR alebo merge queue failure nezachytili;
-7. pridaj regression, dependency edge alebo policy opravu.
+## 17. Broken main recovery
 
-Dlhodobo červený main normalizuje failure. Tím potom nevie odlíšiť novú regresiu od starého šumu.
+Pri zlyhaní autoritatívneho main candidate:
 
-## 19. Pipeline performance
+```text
+main marked broken
+→ zastaviť ďalšie rizikové merges
+→ identifikovať first bad integration a failure class
+→ revert alebo minimálny roll-forward fix
+→ znovu vytvoriť complete artifact/evidence
+→ overiť downstream consumers
+→ opraviť kontrolu, ktorá failure prepustila
+```
 
-CI optimalizuje čas k užitočnému rozhodnutiu, nie iba celkový CPU čas.
+Dlhodobo červený main ničí význam spoločného contractu. Recovery má prednosť pred novou feature prácou podľa explicitnej policy.
 
-Kľúčové pojmy:
+## 18. Výkon CI feedback loopu
 
-- **Queue time —** čakanie na runner alebo concurrency slot;
-- **Time to first useful feedback —** prvý akčný failure;
-- **Critical path —** najdlhšia dependency cesta po konečný required výsledok;
-- **Fan-out/fan-in overhead —** čas rozdelenia, prenosu a agregácie;
-- **Wasted execution —** jobs bežiace po superseded commite;
-- **Cache effectiveness —** zrýchlenie bez correctness regresie.
+CI optimalizuje čas k užitočnému rozhodnutiu:
 
-Optimalizácie:
+- queue time;
+- time to first useful feedback;
+- critical-path duration;
+- merge-queue wait a invalidation rate;
+- shard imbalance a fan-in time;
+- canceled/superseded execution;
+- cache benefit verzus cold-build reliability;
+- flaky, tool a infrastructure failure rate;
+- čas broken main.
 
-- bezpečný affected-test selection,
-- paralelizácia nezávislých jobs,
-- test sharding podľa historického času,
-- skoré fail-fast checks,
-- zrušenie superseded runs,
-- elastický runner pool,
-- zníženie artifact-transfer overheadu.
+Viac paralelných jobs nemusí skrátiť critical path a môže zvýšiť runner contention alebo quotas.
 
-Viac paralelizácie môže zvýšiť queueing, quotas a contention. Meraj critical path, nie iba počet jobs.
+## 19. Diagnostický postup
 
-## 20. Observability CI systému
+Pri CI failure:
 
-CI je produkčný systém pre delivery. Potrebuje vlastnú telemetry.
+1. Potvrď source, target, candidate a workflow revision.
+2. Klasifikuj change, flaky, tool, infrastructure alebo incomplete failure.
+3. Over checkout tree, submodules, LFS a generated files.
+4. Porovnaj runner image, architecture, resources, locale a network.
+5. Skontroluj lockfiles, cache key a cold-cache reprodukciu.
+6. Potvrď očakávaný shard/report manifest.
+7. Zachovaj logs, reports, core dumps a artifact metadata prvého attemptu.
+8. Reprodukuj najmenší job s rovnakými deklarovanými inputs.
+9. Pri merge failure analyzuj synthetic merge tree, nie iba source branch.
+10. Oprav root cause a potvrď first-attempt green nový candidate.
+11. Ak failure unikol na main, oprav dependency/test/policy model.
 
-Sleduj:
+## 20. Referenčné pravidlá
 
-- pipeline a job success podľa failure class,
-- queue time a runner utilization,
-- p50/p95 time to first feedback,
-- total a critical-path duration,
-- mainline health a čas broken state,
-- flaky a retry rate,
-- cache hit/miss a cold-build success,
-- artifact publication failures,
-- merge-queue wait a invalidation rate,
-- canceled/superseded execution,
-- infrastructure a tool failure rate.
+- CI chráni candidate integration state, nie branch label.
+- Required evidence sa viaže na source, target, candidate a workflow revision.
+- Mainline má byť trvalo buildable a dôveryhodná.
+- Merge-result testing a queue riešia stale-green race.
+- Build inputs musia byť explicitné a cold-reproducible.
+- Buildni raz a ďalej používaj rovnaký immutable digest.
+- Cache a workspace nie sú source of truth.
+- Untrusted verification, signing a deployment majú oddelené identities.
+- Incomplete alebo tool failure nie je pass.
+- Retry zachová first-attempt evidence a je viazaný na transient class.
+- Broken main sa obnovuje urgentne.
+- Defect escape mení test selection, dependency graph alebo policy.
 
-Deployment frequency alebo počet runs bez reliability a feedback kontextu nie sú kvalitná metrika.
+## 21. Časté omyly
 
-## 21. Diagnostický postup
+### „PR bol zelený“
 
-Pri zlyhaní CI:
+Bez target a candidate identity nevieme, či výsledok platí pre skutočný merge.
 
-1. identifikuj candidate SHA, target SHA a pipeline definition version;
-2. rozlíš product, test, tool, infrastructure a incomplete-evidence failure;
-3. over runner image, architecture, resources a network;
-4. skontroluj dependency lock, cache key a cold-cache reprodukciu;
-5. zachovaj logs, test report, core dump a artifact metadata;
-6. zopakuj najmenší relevantný job s rovnakými vstupmi;
-7. porovnaj lokálne a CI environment differences;
-8. pri merge failure over synthetic merge tree a generated files;
-9. oprav root cause alebo dočasne zmeň gate iba s ownerom a expiry;
-10. potvrď first-attempt green výsledok na novom candidate SHA.
+### „CI je nočný build“
 
-## 22. Typické anti-patterny
+Neskorý veľký batch nevytvára krátku integračnú feedback loop.
 
-### CI ako nočný build
+### „Rovnaký source znamená rovnaký artifact“
 
-Integrácia ostáva veľkým batchom a feedback prichádza neskoro.
+Toolchain, dependencies, base image a build environment môžu vytvoriť iné bytes.
 
-### Testovanie iba source branch
+### „Cache failure je iba performance problém“
 
-Zelený branch tip neoveruje skutočný merge result proti aktuálnemu main.
+Ak build potrebuje cache na correctness, cache sa stala skrytým vstupom.
 
-### Rebuild pre každý environment
+### „Container runner je automaticky bezpečný“
 
-Promuje sa iný artifact než ten, ktorý prešiel pôvodnými kontrolami.
+Privileged mounts, shared kernel, credentials a network access stále určujú trust boundary.
 
-### Cache ako povinný skrytý vstup
+### „Rerun prešiel, pipeline je zelená“
 
-Cold build zlyhá alebo vytvorí iný výsledok.
+Fail-then-pass je evidence flakiness alebo intermittency, nie čistý prvý verdict.
 
-### Všetky failures sú „retry“
+## 22. Zhrnutie
 
-Deterministické chyby a flaky tests sa maskujú ako transportné problémy.
+Dôveryhodné CI pre Atlas je:
 
-### Persistent privileged runner pre untrusted PRs
+```text
+malá zmena
+→ aktuálny merge candidate
+→ čistý pinned build context
+→ complete layered evidence
+→ jeden immutable artifact
+→ fresh integration verdict
+→ zdravý main alebo urgent recovery
+→ uniknutý failure späť do control modelu
+```
 
-Nedôveryhodný kód môže ukradnúť credentials alebo kompromitovať ďalšie jobs.
+CI skracuje integračný feedback a udržiava spoločnú líniu ako dôveryhodný vstup pre Continuous Delivery. Neoptimalizuje počet pipeline behov; optimalizuje kvalitu a rýchlosť integračného rozhodnutia.
 
-### Main môže zostať červený
+## 23. Kontrolné otázky
 
-Zelený status prestáva byť dôveryhodným integračným kontraktom.
-
-### Gate bez vlastníka
-
-Failure sa stáva frontou manuálnych bypassov namiesto rýchleho feedbacku.
-
-## 23. Praktický rozhodovací rámec
-
-Pre CI workflow odpovedz:
-
-1. Ktorý presný integračný stav testujeme?
-2. Ako sa výsledok invaliduje pri zmene main alebo pipeline policy?
-3. Sú source, dependencies, toolchain a build environment explicitné?
-4. Vzniká jeden immutable artifact s provenance?
-5. Ktoré checks sú blocking a aké riziko chránia?
-6. Ako rozlišujeme finding, infra failure a incomplete run?
-7. Ktorý kód je nedôveryhodný a aké credentials môže dostať?
-8. Ako sa izolujú runners, caches a artifact stores?
-9. Aká je retry a quarantine policy?
-10. Ako sa obnovuje broken main?
-11. Aký je critical path a time to first useful feedback?
-12. Aké evidence zostáva pre audit a diagnostiku?
-
-## 24. Kontrolný checklist
-
-- candidate a merge-result SHA sú explicitné;
-- required checks sú čerstvé voči aktuálnemu targetu;
-- build funguje v čistom prostredí;
-- dependencies a toolchain sú pinované;
-- artifact je immutable a prepojený s commitom;
-- reporty a shards sa agregujú kompletne;
-- cache je optimalizácia, nie hidden source of truth;
-- untrusted jobs nemajú citlivé secrets;
-- deploy jobs používajú oddelenú scoped identity;
-- tool a infrastructure failure nie sú pass;
-- retries sú obmedzené na transient classes;
-- first-attempt výsledky zostávajú viditeľné;
-- broken main má urgentný recovery postup;
-- pipeline má telemetry a ownera;
-- periodic cold build a širší regression overujú selection a cache assumptions.
-
-## 25. Kontrolné otázky
-
-1. Čo odlišuje CI od obyčajného build servera?
-2. Prečo je integračné rozhodnutie dôležitejšie než branch status?
-3. Aký je rozdiel medzi source branch SHA a merge-result SHA?
-4. Aký race rieši merge queue?
-5. Čo všetko patrí medzi vstupy reprodukovateľného buildu?
-6. Prečo sa má buildovať raz a promovať rovnaký artifact?
-7. Prečo cache nesmie byť source of truth?
-8. Aké trust boundaries existujú medzi untrusted PR, buildom a deployom?
-9. Aké failure classes má CI rozlišovať?
-10. Prečo retry nesmie vymazať first-attempt failure?
-11. Ako sa obnovuje broken main?
-12. Čo je critical path pipeline?
-13. Ktoré metriky dokazujú kvalitu CI feedback loopu?
-14. Prečo zelený PR zo včera nemusí byť dnes mergeovateľný?
-
-## Summary
-
-Continuous Integration je disciplína častej integrácie malých zmien a automatizovaného overovania presného kandidátneho merge stavu. Dôveryhodné CI vytvára reprodukovateľný build, jeden immutable artifact, kompletné evidence a čerstvé required checks, pričom oddeľuje untrusted code, verification a deployment trust boundaries. Jeho kvalita sa meria zdravím mainline, časom k užitočnému feedbacku, stabilitou gates a schopnosťou rýchlo obnoviť broken main, nie počtom pipeline behov.
+1. Prečo je integračné rozhodnutie základnou jednotkou CI?
+2. Aký je rozdiel medzi source SHA, target SHA a candidate SHA?
+3. Aký stale-green race rieši merge-result pipeline?
+4. Ako merge queue vytvára predpokladaný budúci main?
+5. Ktoré inputs patria do reprodukovateľného buildu?
+6. Prečo build-once podporuje dôveryhodnú promotion?
+7. Ako complete evidence odlišuje pass od incomplete runu?
+8. Prečo cache a persistent workspace nesmú byť source of truth?
+9. Ako Atlas oddeľuje untrusted verification, build, signing a deployment?
+10. Kedy je retry legitímny a čo musí zachovať?
+11. Ako vznikol Atlas failure dvoch individuálne zelených PRs?
+12. Ako sa obnovuje broken main a zlepšuje control model?
 
 ## Glossary impact
 
-Relevantné pojmy: Continuous Integration, mainline, candidate SHA, merge-result pipeline, synthetic merge commit, merge queue, build once, reproducible build, immutable artifact, evidence provenance, pipeline cache, runner isolation, broken main, critical path a time to first useful feedback.
+Relevantné pojmy: Continuous Integration, mainline, integration decision, candidate SHA, merge-result pipeline, synthetic merge commit, merge queue, reproducible build, build once, immutable artifact, evidence provenance, complete evidence, cold build, runner isolation, broken main, critical path a time to first useful feedback.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
