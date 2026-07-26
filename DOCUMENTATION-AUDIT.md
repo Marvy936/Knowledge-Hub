@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12059**
-- Total words: **601,650**
-- Findings: **28437** (critical 9253, high 10171, medium 4014, low 4999)
+- Audited conceptual sections: **12024**
+- Total words: **600,500**
+- Findings: **28302** (critical 9201, high 10124, medium 3994, low 4983)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -33,7 +33,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1822 | 74 | 110 | 18 | 12 | 4521 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 1820 | 86 | 95 | 17 | 0 | 1202 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
 | D | 1785 | 79 | 86 | 38 | 24 | 2683 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
-| D | 1711 | 78 | 79 | 34 | 30 | 3314 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 1703 | 79 | 88 | 18 | 12 | 2158 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 1678 | 80 | 74 | 33 | 19 | 2522 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
@@ -189,6 +188,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 644 | 29 | 29 | 14 | 10 | 1651 | `docs/09-kubernetes/requests-limits-qos.md` |
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 640 | 27 | 25 | 18 | 41 | 3216 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
+| D | 635 | 26 | 32 | 14 | 14 | 2164 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
 | D | 621 | 25 | 34 | 12 | 5 | 1464 | `docs/09-kubernetes/service-endpointslice.md` |
@@ -2079,160 +2079,61 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`, `Predpoklady: DNS, Ports a sockets, Firewally`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Forward proxy zastupuje klienta voči externým serverom.`, `Reverse proxy zastupuje serverovú službu voči klientom.`, `source a destination endpointy,`, `TCP alebo QUIC state,`.
-- **CRITICAL** line 42, `empty-section` — **2. Proxy verzus router, NAT a load balancer**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 70, `bare-bullet-items` — **3. Forward proxy**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `riadený outbound access,`, `egress filtering,`, `audit a attribution,`, `malware alebo content filtering,`.
-- **CRITICAL** line 104, `bare-bullet-items` — **4. Transparentný forward proxy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikácia nemusí očakávať sprostredkovateľa,`, `TLS nemožno transparentne interpretovať bez interception modelu,`, `original destination treba zachovať v dataplane metadata,`, `asymmetric routing môže obísť proxy,`.
-- **CRITICAL** line 104, `outline-instead-of-explanation` — **4. Transparentný forward proxy**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `bare-bullet-items` — **5. HTTP CONNECT**: 10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizuje alebo autorizuje klienta,`, `vyhodnotí destination policy,`, `vytvorí TCP connection k originu,`, `vráti úspech klientovi,`.
-- **CRITICAL** line 126, `outline-instead-of-explanation` — **5. HTTP CONNECT**: 11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 174, `bare-bullet-items` — **7. Reverse proxy**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS termination,`, `virtual hosting,`, `host a path routing,`, `load balancing,`.
-- **CRITICAL** line 174, `outline-instead-of-explanation` — **7. Reverse proxy**: 14 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 208, `bare-bullet-items` — **8. L4 proxy**: 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination IP a portu,`, `source IP,`, `TCP alebo UDP tuple,`, `connection state,`.
-- **CRITICAL** line 208, `outline-instead-of-explanation` — **8. L4 proxy**: 14 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 235, `bare-bullet-items` — **9. L7 proxy**: 20 z 20 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheme,`, `Host alebo :authority ,`, `path,`, `method,`.
-- **CRITICAL** line 235, `outline-instead-of-explanation` — **9. L7 proxy**: 20 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 290, `empty-section` — **11. TLS termination modely**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 321, `bare-bullet-items` — **12. TLS ownership**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `server private key,`, `certificate lifecycle,`, `SNI routing,`, `cipher a protocol policy,`.
-- **CRITICAL** line 321, `outline-instead-of-explanation` — **12. TLS ownership**: 9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 368, `bare-bullet-items` — **14. PROXY protocol**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy musí prefix odosielať,`, `backend listener ho musí očakávať,`, `health checks musia používať správny režim.`.
-- **CRITICAL** line 387, `bare-bullet-items` — **15. Host routing**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Host header injection,`, `mismatch medzi SNI a HTTP authority,`, `chýbajúci default virtual host,`, `absolute-form URL parsing,`.
-- **CRITICAL** line 409, `bare-bullet-items` — **16. Path routing a normalization**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent-decodovať,`, `normalizovať . a .. ,`, `zlučovať viac slashov,`, `meniť case podľa protokolu alebo platformy,`.
-- **CRITICAL** line 409, `outline-instead-of-explanation` — **16. Path routing a normalization**: 11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 437, `bare-bullet-items` — **17. Header transformations**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráni hop-by-hop headers,`, `nastaví forwarding metadata,`, `prepíše Host pre upstream,`, `pridá request ID alebo trace context,`.
-- **CRITICAL** line 437, `outline-instead-of-explanation` — **17. Header transformations**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 452, `bare-bullet-items` — **18. Request buffering**: 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chráni upstream pred pomalým klientom,`, `body-size policy sa vyhodnotí pred upstream requestom,`, `proxy môže skenovať alebo transformovať obsah.`, `vyššia latency pred začiatkom upstream spracovania,`.
-- **CRITICAL** line 452, `outline-instead-of-explanation` — **18. Request buffering**: 9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 473, `bare-bullet-items` — **19. Response buffering a backpressure**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proxy môže zapisovať na disk,`, `upstream sa môže zablokovať cez TCP flow control,`, `request môže zlyhať,`, `memory pressure môže ovplyvniť iné requests.`.
-- **CRITICAL** line 496, `bare-bullet-items` — **20. Streaming, WebSockets a SSE**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypnuté alebo obmedzené buffering,`, `dlhšie idle timeouty,`, `správny protocol upgrade,`, `flow control,`.
-- **CRITICAL** line 496, `outline-instead-of-explanation` — **20. Streaming, WebSockets a SSE**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 514, `bare-bullet-items` — **Downstream**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accept alebo handshake timeout,`, `TLS handshake timeout,`, `request header timeout,`, `request body timeout,`.
-- **CRITICAL** line 514, `no-prose-concept` — **Downstream**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 514, `outline-instead-of-explanation` — **Downstream**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 523, `bare-bullet-items` — **Upstream**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/service-discovery timeout,`, `connect timeout,`, `upstream TLS handshake timeout,`, `request send timeout,`.
-- **CRITICAL** line 523, `no-prose-concept` — **Upstream**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 523, `outline-instead-of-explanation` — **Upstream**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 533, `bare-bullet-items` — **Pool**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idle connection lifetime,`, `maximum connection age,`, `queue timeout,`, `endpoint drain timeout.`.
-- **CRITICAL** line 533, `outline-instead-of-explanation` — **Pool**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 566, `bare-bullet-items` — **23. Retry semantics**: 12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect failure,`, `reset pred odoslaním request body,`, `reset pred response headers,`, `timeout-e,`.
-- **CRITICAL** line 566, `outline-instead-of-explanation` — **23. Retry semantics**: 13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 614, `bare-bullet-items` — **25. Connection pooling**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menej TCP a TLS handshakes,`, `nižšia latency,`, `menší CPU overhead,`, `stabilnejšia ephemeral-port a conntrack spotreba.`.
-- **CRITICAL** line 614, `outline-instead-of-explanation` — **25. Connection pooling**: 10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 636, `bare-bullet-items` — **26. Queueing a concurrency**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active downstream connections,`, `active upstream connections,`, `queued requests,`, `queue wait time,`.
-- **CRITICAL** line 636, `outline-instead-of-explanation` — **26. Queueing a concurrency**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 660, `bare-bullet-items` — **27. Service discovery a DNS**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS resolution,`, `statická konfigurácia,`, `API-based service discovery,`, `Kubernetes EndpointSlices,`.
-- **CRITICAL** line 660, `outline-instead-of-explanation` — **27. Service discovery a DNS**: 12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 700, `bare-bullet-items` — **29. Draining**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaz nových connections/requests,`, `dokončenie existujúcich requests,`, `dlhé streaming connections,`, `timeout po ktorom sa zostávajúce flows ukončia.`.
-- **CRITICAL** line 700, `outline-instead-of-explanation` — **29. Draining**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 719, `bare-bullet-items` — **30. Caching**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheme,`, `host,`, `path,`, `query,`.
-- **CRITICAL** line 719, `outline-instead-of-explanation` — **30. Caching**: 15 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 746, `bare-bullet-items` — **31. Compression**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižší bandwidth,`, `vyšší CPU,`, `zmena cache key podľa Accept-Encoding ,`, `buffering,`.
-- **CRITICAL** line 746, `outline-instead-of-explanation` — **31. Compression**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 761, `bare-bullet-items` — **32. Request size a protocol limits**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `header size,`, `počet headers,`, `request-line length,`, `body size,`.
-- **CRITICAL** line 761, `outline-instead-of-explanation` — **32. Request size a protocol limits**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 775, `bare-bullet-items` — **33. Protocol translation**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP/3 downstream → HTTP/2 upstream,`, `HTTP/2 downstream → HTTP/1.1 upstream,`, `TLS downstream → plaintext upstream,`, `gRPC → HTTP/2 upstream,`.
-- **CRITICAL** line 775, `outline-instead-of-explanation` — **33. Protocol translation**: 12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 801, `bare-bullet-items` — **502 Bad Gateway**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection refused alebo reset,`, `upstream TLS failure,`, `protocol mismatch,`, `invalid response framing,`.
-- **CRITICAL** line 801, `outline-instead-of-explanation` — **502 Bad Gateway**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 811, `bare-bullet-items` — **503 Service Unavailable**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky endpoints unhealthy,`, `maintenance,`, `circuit breaker,`, `queue alebo concurrency limit,`.
-- **CRITICAL** line 811, `outline-instead-of-explanation` — **503 Service Unavailable**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 827, `bare-bullet-items` — **35. Security hranice**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `open forward proxy,`, `SSRF cez dynamický upstream,`, `request smuggling,`, `response splitting,`.
-- **CRITICAL** line 827, `outline-instead-of-explanation` — **35. Security hranice**: 12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 848, `bare-bullet-items` — **36. Request smuggling**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Content-Length ,`, `Transfer-Encoding ,`, `duplicitných headers,`, `whitespace,`.
-- **CRITICAL** line 848, `outline-instead-of-explanation` — **36. Request smuggling**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 867, `bare-bullet-items` — **Downstream**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accepted connections,`, `TLS handshake failures,`, `request rate,`, `client disconnects,`.
-- **CRITICAL** line 867, `no-prose-concept` — **Downstream**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 867, `outline-instead-of-explanation` — **Downstream**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 877, `bare-bullet-items` — **Routing a queue**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route name,`, `selected cluster/pool,`, `queue wait,`, `retries,`.
-- **CRITICAL** line 877, `no-prose-concept` — **Routing a queue**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 877, `outline-instead-of-explanation` — **Routing a queue**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 886, `bare-bullet-items` — **Upstream**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/discovery time,`, `connect time,`, `TLS time,`, `time to response headers,`.
-- **CRITICAL** line 886, `no-prose-concept` — **Upstream**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 886, `outline-instead-of-explanation` — **Upstream**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 897, `bare-bullet-items` — **End-to-end**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `total request time,`, `request ID alebo trace ID,`, `proxy-generated vs upstream-generated response,`, `bytes in/out,`.
-- **CRITICAL** line 897, `outline-instead-of-explanation` — **End-to-end**: 5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 907, `outline-instead-of-explanation` — **38. Diagnostický postup**: 14 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 926, `empty-section` — **39. Typické symptómy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 956, `empty-section` — **40. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 11, `bare-bullet-items` — **1. Problém, ktorý proxy rieši**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpointy a source identity,`, `TCP alebo QUIC state,`, `TLS session,`, `timeouty,`.
+- **CRITICAL** line 104, `empty-section` — **4. Forward proxy a reverse proxy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 159, `bare-bullet-items` — **Passthrough**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private key a certificate lifecycle,`, `SNI a ALPN negotiation,`, `client-certificate validation,`, `handshake logs,`.
+- **CRITICAL** line 209, `bare-bullet-items` — **7. Route selection a normalizácia sú súčasť correctness**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent-decoding,`, `. a .. normalizáciu,`, `viacnásobné slash-e,`, `trailing slash,`.
+- **CRITICAL** line 238, `bare-bullet-items` — **8. Buffery neodstraňujú backpressure**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chráni backend pred pomalým klientom,`, `overí body limit skôr,`, `umožní niektoré bezpečné retries,`, `môže skenovať alebo uložiť upload.`.
+- **CRITICAL** line 300, `bare-bullet-items` — **10. Retry je business rozhodnutie, nie iba network mechanizmus**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentnú operáciu alebo idempotency key,`, `znalosť fázy odoslania,`, `bounded attempts,`, `per-try timeout,`.
+- **CRITICAL** line 300, `outline-instead-of-explanation` — **10. Retry je business rozhodnutie, nie iba network mechanizmus**: 8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 332, `bare-bullet-items` — **11. Upstream connection pooling mení failure aj load model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale connection po backend restart-e,`, `stará IP po DNS zmene,`, `veľa idle sockets,`, `per-backend connection skew,`.
+- **CRITICAL** line 365, `bare-bullet-items` — **13. Worked failure: upstream funguje priamo, ale nie cez proxy**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over client → proxy DNS, TCP a TLS.`, `Zistite matched route a selected upstream.`, `Otestujte upstream z proxy network namespace.`, `Overte upstream TLS/SNI, ak sa používa re-encryption.`.
+- **CRITICAL** line 400, `bare-bullet-items` — **14. Worked failure: klient dostáva 504, backend nevidí request**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `discovery timeout,`, `queue wait,`, `connection-pool saturation,`, `TCP connect timeout,`.
+- **CRITICAL** line 445, `empty-section` — **16. Observability musí oddeliť obe strany proxy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 447, `bare-bullet-items` — **Downstream**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accepted connections,`, `TLS handshake výsledok,`, `request read time,`, `client disconnect,`.
+- **CRITICAL** line 447, `no-prose-concept` — **Downstream**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 447, `outline-instead-of-explanation` — **Downstream**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 455, `bare-bullet-items` — **Routing a queue**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route identity,`, `selected cluster,`, `queue wait,`, `retry count,`.
+- **CRITICAL** line 455, `no-prose-concept` — **Routing a queue**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 455, `outline-instead-of-explanation` — **Routing a queue**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 463, `bare-bullet-items` — **Upstream**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint identity,`, `discovery time,`, `connect a TLS time,`, `time to response headers,`.
+- **CRITICAL** line 463, `no-prose-concept` — **Upstream**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 463, `outline-instead-of-explanation` — **Upstream**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 472, `bare-bullet-items` — **End-to-end**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request/trace ID,`, `proxy-generated alebo upstream-generated response,`, `total attempts,`, `total bytes a outcome.`.
+- **CRITICAL** line 472, `outline-instead-of-explanation` — **End-to-end**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 509, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `list-heavy-section` — **1. Definícia**: 11 odrážok a iba 54 slov súvislého vysvetlenia.
-- **HIGH** line 70, `list-heavy-section` — **3. Forward proxy**: 14 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 126, `single-sentence-concept` — **5. HTTP CONNECT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 152, `bare-bullet-items` — **6. TLS inspection cez forward proxy**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `proxy vidí plaintext,`, `proxy drží alebo používa vysoko citlivý signing key,`, `compromise proxy alebo CA má veľký blast radius,`, `certificate pinning môže zlyhať,`.
-- **HIGH** line 152, `list-heavy-section` — **6. TLS inspection cez forward proxy**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 208, `single-sentence-concept` — **8. L4 proxy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 235, `single-sentence-concept` — **9. L7 proxy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 292, `list-first-introduction` — **Edge termination a plaintext upstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 292, `single-sentence-concept` — **Edge termination a plaintext upstream**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 300, `list-first-introduction` — **Edge termination a re-encryption**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 308, `list-first-introduction` — **TLS passthrough**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 308, `single-sentence-concept` — **TLS passthrough**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 337, `bare-bullet-items` — **13. Client identity a trusted proxy chain**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Backend prijíma traffic iba od známych proxy endpointov.`, `Edge proxy odstráni nedôveryhodné forwarding headers.`, `Aplikácia pozná počet alebo rozsah trusted hops.`.
-- **HIGH** line 409, `single-sentence-concept` — **16. Path routing a normalization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 510, `single-sentence-concept` — **21. Timeout taxonomy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 514, `list-first-introduction` — **Downstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 523, `list-first-introduction` — **Upstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 533, `list-first-introduction` — **Pool**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 533, `single-sentence-concept` — **Pool**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 566, `single-sentence-concept` — **23. Retry semantics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 684, `single-sentence-concept` — **28. Health checks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 688, `single-sentence-concept` — **Passive health**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 775, `single-sentence-concept` — **33. Protocol translation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 797, `single-sentence-concept` — **34. Status attribution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 801, `single-sentence-concept` — **502 Bad Gateway**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 811, `single-sentence-concept` — **503 Service Unavailable**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 863, `single-sentence-concept` — **37. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 867, `list-first-introduction` — **Downstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 877, `list-first-introduction` — **Routing a queue**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 886, `list-first-introduction` — **Upstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 897, `list-first-introduction` — **End-to-end**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 897, `single-sentence-concept` — **End-to-end**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 907, `bare-bullet-items` — **38. Diagnostický postup**: 10 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over DNS na proxy endpoint.`, `Over client → proxy route, TCP a TLS.`, `Skontroluj SNI, Host/authority a certificate.`, `Over route match a rewrites.`.
-- **HIGH** line 907, `single-sentence-concept` — **38. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 928, `single-sentence-concept` — **Funguje priamo, nie cez proxy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 932, `single-sentence-concept` — **Funguje cez jednu proxy vrstvu, nie cez celý chain**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 936, `single-sentence-concept` — **Malé requesty fungujú, veľké nie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 940, `single-sentence-concept` — **Krátke requesty fungujú, streaming sa odpája**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 944, `single-sentence-concept` — **Po DNS zmene proxy stále používa starý backend**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 948, `single-sentence-concept` — **Klient dostáva 504 , backend nevidí request**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 952, `single-sentence-concept` — **Backend loguje proxy IP ako klienta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 962, `single-sentence-concept` — **„Forward proxy a reverse proxy sa líšia iba smerom šípky“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 970, `single-sentence-concept` — **„502 znamená aplikačnú chybu backendu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 990, `single-sentence-concept` — **„L4 proxy nemení connection semantics“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 43, `list-first-introduction` — **2. Proxy verzus router, NAT a load balancing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 139, `single-sentence-concept` — **5. TLS boundary určuje vlastníctvo identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 143, `list-first-introduction` — **Termination a plaintext upstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 143, `single-sentence-concept` — **Termination a plaintext upstream**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 151, `list-first-introduction` — **Termination a re-encryption**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 151, `single-sentence-concept` — **Termination a re-encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 159, `list-heavy-section` — **Passthrough**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 209, `list-heavy-section` — **7. Route selection a normalizácia sú súčasť correctness**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 238, `list-heavy-section` — **8. Buffery neodstraňujú backpressure**: 8 odrážok a iba 52 slov súvislého vysvetlenia.
+- **HIGH** line 365, `list-heavy-section` — **13. Worked failure: upstream funguje priamo, ale nie cez proxy**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 447, `list-first-introduction` — **Downstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 455, `list-first-introduction` — **Routing a queue**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 463, `list-first-introduction` — **Upstream**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 472, `list-first-introduction` — **End-to-end**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 472, `single-sentence-concept` — **End-to-end**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 481, `single-sentence-concept` — **17. Referenčné rozšírenia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 493, `single-sentence-concept` — **Compression**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 515, `single-sentence-concept` — **„L4 proxy zachová jednu end-to-end TCP connection“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 519, `single-sentence-concept` — **„X-Forwarded-For je automaticky client IP“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 523, `single-sentence-concept` — **„502 znamená chybu aplikačnej logiky“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 527, `single-sentence-concept` — **„Proxy retry je vždy bezpečný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 531, `single-sentence-concept` — **„Buffering odstráni backpressure“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 535, `single-sentence-concept` — **„DNS TTL určuje okamžitý prechod proxy na nový backend“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `DNS`, `HTTP`, `TLS`, `WAF`
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 70, `term-before-explanation` — **3. Forward proxy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLP`, `CIDR`, `NO`, `PROXY`, `DNS`, `identity`, `policy`
-- **HIGH** line 104, `thin-concept-section` — **4. Transparentný forward proxy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 126, `thin-concept-section` — **5. HTTP CONNECT**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 174, `thin-concept-section` — **7. Reverse proxy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 208, `term-before-explanation` — **8. L4 proxy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `UDP`, `TLS`, `SNI`, `ALPN`, `HTTP`, `L7`
-- **HIGH** line 208, `thin-concept-section` — **8. L4 proxy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 235, `thin-concept-section` — **9. L7 proxy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 321, `term-before-explanation` — **12. TLS ownership**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNI`, `ALPN`, `OCSP`, `policy`
-- **HIGH** line 409, `thin-concept-section` — **16. Path routing a normalization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 514, `thin-concept-section` — **Downstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 523, `thin-concept-section` — **Upstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 533, `thin-concept-section` — **Pool**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 566, `thin-concept-section` — **23. Retry semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 614, `term-before-explanation` — **25. Connection pooling**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `TLS`, `CPU`, `DNS`, `HTTP`
-- **HIGH** line 614, `thin-concept-section` — **25. Connection pooling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 636, `thin-concept-section` — **26. Queueing a concurrency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 660, `term-before-explanation` — **27. Service discovery a DNS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `API-`, `TTL`, `control plane`
-- **HIGH** line 660, `thin-concept-section` — **27. Service discovery a DNS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 700, `thin-concept-section` — **29. Draining**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 719, `thin-concept-section` — **30. Caching**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 746, `thin-concept-section` — **31. Compression**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 761, `thin-concept-section` — **32. Request size a protocol limits**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 775, `thin-concept-section` — **33. Protocol translation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 801, `thin-concept-section` — **502 Bad Gateway**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 811, `thin-concept-section` — **503 Service Unavailable**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 827, `thin-concept-section` — **35. Security hranice**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 867, `thin-concept-section` — **Downstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 877, `thin-concept-section` — **Routing a queue**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 886, `thin-concept-section` — **Upstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 897, `thin-concept-section` — **End-to-end**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 907, `term-before-explanation` — **38. Diagnostický postup**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `SNI`, `ID`, `policy`
-- **HIGH** line 907, `thin-concept-section` — **38. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 365, `term-before-explanation` — **13. Worked failure: upstream funguje priamo, ale nie cez proxy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `ID`, `SNI`, `PROXY`
+- **HIGH** line 435, `thin-concept-section` — **15. Status attribution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 447, `thin-concept-section` — **Downstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 455, `thin-concept-section` — **Routing a queue**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 463, `thin-concept-section` — **Upstream**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 472, `thin-concept-section` — **End-to-end**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/rest-apis-and-websockets.md`
 
@@ -20474,19 +20375,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4289 | 425 | 0 | 0 | 4714 |
-| `single-sentence-concept` | 0 | 4156 | 0 | 0 | 4156 |
-| `outline-instead-of-explanation` | 4056 | 0 | 0 | 0 | 4056 |
-| `thin-concept-section` | 0 | 3588 | 0 | 0 | 3588 |
-| `term-before-explanation` | 0 | 459 | 2706 | 0 | 3165 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2057 | 2057 |
-| `example-not-explicit` | 0 | 0 | 0 | 1942 | 1942 |
-| `short-concept-section` | 0 | 0 | 1308 | 0 | 1308 |
-| `list-first-introduction` | 0 | 1056 | 0 | 0 | 1056 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1000 | 1000 |
-| `empty-section` | 500 | 0 | 0 | 0 | 500 |
-| `list-heavy-section` | 0 | 487 | 0 | 0 | 487 |
-| `no-prose-concept` | 408 | 0 | 0 | 0 | 408 |
+| `bare-bullet-items` | 4266 | 422 | 0 | 0 | 4688 |
+| `single-sentence-concept` | 0 | 4140 | 0 | 0 | 4140 |
+| `outline-instead-of-explanation` | 4030 | 0 | 0 | 0 | 4030 |
+| `thin-concept-section` | 0 | 3567 | 0 | 0 | 3567 |
+| `term-before-explanation` | 0 | 454 | 2692 | 0 | 3146 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2051 | 2051 |
+| `example-not-explicit` | 0 | 0 | 0 | 1936 | 1936 |
+| `short-concept-section` | 0 | 0 | 1302 | 0 | 1302 |
+| `list-first-introduction` | 0 | 1053 | 0 | 0 | 1053 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 996 | 996 |
+| `empty-section` | 499 | 0 | 0 | 0 | 499 |
+| `list-heavy-section` | 0 | 488 | 0 | 0 | 488 |
+| `no-prose-concept` | 406 | 0 | 0 | 0 | 406 |
 
 ## Required remediation pattern
 
