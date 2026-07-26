@@ -1,813 +1,489 @@
 # Environment a promotion
 
-Environment nie je iba názov ako `dev`, `staging` alebo `production`. Je to identifikovateľný runtime kontext so svojím desired state, effective state, konfiguráciou, identitou, dátami, sieťou, dependencies, policy, observability a deployment históriou. Promotion je riadená zmena deployment state, pri ktorej ten istý immutable artifact postupuje do ďalšieho environmentu spolu s presne viazaným evidence bundle.
+## Metadata
 
-## 1. Mental model
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-Environment a promotion možno chápať ako dve navzájom prepojené state machines:
+Environment je identifikovateľný runtime a policy context. Obsahuje artifacty, configuration, infrastructure, identities, secrets references, data/shared state, network, dependencies, observability a deployment history. Promotion je riadené rozhodnutie nasadiť ten istý immutable release manifest do konkrétneho environmentu bez rebuildu a overiť jeho effective runtime výsledok.
 
 ```text
-environment lifecycle
-planned
-→ provisioned
-→ configured
-→ ready
-→ active
-→ degraded/drifted
-→ reconciling
-→ retired
-→ destroyed
-
-artifact promotion lifecycle
-eligible
-→ approved/policy-authorized
-→ deploying
-→ verifying
-→ promoted/released
-→ paused/failed
-→ rolled back/rolled forward
+immutable release manifest
++ versioned configuration/infrastructure
++ resolved target environment identity
++ current effective/shared state
++ complete a fresh evidence
++ promotion policy
+→ locked deployment transition
+→ post-deploy verification
+→ exposure, recovery alebo reconciliation
 ```
 
-Promotion nesmie meniť bytes artifactu. Mení iba to, kde artifact beží, s akou configuration revision, identity a traffic policy.
+## 1. Cieľ kapitoly
 
-## 2. Čo tvorí environment
+Nosný model kapitoly je environment-promotion lifecycle:
 
-Environment typicky zahŕňa:
+```text
+target environment identity
+→ desired a effective state observation
+→ drift a compatibility classification
+→ artifact/config eligibility
+→ lock a preconditions
+→ deployment mutation
+→ readiness a functional verification
+→ release exposure
+→ deployment record
+→ rollback, roll-forward alebo reconciliation
+```
 
-- **Compute —** VM, containers, clusters, serverless runtime alebo managed platform.
-- **Network —** VPC/VNet, subnets, routing, firewalls, ingress, egress, DNS a service discovery.
-- **Runtime configuration —** non-secret settings, feature flags, limits a endpoint references.
-- **Secrets a identities —** workload identity, trust roots, certificates, keys a secret versions.
-- **Backing services —** databázy, queues, caches, object storage a external APIs.
-- **Data state —** schema version, dataset, replication, retention a migrations.
-- **Observability —** metrics, logs, traces, synthetics, dashboards a alerting.
-- **Policy —** admission, compliance, deployment windows, approvals a retention.
-- **Deployment history —** artifact digest, config revision, actor, result a release exposure.
-- **Ownership —** support tím, on-call, cost owner a escalation path.
+Cieľom nie je memorovať názvy `dev`, `staging` a `production`. Cieľom je vedieť, ktoré runtime assumptions každý environment dokazuje, čo sa pri promotion reálne mení a ako sa zabráni zámene rovnakého artifactu za rovnaké správanie.
 
-Dva environmenty s rovnakým application digestom sa môžu správať odlišne pre inú konfiguráciu, identity, topology, data distribution alebo external dependency.
+## 2. Nosný scenár: Atlas Orders 3.10.1
+
+Predchádzajúca kapitola vytvorila release manifest:
+
+```text
+R = {
+  orders-api digest A,
+  payment-worker digest B,
+  migration bundle digest M,
+  config schema S,
+  provenance a evidence references
+}
+```
+
+Atlas má tri relevantné environmenty:
+
+```text
+ephemeral integration E1
+→ overuje wiring, PostgreSQL/broker contracts a migration rehearsal
+
+staging E2
+→ overuje deployment topology, identity federation, ingress a operational acceptance
+
+production E3
+→ reálny shared state, quotas, tenant skew a controlled exposure
+```
+
+Promotion nemení A, B ani M. Mení assignment manifestu R k environmentu, configuration revision, effective deployment state a neskôr traffic exposure.
 
 ## 3. Environment identity
 
-Názov `production` nie je dostatočná identity. Dôveryhodný deployment record potrebuje jednoznačne identifikovať:
+Alias `production` nestačí. Atlas environment identity obsahuje:
 
-- organization/account/subscription,
-- region a cluster,
-- namespace alebo runtime boundary,
-- environment ID,
-- infrastructure revision,
-- configuration revision,
-- secret references alebo versions,
-- active artifact digests,
-- feature-flag snapshot alebo revision,
-- traffic policy,
-- schema/migration state.
+- account/subscription a region;
+- cluster a namespace/runtime boundary;
+- stable environment ID;
+- infrastructure revision;
+- rendered configuration digest;
+- secret/identity references;
+- active release manifest a component digests;
+- schema/migration state;
+- feature-flag a traffic-policy revision;
+- protection level a ownera.
 
-Environment alias môže byť mutable. Deployment automation musí pred mutation overiť resolved environment identity a protection level.
+Deployment pred mutation overuje resolved stable ID. User-controlled názov nesmie byť jediným vstupom destructive deploy alebo teardown operácie.
 
 ## 4. Desired state verzus effective state
 
-**Desired state** je deklarovaný stav v IaC, deployment manifests, config repository alebo control plane. **Effective state** je to, čo platforma a dependencies reálne vykonávajú po defaults, mutations, controllers a manuálnych zásahoch.
-
-Príklad:
+Desired state je deklarovaný intent. Effective state je výsledok po platform defaults, controllers, mutations, runtime failures a out-of-band zásahoch.
 
 ```text
-Desired state:
-replicas = 3
-image = digest A
-network policy = deny-by-default
+desired:
+manifest R
+replicas 4
+DB pool 80
+network deny-by-default
 
-Effective state:
-2 ready replicas
-image A
-mutating webhook pridal sidecar
-jedna egress cesta je povolená platformovou výnimkou
+observed effective:
+3 ready replicas
+manifest R na troch podoch, starý digest na jednom
+admission sidecar pridaný
+DB pool override 160 z UI configu
+platformová egress výnimka aktívna
 ```
 
-Promotion musí podľa rizika overiť obe vrstvy. Git diff alebo deployment plan nepreukazuje plný runtime efekt.
+Promotion decision potrebuje obe vrstvy. Git diff alebo IaC plan nepreukazuje, čo environment skutočne vykonáva.
 
-## 5. Environment typy podľa účelu
+## 5. Behavioral equivalence podľa rizika
 
-Bežné environmenty:
+Úplná parity stagingu a produkcie je často nepraktická. Potrebná je equivalence boundary, ktorú testujeme.
 
-- **Local/developer —** rýchly feedback a izolovaný vývoj; nízka fidelity voči produkčnej topológii.
-- **Integration —** interakcie komponentov a reálnych dependencies.
-- **Ephemeral preview —** izolované overenie konkrétnej zmeny alebo pull requestu.
-- **Staging/pre-production —** vyššia behavioral equivalence, release rehearsal a širšie validation gates.
-- **Performance/resilience —** kontrolovaná kapacita, fault injection a dlhšie experimenty.
-- **Production —** reálny používateľský a business kontext.
-- **Disaster-recovery environment —** restore, failover a recovery validation.
+| Riziko | Potrebná equivalence |
+|---|---|
+| deployment a readiness | rovnaký orchestrator, probes, sidecars a routing |
+| identity/authorization | rovnaký federation a policy model |
+| migration locking | rovnaký DB engine/version a reprezentatívna distribúcia dát |
+| rolling compatibility | viac replík a mixed-version topology |
+| external provider quotas | reálny alebo contract-faithful limit model |
+| tenant-skew capacity | produkčný canary segment |
 
-Počet prostredí nie je cieľ. Každé musí mať explicitný risk a dôkaz, ktorý inde nie je lacnejšie alebo spoľahlivejšie dostupný.
+Staging s jednou replikou nepreukazuje rolling update. Malý uniformný dataset nepreukazuje production query plan a lock behavior.
 
-## 6. Ephemeral environment
+## 6. Artifact, configuration a secrets
 
-Ephemeral environment sa vytvorí pre branch, pull request, test alebo experiment a po skončení sa odstráni.
-
-Výhody:
-
-- izoluje paralelné zmeny,
-- znižuje shared-state konflikty,
-- umožňuje realistické component/E2E testy,
-- uľahčuje reprodukciu konkrétneho artifactu,
-- poskytuje kontrolovaný cleanup a cost attribution.
-
-Riziká:
-
-- provisioning latency,
-- quota a cost pressure,
-- secret/identity sprawl,
-- cleanup failures,
-- neúplné external dependencies,
-- nereprezentatívne data a capacity,
-- DNS alebo certificate lifecycle.
-
-Potrebné controls:
-
-- stable environment ID a owner,
-- TTL a hard expiry,
-- cost/ownership tags,
-- environment-scoped short-lived identity,
-- idempotentný create/reconcile/destroy,
-- data classification,
-- cleanup report,
-- ochrana pred zmazaním nesprávneho environmentu.
-
-## 7. Long-lived environment
-
-Dlhodobo existujúci staging alebo produkčný environment akumuluje históriu a drift. Potrebuje:
-
-- pravidelnú reconciliation,
-- inventory,
-- patch a upgrade lifecycle,
-- secret rotation,
-- capacity management,
-- drift detection,
-- cleanup deprecated resources,
-- disaster-recovery test,
-- deployment history a ownership.
-
-Long-lived environment nemá byť „pet“, do ktorého sa ručne opravujú nezdokumentované problémy.
-
-## 8. Parity verzus behavioral equivalence
-
-Úplná identita stagingu a produkcie je často nepraktická. Dôležitá je equivalence vlastností relevantných pre testované riziko.
-
-Príklady:
-
-- rovnaký artifact digest,
-- rovnaký deployment mechanizmus,
-- rovnaká config schema,
-- rovnaký identity a authorization model,
-- podobná network path a TLS termination,
-- kompatibilné managed-service versions,
-- realistické resource limits,
-- reprezentatívna data distribution,
-- rovnaké admission a security policies.
-
-Staging s jednou replikou neoverí rolling update, leader election alebo race medzi instances. Menší dataset neoverí query plan a migration locking. Fidelity musí byť viazaná na konkrétny risk, nie na všeobecné tvrdenie „staging je podobný produkcii“.
-
-## 9. Artifact a configuration separation
-
-Preferovaný model:
+Atlas oddeľuje:
 
 ```text
-artifact digest: rovnaký vo všetkých environmentoch
-configuration: environment-specific, versionovaná
-secret references: environment-specific
-identity: environment-specific
-traffic/release policy: environment-specific
+release manifest R
+→ rovnaký vo všetkých environments
+
+rendered configuration K(E)
+→ environment-specific a versionovaná
+
+secret references I(E)
+→ environment-specific identity/version references
+
+traffic policy F(E)
+→ environment-specific exposure state
 ```
 
-Build-time vloženie production endpointu alebo credentials vytvára environment-specific artifact a ruší build-once/promote-many model.
+Configuration je release input. Má schema, provenance, validation, compatibility, fail-open/fail-closed semantics, rollback state a audit. Secret values sa nepremiestňujú zo stagingu do produkcie; promotion nesie requirement/reference contract, nie hodnotu.
 
-Výnimky musia byť explicitné. Napríklad platform-specific binary môže byť samostatný artifact variant, ale každý variant potrebuje vlastný digest a evidence.
+## 7. Promotion contract
 
-## 10. Configuration contract
-
-Aplikácia a environment potrebujú versionovaný config contract:
-
-- required a optional fields,
-- types, ranges a allowed values,
-- defaults a deprecated fields,
-- secret-reference semantics,
-- feature-flag dependencies,
-- compatibility s artifact version,
-- startup a reload behavior,
-- fail-open/fail-closed semantics,
-- validation pred mutation,
-- redaction a audit pravidlá.
-
-Config change môže mať rovnaký blast radius ako code deployment. Preto musí mať review, evidence, rollout a rollback lifecycle.
-
-## 11. Configuration identity a provenance
-
-Deployment record má zachovať:
-
-- config repository a commit,
-- rendered config digest,
-- environment overlays,
-- template/tool version,
-- policy decisions,
-- secret reference versions,
-- feature-flag revision,
-- timestamp a actor.
-
-Nestačí logovať „config updated“. Pri incidente treba reprodukovať presný effective input.
-
-## 12. Promotion
-
-Promotion znamená, že konkrétny artifact digest sa stane eligible a následne deployed v ďalšom environment-e bez rebuildu.
+Atlas promotion subject nie je iba image digest. Je to deployment tuple:
 
 ```text
-artifact digest A
-+ evidence pre A
-+ target environment state
-+ promotion policy
-→ deployment decision
+release manifest R
++ target environment ID E
++ rendered config digest K
++ infrastructure revision I
++ shared-state compatibility snapshot D
++ policy version P
 ```
 
-Promotion je zmena assignmentu a deployment state. Nemá meniť source, package, image layers ani generated binary.
+Promotion eligibility vyžaduje:
 
-## 13. Promotion eligibility
+- immutable a dôveryhodný manifest;
+- complete/fresh evidence viazanú na R;
+- config kompatibilný so schema a artifactmi;
+- environment health a known drift;
+- database/event compatibility;
+- dostupnú deployment identity a lock;
+- recovery path;
+- neexpirovaný approval alebo automated decision.
 
-Artifact je eligible iba ak:
+Zmena R, K, I, E alebo relevantného D invaliduje predchádzajúce rozhodnutie.
 
-- existuje v dôveryhodnej registry,
-- digest je immutable,
-- provenance a podpis spĺňajú policy,
-- povinné build/test/scan evidence je úplné,
-- evidence patrí presnému digestu,
-- findings a exceptions sú v platnom stave,
-- artifact nie je revoked,
-- config a schema sú kompatibilné s targetom,
-- podporovaná platforma/architecture zodpovedá environmentu,
-- rollback alebo roll-forward cesta existuje.
+## 8. Evidence freshness
 
-Eligibility je snapshot rozhodnutie. Pri novom kritickom CVE, revocation alebo environment drifte sa môže zmeniť pred samotným deploymentom.
-
-## 14. Evidence freshness
-
-Nie všetky dôkazy majú neobmedzenú platnosť.
-
-Príklady:
-
-- unit test výsledok viazaný na immutable digest môže zostať platný dlho;
-- vulnerability scan môže vyžadovať refresh po aktualizácii databázy;
-- environment health je platný iba krátko;
-- approval môže expirovať po zmene configu alebo incident stave;
-- performance evidence nemusí platiť po zmene capacity alebo dependency.
-
-Promotion policy má definovať freshness podľa evidence typu. Expired evidence má viesť k refresh, pause alebo novému rozhodnutiu, nie k implicitnému passu.
-
-## 15. Artifact transfer medzi registries
-
-Niektoré organizácie kopírujú artifacts medzi trust zónami alebo registries.
-
-Bezpečný transfer:
-
-1. source digest a signature verification;
-2. copy bez rebuild alebo repackaging zmeny obsahu;
-3. destination digest verification;
-4. zachovanie provenance a SBOM väzby;
-5. registry audit log;
-6. immutable destination reference;
-7. policy check pred promotion.
-
-Ak packaging proces zmení bytes, vznikol nový artifact s novým digestom a potrebuje nové evidence podľa scope zmeny.
-
-## 16. Release manifest
-
-Komplexný release môže obsahovať viac komponentov:
+Evidence neexpiruje rovnako:
 
 ```text
-release manifest
-- api image digest
-- web image digest
-- migration bundle digest
-- Helm chart digest
-- config schema version
-- SBOM/provenance references
+unit/build evidence pre immutable R
+→ platí, kým sa nemení subject alebo policy
+
+vulnerability evidence
+→ refresh po threat-database/policy zmene
+
+environment health a drift snapshot
+→ krátke pre-deploy okno
+
+approval
+→ platí iba pre R + K + E + strategy + risk snapshot
+
+canary evidence
+→ platí pre konkrétnu cohortu a rollout stage
 ```
 
-Manifest musí byť immutable a versionovaný. Promotion celého systému sa viaže na manifest digest, nie na voľnú kombináciu mutable tags.
+Expired evidence vedie k revalidation, pause alebo novému approval, nie k implicitnému passu.
 
-## 17. Deployment verzus release exposure
+## 9. Protected environment a identity
 
-Deployment odpovedá, kde artifact beží. Release odpovedá, komu a v akom rozsahu je behavior dostupný.
+Protected production environment vynucuje server-side:
 
-```text
-deploy digest A do production
-→ feature disabled
-→ internal cohort
-→ 5 % trafficu
-→ selected tenants
-→ 100 % release
-```
+- povolené refs a release manifests;
+- deployment workflow identity;
+- environment-scoped short-lived role;
+- required policy/approval;
+- concurrency a deployment window;
+- secret access;
+- manual override a break-glass audit.
 
-Deployment record a release exposure record sú odlišné, ale musia byť korelovateľné.
+Build job nemá production permission. Deploy job číta schválený manifest a dostane krátkodobé práva iba pre environment E3. Job name ani runner label nie sú authorization controls.
 
-## 18. Protected environment
+## 10. Lock, lease a compare-and-swap
 
-Protected environment je policy boundary, ktorá obmedzuje:
-
-- povolené refs a artifacts,
-- deployment identities,
-- required approvals,
-- deployment windows,
-- concurrency,
-- change risk policy,
-- secret access,
-- manual overrides,
-- audit evidence.
-
-Protection musí byť enforced server-side alebo control-plane policy. Názov jobu `deploy-production` sám o sebe nič nechráni.
-
-## 19. Environment-scoped identity
-
-Preferovaný model:
+Environment je shared mutable resource. Atlas deployment používa:
 
 ```text
-pipeline job identity
-→ workload federation/OIDC
-→ policy over repository, ref, workflow, artifact a environment
-→ short-lived environment role
-→ minimálne permissions
-```
-
-Výhody:
-
-- žiadny dlhodobý cloud key v CI,
-- credentials expirovali po jobe,
-- scope je viazaný na konkrétny environment,
-- audit rozlišuje jednotlivé deployments,
-- jednoduchšia revocation.
-
-Build job nemá mať production permissions. Deploy job nemá automaticky právo meniť artifact registry alebo signing policy.
-
-## 20. Separation of duties
-
-Rozlišuj práva:
-
-- build artifact,
-- podpis alebo attestation,
-- review findings,
-- promotion do test/staging,
-- production deployment,
-- release exposure,
-- rollback alebo emergency override.
-
-Separation of duties nemusí znamenať ručné kopírovanie. Môže byť implementované nezávislou policy, approvalom nad evidence a oddelenými workload identities.
-
-## 21. Deployment concurrency
-
-Dva deploymenty do rovnakého environmentu môžu vytvoriť lost update alebo nejasný state.
-
-Príklad:
-
-```text
-A začne deploy v1
-B začne deploy v2
-B dokončí v2
-A neskôr dokončí a prepíše časť state na v1
-```
-
-Ochrany:
-
-- environment lock alebo lease,
-- deployment queue,
-- compare-and-swap nad environment revision,
-- optimistic version check,
-- serializácia mutable-state operácií,
-- cancellation superseded deploymentu iba pred unsafe mutation,
-- state reconciliation po failure.
-
-## 22. Lock a lease semantics
-
-Lock potrebuje:
-
-- environment identity,
-- owner/run ID,
-- acquire timestamp,
-- lease expiry,
-- heartbeat alebo renewal,
-- safe release,
-- stale-lock recovery,
-- audit log.
-
-Neobmedzený lock bez expiry môže zablokovať environment po runner failure. Príliš krátka lease môže vypršať počas platného deploymentu a povoliť súbeh.
-
-## 23. Deployment state machine
-
-Deployment nemá byť jeden shell command. Dôveryhodný lifecycle:
-
-```text
-precheck
-→ acquire lock
-→ verify artifact/evidence
-→ resolve target state
+acquire lease pre E + observed revision V
+→ prechecks
+→ compare current revision stále = V
 → apply mutation
-→ wait for readiness
-→ run post-deploy verification
-→ record result
-→ release lock
+→ heartbeat/renew lease
+→ verify
+→ record new revision V+1
+→ release lease
 ```
 
-Failure stavy:
+Lease obsahuje owner/run ID, expiry, heartbeat a stale-lock recovery. Príliš krátka lease môže povoliť overlap počas platného deploymentu; neobmedzený lock môže po runner failure zablokovať environment.
 
-- rejected pred mutation,
-- partial apply,
-- readiness timeout,
-- verification failure,
-- lock loss,
-- cleanup failure,
-- rollback/roll-forward started,
-- state inconclusive.
+## 11. Deployment state machine
 
-Každý stav musí mať recovery alebo reconciliation postup.
+```text
+requested
+→ target resolved
+→ eligibility verified
+→ lock acquired
+→ desired/effective state observed
+→ mutation applied
+→ rollout/readiness observing
+→ functional/business verification
+→ completed / paused / failed / inconclusive
+→ exposure decision
+→ recovery/reconciliation
+→ record and unlock
+```
 
-## 24. Partial deployment
+`orchestrator success` nie je finálny verdict. Post-deploy oracle potvrdzuje správny digest/config, routing, critical journey, migration state, telemetry a business invariant.
+
+## 12. Partial state a retry
 
 Partial deployment môže znamenať:
 
-- časť replík na novom digeste,
-- infra resource vytvorený, ale nie nakonfigurovaný,
-- migration aplikovaná, application rollout zlyhal,
-- routing prepnuto iba v jednom regióne,
-- config update bez úspešného restartu.
+- mix starého a nového digestu;
+- migration commitnutú pred application failure;
+- config zmenený bez úspešného restartu;
+- routing prepnutý iba v regióne;
+- infra resource vytvorený bez identity bindingu.
 
-Automation musí vedieť zistiť effective state, nie iba posledný úspešný command. Retry má byť idempotentný alebo používať reconcile model.
+Retry najprv pozoruje effective state. Mutation je idempotentná alebo reconciliuje desired verzus observed stav. Slepé zopakovanie commandu pri unknown outcome môže zdvojiť migráciu, prepísať novší rollout alebo poškodiť data.
 
-## 25. Deployment record
+## 13. Shared data a event state
 
-Pre každý pokus uchovaj:
-
-- environment ID,
-- artifact/release manifest digest,
-- source commit,
-- config a infrastructure revision,
-- secret references,
-- workflow/pipeline run,
-- actor/workload identity,
-- lock/lease ID,
-- start/end timestamps,
-- strategy a rollout stage,
-- precheck a verification evidence,
-- výsledok a failure class,
-- rollback/roll-forward relation,
-- release exposure.
-
-Deployment history je prevádzkový zdroj pravdy a musí zahŕňať aj neúspešné pokusy.
-
-## 26. Environment inventory
-
-Inventory odpovedá „čo reálne beží“:
+Database a queue sa nepromotionujú ako image. Atlas používa expand-contract:
 
 ```text
-environment ID
-→ artifact digests
-→ config revision
-→ infrastructure revision
-→ schema/migration state
-→ secret references
-→ feature flags
-→ traffic policy
-→ deployment status
+additive schema/event contract
+→ tolerant readers/writers
+→ deploy mixed-compatible versions
+→ bounded migration/backfill
+→ completeness a integrity verification
+→ switch behavior
+→ remove old consumers
+→ destructive cleanup neskôr
 ```
 
-Inventory má byť automaticky aktualizovaný a porovnateľný s desired state. Manuálny spreadsheet rýchlo zastará.
+Rollback eligibility závisí od aktuálneho schema, data a retention state. Starý stateless API artifact môže byť dostupný, ale starý worker nemusí rozumieť eventom už v queue.
 
-## 27. Environment drift
+## 14. Deployment verzus release exposure
 
-Drift je rozdiel medzi expected a effective state.
+```text
+deploy R do production s flag off
+→ synthetic/internal validation
+→ internal tenant
+→ 5 % matched cohort
+→ broader rings
+→ 100 % release
+```
 
-Kategórie:
+Deployment record odpovedá, čo beží. Exposure record odpovedá, kto behavior používa. Oba záznamy sa korelujú cez environment, manifest, config/flag revision a čas.
 
-- **Configuration drift —** manuálna alebo mimo-pipeline zmena settings.
-- **Infrastructure drift —** resource zmenený priamo v cloud console/API.
-- **Binary drift —** mutable tag alebo host package update zmenil bytes.
-- **Identity drift —** role, certificate alebo secret binding sa zmenil.
-- **Policy drift —** admission, firewall alebo approval pravidlo sa zmenilo.
-- **Data/schema drift —** migration alebo dataset nezodpovedá očakávaniu.
-- **Operational drift —** alert, dashboard alebo runbook už nereflektuje systém.
+## 15. Environment drift a reconciliation
 
-Promotion pri neznámom drifte môže byť rejected, paused alebo doplnená o reconciliation podľa policy.
+Drift categories:
 
-## 28. Drift detection a reconciliation
+- binary/release drift;
+- configuration drift;
+- infrastructure drift;
+- identity/secret drift;
+- policy/network drift;
+- data/schema drift;
+- observability drift.
 
 Lifecycle:
 
-1. načítaj desired state;
-2. zmeraj effective state;
-3. normalizuj platform defaults;
-4. klasifikuj rozdiel;
-5. posúď risk a ownera;
-6. reconcile automaticky alebo schváľ výnimku;
-7. uchovaj evidence;
-8. over výsledok.
-
-Blind auto-reconcile môže byť nebezpečný pri emergency hotfixe alebo data resource. Drift policy musí rozlišovať bezpečne opraviteľné a high-risk mutations.
-
-## 29. Databáza ako shared mutable state
-
-Databázu nemožno promotionovať ako immutable image. Viac aplikačných verzií môže súčasne používať rovnaký state.
-
-Bezpečný expand-contract lifecycle:
-
-1. pridať backward-compatible schema;
-2. nasadiť code kompatibilný so starým aj novým stavom;
-3. vykonať online migration/backfill;
-4. overiť completeness a performance;
-5. prepnúť reads/writes;
-6. odstrániť starých consumers;
-7. až potom odstrániť starý kontrakt.
-
-Promotion policy kontroluje schema compatibility, migration progress, locks, rollback eligibility a RPO/recovery.
-
-## 30. Event a queue state
-
-Promotion consumerov a producerov musí zohľadniť:
-
-- schema compatibility,
-- staré správy v backlogu,
-- replay a retention,
-- duplicate/out-of-order handling,
-- poison messages,
-- consumer checkpointy,
-- rollback na staršiu verziu,
-- partition/routing semantics.
-
-Artifact môže byť rollback-eligible pre stateless HTTP, ale nie pre queue s novou nekompatibilnou event schema.
-
-## 31. Secrets medzi environmentmi
-
-Secrets sa nepromotionujú z testu do produkcie. Promotion prenáša requirement alebo secret reference, nie value.
-
-Každý environment má vlastné:
-
-- secret values,
-- trust roots,
-- issuers a identities,
-- rotation lifecycle,
-- access policy,
-- audit a break-glass proces.
-
-Pipeline má validovať existenciu a kompatibilitu reference bez vypísania secretu do logu alebo artifactu.
-
-## 32. Data medzi environmentmi
-
-Test data sa nemajú presúvať do produkcie. Production-derived data do nižšieho prostredia vyžadujú:
-
-- právny a organizačný základ,
-- data minimization,
-- anonymization/pseudonymization,
-- re-identification risk review,
-- encryption,
-- access control,
-- retention a deletion,
-- audit prenosu.
-
-Synthetic datasets sú preferovaný default.
-
-## 33. Promotion gates
-
-Príklad evidence progression:
-
 ```text
-build
-→ static/unit evidence
-→ component/integration environment
-→ contract a security evidence
-→ staging
-→ acceptance/performance/release rehearsal
-→ production policy/approval
-→ progressive rollout
-→ post-deploy validation
+desired state
+→ effective observation
+→ normalize expected platform defaults
+→ classify delta a risk
+→ block, reconcile alebo accept expiring exception
+→ verify a record
 ```
 
-Každý gate má pridávať nový druh dôkazu alebo vyššiu fidelity. Opakovanie rovnakého unit testu v piatich prostrediach bez nového risku iba predlžuje lead time.
+Blind auto-reconcile môže odstrániť emergency mitigation. Drift potrebuje ownera a context-aware policy.
 
-## 34. Approval freshness
+## 16. Worked failure: rovnaký artifact, odlišná production configuration
 
-Approval má byť viazaný na:
+Staging aj production používali digest A. Staging prešlo, ale production API saturovalo DB:
 
-- artifact digest,
-- config revision,
-- target environment,
-- evidence snapshot,
-- risk classification,
-- deployment strategy,
-- expiry.
+```text
+staging config K1: concurrency 20, DB pool 80
+production hidden UI override K2: concurrency 120, DB pool 80
+→ rovnaké bytes
+→ production worker vytvoril connection contention
+→ latency a queue age rástli
+```
+
+### Root cause
+
+Tím považoval rovnaký artifact za rovnaký release input. UI override nebol vo versionovanej config provenance ani approval packet-e.
+
+### Náprava
 
-Approval sa invaliduje pri zmene digestu, configu, kritického findingu, environment drifte alebo významnom incidente. „Schválené včera“ nemusí byť platné pre dnešný stav.
+- rendered config má digest a source precedence report;
+- UI overrides sú zakázané alebo auditované ako revision;
+- promotion subject zahŕňa R + K + E;
+- config schema/policy kontroluje concurrency budget;
+- canary guardrails sledujú DB wait a queue age;
+- staging test používa production-relevantný config profile.
 
-## 35. Deployment window a freeze
+## 17. Worked failure: vypršaná lease dovolila dva deploymenty
 
-Policy môže obmedziť deployment podľa:
+Deployment A bol pomalý počas migration verification. Jeho lease vypršala, hoci runner pokračoval. Deployment B získal nový lock:
 
-- support coverage,
-- business calendar,
-- peak traffic,
-- regulatory window,
-- error-budget state,
-- aktívneho incidentu,
-- dependency maintenance.
+```text
+A aplikuje manifest R1 a migration phase
+→ lease bez heartbeat vyprší
+→ B nasadí R2 a zapíše environment revision V2
+→ A dokončí a prepíše časť config/routingu na R1
+→ inventory ukazuje mixed, nejasný state
+```
 
-Freeze nie je náhrada bezpečného delivery systému. Dlhý freeze zväčšuje batch size a divergence po jeho skončení. Emergency zmena potrebuje osobitný auditovateľný override, nie skrytý bypass.
+### Root cause
 
-## 36. Rollback eligibility
+Lock chránil iba začiatok jobu. Chýbal heartbeat, compare-and-swap pred ďalšou mutation a stale-owner fencing.
 
-Predchádzajúci artifact je rollback-eligible iba ak:
+### Náprava
 
-- je stále dostupný a dôveryhodný,
-- config je kompatibilný,
-- database a event state mu rozumejú,
-- external contracts neboli nevratne zmenené,
-- feature flags možno vrátiť,
-- cache/serialization formát je kompatibilný,
-- traffic migration je reverzibilná,
-- recovery bol otestovaný.
+- lease sa obnovuje a mutation overuje fencing token;
+- environment revision používa compare-and-swap;
+- superseded deployment prestane mutovať po strate lease;
+- reconciliation obnoví manifest/config consistency;
+- deployment record zachová oba attempts a partial states;
+- post-deploy verification kontroluje všetky component digests a routing.
 
-Rollback eligibility sa môže meniť počas rollout-u. Deployment record ju má explicitne sledovať.
+## 18. Rollback, roll-forward a teardown
 
-## 37. Roll-forward a feature disable
+Rollback je možný iba ak:
 
-Pri stateful alebo nevratnej zmene môže byť bezpečnejšie:
+- last-known-good artifacts stále existujú;
+- config a infrastructure sú kompatibilné;
+- database/event state rozumie starej verzii;
+- external side effects sú reverzibilné alebo reconciled;
+- traffic a flags možno bezpečne vrátiť.
 
-- vypnúť feature flag,
-- zastaviť writes,
-- izolovať cohort alebo región,
-- nasadiť compatible hotfix,
-- vykonať compensation/reconciliation,
-- pokračovať roll-forwardom.
+Inak Atlas použije flag-off, write freeze, containment, compatible roll-forward alebo data reconciliation.
 
-Recovery decision má byť založený na data integrity a user impacte, nie iba na rýchlosti technického návratu.
+Ephemeral teardown je samostatná destructive state machine: stable ID, protection check, traffic stop, retention export, credential revocation, dependency-aware deletion, finalizer handling, lock cleanup a orphan verification. Production/shared environments sú denylisted z TTL cleanupu.
 
-## 38. Environment teardown
+## 19. Deployment record a inventory
 
-Teardown je privilegovaná destructive operácia.
+Deployment record zachová:
 
-Bezpečný lifecycle:
+```text
+R + K + I + E
+actor/workload identity
+policy/approval snapshot
+lock/lease/fencing identity
+observed pre-state
+mutation timeline
+post-state a verification
+exposure relation
+recovery relation
+```
 
-1. over stable environment ID, nie iba user-provided názov;
-2. skontroluj protection flag a environment type;
-3. zastav traffic a scheduled jobs;
-4. exportuj evidence alebo dáta podľa retention;
-5. revoke credentials a identities;
-6. odstráň compute/network/DNS/resources;
-7. vyrieš finalizers a dependencies;
-8. uvoľni locks;
-9. odstráň monitoring targets;
-10. over, že nič nezostalo orphaned;
-11. zapíš destroy record.
+Inventory priebežne odpovedá, čo reálne beží. Neúspešné a partial attempts sú súčasťou histórie, nie iba pipeline logs na krátku retention.
 
-Production alebo shared environment musí byť explicitne denylisted z automatického TTL cleanupu.
+## 20. Diagnostický postup
 
-## 39. Observability environment lifecycle
+1. Potvrď stable environment ID a protection level.
+2. Porovnaj release manifest/component digests.
+3. Porovnaj rendered config digest a variable precedence.
+4. Over infrastructure, identity/secret a policy revisions.
+5. Zmeraj effective state: replicas, routing, sidecars a resource state.
+6. Skontroluj schema, migration, queue/backlog a event compatibility.
+7. Over lease owner, heartbeat, fencing token a environment revision.
+8. Rozlíš precheck rejection, partial apply, readiness, verification a cleanup failure.
+9. Vyber reconcile, rollback, roll-forward, flag-off alebo containment podľa shared stateu.
+10. Potvrď post-recovery technical, functional a data-integrity oracle.
+11. Aktualizuj drift/config/promotion control, ktorý failure prepustil.
 
-Sleduj:
+## 21. Referenčné pravidlá
 
-- provisioning a readiness time,
-- environment availability,
-- promotion lead time,
-- deployment queue a lock wait,
-- deployment success/failure classes,
-- drift count a age,
-- stale/expired ephemeral environments,
-- cleanup failure rate,
-- config-related incidents,
-- secret/identity failures,
-- rollback/roll-forward time,
-- evidence expiry a approval wait.
+- Environment je runtime, data, identity a policy boundary, nie iba namespace.
+- Promotion presúva rovnaký immutable manifest bez rebuildu.
+- Promotion subject zahŕňa artifact, config, target a relevantný shared state.
+- Desired state sa musí porovnať s effective state.
+- Behavioral equivalence sa odvodzuje od konkrétneho rizika.
+- Config change má vlastný provenance a rollout lifecycle.
+- Protected environment sa vynucuje server-side.
+- Deployment identity je short-lived a environment-scoped.
+- Locks potrebujú lease, heartbeat, fencing a stale recovery.
+- Retry pozoruje partial state pred mutation.
+- Database/event compatibility určuje rollback eligibility.
+- Deployment a release exposure sú oddelené, ale korelované.
+- Drift sa klasifikuje pred reconciliation.
+- Deployment record obsahuje aj neúspešné attempts.
 
-Environment platforma je produkčný systém a potrebuje SLO, ownership a capacity management.
+## 22. Časté omyly
 
-## 40. Diagnostický postup
+### „Environment je namespace“
 
-### Staging funguje, production nie
+Namespace nepopisuje config, identities, data, dependencies, policy ani history.
 
-Porovnaj v tomto poradí:
+### „Staging je menšia produkcia“
 
-1. artifact digest;
-2. rendered config digest;
-3. secret/identity references;
-4. infrastructure revision;
-5. network path a policy;
-6. dependency versions;
-7. schema/data state;
-8. capacity a topology;
-9. traffic mix;
-10. feature flags a release exposure.
+Iba ak zachová boundaries relevantné pre konkrétny risk.
 
-### Promotion použila iný artifact
+### „Rovnaký digest znamená rovnaké správanie“
 
-Skontroluj mutable tag, rebuild, registry copy, release manifest a destination digest verification.
+Configuration, identity, data, topology a traffic môžu behavior zásadne zmeniť.
 
-### Deployment čaká
+### „Promotion znamená rebuild pre nový environment“
 
-Over environment lock/lease, queue, approval expiry, protected policy, deployment window, quota a starší active deployment.
+Rebuild vytvára nový artifact a invaliduje pôvodnú evidence.
 
-### Deployment je partial
+### „Lock stačí bez lease a fencing“
 
-Zmeraj effective state, migration state, replica digests, routing, readiness a lock ownership. Nespúšťaj slepý retry bez reconcile plánu.
+Runner failure alebo expiry môže povoliť súbežné mutations.
 
-### Ephemeral environment zostal visieť
+### „Rollback je vždy dostupný“
 
-Over TTL controller, cleanup job, finalizers, dependent resources, destroy identity permissions, stale lock a protection tag.
+Shared mutable state môže starú verziu urobiť nekompatibilnou.
 
-### Environment driftuje po každom deploymente
+## 23. Zhrnutie
 
-Porovnaj desired state s platform defaults, mutating controllers a out-of-band automation. Nie každý opakovaný diff je manuálny drift.
+Dôveryhodná Atlas promotion je:
 
-## 41. Typické anti-patterny
+```text
+stable target identity
+→ desired/effective state a drift snapshot
+→ immutable manifest + config/infra/shared-state subject
+→ complete/fresh eligibility
+→ scoped identity, lock a fencing
+→ state-aware deployment
+→ runtime verification a exposure
+→ deployment record
+→ compatible recovery alebo reconciliation
+```
 
-### Environment je iba namespace
+Environment nie je pasívny cieľ. Je meniaci sa runtime state, ktorého identita, compatibility a drift priamo určujú, či je promotion bezpečná.
 
-Namespace je technická boundary, ale nepopisuje identity, data, config, policy, dependencies ani ownership.
+## 24. Kontrolné otázky
 
-### Staging je automaticky „malá produkcia“
-
-Bez explicitnej behavioral equivalence môže mať inú topology, scale, traffic a security model.
-
-### Promotion znamená rebuild
-
-Produkcia potom nedostane testované bytes.
-
-### Jeden CI admin token pre všetky environmenty
-
-Kompromitovaný build job má maximálny blast radius.
-
-### Approval nie je viazaný na digest a config
-
-Po zmene vstupov ostáva starý approval zdanlivo platný.
-
-### Lock bez lease a recovery
-
-Runner failure môže zablokovať environment na neurčito.
-
-### Rollback sa považuje za univerzálny
-
-Shared mutable state a external side effects ho môžu znemožniť.
-
-### Ephemeral cleanup používa nevalidovaný názov
-
-Destructive path môže zasiahnuť nesprávny environment.
-
-### Drift sa automaticky prepíše bez klasifikácie
-
-Emergency alebo business-critical zmena môže byť odstránená bez posúdenia.
-
-## 42. Praktický checklist
-
-Pred promotion over:
-
-- target environment má stable identity,
-- desired a effective state sú známe,
-- artifact digest je immutable a eligible,
-- evidence je úplná a čerstvá,
-- config contract je kompatibilný,
-- rendered config a infrastructure revision sú zaznamenané,
-- secrets sú iba references s environment scope,
-- drift je klasifikovaný,
-- environment lock/lease je dostupný,
-- deployment identity má minimálne permissions,
-- database/event compatibility je overená,
-- post-deploy validation má oracle a timeout,
-- rollback eligibility alebo roll-forward plan je explicitný,
-- approval patrí digestu, configu a targetu,
-- release exposure je oddelená od deploymentu,
-- cleanup a deployment records sú auditovateľné.
-
-## 43. Kontrolné otázky
-
-1. Čo tvorí environment okrem compute platformy?
-2. Aký je rozdiel medzi desired a effective state?
-3. Prečo názov `production` nie je dostatočná identity?
-4. Aký je rozdiel medzi parity a behavioral equivalence?
-5. Prečo sa artifact a configuration oddeľujú?
-6. Čo musí obsahovať configuration provenance?
-7. Čo znamená promotion eligibility?
-8. Prečo evidence potrebuje freshness policy?
-9. Kedy registry copy vytvorí nový artifact?
-10. Aký je rozdiel medzi deploymentom a release exposure?
-11. Ako protected environment vynucuje trust boundary?
-12. Ako funguje environment-scoped workload identity?
-13. Prečo deployment potrebuje lock alebo lease?
-14. Ako sa rozpozná partial deployment?
-15. Aké typy environment driftu existujú?
-16. Prečo sa databáza nepromotionuje ako image?
-17. Kedy je predchádzajúci artifact rollback-eligible?
-18. Ako bezpečne zničiť ephemeral environment?
-19. Prečo approval musí byť viazaný na digest a config revision?
-20. Ako diagnostikuješ rozdiel medzi staging a production behaviorom?
-
-## Summary
-
-Environment je runtime a policy boundary s vlastnou identitou, desired/effective state, configuration, secrets, dependencies, data a deployment históriou. Promotion presúva immutable artifact a jeho evidence do konkrétneho environmentu bez rebuildu. Dôveryhodný model potrebuje eligibility, freshness, environment-scoped identity, locks, drift detection, partial-failure recovery, shared-state kompatibilitu, rollback eligibility a auditovateľný teardown. Deployment a release exposure sú oddelené state transitions a musia byť vzájomne korelovateľné.
+1. Čo tvorí environment identity?
+2. Ako sa líši desired a effective state?
+3. Prečo sa behavioral equivalence viaže na risk?
+4. Čo tvorí Atlas promotion subject?
+5. Prečo rovnaký artifact nestačí bez config provenance?
+6. Ako evidence freshness závisí od typu signálu?
+7. Čo chráni protected environment?
+8. Prečo deployment potrebuje lease, heartbeat a fencing?
+9. Ako sa diagnostikuje partial deployment?
+10. Prečo database a queue určujú rollback eligibility?
+11. Aký je rozdiel medzi deploymentom a exposure?
+12. Ako drift lifecycle odlišuje platform defaults od nebezpečnej zmeny?
+13. Ako vznikol Atlas config failure medzi stagingom a production?
+14. Ako súbežné deploymenty vytvorili mixed state?
 
 ## Glossary impact
 
-Relevantné pojmy: environment, environment identity, desired state, effective state, ephemeral environment, long-lived environment, environment parity, behavioral equivalence, configuration contract, configuration provenance, promotion, promotion eligibility, evidence freshness, release manifest, protected environment, environment-scoped identity, deployment lock, lease, deployment state machine, partial deployment, environment drift, rollback eligibility a release exposure.
+Relevantné pojmy: environment identity, desired state, effective state, behavioral equivalence, rendered configuration digest, promotion subject, promotion eligibility, protected environment, environment-scoped identity, deployment state machine, deployment lock, lease, fencing token, partial deployment, environment revision, environment drift, deployment record, rollback eligibility a release exposure.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
