@@ -986,6 +986,10 @@ L2 oblasť, v ktorej sa šíri Ethernet broadcast. Typicky ju oddeľuje router a
 
 Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality gates a nemá byť považovaná za dôveryhodný integračný základ. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
+## Brownout
+
+Čiastočné alebo premenlivé zlyhanie dependency, pri ktorom služba odpovedá pomaly, iba niektorým requestom alebo s neúplným výsledkom namiesto úplného outage-u. Brownout často drží resources a spúšťa retry amplification. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Budget action — AWS
 
 Voliteľná automatická action naviazaná na AWS Budget threshold, napríklad policy alebo bounded resource-control operácia podľa podporovaných možností. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -1989,6 +1993,10 @@ Vrstva zodpovedná za identity, policy evaluation, posture, access decisions a v
 ## Control variant
 
 Referenčný variant experimentu reprezentujúci existujúce alebo baseline správanie, voči ktorému sa hodnotí treatment. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Controlled exposure
+
+Riadené sprístupňovanie release-u alebo feature obmedzenej cohrte s explicitnou artifact, configuration a routing identitou, guardrails a rozhodovacími kritériami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Controlled reproduction — Docker
 
@@ -3338,6 +3346,10 @@ Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, tel
 
 Pravidlá určujúce, či test result, scan, review alebo approval stále patrí k aktuálnemu commitu, artifactu, policy a environment state. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## Evidence placement
+
+Rozhodnutie, v ktorej najskoršej vrstve delivery možno získať dostatočne spoľahlivý dôkaz bez odstránenia relevantnej failure boundary. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
+
 ## Evidence preservation — Docker incident
 
 Zachovanie inspect dát, logs, events, versions, image digestov, resource a host evidence pred restartom, delete alebo prune operáciou. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
@@ -3401,6 +3413,10 @@ Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania
 ## Experiment unit
 
 Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant, device, session alebo región. Musí zodpovedať hranici možného treatment efektu. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Experiment validity
+
+Vlastnosť experimentu, pri ktorej baseline, target, fault, workload a observation zodpovedajú deklarovanému contractu natoľko, aby výsledok mohol potvrdiť alebo vyvrátiť hypotézu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Explicit deny — IAM
 
@@ -5294,6 +5310,10 @@ Schema určujúca field names, types, analyzers a object structure dokumentov v 
 
 CI/CD variable, ktorej hodnota spĺňajúca GitLab constraints sa pri výpise do job logu nahrádza maskovaným textom; masking nezabraňuje úmyselnej exfiltration jobom. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
 
+## Matched cohort
+
+Experimentálna alebo kontrolná skupina zostavená tak, aby bola porovnateľná podľa významných vlastností, napríklad tenant size, regiónu, zariadenia alebo workloadu. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Matcher — Alertmanager
 
 Podmienka nad alert labels používaná v route, silence alebo inhibition pravidle. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
@@ -6546,6 +6566,10 @@ Persistentný state Tail inputu uchovávajúci file identity a read offset na re
 
 Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či configuration remote stav adoptuje, zmení alebo by nebezpečne vyvolala update či replacement. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Post-promotion watch
+
+Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené, kumulatívne alebo segmentovo zriedkavé failures pred uzavretím release rozhodnutia. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## PowerShell provider
 
 Abstraction layer sprístupňujúca datasources ako filesystem, registry, certificates alebo environment cez jednotné cmdlets a drives. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -6981,6 +7005,10 @@ Control umožňujúci obnoviť službu, dáta alebo dôveryhodný stav po incide
 ## Recovery keys — Vault
 
 Quorum material používaný pri vybraných privileged Vault operations v auto-unseal modeli; nenahrádza stratený auto-unseal key. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Recovery observation
+
+Samostatná fáza resilience experimentu po odstránení faultu, ktorá overuje backlog drain, reconciliation, návrat resources a splnenie recovery deadline. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Recovery package
 
@@ -7426,6 +7454,10 @@ Najprísnejší built-in PSS profil pre bežné workloads, vyžadujúci non-root
 
 Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočného potvrdenia. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Retry amplification
+
+Násobenie pôvodného workloadu, keď client, proxy a služby nezávisle retryujú rovnaké zlyhanie a vytvoria viac pokusov na jednu business operáciu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Retry budget
 
 Explicitný limit množstva alebo času retry pokusov, ktorý zabraňuje nekonečným retries a zosilneniu downstream incidentu. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
@@ -7553,6 +7585,10 @@ Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observ
 ## Rollout rollback — Deployment
 
 Návrat Deployment Pod template-u na zachovanú staršiu revision; nevracia databázu, queues ani iný external state. Pozri [Deployment](docs/09-kubernetes/deployment.md).
+
+## Rollout state machine
+
+Explicitné stavy produkčnej expozície s povolenými transitions, observation window, success criteria, abort thresholds a rollback alebo roll-forward akciami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Rollover — search
 
@@ -7709,6 +7745,10 @@ Bill of Materials opisujúci software-as-a-service components, services, provide
 ## Safe loader — YAML
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Safety state machine
+
+Riadený lifecycle fault experimentu od prechecks cez fault activation a removal až po recovery a cleanup, pričom každý stav má povolené transitions, timeouty a safety guardrails. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## SAML
 
@@ -8261,6 +8301,10 @@ Interné zobrazenie costu tímom alebo produktom bez priameho finančného preú
 ## Sidecar container
 
 Auxiliary container bežiaci v rovnakom Pode ako hlavná aplikácia a zdieľajúci jej placement, network a Pod lifecycle boundary. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Signal latency
+
+Čas medzi vznikom zmeny alebo failure a dostupnosťou dostatočne úplného signálu pre rollout či experiment decision. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Signal — observability
 
