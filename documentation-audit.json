@@ -1095,15 +1095,15 @@
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
       "title": "Shift-right",
-      "words": 3260,
-      "headings": 45,
-      "sections": 45,
-      "findings": 151,
-      "critical": 33,
-      "high": 47,
-      "medium": 23,
-      "low": 48,
-      "score": 914,
+      "words": 2171,
+      "headings": 39,
+      "sections": 39,
+      "findings": 95,
+      "critical": 30,
+      "high": 35,
+      "medium": 10,
+      "low": 20,
+      "score": 694,
       "grade": "D"
     },
     {
@@ -60313,24 +60313,6 @@
       "path": "docs/04-testing-and-quality/shift-right.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.",
@@ -60340,69 +60322,15 @@
       "path": "docs/04-testing-and-quality/shift-right.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "3. Prečo predprodukčné prostredie nestačí",
-      "line": 42,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "3. Prečo predprodukčné prostredie nestačí",
-      "line": 42,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "3. Prečo predprodukčné prostredie nestačí",
-      "line": 42,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "3. Prečo predprodukčné prostredie nestačí",
-      "line": 42,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "3. Prečo predprodukčné prostredie nestačí",
-      "line": 42,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -60410,161 +60338,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "3. Prečo predprodukčné prostredie nestačí",
-      "line": 42,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `CDN`, `Identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "4. Predpoklady bezpečného shift-right",
-      "line": 57,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "4. Predpoklady bezpečného shift-right",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "4. Predpoklady bezpečného shift-right",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "4. Predpoklady bezpečného shift-right",
-      "line": 57,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "4. Predpoklady bezpečného shift-right",
-      "line": 57,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "4. Predpoklady bezpečného shift-right",
-      "line": 57,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Technická validácia",
-      "line": 77,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Technická validácia",
-      "line": 77,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Technická validácia",
-      "line": 77,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance sú ready a prijímajú správny traffic,`, `error rate a retry rate nevytvárajú regresiu,`, `latency distribúcia zostáva v limite,`, `dependencies a externé služby odpovedajú,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Technická validácia",
-      "line": 77,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Technická validácia",
-      "line": 77,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Technická validácia",
-      "line": 77,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Funkčná validácia",
-      "line": 89,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Funkčná validácia",
-      "line": 89,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Funkčná validácia",
-      "line": 89,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritický request vráti správny obsah, nie iba status,`, `side effect vznikne presne podľa kontraktu,`, `authorization a tenant isolation fungujú,`, `dáta zostanú konzistentné,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Funkčná validácia",
-      "line": 89,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Business validácia",
-      "line": 100,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 43,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
@@ -60572,17 +60347,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Business validácia",
-      "line": 100,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 43,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľ dokončí kritický journey,`, `conversion alebo completion rate sa nezhorší,`, `payment, order alebo support workflow dosiahne správny koniec,`, `počet manuálnych zásahov alebo chýb klesne podľa hypotézy,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant authorization a event contract;`, `compatibility starého a nového workeru;`, `PostgreSQL migration a restartovateľný backfill;`, `component load pri syntetickom datasete;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Business validácia",
-      "line": 100,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 43,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -60590,35 +60365,44 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Business validácia",
-      "line": 100,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "6. Observability ako kompozitný oracle",
-      "line": 112,
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "6. Observability ako kompozitný oracle",
-      "line": 112,
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact version alebo digest,`, `deployment ID,`, `region/zone,`, `tenant alebo cohort,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "6. Observability ako kompozitný oracle",
-      "line": 112,
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest a source provenance;`, `deployment a configuration revision;`, `feature-flag snapshot a routing policy;`, `cohort identity a stabilné assignment semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -60626,8 +60410,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "6. Observability ako kompozitný oracle",
-      "line": 112,
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -60635,143 +60419,224 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "6. Observability ako kompozitný oracle",
-      "line": 112,
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "3. Predpoklady bezpečnej produkčnej validácie",
+      "line": 74,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RUM`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "4. Exposure state machine",
+      "line": 91,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "4. Exposure state machine",
+      "line": 91,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu duration a sample count;`, `cohort composition;`, `success metrics a guardrails;`, `maximálnu signal latency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "4. Exposure state machine",
+      "line": 91,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "5. Kompozitný produkčný oracle",
+      "line": 120,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Technický výsledok",
+      "line": 124,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Technický výsledok",
+      "line": 124,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Technický výsledok",
+      "line": 124,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request a job error rate;`, `p95/p99 API a export completion latency;`, `DB connection wait, lock waits a query duration;`, `queue depth, oldest-message age a retry amplification;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Technický výsledok",
+      "line": 124,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Technický výsledok",
+      "line": 124,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DB`, `CPU`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Funkčný výsledok",
+      "line": 136,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Funkčný výsledok",
+      "line": 136,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Funkčný výsledok",
+      "line": 136,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `export obsahuje iba správny tenant;`, `vznikne presne jeden export object pre idempotency key;`, `signed URL funguje a neprekročí permission scope;`, `event, worker a download path zachovajú correlation ID;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Funkčný výsledok",
+      "line": 136,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Funkčný výsledok",
+      "line": 136,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `ID`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Business a používateľský výsledok",
+      "line": 147,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Business a používateľský výsledok",
+      "line": 147,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Business a používateľský výsledok",
+      "line": 147,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `export completion a download success rate;`, `čas od requestu po reálne použitie súboru;`, `abandonment a repeat-request rate;`, `support contacts alebo manual retries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Business a používateľský výsledok",
+      "line": 147,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Business a používateľský výsledok",
+      "line": 147,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "7. Baseline a control group",
+      "line": 177,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "7. Baseline a control group",
+      "line": 177,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `súbežnú control group na starej verzii;`, `stabilný synthetic journey proti starej aj novej verzii;`, `historický baseline iba pri porovnateľnej sezónnosti;`, `pre/post okno ako slabší pomocný signál.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "7. Baseline a control group",
+      "line": 177,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
       "section": "7. Baseline a control group",
-      "line": 141,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "8. Synthetic monitoring",
-      "line": 155,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "8. Synthetic monitoring",
-      "line": 155,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `DNS resolution a TLS handshake z vybraných regiónov,`, `login test dedikovanou identitou,`, `read-only API journey,`, `vytvorenie a bezpečné zrušenie testovacej objednávky,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "8. Synthetic monitoring",
-      "line": 155,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "8. Synthetic monitoring",
-      "line": 155,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `API`, `CDN`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "9. Real User Monitoring",
-      "line": 179,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "9. Real User Monitoring",
-      "line": 179,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `page load a interaction latency,`, `frontend exceptions,`, `Core Web Vitals,`, `API latency z klienta,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "9. Real User Monitoring",
-      "line": 179,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "10. Canary release",
-      "line": 204,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 57 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "10. Canary release",
-      "line": 204,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu observation duration,`, `minimálny počet requests alebo sessions,`, `success a guardrail metrics,`, `acceptable delta voči control,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "10. Canary release",
-      "line": 204,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "11. Canary analysis a štatistická opatrnosť",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "11. Canary analysis a štatistická opatrnosť",
-      "line": 232,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `absolútny počet udalostí aj percentá,`, `confidence alebo aspoň stabilitu v čase,`, `porovnateľnosť cohort,`, `viacnásobné metrics a riziko náhodného alarmu,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "11. Canary analysis a štatistická opatrnosť",
-      "line": 232,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "11. Canary analysis a štatistická opatrnosť",
-      "line": 232,
+      "line": 177,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -60779,8 +60644,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "11. Canary analysis a štatistická opatrnosť",
-      "line": 232,
+      "section": "7. Baseline a control group",
+      "line": 177,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -60788,62 +60653,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "12. Rollback a roll-forward safety",
-      "line": 253,
+      "section": "9. Real User Monitoring a business events",
+      "line": 206,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "12. Rollback a roll-forward safety",
-      "line": 253,
+      "section": "9. Real User Monitoring a business events",
+      "line": 206,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `databázovú backward compatibility,`, `súbeh starej a novej verzie,`, `event/schema compatibility,`, `feature-flag behavior po návrate,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-perceived latency;`, `frontend alebo SDK errors;`, `device, browser a region segment;`, `journey completion a abandonment;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "12. Rollback a roll-forward safety",
-      "line": 253,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "12. Rollback a roll-forward safety",
-      "line": 253,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "13. Feature flags",
-      "line": 270,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "13. Feature flags",
-      "line": 270,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `interných používateľov,`, `percenta stabilného hashovania identity,`, `tenanta alebo customer tier,`, `regiónu,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "13. Feature flags",
-      "line": 270,
+      "section": "9. Real User Monitoring a business events",
+      "line": 206,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -60851,26 +60680,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "13. Feature flags",
-      "line": 270,
+      "section": "9. Real User Monitoring a business events",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "9. Real User Monitoring a business events",
+      "line": 206,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "14. Dark launch",
-      "line": 294,
+      "section": "12. Shadow traffic",
+      "line": 249,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skrytý kód stále môže spotrebúvať resources,`, `background jobs môžu vytvárať side effects,`, `neaktívna cesta nemusí mať reálny traffic mix,`, `feature môže neúmyselne uniknúť cez API alebo permissions.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment, email a notification sú zakázané alebo presmerované;`, `writes idú do izolovaného storage alebo dry-run boundary;`, `credentials majú minimálne permissions;`, `shadow load má capacity budget;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "14. Dark launch",
-      "line": 294,
+      "section": "12. Shadow traffic",
+      "line": 249,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -60878,134 +60716,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "14. Dark launch",
-      "line": 294,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "15. Shadow traffic",
-      "line": 307,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "15. Shadow traffic",
-      "line": 307,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `shadow path nesmie vykonať reálne externé side effects,`, `downstream kapacita musí počítať s duplicitným loadom,`, `response diff musí normalizovať nondeterministické polia,`, `shadow timeout nesmie spomaliť primárny request,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "15. Shadow traffic",
-      "line": 307,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "15. Shadow traffic",
-      "line": 307,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "15. Shadow traffic",
-      "line": 307,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "16. Traffic replay",
-      "line": 323,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "16. Traffic replay",
-      "line": 323,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymizáciu a re-identification riziko,`, `odstránenie tokens, cookies a secrets,`, `zachovanie alebo modelovanie časovej distribúcie,`, `referential integrity medzi requestmi,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "16. Traffic replay",
-      "line": 323,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "16. Traffic replay",
-      "line": 323,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "17. A/B testing",
-      "line": 340,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "17. A/B testing",
-      "line": 340,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotézu,`, `unit of randomization,`, `primary metric,`, `guardrail metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "17. A/B testing",
-      "line": 340,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "17. A/B testing",
-      "line": 340,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "18. Progressive delivery",
-      "line": 359,
+      "section": "15. Worked failure: technický canary bol zelený, journey zlyhal",
+      "line": 309,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61013,188 +60725,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "18. Progressive delivery",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "18. Progressive delivery",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `porovnateľnú control group,`, `kvalitné SLI a business metrics,`, `ochranu pred neúplnou telemetry,`, `jasné inconclusive správanie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "18. Progressive delivery",
-      "line": 359,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "18. Progressive delivery",
-      "line": 359,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "18. Progressive delivery",
-      "line": 359,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "19. Error budgets a release policy",
-      "line": 382,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "20. Resilience validation",
-      "line": 401,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "20. Resilience validation",
-      "line": 401,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry a timeout interakciu,`, `circuit breaker,`, `admission control a load shedding,`, `failover medzi instances, zones alebo regiónmi,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "20. Resilience validation",
-      "line": 401,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "20. Resilience validation",
-      "line": 401,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "20. Resilience validation",
-      "line": 401,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "21. Produkčná verification verzus validation",
-      "line": 417,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "21. Produkčná verification verzus validation",
-      "line": 417,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "21. Produkčná verification verzus validation",
-      "line": 417,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "22. Privacy, bezpečnosť a etika",
-      "line": 433,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "22. Privacy, bezpečnosť a etika",
-      "line": 433,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data minimization,`, `osobné a citlivé polia,`, `consent alebo právny základ,`, `sampling a retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "22. Privacy, bezpečnosť a etika",
-      "line": 433,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "22. Privacy, bezpečnosť a etika",
-      "line": 433,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "22. Privacy, bezpečnosť a etika",
-      "line": 433,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "22. Privacy, bezpečnosť a etika",
-      "line": 433,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
+      "section": "Náprava",
+      "line": 326,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61202,179 +60734,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kombinovať absolútne limity a delta voči control,`, `používať viac nezávislých signálov,`, `definovať minimálnu vzorku a observation duration,`, `zastaviť promotion pri neúplnej telemetry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "23. False rollback a false promotion",
-      "line": 452,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "24. Feedback späť doľava",
-      "line": 469,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "24. Feedback späť doľava",
-      "line": 469,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový regression alebo contract test,`, `spresnenie acceptance criteria,`, `nový SLI alebo business oracle,`, `lepšia telemetry a failure artifact,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "24. Feedback späť doľava",
-      "line": 469,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "24. Feedback späť doľava",
-      "line": 469,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "24. Feedback späť doľava",
-      "line": 469,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "25. Metriky účinnosti",
-      "line": 496,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RUM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
+      "section": "Náprava",
+      "line": 326,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -61382,17 +60743,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
+      "section": "Náprava",
+      "line": 326,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
+      "section": "Náprava",
+      "line": 326,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `RUM/business event meria export ready → download success ;`, `synthetic probe beží z relevantných regiónov;`, `canary guardrail zahŕňa download completion podľa region segmentu;`, `regression test používa fake clock a delayed-open scenár;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Náprava",
+      "line": 326,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61400,8 +60770,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
+      "section": "Náprava",
+      "line": 326,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -61409,8 +60779,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
+      "section": "Náprava",
+      "line": 326,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -61418,134 +60788,62 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "26. Diagnostický postup pri zlyhanom rolloute",
-      "line": 511,
+      "section": "Náprava",
+      "line": 326,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `RUM`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "27. Typické anti-patterny",
-      "line": 524,
+      "section": "16. Worked failure: canary cohort nebola reprezentatívna",
+      "line": 337,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Náprava",
+      "line": 354,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Dashboard bez rozhodnutia",
-      "line": 530,
+      "section": "Náprava",
+      "line": 354,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Canary bez control group",
-      "line": 534,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Promotion iba podľa času",
-      "line": 538,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Rollback bez compatibility dôkazu",
-      "line": 542,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Feature flag bez lifecycle",
-      "line": 546,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Shadow traffic s reálnymi side effects",
-      "line": 550,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "RUM bez privacy dizajnu",
-      "line": 554,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Produkčný experiment bez inconclusive stavu",
-      "line": 558,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
+      "section": "Náprava",
+      "line": 354,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
+      "section": "Náprava",
+      "line": 354,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý predpoklad nemožno dostatočne overiť pred produkciou?`, `Aký technický, funkčný alebo business oracle ho potvrdí?`, `Aká je artifact, config a cohort identity?`, `Aká control group alebo baseline je porovnateľná?`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cohort design explicitne stratifikoval tenant-size tiers;`, `rollout mal samostatnú large-tenant fázu;`, `capacity model používal produkčnú distribúciu;`, `post-promotion watch zostal aktívny po 100 % trafficu.`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
+      "section": "Náprava",
+      "line": 354,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61553,71 +60851,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 562,
+      "section": "Náprava",
+      "line": 354,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "17. Rollback, roll-forward a data compatibility",
+      "line": 362,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "17. Rollback, roll-forward a data compatibility",
+      "line": 362,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a configuration provenance sú jednoznačné,`, `telemetry obsahuje release a cohort dimensions,`, `control group je porovnateľná,`, `synthetics používajú bezpečné identity a dáta,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `last-known-good artifact a config identity;`, `compatibility starej aplikácie s aktuálnou schema;`, `feature-flag disable path;`, `event a queue behavior pri mixed versions;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "17. Rollback, roll-forward a data compatibility",
+      "line": 362,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61625,8 +60887,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "17. Rollback, roll-forward a data compatibility",
+      "line": 362,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -61634,8 +60896,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "17. Rollback, roll-forward a data compatibility",
+      "line": 362,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -61643,8 +60905,116 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "17. Rollback, roll-forward a data compatibility",
+      "line": 362,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "18. Produkčné experimenty a etika",
+      "line": 376,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "18. Produkčné experimenty a etika",
+      "line": 376,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `najmenší užitočný blast radius;`, `explicitné excluded populations pri citlivom workflowe;`, `privacy a consent semantics;`, `zákaz neplánovaných finančných alebo právnych side effects;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "18. Produkčné experimenty a etika",
+      "line": 376,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "18. Produkčné experimenty a etika",
+      "line": 376,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "19. Feedback do skorších vrstiev",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Potvrď artifact digest, deployment/config revision a rollout stage.`, `Over cohort assignment a porovnateľnosť control group.`, `Rozdeľ technical, functional a business signals.`, `Zastav promotion alebo zníž exposure podľa abort contractu.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "20. Diagnostický postup",
+      "line": 410,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -61652,8 +61022,80 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "29. Kontrolný checklist",
-      "line": 581,
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Shift-right nie je náhrada predprodukčných testov.`, `Produkčný experiment začína hypotézou a rozhodnutím.`, `Oracle kombinuje technical, functional aj business outcomes.`, `Control group musí byť porovnateľná s canary workloadom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RUM`, `identity`",
@@ -61661,12 +61103,66 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Summary",
-      "line": 619,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "22. Časté omyly",
+      "line": 440,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "„Deployment bol úspešný, release je zdravý“",
+      "line": 442,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "„Canary je iba 5 % trafficu“",
+      "line": 446,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "„Server metrics sú zelené“",
+      "line": 450,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "„RUM nahrádza synthetics“",
+      "line": 454,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "„Flag off znamená nulové riziko“",
+      "line": 458,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "„Rollback je vždy najbezpečnejší“",
+      "line": 462,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
