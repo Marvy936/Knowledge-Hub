@@ -1291,15 +1291,15 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "title": "Environment a promotion",
-      "words": 3069,
-      "headings": 60,
-      "sections": 60,
-      "findings": 168,
-      "critical": 63,
-      "high": 50,
-      "medium": 22,
-      "low": 33,
-      "score": 1267,
+      "words": 1961,
+      "headings": 36,
+      "sections": 36,
+      "findings": 72,
+      "critical": 23,
+      "high": 24,
+      "medium": 11,
+      "low": 14,
+      "score": 523,
       "grade": "D"
     },
     {
@@ -74216,71 +74216,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "2. Čo tvorí environment",
-      "line": 33,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "2. Čo tvorí environment",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "2. Čo tvorí environment",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "2. Čo tvorí environment",
-      "line": 33,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "2. Čo tvorí environment",
-      "line": 33,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `VPC`, `DNS`, `workload`, `Policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "3. Environment identity",
-      "line": 50,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "3. Environment identity",
-      "line": 50,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organization/account/subscription,`, `region a cluster,`, `namespace alebo runtime boundary,`, `environment ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "3. Environment identity",
-      "line": 50,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -74288,8 +74234,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "3. Environment identity",
-      "line": 50,
+      "section": "Metadata",
+      "line": 3,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -74297,44 +74243,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "3. Environment identity",
-      "line": 50,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "3. Environment identity",
-      "line": 50,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "4. Desired state verzus effective state",
-      "line": 68,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "5. Environment typy podľa účelu",
-      "line": 89,
+      "section": "3. Environment identity",
+      "line": 71,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "5. Environment typy podľa účelu",
-      "line": 89,
+      "section": "3. Environment identity",
+      "line": 71,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account/subscription a region;`, `cluster a namespace/runtime boundary;`, `stable environment ID;`, `infrastructure revision;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "3. Environment identity",
+      "line": 71,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -74342,17 +74279,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "5. Environment typy podľa účelu",
-      "line": 89,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "5. Environment typy podľa účelu",
-      "line": 89,
+      "section": "3. Environment identity",
+      "line": 71,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -74360,215 +74288,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "5. Environment typy podľa účelu",
-      "line": 89,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "6. Ephemeral environment",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "6. Ephemeral environment",
-      "line": 103,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "20 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "6. Ephemeral environment",
-      "line": 103,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "20 z 20 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `izoluje paralelné zmeny,`, `znižuje shared-state konflikty,`, `umožňuje realistické component/E2E testy,`, `uľahčuje reprodukciu konkrétneho artifactu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "6. Ephemeral environment",
-      "line": 103,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "6. Ephemeral environment",
-      "line": 103,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "6. Ephemeral environment",
-      "line": 103,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`, `DNS`, `ID`, `TTL`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "7. Long-lived environment",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "7. Long-lived environment",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pravidelnú reconciliation,`, `inventory,`, `patch a upgrade lifecycle,`, `secret rotation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "7. Long-lived environment",
-      "line": 136,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "7. Long-lived environment",
-      "line": 136,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "8. Parity verzus behavioral equivalence",
-      "line": 152,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "8. Parity verzus behavioral equivalence",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký artifact digest,`, `rovnaký deployment mechanizmus,`, `rovnaká config schema,`, `rovnaký identity a authorization model,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "8. Parity verzus behavioral equivalence",
-      "line": 152,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "8. Parity verzus behavioral equivalence",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `identity`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "10. Configuration contract",
-      "line": 186,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "10. Configuration contract",
-      "line": 186,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required a optional fields,`, `types, ranges a allowed values,`, `defaults a deprecated fields,`, `secret-reference semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "10. Configuration contract",
-      "line": 186,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "10. Configuration contract",
-      "line": 186,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "10. Configuration contract",
-      "line": 186,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "11. Configuration identity a provenance",
-      "line": 203,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "11. Configuration identity a provenance",
-      "line": 203,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `config repository a commit,`, `rendered config digest,`, `environment overlays,`, `template/tool version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "11. Configuration identity a provenance",
-      "line": 203,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "11. Configuration identity a provenance",
-      "line": 203,
+      "section": "3. Environment identity",
+      "line": 71,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -74576,44 +74297,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje v dôveryhodnej registry,`, `digest je immutable,`, `provenance a podpis spĺňajú policy,`, `povinné build/test/scan evidence je úplné,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
+      "section": "5. Behavioral equivalence podľa rizika",
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -74621,44 +74306,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "13. Promotion eligibility",
-      "line": 232,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "14. Evidence freshness",
-      "line": 249,
+      "section": "7. Promotion contract",
+      "line": 144,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "14. Evidence freshness",
-      "line": 249,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "7. Promotion contract",
+      "line": 144,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable a dôveryhodný manifest;`, `complete/fresh evidence viazanú na R;`, `config kompatibilný so schema a artifactmi;`, `environment health a known drift;`.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "14. Evidence freshness",
-      "line": 249,
+      "section": "7. Promotion contract",
+      "line": 144,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "7. Promotion contract",
+      "line": 144,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -74666,377 +74342,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "14. Evidence freshness",
-      "line": 249,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "15. Artifact transfer medzi registries",
-      "line": 263,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "15. Artifact transfer medzi registries",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source digest a signature verification;`, `copy bez rebuild alebo repackaging zmeny obsahu;`, `destination digest verification;`, `zachovanie provenance a SBOM väzby;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "15. Artifact transfer medzi registries",
-      "line": 263,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "15. Artifact transfer medzi registries",
-      "line": 263,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "15. Artifact transfer medzi registries",
-      "line": 263,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "18. Protected environment",
-      "line": 310,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "18. Protected environment",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené refs a artifacts,`, `deployment identities,`, `required approvals,`, `deployment windows,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "18. Protected environment",
-      "line": 310,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "19. Environment-scoped identity",
-      "line": 326,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "19. Environment-scoped identity",
-      "line": 326,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadny dlhodobý cloud key v CI,`, `credentials expirovali po jobe,`, `scope je viazaný na konkrétny environment,`, `audit rozlišuje jednotlivé deployments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "19. Environment-scoped identity",
-      "line": 326,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "19. Environment-scoped identity",
-      "line": 326,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "20. Separation of duties",
-      "line": 348,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "20. Separation of duties",
-      "line": 348,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build artifact,`, `podpis alebo attestation,`, `review findings,`, `promotion do test/staging,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "20. Separation of duties",
-      "line": 348,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "20. Separation of duties",
-      "line": 348,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `attestation`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "21. Deployment concurrency",
-      "line": 362,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "21. Deployment concurrency",
-      "line": 362,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "21. Deployment concurrency",
-      "line": 362,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment lock alebo lease,`, `deployment queue,`, `compare-and-swap nad environment revision,`, `optimistic version check,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "21. Deployment concurrency",
-      "line": 362,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "22. Lock a lease semantics",
-      "line": 385,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "22. Lock a lease semantics",
-      "line": 385,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment identity,`, `owner/run ID,`, `acquire timestamp,`, `lease expiry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "22. Lock a lease semantics",
-      "line": 385,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "22. Lock a lease semantics",
-      "line": 385,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "23. Deployment state machine",
-      "line": 400,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "23. Deployment state machine",
-      "line": 400,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rejected pred mutation,`, `partial apply,`, `readiness timeout,`, `verification failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "23. Deployment state machine",
-      "line": 400,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "24. Partial deployment",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "24. Partial deployment",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časť replík na novom digeste,`, `infra resource vytvorený, ale nie nakonfigurovaný,`, `migration aplikovaná, application rollout zlyhal,`, `routing prepnuto iba v jednom regióne,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "24. Partial deployment",
-      "line": 429,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "24. Partial deployment",
-      "line": 429,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "25. Deployment record",
-      "line": 441,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "25. Deployment record",
-      "line": 441,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "25. Deployment record",
-      "line": 441,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment ID,`, `artifact/release manifest digest,`, `source commit,`, `config a infrastructure revision,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "25. Deployment record",
-      "line": 441,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "25. Deployment record",
-      "line": 441,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "25. Deployment record",
-      "line": 441,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "27. Environment drift",
-      "line": 480,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "27. Environment drift",
-      "line": 480,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "27. Environment drift",
-      "line": 480,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "27. Environment drift",
-      "line": 480,
+      "section": "7. Promotion contract",
+      "line": 144,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -75044,80 +74351,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "27. Environment drift",
-      "line": 480,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "27. Environment drift",
-      "line": 480,
+      "section": "7. Promotion contract",
+      "line": 144,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`, `Identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "28. Drift detection a reconciliation",
-      "line": 496,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "28. Drift detection a reconciliation",
-      "line": 496,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načítaj desired state;`, `zmeraj effective state;`, `normalizuj platform defaults;`, `klasifikuj rozdiel;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "28. Drift detection a reconciliation",
-      "line": 496,
+      "section": "8. Evidence freshness",
+      "line": 170,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "28. Drift detection a reconciliation",
-      "line": 496,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "29. Databáza ako shared mutable state",
-      "line": 511,
+      "section": "9. Protected environment a identity",
+      "line": 193,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "29. Databáza ako shared mutable state",
-      "line": 511,
+      "section": "9. Protected environment a identity",
+      "line": 193,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať backward-compatible schema;`, `nasadiť code kompatibilný so starým aj novým stavom;`, `vykonať online migration/backfill;`, `overiť completeness a performance;`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené refs a release manifests;`, `deployment workflow identity;`, `environment-scoped short-lived role;`, `required policy/approval;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "29. Databáza ako shared mutable state",
-      "line": 511,
+      "section": "9. Protected environment a identity",
+      "line": 193,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -75125,8 +74396,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "29. Databáza ako shared mutable state",
-      "line": 511,
+      "section": "9. Protected environment a identity",
+      "line": 193,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -75134,404 +74405,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "30. Event a queue state",
-      "line": 527,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "30. Event a queue state",
-      "line": 527,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "30. Event a queue state",
-      "line": 527,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema compatibility,`, `staré správy v backlogu,`, `replay a retention,`, `duplicate/out-of-order handling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "30. Event a queue state",
-      "line": 527,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "31. Secrets medzi environmentmi",
-      "line": 542,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "31. Secrets medzi environmentmi",
-      "line": 542,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret values,`, `trust roots,`, `issuers a identities,`, `rotation lifecycle,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "31. Secrets medzi environmentmi",
-      "line": 542,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "31. Secrets medzi environmentmi",
-      "line": 542,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "31. Secrets medzi environmentmi",
-      "line": 542,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "32. Data medzi environmentmi",
-      "line": 557,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "32. Data medzi environmentmi",
-      "line": 557,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `právny a organizačný základ,`, `data minimization,`, `anonymization/pseudonymization,`, `re-identification risk review,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "32. Data medzi environmentmi",
-      "line": 557,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "34. Approval freshness",
-      "line": 590,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "34. Approval freshness",
-      "line": 590,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `config revision,`, `target environment,`, `evidence snapshot,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "34. Approval freshness",
-      "line": 590,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "35. Deployment window a freeze",
-      "line": 604,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "35. Deployment window a freeze",
-      "line": 604,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support coverage,`, `business calendar,`, `peak traffic,`, `regulatory window,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "35. Deployment window a freeze",
-      "line": 604,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "35. Deployment window a freeze",
-      "line": 604,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "36. Rollback eligibility",
-      "line": 618,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "36. Rollback eligibility",
-      "line": 618,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je stále dostupný a dôveryhodný,`, `config je kompatibilný,`, `database a event state mu rozumejú,`, `external contracts neboli nevratne zmenené,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "36. Rollback eligibility",
-      "line": 618,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "36. Rollback eligibility",
-      "line": 618,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "37. Roll-forward a feature disable",
-      "line": 633,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "37. Roll-forward a feature disable",
-      "line": 633,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "37. Roll-forward a feature disable",
-      "line": 633,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypnúť feature flag,`, `zastaviť writes,`, `izolovať cohort alebo región,`, `nasadiť compatible hotfix,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "37. Roll-forward a feature disable",
-      "line": 633,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "38. Environment teardown",
-      "line": 646,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "38. Environment teardown",
-      "line": 646,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over stable environment ID, nie iba user-provided názov;`, `skontroluj protection flag a environment type;`, `zastav traffic a scheduled jobs;`, `exportuj evidence alebo dáta podľa retention;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "38. Environment teardown",
-      "line": 646,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "38. Environment teardown",
-      "line": 646,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "38. Environment teardown",
-      "line": 646,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "38. Environment teardown",
-      "line": 646,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "39. Observability environment lifecycle",
-      "line": 666,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "39. Observability environment lifecycle",
-      "line": 666,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "39. Observability environment lifecycle",
-      "line": 666,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provisioning a readiness time,`, `environment availability,`, `promotion lead time,`, `deployment queue a lock wait,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "39. Observability environment lifecycle",
-      "line": 666,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "39. Observability environment lifecycle",
-      "line": 666,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "39. Observability environment lifecycle",
-      "line": 666,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "40. Diagnostický postup",
-      "line": 685,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Staging funguje, production nie",
-      "line": 687,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Staging funguje, production nie",
-      "line": 687,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Staging funguje, production nie",
-      "line": 687,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest;`, `rendered config digest;`, `secret/identity references;`, `infrastructure revision;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Staging funguje, production nie",
-      "line": 687,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Staging funguje, production nie",
-      "line": 687,
+      "section": "9. Protected environment a identity",
+      "line": 193,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
@@ -75539,161 +74414,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Promotion použila iný artifact",
-      "line": 702,
+      "section": "11. Deployment state machine",
+      "line": 224,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Deployment čaká",
-      "line": 706,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Ephemeral environment zostal visieť",
-      "line": 714,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "41. Typické anti-patterny",
-      "line": 722,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Environment je iba namespace",
-      "line": 724,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Staging je automaticky „malá produkcia“",
-      "line": 728,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Promotion znamená rebuild",
-      "line": 732,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Jeden CI admin token pre všetky environmenty",
-      "line": 736,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Approval nie je viazaný na digest a config",
-      "line": 740,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Lock bez lease a recovery",
-      "line": 744,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Rollback sa považuje za univerzálny",
-      "line": 748,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Ephemeral cleanup používa nevalidovaný názov",
-      "line": 752,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "Drift sa automaticky prepíše bez klasifikácie",
-      "line": 756,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
+      "section": "12. Partial state a retry",
+      "line": 243,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
+      "section": "12. Partial state a retry",
+      "line": 243,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target environment má stable identity,`, `desired a effective state sú známe,`, `artifact digest je immutable a eligible,`, `evidence je úplná a čerstvá,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mix starého a nového digestu;`, `migration commitnutú pred application failure;`, `config zmenený bez úspešného restartu;`, `routing prepnutý iba v regióne;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "12. Partial state a retry",
+      "line": 243,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
+      "section": "12. Partial state a retry",
+      "line": 243,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -75701,8 +74459,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
+      "section": "12. Partial state a retry",
+      "line": 243,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -75710,8 +74468,242 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
+      "section": "12. Partial state a retry",
+      "line": 243,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "14. Deployment verzus release exposure",
+      "line": 272,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "15. Environment drift a reconciliation",
+      "line": 285,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "15. Environment drift a reconciliation",
+      "line": 285,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `binary/release drift;`, `configuration drift;`, `infrastructure drift;`, `identity/secret drift;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "15. Environment drift a reconciliation",
+      "line": 285,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "15. Environment drift a reconciliation",
+      "line": 285,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "16. Worked failure: rovnaký artifact, odlišná production configuration",
+      "line": 310,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 326,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 326,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 326,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 326,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rendered config má digest a source precedence report;`, `UI overrides sú zakázané alebo auditované ako revision;`, `promotion subject zahŕňa R + K + E;`, `config schema/policy kontroluje concurrency budget;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 326,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 326,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `DB`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 351,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 351,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 351,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lease sa obnovuje a mutation overuje fencing token;`, `environment revision používa compare-and-swap;`, `superseded deployment prestane mutovať po strate lease;`, `reconciliation obnoví manifest/config consistency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "Náprava",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "18. Rollback, roll-forward a teardown",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `last-known-good artifacts stále existujú;`, `config a infrastructure sú kompatibilné;`, `database/event state rozumie starej verzii;`, `external side effects sú reverzibilné alebo reconciled;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Potvrď stable environment ID a protection level.`, `Porovnaj release manifest/component digests.`, `Porovnaj rendered config digest a variable precedence.`, `Over infrastructure, identity/secret a policy revisions.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "20. Diagnostický postup",
+      "line": 392,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -75719,12 +74711,156 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "42. Praktický checklist",
-      "line": 760,
+      "section": "20. Diagnostický postup",
+      "line": 392,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Promotion presúva rovnaký immutable manifest bez rebuildu.`, `Desired state sa musí porovnať s effective state.`, `Behavioral equivalence sa odvodzuje od konkrétneho rizika.`, `Config change má vlastný provenance a rollout lifecycle.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 406,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
       "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "22. Časté omyly",
+      "line": 423,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "„Environment je namespace“",
+      "line": 425,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "„Staging je menšia produkcia“",
+      "line": 429,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "„Rovnaký digest znamená rovnaké správanie“",
+      "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "„Promotion znamená rebuild pre nový environment“",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "„Lock stačí bez lease a fencing“",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "„Rollback je vždy dostupný“",
+      "line": 445,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
