@@ -624,7 +624,7 @@ Automatizované vyhodnotenie canary verzie voči baseline podľa technických a 
 
 ## Automated promotion
 
-Policy-driven rozhodnutie posunúť artifact alebo rollout do ďalšej fázy bez manuálneho approvalu na základe testov, provenance, health a risk signálov. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+Policy-driven rozhodnutie posunúť artifact alebo rollout do ďalšej fázy bez rutinného manuálneho approvalu na základe complete evidence, risku a environment health. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Automatic instrumentation
 
@@ -1036,7 +1036,7 @@ Informácie za znakom `+` v Semantic Versioning verzii, napríklad build number 
 
 ## Build once
 
-Princíp vytvoriť pre konkrétny source commit jeden immutable artifact a ten istý artifact následne testovať a promovať medzi prostrediami. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+Princíp vytvoriť pre konkrétny candidate jeden immutable artifact a ten istý artifact následne testovať a promovať medzi prostrediami. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## Build once, promote many
 
@@ -1160,7 +1160,7 @@ DevOps rámec Culture, Automation, Lean, Measurement a Sharing. Pozri [CALMS fra
 
 ## Canary analysis
 
-Automatizované alebo riadené porovnanie novej verzie s baseline či kontrolnou skupinou podľa technických a business metrík počas obmedzeného rollout-u. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+Automatizované alebo riadené porovnanie novej verzie s baseline či kontrolnou skupinou podľa technických, funkčných a business metrík počas obmedzeného rollout-u. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Canary cohort
 
@@ -1177,6 +1177,10 @@ Malá skupina Nodes s novou Kubernetes, OS, runtime alebo add-on verziou použit
 ## Canary release
 
 Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľov s porovnávaním technických a business signálov pred širšou promotion. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Candidate integration state
+
+Presný výsledný source tree, ktorý by po integrácii vznikol, typicky reprezentovaný synthetic merge alebo merge-queue SHA a overovaný proti aktuálnemu targetu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## Capability-based security
 
@@ -1658,6 +1662,10 @@ Alternatívny security control použitý na dosiahnutie porovnateľného zníže
 
 AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
 
+## Complete evidence
+
+Stav, pri ktorom sa vykonali všetky required controls a existujú všetky očakávané reports, shards, artifacts a tool statusy pre presný candidate. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## Completion index — Job
 
 Stabilný index konkrétneho logical completion slotu pri Indexed Job-e, používaný na deterministické rozdelenie batch práce medzi Pody. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
@@ -1924,7 +1932,7 @@ Schopnosť udržiavať systém a jeho artifacty v stave pripravenom na bezpečn�
 
 ## Continuous Deployment
 
-Delivery model, v ktorom každá zmena spĺňajúca automatizované quality a policy podmienky pokračuje bez manuálneho release approvalu do produkcie. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+Delivery model, v ktorom každá zmena spĺňajúca automatizovanú promotion policy pokračuje bez rutinného manuálneho release approvalu do produkčného rollout-u. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Continuous diagnostics — Zero Trust
 
@@ -1932,7 +1940,7 @@ Priebežné získavanie identity, endpoint, workload, network, cloud a applicati
 
 ## Continuous Integration
 
-Pracovný a technický model častej integrácie malých zmien do spoločnej hlavnej línie s automatizovaným buildom, kontrolami a rýchlym feedbackom. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+Pracovný a technický model častej integrácie malých zmien do spoločnej hlavnej línie s automatizovaným verdictom nad presným candidate integration stateom. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## Continuous rescanning — security
 
@@ -2490,6 +2498,10 @@ Klasifikácia účelu componentu, napríklad runtime, development, test, optiona
 
 Label priradený jednej alebo viacerým dependencies, ktorý umožňuje ich skupinové enable/disable cez top-level `tags` values. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
+## Deployability invariant
+
+Trvalá vlastnosť systému, pri ktorej immutable artifact, evidence, configuration, shared-state compatibility, deployment automation, observability a recovery umožňujú bezpečný deployment bez stabilizačného projektu. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
 ## Deployable state
 
 Stav, v ktorom existuje dôveryhodný immutable artifact, potrebné dôkazy, kompatibilná konfigurácia, deployment automation, observability a recovery plán umožňujúci bezpečný deployment. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
@@ -2524,7 +2536,7 @@ Mechanizmus serializujúci alebo koordinujúci mutations jedného environmentu, 
 
 ## Deployment pipeline
 
-Automatizovaný tok od source zmeny cez build, testy, artifact, environment deployment a validáciu až po produkčne pripraveného alebo nasadeného kandidáta. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+Automatizovaný tok od source zmeny cez build, artifact, risk-specific validation a environment promotion až po produkčne pripraveného alebo nasadeného kandidáta. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
 ## Deployment record
 
@@ -3338,13 +3350,17 @@ Lambda resource s pollermi, ktoré čítajú batches z podporovaných queue aleb
 
 Model, v ktorom API write uloží desired state okamžite, ale controllers, scheduler, kubelet a external systems ho realizujú asynchrónne a stav sa zhoduje až po čase. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Evidence completeness
+
+Kontrola, že pre presný candidate existuje celý očakávaný manifest required testov, scanov, shardov, reports a tool execution statusov. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
 ## Evidence-driven review
 
 Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, telemetry, tests, policies, incidents a ďalšie overiteľné dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Evidence freshness
 
-Pravidlá určujúce, či test result, scan, review alebo approval stále patrí k aktuálnemu commitu, artifactu, policy a environment state. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+Pravidlá určujúce, či evidence stále patrí k aktuálnemu candidate, artifactu, policy a target environment stateu a ešte neprekročila definovanú expiráciu. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Evidence placement
 
@@ -4634,6 +4650,10 @@ Knižnica, ktorá vytvára telemetry pre application, framework alebo dependency
 
 Logical software unit a jej version, s ktorou OpenTelemetry spája vytvorené spans, metrics a log records. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
+## Integration decision
+
+Autoritatívne rozhodnutie, či sa konkrétny candidate integration state môže bezpečne pridať k aktuálnej mainline na základe complete a fresh evidence. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
 ## Integration test
 
 Test reálnej spolupráce komponentov alebo systému s technickou dependency, napríklad databázou, brokerom, filesystemom alebo cloud API. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -5377,6 +5397,10 @@ Commit s dvoma alebo viacerými parents, ktorý explicitne zaznamenáva integrá
 ## Merge queue
 
 Mechanizmus, ktorý testuje a integruje pull requests v plánovanom poradí proti aktuálnemu alebo predpokladanému stavu main branch. Pozri [Branching strategies](docs/03-git-and-automation/branching-strategies.md).
+
+## Merge-result pipeline
+
+Pipeline overujúca synthetic alebo reálny výsledok spojenia source zmeny s aktuálnym targetom namiesto samotného source branch tipu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## Merge train — GitLab
 
@@ -6710,6 +6734,10 @@ Metrics monitoring a alerting systém založený na multidimenzionálnych time s
 
 Model viacerých nezávislých Prometheus replicas, ktoré samostatne scrape-ujú, ukladajú a vyhodnocujú rules; downstream vrstva musí riešiť deduplication. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Promotable artifact
+
+Immutable artifact, ktorého identity, evidence, configuration compatibility a recovery preconditions spĺňajú promotion policy pre ďalší environment. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
 ## Promoted trace attribute
 
 Span attribute vybraný na indexovanie, metrics generation alebo ďalšie zrýchlené query spracovanie, čím získava samostatný cardinality a cost dopad. Pozri [Cardinality](docs/12-observability/cardinality.md).
@@ -7504,7 +7532,7 @@ Access model meniaci allow, deny, step-up, session lifetime alebo povolené acti
 
 ## Risk-based deployment
 
-Rollout policy, ktorá mení exposure, observation window, approval alebo recovery mechanizmus podľa business criticality, blast radiusu a compatibility rizika konkrétnej zmeny. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+Rollout policy, ktorá mení exposure, observation window, human boundary alebo recovery mechanizmus podľa business criticality, blast radiusu a compatibility rizika konkrétnej zmeny. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
 ## Role-Based Access Control — RBAC
 
@@ -9117,6 +9145,10 @@ Prúd timestampovaných samples identifikovaný metric name a úplným label set
 ## Time to first feedback
 
 Čas od vzniku alebo odoslania zmeny po prvý relevantný a diagnostikovateľný výsledok pipeline. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
+## Time to first useful feedback
+
+Čas od vzniku alebo odoslania zmeny po prvý relevantný, diagnostikovateľný a akčný výsledok pipeline. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
 ## `TIME-WAIT`
 
