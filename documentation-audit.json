@@ -1431,15 +1431,15 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "title": "Rollback a roll-forward",
-      "words": 1692,
-      "headings": 56,
-      "sections": 56,
-      "findings": 140,
-      "critical": 60,
-      "high": 64,
-      "medium": 9,
-      "low": 7,
-      "score": 1254,
+      "words": 2038,
+      "headings": 48,
+      "sections": 48,
+      "findings": 94,
+      "critical": 29,
+      "high": 39,
+      "medium": 10,
+      "low": 16,
+      "score": 714,
       "grade": "D"
     },
     {
@@ -78988,24 +78988,6 @@
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
@@ -79015,10 +78997,10 @@
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
@@ -79031,233 +79013,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "2. Mental model: vrstvy mutable a immutable state",
-      "line": 25,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "2. Mental model: vrstvy mutable a immutable state",
-      "line": 25,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable application artifact,`, `mutable runtime config a flags,`, `routing/exposure state,`, `infrastructure desired/effective state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "2. Mental model: vrstvy mutable a immutable state",
-      "line": 25,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "3. Recovery lifecycle",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "3. Recovery lifecycle",
-      "line": 41,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "4. Recovery subject a current-state record",
-      "line": 58,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "4. Recovery subject a current-state record",
-      "line": 58,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "4. Recovery subject a current-state record",
-      "line": 58,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current a previous artifact digests,`, `config/flag revisions,`, `deployment/exposure state,`, `schema a migration phase,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "4. Recovery subject a current-state record",
-      "line": 58,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "5. Typy rollbacku",
-      "line": 74,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Client rollback",
-      "line": 96,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "6. Last known good verzus previous",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "6. Last known good verzus previous",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable identity,`, `health a business evidence,`, `známu security pozíciu,`, `kompatibilitu s aktuálnou schema/data/config,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "6. Last known good verzus previous",
-      "line": 100,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "6. Last known good verzus previous",
-      "line": 100,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "7. Recovery package",
-      "line": 113,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "8. Recovery eligibility",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "8. Recovery eligibility",
-      "line": 132,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target artifact/config je dostupný,`, `aktuálny state je ním čitateľný a zapisovateľný,`, `external contracts a clients sú compatible,`, `security risk sa návratom nezhorší neprijateľne,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "8. Recovery eligibility",
-      "line": 132,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "8. Recovery eligibility",
-      "line": 132,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `known compatible state je okamžite dostupný,`, `mutation scope je malý alebo nulový,`, `rollback je rýchlejší než bezpečný fix,`, `stará verzia neobsahuje závažný security problém.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
+      "section": "2. Nosný scenár: Atlas Orders release 3.12.0",
+      "line": 54,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -79265,17 +79022,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "9. Rozhodovací model",
-      "line": 145,
+      "section": "3. Containment predchádza rozhodnutiu o finálnej recovery",
+      "line": 74,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "3. Containment predchádza rozhodnutiu o finálnej recovery",
+      "line": 74,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stratiť in-flight evidence;`, `znovu doručiť unacked messages;`, `aktivovať old consumer nad nekompatibilným backlogom;`, `zväčšiť external side effects;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "3. Containment predchádza rozhodnutiu o finálnej recovery",
+      "line": 74,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "10. Containment first",
-      "line": 163,
+      "section": "4. Recovery subject je last compatible state, nie iba previous release",
+      "line": 97,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79283,26 +79058,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "10. Containment first",
-      "line": 163,
+      "section": "4. Recovery subject je last compatible state, nie iba previous release",
+      "line": 97,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "10. Containment first",
-      "line": 163,
+      "section": "4. Recovery subject je last compatible state, nie iba previous release",
+      "line": 97,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pause promotion,`, `odstrániť canary traffic,`, `vypnúť feature,`, `prepnúť read-only,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `už nekompatibilná s novými enum values;`, `závislá od odstráneného secretu alebo endpointu;`, `zraniteľná;`, `bez capacity alebo credentials;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "10. Containment first",
-      "line": 163,
+      "section": "4. Recovery subject je last compatible state, nie iba previous release",
+      "line": 97,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -79310,62 +79085,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "11. Configuration a flag recovery",
-      "line": 178,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Recovery subject je last compatible state, nie iba previous release",
+      "line": 97,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "11. Configuration a flag recovery",
-      "line": 178,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `propagation lag,`, `code path coverage,`, `stale clients/instances,`, `config schema compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "11. Configuration a flag recovery",
-      "line": 178,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "12. Database a schema constraints",
-      "line": 191,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "12. Database a schema constraints",
-      "line": 191,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové columns/tables,`, `nové enum/state values,`, `nové serialization formáty,`, `migration phase,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "12. Database a schema constraints",
-      "line": 191,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "13. Data recovery options",
-      "line": 203,
+      "section": "6. Eligibility graph spája recovery action s current state-om",
+      "line": 139,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79373,116 +79103,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "13. Data recovery options",
-      "line": 203,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "13. Data recovery options",
-      "line": 203,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "13. Data recovery options",
-      "line": 203,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `forward-fix migration,`, `backward migration,`, `point-in-time restore,`, `restore do nového targetu a cutover,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "13. Data recovery options",
-      "line": 203,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "13. Data recovery options",
-      "line": 203,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "14. Backward migration limitations",
-      "line": 224,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "14. Backward migration limitations",
-      "line": 224,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dropnúť nové dáta,`, `zlyhať na nových hodnotách,`, `blokovať produkciu,`, `nevrátiť semantic state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "14. Backward migration limitations",
-      "line": 224,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "15. External side effects a compensation",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "15. External side effects a compensation",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platbu,`, `email/SMS,`, `partner mutation,`, `published event,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "15. External side effects a compensation",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "15. External side effects a compensation",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SMS`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "16. Queues a event streams",
-      "line": 250,
+      "section": "Worker rollback",
+      "line": 151,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79490,26 +79112,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "16. Queues a event streams",
-      "line": 250,
+      "section": "7. Rollback preferuj iba pri malom a kompatibilnom state delta",
+      "line": 179,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "16. Queues a event streams",
-      "line": 250,
+      "section": "7. Rollback preferuj iba pri malom a kompatibilnom state delta",
+      "line": 179,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producers a consumers versions,`, `schema compatibility,`, `backlog vzniknutý novou verziou,`, `poison messages,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `known-good target je pripravený a warm;`, `release zmenil iba application behavior alebo routing;`, `nové writes/events ostávajú old-compatible;`, `návrat neotvorí security problém;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "16. Queues a event streams",
-      "line": 250,
+      "section": "7. Rollback preferuj iba pri malom a kompatibilnom state delta",
+      "line": 179,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -79517,26 +79139,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "17. Cache a sessions",
-      "line": 265,
+      "section": "7. Rollback preferuj iba pri malom a kompatibilnom state delta",
+      "line": 179,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "8. Roll-forward preferuj pri posunutom alebo nevratnom state-e",
+      "line": 192,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "17. Cache a sessions",
-      "line": 265,
+      "section": "8. Roll-forward preferuj pri posunutom alebo nevratnom state-e",
+      "line": 192,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový cache serialization,`, `changed key semantics,`, `sessions vytvorené novou verziou,`, `stale feature state,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema alebo data už zmenili význam;`, `stream obsahuje nový event contract;`, `external side effects vznikli;`, `new clients používajú nový protocol;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "17. Cache a sessions",
-      "line": 265,
+      "section": "8. Roll-forward preferuj pri posunutom alebo nevratnom state-e",
+      "line": 192,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -79544,35 +79175,98 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "18. Client-server skew",
-      "line": 277,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "8. Roll-forward preferuj pri posunutom alebo nevratnom state-e",
+      "line": 192,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "18. Client-server skew",
-      "line": 277,
+      "section": "8. Roll-forward preferuj pri posunutom alebo nevratnom state-e",
+      "line": 192,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "9. Roll-forward lifecycle",
+      "line": 206,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "11. Restore má collateral state cost",
+      "line": 243,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "11. Restore má collateral state cost",
+      "line": 243,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward-compatible endpointy,`, `capability negotiation,`, `minimum/maximum supported versions,`, `feature disable,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `RPO a RTO;`, `rozsah legitímnych writes po recovery point-e;`, `external-system divergence;`, `event replay capability;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "18. Client-server skew",
-      "line": 277,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "11. Restore má collateral state cost",
+      "line": 243,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "19. Strategy-specific recovery",
-      "line": 290,
+      "section": "11. Restore má collateral state cost",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "11. Restore má collateral state cost",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "11. Restore má collateral state cost",
+      "line": 243,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `recovery point`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "12. Worked failure: artifact rollback zhoršil queue incident",
+      "line": 259,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Trvalá náprava",
+      "line": 281,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -79580,8 +79274,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Rolling",
-      "line": 292,
+      "section": "Dôsledok",
+      "line": 310,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79589,341 +79283,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Blue-green",
-      "line": 296,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Canary",
-      "line": 300,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Recreate",
-      "line": 304,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Ring",
-      "line": 308,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "20. Automatic rollback",
-      "line": 312,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "20. Automatic rollback",
-      "line": 312,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "20. Automatic rollback",
-      "line": 312,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signal je version-specific a nízko-noise,`, `guardrail je významný,`, `target je known compatible,`, `action je bounded a otestovaná,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "20. Automatic rollback",
-      "line": 312,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "21. Oscillation protection",
-      "line": 326,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "21. Oscillation protection",
-      "line": 326,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "21. Oscillation protection",
-      "line": 326,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimum observation duration,`, `consecutive threshold windows,`, `hysteresis,`, `cooldown,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "21. Oscillation protection",
-      "line": 326,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "22. Rollback window",
-      "line": 338,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "22. Rollback window",
-      "line": 338,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "22. Rollback window",
-      "line": 338,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `previous artifacts a config,`, `schema/event compatibility,`, `old target alebo provisioning capability,`, `feature paths,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "22. Rollback window",
-      "line": 338,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "23. Roll-forward workflow",
-      "line": 351,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "24. Partial deployment a mixed state",
-      "line": 366,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "24. Partial deployment a mixed state",
-      "line": 366,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časťou fleet na new,`, `časťou na old,`, `migration partial,`, `config propagation partial,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "24. Partial deployment a mixed state",
-      "line": 366,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "25. Recovery validation",
-      "line": 378,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "25. Recovery validation",
-      "line": 378,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "25. Recovery validation",
-      "line": 378,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version/exposure inventory,`, `request success a latency,`, `business completion,`, `data invariants,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "25. Recovery validation",
-      "line": 378,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "26. Delayed recovery verification",
-      "line": 393,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "26. Delayed recovery verification",
-      "line": 393,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "26. Delayed recovery verification",
-      "line": 393,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `settlement/reconciliation,`, `backlogs,`, `cache warming,`, `replication,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "26. Delayed recovery verification",
-      "line": 393,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "27. Recovery testing",
-      "line": 405,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "27. Recovery testing",
-      "line": 405,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "27. Recovery testing",
-      "line": 405,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic/config/artifact rollback,`, `feature disable,`, `partial-rollout recovery,`, `schema compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "27. Recovery testing",
-      "line": 405,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "27. Recovery testing",
-      "line": 405,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PITR`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "28. Evidence a audit",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "28. Evidence a audit",
-      "line": 422,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "28. Evidence a audit",
-      "line": 422,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `detection a containment timeline,`, `current/target state identities,`, `eligibility decision,`, `commands/workflows a actor,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "28. Evidence a audit",
-      "line": 422,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "29. Metriky capability",
-      "line": 436,
+      "section": "Trvalá náprava",
+      "line": 314,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -79931,8 +79292,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "29. Metriky capability",
-      "line": 436,
+      "section": "Trvalá náprava",
+      "line": 314,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -79940,26 +79301,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "29. Metriky capability",
-      "line": 436,
+      "section": "Trvalá náprava",
+      "line": 314,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "29. Metriky capability",
-      "line": 436,
+      "section": "Trvalá náprava",
+      "line": 314,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `containment time,`, `recovery decision time,`, `rollback/roll-forward success rate,`, `failed automated rollback rate,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable/new concurrent comparison;`, `dependency-health dimension;`, `consecutive windows a minimum duration;`, `cooldown a maximum automatic transitions;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "29. Metriky capability",
-      "line": 436,
+      "section": "Trvalá náprava",
+      "line": 314,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -79967,17 +79328,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "29. Metriky capability",
-      "line": 436,
+      "section": "Trvalá náprava",
+      "line": 314,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `data plane`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "30. Typické anti-patterny",
-      "line": 449,
+      "section": "14. Kauzálny diagnostický walkthrough",
+      "line": 323,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 1 — potvrď containment a current subject",
+      "line": 327,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 2 — formuluj konkurenčné hypotézy",
+      "line": 340,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -79985,8 +79364,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Vždy rollback",
-      "line": 451,
+      "section": "Krok 3 — vyber observation points",
+      "line": 350,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 350,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 350,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `effective flag evaluations a producer timestamp testujú H1;`, `command creation time vs send time testuje H2;`, `partner idempotency/audit ID testuje H4;`, `raw ingestion/event-time lag testuje H5.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 350,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 350,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 350,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Krok 6 — over pôvodný outcome",
+      "line": 378,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79994,8 +79427,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Vždy roll-forward",
-      "line": 455,
+      "section": "Krok 7 — vráť learning",
+      "line": 390,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80003,8 +79436,359 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Previous = known good",
+      "section": "15. Recovery validation je outcome-based",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Runtime",
+      "line": 398,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Runtime",
+      "line": 398,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Runtime",
+      "line": 398,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `current artifact/config/flag/routing inventory;`, `error, latency a saturation;`, `jeden active recovery generation owner.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Runtime",
+      "line": 398,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Data a events",
+      "line": 404,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Data a events",
+      "line": 404,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Data a events",
+      "line": 404,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Data a events",
+      "line": 404,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a representation invariants;`, `backlog, dead-letter a replay stav;`, `duplicate alebo missing records;`, `replicas, CDC a analytics.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Data a events",
+      "line": 404,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Data a events",
+      "line": 404,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CDC`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Business a external systems",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Business a external systems",
+      "line": 411,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Business a external systems",
+      "line": 411,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Business a external systems",
+      "line": 411,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `order completion;`, `partner notification a accounting reconciliation;`, `customer/support impact;`, `compensation completion.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "Business a external systems",
+      "line": 411,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "16. Delayed verification a rollback window",
+      "line": 420,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "16. Delayed verification a rollback window",
+      "line": 420,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `settlement a scheduled reconciliation;`, `late retries a dead-letter replay;`, `cache/session warming;`, `replication a downstream exports;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "16. Delayed verification a rollback window",
+      "line": 420,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "16. Delayed verification a rollback window",
+      "line": 420,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "16. Delayed verification a rollback window",
+      "line": 420,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Contain-ni nové exposure, writes alebo side effects.`, `Zachovaj timeline a zostav actual state-delta inventory.`, `Urči last compatible state, nie iba previous artifact.`, `Vyhodnoť recovery eligibility pre každú zmenenú vrstvu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "17. Diagnostický runbook",
+      "line": 433,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Containment predchádza finálnemu recovery rozhodnutiu.`, `Recovery začína state-delta inventory, nie redeployment príkazom.`, `Previous release nie je automaticky last compatible state.`, `Artifact availability nie je rollback eligibility.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 446,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "19. Časté omyly",
       "line": 459,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
+      "section": "„Vždy rollbackni čo najrýchlejšie“",
+      "line": 461,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80012,8 +79796,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Mutable rollback tag",
-      "line": 463,
+      "section": "„Vždy roll-forwardni“",
+      "line": 465,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80021,8 +79805,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Artifact rollback = full recovery",
-      "line": 467,
+      "section": "„Feature off vyrieši všetko“",
+      "line": 469,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80030,8 +79814,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Destruktívny contract pred koncom window",
-      "line": 471,
+      "section": "„Previous tag je known good“",
+      "line": 473,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80039,210 +79823,12 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Automatic rollback bez hysteresis",
-      "line": 475,
+      "section": "„Restore je bezplatné undo“",
+      "line": 477,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Recovery sa netestuje",
-      "line": 479,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "31. Diagnostický postup",
-      "line": 483,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "31. Diagnostický postup",
-      "line": 483,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "31. Diagnostický postup",
-      "line": 483,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "31. Diagnostický postup",
-      "line": 483,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Contain-ni ďalší dopad.`, `Zachovaj evidence a current-state inventory.`, `Urči, ktoré vrstvy sa zmenili.`, `Identifikuj last compatible, nie iba previous release.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "31. Diagnostický postup",
-      "line": 483,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "31. Diagnostický postup",
-      "line": 483,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký user impact treba okamžite contain-nuť?`, `Ktoré immutable a mutable vrstvy sa zmenili?`, `Aký je last compatible state?`, `Aké external side effects vznikli?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 496,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`, `RPO`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current a target identities sú známe,`, `containment actions existujú,`, `recovery package je pripravený,`, `rollback eligibility zahŕňa DB/events/clients/security,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "33. Kontrolný checklist",
-      "line": 509,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `PITR`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
-      "section": "Summary",
-      "line": 537,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
