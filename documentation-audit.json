@@ -913,15 +913,15 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "title": "Python for automation",
-      "words": 3851,
-      "headings": 57,
-      "sections": 57,
-      "findings": 169,
-      "critical": 66,
-      "high": 52,
-      "medium": 28,
-      "low": 23,
-      "score": 1328,
+      "words": 2845,
+      "headings": 37,
+      "sections": 37,
+      "findings": 95,
+      "critical": 32,
+      "high": 28,
+      "medium": 17,
+      "low": 18,
+      "score": 687,
       "grade": "D"
     },
     {
@@ -48197,1232 +48197,17 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`, `API`, `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "2. Kedy je Python vhodný",
-      "line": 37,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "2. Kedy je Python vhodný",
-      "line": 37,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP a cloud API klientov,`, `spracovanie JSON, YAML, CSV, XML a databázových výsledkov,`, `validačné a transformačné pipeline,`, `cross-platform CLI nástroje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "2. Kedy je Python vhodný",
-      "line": 37,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "2. Kedy je Python vhodný",
-      "line": 37,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "2. Kedy je Python vhodný",
-      "line": 37,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "2. Kedy je Python vhodný",
-      "line": 37,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `API`, `JSON`, `YAML`, `CSV`, `XML`",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "3. Interpreter, runtime a launcher",
-      "line": 53,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "4. Virtual environment",
-      "line": 77,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "4. Virtual environment",
-      "line": 77,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operačný systém,`, `externé executable súbory,`, `sieť,`, `používateľské oprávnenia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "4. Virtual environment",
-      "line": 77,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "5. Dependency contract",
-      "line": 108,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "5. Dependency contract",
-      "line": 108,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto aktualizuje lockfile,`, `ako sa testujú nové transitívne verzie,`, `či sa vyžadujú package hashes,`, `z ktorých indexov sa môže inštalovať,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "5. Dependency contract",
-      "line": 108,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "6. Project layout a import model",
-      "line": 145,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "6. Project layout a import model",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "6. Project layout a import model",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "6. Project layout a import model",
-      "line": 145,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "6. Project layout a import model",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "8. CLI ako verejný kontrakt",
-      "line": 226,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "8. CLI ako verejný kontrakt",
-      "line": 226,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "8. CLI ako verejný kontrakt",
-      "line": 226,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required a optional argumenty,`, `defaults a precedence,`, `validované ranges a enumerácie,`, `behavior pri opakovaní argumentu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "8. CLI ako verejný kontrakt",
-      "line": 226,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "8. CLI ako verejný kontrakt",
-      "line": 226,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "10. Environment variables a secrets",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 55 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "10. Environment variables a secrets",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `crash reporte,`, `debug dump-e,`, `child process environment-e,`, `CI diagnostike,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "10. Environment variables a secrets",
-      "line": 289,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "11. Dátový model a validácia",
-      "line": 311,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "11. Dátový model a validácia",
-      "line": 311,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "11. Dátový model a validácia",
-      "line": 311,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neplatný typ alebo syntax,`, `chýbajúcu povinnú hodnotu,`, `semanticky neplatnú kombináciu,`, `conflict medzi dvoma zdrojmi configu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "11. Dátový model a validácia",
-      "line": 311,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "11. Dátový model a validácia",
-      "line": 311,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "12. $null ekvivalenty a pravdivostné skratky",
-      "line": 352,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "12. $null ekvivalenty a pravdivostné skratky",
-      "line": 352,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "12. $null ekvivalenty a pravdivostné skratky",
-      "line": 352,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absent key,`, `explicitné null / Python None ,`, `prázdny string,`, `prázdny list alebo dictionary,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "12. $null ekvivalenty a pravdivostné skratky",
-      "line": 352,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "13. Paths a filesystem boundary",
-      "line": 379,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "13. Paths a filesystem boundary",
-      "line": 379,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "13. Paths a filesystem boundary",
-      "line": 379,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `relatívnu path voči current working directory,`, `symlinky a ich dereference,`, `case sensitivity,`, `permissions a ownership,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "13. Paths a filesystem boundary",
-      "line": 379,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "13. Paths a filesystem boundary",
-      "line": 379,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "15. Subprocess boundary",
-      "line": 460,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "15. Subprocess boundary",
-      "line": 460,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `timeout — zabráni neobmedzenému visu,`, `cwd — explicitný working directory,`, `text a encoding — definovaný decoding contract.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "15. Subprocess boundary",
-      "line": 460,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "15. Subprocess boundary",
-      "line": 460,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "16. Subprocess lifecycle a streaming",
-      "line": 491,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "16. Subprocess lifecycle a streaming",
-      "line": 491,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priebežné čítanie stdout/stderr,`, `riziko zaplnenia pipe bufferov,`, `timeout a termination escalation,`, `process group a child procesy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "16. Subprocess lifecycle a streaming",
-      "line": 491,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "16. Subprocess lifecycle a streaming",
-      "line": 491,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "16. Subprocess lifecycle a streaming",
-      "line": 491,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "17. HTTP klient ako stateful resource",
-      "line": 505,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "17. HTTP klient ako stateful resource",
-      "line": 505,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base URL a allowed destinations,`, `DNS/TLS verification policy,`, `connect/read/write/pool timeouty,`, `redirect policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "17. HTTP klient ako stateful resource",
-      "line": 505,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "17. HTTP klient ako stateful resource",
-      "line": 505,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `DNS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "19. Exception model",
-      "line": 567,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "19. Exception model",
-      "line": 567,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať užitočný kontext,`, `vykonať bezpečnú recovery,`, `preložiť low-level error na doménový error,`, `mapovať chybu na boundary output alebo exit code.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "19. Exception model",
-      "line": 567,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "19. Exception model",
-      "line": 567,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "20. Expected a unexpected failures",
-      "line": 592,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "20. Expected a unexpected failures",
-      "line": 592,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "20. Expected a unexpected failures",
-      "line": 592,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "20. Expected a unexpected failures",
-      "line": 592,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "20. Expected a unexpected failures",
-      "line": 592,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "21. Logging a structured result",
-      "line": 605,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "21. Logging a structured result",
-      "line": 605,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation a correlation ID,`, `target a environment,`, `plan summary,`, `duration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "21. Logging a structured result",
-      "line": 605,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "21. Logging a structured result",
-      "line": 605,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "22. Plan, apply a verify",
-      "line": 635,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "22. Plan, apply a verify",
-      "line": 635,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický pre rovnaké vstupy,`, `serializovateľný alebo auditovateľný,`, `explicitný o create/update/delete operáciách,`, `schopný ukázať neznáme alebo citlivé hodnoty redigovane,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "22. Plan, apply a verify",
-      "line": 635,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "23. Idempotencia",
-      "line": 673,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "23. Idempotencia",
-      "line": 673,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "23. Idempotencia",
-      "line": 673,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilnú identitu resource,`, `normovaný current state,`, `deterministic desired state,`, `bezpečné opakovanie po partial failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "23. Idempotencia",
-      "line": 673,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "23. Idempotencia",
-      "line": 673,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "24. Atomicita, rollback a compensation",
-      "line": 698,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "24. Atomicita, rollback a compensation",
-      "line": 698,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré kroky sú atomické,`, `ktorý partial state môže zostať,`, `či je možný rollback,`, `či sa používa compensation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "24. Atomicita, rollback a compensation",
-      "line": 698,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "25. Retry policy",
-      "line": 719,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "25. Retry policy",
-      "line": 719,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded attempts alebo deadline,`, `exponential backoff a jitter,`, `per-attempt timeout,`, `celkový time budget,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "25. Retry policy",
-      "line": 719,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "27. Concurrency model",
-      "line": 779,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Threads",
-      "line": 781,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "asyncio",
-      "line": 796,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "asyncio",
-      "line": 796,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu concurrency,`, `ordering výsledkov,`, `per-target limit,`, `rate-limit budget,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "asyncio",
-      "line": 796,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "asyncio",
-      "line": 796,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "29. Cancellation a graceful shutdown",
-      "line": 823,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "29. Cancellation a graceful shutdown",
-      "line": 823,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prestať prijímať novú prácu,`, `označiť cancellation intent,`, `bezpečne dokončiť alebo prerušiť rozpracované operácie,`, `ukončiť child procesy a sessions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "29. Cancellation a graceful shutdown",
-      "line": 823,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "30. Context managers a resource ownership",
-      "line": 852,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "30. Context managers a resource ownership",
-      "line": 852,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "30. Context managers a resource ownership",
-      "line": 852,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `files a temporary directories,`, `HTTP clients,`, `databázové transakcie,`, `locks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "30. Context managers a resource ownership",
-      "line": 852,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "30. Context managers a resource ownership",
-      "line": 852,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "31. Locking a koordinácia",
-      "line": 885,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `advisory verzus mandatory behavior,`, `wait, fail-fast alebo skip policy,`, `stale lock recovery,`, `lock ownership a metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "31. Locking a koordinácia",
-      "line": 885,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "31. Locking a koordinácia",
-      "line": 885,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "31. Locking a koordinácia",
-      "line": 885,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invalid a boundary input,`, `prázdne kolekcie,`, `timeout a retry exhaustion,`, `partial mutation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "32. Testing architecture",
-      "line": 897,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "33. Mocking a test seams",
-      "line": 935,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "33. Mocking a test seams",
-      "line": 935,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP transport,`, `filesystem adapter,`, `clock,`, `random/jitter source,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "33. Mocking a test seams",
-      "line": 935,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "33. Mocking a test seams",
-      "line": 935,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "34. Static analysis a quality gates",
-      "line": 951,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "34. Static analysis a quality gates",
-      "line": 951,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "34. Static analysis a quality gates",
-      "line": 951,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency vulnerability audit,`, `secret scanning,`, `license policy,`, `package metadata validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "34. Static analysis a quality gates",
-      "line": 951,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "34. Static analysis a quality gates",
-      "line": 951,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "35. Packaging a distribution",
-      "line": 974,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "35. Packaging a distribution",
-      "line": 974,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wheel v internom package registry,`, `standalone application environment,`, `container image,`, `zipapp alebo iný self-contained model,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "35. Packaging a distribution",
-      "line": 974,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "35. Packaging a distribution",
-      "line": 974,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "36. Supply-chain security",
-      "line": 1000,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "36. Supply-chain security",
-      "line": 1000,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "36. Supply-chain security",
-      "line": 1000,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typosquatting a dependency confusion,`, `kompromitovaný maintainer alebo package,`, `neočakávaný build-time code execution,`, `mutable package index alebo cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "36. Supply-chain security",
-      "line": 1000,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "36. Supply-chain security",
-      "line": 1000,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "36. Supply-chain security",
-      "line": 1000,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "37. Aplikačná bezpečnosť",
-      "line": 1022,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "37. Aplikačná bezpečnosť",
-      "line": 1022,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command injection cez shell=True ,`, `path traversal a symlink race,`, `SSRF cez neoverenú URL,`, `vypnutá TLS verification,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "37. Aplikačná bezpečnosť",
-      "line": 1022,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "37. Aplikačná bezpečnosť",
-      "line": 1022,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "37. Aplikačná bezpečnosť",
-      "line": 1022,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSRF`, `URL`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "38. Produkčný skeleton",
-      "line": 1039,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "38. Produkčný skeleton",
-      "line": 1039,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -49430,35 +48215,26 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "39. Diagnostický postup",
-      "line": 1093,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "39. Diagnostický postup",
-      "line": 1093,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "39. Diagnostický postup",
-      "line": 1093,
+      "section": "Metadata",
+      "line": 3,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zaznamenaj presný Python executable a version,`, `porovnaj nainštalovaný dependency graph a lockfile,`, `over package install a import path,`, `skontroluj current working directory,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Bash automation, PowerShell fundamentals, Idempotencia`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "39. Diagnostický postup",
-      "line": 1093,
+      "section": "Metadata",
+      "line": 3,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49466,8 +48242,17 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "39. Diagnostický postup",
-      "line": 1093,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "1. Cieľ kapitoly",
+      "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49475,44 +48260,26 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "40. Typické failure patterns",
-      "line": 1116,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Skript visí",
-      "line": 1118,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Skript visí",
-      "line": 1118,
+      "section": "2. Nosný scenár: Atlas release reconciler",
+      "line": 30,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Skript visí",
-      "line": 1118,
+      "section": "2. Nosný scenár: Atlas release reconciler",
+      "line": 30,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci network alebo subprocess timeout,`, `deadlock alebo čakajúci lock,`, `blocking call v async event loop-e,`, `child process so zaplneným pipe bufferom,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načítať a validovať vstupy,`, `zistiť aktuálnu verziu služby,`, `vypočítať požadovanú zmenu,`, `v režime --dry-run iba zobraziť plan,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Skript visí",
-      "line": 1118,
+      "section": "2. Nosný scenár: Atlas release reconciler",
+      "line": 30,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49520,161 +48287,8 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Pamäť rastie",
-      "line": 1129,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Pamäť rastie",
-      "line": 1129,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Pamäť rastie",
-      "line": 1129,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unbounded queue alebo task list,`, `celý veľký súbor načítaný do memory,`, `neobmedzený subprocess output capture,`, `cache bez eviction,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Pamäť rastie",
-      "line": 1129,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Operácia sa vykonala dvakrát",
-      "line": 1140,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Operácia sa vykonala dvakrát",
-      "line": 1140,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Operácia sa vykonala dvakrát",
-      "line": 1140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry po nejasnom timeout-e,`, `scheduler duplicate delivery,`, `chýbajúci idempotency key,`, `race medzi dvoma instances,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Operácia sa vykonala dvakrát",
-      "line": 1140,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "dry-run je zelený, apply zlyhá",
-      "line": 1150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "dry-run je zelený, apply zlyhá",
-      "line": 1150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "dry-run je zelený, apply zlyhá",
-      "line": 1150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dry-run neoveril permissions alebo externé preconditions,`, `stav sa medzi plan a apply zmenil,`, `mutation používa inú code path,`, `secret alebo credential sa načítava až pri apply,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "dry-run je zelený, apply zlyhá",
-      "line": 1150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovaný Python runtime je deklarovaný,`, `dependency graph je reprodukovateľný,`, `package entry point funguje z čistého prostredia,`, `CLI a exit codes sú stabilné,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
+      "section": "2. Nosný scenár: Atlas release reconciler",
+      "line": 30,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49682,8 +48296,53 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
+      "section": "2. Nosný scenár: Atlas release reconciler",
+      "line": 30,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "3. Kedy už workflow patrí do Pythonu",
+      "line": 66,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "3. Kedy už workflow patrí do Pythonu",
+      "line": 66,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastné doménové typy a invarianty,`, `HTTP, filesystem a subprocess adapters,`, `komplexnejší error a recovery model,`, `paralelné alebo asynchrónne I/O,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "3. Kedy už workflow patrí do Pythonu",
+      "line": 66,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "3. Kedy už workflow patrí do Pythonu",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "3. Kedy už workflow patrí do Pythonu",
+      "line": 66,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -49691,17 +48350,683 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "41. Prevádzkový checklist",
-      "line": 1160,
+      "section": "3. Kedy už workflow patrí do Pythonu",
+      "line": 66,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `API`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "42. Časté omyly",
-      "line": 1179,
+      "section": "5. Input boundary: jeden validovaný config objekt",
+      "line": 138,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "5. Input boundary: jeden validovaný config objekt",
+      "line": 138,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absent hodnotu,`, `explicitné None ,`, `prázdny string,`, `0 ,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "5. Input boundary: jeden validovaný config objekt",
+      "line": 138,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "7. Plan je samostatný auditovateľný výsledok",
+      "line": 224,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "7. Plan je samostatný auditovateľný výsledok",
+      "line": 224,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "7. Plan je samostatný auditovateľný výsledok",
+      "line": 224,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický pre rovnaké vstupy,`, `bez side effects,`, `explicitný o create/update/delete operáciách,`, `serializovateľný alebo ľahko auditovateľný,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "7. Plan je samostatný auditovateľný výsledok",
+      "line": 224,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "8. Adapters izolujú externé side effects",
+      "line": 268,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "8. Adapters izolujú externé side effects",
+      "line": 268,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout a retry policy,`, `authentication a authorization,`, `response validation,`, `idempotency key,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "8. Adapters izolujú externé side effects",
+      "line": 268,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "8. Adapters izolujú externé side effects",
+      "line": 268,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "11. Mutation má byť bounded a idempotentná",
+      "line": 349,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 51 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "11. Mutation má byť bounded a idempotentná",
+      "line": 349,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilnú resource identity,`, `normovaný current state,`, `jednoznačný desired state,`, `idempotency key alebo compare-and-swap pri nejasnom výsledku,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "11. Mutation má byť bounded a idempotentná",
+      "line": 349,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "13. Failure taxonomy riadi recovery",
+      "line": 403,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "13. Failure taxonomy riadi recovery",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "13. Failure taxonomy riadi recovery",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "13. Failure taxonomy riadi recovery",
+      "line": 403,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "13. Failure taxonomy riadi recovery",
+      "line": 403,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "13. Failure taxonomy riadi recovery",
+      "line": 403,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "14. Retry potrebuje dôkaz, nie optimizmus",
+      "line": 424,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "14. Retry potrebuje dôkaz, nie optimizmus",
+      "line": 424,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chyba je transientná,`, `operácia je idempotentná alebo má idempotency key,`, `existuje per-attempt timeout,`, `existuje celkový deadline,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "14. Retry potrebuje dôkaz, nie optimizmus",
+      "line": 424,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "14. Retry potrebuje dôkaz, nie optimizmus",
+      "line": 424,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "15. Partial failure potrebuje operation state",
+      "line": 447,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "15. Partial failure potrebuje operation state",
+      "line": 447,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré kroky sú atomické,`, `ktorý partial state môže zostať,`, `či existuje rollback,`, `či treba kompenzačnú operáciu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "15. Partial failure potrebuje operation state",
+      "line": 447,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "15. Partial failure potrebuje operation state",
+      "line": 447,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "16. Concurrency je correctness policy",
+      "line": 470,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "16. Concurrency je correctness policy",
+      "line": 470,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu concurrency,`, `per-target limit,`, `ordering výsledkov,`, `rate-limit budget,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "16. Concurrency je correctness policy",
+      "line": 470,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "16. Concurrency je correctness policy",
+      "line": 470,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "17. Resource ownership a graceful shutdown",
+      "line": 493,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "17. Resource ownership a graceful shutdown",
+      "line": 493,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "17. Resource ownership a graceful shutdown",
+      "line": 493,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP clients,`, `files a temporary directories,`, `locks,`, `subprocesses,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "17. Resource ownership a graceful shutdown",
+      "line": 493,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "17. Resource ownership a graceful shutdown",
+      "line": 493,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "19. Worked failure: timeout vytvoril dvojitý rollout",
+      "line": 551,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "19. Worked failure: timeout vytvoril dvojitý rollout",
+      "line": 551,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient vytvorí operation id ,`, `pošle ho ako idempotency key,`, `timeout klasifikuje ako unknown outcome,`, `pred retry vyhľadá operation status,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "19. Worked failure: timeout vytvoril dvojitý rollout",
+      "line": 551,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "20. Worked failure: lokálne funguje, CI importuje iný package",
+      "line": 594,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "20. Worked failure: lokálne funguje, CI importuje iný package",
+      "line": 594,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `src layout,`, `build wheelu v CI,`, `install wheelu do čistého prostredia,`, `smoke test package entry pointu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "20. Worked failure: lokálne funguje, CI importuje iný package",
+      "line": 594,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "20. Worked failure: lokálne funguje, CI importuje iný package",
+      "line": 594,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "16 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no-change run,`, `idempotent second run,`, `dry-run bez mutation,`, `stale plan rejection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "21. Testing kopíruje lifecycle boundaries",
+      "line": 629,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "22. Packaging a supply-chain boundary",
+      "line": 665,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "22. Packaging a supply-chain boundary",
+      "line": 665,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikovateľný verziou a digestom,`, `dohľadateľný na source commit,`, `vytvorený z kontrolovaného dependency graphu,`, `otestovaný po inštalácii,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "22. Packaging a supply-chain boundary",
+      "line": 665,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "22. Packaging a supply-chain boundary",
+      "line": 665,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "22. Packaging a supply-chain boundary",
+      "line": 665,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "22. Packaging a supply-chain boundary",
+      "line": 665,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "23. Produkčný skeleton",
+      "line": 686,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over presný executable a Python version,`, `over package path a nainštalovanú version,`, `porovnaj lockfile a runtime dependency graph,`, `skontroluj current working directory a filesystem identity,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "24. Diagnostický postup",
+      "line": 773,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `ID`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Konfiguráciu načítaj raz do validovaného immutable objektu.`, `Planning drž bez side effects.`, `Mutation izoluj v adapters a obmedz preconditions.`, `Dry-run má vytvoriť reálny plan.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "25. Referenčné pravidlá",
+      "line": 790,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `freshness`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "26. Časté omyly",
+      "line": 805,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -49709,8 +49034,17 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "„Retry vyrieši každé zlyhanie“",
-      "line": 1189,
+      "section": "„Exception treba zachytiť čo najskôr“",
+      "line": 827,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "„Viac concurrency vždy zrýchli nástroj“",
+      "line": 831,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
