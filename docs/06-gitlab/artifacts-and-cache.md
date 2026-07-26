@@ -6,575 +6,458 @@
 - Level: L2
 - Domain: GitLab
 
-GitLab artifacts a cache prenášajú súbory medzi jobmi a behmi pipeline, ale majú odlišný kontrakt. Artifact je identifikovateľný výstup konkrétneho execution subjectu a môže byť dôkazom, build outputom alebo release kandidátom. Cache je odstrániteľný a potenciálne nedôveryhodný performance state, ktorý musí byť možné bezpečne znovu vytvoriť.
-
-## 1. Mental model
+GitLab artifact je identifikovateľný output konkrétneho pipeline execution subjectu. Môže niesť build bytes, test report, deployment plan alebo provenance. Cache je odstrániteľný performance state, ktorému consumer nesmie slepo dôverovať a bez ktorého musí pipeline zostať korektná.
 
 ```text
-artifact
-→ producer job a pipeline identity
-→ konkrétny output alebo evidence
-→ explicitný consumer
-→ retention / promotion / audit
+artifact contract
+→ identified producer execution
+→ bounded publication
+→ integrity a completeness verification
+→ explicit consumer binding
+→ promotion/retention/recovery lifecycle
 
-cache
-→ compatibility key a trust namespace
+cache contract
+→ compatibility + trust key
 → opportunistic restore
 → validation
-→ use
-→ optional write-back
-→ eviction
+→ bounded use
+→ controlled write-back
+→ eviction alebo invalidation
 ```
 
-Ak cache miss alebo eviction zmení correctness, daný obsah nie je cache, ale chýbajúci artifact alebo dependency source.
+Ak cache miss zmení correctness alebo cache obsah je jedinou kópiou release outputu, storage model je nesprávny.
 
-## 2. Artifact subject
+## 1. Nosný model: output trust chain
 
-Artifact má byť viazaný minimálne na:
-
-- project,
-- pipeline ID a source,
-- commit alebo merged-result SHA,
-- job name a attempt,
-- build variant,
-- platform/architecture,
-- producer configuration revision,
-- obsahový digest podľa významu.
-
-Názov archive súboru je iba presentation. Subject identity musí umožniť určiť, čo artifact vytvorilo a na aký source/evidence sa vzťahuje.
-
-## 3. Typy artifacts
-
-Rozlišuj:
-
-- **Build artifact —** binary, bundle alebo iný výstup build-u.
-- **Report artifact —** strojovo interpretovaný výsledok testu, coverage alebo scanneru.
-- **Evidence artifact —** plan, manifest, SBOM, provenance alebo audit packet.
-- **Diagnostic artifact —** logs, dump, screenshot alebo trace pre troubleshooting.
-- **Deployment artifact —** manifest alebo package použitý deploy jobom.
-- **Release artifact —** dlhšie podporovaný immutable výstup publikovaný do registry alebo release lifecycle.
-
-Nie každý job artifact je vhodný ako release artifact.
-
-## 4. Publication contract
-
-Producer má definovať:
-
-- presné paths,
-- podmienku uploadu,
-- artifact name,
-- format,
-- digest/checksum podľa potreby,
-- retention,
-- access,
-- consumer inventory,
-- obsah, ktorý je zakázaný.
-
-Použitie celého workspace alebo `untracked` zvyšuje riziko secrets, nepotrebných súborov a nepredvídateľnej veľkosti.
-
-## 5. Upload pri success a failure
-
-Artifacts môžu byť potrebné aj pri neúspechu:
-
-```yaml
-artifacts:
-  when: always
-  paths:
-    - test-results/
-    - screenshots/
-  reports:
-    junit: test-results/junit.xml
-```
-
-Failure artifact má pomáhať diagnostike, ale nesmie obsahovať production dataset, credentials alebo neobmedzený memory dump bez review.
-
-## 6. Report artifacts
-
-GitLab interpretuje report formats, napríklad JUnit, coverage, code quality, dotenv, security reports a SBOM.
-
-Report pipeline potrebuje rozlíšiť:
-
-- report bol vytvorený a validný,
-- report je validný, ale obsahuje findings/failures,
-- report chýba,
-- report je neúplný,
-- parser/analyzer zlyhal,
-- report patrí inému subjectu.
-
-Chýbajúci security alebo test report nie je „nula findings“.
-
-## 7. Report completeness
-
-Pri parallel/sharded jobs potrebuje aggregation vedieť expected inventory:
+Dôveryhodný pipeline output vzniká cez:
 
 ```text
-expected shards: 1..8
-received: 1,2,3,4,5,7,8
-→ incomplete evidence
+producer subject
+→ output inventory
+→ upload attempt
+→ immutable content identity
+→ completeness verdict
+→ consumer selection
+→ use/promotion
+→ retention root alebo expiry
 ```
 
-Aggregation job má zlyhať alebo vrátiť explicitný incomplete verdict, ak chýba povinný shard, platforma alebo component.
+Každý transition môže zlyhať samostatne. Script môže prejsť a artifact upload zlyhať. Sedem z ôsmich test shards môže publikovať report a aggregate job môže nesprávne považovať actual inventory za complete. Retry môže vytvoriť iný digest pod rovnakým filename-om.
 
-## 8. Producer-consumer binding
+## 2. Nosný scenár: Atlas Payments release outputs
 
-Downstream job nemá sťahovať všetky artifacts z predchádzajúcich stages implicitne. Explicitný DAG transfer:
+Pipeline `P812` pre release `3.12.0` vytvára:
 
-```yaml
-test:
-  needs:
-    - job: build
-      artifacts: true
+```text
+build_release
+→ payments-api.tar digest D42
+→ build manifest M42
+→ SBOM B42
+
+integration shards 1..8
+→ JUnit reports J1..J8
+
+security jobs
+→ SAST, dependency a image reports
+
+release_gate
+→ expected evidence manifest E42
+
+publish_release
+→ registry image/package viazaný na D42
 ```
 
-Consumer má overiť:
+Zároveň používa cache:
 
-- správneho producer joba,
-- pipeline a commit identity,
-- variant/platformu,
-- digest alebo manifest,
-- completeness,
-- expiration/access.
+```text
+package cache key
+= project + linux/amd64 + toolchain T9 + lockfile hash L17 + trust namespace protected
+```
 
-Filename collision nesmie rozhodovať o tom, ktorý output sa použije.
+Release build môže cache čítať, ale dependencies overuje checksumami a pravidelný cold build dokazuje cache-independent correctness.
 
-## 9. `needs`, `dependencies` a stages
+## 3. Artifact subject je viac než filename
 
-`needs` definuje execution dependency a môže explicitne preniesť artifacts. `dependencies` obmedzuje artifact download v stage modeli.
+Atlas artifact identity obsahuje:
 
-Pri DAG pipeline preferuj čitateľný `needs` graph. Kombinácia viacerých mechanizmov bez jasného modelu môže:
+```text
+project
+pipeline ID a source
+source/candidate SHA
+resolved config digest
+producer job a attempt
+variant/platform
+runner/toolchain subject
+content digest
+```
 
-- stiahnuť nesprávne artifacts,
-- skryť chýbajúcu dependency,
-- blokovať job zbytočnou stage barrier,
-- vytvoriť race pri optional jobe.
+`payments-api-latest.tar` je iba presentation name. Dva súbory s rovnakým názvom môžu patriť inému source-u, platforme alebo retry attemptu.
 
-## 10. Child a downstream pipelines
+Consumer má používať manifest alebo digest, nie „posledný artifact z mainu“.
 
-Artifact transfer medzi parent, child a multi-project pipeline potrebuje explicitný contract:
+## 4. Typ outputu určuje lifecycle
 
-- upstream pipeline/project identity,
-- artifact subject a digest,
-- job a attempt,
-- access token alebo job-token policy,
-- retention dostatočnú pre downstream,
-- status propagation,
-- ochranu pred zamenením branch artifactu za release artifact.
+- **Build artifact:** intermediate alebo final binary/bundle.
+- **Report artifact:** JUnit, coverage, scanner alebo SBOM formát interpretovaný gate-om.
+- **Evidence artifact:** manifest, plan, attestation alebo approval packet.
+- **Diagnostic artifact:** trace, screenshot, dump alebo logs.
+- **Deployment artifact:** rendered manifest alebo package použitý deploy jobom.
+- **Release artifact:** immutable podporovaný obsah publikovaný do durable registry.
 
-Pipeline ID alebo ref `main` bez digestu môže po čase ukazovať na iný output.
+Job artifact s krátkym `expire_in` nie je vhodný ako jediný production rollback source.
 
-## 11. Artifact naming
+## 5. Publication contract
 
-Human-friendly name môže obsahovať:
+Producer definuje:
 
-- component,
-- version,
-- commit SHA,
-- platform,
-- build variant,
-- pipeline ID.
+```text
+presné paths
+expected files a variants
+upload condition
+content type/format
+name a digest
+access
+retention
+forbidden content
+consumer inventory
+```
 
-Názov `app-latest.zip` neposkytuje immutable identity. Pre correctness používaj digest a release manifest.
+`untracked` alebo celý workspace môže zahrnúť secrets, cache, temporary config a nesúvisiace outputs. Explicitné paths znižujú nepredvídateľný obsah aj veľkosť.
 
-## 12. Artifact integrity a provenance
+Artifact upload je samostatná fáza. Script success bez publication success znamená incomplete output, nie complete pass.
 
-Release-relevantný artifact má byť prepojený s:
+## 6. Expected inventory odlišuje pass od incomplete
 
-- content digestom,
-- source commitom,
-- resolved pipeline configuration,
-- builder/runner identity,
-- toolchain a dependency inputs,
-- SBOM,
-- provenance attestation,
-- signature alebo verification policy podľa assurance modelu.
+Pre 8 test shards:
 
-Checksum dokazuje, že obsah sa nezmenil. Nedokazuje, že bol vytvorený dôveryhodným buildom.
+```text
+expected = {1,2,3,4,5,6,7,8}
+actual   = {1,2,3,4,5,7,8}
+→ INCOMPLETE
+```
 
-## 13. Artifact access
+Fan-in nemá iterovať iba cez existujúce reports a predpokladať, že chýbajúci shard bol not applicable. Každá položka expected inventory musí skončiť ako:
 
-Artifact môže obsahovať interné alebo citlivé informácie:
+- present/pass;
+- present/findings alebo failure;
+- explicitne not applicable s dôvodom;
+- missing/incomplete;
+- tool/infrastructure failure.
 
-- source maps,
-- scanner findings,
-- Terraform plan,
-- debug logs,
-- test data,
-- topology a endpointy.
+Absencia reportu nie je nula findings.
 
-Access policy má zodpovedať obsahu. Zároveň platí, že access control nenahrádza odstránenie secrets z artifactu.
+## 7. Producer-consumer binding je explicitný DAG contract
 
-## 14. Retention lifecycle
+Consumer určuje:
 
-Retention navrhni podľa purpose:
+```text
+producer job
+attempt policy
+pipeline/source subject
+variant/platform
+artifact name + digest/manifest
+required completeness
+access a expiry
+```
 
-- krátka pre transient diagnostics,
-- stredná pre MR/release-candidate evidence,
-- dlhšia pre audit a support,
-- registry alebo durable storage pre release artifacts,
-- explicitná legal/compliance retention.
+`needs: artifacts` môže preniesť output po DAG edge-i, ale syntax sama nedokazuje, že správny artifact vznikol. Consumer musí overiť manifest a expected identity.
 
-Artifact použitý v produkcii alebo potrebný pre rollback nesmie zmiznúť len preto, že job `expire_in` vypršal.
+Implicitné stiahnutie všetkých artifacts z predchádzajúcich stages znejasňuje dependency graph a zvyšuje exposure.
 
-## 15. Retention roots
+## 8. Retry vytvára nový execution attempt
 
-Pred cleanupom zachovaj artifacts referencované:
+Job attempt A1 môže zlyhať po vytvorení partial outputu. Retry A2 môže vytvoriť nový digest.
 
-- aktívnym deploymentom,
-- podporovaným releaseom,
-- rollback window,
-- otvoreným incidentom,
-- compliance/legal holdom,
-- release manifestom,
-- aktívnym review alebo auditom.
+```text
+job name build_release
+attempt A1 → digest D41, upload unknown/partial
+attempt A2 → digest D42, pass
+```
 
-Latest-success retention podľa refu nie je úplný release inventory.
+Record zachová oba attempts, first verdict a pravidlo, ktorý output je authoritative. Consumer nesmie filename collision-om alebo „latest successful job“ potichu zameniť A1/A2.
 
-## 16. Promotion do registry
+Retry je nový execution subject, nie prepis histórie.
 
-Dlhodobo spotrebovaný package alebo image patrí do package, container alebo generic registry.
+## 9. Promotion oddeľuje CI storage od release storage
 
 Bezpečný flow:
 
 ```text
-job artifact / build output
-→ over digest a evidence
-→ publish immutable registry version
-→ vytvor release manifest
-→ deploy alebo distribuuj registry identity
+build D42 raz
+→ test/scanuj D42
+→ over complete evidence E42
+→ publishni rovnaký D42 do immutable registry version
+→ release manifest referencuje D42
+→ deployni D42
 ```
 
-Promotion nemá artifact rebuildovať. Má publikovať alebo aliasovať rovnaký obsah.
+Production publish nesmie rebuildovať bytes. Job artifacts slúžia na pipeline transport; registry nesie durable release identity, support a rollback lifecycle.
 
-## 17. Artifact collision
+## 10. Retention je referenčný graph
 
-Parallel jobs môžu vytvoriť rovnaké názvy. Ochrany:
+Pred cleanupom zachovaj artifacts referencované:
 
-- per-shard directories,
-- unique artifact names,
-- platform suffix,
-- explicitný aggregation job,
-- manifest expected outputs,
-- failure pri duplicate alebo missing položke.
+- active deploymentom;
+- supported releaseom;
+- rollback windowom;
+- otvoreným incidentom;
+- release manifestom;
+- legal/compliance holdom;
+- aktívnym review alebo auditom.
 
-„Posledný download prepíše súbor“ nie je deterministic merge strategy.
+Retention podľa veku alebo latest-success refu nepozná všetky roots. Artifact môže byť starý, ale stále jediný dôveryhodný rollback candidate.
 
-## 18. Artifact attempt identity
+## 11. Cache key je compatibility a trust contract
 
-Retry joba môže vytvoriť nový output. Zachovaj:
-
-- job attempt,
-- first-attempt verdict,
-- digest každého pokusu,
-- policy, ktorý attempt je authoritative,
-- dôvod retry.
-
-Retry nesmie potichu nahradiť chybný report zeleným artifactom bez audit trailu.
-
-## 19. Cache purpose
-
-Cache je vhodná pre:
-
-- downloaded dependencies,
-- package-manager cache,
-- compiler incremental state,
-- precomputed intermediate dáta,
-- tool downloads,
-- objekty, ktoré možno overiť alebo znovu vytvoriť.
-
-Finálny release binary, test result alebo Terraform plan nie je cache.
-
-## 20. Cache key
-
-Key má reprezentovať compatibility-relevantné inputs:
-
-- OS a architecture,
-- runtime/compiler/toolchain version,
-- lockfile alebo dependency manifest,
-- build flags,
-- package source/config,
-- project/component,
-- trust namespace,
-- prípadne ref alebo protected status.
-
-Chýbajúci input vytvára stale alebo nekompatibilný restore.
-
-## 21. Content-derived keys
-
-Key odvodený z lockfile hash-u invaliduje dependencies pri jeho zmene. Stále môže chýbať:
-
-- base image digest,
-- compiler version,
-- package registry URL,
-- environment flag,
-- build-system config,
-- system library.
-
-Cache key je compatibility contract, nie iba optimalizačný názov.
-
-## 22. Fallback keys
-
-Fallback key zvyšuje hit rate, ale môže rozšíriť trust alebo compatibility scope.
-
-Príklad rizika:
+Atlas cache key zahŕňa:
 
 ```text
-feature-specific cache miss
-→ fallback na shared-main cache
-→ obsah pochádza z iného toolchainu alebo trust contextu
+project/component
+trust namespace
+OS + architecture
+runtime/compiler/toolchain
+base image alebo worker revision
+lockfile/dependency manifest hash
+build flags a package source
 ```
 
-Každý fallback musí byť bezpečný pre daný consumer a nesmie prepojiť untrusted writera s trusted readerom.
+Chýbajúci input umožní restore nekompatibilného state-u. Fallback key môže zvýšiť hit rate, ale nesmie rozšíriť writer trust alebo zamlčať toolchain mismatch.
 
-## 23. Cache policy
+`feature → main fallback` je bezpečný iba ak main cache je kompatibilná a feature job nemôže zapisovať do trusted namespace-u.
 
-Rozlišuj:
+## 12. Cache writer a reader majú odlišnú autoritu
 
-- `pull` — job iba obnovuje,
-- `push` — job publikuje,
-- `pull-push` — obnovuje a následne zapisuje.
+Bezpečný model:
 
-Bezpečný model často používa:
+```text
+trusted default-branch job
+→ validuje dependencies
+→ atomicky publikuje shared protected cache
 
-- trusted default-branch job ako shared writer,
-- feature jobs ako readers alebo oddelení writers,
-- untrusted fork bez write accessu do trusted namespace,
-- release build s clean alebo read-only verified cache.
+feature/MR jobs
+→ read-only alebo vlastný namespace
 
-## 24. Cache write timing
+fork jobs
+→ žiadny write do internal trusted cache
 
-Cache sa nemá publikovať z nevalidného alebo canceled jobu bez jasného dôvodu. Zápis po partial dependency install môže vytvoriť poškodený shared state.
+release build
+→ clean alebo verified read-only restore
+```
 
-Definuj:
+Cache write po partial install, canceled jobe alebo neoverenom outpute môže otráviť ďalšie builds. Write-back potrebuje temporary key, validation a atomic promotion.
 
-- podmienku write-back,
-- atomic publish alebo temporary key,
-- validation pred promotion keya,
-- concurrent-writer behavior,
-- cleanup partial uploadu.
+## 13. Restore nie je trust decision
 
-## 25. Protected a non-protected namespaces
+Po cache restore consumer overí podľa typu:
 
-Oddeľ cache podľa trustu:
+- package checksums/signatures;
+- manifest completeness;
+- compiler-state compatibility;
+- permissions a architecture;
+- expected source registry;
+- archive integrity.
 
-- protected a non-protected refs,
-- internal a fork pipelines,
-- project/group boundaries,
-- release a development pools,
-- architecture/toolchain.
+Musí bezpečne zvládnuť miss, eviction, partial archive, corruption, backend timeout a stale entry.
 
-Zjednotenie namespace kvôli hit rate môže vytvoriť cache-poisoning path.
+Cache backend outage nemá blokovať correctness, ak authoritative dependency source funguje.
 
-## 26. Distributed cache
+## 14. Worked failure: missing shard vytvoril false-green release gate
 
-Autoscaled a multi-runner pools používajú object storage alebo iný shared backend.
+Shard 6 zlyhal pri runner provisioning-u a report nevznikol. Aggregate job mal optional edge a čítal iba dostupné JUnit files.
 
-Riadiť treba:
+```text
+expected shards sa nikde nezaznamenali
+→ actual reports J1..J5,J7,J8 sa agregujú
+→ všetky prítomné tests sú green
+→ gate vyhodnotí PASS
+→ artifact D42 sa publikuje
+```
 
-- scoped credentials,
-- bucket/prefix isolation,
-- encryption,
-- lifecycle,
-- upload/download integrity,
-- consistency a concurrent writers,
-- size limits,
-- egress a latency,
-- outage behavior.
+### Príčina
 
-Cache backend outage nemá zablokovať correctness, ak je možné dependencies bezpečne získať z authoritative source.
+Actual inventory bolo zamieňané za expected inventory. Infrastructure failure jedného producenta sa stratila v artifact graph-e.
 
-## 27. Partial, stale a corrupt cache
+### Dôsledok
 
-Consumer musí zvládnuť:
+Release evidence nepokrývala jednu test partition, hoci UI ukazovalo zelený fan-in.
 
-- miss,
-- partial archive,
-- stale entries,
-- corrupt download,
-- eviction,
-- incompatible permissions,
-- backend timeout.
+### Trvalá náprava
 
-Po restore vykonaj primeranú validation, napríklad package checksum, manifest alebo compiler-state compatibility.
+```text
+expected evidence manifest E42
+→ každý shard publikuje status/report identity
+→ aggregate odmietne missing položku
+→ optional edge iba pri explicitnej applicability
+→ gate verdict INCOMPLETE pri producer failure
+```
 
-## 28. Cache poisoning
+## 15. Worked failure: fork MR otrávil cache release buildu
 
-Poisoning vzniká, keď writer uloží škodlivý alebo neplatný obsah pod key, ktorý neskôr dôveruje citlivejší job.
+Fork pipeline mala write access do cache keya odvodeného iba z lockfile hash-u. Útočný job vložil modifikovaný compiler helper.
 
-Ochrany:
+```text
+fork writer publikuje trusted-looking cache
+→ protected release build restore-ne rovnaký key
+→ helper sa spustí pred checksum kontrolou výsledku
+→ release artifact obsahuje payload
+→ source a lockfile sú nezmenené
+```
 
-- oddelené trust namespaces,
-- write restrictions,
-- immutable dependency checksums/signatures,
-- content-derived keys,
-- pinned package sources,
-- read-only cache pre release jobs,
-- periodic clean builds,
-- incidentné zneplatnenie namespace.
+### Príčina
 
-## 29. Clean-build verification
+Cache key pokrýval compatibility, ale nie trust namespace. Release build považoval restore za trusted input.
 
-Pravidelne spúšťaj pipeline bez cache alebo s novým namespace. Overuje:
+### Recovery
 
-- úplnosť dependency deklarácií,
-- reproducibility,
-- cache-independent correctness,
-- skryté workspace dependencies,
-- poškodený shared state.
+Atlas zastavil publication, invalidoval celý affected namespace, spustil clean builds a auditoval artifacts, registry pushes a deployments z compromise windowu.
 
-Cold build je kontrola cache modelu, nie iba performance benchmark.
+### Trvalá náprava
 
-## 30. Secret a privacy safety
+- fork/non-protected/protected namespaces;
+- untrusted readers bez shared write;
+- read-only cache pre release;
+- integrity overenie dependencies/tools;
+- periodic clean-room build comparison.
 
-Pred uploadom artifactu alebo cache skontroluj:
+## 16. Worked failure: cleanup odstránil rollback artifact
 
-- `.env` a secret files,
-- tokens a cloud profiles,
-- kubeconfig,
-- certificates,
-- Terraform state,
-- production data,
-- debug dump,
-- package auth files.
+Storage cleanup mazal job artifacts staršie než 30 dní. Produkcia však stále používala release `3.10.4` a jeho rollback package existoval iba v CI storage.
 
-Cache často má širší a menej viditeľný access než artifacts. Neukladaj do nej secrets.
+```text
+age-based cleanup
+→ artifact zmizne
+→ current release incident
+→ previous supported package nie je dostupný
+→ rollback RTO sa výrazne predĺži
+```
 
-## 31. Storage governance
+### Príčina
 
-Sleduj:
+Cleanup nemal deployment/support retention roots a release output nebol promotionovaný do durable registry.
 
-- artifact a cache storage podľa projektu,
-- priemernú veľkosť,
-- upload/download traffic,
-- retention effectiveness,
-- stale refs,
-- latest-success roots,
-- orphaned caches,
-- cache hit rate,
-- cleanup failures,
-- release artifacts zostávajúce iba v CI storage.
+### Náprava
 
-Optimalizácia storage nesmie odstrániť recovery evidence.
+Release manifest vytvára registry root, supported versions majú explicitný lifecycle a CI artifacts môžu expirovať až po potvrdenej durable publication.
 
-## 32. Incident pri cache poisoning-u
+## 17. Kauzálny diagnostický walkthrough
 
-Postup:
+Symptom: release artifact z cached buildu má iný digest než cold build nad rovnakým source SHA.
 
-1. zastav trusted consumers alebo vypni restore,
-2. identifikuj namespace, keys a writers,
-3. zneplatni alebo odstráň zasiahnuté entries,
-4. spusti clean builds,
-5. over artifacts vytvorené z kompromitovanej cache,
-6. rotuj credentials, ak mohli uniknúť,
-7. audituj registry pushes a deployments,
-8. oprav trust/write policy,
-9. pridaj integrity verification.
+### Krok 1 — stabilizuj oba subjects
 
-Vymazanie jednej cache položky nemusí stačiť, ak rovnaký writer ovplyvnil viac keys.
+```text
+source/candidate SHA
+resolved config digest
+producer job + attempts
+runner/toolchain/platform
+artifact manifests
+effective cache key, fallback a namespace
+```
 
-## 33. Diagnostický postup
+### Krok 2 — konkurenčné hypotézy
 
-Keď downstream job nemá správny output:
+```text
+H1: artifacts patria iným attempts alebo platformám
+H2: source/config/toolchain sa líši
+H3: cache key vynechal compatibility input
+H4: cache bola partial/corrupt
+H5: untrusted writer otrávil namespace
+H6: build je nondeterministic aj bez cache
+```
 
-1. identifikuj producer pipeline/job/attempt,
-2. over, či artifact vznikol a upload prebehol,
-3. over `needs`/`dependencies` a job inclusion,
-4. over retention a access,
-5. porovnaj subject, variant a digest,
-6. skontroluj collisions a missing shards,
-7. odlíš artifact od cache restore,
-8. pri cache spusti clean retry,
-9. over backend a key resolution,
-10. uchovaj evidence pred cleanupom.
+### Krok 3 — observation points
 
-## 34. Typické anti-patterny
+- manifest a attempt identity testujú H1;
+- source/config/runner inventories testujú H2;
+- key derivation a restored manifest testujú H3;
+- archive integrity/download logs testujú H4;
+- cache writer audit a trust scope testujú H5;
+- opakované clean builds testujú H6.
 
-### Release binary iba ako expirovateľný job artifact
+Atlas zistí, že fallback key neobsahoval compiler revision a bol zapisovateľný non-protected jobs. H3/H5 vysvetľujú rozdiel.
 
-Rollback a support závisia od krátkodobého pipeline storage.
+### Krok 4 — contain-ni output trust chain
 
-### Chýbajúci report = čistý report
+Release publication sa blokuje, cache restore pre trusted builds sa vypne a affected artifacts sa označia ako nedôveryhodné.
 
-Scanner alebo parser failure sa interpretuje ako nulový počet findings.
+### Krok 5 — obnov outcome
 
-### Všetky artifacts sa sťahujú všade
+D42 sa vytvorí clean buildom na pinned runneri, všetky tests/scans sa zopakujú nad rovnakým digestom a artifact sa promotionuje do registry.
 
-Dependency graph, cost aj exposure sú nejasné.
+### Krok 6 — vráť learning
 
-### Shared cache pre fork a release jobs
+Finding sa mení na versioned cache-key contract, writer policy, clean-build gate a artifact manifest s runner/toolchain provenance.
 
-Untrusted writer môže ovplyvniť trusted build.
+## 18. Diagnostický runbook
 
-### Cache obsahuje build output bez validácie
+1. Urči producer pipeline, job, attempt a artifact subject.
+2. Porovnaj expected a actual output/report inventory.
+3. Over upload status, access, retention a content digest.
+4. Trace-ni explicitný consumer edge a selection policy.
+5. Rozlíš job artifact, registry release output a cache restore.
+6. Pri cache urč key inputs, fallback, namespace a posledného writera.
+7. Validuj archive/content po restore a spusti cold comparison.
+8. Contain-ni publication alebo trusted consumers pri nejasnej integrite.
+9. Over podporované retention roots pred cleanupom.
+10. Zmeň finding na inventory, provenance, namespace alebo lifecycle control.
 
-Stale alebo partial output sa stáva implicitným source of truth.
+## 19. Referenčné pravidlá
 
-### Retry prepíše first-attempt evidence
+- Artifact patrí konkrétnemu execution subjectu.
+- Filename nie je immutable identity.
+- Script success bez output publication môže byť incomplete.
+- Expected inventory odlišuje complete evidence od actual-only agregácie.
+- Retry vytvára nový attempt a digest lineage.
+- Release output patrí do durable registry bez rebuildu.
+- Retention sa riadi references, nie iba vekom.
+- Cache je odstrániteľný performance state.
+- Cache key zahŕňa compatibility aj trust.
+- Untrusted writer nesmie ovplyvniť trusted cache consumera.
+- Restore potrebuje integrity/compatibility validation.
+- Cold build je correctness control.
 
-Flaky alebo infra failure zmizne z auditného obrazu.
+## 20. Časté omyly
 
-### Cleanup podľa názvu bez retention roots
+### „Artifact existuje, teda je správny“
 
-Odstráni sa artifact aktívneho releaseu alebo rollback candidate.
+Treba overiť producer subject, attempt, digest a completeness.
 
-## 35. Praktický rozhodovací rámec
+### „Chýbajúci report znamená žiadne findings“
 
-Pre každý ukladaný output odpovedz:
+Môže ísť o absent job, upload failure alebo incomplete shard.
 
-1. Je to artifact, report, release output alebo cache?
-2. Aký je jeho subject a producer identity?
-3. Ktorý consumer ho potrebuje?
-4. Ako sa overí completeness a integrity?
-5. Aký access a retention potrebuje?
-6. Má byť promotionovaný do registry?
-7. Môže obsahovať secrets alebo citlivé dáta?
-8. Ak ide o cache, aké inputs a trust namespace tvorí key?
-9. Kto smie cache zapisovať?
-10. Funguje pipeline po miss alebo clean build-e?
+### „Cache je interná, teda dôveryhodná“
 
-## 36. Kontrolný checklist
+Writer scope a shared namespace môžu vytvoriť poisoning path.
 
-- artifacts majú producer a subject identity;
-- report absence nie je pass;
-- DAG transfer je explicitný;
-- parallel outputs majú inventory a unique paths;
-- retry attempts zostávajú auditovateľné;
-- release outputs sú publikované do durable registry;
-- retention rešpektuje deploymenty a rollback window;
-- cache keys zahŕňajú compatibility inputs;
-- fallback keys neprekračujú trust boundary;
-- untrusted jobs nezapisujú trusted cache;
-- partial/stale cache sa validuje;
-- periodic clean build overuje correctness;
-- artifacts a cache neobsahujú secrets.
+### „Retry iba opraví infra chybu“
 
-## 37. Kontrolné otázky
+Môže vytvoriť nový output a zakryť first-attempt evidence.
 
-1. Aký je rozdiel medzi artifactom a cache?
-2. Čo tvorí artifact subject identity?
-3. Prečo chýbajúci report nie je nulový report?
-4. Ako sa overuje completeness shardovaných results?
-5. Prečo má byť artifact transfer explicitný?
-6. Kedy output patrí do registry namiesto job artifacts?
-7. Čo sú retention roots?
-8. Ktoré inputs patria do cache key?
-9. Aké riziko prinášajú fallback keys?
-10. Kto má smieť zapisovať shared cache?
-11. Ako vzniká cache poisoning?
-12. Čo dokazuje clean build bez cache?
+### „Staré artifacts možno vymazať“
 
-## Summary
+Aktívny release, rollback alebo audit ich môže stále referencovať.
 
-Artifact je výstup a evidence viazaná na konkrétny pipeline subject; cache je odstrániteľný performance state. Dôveryhodný GitLab workflow používa explicitný producer-consumer graph, completeness checks, digest/provenance, primeraný access a retention. Release artifacts sa promotionujú do durable registry bez rebuildu. Cache musí byť oddelená podľa compatibility a trustu, validovaná po restore a zapisovaná iba oprávnenými jobs. Pipeline musí zostať korektná aj bez cache.
+## 21. Zhrnutie
 
-## Glossary impact
+Dôveryhodný Atlas output lifecycle je:
 
-Relevantné pojmy: GitLab job artifact, report artifact, artifact subject, artifact provenance, artifact retention, retention root, `needs:artifacts`, GitLab cache, cache key, fallback key, cache policy, distributed cache, cache poisoning a clean build.
+```text
+identified producer subject
+→ explicitný expected output inventory
+→ bounded publication
+→ digest + provenance + completeness
+→ explicitný consumer binding
+→ registry promotion alebo reference-aware retention
 
-## Oficiálna dokumentácia
+cache:
+trust/compatibility key
+→ validated opportunistic restore
+→ controlled writer
+→ cold-build-verifiable correctness
+```
 
-- [Job artifacts](https://docs.gitlab.com/ci/jobs/job_artifacts/)
-- [Caching in GitLab CI/CD](https://docs.gitlab.com/ci/caching/)
-- [CI/CD YAML syntax](https://docs.gitlab.com/ci/yaml/)
+Artifact troubleshooting hľadá prvú stratenú identity alebo completeness boundary. Cache troubleshooting hľadá neúplný key, neprimeraného writera alebo chýbajúcu validation. Ani jedno sa nesmie skončiť vetou „súbor tam bol“.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
