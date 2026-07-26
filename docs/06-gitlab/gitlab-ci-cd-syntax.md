@@ -1,202 +1,159 @@
 # GitLab CI/CD syntax
 
-GitLab CI/CD pipeline sa typicky deklaruje v `.gitlab-ci.yml`, ale výsledný pipeline nie je priamym vykonaním jedného YAML súboru. GitLab najprv načíta a zlúči includes, vyhodnotí pipeline-creation policy, vytvorí job graph, priradí execution context a až potom odošle jobs runnerom.
+GitLab CI/CD pipeline nie je priame vykonanie jedného YAML súboru. GitLab najprv zostaví effective configuration, rozhodne, či pipeline vznikne, vyberie jobs, validuje dependency graph, priradí execution context a až potom odošle jobs runnerom.
 
 ```text
-source configuration
-→ include resolution
-→ merge/render
+pipeline event a repository context
+→ root configuration
+→ include/component resolution
+→ merge a inheritance semantics
 → workflow decision
-→ job selection
-→ DAG validation
+→ job-rule selection
+→ expected job inventory a DAG
 → runner scheduling
-→ job execution
-→ artifacts/reports/environments
+→ execution
+→ artifacts, reports, deployments a downstream state
 ```
 
-CI konfigurácia je privilegovaný program. Môže čítať secrets, publikovať artifacts, meniť registry a nasadzovať runtime. Preto potrebuje rovnakú disciplínu ako produkčný kód: versioning, review, testing, pinning, least privilege a audit resolved configuration.
+Nosný model je configuration compiler. Root `.gitlab-ci.yml` je iba jeden vstup. Dôveryhodnosť pipeline závisí od resolved configuration identity a od toho, či skutočný job graph zodpovedá expected evidence a trust modelu.
 
-Konkrétne keywords a semantics sa môžu meniť podľa GitLab verzie. Pri implementácii over aktuálnu CI/CD YAML reference konkrétnej inštancie.
+Konkrétne keywords a semantics sa menia podľa GitLab verzie. Pri implementácii treba overiť YAML reference a CI Lint/simulation správanie konkrétnej inštancie.
 
-## 1. Mental model: configuration compiler
+## 1. Priebežný scenár: Atlas Payments pipeline
 
-GitLab možno chápať ako compiler a orchestrátor:
+Atlas project `payments/api` používa:
+
+```yaml
+include:
+  - component: gitlab.example.com/atlas/platform/verify@2.4.1
+  - project: atlas/platform/deploy
+    ref: 3.2.0
+    file: /templates/deploy.yml
+```
+
+Pipeline má vytvoriť:
 
 ```text
-input:
-- root CI file
-- included files/components
-- repository/ref context
-- pipeline source
-- pre-pipeline a pipeline variables
-- project/group policy
+MR context
+→ lint + unit + contract + security
+→ merged-result evidence
 
-compile:
-- parse
-- include resolution
-- configuration merge
-- workflow rules
-- job rules
-- DAG validation
+default branch
+→ build immutable artifact
+→ verify artifact
+→ publish
+→ deploy staging
 
-output:
-- immutable pipeline instance
-- resolved job definitions
-- dependencies
-- permissions/context
+tag/release context
+→ promotion/deploy production podľa policy
 ```
 
-Pipeline používa configuration snapshot vyriešený pri vytvorení runu. Neskoršia zmena externého template nemení už vytvorený pipeline, ale môže zmeniť nový retry alebo ďalší run podľa konkrétneho mechanizmu. Preto treba ukladať resolved configuration identity.
+Expected job inventory pre MR:
 
-## 2. Configuration identity
+```text
+lint
+unit[1..4]
+contract
+security_sast
+security_dependency
+aggregate_evidence
+```
 
-Na reprodukciu pipeline nestačí source commit aplikácie. Potrebuješ poznať:
+Tri incidenty ukážu, prečo YAML syntax nestačí:
 
-- root `.gitlab-ci.yml` revision,
-- všetky included project/ref/file identities,
-- CI/CD component versions,
-- remote include content alebo checksum podľa možností,
-- project/group variables a policy version,
-- pipeline source a ref context,
-- runner/executor image versions,
-- generated child configuration,
-- inputs a manual variables.
+1. push s otvoreným MR vytvorí branch aj MR pipeline;
+2. `rules:changes` vynechá security job pri zmene shared include-u a `optional needs` dovolí zelený gate;
+3. floating include zmení deployment default na retry/interruptible bez diffu v consumer projekte.
 
-Praktický record:
+## 2. Configuration subject
+
+Reprodukcia pipeline potrebuje viac než application source SHA:
+
+```text
+pipeline source a ref context
+root CI revision
+resolved include/component identities
+resolved configuration digest
+policy a variable context
+runner image/executor identity
+generated child config digest
+manual/API inputs
+```
+
+Praktický subject:
 
 ```text
 pipeline ID
-+ source SHA
++ source/candidate SHA
 + pipeline source
 + resolved config digest
-+ include/component identities
-+ policy version
-+ runner image/executor identity
++ include/component versions
++ expected job inventory
++ runner/executor class
 ```
 
-Floating include z `main` znamená, že pipeline behavior sa môže zmeniť bez diffu v consumer projekte.
+Mutable include alebo image môže zmeniť behavior bez local repository diffu.
 
-## 3. Pipeline configuration lifecycle
+## 3. Compile-time a runtime sú rozdielne fázy
 
-Typický lifecycle:
+### Pre-pipeline a pipeline creation
 
-1. GitLab určí pipeline event a ref context.
-2. Načíta root konfiguráciu.
-3. Vyhodnotí a načíta applicable includes.
-4. Zlúči configuration fragments podľa GitLab semantics.
-5. Validuje top-level syntax a references.
-6. Vyhodnotí `workflow:rules` a rozhodne, či pipeline vznikne.
-7. Vyhodnotí job-level `rules`.
-8. Vytvorí job inventory a DAG.
-9. Overí `needs`, stages a ďalšie references.
-10. Uloží pipeline snapshot.
-11. Eligible jobs čakajú na runner scheduling.
-12. Jobs vytvoria artifacts, reports, caches, deployments alebo downstream pipelines.
+GitLab rozhoduje:
 
-Chyba môže vzniknúť v každej fáze. „YAML je validný“ potvrdzuje iba prvú časť lifecycle.
+- ktoré includes sú applicable;
+- či pipeline vznikne cez `workflow:rules`;
+- ktoré jobs vzniknú cez job `rules`;
+- aký DAG je validný.
 
-## 4. Top-level a job-level konfigurácia
+### Job runtime
 
-Top-level keywords môžu definovať:
+Runner vykoná script a vytvorí outputs.
 
-- `workflow`,
-- `stages`,
-- `default`,
-- globálne `variables`,
-- `include`,
-- ďalšie platformové nastavenia podľa verzie.
+Runtime-generated dotenv, file alebo script output nemôže spätne rozhodnúť, či pôvodný job mal vzniknúť. Ak selection potrebuje runtime discovery, použi explicitný plan artifact a generated child pipeline.
 
-Job je top-level mapping, ktorý typicky obsahuje:
-
-- `stage`,
-- `script` alebo trigger semantics,
-- `rules`,
-- `needs`,
-- `image` a `services`,
-- variables,
-- artifacts, reports a cache,
-- environment,
-- resource serialization,
-- timeout, retry a interruptibility,
-- tags a runner požiadavky,
-- identity alebo token-related options podľa feature setu.
-
-Názov jobu je contract. Používa sa v DAG references, API, UI, artifact transfere a downstream automation. Premenovanie môže byť breaking zmena aj bez zmeny job scriptu.
-
-## 5. Minimálna pipeline
-
-```yaml
-stages:
-  - verify
-  - build
-
-lint:
-  stage: verify
-  image: python:3.13-slim
-  script:
-    - pip install --require-hashes -r requirements-lint.txt
-    - ruff check .
-
-build:
-  stage: build
-  script:
-    - ./scripts/build.sh
-  artifacts:
-    paths:
-      - dist/
-```
-
-Bez explicitného `needs` jobs v rovnakej stage môžu bežať paralelne a ďalšia stage štandardne čaká na predchádzajúcu stage. Toto je jednoduchý barrier model, nie optimalizovaný dependency graph.
-
-## 6. `workflow:rules`: vznik pipeline
-
-`workflow:rules` rozhoduje, či pipeline instance vôbec vznikne.
+## 4. `workflow:rules` definuje pipeline creation policy
 
 ```yaml
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
     - when: never
 ```
 
-Použi explicitný allowlist pipeline contexts. Typické sources môžu zahŕňať push, merge request, schedule, web/manual, API, trigger, parent pipeline alebo ďalšie platformové contexts.
+Creation policy odpovedá:
 
-Bezpečný návrh odpovedá:
+- ktoré events podporujeme;
+- aký účel má branch, MR, default-branch, tag, schedule a API pipeline;
+- ktoré contexts smú publikovať alebo deployovať;
+- ako sa zabráni duplicates.
 
-- ktoré events majú vytvoriť pipeline,
-- či branch a MR pipeline majú odlišný účel,
-- či tag pipeline môže publikovať release,
-- ktoré manual/API inputs sú autorizované,
-- ako sa zabránia duplicate runs.
+Truth table je lepšia než čítanie izolovaných `if` výrazov:
 
-## 7. Duplicate pipelines
-
-Duplicate pipeline vznikne, keď jeden push spĺňa branch aj merge-request creation policy.
-
-Riziká:
-
-- dvojnásobné CI náklady,
-- rozdielne verdicts nad rovnakou zmenou,
-- dva artifacty s nejasnou autoritou,
-- duplicitné external side effects,
-- nejasné required status checks.
-
-Príčina býva často kombinácia broad `workflow` a job rules. Vytvor truth table:
-
-| Pipeline source | Branch | Open MR | Má pipeline vzniknúť? | Účel |
+| Source | Ref | Open MR | Pipeline? | Účel |
 |---|---|---:|---:|---|
-| push feature branch | áno | nie | podľa policy | branch feedback |
-| push feature branch | áno | áno | zvyčajne MR pipeline | integration review |
-| push default branch | áno | N/A | áno | post-merge/build |
-| tag | tag | N/A | podľa release policy | publication/release |
-| schedule | ref | N/A | explicitne | periodic checks |
+| push feature | branch | nie | podľa policy | skorý feedback |
+| push feature | branch | áno | MR pipeline | review/integration |
+| push main | protected branch | N/A | áno | build/publish |
+| tag | protected tag | N/A | podľa release policy | release |
+| schedule | explicit ref | N/A | explicitne | periodic checks |
 
-Testuj rules proti všetkým podporovaným sources, nie iba jednému príkladu.
+## 5. Duplicate pipeline je policy ambiguity
 
-## 8. Job-level `rules`
+Broad workflow a job rules môžu pri jednom pushi vytvoriť branch aj MR pipeline.
 
-Job `rules` sa vyhodnocujú zhora nadol; prvý matching rule určí inclusion a relevantné atribúty.
+Dôsledky:
+
+- dvojnásobný cost;
+- rozdielne verdicts;
+- dva artifacts bez jasnej autority;
+- duplicitné side effects;
+- nejasný required status.
+
+Náprava nie je náhodne pridať `when: never` do jednotlivých jobs. Najprv sa centralizuje pipeline-creation truth table a až potom job applicability.
+
+## 6. Job `rules` a first-match semantics
 
 ```yaml
 deploy_production:
@@ -204,723 +161,449 @@ deploy_production:
   environment:
     name: production
   rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
       when: manual
     - when: never
 ```
 
-Rule môže podľa syntaxe používať podmienky ako `if`, `changes`, `exists`, `when`, `allow_failure`, variables alebo job-specific overrides.
+Job rules sa vyhodnocujú v poradí. Prvý match určí inclusion a relevantné atribúty.
 
-Kritické pravidlo: pipeline-creation evaluation nemôže používať output, ktorý vznikne až počas job execution. Ak rozhodnutie potrebuje runtime discovery, vytvor child pipeline alebo explicitný plan artifact namiesto predstierania, že job output existuje pri compile time.
-
-## 9. Rule truth tables
-
-Komplexné rules dokumentuj tabuľkou:
-
-| Source | Ref type | Changed paths | Protected? | Job |
-|---|---|---|---:|---|
-| MR | branch | application | nie | verify |
-| MR | branch | deploy manifests | nie | verify + policy check |
-| push | default | ľubovoľné | áno | build/publish |
-| tag | protected tag | release | áno | release |
-| schedule | default | N/A | áno | full regression |
-
-Takáto tabuľka odhalí:
-
-- chýbajúci fallback,
-- job dostupný v nebezpečnom context-e,
-- duplicate inclusion,
-- manual deploy v unprotected ref-e,
-- required job, ktorý sa pri určitom source nevytvorí.
-
-## 10. `rules:changes` a selection risk
-
-Path-based selection môže zrýchliť monorepo pipeline:
-
-```yaml
-service_a_tests:
-  rules:
-    - changes:
-        - services/service-a/**/*
-        - shared/**/*
-        - ci/images/python/**/*
-  script:
-    - ./test-service-a.sh
-```
-
-Riziká:
-
-- neúplný dependency graph,
-- shared library alebo build tool mimo patternu,
-- zmena included template bez source path zmeny,
-- generated source,
-- base-comparison rozdiel medzi pipeline sources,
-- rename alebo delete edge case,
-- false skip pri zmene runtime image.
-
-`rules:changes` je selection optimization, nie dôkaz nezávislosti. Potrebuje periodický full run a monitoring selection misses.
-
-## 11. `rules:exists`
-
-`exists` môže zapnúť job podľa repository layoutu, napríklad iba pre projekt s Dockerfile alebo Terraform konfiguráciou.
-
-Riziká:
-
-- file existuje, ale nie je authoritative,
-- layout sa zmení bez aktualizácie rules,
-- include project a consumer project majú odlišný evaluation context,
-- malicious branch pridá marker file a aktivuje privileged job.
-
-Privileged capability neautorizuj iba existenciou súboru v nedôveryhodnom branchi.
-
-## 12. Stages verzus DAG
-
-Stages vytvárajú globálne barriers:
+Pre každý critical job dokumentuj:
 
 ```text
-stage verify dokončí všetky jobs
-→ stage build
-→ stage deploy
+pipeline source
+ref/protected context
+changed paths alebo repository state
+required variables dostupné v tejto fáze
+first matching rule
+resulting when/allow_failure/needs/variables
 ```
 
-`needs` definuje explicitný DAG:
+## 7. `changes` a `exists` sú selection heuristiky
 
-```text
-lint ───────────────┐
-build_api → api_test ├→ package/release gate
-build_ui  → ui_test ─┘
-```
+`rules:changes` môže zrýchliť monorepo pipeline, ale path patterns nie sú dependency graph.
 
-DAG skracuje critical path, ale vyžaduje presný model dependencies.
+False skip môže vzniknúť pri:
 
-Každá edge môže reprezentovať:
+- shared library;
+- build image alebo toolchain zmene;
+- included template zmene;
+- generated source;
+- rename/delete;
+- odlišnom comparison base podľa pipeline source-u.
 
-- control dependency,
-- artifact/data dependency,
-- evidence dependency,
-- policy dependency.
+`rules:exists` dokazuje existenciu súboru, nie authorization. Untrusted branch môže pridať marker file a aktivovať job, preto privileged capability nesmie závisieť iba od `exists`.
 
-Nesprávny DAG môže spustiť publication pred dokončením security reportu alebo deployment pred agregáciou všetkých shardov.
+Selection policy potrebuje konzervatívny fallback a periodický full run.
 
-## 13. `needs`
+## 8. Resolved configuration je review subject
 
-Príklad:
-
-```yaml
-build_api:
-  stage: build
-  script: ./build-api.sh
-  artifacts:
-    paths:
-      - dist/api/
-
-api_tests:
-  stage: verify
-  needs:
-    - job: build_api
-      artifacts: true
-  script: ./test-api.sh dist/api/
-```
-
-Kontroluj:
-
-- upstream job sa vždy vytvorí,
-- optional dependency je skutočne optional,
-- artifact identity je jednoznačná,
-- parallel jobs neprepisujú rovnaký path/name,
-- downstream job vie rozpoznať chýbajúci artifact,
-- failure propagation zodpovedá gate policy.
-
-## 14. Optional `needs` hazard
-
-Ak upstream job podmienene nevznikne, pevný `needs` môže spôsobiť pipeline-creation error. Optional dependency môže creation umožniť, ale zároveň môže skryť chýbajúcu povinnú evidence.
-
-Pre každú optional edge definuj:
-
-```text
-prečo upstream nemusí existovať
-+ ako downstream zistí tento stav
-+ či môže bezpečne pokračovať
-+ aký auditný signal ostane
-```
-
-`optional` nemá byť univerzálna oprava nesúladných rules.
-
-## 15. Artifact transfer
-
-Artifact flow má byť explicitný:
-
-```text
-build job
-→ immutable candidate artifact
-→ verification jobs
-→ aggregation/gate
-→ publication/promotion
-```
-
-Rozlišuj:
-
-- job artifact,
-- report artifact,
-- cache,
-- published release/package/container artifact.
-
-`needs:artifacts` viaže DAG a transfer. Starší `dependencies` model obmedzuje downloads z predchádzajúcich stages. Nekombinuj oba modely bez presného dôvodu.
-
-Consumer má overiť checksum, manifest alebo inú identity, ak artifact vstupuje do release rozhodnutia.
-
-## 16. `default`
-
-`default` znižuje duplicitu:
-
-```yaml
-default:
-  image: alpine:3.22
-  interruptible: true
-  retry:
-    max: 1
-    when:
-      - runner_system_failure
-```
-
-Defaults sú súčasťou effective job behavioru. Môžu nebezpečne zmeniť privileged job:
-
-- deployment sa stane `interruptible`,
-- retry zopakuje non-idempotentnú mutation,
-- všeobecný image nemá potrebnú trust/provenance,
-- shared `before_script` stiahne mutable code.
-
-Citlivé jobs majú explicitne override-nuť kritické vlastnosti a review má používať resolved configuration.
-
-## 17. Runtime images a services
-
-```yaml
-integration_tests:
-  image: python:3.13-slim
-  services:
-    - name: postgres:17
-      alias: db
-  script:
-    - pytest -m integration
-```
-
-Image a service tag je dependency. Pre dôveryhodný workflow:
-
-- používaj kontrolované versions alebo digesty,
-- dokumentuj architecture/platform variants,
-- minimalizuj privileged mode,
-- over image provenance a vulnerability policy,
-- neukladaj secrets do image layers,
-- definuj readiness namiesto fixného sleepu.
-
-Mutable image môže zmeniť pipeline behavior bez repository diffu.
-
-## 18. Hidden jobs a `extends`
-
-Hidden job sa priamo nespúšťa a môže slúžiť ako template:
-
-```yaml
-.python_test:
-  image: python:3.13-slim
-  before_script:
-    - pip install --require-hashes -r requirements-dev.txt
-
-unit_tests:
-  extends: .python_test
-  script:
-    - pytest tests/unit
-```
-
-`extends` používa GitLab merge semantics, nie klasickú objektovú inheritance. Arrays, mappings a null/override behavior môžu byť neintuitívne.
-
-Ochrany:
-
-- obmedz depth inheritance,
-- dokumentuj contract template-u,
-- používaj resolved-config preview,
-- testuj override edge cases,
-- neukrývaj secrets alebo permissions v hlbokých parents.
-
-## 19. YAML anchors a `!reference`
-
-YAML anchors redukujú lokálnu syntaktickú duplicitu. GitLab-specific references môžu prenášať vybrané fragments.
-
-Nie sú náhradou versionovaného reusable componentu. Pri nadmernom skladaní vzniká:
-
-- nečitateľný effective job,
-- nejasná merge precedence,
-- accidental removal array hodnoty,
-- široký blast radius lokálnej zmeny,
-- nemožnosť používať a versionovať contract naprieč projektmi.
-
-## 20. `include` ako supply-chain dependency
-
-Includes môžu byť local, project, remote, template alebo component podľa GitLab capabilities.
-
-```yaml
-include:
-  - local: /ci/test.yml
-  - project: platform/ci-components
-    ref: v2.4.1
-    file: /components/security.yml
-```
-
-Každý include môže pridať jobs, scripts, variables, images, permissions a deployment behavior. Posudzuj ho ako executable dependency.
-
-Pre include definuj:
-
-- ownera a source trust,
-- immutable alebo controlled version,
-- compatibility policy,
-- update automation a review,
-- availability/fetch failure behavior,
-- audit resolved contentu,
-- deprecation a rollback.
-
-`ref: main` je floating dependency s organizačným blast radiusom.
-
-## 21. Include merge a precedence
-
-Keď root a included configuration definujú rovnaké names alebo keys, výsledok závisí od GitLab merge semantics a poradia.
-
-Riziká:
-
-- consumer neúmyselne prepíše security job,
-- include zmení defaults všetkým jobs,
-- lokálny job s rovnakým názvom nahradí časť template contractu,
-- variables majú inú precedence než author očakáva,
-- viac includes definuje konfliktujúce fragments.
-
-Pre citlivé components testuj:
+Includes, hidden jobs, `extends`, defaults a overrides vytvoria effective job, ktorý nemusí byť zrejmý z root YAML.
 
 ```text
 base component
-+ supported consumer overrides
-+ forbidden overrides
-→ expected resolved job
++ include merge
++ hidden parent jobs
++ default
++ consumer overrides
++ rule-specific overrides
+→ resolved job
 ```
 
-Policy má kontrolovať resolved graph, nie iba root YAML.
+Review critical jobs nad resolved configuration kontroluje:
 
-## 22. CI/CD components
+- final script a image;
+- variables a permissions;
+- retry, interruptibility a timeout;
+- artifacts a reports;
+- environment a resource group;
+- runner tags;
+- dependencies.
 
-Component je versionovaný reusable contract. Mal by definovať:
+## 9. Includes a components sú executable supply-chain dependencies
 
-- typed alebo dokumentované inputs,
-- jobs a output artifacts/reports,
-- required permissions a variables,
-- runner/executor požiadavky,
-- failure semantics,
-- supported GitLab versions/context,
-- compatibility a deprecation policy,
-- fixture projects a test suite,
-- release notes.
+Include môže pridať alebo zmeniť:
 
-Consumer musí vedieť, ktorú component version použil. Central component release rolloutuj cez canary consumers a usage telemetry, nie okamžitým floating update-om.
+- jobs a scripts;
+- defaults;
+- variables;
+- images/services;
+- publication/deployment behavior;
+- trust boundaries.
 
-## 23. Variables a evaluation phases
+Pre každý include/component definuj:
 
-GitLab variables existujú v rôznych phases a scopes. Nie každá je dostupná pri include, workflow, job-rule a runtime evaluation.
+```text
+owner a source trust
+immutable version alebo controlled release line
+input/output contract
+required permissions a variables
+GitLab compatibility
+fixture tests
+update a rollback policy
+resolved-content audit
+```
+
+`ref: main` je floating dependency. Consumer behavior sa môže zmeniť bez lokálneho diffu.
+
+## 10. Stages a `needs` DAG
+
+Stages vytvárajú barriers:
+
+```text
+verify complete
+→ build
+→ deploy
+```
+
+`needs` vytvára explicitný graph:
+
+```text
+build_api → unit shards ─┐
+contract ────────────────┼→ aggregate_evidence → publish
+security ────────────────┘
+```
+
+Každá edge môže byť:
+
+- control dependency;
+- artifact/data dependency;
+- evidence dependency;
+- policy dependency.
+
+Optimalizácia critical pathu nesmie odstrániť required evidence ordering.
+
+## 11. Expected job inventory a optional dependency
+
+Ak upstream job podmienene nevznikne, fixed `needs` môže spôsobiť creation error. `optional: true` môže pipeline vytvoriť, ale nesmie skryť required evidence.
+
+Pre optional edge definuj:
+
+```text
+prečo upstream nemusí existovať
+→ aký supported context ho vynecháva
+→ ako downstream rozpozná absent/not-applicable
+→ či verdict môže pokračovať
+→ aký auditný signal ostane
+```
+
+Fan-in gate porovná actual results s expected inventory. Zelená agregácia bez očakávaného security jobu je incomplete, nie pass.
+
+## 12. Artifact a evidence flow
+
+```text
+build immutable candidate
+→ verification jobs používajú rovnaký digest
+→ reports/shards sa agregujú
+→ gate overí completeness
+→ publish/promote bez rebuildu
+```
 
 Rozlišuj:
 
-- pre-pipeline context,
-- pipeline-creation context,
-- job-only/runtime context.
+- job artifact;
+- report artifact;
+- cache;
+- published package/container/release artifact.
 
-Návrh rules musí používať iba variables dostupné v danej fáze. Runtime-generated dotenv alebo script output nemôže spätne rozhodnúť, či pôvodný job mal vzniknúť.
+Consumer overuje manifest alebo digest. Parallel shards používajú unique names a identity.
 
-Predefined variables ako project path, commit SHA, pipeline source, job ID alebo environment metadata interpretuj podľa konkrétneho pipeline source-u.
+## 13. Defaults, inheritance a mutation semantics
 
-## 24. Variable precedence a effective value
+Shared `default` môže nebezpečne zmeniť privileged job:
 
-Rovnaký variable key môže byť definovaný na viacerých úrovniach. Effective value závisí od GitLab precedence rules, scope-u, protected statusu a job override-u.
+- deployment sa stane `interruptible`;
+- retry zopakuje non-idempotentnú mutation;
+- generic image zmení trust/provenance;
+- inherited `before_script` stiahne mutable code.
 
-Audituj:
+Sensitive jobs explicitne override-nu kritické vlastnosti.
 
-```text
-variable key
-→ všetky definitions
-→ level/source
-→ environment scope
-→ protected visibility
-→ pipeline/ref context
-→ job override
-→ effective runtime value
-```
+`extends` používa GitLab merge semantics, nie klasickú objektovú inheritance. Obmedz depth a testuj final resolved job.
 
-Nejasná precedence môže spôsobiť deployment do nesprávneho accountu alebo použitie production endpointu v review app.
+## 14. Retry, interruption a cleanup
 
-## 25. `before_script`, `script` a `after_script`
+Retry je vhodný pre klasifikovaný transient failure. Nie pre:
 
-`before_script` pripravuje runtime, `script` vykonáva hlavný contract a `after_script` môže zbierať diagnostiku alebo cleanup podľa platformových semantics.
+- deterministic test failure;
+- security finding;
+- non-idempotent deployment;
+- migration s unknown partial outcome.
 
-Cleanup kritického external resource nestavaj iba na best-effort `after_script`. Job môže byť hard-killed, runner stratený alebo token expirovaný.
+`interruptible` je vhodný pre superseded read-only jobs. Mutation job potrebuje explicitný cancellation, reconciliation a resume contract.
 
-Použi:
+Cleanup critical external resource nestavaj iba na best-effort `after_script`. Použi idempotentný cleanup job, TTL controller a orphan reconciliation.
 
-- idempotentný explicitný cleanup job,
-- `when: always` podľa potreby,
-- TTL/lifecycle controller,
-- resource owner tags,
-- periodický orphan cleanup,
-- audit partial failures.
+## 15. Child a generated pipelines
 
-## 26. Retry
+Generated config je compiler output.
 
-Retry je vhodný pre klasifikovaný transient failure, napríklad runner-system alebo transportný problém.
+Contract obsahuje:
 
-Nevhodný retry:
-
-- deterministic test failure,
-- compile error,
-- security finding,
-- non-idempotentný deployment,
-- migration po neznámom partial completion.
-
-Každý retry má zachovať first-attempt evidence a attempt identity. Zelený druhý pokus nesmie vymazať flaky alebo infra signal.
-
-## 27. `allow_failure`
-
-`allow_failure` mení gate semantics. Použi ho iba s explicitným účelom:
-
-- experimentálny alebo advisory check,
-- nepodporovaná optional matrix kombinácia,
-- nový analyzer počas kalibrácie.
-
-Potrebuje:
-
-- ownera,
-- viditeľný warning/finding,
-- maturity alebo removal plan,
-- oddelenie od required evidence,
-- monitoring dlhodobých failures.
-
-Permanentný security job s `allow_failure` bez review lifecycle je dekorácia.
-
-## 28. Timeout a interruptibility
-
-Definuj viac vrstiev:
-
-- queue timeout podľa platformy,
-- job timeout,
-- command/dependency timeout,
-- graceful shutdown,
-- cleanup timeout,
-- external operation deadline.
-
-`interruptible` je bezpečný pre superseded read-only jobs, keď cancellation nezanechá external state.
-
-Nie je automaticky bezpečný pre:
-
-- deployment,
-- database migration,
-- artifact publication,
-- package signing,
-- destructive cleanup.
-
-Mutation job potrebuje explicitnú cancellation a resume semantics.
-
-## 29. Resource serialization
-
-Jobs mutujúce rovnaký environment alebo shared resource koordinuj cez `resource_group` alebo ekvivalentný lock model.
-
-```yaml
-deploy_production:
-  resource_group: production
-  script:
-    - ./deploy.sh
-```
-
-Serialization rieši súbeh GitLab jobs, ale nie:
-
-- external actors mimo GitLabu,
-- idempotency,
-- stale/outdated deployment,
-- lock recovery,
-- partial mutation.
-
-Deployment workflow má po získaní locku znovu overiť, že candidate je stále eligible.
-
-## 30. Parallel a matrix jobs
-
-Parallelization môže vytvoriť viac jobs alebo shards. Každý shard potrebuje:
-
-- jednoznačnú identity,
-- expected inventory,
-- unique artifact/report names,
-- deterministický alebo auditovateľný assignment,
-- aggregation completeness,
-- retry attempt visibility.
-
-Fan-in job musí zlyhať alebo vrátiť incomplete, ak shard nevznikol, bol canceled alebo nepublikoval report.
-
-## 31. Child pipelines
-
-Parent môže spustiť child pipeline s static alebo generated configuration.
-
-Contract musí definovať:
-
-- input identity,
-- configuration artifact a digest,
-- parent-child status propagation,
-- artifact/report transfer,
-- token a permission scope,
-- cancellation behavior,
-- retry a idempotency,
-- audit väzbu.
+- immutable input identity;
+- generator version;
+- generated config digest;
+- schema/policy validation;
+- job-count a size limits;
+- expected component inventory;
+- parent-child status propagation;
+- artifacts/reports transfer;
+- token scope a cancellation semantics.
 
 Parent, ktorý skončí zeleno pred required child pipeline, vytvára false success.
 
-## 32. Dynamic pipeline generation
+## 16. Runner scheduling je súčasť effective security contextu
 
-Generator je compiler. Musí byť:
+Eligible runner závisí od:
 
-- deterministic pre rovnaké vstupy,
-- chránený pred injection cez filenames alebo metadata,
-- obmedzený size/job-count limits,
-- schema a policy validovaný,
-- versionovaný a testovaný,
-- schopný publikovať generated config ako evidence,
-- fail-closed pri nekompletnom graph-e.
+```text
+project/group/instance runner scope
+protected runner status
+tags a untagged policy
+executor isolation
+host state a privileged capabilities
+concurrency/resource limits
+```
 
-Generated graph má mať expected inventory, aby chýbajúci component pipeline neostal neviditeľný.
+CI syntax môže neúmyselne presunúť privileged job na menej dôveryhodný runner. Runner identity patrí do pipeline provenance.
 
-## 33. Multi-project pipeline
+## 17. Worked failure: duplicate branch a MR pipelines
 
-Cross-project trigger potrebuje:
+Push do branchu s otvoreným MR spĺňal broad branch rule aj MR rule.
 
-- explicitný producer/consumer contract,
-- immutable input identity,
-- scoped authentication,
-- branch/ref allowlist,
-- cycle prevention,
-- status propagation,
-- environment/release traceability.
+```text
+push event
+→ branch pipeline vytvorí artifact B1
+→ MR pipeline vytvorí artifact M1
+→ oba spustia integration side effect
+→ status checks ukazujú rozdielne jobs
+```
 
-Trigger token s veľkým scope-om a user-supplied target project/ref je capability-escalation riziko.
+### Príčina
 
-## 34. Runner scheduling context
+Pipeline creation policy bola rozdelená medzi job rules bez jednej workflow truth table.
 
-Job definition môže obsahovať tags alebo ďalšie požiadavky, ktoré určia eligible runners. Effective execution trust závisí od:
+### Náprava
 
-- project/group/instance runner scope,
-- protected-runner settings,
-- tags a whether untagged jobs sú povolené,
-- executor isolation,
-- runner host state,
-- concurrency a resource limits.
+- explicitný `workflow:rules` allowlist;
+- MR pipeline ako autoritatívny review context pri open MR;
+- default-branch build oddelený od branch feedbacku;
+- side-effect jobs iba v trusted context-e;
+- test creation matrixu v CI Lint/simulation.
 
-CI syntax môže neúmyselne presunúť job na menej dôveryhodný runner. Runner selection je súčasť security reviewu.
+## 18. Worked failure: missing security job vytvoril false green
 
-## 35. Security boundaries
+Security component sa mal spustiť pri zmene source alebo shared CI image. Consumer `rules:changes` neobsahoval path `ci/images/base/**`.
 
-Chráň:
+```text
+base image sa zmení
+→ security job nevznikne
+→ aggregate job má optional needs
+→ fan-in spracuje iba existujúce reports
+→ pipeline pass
+→ vulnerable image sa publikuje
+```
 
-- `.gitlab-ci.yml`,
-- include/component repositories,
-- generated pipeline scripts,
-- runner tags a privileged modes,
-- protected variables a job tokens,
-- registry publication,
-- environment declarations,
-- deployment scripts a resource groups.
+### Príčina
 
-Untrusted fork/MR pipeline nemá automaticky dostať:
+Selection optimization bola považovaná za dôkaz applicability a gate nemal expected job inventory.
 
-- protected secrets,
-- privileged persistent runner,
-- package/registry write token,
-- production cloud identity,
-- parent-project write capability.
+### Trvalá náprava
 
-Trusted deploy workflow má používať artifact vytvorený a overený v predchádzajúcej boundary, nie znovu spúšťať arbitrary source script s production credentials.
+```text
+conservative dependency patterns
+→ explicitný expected security inventory
+→ absent/not-applicable report
+→ optional edge iba pre skutočne optional context
+→ periodic full pipeline
+→ selection-miss regression fixture
+```
 
-## 36. CI Lint a resolved configuration
+## 19. Worked failure: floating include zmenil deploy behavior
 
-Validation má viac vrstiev:
+Consumer pinoval application SHA, ale deployment include používal `ref: main`. Platform tím pridal global default:
 
-1. YAML parse.
-2. GitLab schema/keyword validation.
-3. Include resolution.
-4. Resolved configuration inspection.
-5. Workflow/job-rule truth-table tests.
-6. DAG a job inventory validation.
-7. Permission/runner/environment policy checks.
-8. Component fixture pipeline.
-9. Sandbox integration run.
+```yaml
+default:
+  interruptible: true
+  retry: 1
+```
 
-Resolved config je dôležitejšia než jednotlivé fragments, pretože ukazuje effective jobs, defaults, scripts a dependencies.
+Nový production job zdedil retry a interruption bez diffu v consumer repository.
 
-## 37. Pipeline verdict a incomplete states
+### Dôsledok
 
-Rozlišuj:
+Canceled job zanechal partial rollout; retry začal ďalšiu mutation s nejasným current state-om.
 
-- configuration invalid,
-- pipeline not created by policy,
-- pipeline created with expected jobs,
-- expected job missing,
-- job failed,
-- job infrastructure error,
-- child/downstream incomplete,
-- reports/artifacts incomplete,
-- pipeline passed.
+### Náprava
 
-`Pipeline not created` môže byť správny výsledok pre nepodporovaný event alebo závažná policy chyba pre release tag. Kontext musí byť explicitný.
+- immutable component version;
+- sensitive-job explicit overrides;
+- resolved-config digest v release recorde;
+- provider compatibility release a canary consumers;
+- mutation workflow s reconciliation namiesto generic retry.
+
+## 20. Kauzálny diagnostický walkthrough
 
-## 38. Troubleshooting
+Symptom: pipeline je zelená, ale release gate nemá SAST report a napriek tomu publikoval artifact.
 
-### Pipeline nevznikla
+### Krok 1 — stabilizuj configuration subject
 
-Over event source, `workflow:rules`, variable availability phase, include resolution a syntax/config errors.
+```text
+source SHA S18
+pipeline source = merge_request_event
+root CI revision R6
+resolved config digest C44
+security component 2.4.1
+expected inventory E9
+```
+
+### Krok 2 — konkurenčné hypotézy
+
+```text
+H1: security job nevznikol kvôli workflow/job rules
+H2: include/component sa nenačítal alebo bol prepísaný
+H3: job vznikol, ale report artifact chýbal
+H4: child pipeline status/report sa nepropagoval
+H5: aggregator považoval missing job za optional
+H6: report existuje, ale artifact selection stiahla nesprávny shard/attempt
+```
 
-### Job chýba
+### Krok 3 — observation points
 
-Vyhodnoť job rules zhora nadol, first-match outcome, `changes/exists` context a resolved configuration.
+- resolved job inventory a rule trace testujú H1;
+- include identities a merge output testujú H2;
+- actual job/attempt artifacts testujú H3/H6;
+- parent-child graph testuje H4;
+- expected-versus-actual manifest a gate logic testujú H5.
 
-### Duplicate pipelines
+Atlas zistí, že security job nevznikol pre `rules:changes` a aggregator mal optional edge bez expected inventory. H1/H5 sú potvrdené.
 
-Vytvor truth table pre push s/bez open MR. Zjednoť creation policy vo `workflow:rules` a oddeľ účel branch/MR pipeline.
+### Krok 4 — containment
 
-### Pipeline creation error pri `needs`
+- zablokovať publication/promóciu artifactu;
+- označiť verdict `incomplete`, nie pass;
+- spustiť full security pipeline nad rovnakým artifact subjectom;
+- auditovať už publikované alebo nasadené outputs.
 
-Upstream job nevznikol alebo jeho meno sa po include merge zmenilo. Zosúlaď rules; optional edge používaj iba pri skutočne optional evidence.
+### Krok 5 — verify outcome
 
-### Job stiahol nesprávny artifact
+```text
+security job vzniká v relevantnom context-e
+expected inventory je complete
+fan-in odmietne missing report
+gate patrí rovnakému source/artifact subjectu
+publication čaká na complete evidence
+```
 
-Over DAG edge, artifact name/path, parallel shard identity, dependencies a to, či upstream job rebuildoval rovnaký subject.
+### Krok 6 — skorší control
 
-### Include sa zmenil bez zmeny consumer repository
+Finding sa zmení na rule truth-table fixture, resolved-config snapshot test a invariant `expected required job cannot be silently absent`.
 
-Použitý bol mutable ref alebo remote content. Pinuj version/commit a ukladaj resolved-config identity.
+## 21. Validation lifecycle
 
-### Deploy job sa objavil v MR pipeline
+```text
+YAML parse
+→ GitLab keyword/schema validation
+→ include resolution
+→ resolved configuration inspection
+→ workflow/job truth-table simulation
+→ expected job inventory a DAG validation
+→ permission/runner/environment policy
+→ component fixture pipeline
+→ sandbox execution
+```
 
-Job rules alebo inherited template povoľujú nebezpečný context. Skontroluj resolved job, pipeline source, protected ref a environment authorization.
+`YAML valid` dokazuje iba syntax. CI Lint a pipeline simulation môžu odhaliť zložitejšie `rules` a `needs` chyby, no runtime trust, external side effects a business evidence potrebujú ďalšie tests.
 
-### Parent je zelený, child zlyhal
+## 22. Diagnostický runbook
 
-Trigger/status strategy nepropaguje required child result. Oprav contract a gate až po child completion.
+1. Urči pipeline source, ref/candidate SHA a resolved config digest.
+2. Over root a všetky include/component identities.
+3. Vyhodnoť `workflow:rules` creation truth table.
+4. Trace-ni first-match job rules a variable phase.
+5. Porovnaj expected a actual job inventory.
+6. Validuj DAG, optional edges a child/downstream propagation.
+7. Over artifact/report identity a attempts.
+8. Skontroluj final runner, variables, environment a mutation semantics.
+9. Oprav compile-time contract, nie iba symptom v jednom run-e.
+10. Zopakuj rovnaký supported context a over complete verdict.
 
-### Pipeline používa nesprávnu variable hodnotu
+## 23. Referenčné pravidlá
 
-Zostav precedence mapu vrátane group/project/job scope-u, protected statusu a environment matchu.
+- Root YAML nie je effective pipeline.
+- Resolved configuration je review a provenance subject.
+- `workflow:rules` riadi pipeline creation; job rules riadia job inclusion.
+- Runtime output nemôže spätne meniť compile-time selection.
+- `changes/exists` sú heuristiky, nie authorization ani dependency proof.
+- Includes a components sú executable dependencies.
+- DAG edge môže niesť control, artifact alebo evidence dependency.
+- Optional edge nesmie maskovať required evidence.
+- Expected job inventory odlišuje pass od incomplete.
+- Retry a interruptibility menia mutation semantics.
+- Generated config je compiler output s vlastnou provenance.
+- Runner selection je security boundary.
 
-## 39. Typické anti-patterny
+## 24. Časté omyly
 
-### YAML parse = pipeline validation
+### „YAML prešiel lintom, pipeline je správna“
 
-Neoveruje includes, rules, DAG, permissions ani runtime behavior.
+Neoveruje full resolved graph, applicability ani runtime trust.
 
-### Floating include z `main`
+### „Job chýba, asi nebol potrebný“
 
-Consumer pipeline sa môže zmeniť bez lokálneho diffu.
+Treba porovnať actual graph s expected inventory.
 
-### Rovnaké rules copy-paste v každom jobe
+### „`optional: true` opraví creation error“
 
-Vznikajú nekonzistentné contexts a duplicate behavior. Centralizuj creation policy a používaj zrozumiteľné contracts.
+Môže premeniť required evidence na tiché missing.
 
-### `optional: true` na všetkých `needs`
+### „Include z mainu je vždy aktuálny“
 
-Pipeline sa vytvorí aj bez povinnej evidence.
+Je mutable a mení consumer behavior bez local diffu.
 
-### Hlboké `extends` inheritance
+### „Retry pomôže deploymentu“
 
-Reviewer nevie zistiť effective script, permissions ani artifacts bez komplikovaného renderovania.
+Pri unknown partial outcome môže zopakovať mutation.
 
-### `allow_failure` ako oprava červeného pipeline
+## 25. Zhrnutie
 
-Maskuje risk namiesto opravy signálu alebo zmeny advisory policy.
+Dôveryhodný GitLab CI lifecycle je:
 
-### Retry všetkých failures
+```text
+versionovaný source a executable dependencies
+→ deterministický resolved config
+→ explicitná creation/selection truth table
+→ complete expected DAG
+→ trusted runner context
+→ immutable artifact a evidence flow
+→ outcome-aware mutation semantics
+→ auditovateľný pipeline verdict
+```
 
-Maskuje deterministic a flaky chyby a môže zopakovať side effects.
+CI syntax sa učí ako configuration-to-execution protocol, nie ako zoznam YAML keywords. Troubleshooting postupuje od pipeline subjectu a resolved graphu k selection, evidence a runtime observation points; zelený status bez expected evidence je false success.
 
-### Privileged deployment script priamo z MR branchu
+## Kontrolné otázky
 
-Untrusted source získava production identity.
-
-### Dynamic generator bez limits a evidence
-
-Môže vytvoriť injection, job explosion alebo ticho vynechať komponent.
-
-### Parent pipeline nečaká required child
-
-Zelený parent je false success.
-
-## 40. Praktický rozhodovací rámec
-
-1. Ktoré pipeline sources podporujeme a prečo?
-2. Aká truth table zabráni duplicate pipelines?
-3. Ktoré variables sú dostupné v každej evaluation phase?
-4. Ktoré includes/components sú executable dependencies a ako sú pinované?
-5. Aká je resolved-config identity?
-6. Ktoré defaults a inheritance menia privileged jobs?
-7. Ktoré jobs sú required a ako sa overuje inventory?
-8. Ktoré `needs` edges prenášajú artifacts alebo evidence?
-9. Ako sa odlišuje optional job od missing required checku?
-10. Aké artifacts/reports tvoria release evidence?
-11. Ktoré jobs sú bezpečne retryable a interruptible?
-12. Ako sa serializujú runtime mutations?
-13. Ako parent/child a multi-project pipelines propagujú status a identity?
-14. Ktoré runner/executor capabilities job vyžaduje?
-15. Ako sa untrusted pipeline oddeľuje od production secrets a deploymentu?
-
-## 41. Kontrolný checklist
-
-- pipeline sources majú explicitný workflow allowlist;
-- branch/MR/tag/schedule truth table je testovaná;
-- includes a components sú versionované a vlastnené;
-- resolved configuration je reviewovateľná;
-- mutable images a remote scripts sú eliminované alebo kontrolované;
-- rules používajú variables dostupné v správnej fáze;
-- path selection má konzervatívny fallback/full run;
-- required job inventory je explicitný;
-- DAG edges zodpovedajú control, data a evidence dependencies;
-- optional needs neukrývajú required evidence;
-- artifact identity a transfer sú jednoznačné;
-- retries sú iba pre transient classes;
-- mutation jobs nie sú nebezpečne interruptible;
-- resource mutations sú serializované a idempotentné;
-- child/downstream status sa správne propaguje;
-- generated config má limits, validation a provenance;
-- runner selection a effective permissions sú auditované;
-- untrusted contexts nemajú protected secrets ani deploy capability.
-
-## 42. Kontrolné otázky
-
-1. Prečo je GitLab CI konfigurácia podobná compiler inputu?
+1. Prečo root `.gitlab-ci.yml` nie je effective pipeline?
 2. Čo tvorí resolved configuration identity?
-3. Aký je rozdiel medzi `workflow:rules` a job-level `rules`?
-4. Ako vznikajú duplicate pipelines?
-5. Prečo treba pre rules vytvoriť truth table?
-6. Aké riziko má `rules:changes`?
-7. Kedy stage barrier zbytočne predlžuje critical path?
-8. Aké typy dependencies môže reprezentovať `needs`?
-9. Prečo je optional `needs` potenciálne nebezpečný?
-10. Ako `default` alebo `extends` mení effective job?
-11. Prečo je include supply-chain dependency?
-12. Čo má obsahovať CI/CD component contract?
-13. Prečo runtime job output nemožno použiť pri pipeline creation?
-14. Kedy je retry alebo interruptibility nebezpečná?
-15. Čo musí garantovať child-pipeline status propagation?
-16. Prečo je generated pipeline configuration compiler output?
-17. Ako runner selection ovplyvňuje trust boundary?
-18. Prečo CI Lint syntax check nestačí?
-
-## Summary
-
-GitLab CI/CD syntax definuje configuration-to-execution lifecycle, nie iba shell príkazy. GitLab rieši includes, merge/render, workflow a job rules, DAG, runner scheduling a runtime evidence. Dôveryhodná pipeline potrebuje explicitné source truth tables, pinované executable dependencies, review resolved configuration, kompletný job inventory, presný artifact flow a jasnú status propagation pre child a multi-project pipelines. Retry, interruption, inheritance, variables a runner selection menia security aj failure semantics. Untrusted source verification musí zostať oddelené od privileged publication a deploymentu.
-
-## Glossary impact
-
-Relevantné pojmy: GitLab CI/CD configuration, configuration compiler, resolved configuration, configuration digest, `workflow:rules`, job rules, rule truth table, `rules:changes`, stages, `needs` DAG, optional dependency, hidden job, `extends`, include, CI/CD component, variable evaluation phase, resource group, child pipeline, dynamic pipeline, expected job inventory a pipeline trust boundary.
+3. Ako sa líšia `workflow:rules` a job rules?
+4. Prečo vznikajú duplicate pipelines?
+5. Prečo `rules:changes` nie je dependency proof?
+6. Aké dependencies môže niesť `needs` edge?
+7. Prečo optional edge potrebuje explicitný contract?
+8. Ako expected inventory odhalí false green?
+9. Prečo include patrí do supply-chain modelu?
+10. Ako retry, interruptibility a runner selection menia trust/failure semantics?
 
 ## Oficiálna dokumentácia
 
 - [CI/CD YAML syntax reference](https://docs.gitlab.com/ci/yaml/)
+- [Workflow rules](https://docs.gitlab.com/ci/yaml/workflow/)
+- [Job rules](https://docs.gitlab.com/ci/jobs/job_rules/)
+- [Includes](https://docs.gitlab.com/ci/yaml/includes/)
 - [CI/CD components](https://docs.gitlab.com/ci/components/)
-- [Pipeline editor](https://docs.gitlab.com/ci/pipeline_editor/)
+- [Validate CI/CD configuration](https://docs.gitlab.com/ci/yaml/lint/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
