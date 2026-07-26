@@ -8,572 +8,685 @@
 - Predpoklady: [Static analysis, linting a type checking](static-analysis-linting-type-checking.md), [Test pyramid](test-pyramid.md)
 - Súvisiace témy: instrumentation, line coverage, branch coverage, condition coverage, diff coverage, mutation testing, quality gate, ratcheting, waiver
 
-## 1. Mentálny model
-
-Code coverage meria, ktoré instrumentované časti programu boli vykonané počas konkrétneho súboru test runs. Quality gate je rozhodovací contract, ktorý z viacerých dôkazov určuje, či sa zmena môže posunúť do ďalšej fázy delivery.
+Code coverage je mapa vykonania konkrétneho instrumentovaného programu počas konkrétneho súboru testov. Quality gate je rozhodovací contract, ktorý z coverage a ďalších dôkazov určí, či sa konkrétny kandidát môže posunúť do ďalšej delivery fázy.
 
 ```text
-source a build configuration
+source a build artifact
 → instrumentation
-→ test execution
-→ raw coverage probes
-→ merge a source mapping
-→ metriky a scope
-→ threshold alebo risk policy
-→ pass, fail, advisory alebo incomplete
+→ test execution a raw probes
+→ complete merge a source mapping
+→ coverage pohľady s provenance
+→ risk policy spolu s ďalšími dôkazmi
+→ pass, fail, advisory, incomplete alebo waived
+→ auditované merge/release rozhodnutie
 ```
 
-Coverage odpovedá na otázku „čo sa počas merania vykonalo?“. Neodpovedá priamo, či test mal správny oracle, či vykonaná vetva bola overená meaningful assertionom ani či test suite pokrýva používateľské a prevádzkové riziká.
+Coverage neodpovedá, či test mal správny oracle. Gate preto nemá optimalizovať percento, ale chrániť konkrétne riziko pred konkrétnym rozhodnutím.
 
-## 2. Coverage je negatívny signál
+## 1. Cieľ kapitoly
 
-Coverage je najsilnejšia pri odhaľovaní zjavne neotestovaného kódu. Ak kritická branch nikdy nebola vykonaná, test suite ju nemohla dynamicky overiť.
+Nosný model je:
 
-Vysoká coverage je slabší pozitívny dôkaz. Kód môže byť vykonaný bez assertionu, s nesprávnym vstupom alebo iba ako vedľajší efekt širokého E2E testu.
+```text
+failure mode a chránené rozhodnutie
+→ zvoliť potrebný test scope a coverage pohľad
+→ preukázať úplnosť instrumentation a reportu
+→ interpretovať uncovered kód podľa rizika
+→ doplniť oracle-quality a compatibility evidence
+→ vyhodnotiť verzovanú gate policy
+→ opraviť, zastaviť alebo použiť expirovateľnú waiver
+→ sledovať defect escapes a upraviť kontrolu
+```
+
+Coverage je najsilnejšia ako negatívny signál. Nevykonaná kritická vetva určite nebola týmto test runom dynamicky overená. Vykonaná vetva však môže byť bez meaningful assertionu alebo iba náhodne prejdená širokým E2E testom.
+
+## 2. Nosný scenár: Atlas Orders 3.9.1
+
+Atlas mení export objednávok a retry handling workeru. Pull request zasahuje:
+
+```text
+ExportCommand tenant context
+Retry-After parser
+object-storage path builder
+export worker state machine
+```
+
+Riziká sú:
+
+- cross-tenant export;
+- chýbajúci header spôsobí crash namiesto bounded retry;
+- path builder umožní object key mimo tenant prefixu;
+- failure state nevytvorí audit event;
+- nový worker branch je vykonaný iba v pomalom E2E teste.
+
+Atlas quality gate nemá otázku „je coverage nad 80 %?“. Má otázku:
+
+> Poskytuje tento release kandidát dostatočný, kompletný a diagnostikovateľný dôkaz pre zmenené authorization, retry a storage boundaries?
+
+Evidence portfolio:
+
+```text
+unit branch coverage
+→ parser a state transitions
+
+component/API negative tests
+→ tenant context a zakázané side effects
+
+integration tests
+→ persistence a object-storage adapter
+
+mutation testing
+→ citlivosť authorization/retry assertions
+
+diff coverage
+→ nový a zmenený executable code
+
+regression/smoke
+→ artifact wiring a kritická journey
+```
+
+## 3. Coverage je execution evidence, nie kvalita
+
+Coverage tool typicky zaznamená, že probe bol vykonaný. Nevie automaticky určiť, či vykonanie ovplyvnilo assertion.
 
 ```python
-result = calculate_total(items)
+result = export_orders(request)
 assert result is not None
 ```
 
-Takýto test môže vykonať všetky riadky a stále neoveriť správnu cenu, rounding, tax alebo discount invariant.
+Tento test môže vykonať authorization, query aj storage branches a stále neoveriť správny tenant, počet rows alebo object key.
 
-Praktická interpretácia:
+Interpretácia:
 
 ```text
-nízka coverage
-→ pravdepodobne chýba testované vykonanie
+uncovered critical path
+→ chýba execution evidence
 
-vysoká coverage
-→ iba predpoklad na ďalšie hodnotenie oracle a scenárov
+covered critical path
+→ execution existuje; oracle, input a scope treba hodnotiť samostatne
 ```
 
-## 3. Line a statement coverage
+## 4. Coverage experiment contract
 
-**Line coverage** meria podiel source riadkov mapovaných na aspoň jeden executed probe. **Statement coverage** meria vykonané programové príkazy podľa modelu konkrétneho jazyka a instrumentácie.
+Autoritatívny report definuje:
 
-Tieto metriky sa môžu líšiť. Jeden riadok môže obsahovať viac statements a compiler môže jeden source statement rozložiť na viac bytecode instructions.
+- source commit alebo synthetic merge commit;
+- instrumentovaný artifact a build configuration;
+- test suites, shards a processes;
+- coverage tool a configuration version;
+- included a excluded files;
+- source-map a path-normalization pravidlá;
+- merge algorithm;
+- diff base;
+- completion status;
+- threshold/gate policy version;
+- retained raw reports.
 
-```python
-if enabled: start(); log_started()
-```
+Bez tohto contractu je percento nereprodukovateľné a nemožno ho spojiť s release kandidátom.
 
-Line coverage môže označiť riadok ako covered, aj keď sa vykonala iba časť jeho logiky. Preto treba rozumieť reportovaciemu modelu použitého nástroja.
+## 5. Instrumentation lifecycle
 
-## 4. Function alebo method coverage
-
-Function coverage hovorí, či bola function aspoň raz zavolaná. Pomáha nájsť úplne nedotknuté entry points, no nehovorí nič o ich vnútorných branches a input space.
-
-Function s desiatkami state transitions môže mať 100 % function coverage po jednom happy-path calle. Metrika je preto orientačný inventory signal, nie dôkaz behavioru.
-
-## 5. Branch coverage
-
-Branch coverage meria, ktoré výsledky rozhodnutí sa vykonali. Pri `if` to typicky znamená true aj false vetvu; pri `switch`, exception handleri alebo short-circuit expression závisí model od nástroja.
-
-```python
-if user.is_admin or user.is_owner:
-    allow()
-```
-
-Jeden admin scenár môže dosiahnuť line coverage, ale nemusí vykonať owner path ani deny path. Branch coverage odhalí, že niektoré rozhodnutia neboli pozorované.
-
-Branch coverage stále neznamená všetky kombinácie conditions. Výraz s viacerými boolean operands môže mať obe výsledné branches vykonané bez toho, aby sa každá podmienka vyhodnotila ako true aj false.
-
-## 6. Condition a decision coverage
-
-Condition coverage sleduje jednotlivé boolean subexpressions. Pri kritickej decision logic môže byť potrebné overiť:
-
-- každá condition bola true aj false;
-- výsledné rozhodnutie bolo allow aj deny;
-- short-circuit nezakryl významný operand;
-- kombinácie chránia bezpečnostný alebo business invariant.
-
-Pre safety-critical domény existujú prísnejšie modely, napríklad Modified Condition/Decision Coverage. Bežný aplikačný tím ich nemusí používať plošne, ale mal by rozumieť, že „branch covered“ a „decision logic dôkladne otestovaná“ nie sú synonymá.
-
-## 7. Path coverage a kombinatorický rast
-
-Path coverage sa snaží pokryť execution paths cez viac rozhodnutí. Ich počet rastie kombinatoricky a pri loops môže byť teoreticky neobmedzený.
-
-Úplná path coverage preto nie je realistický globálny cieľ. Rizikové paths treba identifikovať cez domain model, threat model, historical failures, property-based testing alebo model-based testing.
-
-Coverage metrika nemá nahradiť analýzu input partitions a state transitions.
-
-## 8. Instrumentation lifecycle
-
-Coverage nástroj vkladá probes do source, bytecode alebo runtime profilu a pri behu zaznamenáva ich execution.
+Coverage vzniká transformačným tokom:
 
 ```text
 source
 → compile/transpile
-→ instrumentation alebo runtime hooks
-→ tests a subprocessy
-→ raw execution data
+→ probes alebo runtime hooks
+→ test processes a subprocesses
+→ raw execution files
 → source-map resolution
-→ merged report
+→ shard/process merge
+→ repository-relative report
 ```
 
-Výsledok môže ovplyvniť:
+Výsledok môže skresliť compiler optimization, inlining, generated code, subprocess bez instrumentation, crash pred flushom, paralelné output collisions alebo rozdielne tool versions.
 
-- compiler optimization a inlining;
-- transpilation a source maps;
-- generated code;
-- subprocessy a child runtimes;
-- parallel workers;
-- dynamic imports alebo plugins;
-- container/host path rozdiely;
-- test process crash pred flushom dát;
-- language runtime a coverage-tool verzia.
+Report je platný iba vtedy, keď sú všetky očakávané producers známe a dokončené.
 
-Coverage report je dôveryhodný iba vtedy, keď poznáme, ktoré processes boli instrumentované a či všetky úspešne zapísali výsledky.
+## 6. Line a statement coverage
 
-## 9. Source mapping
+Line coverage označuje source riadok, na ktorý sa mapoval vykonaný probe. Statement coverage pracuje s príkazmi podľa modelu jazyka a toolu.
 
-Instrumentácia môže merať bytecode alebo transpiled output a až následne mapovať probes späť na source. Chybná alebo chýbajúca source map spôsobí nepresné lines, branches alebo úplne neviditeľné files.
+```python
+if enabled: start(); audit()
+```
 
-Pri containeroch a remote runners treba normalizovať paths:
+Jeden source riadok môže obsahovať viac statements. Line môže byť označená covered, aj keď sa nevykonala celá významná logika. Preto sa metrika interpretuje spolu s instrumentačným modelom.
+
+## 7. Function coverage
+
+Function coverage hovorí, či bola function aspoň raz zavolaná. Je užitočná ako inventory signal pre úplne nedotknuté entry points.
+
+Atlas `handle_export()` môže mať 100 % function coverage po jednom happy-path calle, hoci neboli vykonané deny, retry, timeout ani cleanup states. Function coverage preto neposkytuje dostatočný dôkaz pre state machine.
+
+## 8. Branch coverage
+
+Branch coverage sleduje výsledky rozhodnutí:
+
+```python
+if authenticated_tenant == resource_tenant:
+    allow_export()
+else:
+    deny_export()
+```
+
+Line coverage môže byť vysoká po allow scenári, ale deny branch zostane uncovered. Branch coverage odhaľuje, že verdict nebol pozorovaný v oboch smeroch.
+
+Význam branchu závisí od oraclu. Test musí overiť aj absenciu query, eventu a objectu pri deny rozhodnutí.
+
+## 9. Condition a decision coverage
+
+Pri zloženom výraze:
+
+```python
+allow = is_owner or (is_admin and tenant_matches)
+```
+
+Branch coverage môže vykonať výsledné `True` aj `False`, ale nie všetky významné conditions. Condition coverage sleduje jednotlivé operands. Kritická policy môže vyžadovať explicitné kombinácie, nie globálnu percentuálnu kvótu.
+
+Atlas authorization tests pomenúvajú matrix cases:
 
 ```text
-/workspace/src/app.py
-C:\agent\_work\repo\src\app.py
-repo/src/app.py
+owner + same tenant → allow
+admin + same tenant → allow
+admin + other tenant → deny
+regular user + same tenant → deny podľa contractu
 ```
 
-Ak report merge považuje tieto paths za rozdielne files, výsledok sa rozdelí alebo duplikuje. Autoritatívna pipeline musí mať stabilný repository-relative mapping.
+## 10. Path coverage a kombinatorický rast
 
-## 10. Parallel tests a report merge
+Počet paths rastie s decisions a loops kombinatoricky. Úplná path coverage nie je realistický všeobecný cieľ.
 
-Každý worker alebo process môže vytvárať vlastný raw report. Merge musí zachovať union probes a zároveň zabrániť strate alebo dvojitému započítaniu dát.
+Rizikové paths sa vyberajú cez:
 
-Pred agregáciou over:
+- domain state model;
+- threat a authorization matrix;
+- historical incidents;
+- property-based tests;
+- failure injection;
+- mutation testing;
+- concurrency model.
 
-- rovnaký source revision a build artifact;
-- rovnakú instrumentačnú konfiguráciu;
-- unikátne output files pre workers;
-- dokončenie všetkých shardov;
-- kompatibilné report versions;
-- správne path mapping;
-- explicitný status chýbajúcich shardov.
+Coverage report nemá nahradiť návrh input partitions a state transitions.
 
-Ak jeden test shard zlyhá pred uploadom coverage, aggregate výsledok nie je kompletný. Pipeline ho nesmie interpretovať ako plnohodnotnú nižšiu coverage ani ako clean pass bez označenia incomplete.
+## 11. Coverage podľa testovacej vrstvy
 
-## 11. Coverage podľa test layeru
-
-Aggregate coverage môže zlúčiť unit, integration, component a E2E testy. To ukáže celkové vykonanie, ale môže skryť nevhodnú alokáciu dôkazov.
-
-Kritická calculation logic môže byť covered iba cez pomalý UI test. Taká suite má síce vysoké percento, ale pomalý feedback a slabú failure localization.
-
-Užitočné pohľady sú:
-
-- unit-only coverage pre lokálnu logiku;
-- integration coverage pre adapters a storage boundaries;
-- aggregate coverage pre celkový runtime reach;
-- coverage kritických modulov;
-- diff coverage zmeneného kódu.
-
-Coverage podľa vrstvy nie je ďalšia kvóta. Pomáha zistiť, kde sa dôkaz reálne nachádza.
-
-## 12. Generated code
-
-Generated code môže výrazne skresliť percento. Rozhodnutie závisí od ownershipu:
-
-- **vendor-generated code bez lokálnej logiky** — často sa vylúči a testuje sa generator/source contract;
-- **code generation template vlastnená tímom** — treba testovať generátor, output invariants a aspoň integračný behavior;
-- **generated client používaný ako public API** — môže vyžadovať compile a smoke tests aj keď sa riadky nepočítajú do threshold;
-- **rendered infrastructure** — coverage metrika nemusí byť vhodná; dôležitejšia je schema, policy a runtime verification.
-
-Exclusion nesmie byť nástroj na estetické zvýšenie percenta. Má mať explicitný dôvod a review.
-
-## 13. Exclusions
-
-Legitímne exclusions môžu zahŕňať compiler-generated glue, platform-specific vetvu testovanú v inom jobe, defensive fatal path overený fault injectionom alebo trivial entrypoint bez vlastnej logiky.
-
-Každá exclusion potrebuje:
-
-- minimálny scope;
-- vysvetlenie;
-- ownera;
-- dôkaz alternatívneho testu, ak behavior ostáva kritický;
-- pravidelnú kontrolu;
-- zákaz automatického rozširovania wildcardom bez review.
-
-Rozsiahla exclusion konfigurácia je forma test debt a mala by byť trendovaná.
-
-## 14. New-code a diff coverage
-
-Pri legacy codebase je praktické blokovať regresiu na zmenenom kóde bez požiadavky okamžite opraviť celý historický deficit.
+Aggregate coverage ukazuje union vykonaných probes, ale môže skryť, kde dôkaz vznikol.
 
 ```text
-starý codebase debt
-+ zmena v pull requeste
-→ diff coverage nad executable changed lines
-→ nový kód debt nezvyšuje
+unit-only
+→ lokálne decisions a edge cases
+
+integration
+→ adapters, transactions a protocols
+
+component
+→ artifact wiring cez public interface
+
+aggregate
+→ celkový runtime reach
 ```
 
-Diff coverage závisí od správneho diff base. Pri pull requeste to typicky nie je lokálny `HEAD~1`, ale merge base s cieľovou branchou.
+Ak je retry parser covered iba cez 12-minútový E2E test, percento môže byť vysoké, ale feedback a failure localization sú slabé. Layered pohľad pomáha presunúť lokálne risks do nižšieho scope-u.
 
-Treba správne riešiť:
+## 12. Parallel processes a complete merge
 
-- renames a moves;
-- generated files;
-- deleted lines;
-- formatting-only zmeny;
-- branch coverage na zmenených decisions;
-- stacked branches;
-- merge queue synthetic commit;
-- zmenu base branch počas behu.
+Každý worker, shard alebo subprocess môže vytvárať vlastný raw report. Pred merge over:
 
-Nesprávny merge base môže označiť príliš veľa alebo príliš málo riadkov a vytvoriť chybný gate.
+- rovnaký source a artifact;
+- rovnakú instrumentačnú config;
+- unikátny output per producer;
+- očakávaný shard manifest;
+- úspešný flush/upload;
+- kompatibilnú report verziu;
+- stabilný path mapping.
 
-## 15. Diff coverage limity
+Ak chýba jeden shard, aggregate report je `INCOMPLETE`. Nie je to legitímne nižšie percento ani green report.
 
-Diff coverage chráni nový alebo zmenený code, ale môže prehliadnuť behavior ovplyvnený nepriamo:
+## 13. Source mapping a path identity
 
-- zmena shared configu aktivuje starú vetvu;
-- zmena dependency mení behavior nezmeneného adaptera;
-- rename alebo refactor zachová riadky, ale zmení call graph;
-- nový caller používa starú function s neotestovaným inputom;
-- schema migration mení interpretáciu existujúceho kódu.
+Transpiled alebo bytecode probes sa mapujú späť na source. V distributed CI sa jeden file môže objaviť ako:
 
-Preto je diff coverage doplnok k risk-based regression, contract tests a architecture awareness, nie úplná test-selection stratégia.
+```text
+/workspace/src/export.py
+C:\agent\repo\src\export.py
+src/export.py
+```
 
-## 16. Risk-weighted coverage
+Merge musí normalizovať na repository-relative identity. Inak môže rovnaký file rozdeliť, duplikovať alebo priradiť k nesprávnej revision.
 
-Rovnaký threshold pre každý file nezohľadňuje impact a complexity. Vyššiu dôkaznú úroveň zvyčajne potrebujú:
+## 14. Generated code a exclusions
+
+Rozhodnutie závisí od ownershipu:
+
+```text
+vendor-generated glue
+→ často vylúčiť z percenta; overiť spec/generator a compile
+
+tímom vlastnená template
+→ testovať generator a output invariants
+
+generated public client
+→ compile, contract a smoke dôkaz
+```
+
+Exclusion nesmie byť nástroj na zvýšenie percenta. Má minimálny scope, dôvod, ownera a alternatívny dôkaz pre kritický behavior.
+
+## 15. Diff coverage
+
+Diff coverage sa sústreďuje na executable lines a branches zmenené v pull requeste:
+
+```text
+legacy baseline
++ nový diff
+→ nový kód nezvyšuje test debt
+```
+
+Autoritatívny base je merge base s cieľovou branchou alebo synthetic merge commit používaný merge queue. `HEAD~1` môže pri viacerých commitoch, stacked branchi alebo aktualizovanom targete merať nesprávny rozsah.
+
+Diff coverage rieši nový kód, ale nevidí všetky nepriame dopady. Zmena schema, configu, dependency alebo call graphu môže aktivovať nezmenenú vetvu.
+
+## 16. Risk-weighted interpretation
+
+Rovnaké percento nemá rovnaký význam pre každý modul. Vyššiu dôkaznú úroveň potrebujú:
 
 - authorization a tenant isolation;
 - billing a financial calculations;
-- migrations a destructive automation;
-- parsers a protocol handling;
+- destructive automation a migrations;
 - idempotency a concurrency;
-- recovery a compensation paths;
-- cryptographic alebo policy code;
-- data retention a compliance logic.
+- protocol parsers;
+- recovery a compensation;
+- security policy a cryptographic code.
 
-Risk-weighted model nemusí znamenať desiatky odlišných percent. Môže kombinovať globálne minimum, vyššie diff branch coverage pre kritické paths a povinné named scenarios alebo mutation testing.
+Risk-weighted model môže kombinovať:
+
+```text
+globálne minimum
++ diff branch coverage
++ named critical scenarios
++ mutation testing kritických modulov
++ zákaz uncovered security decisions
+```
+
+Nemusí vytvárať desiatky arbitrárnych percent.
 
 ## 17. Mutation testing
 
-Mutation testing zámerne vytvorí malé zmeny v programe a overí, či test suite zlyhá.
+Mutation testing mení program malou semantic zmenou a sleduje, či test suite zlyhá:
 
 ```text
->  → >=
-true → false
-+ → -
+== → !=
+> → >=
+allow → deny
+retry count 3 → 4
 condition removed
-return value changed
 ```
 
-Mutant je **killed**, ak test zlyhá. **Surviving mutant** môže znamenať chýbajúci scenár, slabý assertion, equivalent mutant alebo neexecuted path.
+Mutant je killed, ak test odhalí zmenu. Surviving mutant môže znamenať slabý oracle, chýbajúci scenár, neexecuted path alebo equivalent mutant.
 
-Mutation score poskytuje silnejší signál o citlivosti testov než samotné execution coverage. Je však drahý a jeho výsledok treba triagovať; nie každý mutant reprezentuje reálnu behavior change.
+Pre Atlas je mutation testing vhodné na authorization a retry state machine. Nie je potrebné plošne pre celý repository pri každom PR; môže bežať nad changed critical code alebo periodicky.
 
-Praktické použitie:
+## 18. Worked failure: 96 % coverage, ale tenant mutant prežil
 
-- kritické domain moduly;
-- changed code v pull requeste;
-- periodický job;
-- investigation po vysokej coverage a defect escape;
-- overenie kvality regression testu po incidente.
-
-## 18. Coverage a assertions
-
-Coverage nástroj typicky nevie, či executed code ovplyvnil assertion. Test môže vykonať vetvu počas setupu alebo cleanupu bez kontroly jej výsledku.
-
-Dôkaz assertion quality možno posilniť cez:
-
-- mutation testing;
-- property-based assertions;
-- negative tests;
-- invariant checks;
-- failure injection;
-- review test intentu;
-- defect escape analýzu.
-
-Coverage je mapa vykonania. Oracle quality sa musí hodnotiť samostatne.
-
-## 19. Quality gate ako risk contract
-
-Quality gate má chrániť konkrétne rozhodnutie, napríklad merge do `main`, publikovanie artifactu, promotion do production alebo pokračovanie rollout-u.
+Atlas export module mal 96 % line a 91 % branch coverage. Mutation tool zmenil:
 
 ```text
-inputs a evidence
-→ policy evaluation
-→ decision
-→ audit record
+authenticated_tenant == requested_tenant
+→ authenticated_tenant != requested_tenant
 ```
 
-Gate môže kombinovať:
+Suite zostala zelená.
 
-- build a package integrity;
-- tests podľa vrstvy;
-- coverage a mutation score;
-- static analysis;
-- contract compatibility;
-- security findings;
-- performance budget;
-- required review a ownership;
-- policy compliance;
-- deployment smoke a SLI.
+### Root cause
 
-Zbierka metrík bez väzby na riziko nie je kvalitný gate. Každý signal má mať dôvod, scope a failure semantics.
+E2E test vykonal authorization branch, ale assertion kontroloval iba vznik exportu. Fixture používala rovnaký tenant na oboch stranách a žiadny negatívny test neoveril cross-tenant deny ani zakázané side effects.
 
-## 20. Blocking a advisory kontroly
+### Náprava
 
-**Blocking gate** zastaví chránený krok. Je vhodný pre presný, reprodukovateľný a akčný signal s jasným ownerom.
+- pridala sa explicitná authorization matrix;
+- deny test overuje response, nulovú DB query, nulový queue event a DENY audit;
+- critical mutation scope blokuje surviving semantic mutants;
+- coverage zostáva execution mapou, mutation signal kontroluje citlivosť oraclu.
 
-**Advisory gate** reportuje riziko bez automatického zastavenia. Je vhodný pri zavádzaní nástroja, baseline zbere, neistej heuristike alebo dlhodobom trende.
+## 19. Quality gate ako decision contract
 
-Advisory kontrola potrebuje explicitný lifecycle:
+Gate chráni konkrétny krok:
+
+```text
+merge
+artifact publication
+pre-release promotion
+production rollout
+```
+
+Gate contract obsahuje:
+
+- rozhodnutie a ownera;
+- vstupný candidate identity;
+- required evidence;
+- completeness podmienky;
+- blocking/advisory semantics;
+- thresholds alebo explicitné invariants;
+- tool-failure policy;
+- waiver lifecycle;
+- audit record.
+
+Zbierka metrík bez rozhodovacieho významu nie je quality gate.
+
+## 20. Atlas pull-request gate
+
+Atlas PR gate pre export change používa:
+
+```text
+build a static analysis complete
+→ unit/component tests first-attempt green
+→ changed-code branch coverage >= policy
+→ authorization named scenarios present
+→ no surviving critical mutants
+→ contract compatibility green
+→ no new blocking security findings
+→ decision
+```
+
+Global line coverage je trend a floor. Nie je jediným release verdictom.
+
+## 21. Blocking a advisory controls
+
+Blocking signal má byť presný, reprodukovateľný, včasný a akčný. Advisory signal je vhodný počas rollout-u nového toolu, pri heuristickej metrike alebo trendovaní.
+
+Advisory lifecycle:
 
 ```text
 observe
-→ tune
-→ odmerať precision a stability
-→ definovať remediation
+→ tune precision a stability
+→ priradiť ownera a remediation
 → pilot blocking scope
-→ rozšíriť alebo ponechať advisory
+→ rozšíriť, ponechať advisory alebo odstrániť
 ```
 
-Advisory, ktorý nikto nesleduje, nie je kontrola. Blocking gate s chronickým šumom sa zase zmení na bypass mechanizmus.
+Advisory bez reakcie je dekorácia. Hlučný blocking gate vytvára rerun a bypass kultúru.
 
-## 21. Gate placement
+## 22. Threshold design
 
-Kontrola má bežať pred rozhodnutím, ktoré chráni, a čo najskôr, ako je dostupná potrebná fidelity.
+Threshold je policy, nie prírodná konštanta. Musí byť:
+
+- viazaný na metriku a scope;
+- versioned;
+- reprodukovateľný;
+- vysvetlený rizikom;
+- stabilný voči tool/config zmenám;
+- reviewovaný pri zmene exclusions.
+
+Príklad Atlas policy:
+
+```text
+global line floor nesmie klesnúť
+changed-code branch coverage >= 85 %
+authorization decisions: 100 % named allow/deny scenarios
+critical mutation score >= dohodnutý floor
+coverage report: complete pre všetky shards
+```
+
+Číslo sa nekopíruje medzi repositories bez analýzy jazyka, generated code, legacy stavu a risk profilu.
+
+## 23. Ratcheting
+
+Ratcheting zabraňuje zhoršeniu a postupne zvyšuje accepted baseline:
+
+```text
+nové minimum
+= max(organizational floor, predchádzajúci accepted state)
+```
+
+Ratchet možno použiť aj na uncovered critical branches, surviving mutants, exclusions, suppressions, flaky gate rate a duration.
+
+Rast percenta musí vzniknúť lepším dôkazom, nie rozšírením exclusions alebo trivial tests.
+
+## 24. Anti-gaming design
+
+Coverage možno zvýšiť bez zvýšenia dôvery:
+
+- calls bez meaningful assertions;
+- testovanie trivial getters;
+- široké exclusions;
+- generated low-value code;
+- broad E2E execution namiesto lokálnych tests;
+- zmena denominatora alebo report scope-u;
+- snapshot update bez review.
+
+Ochrany sú branch/condition pohľady, mutation testing, named scenarios, review test intentu, exclusion audit a defect-escape feedback.
+
+## 25. Worked failure: chýbajúci shard vytvoril false green
+
+Atlas test suite mala štyri shards. Shard 4 obsahoval export component tests a zlyhal pred uploadom raw coverage.
+
+```text
+shard 1–3 uploadli reporty
+→ merge job nenačítal očakávaný shard manifest
+→ aggregate coverage 88 %
+→ threshold 85 % prešiel
+→ PR gate green
+```
+
+Po merge sa ukázalo, že nové export branches neboli v aggregate reporte vôbec prítomné.
+
+### Root cause
+
+Pipeline hodnotila percento bez completeness contractu. Chýbajúci producer zmenšil denominator aj evidence scope.
+
+### Náprava
+
+- build vytvára manifest očakávaných shards/processes;
+- merge vyžaduje raw report a status každého producer-a;
+- report obsahuje instrumented file inventory;
+- chýbajúci shard je `COVERAGE_INCOMPLETE` a blocking;
+- raw artifacts sa viažu na source a artifact digest;
+- dashboard oddelí test failure od coverage infrastructure failure.
+
+## 26. Tool failure a incomplete evidence
+
+Rozlišuj:
+
+```text
+COMPLETE_PASS
+COMPLETE_BELOW_POLICY
+INCOMPLETE
+TOOL_INFRA_FAILURE
+WAIVED_FAILURE
+```
+
+Chýbajúci report sa nesmie interpretovať ako 0 % ani ako skipped-green. Fail-open alebo fail-closed semantics závisia od chráneného rozhodnutia, no unknown stav zostáva viditeľný.
+
+## 27. Gate placement
+
+Kontrola má bežať pred rozhodnutím, ktoré chráni, a čo najskôr pri dostatočnej fidelity:
 
 ```text
 editor/local
-→ format, syntax, targeted lint
+→ formatter, targeted tests
 
 pull request
-→ build, unit, diff coverage, static, contracts
+→ build, unit, static, diff coverage, contracts
 
 merge queue
-→ integration proti budúcemu main
+→ synthetic-main integration a správny diff base
 
 pre-release
 → širšia regression, security, performance
 
 post-deploy
-→ smoke, policy a SLI verification
+→ smoke, runtime policy a SLI
 ```
 
-Dlhý performance test nemôže nahradiť rýchly PR gate. Rýchla coverage kontrola zasa nemôže potvrdiť produkčný rollout.
+Coverage nemôže potvrdiť produkčný rollout. Post-deploy smoke nemôže nahradiť rýchly PR feedback.
 
-## 22. Threshold design
+## 28. Waiver lifecycle
 
-Threshold musí byť verzovaný, reprodukovateľný a vysvetlený rizikom. Môže obsahovať viac rozmerov:
+Waiver povoľuje pokračovanie napriek známemu gate failure. Technický výsledok zostáva červený alebo označený `WAIVED`.
 
-```text
-global line coverage >= 75 %
-changed-code branch coverage >= 85 %
-authorization module coverage nesmie klesnúť
-critical recovery paths musia mať named tests
-mutation score critical module >= dohodnuté minimum
-```
+Waiver obsahuje:
 
-Percento nemá byť univerzálne kopírované medzi repositories. Jazyk, generated code, testability, risk a legacy stav sa líšia.
-
-Príliš presný threshold, napríklad 82.47 %, často vytvára falošný dojem vedeckej objektivity. Dôležitejšia je stabilná policy a review zmien prahu.
-
-## 23. Ratcheting
-
-Ratcheting zabraňuje zhoršeniu a postupne zvyšuje baseline.
-
-```text
-accepted minimum
-= max(organizational floor, previous accepted state)
-```
-
-Pri každom raste threshold treba overiť, že výsledok nie je spôsobený exclusions, generated files alebo testami bez assertionov. Ratchet má zlepšovať ochranu, nie iba číslo.
-
-Ratcheting možno použiť aj na:
-
-- znižovanie uncovered critical branches;
-- znižovanie suppression count;
-- rast mutation score;
-- znižovanie flaky gate rate;
-- skracovanie gate duration.
-
-## 24. Anti-gaming design
-
-Coverage možno zvýšiť bez zlepšenia testov:
-
-- volaním functions bez meaningful assertions;
-- trivial tests nad getters;
-- broad exclusions;
-- generovaním low-value files;
-- testovaním implementation details;
-- používaním E2E testu na vykonanie veľkého množstva kódu;
-- zmenou report scope namiesto pridania dôkazu.
-
-Ochrany zahŕňajú branch coverage, mutation testing, review test intentu, risk-based required scenarios, exclusion audit a defect-escape feedback.
-
-Metrika, ktorá sa stane cieľom bez kontextu, bude optimalizovaná na číslo. Gate preto musí hodnotiť kombináciu dôkazov.
-
-## 25. Tool failure a incomplete evidence
-
-Coverage job môže zlyhať bez toho, aby testy zlyhali:
-
-- instrumentácia sa neaktivovala;
-- raw report chýba;
-- jeden shard neodoslal dáta;
-- source mapping zlyhal;
-- report merge crashol;
-- uploader alebo dashboard bol nedostupný;
-- report patrí inému commitu.
-
-Pipeline musí rozlíšiť:
-
-```text
-coverage complete and above policy
-coverage complete and below policy
-coverage incomplete
-coverage infrastructure failed
-```
-
-Chýbajúci report nesmie byť interpretovaný ako 0 % ani ako „gate skipped“ bez viditeľného statusu. Fail-open alebo fail-closed policy musí byť explicitná.
-
-## 26. Provenance aggregate reportu
-
-Autoritatívny coverage report má byť viazaný na:
-
-- source commit alebo synthetic merge commit;
-- build artifact alebo compilation output;
-- test suite a shard list;
-- instrumentačný tool a config version;
-- report merge version;
-- exclusions;
-- timestamp a CI run;
-- merge base pre diff coverage.
-
-Bez provenance nemožno dokázať, že percento patrí k release kandidátovi, ktorý sa má schváliť.
-
-## 27. Waiver a exception lifecycle
-
-Gate waiver je risk decision, nie technické kliknutie. Má obsahovať:
-
-- presný gate a scope;
-- dôvod failure alebo nemožnosti opravy;
+- presný gate, candidate a scope;
+- dôvod;
 - impact a risk ownera;
 - compensating control;
 - expiry;
-- issue a remediation plán;
+- remediation issue;
 - approvals;
 - audit trail;
-- podmienky, za ktorých sa waiver automaticky zruší.
+- podmienku automatického zrušenia.
 
-Waiver nesmie prepísať samotný výsledok na zelený. Evidence má zostať červená alebo označená ako waived, aby audit rozlíšil technický stav od manažérskeho rozhodnutia.
+Permanentná waiver alebo prepis failure na green ničí auditovateľnosť gate-u.
 
-## 28. Flaky gate
+## 29. Flaky gate a first-attempt evidence
 
-Gate, ktorý náhodne zlyháva, mení delivery behavior. Vývojári začnú rerunovať, ignorovať alebo obchádzať výsledky a batch size rastie.
-
-Pred blocking režimom meraj:
+Gate, ktorý náhodne zlyháva, stráca autoritu. Sleduj:
 
 - first-attempt pass rate;
-- false-positive rate;
-- tool a infrastructure failure rate;
+- recovery-on-retry rate;
+- false-positive a infrastructure-failure rate;
 - duration a queue time;
 - local reproducibility;
-- time to remediation;
-- waiver frequency.
+- waiver frequency;
+- ownera a time-to-remediation.
 
-Rerun môže poskytnúť diagnostický dôkaz, ale prvý failure sa nesmie potichu vymazať. Finálny status má rozlišovať pass-on-first-attempt, flaky recovery a reálny fix.
+Rerun môže pomôcť diagnostike, ale nesmie odstrániť prvý failure z výsledku.
 
-## 29. Trend a ownership
+## 30. Provenance reportu a rozhodnutia
 
-Dashboard má viesť k akcii. Užitočné signály sú:
+Autoritatívny report viaž na:
 
-- global a diff coverage trend;
-- uncovered critical branches;
-- mutation score;
-- exclusions a uncovered generated-owned code;
-- incomplete report rate;
-- gate failures podľa príčiny;
-- waiver count a age;
-- test duration a flaky rate;
-- defect escape z covered paths;
-- time to resolve gate failure.
+- source/synthetic merge commit;
+- build artifact;
+- shard a process manifest;
+- tool/config version;
+- exclusions;
+- raw report digests;
+- merge base;
+- gate policy version;
+- CI run a timestamp;
+- final decision a waiver.
 
-Každý trend potrebuje ownera a decision rule. Samotný graf bez reakcie nevytvára quality control.
+Bez provenance nemožno dokázať, že gate vyhodnotil správneho kandidáta.
 
-## 30. Diagnostický workflow
+## 31. Defect-escape feedback
 
-Keď coverage alebo gate zlyhá neočakávane:
+Gate policy sa učí z incidentov:
 
-1. potvrď source commit, target branch a merge base;
-2. over, že všetky test shards skončili a odovzdali raw report;
-3. skontroluj instrumentation a source-map logy;
-4. porovnaj tool, config a exclusion versions;
-5. over repository-relative paths po merge;
-6. rozlíš reálny uncovered change od reportovacieho problému;
-7. skontroluj, či branch alebo condition metrika zodpovedá očakávaniu;
-8. prečítaj konkrétne uncovered lines v kontexte rizika;
-9. pridaj meaningful test alebo zdôvodnenú exclusion;
-10. over kompletný autoritatívny rerun nad rovnakým kandidátom.
+```text
+defect escape
+→ identifikovať failure boundary
+→ zistiť, ktorý dôkaz chýbal alebo bol slabý
+→ pridať najnižší spoľahlivý regression control
+→ upraviť coverage/gate model
+→ sledovať recurrence
+```
 
-Pri quality-gate failure navyše rozlíš, ktorý signal zlyhal, či je blocking, či je evidence kompletná a či existuje platný waiver.
+Ak defect vznikol v covered path-e, riešením nemusí byť vyšší threshold. Môže chýbať negative scenario, assertion, contract test alebo mutation sensitivity.
 
-## 31. Časté omyly
+## 32. Diagnostický workflow
 
-### „80 % coverage znamená 80 % kvalitu“
+Keď coverage alebo gate neočakávane zlyhá:
 
-Coverage a kvalita nemajú lineárny vzťah. Percento nevyjadruje oracle, risk ani business correctness.
+1. potvrď candidate commit, artifact a target branch;
+2. over diff base alebo synthetic merge identity;
+3. načítaj expected shard/process manifest;
+4. skontroluj raw reporty, flush a upload status;
+5. over instrumentation inventory a source maps;
+6. porovnaj tool, config a exclusion versions;
+7. rozlíš uncovered behavior od neúplného reportu;
+8. prečítaj uncovered branch v kontexte rizika;
+9. over oracle cez mutation alebo named scenario;
+10. pridaj meaningful test alebo úzku zdôvodnenú exclusion;
+11. rerun autoritatívny complete gate nad rovnakým kandidátom;
+12. waiver použi iba ako explicitné risk rozhodnutie.
+
+## 33. Referenčné pravidlá
+
+- Coverage je execution mapa, nie percento kvality.
+- Kritický uncovered path je silný negatívny signal.
+- Covered path potrebuje samostatné hodnotenie oraclu.
+- Report je platný iba pri kompletnej instrumentation a merge.
+- Diff coverage používa správny merge base.
+- Branch/condition coverage sú významnejšie pri decision logic.
+- Mutation testing meria citlivosť testov na semantic zmenu.
+- Generated-code exclusions sa riadia ownershipom.
+- Threshold je verzovaná risk policy, nie univerzálna konštanta.
+- Gate kombinuje viac druhov dôkazu.
+- Incomplete evidence nie je green.
+- Waiver nemení technický výsledok.
+- First-attempt evidence sa zachováva.
+- Defect escapes spätne upravujú evidence portfolio.
+
+## 34. Časté omyly
+
+### „80 % coverage znamená 80 % kvality“
+
+Coverage a kvalita nemajú lineárny vzťah. Metrika nevyjadruje business correctness, oracle ani impact.
 
 ### „100 % coverage znamená bezchybný systém“
 
-Všetky probes môžu byť vykonané nesprávnymi scenármi alebo slabými assertions.
+Všetky probes môžu byť vykonané slabými alebo nesprávnymi scenármi.
 
-### „Diff coverage chráni všetky dopady zmeny“
+### „Diff coverage chráni celý dopad zmeny“
 
-Nepriame behavioral zmeny môžu ležať v nezmenenom kóde, konfigurácii alebo dependency grafe.
+Nepriame dependencies, konfigurácia a nezmenené paths môžu meniť behavior.
 
-### „Chýbajúci coverage report je iba infra problém“
+### „Chýbajúci shard iba znižuje coverage“
 
-Je to chýbajúci dôkaz. Pipeline ho musí označiť ako incomplete alebo failed podľa policy.
+Mení scope dôkazu. Report je incomplete.
 
-### „Waiver robí gate zeleným“
+### „Mutation score musí byť 100 %“
 
-Waiver povoľuje postup napriek známemu failure. Technický výsledok sa nesmie prepísať.
+Equivalent alebo low-value mutants existujú. Dôležitý je triage a critical scope.
+
+### „Waiver robí pipeline zelenou“
+
+Waiver povoľuje risk decision napriek známemu failure; evidence ostáva failure/waived.
 
 ### „Viac blocking gates vždy zvyšuje kvalitu“
 
-Hlučné a pomalé gates zvyšujú bypassy, lead time a batch size. Gate musí byť presný a prevádzkovo udržateľný.
+Hlučné a pomalé gates zvyšujú bypassy, batch size a lead time.
 
-## 32. Prevádzkový checklist
+## 35. Zhrnutie
 
-- Je jasné, ktorú coverage metriku nástroj reportuje?
-- Sú instrumentované všetky relevantné processes a shards?
-- Je source mapping stabilný medzi hostom, containerom a CI?
-- Je report viazaný na presný commit a artifact?
-- Používa diff coverage správny merge base?
-- Sú generated code a exclusions explicitne reviewované?
-- Rozlišuje sa unit-only a aggregate coverage tam, kde to pomáha?
-- Má kritická decision logic branch/condition a named scenario evidence?
-- Používa sa mutation testing cielene na high-risk code?
-- Rozlišuje gate pass, fail, incomplete a infrastructure failure?
-- Má threshold risk rationale a version history?
-- Sú waivers úzke, expirovateľné a auditovateľné?
-- Meria sa flaky rate, waiver age a defect escape?
+Atlas coverage a gate chain je:
 
-## 33. Kontrolné otázky
+```text
+release candidate
+→ complete instrumentation a test execution
+→ line/branch/condition/diff pohľady
+→ mutation a named critical scenarios
+→ risk-weighted policy
+→ complete pass, fail, unknown alebo waived
+→ auditované merge/release rozhodnutie
+→ defect-escape learning
+```
 
-1. Prečo je coverage silnejšia ako negatívny než pozitívny signál?
-2. Aký je rozdiel medzi line, statement, branch a condition coverage?
-3. Prečo branch coverage neznamená všetky kombinácie boolean podmienok?
-4. Ako instrumentation a source mapping ovplyvňujú výsledok?
-5. Čo sa môže pokaziť pri merge coverage reportov z paralelných workerov?
-6. Ako sa má pracovať s generated code a exclusions?
-7. Prečo diff coverage potrebuje správny merge base?
-8. Aké riziká diff coverage nevidí?
-9. Čo mutation testing meria navyše oproti execution coverage?
-10. Aké stavy musí coverage gate rozlišovať okrem pass a fail?
-11. Ako funguje ratcheting a ako sa dá gamovať?
-12. Prečo waiver nesmie prepísať technický failure na pass?
+Hlavný princíp je oddeliť execution evidence od decision evidence. Coverage ukazuje, čo sa vykonalo. Gate musí navyše posúdiť úplnosť reportu, kvalitu oraclu, kritické failure modes a význam výsledku pre konkrétny delivery krok.
+
+## 36. Kontrolné otázky
+
+1. Čo code coverage meria a čo nemeria?
+2. Prečo je coverage silnejšia ako negatívny než pozitívny signal?
+3. Aký instrumentation lifecycle vytvára report?
+4. Ako sa líši line, branch a condition coverage?
+5. Prečo aggregate coverage môže skryť zlú test-layer alokáciu?
+6. Čo musí obsahovať complete shard/process merge?
+7. Prečo diff coverage potrebuje merge base?
+8. Aké limity má diff coverage pri nepriamych zmenách?
+9. Čo mutation testing meria navyše oproti coverage?
+10. Prečo tenant mutant prežil pri vysokej coverage?
+11. Čo musí obsahovať quality-gate contract?
+12. Ako sa líši blocking a advisory control?
+13. Ako funguje ratcheting bez metric gaming-u?
+14. Prečo chýbajúci shard vytvoril false green?
+15. Aký je rozdiel medzi failure, incomplete a waived statusom?
+16. Ako defect escape mení gate policy?
 
 ## Glossary impact
 
-Relevantné pojmy: code coverage, line coverage, statement coverage, function coverage, branch coverage, condition coverage, path coverage, instrumentation, probe, source mapping, aggregate coverage, diff coverage, mutation testing, mutation score, quality gate, blocking gate, advisory gate, threshold, ratcheting, waiver, compensating control a incomplete evidence.
+Relevantné pojmy: code coverage, instrumentation, line coverage, statement coverage, function coverage, branch coverage, condition coverage, path coverage, diff coverage, merge base, mutation testing, killed mutant, surviving mutant, quality gate, blocking control, advisory control, ratcheting, waiver, report provenance a incomplete evidence.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
