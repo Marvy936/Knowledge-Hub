@@ -6,490 +6,441 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-A/B testing porovnáva dve alebo viac súbežných variantov správania na kontrolovane priradených skupinách subjektov. Cieľom je odhadnúť kauzálny dopad treatmentu na vopred definovaný používateľský alebo business výsledok.
+A/B testing porovnáva súbežné varianty na kontrolovane priradených skupinách a snaží sa odhadnúť kauzálny dopad treatmentu na vopred definovaný outcome. Traffic split vytvára dve skupiny; dôveryhodný experiment vzniká až vtedy, keď assignment, exposure, measurement a decision contract umožnia rozlíšiť treatment effect od biasu alebo chyby merania.
 
 ```text
-eligible population
-→ assignment
-→ exposure
-→ outcomes
+kauzálna hypotéza
+→ experiment contract a immutable treatment identity
+→ eligibility a správna randomization unit
+→ stabilný assignment
+→ reálna exposure
+→ outcome a guardrail observation
 → validity checks
-→ effect estimation
+→ effect a uncertainty
 → product decision
-→ rollout, iteration alebo removal
+→ bezpečný rollout alebo removal
+→ cleanup a learning
 ```
 
-A/B test nie je deployment stratégia. Variant môže byť doručený feature flagom, samostatným backendom alebo client buildom, ale experimentálnu dôveryhodnosť vytvára dizajn priradenia, merania a rozhodovania.
+A/B test nie je deployment stratégia. Canary sa primárne pýta, či je release bezpečné rozširovať. A/B experiment sa pýta, či treatment spôsobil prakticky významný rozdiel pre definovanú populáciu.
 
-## 2. A/B verzus canary
+## 1. Nosný model: cesta od assignmentu ku kauzálnemu tvrdeniu
 
-Canary odpovedá najmä:
-
-> Je nová verzia prevádzkovo dostatočne bezpečná na širšiu expozíciu?
-
-A/B experiment odpovedá:
-
-> Aký je kauzálny rozdiel medzi variantmi pre definovanú populáciu a outcome?
-
-Canary používa reliability guardrails a môže byť krátky. A/B test potrebuje randomizáciu alebo iný identifikačný dizajn, exposure logging, sample plán a ochranu pred biasom. Obe vrstvy možno kombinovať: najprv safety canary, potom produktový experiment.
-
-## 3. Experiment contract
-
-Pred spustením definuj:
-
-- hypothesis,
-- eligible population,
-- unit of randomization,
-- control a treatment,
-- assignment ratio,
-- primary metric,
-- guardrail metrics,
-- attribution a observation window,
-- minimum detectable effect,
-- sample/duration plán,
-- stopping rules,
-- planned segments,
-- privacy a ethics review,
-- ownera a decision policy.
-
-Experiment bez vopred definovaného kontraktu umožňuje po výsledku vybrať najvýhodnejšie vysvetlenie.
-
-## 4. Hypotéza
-
-Silná hypotéza:
+Experiment chce porovnať dva hypotetické výsledky toho istého subjektu:
 
 ```text
-Pre nových oprávnených používateľov
-variant B zvýši 7-dňovú activation completion
-aspoň o prakticky významnú hranicu
-bez zhoršenia error, support a retention guardrails.
+outcome subjektu s controlom
+versus
+outcome toho istého subjektu s treatmentom
 ```
 
-Obsahuje populáciu, treatment, outcome, horizon, očakávaný smer a safety constraints.
+V realite možno pozorovať iba jeden z nich. Random assignment vytvára skupiny, ktoré majú byť pred treatmentom porovnateľné, takže rozdiel outcomes možno za splnených podmienok pripísať variantu.
 
-## 5. Experiment identity a versioning
-
-Experiment musí mať immutable alebo versionovanú identitu:
-
-- experiment key,
-- experiment version,
-- variants a payload revisions,
-- assignment salt,
-- eligibility revision,
-- metric definitions,
-- application/artifact versions,
-- start/stop timestamps.
-
-Ak sa treatment alebo eligibility významne zmení, ide o novú experiment version. Miešanie odlišných variantov do jedného výsledku znehodnocuje interpretáciu.
-
-## 6. Unit of randomization
-
-Unit musí zodpovedať tomu, kde treatment pôsobí:
-
-- user,
-- account alebo tenant,
-- device,
-- session,
-- request,
-- organization,
-- geografický cluster,
-- časový interval pri switchback dizajne.
-
-Pri collaboration produkte môžu členovia jedného tímu ovplyvňovať výsledok navzájom; randomizácia userov potom porušuje independence a cluster randomization môže byť vhodnejšia.
-
-## 7. Deterministic assignment
+Dôveryhodnosť sa môže zlomiť na viacerých hraniciach:
 
 ```text
-bucket = hash(experiment_key + version + subject_id + salt) mod N
+population boundary
+→ kto bol eligible
+
+assignment boundary
+→ kto bol priradený kam
+
+exposure boundary
+→ kto treatment skutočne dostal
+
+measurement boundary
+→ ako vznikol outcome
+
+decision boundary
+→ ako sa uncertainty zmenila na rozhodnutie
 ```
 
-Požiadavky:
+Pozitívny dashboard výsledok nemá hodnotu, ak assignment alebo measurement boundary nie sú platné.
 
-- rovnaký subjekt má stabilný variant,
-- assignment je konzistentný naprieč services,
-- zmena percenta má predvídateľný reshuffle model,
-- anonymous identity má lifecycle,
-- missing identity má explicitný fallback,
-- experiment namespaces zabraňujú kolíziám.
+## 2. Nosný scenár: Atlas Orders review panel
 
-## 8. Eligibility
+Atlas chce zistiť, či nový order-review panel znižuje počet nedokončených objednávok. Treatment zobrazuje zákazníkovi jasnejšie vysvetlenie risk kontroly a odporúčaný ďalší krok. Backend release je už prevádzkovo overený canary rolloutom; teraz sa testuje produktový účinok UI a workflowu.
 
-Eligibility sa aplikuje pred assignmentom a môže zahŕňať:
+Experiment `order-review-v3` má contract:
 
-- nový/existujúci používateľ,
-- jurisdikciu,
-- plan alebo tenant tier,
-- client capability,
-- locale,
-- predchádzajúci experiment exposure,
-- consent alebo opt-out,
-- bezpečnostné obmedzenia.
+```text
+population
+→ oprávnení prihlásení používatelia vytvárajúci novú order
 
-Zmenu eligibility počas experimentu versionuj alebo analyzuj ako samostatnú fázu. Inak sa mení population mix.
+randomization unit
+→ tenant, nie user
 
-## 9. Assignment verzus exposure
+control A
+→ pôvodný review panel
 
-Assignment znamená, že subjekt patrí do variantu. Exposure znamená, že treatment skutočne ovplyvnil jeho skúsenosť.
+treatment B
+→ nový panel s risk explanation
 
-Exposure event potrebuje:
+primary outcome
+→ order completion do 24 hodín od prvej exposure
 
-- experiment ID/version,
-- variant,
-- privacy-safe subject key,
-- timestamp,
-- assignment reason,
-- application/artifact version,
-- session/request correlation,
-- treatment payload revision.
+guardrails
+→ duplicate orders, support contacts, authorization errors, p99 latency
 
-Chýbajúci exposure logging môže zameniť „priradený“ a „reálne zasiahnutý“ population set.
+minimum practical effect
+→ vopred definované zlepšenie completion bez guardrail regresie
 
-## 10. Intention-to-treat a exposed analysis
+experiment horizon
+→ minimálne celý pracovný týždeň plus dozretie 24-hodinových outcomes
+```
 
-- **Intention-to-treat —** analyzuje všetkých pridelených subjektov; zachováva randomizáciu a je robustnejší proti behaviorálnemu selection biasu.
-- **Exposed-only —** analyzuje iba potvrdené exposures; môže zlepšiť citlivosť, ale exposure samotná môže závisieť od treatmentu.
+Tenant je randomization unit, pretože členovia jedného tímu zdieľajú order a navzájom vidia jej stav. User-level randomizácia by miešala control a treatment v jednom collaboration workflowe.
 
-Primárny analytický model definuj vopred. Exposed-only výsledok používaj opatrne a spolu s assignment diagnostics.
+## 3. Experiment subject musí byť immutable a vysvetliteľný
 
-## 11. Metric contract
+Výsledok patrí konkrétnej verzii experimentu:
 
-Každá metric má definovať:
+```text
+experiment key a version
++ treatment payload revision
++ eligibility revision
++ assignment salt
++ application/client versions
++ primary a guardrail metric definitions
++ attribution window
++ start/stop timestamps
+```
 
-- event source a schema,
-- numerator a denominator,
-- deduplication,
-- attribution rule,
-- time window,
-- timezone,
-- late-event handling,
-- bot/internal traffic,
-- missing values,
-- unit of analysis.
+Ak Atlas počas experimentu zmení wording, layout alebo eligibility, nevzniká „malá úprava“. Mení sa treatment alebo population a musí vzniknúť nová experiment version alebo explicitná fáza.
 
-Rozdielne dashboardy často ukazujú iný výsledok pre odlišné inclusion alebo attribution pravidlá.
+Bez identity možno v jednej analýze zmiešať používateľov, ktorí dostali odlišný treatment, a výsledok už nereprezentuje jednu kauzálnu otázku.
 
-## 12. Primary, secondary a guardrail metrics
+## 4. Hypotéza určuje, čo sa bude merať
 
-- **Primary —** hlavný outcome pre decision.
-- **Secondary —** vysvetľuje mechanizmus alebo širší dopad.
-- **Guardrail —** chráni reliability, bezpečnosť, support, retention, accessibility alebo kvalitu revenue.
-- **Diagnostic —** slúži na troubleshooting, nie na post hoc vyhlásenie víťaza.
+Atlas hypotéza znie:
 
-Viac primárnych metrík zvyšuje decision ambiguity a multiple-testing riziko.
+> Pre oprávnené tenants nový review panel zvýši 24-hodinovú order completion o prakticky významnú hodnotu bez nárastu duplicate orders, support contacts, authorization errors alebo latency.
 
-## 13. Sample size a praktický efekt
+Obsahuje:
 
-Pred experimentom odhadni:
+- populáciu;
+- treatment;
+- mechanizmus;
+- primary outcome;
+- časový horizont;
+- prakticky významný efekt;
+- safety guardrails.
 
-- baseline rate/variance,
-- minimum detectable effect,
-- desired power,
-- false-positive policy,
-- expected eligibility a exposure rate,
-- cluster effect, ak sa randomizuje skupina,
-- maximum duration.
+Secondary metrics môžu testovať mechanizmus, napríklad kliknutie na vysvetlenie alebo čas do ďalšieho kroku. Nesmú sa po výsledku svojvoľne povýšiť na primary metric len preto, že vyšli priaznivo.
 
-Štatisticky detegovateľný efekt môže byť ekonomicky alebo používateľsky zanedbateľný. Rozhodnutie potrebuje practical significance.
+## 5. Eligibility predchádza assignmentu
 
-## 14. Precedence experimentálnych validity checks
+Atlas najprv určí, či tenant môže vstúpiť do experimentu:
 
-Pred interpretáciou outcome over:
+```text
+supported client version
++ relevant workflow
++ povolená jurisdikcia
++ žiadny opt-out
++ žiadny konfliktujúci experiment
+→ eligible
+```
 
-1. assignment integrity,
-2. sample ratio,
-3. exposure completeness,
-4. metric pipeline health,
-5. population comparability,
-6. concurrent experiment interference,
-7. novelty/seasonality,
-8. guardrail safety.
+Až potom stabilne priradí tenant do variantu:
 
-Pozitívny primary result pri neplatnom assignment systéme nie je dôveryhodný.
+```text
+bucket = hash(experiment_version + tenant_id + salt) mod N
+```
 
-## 15. Sample Ratio Mismatch
+Poradie chráni sample ratio. Ak by sa niektoré eligibility pravidlo aplikovalo až po assignment-e iba v treatment path-e, jedna skupina by stratila viac subjektov a randomizácia by sa narušila.
 
-Ak očakávaš 50/50, ale pozoruješ významne odlišný pomer, hľadaj:
+## 6. Assignment a exposure sú odlišné udalosti
 
-- assignment bug,
-- variant-specific crash,
-- logging loss,
-- cache/routing rozdiel,
-- eligibility aplikovanú po assignment-e,
-- bot traffic,
-- client incompatibility.
+Assignment znamená, že tenant patrí do B. Exposure znamená, že konkrétny používateľ treatment skutočne videl v relevantnom workflowe.
 
-SRM je experiment integrity incident, nie iba kozmetická odchýlka.
+Exposure event obsahuje:
 
-## 16. A/A test a instrumentation validation
+```text
+experiment/version
+variant
+privacy-safe tenant key
+application/client version
+treatment payload revision
+workflow a request correlation
+timestamp
+```
 
-A/A test posiela ekvivalentné správanie do dvoch skupín a overuje:
+Primárna intention-to-treat analýza zahŕňa všetkých assigned tenants a zachováva randomizáciu. Exposed-only analýza môže vysvetliť mechanizmus, ale môže byť biased: treatment sám môže ovplyvniť, či sa používateľ dostane na obrazovku, ktorá exposure zaznamená.
 
-- assignment ratio,
-- exposure logging,
-- metric parity,
-- variance assumptions,
-- analysis pipeline,
-- false-positive calibration.
+## 7. Metric contract zabraňuje tomu, aby rovnaký názov znamenal iné číslo
 
-A/A test nenahrádza produktový experiment, ale môže odhaliť platformové chyby pred treatmentom.
+`order_completion_24h` presne definuje:
 
-## 17. Sequential monitoring a stopping
+```text
+numerator
+→ orders dokončené do 24 h od prvej validnej exposure
 
-Priebežné pozeranie a zastavenie pri prvom priaznivom výsledku zvyšuje false-positive riziko.
+denominator
+→ eligible assigned orders s dozretým 24-hodinovým oknom
 
-Použi:
+deduplication
+→ logical order ID a idempotency key
 
-- fixed horizon,
-- validný sequential design,
-- Bayesian decision rule,
-- oddelené immediate harm guardrails.
+late events
+→ spracované podľa versionovaného watermark pravidla
 
-Safety abort môže byť okamžitý; product-win decision musí rešpektovať analytický plán.
+attribution
+→ k variantu tenant assignmentu pri začiatku order journey
 
-## 18. Delayed outcomes a attribution
+internal/bot traffic
+→ vylúčený
+```
 
-Outcome môže vzniknúť po hodinách alebo týždňoch. Definuj:
+Dashboard, ktorý používa „completion v kalendárny deň“, môže ukázať iný výsledok než experiment query. Metric definition a query revision sú súčasťou evidence.
 
-- exposure-to-outcome attribution,
-- conversion window,
-- censoring pri konci testu,
-- late events,
-- repeat exposure,
-- cross-device identity.
+## 8. Validity checks majú prednosť pred effect estimation
 
-Experiment neukončuj skôr, než relevantný outcome horizon dozreje.
+Atlas interpretuje primary outcome až po tomto poradí:
 
-## 19. Interference a network effects
+```text
+1. experiment subject a treatment identity
+2. eligibility a assignment integrity
+3. Sample Ratio Mismatch
+4. assignment → exposure funnel
+5. metric pipeline a query health
+6. population a segment comparability
+7. concurrent experiment interference
+8. sample maturity a delayed outcomes
+9. guardrail safety
+10. effect estimate a practical significance
+```
 
-Treatment jedného subjektu môže ovplyvniť control:
+Ak experiment očakáva 50/50 a pozoruje výrazne iný pomer, vznikol integrity incident. Možné mechanizmy zahŕňajú assignment bug, treatment-specific crash, exposure logging loss, client incompatibility alebo eligibility aplikovanú asymetricky.
 
-- marketplace supply/demand,
-- social graph,
-- collaboration,
-- shared tenant quota,
-- pricing alebo recommendations.
+Výsledok sa nesmie „opraviť“ váhovaním bez pochopenia príčiny.
 
-Možnosti:
+## 9. Sample a stopping contract chránia pred náhodným víťazom
 
-- cluster randomization,
-- geo experiment,
-- switchback design,
-- holdout na spoločnom markete,
-- modelovanie spillover efektu.
+Pred spustením Atlas určí:
 
-## 20. Novelty, learning a carryover
+- baseline completion a variance;
+- minimálny prakticky významný efekt;
+- potrebnú sample size alebo decision rule;
+- maximum duration;
+- 24-hodinové dozretie outcome;
+- planned segment analyses;
+- fixed-horizon alebo validný sequential design.
 
-Krátkodobý efekt môže pochádzať z novosti; používateľ sa tiež môže nový workflow postupne naučiť. Pri crossover alebo switchback dizajne môže treatment ovplyvniť následné obdobie.
+Priebežné pozeranie a ukončenie pri prvom priaznivom výsledku mení false-positive behavior. Safety guardrail môže experiment okamžite zastaviť, ale product-win decision musí rešpektovať analytický plán.
 
-Observation horizon má pokrývať celý relevantný business cycle a adaptation.
+Štatisticky rozlíšiteľný, ale zanedbateľný efekt nemusí odôvodniť rollout, support cost ani permanentnú komplexitu.
 
-## 21. Multiple experiments
+## 10. Interference určuje správnu randomization unit
 
-Experiment platforma potrebuje:
+Pri Atlas Orders sa členovia jedného tenanta ovplyvňujú:
 
-- namespaces,
-- mutual-exclusion groups,
-- dependencies,
-- interaction metadata,
-- exposure join keys,
-- global holdout podľa potreby.
+```text
+user A začne order s treatmentom
+→ user B ju otvorí cez control
+→ obaja vidia a menia ten istý shared workflow
+```
 
-Úplné zakázanie overlapu znižuje kapacitu; ignorovanie interakcií znižuje validitu.
+User-level assignment by porušil jednoduchý predpoklad izolovaných treatmentov. Tenant-level assignment zachováva konzistentný workflow, hoci znižuje počet nezávislých jednotiek a mení sample výpočet.
 
-## 22. Operational safety
+Pri marketplace, social graph alebo regionálnom systéme môže byť potrebná cluster randomizácia, geo experiment alebo switchback. Randomization unit sa vyberá podľa hranice treatment účinku, nie podľa najľahšie dostupného ID.
 
-Aj produktový experiment je produkčný rollout. Potrebuje:
+## 11. Worked failure: treatment-specific client crash vytvoril falošné SRM
 
-- kill switch,
-- max exposure,
-- guardrail alerts,
-- ownera a on-call context,
-- feature/config fallback,
-- expiry,
-- rollback alebo disable postup,
-- audit zmien.
+Po spustení experimentu Atlas očakával 50/50 assigned tenants, ale exposure events ukazovali 50/43.
 
-Experiment platforma je privilegovaný control plane.
+```text
+assignment 50/50 je správny
+→ treatment payload obsahuje pole nepodporované starším klientom
+→ klient B spadne pred exposure eventom
+→ treatment má menej exposures aj outcomes
+→ exposed-only dashboard ukazuje vysokú completion medzi preživšími
+→ treatment vyzerá ako víťaz
+```
 
-## 23. Privacy, ethics a fairness
+### Príčina
 
-Over:
+Assignment bol zdravý, ale treatment-specific crash prerušil exposure a measurement funnel. Exposed-only population stratila najviac postihnutých používateľov, takže výpočet porovnával selektovanú skupinu.
 
-- oprávnenie experimentovať,
-- consent alebo disclosure,
-- citlivé segmenty,
-- diskriminačný targeting,
-- data minimization,
-- retention exposure/outcome dát,
-- opt-out,
-- jurisdiction constraints,
-- možnosť reálnej škody.
+### Dôsledok
 
-Nie každý behaviorálny zásah je vhodný na tichý randomizovaný experiment.
+Pozitívny effect estimate bol neplatný. Experiment sa klasifikoval ako invalid, nie ako inconclusive product result.
 
-## 24. Experiment decision taxonomy
+### Trvalá náprava
 
-Výsledok nemusí byť iba „B vyhralo“:
+```text
+assignment count oddelený od exposure count
+→ crash telemetry podľa experiment version a variantu
+→ client capability v eligibility
+→ A/A a payload-compatibility fixture
+→ intention-to-treat ako primary analysis
+```
 
-- ship treatment,
-- keep control,
-- iterate and rerun,
-- inconclusive,
-- invalid experiment,
-- stop for harm,
-- segment-specific follow-up,
-- no practical benefit.
+## 12. Worked failure: user-level randomizácia skryla tenant interference
 
-Decision record má oddeliť evidence od business rozhodnutia.
+Prvá verzia experimentu randomizovala jednotlivých používateľov. V treatment skupine rástla completion, ale support hlásil nekonzistentné workflowy.
 
-## 25. Rollout po experimente
+```text
+user A dostane nový panel
+→ upraví order podľa treatment guidance
+→ user B z rovnakého tenanta otvorí starý panel
+→ control UI nepozná nový intermediate state
+→ user B vytvorí paralelnú order alebo kontaktuje support
+→ tenant outcome ovplyvnia oba varianty
+```
 
-Víťazný variant nepromotionuj automaticky bez:
+### Príčina
 
-- guardrail review,
-- capacity a reliability overenia,
-- support/operability readiness,
-- cleanup plánu,
-- compatibility kontroly,
-- monitoring-u po 100 %.
+Randomization unit bola užšia než hranica treatment účinku. Control a treatment si navzájom kontaminovali outcomes cez shared tenant state.
 
-Experiment často bežal na čiastočnom scope a nemusí dokazovať behavior pri plnom load-e.
+### Náprava
 
-## 26. Cleanup a archive
+Atlas ukončil experiment ako invalid, prešiel na tenant-level assignment, pridal tenant-consistency invariant a prepočítal sample plán s cluster efektom.
 
-Po rozhodnutí:
+## 13. Kauzálny diagnostický walkthrough
 
-- nastav finálny behavior,
-- odstráň obsolete variant,
-- odstráň flag a assignment logiku,
-- ukonči exposure events,
-- archivuj hypothesis, queries a result,
-- zachovaj privacy retention policy,
-- vytvor následné actions.
+Symptom: treatment ukazuje vyššiu completion, ale zároveň vznikol Sample Ratio Mismatch a nižší exposure rate.
 
-Experiment bez cleanupu sa mení na permanentný nezdokumentovaný branch.
+### Krok 1 — stabilizuj subject
 
-## 27. Failure modes
+```text
+experiment order-review-v3 version 2
+payload B17
+eligibility E9
+assignment salt S4
+metric query Q12
+client versions 8.2–8.5
+```
 
-- assignment bug,
-- missing exposure,
-- SRM,
-- metric drift,
-- concurrent treatment interference,
-- insufficient sample,
-- peeking bias,
-- delayed-outcome truncation,
-- privacy breach,
-- stale variant po expiry.
+Bez tejto identity by sa mohli miešať staršie payloads alebo eligibility rules.
 
-## 28. Diagnostický postup
+### Krok 2 — formuluj konkurenčné hypotézy
 
-1. Over experiment/version a treatment payload.
-2. Skontroluj eligibility a assignment counts.
-3. Testuj SRM.
-4. Porovnaj assignment a exposure funnel.
-5. Validuj metric query, dedup a attribution.
-6. Skontroluj concurrent experiments a population mix.
-7. Over sample maturity a delayed outcomes.
+```text
+H1: treatment naozaj zvyšuje completion
+H2: assignment systém priraďuje menej subjektov do B
+H3: B spôsobuje crash alebo nedokončenú exposure telemetry
+H4: outcome query asymetricky zahŕňa varianty
+H5: populácie sa líšia pre eligibility alebo concurrent experiment
+```
+
+### Krok 3 — vyber diskriminačné observation points
+
+- raw assignment ledger testuje H2;
+- assignment → app start → exposure → outcome funnel podľa variantu testuje H3;
+- query execution, numerator/denominator a dedup audit testujú H4;
+- eligibility a population distributions testujú H5;
+- treatment effect možno interpretovať až po odmietnutí H2–H5.
+
+Atlas zistí, že assignment ledger je presne 50/50, rozdiel vzniká medzi app startom a exposure iba na client 8.2 a crash signature patrí B payloadu. H3 vysvetľuje SRM.
+
+### Krok 4 — containment a verdict
+
+Treatment exposure sa zastaví pre nepodporovaný client. Experiment sa označí `INVALID`, nie `B WINS`. Výsledky sa nepoužijú na product decision.
+
+### Krok 5 — over opravu
+
+Po capability gate a novej experiment version Atlas najprv spustí A/A/instrumentation check. Pokračuje až keď assignment, exposure a crash funnel nemajú variant-specific rozdiel.
+
+### Krok 6 — zachovaj learning
+
+Incident vytvorí payload compatibility test, experiment-platform guardrail na assignment/exposure divergence a povinnú client-capability eligibility kontrolu.
+
+## 14. Decision record oddeľuje evidence od product voľby
+
+Možné výsledky:
+
+- ship treatment;
+- keep control;
+- iterate a spustiť nový experiment;
+- inconclusive pre nedostatočnú sample alebo uncertainty;
+- invalid pre porušenú experiment integrity;
+- stop for harm;
+- no practical benefit napriek štatistickému rozdielu.
+
+Víťazný treatment sa neaktivuje automaticky na 100 %. Nasleduje reliability/capacity review, progressive rollout, support readiness a post-promotion observation. Experiment na čiastočnej populácii nemusí dokazovať správanie pri plnej záťaži.
+
+## 15. Cleanup uzatvára experiment lifecycle
+
+Po rozhodnutí Atlas:
+
+```text
+nastaví finálny behavior
+→ bezpečne rolloutne alebo odstráni treatment
+→ odstráni assignment a exposure logiku
+→ odstráni obsolete code path a flag
+→ archivuje contract, queries, evidence a decision
+→ aplikuje privacy retention
+```
+
+Experiment bez expiry a cleanupu sa zmení na permanentný, slabo zdokumentovaný branch.
+
+## 16. Diagnostický runbook
+
+1. Potvrď experiment version, treatment payload, eligibility a metric query.
+2. Over raw assignment counts pred exposure filteringom.
+3. Testuj Sample Ratio Mismatch a lokalizuj prvý divergence point vo funnel-e.
+4. Porovnaj assignment, app/runtime health, exposure a outcome podľa variantu.
+5. Validuj metric contract, deduplication, attribution a query execution.
+6. Skontroluj population mix, randomization unit a concurrent interference.
+7. Over sample maturity, stopping rule a delayed outcomes.
 8. Rozlíš planned segment analysis od post hoc data mining.
-9. Skontroluj guardrails a operational incidents.
-10. Klasifikuj result ako valid, inconclusive alebo invalid.
+9. Skontroluj guardrails, privacy a operational incidents.
+10. Klasifikuj experiment ako valid, inconclusive alebo invalid pred product decisionom.
 
-## 29. Metriky experimentačnej platformy
+## 17. Referenčné pravidlá
 
-- SRM incident rate,
-- exposure logging completeness,
-- invalid/inconclusive experiment rate,
-- time to sufficient sample,
-- stale experiment count,
-- guardrail aborts,
-- decision-to-cleanup time,
-- metric-definition drift,
-- podiel shipped treatments s post-rollout regression,
-- privacy alebo targeting incidents.
+- A/B test odhaduje kauzálny treatment effect; nie je to obyčajný traffic split.
+- Experiment subject zahŕňa treatment, eligibility, assignment a metric revisions.
+- Randomization unit zodpovedá hranici treatment účinku.
+- Eligibility predchádza assignmentu.
+- Assignment a exposure sú samostatné observation points.
+- Primary metric a attribution sú versionované pred spustením.
+- Validity checks majú prednosť pred effect estimate.
+- Sample Ratio Mismatch je integrity incident.
+- Safety abort a product-win stopping používajú odlišnú logiku.
+- Štatistická významnosť nenahrádza praktickú hodnotu, guardrails ani etiku.
+- Víťazný variant stále potrebuje bezpečný rollout a cleanup.
 
-## 30. Typické anti-patterny
+## 18. Časté omyly
 
-### Traffic split bez assignment integrity
+### „B má vyššie číslo, takže vyhralo“
 
-Nie je to dôveryhodný A/B experiment.
+Najprv treba overiť assignment, exposure, metric pipeline a sample maturity.
 
-### Bez primary metric
+### „Randomizujeme users, lebo máme user ID“
 
-Po výsledku sa vyberie najpriaznivejšie číslo.
+Shared tenant alebo network effect môže vyžadovať širšiu unit.
 
-### Assignment sa zamieňa s exposure
+### „Exposed-only je vždy presnejšie“
 
-Nezobrazený treatment riedi alebo skresľuje odhad.
+Exposure môže byť treatment-dependent a vytvoriť selection bias.
 
-### Peeking bez validného dizajnu
+### „SRM stačí opraviť váhou“
 
-False-positive riziko rastie.
+Bez root cause môže SRM signalizovať crash, logging loss alebo asymetrickú eligibility.
 
-### Pozitívny segment nájdený post hoc
+### „Experiment skončil, flag môže zostať“
 
-Môže ísť o náhodu bez dostatočnej vzorky.
+Bez removal-u vzniká flag, code a analytický debt.
 
-### Statistical significance = automatický ship
+## 19. Zhrnutie
 
-Ignoruje practical effect, costs, guardrails a ethics.
+Atlas A/B lifecycle je:
 
-### Experiment bez expiry a cleanupu
+```text
+kauzálna hypotéza
+→ immutable experiment contract
+→ eligibility + správna randomization unit
+→ stabilný assignment
+→ exposure a metric provenance
+→ integrity a maturity checks
+→ effect + uncertainty + practical significance
+→ product decision
+→ progressive rollout alebo removal
+→ cleanup
+```
 
-Varianty zostanú trvalou komplexitou.
-
-## 31. Rozhodovací rámec
-
-1. Aká je kauzálna hypotéza?
-2. Aká je správna randomization unit?
-3. Kto je eligible a prečo?
-4. Ako sa assignment odlišuje od exposure?
-5. Aká metric a attribution definícia rozhoduje?
-6. Aký minimum detectable effect je prakticky relevantný?
-7. Aký sample/duration a stopping design použijeme?
-8. Ktoré interference a concurrent experiments hrozia?
-9. Aké guardrails chránia používateľov?
-10. Aké privacy/ethics constraints platia?
-11. Aké výsledné verdicts sú možné?
-12. Ako sa variant rolloutne a následne odstráni experiment debt?
-
-## 32. Kontrolný checklist
-
-- hypothesis a primary metric sú vopred zapísané,
-- experiment version identifikuje treatment,
-- unit a eligibility sú správne,
-- assignment je deterministický,
-- exposure event je spoľahlivý,
-- sample a stopping rules sú definované,
-- SRM a instrumentation checks existujú,
-- attribution pokrýva delayed outcomes,
-- guardrails a kill switch sú aktívne,
-- privacy a ethics boli posúdené,
-- decision taxonomy zahŕňa invalid/inconclusive,
-- rollout a cleanup plan existujú.
-
-## 33. Kontrolné otázky
-
-1. Aký je rozdiel medzi canary a A/B testom?
-2. Prečo randomization unit musí zodpovedať mechanismu účinku?
-3. Aký je rozdiel medzi assignment a exposure?
-4. Kedy je intention-to-treat vhodnejší než exposed-only?
-5. Čo je Sample Ratio Mismatch?
-6. Načo slúži A/A test?
-7. Prečo sequential peeking zvyšuje false positives?
-8. Ako interference porušuje jednoduchý user-level experiment?
-9. Prečo štatistický efekt nemusí byť prakticky významný?
-10. Čo musí nasledovať po experimentálnom rozhodnutí?
-
-## Summary
-
-A/B testing je kauzálny experiment, nie obyčajný traffic split. Dôveryhodnosť vzniká explicitnou hypotézou, správnou randomization unit, stabilným assignmentom, exposure loggingom, versionovanými metric definitions, sample a stopping plánom a validity checks ako SRM. Rozhodnutie musí zohľadniť praktický efekt, guardrails, privacy a operational readiness. Po experimente treba variant bezpečne rolloutovať alebo odstrániť a uzavrieť flag aj analytický debt.
-
-## Glossary impact
-
-Relevantné pojmy: A/B testing, causal effect, experiment contract, randomization unit, eligibility, deterministic assignment, exposure event, intention-to-treat, primary metric, guardrail metric, minimum detectable effect, Sample Ratio Mismatch, A/A test, interference, sequential design a experiment cleanup.
+Experiment je dôveryhodný iba vtedy, keď vie vysvetliť celý chain od eligible population po outcome. Pozitívny výsledok pri neplatnom assignment, exposure alebo measurement systéme nie je slabý dôkaz; nie je to dôkaz o treatment efekte.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
