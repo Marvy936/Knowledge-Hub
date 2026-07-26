@@ -899,15 +899,15 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "title": "PowerShell fundamentals",
-      "words": 4521,
-      "headings": 95,
-      "sections": 95,
-      "findings": 214,
-      "critical": 74,
-      "high": 110,
-      "medium": 18,
-      "low": 12,
-      "score": 1822,
+      "words": 3009,
+      "headings": 50,
+      "sections": 50,
+      "findings": 105,
+      "critical": 41,
+      "high": 40,
+      "medium": 13,
+      "low": 11,
+      "score": 866,
       "grade": "D"
     },
     {
@@ -47306,34 +47306,7 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameter a type contract,`, `pipeline enumeration,`, `success a diagnostické streams,`, `terminating a non-terminating errors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "1. Definícia",
+      "section": "1. Cieľ kapitoly",
       "line": 11,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -47342,7 +47315,7 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "1. Definícia",
+      "section": "1. Cieľ kapitoly",
       "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -47351,35 +47324,26 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "2. Kedy je PowerShell vhodný",
-      "line": 36,
+      "section": "2. Nosný scenár: Atlas service configuration",
+      "line": 29,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "2. Kedy je PowerShell vhodný",
-      "line": 36,
+      "section": "2. Nosný scenár: Atlas service configuration",
+      "line": 29,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Windows administrácia,`, `cross-platform .NET automation,`, `object-oriented transformácie JSON, XML, CSV a API výsledkov,`, `filesystem, registry, certificate a service orchestration,`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bindnúť a validovať parameters,`, `zistiť aktuálnu config version a service state,`, `vytvoriť typed change plan,`, `pri -WhatIf plán iba zobraziť,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "2. Kedy je PowerShell vhodný",
-      "line": 36,
+      "section": "2. Nosný scenár: Atlas service configuration",
+      "line": 29,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -47387,17 +47351,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "2. Kedy je PowerShell vhodný",
-      "line": 36,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "2. Kedy je PowerShell vhodný",
-      "line": 36,
+      "section": "2. Nosný scenár: Atlas service configuration",
+      "line": 29,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -47405,44 +47360,71 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "2. Kedy je PowerShell vhodný",
-      "line": 36,
+      "section": "3. Kedy je PowerShell vhodný",
+      "line": 56,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "3. Kedy je PowerShell vhodný",
+      "line": 56,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Windows administráciu,`, `cross-platform .NET automation,`, `filesystem, registry, certificate a service orchestration,`, `Azure, Microsoft 365 a ďalšie object-oriented modules,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "3. Kedy je PowerShell vhodný",
+      "line": 56,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "3. Kedy je PowerShell vhodný",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "3. Kedy je PowerShell vhodný",
+      "line": 56,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `JSON`, `XML`, `CSV`, `API`, `CI`, `CD`, `SSH-`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `JSON`, `XML`, `CSV`, `CI`, `CD`",
       "score": 7
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "3. Windows PowerShell verzus PowerShell",
-      "line": 59,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "3. Windows PowerShell verzus PowerShell",
-      "line": 59,
+      "section": "4. Runtime verzia je súčasť contractu",
+      "line": 71,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "3. Windows PowerShell verzus PowerShell",
-      "line": 59,
+      "section": "4. Runtime verzia je súčasť contractu",
+      "line": 71,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupné modules,`, `.NET API,`, `remoting transport,`, `default text encoding,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupné modules a providers,`, `.NET API,`, `default encoding,`, `native argument passing,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "3. Windows PowerShell verzus PowerShell",
-      "line": 59,
+      "section": "4. Runtime verzia je súčasť contractu",
+      "line": 71,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -47450,8 +47432,17 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "3. Windows PowerShell verzus PowerShell",
-      "line": 59,
+      "section": "4. Runtime verzia je súčasť contractu",
+      "line": 71,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "4. Runtime verzia je súčasť contractu",
+      "line": 71,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `API`",
@@ -47459,44 +47450,17 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "4. Execution lifecycle",
-      "line": 93,
+      "section": "7. Parameter binding je vstupná state transition",
+      "line": 149,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "5. Object pipeline",
-      "line": 112,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "6. Formatting boundary",
-      "line": 133,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "7. Command discovery",
-      "line": 161,
-      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alias,`, `function,`, `cmdlet,`, `external executable,`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `syntax/type validation cez attributes,`, `environment-dependent preconditions v explicitnej validation fáze,`, `mutation až po vytvorení plánu.`.",
+      "score": 8
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "7. Command discovery",
-      "line": 161,
+      "section": "7. Parameter binding je vstupná state transition",
+      "line": 149,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -47504,44 +47468,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "8. Variables a types",
-      "line": 195,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "9. Automatic variables",
-      "line": 220,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "9. Automatic variables",
-      "line": 220,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `$ alebo $PSItem — current pipeline item,`, `$MyInvocation — invocation metadata,`, `$PSScriptRoot — directory aktuálneho scriptu/module,`, `$PSCommandPath — path aktuálneho scriptu,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "9. Automatic variables",
-      "line": 220,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "9. Automatic variables",
-      "line": 220,
+      "section": "7. Parameter binding je vstupná state transition",
+      "line": 149,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47549,17 +47477,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "9. Automatic variables",
-      "line": 220,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LASTEXITCODE`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "10. $null , empty a missing",
-      "line": 237,
+      "section": "8. $null , scalar a collection sú odlišné states",
+      "line": 191,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -47567,26 +47486,26 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "10. $null , empty a missing",
-      "line": 237,
+      "section": "8. $null , scalar a collection sú odlišné states",
+      "line": 191,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "10. $null , empty a missing",
-      "line": 237,
+      "section": "8. $null , scalar a collection sú odlišné states",
+      "line": 191,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `$null ,`, `'' ,`, `whitespace-only string,`, `@() empty array,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `$null ,`, `empty string,`, `whitespace-only string,`, `empty array,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "10. $null , empty a missing",
-      "line": 237,
+      "section": "8. $null , scalar a collection sú odlišné states",
+      "line": 191,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -47594,8 +47513,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "15. Provider model",
-      "line": 388,
+      "section": "10. Output streams majú rozdielne kontrakty",
+      "line": 269,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -47603,26 +47522,26 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "15. Provider model",
-      "line": 388,
+      "section": "10. Output streams majú rozdielne kontrakty",
+      "line": 269,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "15. Provider model",
-      "line": 388,
+      "section": "10. Output streams majú rozdielne kontrakty",
+      "line": 269,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `properties a item types sa líšia,`, `transakčné a permission semantics sa líšia,`, `provider nemusí podporovať všetky parameters,`, `cross-platform dostupnosť sa líši.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vracať typed objects cez success stream,`, `používať verbose/debug/information na diagnostics,`, `nevypisovať secret values,`, `neukončovať hosting process cez exit .`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "15. Provider model",
-      "line": 388,
+      "section": "10. Output streams majú rozdielne kontrakty",
+      "line": 269,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -47630,188 +47549,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "15. Provider model",
-      "line": 388,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "16. Functions",
-      "line": 409,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "17. Advanced functions",
-      "line": 427,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "17. Advanced functions",
-      "line": 427,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "17. Advanced functions",
-      "line": 427,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "17. Advanced functions",
-      "line": 427,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-Verbose ,`, `-Debug ,`, `-ErrorAction ,`, `-WarningAction ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "17. Advanced functions",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "18. Begin, process a end",
-      "line": 463,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "18. Begin, process a end",
-      "line": 463,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `begin — inicializácia raz,`, `end — finalizácia raz.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "18. Begin, process a end",
-      "line": 463,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "19. Parameter binding",
-      "line": 496,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "19. Parameter binding",
-      "line": 496,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `named parameter,`, `positional parameter,`, `pipeline by value,`, `pipeline by property name,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "19. Parameter binding",
-      "line": 496,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "20. Parameter validation",
-      "line": 518,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "20. Parameter validation",
-      "line": 518,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "20. Parameter validation",
-      "line": 518,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "20. Parameter validation",
-      "line": 518,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation exception vznikne počas binding-u,`, `existence check nevylučuje neskorší race,`, `environment-dependent validation môže znižovať testovateľnosť.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "20. Parameter validation",
-      "line": 518,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "23. Output pollution",
-      "line": 597,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `string,`, `DirectoryInfo z New-Item ,`, `result object.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "23. Output pollution",
-      "line": 597,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "25. Error model",
-      "line": 640,
+      "section": "11. Error nie je automaticky exception",
+      "line": 300,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -47820,7 +47559,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Terminating error",
-      "line": 644,
+      "line": 304,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -47828,53 +47567,17 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "26. ErrorAction a preference",
-      "line": 665,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "26. ErrorAction a preference",
-      "line": 665,
+      "section": "12. ErrorRecord je diagnostický object",
+      "line": 336,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "26. ErrorAction a preference",
-      "line": 665,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fail-fast,`, `continue and report,`, `retry,`, `dead-letter output,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "26. ErrorAction a preference",
-      "line": 665,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "27. ErrorRecord",
-      "line": 689,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "27. ErrorRecord",
-      "line": 689,
+      "section": "12. ErrorRecord je diagnostický object",
+      "line": 336,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Exception ,`, `CategoryInfo ,`, `FullyQualifiedErrorId ,`, `TargetObject ,`.",
@@ -47882,35 +47585,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "27. ErrorRecord",
-      "line": 689,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "28. throw , Write-Error a rethrow",
-      "line": 717,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "30. Strict mode",
-      "line": 770,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `čítanie nenastavenej premennej,`, `neexistujúcu property v niektorých contexts,`, `neplatné function call patterns.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "30. Strict mode",
-      "line": 770,
+      "section": "12. ErrorRecord je diagnostický object",
+      "line": 336,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -47918,53 +47594,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "30. Strict mode",
-      "line": 770,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "32. $? verzus $LASTEXITCODE",
-      "line": 815,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "32. $? verzus $LASTEXITCODE",
-      "line": 815,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "33. Native argument passing",
-      "line": 824,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "35. Capturing native output",
-      "line": 884,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "38. Structured objects",
-      "line": 944,
+      "section": "15. Plan je object graph bez mutations",
+      "line": 419,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -47972,53 +47603,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "38. Structured objects",
-      "line": 944,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "38. Structured objects",
-      "line": 944,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "38. Structured objects",
-      "line": 944,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `property names,`, `types,`, `nullability,`, `units a timezone,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "38. Structured objects",
-      "line": 944,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "38. Structured objects",
-      "line": 944,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `failure semantics`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "39. JSON",
-      "line": 967,
+      "section": "16. ShouldProcess je mutation gate",
+      "line": 472,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -48026,8 +47612,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "39. JSON",
-      "line": 967,
+      "section": "16. ShouldProcess je mutation gate",
+      "line": 472,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -48035,548 +47621,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "39. JSON",
-      "line": 967,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "39. JSON",
-      "line": 967,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-Depth ,`, `enum/datetime serialization,`, `property ordering ako ne-semantic detail,`, `duplicate JSON keys v externom inpute,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "39. JSON",
-      "line": 967,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "40. CSV",
-      "line": 986,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "42. Encoding",
-      "line": 1008,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `UTF-8 s/bez BOM,`, `newline policy,`, `serializer,`, `consumer expectations.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "42. Encoding",
-      "line": 1008,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "42. Encoding",
-      "line": 1008,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "42. Encoding",
-      "line": 1008,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTF-8`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "43. Atomic file update",
-      "line": 1034,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "43. Atomic file update",
-      "line": 1034,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "43. Atomic file update",
-      "line": 1034,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "43. Atomic file update",
-      "line": 1034,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `same-filesystem rename semantics,`, `permissions/ACL ownership,`, `existing-target replace behavior na platforme,`, `antivirus/file-lock interference na Windows,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "43. Atomic file update",
-      "line": 1034,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "43. Atomic file update",
-      "line": 1034,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `durability`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "44. Scope",
-      "line": 1068,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "44. Scope",
-      "line": 1068,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `global,`, `script,`, `local,`, `private,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "44. Scope",
-      "line": 1068,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "45. Dot-sourcing",
-      "line": 1090,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "45. Dot-sourcing",
-      "line": 1090,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "45. Dot-sourcing",
-      "line": 1090,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name collisions,`, `zmena preferences,`, `zmena working directory alebo state,`, `skrytá dependency.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "45. Dot-sourcing",
-      "line": 1090,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "46. Modules",
-      "line": 1107,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "46. Modules",
-      "line": 1107,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module version,`, `compatible PowerShell editions,`, `required modules,`, `exported functions/cmdlets/variables/aliases,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "46. Modules",
-      "line": 1107,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "49. ShouldProcess , -WhatIf a -Confirm",
-      "line": 1187,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "49. ShouldProcess , -WhatIf a -Confirm",
-      "line": 1187,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "49. ShouldProcess , -WhatIf a -Confirm",
-      "line": 1187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "49. ShouldProcess , -WhatIf a -Confirm",
-      "line": 1187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-WhatIf ,`, `-Confirm ,`, `common preference integration.`, `iba code vo vnútri ShouldProcess je chránený,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "49. ShouldProcess , -WhatIf a -Confirm",
-      "line": 1187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "50. Plan, apply a verify",
-      "line": 1218,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "50. Plan, apply a verify",
-      "line": 1218,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "51. Credentials a secrets",
-      "line": 1257,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "51. Credentials a secrets",
-      "line": 1257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "51. Credentials a secrets",
-      "line": 1257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `managed/workload identity,`, `OS alebo cloud secret manager,`, `krátkodobé tokens,`, `certificate-based identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "51. Credentials a secrets",
-      "line": 1257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "51. Credentials a secrets",
-      "line": 1257,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `workload`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "53. Remoting model",
-      "line": 1297,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "53. Remoting model",
-      "line": 1297,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "53. Remoting model",
-      "line": 1297,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication a authorization boundary,`, `network timeout/failure,`, `session lifecycle,`, `serialization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "53. Remoting model",
-      "line": 1297,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "53. Remoting model",
-      "line": 1297,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "55. $using: a remote/parallel capture",
-      "line": 1346,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "56. Jobs",
-      "line": 1359,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "56. Jobs",
-      "line": 1359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "56. Jobs",
-      "line": 1359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout,`, `cancellation,`, `error collection,`, `cleanup,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "56. Jobs",
-      "line": 1359,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "57. Parallel runspaces",
-      "line": 1387,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "57. Parallel runspaces",
-      "line": 1387,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený runspace state,`, `modules/functions nemusia byť dostupné podľa očakávania,`, `$using: values sa prenášajú s obmedzeniami,`, `output order nemusí zodpovedať input order,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "57. Parallel runspaces",
-      "line": 1387,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "57. Parallel runspaces",
-      "line": 1387,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "58. Thread-safe collections a shared state",
-      "line": 1410,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "58. Thread-safe collections a shared state",
-      "line": 1410,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `independent work items,`, `immutable input,`, `concurrent collections,`, `central result aggregation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "58. Thread-safe collections a shared state",
-      "line": 1410,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "59. HTTP automation",
-      "line": 1424,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "59. HTTP automation",
-      "line": 1424,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "59. HTTP automation",
-      "line": 1424,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication,`, `connection/overall timeout podľa cmdlet capabilities,`, `retryable statuses,`, `idempotency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "59. HTTP automation",
-      "line": 1424,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "59. HTTP automation",
-      "line": 1424,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "60. Registry a Windows-specific automation",
-      "line": 1449,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "60. Registry a Windows-specific automation",
-      "line": 1449,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "60. Registry a Windows-specific automation",
-      "line": 1449,
+      "section": "16. ShouldProcess je mutation gate",
+      "line": 472,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
@@ -48584,17 +47630,17 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "60. Registry a Windows-specific automation",
-      "line": 1449,
+      "section": "16. ShouldProcess je mutation gate",
+      "line": 472,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `32/64-bit registry views sa môžu líšiť,`, `elevation a ACL sú významné,`, `service/account context môže mať odlišný hive,`, `transaction/rollback treba navrhnúť explicitne.`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested function môže vykonať ďalšiu mutation,`, `native executable nevie automaticky o WhatIf ,`, `read-only planning sa má vykonať aj pri -WhatIf ,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "60. Registry a Windows-specific automation",
-      "line": 1449,
+      "section": "16. ShouldProcess je mutation gate",
+      "line": 472,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48602,98 +47648,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "60. Registry a Windows-specific automation",
-      "line": 1449,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "62. Logging a observability",
-      "line": 1482,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "62. Logging a observability",
-      "line": 1482,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "62. Logging a observability",
-      "line": 1482,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Write-Verbose pre detail,`, `Write-Debug pre interné state,`, `Write-Warning pre recoverable problém,`, `Write-Information pre lifecycle event,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "62. Logging a observability",
-      "line": 1482,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "64. Testing s Pester",
-      "line": 1525,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "64. Testing s Pester",
-      "line": 1525,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "64. Testing s Pester",
-      "line": 1525,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "64. Testing s Pester",
-      "line": 1525,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameter validation,`, `zero/one/many output shape,`, `output pollution,`, `terminating aj non-terminating errors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "64. Testing s Pester",
-      "line": 1525,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "64. Testing s Pester",
-      "line": 1525,
+      "section": "16. ShouldProcess je mutation gate",
+      "line": 472,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48701,17 +47657,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "65. Static analysis a formatting",
-      "line": 1558,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "65. Static analysis a formatting",
-      "line": 1558,
+      "section": "18. Native wrapper musí poznať success codes",
+      "line": 538,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -48719,134 +47666,62 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "65. Static analysis a formatting",
-      "line": 1558,
+      "section": "19. Atomic file update a encoding",
+      "line": 567,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "65. Static analysis a formatting",
-      "line": 1558,
+      "section": "19. Atomic file update a encoding",
+      "line": 567,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `naming,`, `aliases v script-e,`, `unapproved verbs,`, `security-sensitive patterns,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `same-filesystem replace semantics,`, `ACL a ownership,`, `existing-target behavior na platforme,`, `antivirus/file-lock interference,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "65. Static analysis a formatting",
-      "line": 1558,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "66. Documentation-based help",
-      "line": 1576,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "67. Produkčný script skeleton",
-      "line": 1599,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "67. Produkčný script skeleton",
-      "line": 1599,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "67. Produkčný script skeleton",
-      "line": 1599,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "67. Produkčný script skeleton",
-      "line": 1599,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout/retry model,`, `credential provider,`, `lock/concurrency policy,`, `rollback alebo compensation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "67. Produkčný script skeleton",
-      "line": 1599,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "67. Produkčný script skeleton",
-      "line": 1599,
+      "section": "19. Atomic file update a encoding",
+      "line": 567,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "68. Troubleshooting: function vrátila viac objektov",
-      "line": 1710,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "19. Atomic file update a encoding",
+      "line": 567,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `durability`",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "68. Troubleshooting: function vrátila viac objektov",
-      "line": 1710,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "68. Troubleshooting: function vrátila viac objektov",
-      "line": 1710,
+      "section": "21. Postcondition verification",
+      "line": 639,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "68. Troubleshooting: function vrátila viac objektov",
-      "line": 1710,
+      "section": "21. Postcondition verification",
+      "line": 639,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachyť output do array:`, `Hľadaj:`, `string expressions,`, `cmdlet output, ktorý nebol zachytený,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `desired config version,`, `service state,`, `readiness semantics,`, `parser/schema validity,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "68. Troubleshooting: function vrátila viac objektov",
-      "line": 1710,
+      "section": "21. Postcondition verification",
+      "line": 639,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48854,17 +47729,116 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "69. Troubleshooting: catch sa nespustil",
-      "line": 1729,
+      "section": "21. Postcondition verification",
+      "line": 639,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "22. Timeouts, retries a neistý výsledok",
+      "line": 672,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "69. Troubleshooting: catch sa nespustil",
-      "line": 1729,
+      "section": "22. Timeouts, retries a neistý výsledok",
+      "line": 672,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retryable failure class,`, `bounded attempts,`, `total time budget,`, `backoff a jitter,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "22. Timeouts, retries a neistý výsledok",
+      "line": 672,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "24. Parallelism až po definovaní side effects",
+      "line": 745,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "24. Parallelism až po definovaní side effects",
+      "line": 745,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelené runspaces,`, `module/function availability,`, `output ordering,`, `secret duplication,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "24. Parallelism až po definovaní side effects",
+      "line": 745,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "24. Parallelism až po definovaní side effects",
+      "line": 745,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "24. Parallelism až po definovaní side effects",
+      "line": 745,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "25. Module je versionovaný automation API",
+      "line": 777,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "25. Module je versionovaný automation API",
+      "line": 777,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `function names a approved verbs,`, `parameters a defaults,`, `pipeline binding,`, `output types a cardinality,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "25. Module je versionovaný automation API",
+      "line": 777,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "30. Produkčný skeleton",
+      "line": 947,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -48872,8 +47846,35 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "69. Troubleshooting: catch sa nespustil",
-      "line": 1729,
+      "section": "31. Testing podľa contractu",
+      "line": 1070,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Inputs a outputs",
+      "line": 1074,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Inputs a outputs",
+      "line": 1074,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Inputs a outputs",
+      "line": 1074,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -48881,17 +47882,17 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "69. Troubleshooting: catch sa nespustil",
-      "line": 1729,
-      "severity": "high",
+      "section": "Inputs a outputs",
+      "line": 1074,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over, či error bol non-terminating.`, `Použi -ErrorAction Stop na konkrétnom cmdlet-e.`, `Skontroluj $ErrorActionPreference a scope.`.",
-      "score": 8
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameter validation,`, `zero/one/many cardinality,`, `stable output type,`, `output pollution,`.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "69. Troubleshooting: catch sa nespustil",
-      "line": 1729,
+      "section": "Inputs a outputs",
+      "line": 1074,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48899,116 +47900,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "69. Troubleshooting: catch sa nespustil",
-      "line": 1729,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LASTEXITCODE`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "70. Troubleshooting: funguje v 5.1, nie v 7+",
-      "line": 1737,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "70. Troubleshooting: funguje v 5.1, nie v 7+",
-      "line": 1737,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "70. Troubleshooting: funguje v 5.1, nie v 7+",
-      "line": 1737,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module edition compatibility,`, `removed/changed .NET API,`, `encoding a BOM,`, `native argument passing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "70. Troubleshooting: funguje v 5.1, nie v 7+",
-      "line": 1737,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "70. Troubleshooting: funguje v 5.1, nie v 7+",
-      "line": 1737,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `API`, `BOM`, `SSH`",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "71. Troubleshooting: native command zlyhal bez exception",
-      "line": 1755,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "71. Troubleshooting: native command zlyhal bez exception",
-      "line": 1755,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "71. Troubleshooting: native command zlyhal bez exception",
-      "line": 1755,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "71. Troubleshooting: native command zlyhal bez exception",
-      "line": 1755,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachytiť exit code okamžite,`, `vedieť povolené success codes,`, `zachovať stdout/stderr podľa contractu,`, `pridať context bez leaknutia secrets,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "71. Troubleshooting: native command zlyhal bez exception",
-      "line": 1755,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "71. Troubleshooting: native command zlyhal bez exception",
-      "line": 1755,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "72. Troubleshooting: WhatIf aj tak niečo zmenilo",
-      "line": 1772,
+      "section": "Error boundaries",
+      "line": 1082,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -49016,8 +47909,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "72. Troubleshooting: WhatIf aj tak niečo zmenilo",
-      "line": 1772,
+      "section": "Error boundaries",
+      "line": 1082,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -49025,26 +47918,26 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "72. Troubleshooting: WhatIf aj tak niečo zmenilo",
-      "line": 1772,
+      "section": "Error boundaries",
+      "line": 1082,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "72. Troubleshooting: WhatIf aj tak niečo zmenilo",
-      "line": 1772,
+      "section": "Error boundaries",
+      "line": 1082,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Nájdite všetky mutation calls.`, `Over, že sú pod ShouldProcess .`, `Skontroluj nested functions a native commands.`, `Oddel state observation od mutation.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `terminating a non-terminating errors,`, `native success a failure exit codes,`, `cleanup bez zakrytia primary failure,`, `timeout a cancellation,`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "72. Troubleshooting: WhatIf aj tak niečo zmenilo",
-      "line": 1772,
+      "section": "Error boundaries",
+      "line": 1082,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -49052,89 +47945,179 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Format-Table v dátovej pipeline",
-      "line": 1783,
+      "section": "Error boundaries",
+      "line": 1082,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "State lifecycle",
+      "line": 1090,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "State lifecycle",
+      "line": 1090,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Write-Host ako jediný function result",
-      "line": 1787,
+      "section": "State lifecycle",
+      "line": 1090,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "State lifecycle",
+      "line": 1090,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no-change run,`, `idempotent second run,`, `-WhatIf bez mutations,`, `apply failure,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "State lifecycle",
+      "line": 1090,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Environment boundaries",
+      "line": 1099,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Globálne mutable variables",
-      "line": 1791,
+      "section": "Environment boundaries",
+      "line": 1099,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Environment boundaries",
+      "line": 1099,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `PowerShell 5.1/7 compatibility podľa support policy,`, `Windows/Linux path a encoding semantics,`, `module version drift,`, `remoting serialization,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Environment boundaries",
+      "line": 1099,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Environment boundaries",
+      "line": 1099,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Invoke-Expression pre command arguments",
-      "line": 1795,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "$ErrorActionPreference = 'SilentlyContinue' pre celý script",
-      "line": 1799,
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Ignorovanie $LASTEXITCODE",
-      "line": 1803,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "-WhatIf iba na top-level function bez pokrytia mutations",
-      "line": 1807,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Secret v verbose/debug outpute",
-      "line": 1811,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Remote object považovaný za live local object",
-      "line": 1815,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "32. Referenčné pravidlá",
+      "line": 1127,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LASTEXITCODE`",
+      "score": 4
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "74. Časté omyly",
-      "line": 1819,
+      "section": "33. Časté omyly",
+      "line": 1142,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -49142,8 +48125,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "„PowerShell pipeline je vždy objektová“",
-      "line": 1821,
+      "section": "„PowerShell function vracia posledný expression“",
+      "line": 1144,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49151,8 +48134,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "„Function vracia iba posledný expression“",
-      "line": 1829,
+      "section": "„Každá chyba vstúpi do catch “",
+      "line": 1148,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49160,8 +48143,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "„ -WhatIf blokuje všetky side effects automaticky“",
-      "line": 1837,
+      "section": "„ $? je native exit code“",
+      "line": 1152,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -49169,8 +48152,44 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "„Monorepo module alebo machine-wide module version je vždy tá správna“",
-      "line": 1845,
+      "section": "„Object pipeline prežije Format-Table “",
+      "line": 1156,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "„ -WhatIf automaticky zastaví všetky side effects“",
+      "line": 1160,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "„SecureString je secret vault“",
+      "line": 1164,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "„Remote object má rovnaké methods ako lokálny object“",
+      "line": 1168,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "„PowerShell 5.1 a 7 sa líšia iba executable menom“",
+      "line": 1172,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
