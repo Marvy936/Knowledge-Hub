@@ -4,6 +4,10 @@
 
 Riadený experiment porovnávajúci control a treatment variant na súbežných skupinách používateľov podľa vopred definovaných outcome a guardrail metrík. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Assignment–exposure funnel
+
+Observation chain od eligible population a variant assignmentu cez application/runtime survival po reálnu treatment exposure a následný outcome. Používa sa na lokalizáciu Sample Ratio Mismatch, treatment-specific crashu, logging lossu alebo selection biasu. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
 ## Automated canary analysis
 
 Automatizované vyhodnotenie canary verzie voči baseline podľa technických a business metrík, sample size, observation window a promotion/abort policy. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md).
@@ -48,9 +52,17 @@ Stabilná rollout skupina používateľov, tenantov, zariadení alebo regiónov 
 
 Dočasný migration model, v ktorom application zapisuje rovnakú logickú zmenu do starej aj novej reprezentácie alebo store. Vyžaduje idempotency, authoritative source a reconciliation. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Effective flag state
+
+Flag revision, variant, matched rule, evaluation context, SDK/cache state a application version, ktoré konkrétny runtime evaluator skutočne použil. Môže sa líšiť od poslednej hodnoty zobrazenej v control plane počas propagation alebo rejection failure. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
+
 ## Expand-contract
 
 Viacfázový model databázovej alebo contract zmeny: najprv sa pridá kompatibilná nová štruktúra, migrujú readers/writers a dáta, a až po rollback window sa odstráni stará štruktúra. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
+## Experiment integrity
+
+Platnosť assignment, exposure, measurement a population boundaries potrebná pred interpretáciou experimentálneho effect estimate-u. Porušenie môže zmeniť experiment na invalidný aj pri priaznivom primary outcome. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
 ## Experiment unit
 
@@ -84,9 +96,17 @@ Presne identifikovaný artifact, configuration a compatibility stav s overenou p
 
 Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size a power spoľahlivo detegovať. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Mirror delivery contract
+
+Versionované pravidlá určujúce shadow mirror point, sample inventory, delivery semantics, queue/drop/lag limity, duplicate a ordering behavior a primary-path isolation. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
+
 ## Online schema change
 
 Databázová schema operácia navrhnutá tak, aby minimalizovala blocking a downtime počas aktívnej prevádzky; jej skutočné správanie závisí od engine, verzie a dátového objemu. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
+## Paired shadow evidence
+
+Korelovaný primary a shadow execution record viazaný na rovnaký mirror event, input/state identity, artifact/config revisions, lag a normalization policy. Missing alebo neporovnateľný pair sa nesmie klasifikovať ako úspešná zhoda. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
 
 ## Progressive delivery
 
@@ -104,9 +124,17 @@ Proces porovnania a opravy rozdielov medzi dvoma reprezentáciami alebo stores, 
 
 Predpripravený súbor identity, kompatibility informácií, workflows a rozhodovacích podkladov potrebných na rollback, roll-forward alebo restore konkrétneho release. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
 
+## Release inventory — ring
+
+Auditovateľné mapovanie ring ID a membership revision na member/workload inventory, release manifest, rendered config, exposure state, observation verdict, support ownership a recovery eligibility. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
+
 ## Ring deployment
 
 Progressive rollout cez stabilné deployment rings s rastúcou reprezentatívnosťou alebo kritickosťou a samostatnými entry, observation a promotion podmienkami. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
+
+## Ring membership revision
+
+Versionovaná production policy určujúca, do ktorého deployment ring-u patrí konkrétny subject. Musí byť konzistentná naprieč services, events, telemetry a support inventory. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
 
 ## Roll-forward
 
@@ -148,6 +176,10 @@ Deployment, ktorý spracúva kópiu produkčného workloadu bez autoritatívnej 
 
 Neautoritatívne čítanie z novej schema alebo store vykonané popri primárnom čítaní na porovnanie výsledkov pred prepnutím. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Side-effect firewall — shadow
+
+Defense-in-depth boundary kombinujúca least-privilege identity, network/egress policy, isolated output adapters a application shadow mode tak, aby shadow execution nemohla vykonať autoritatívne writes alebo external side effects. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
+
 ## Stable bucketing
 
 Deterministické mapovanie subjektov do percentuálnych rollout alebo experiment buckets tak, aby sa variant nemenil náhodne medzi requestmi. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
@@ -159,6 +191,10 @@ Kopírovanie produkčných requestov do shadow systému bez použitia jeho respo
 ## Treatment variant
 
 Experimentálny variant obsahujúci testovanú zmenu, ktorého outcome sa porovnáva s control variantom. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Version skew — ring
+
+Obdobie, počas ktorého rôzne deployment rings používajú odlišné release alebo client verzie nad spoločnými APIs a mutable state-om. Potrebuje maximálny podporovaný rozsah, compatibility contract a deadline. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
 
 ## Write compatibility
 
