@@ -6,532 +6,470 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Canary deployment postupne vystavuje novú verziu obmedzenému a identifikovateľnému segmentu produkčného trafficu. Cieľom je získať produkčný dôkaz pri malom blast radiuse a rozhodovať o ďalšej promotion na základe explicitnej policy.
+Canary deployment postupne vystavuje nový release obmedzenej a identifikovateľnej časti produkčného workloadu. Jeho cieľom nie je iba znižovať traffic percentage, ale testovať konkrétnu release-risk hypotézu pri bounded blast radiuse a rozhodovať podľa porovnateľnej evidence.
 
 ```text
-stable + canary deployed
-→ limited exposure
-→ observe and compare
+stable baseline
+→ immutable canary subject
+→ stabilná a reprezentatívna cohorta
+→ bounded exposure
+→ technical + functional + business evidence
 → promote / pause / abort / inconclusive
-→ next exposure step
-→ full release alebo recovery
+→ ďalší krok alebo recovery
+→ delayed validation a learning
 ```
 
-Canary nie je iba „jeden nový pod“ ani pomalší rolling update. Potrebuje cohort assignment, control group, version-level telemetry, observation contract a bezpečný recovery mechanizmus.
+Canary bez cohort identity, control group, sample sufficiency a recovery contractu je iba nejasná mixed fleet.
 
-## 2. Deployment, release a exposure
+## 1. Nosný model: riadený experiment pre release safety
 
-Rozlišuj:
-
-- **Deployment —** artifact existuje v produkčnom runtime.
-- **Release —** capability je používateľsky dostupná.
-- **Exposure —** konkrétny podiel alebo segment skutočne používa novú verziu.
-
-Canary môže riadiť exposure pomocou routingu, feature flagu, tenant allowlistu, regionálneho ring-u alebo ich kombinácie.
-
-## 3. Mental model: riadený experiment pre release risk
-
-Canary testuje hypotézu:
+Každý Atlas canary krok testuje vetu:
 
 ```text
-Pri expozícii segmentu C artifactu A
-zostanú technické, funkčné a business guardrails
-v definovaných hraniciach voči control skupine S.
+Pri expozícii cohorty C release subjectu M2
+zostanú technické, funkčné a business outcomes
+v definovaných hraniciach voči porovnateľnému stable controlu S.
 ```
 
-Je to release-safety experiment, nie automaticky produktový A/B test. Primárnou otázkou je, či možno bezpečne rozšíriť novú verziu.
-
-## 4. Canary subject a experiment identity
-
-Každý rollout krok musí byť viazaný na:
-
-- canary artifact digest,
-- stable artifact digest,
-- config a feature-flag revision,
-- deployment a rollout ID,
-- cohort definition a salt/version,
-- region/zone/route scope,
-- policy version,
-- observation window,
-- metrics query/version.
-
-Bez tejto identity nemožno výsledok reprodukovať ani pripísať konkrétnej zmene.
-
-## 5. Canary state machine
+Z toho vyplýva päť povinných častí:
 
 ```text
-planned
-→ prechecks
-→ canary deployed, no exposure
-→ warm-up
-→ exposure step active
-→ collecting evidence
-→ evaluating
-→ promote / pause / abort / inconclusive
-→ next step alebo full release
-→ delayed validation
-→ completed
+subject identity
++ cohort assignment
++ porovnateľný control
++ rozhodovací oracle
++ recovery action
 ```
 
-Recovery vetvy:
+Percento trafficu samo osebe neodpovedá, kto bol vystavený, aký workload vytvoril, koľko relevantných outcomes vzniklo ani či možno rozdiel pripísať release-u.
 
-- traffic removed,
-- feature disabled,
-- rollback,
-- roll-forward,
-- compensating action,
-- data repair.
+## 2. Nosný scenár: Atlas Orders 3.11.0 `riskDecision`
 
-## 6. Preconditions
+Atlas chce exponovať optional `riskDecision` capability z release manifestu `M2`.
 
-Pred prvým requestom over:
+```text
+stable manifest M_prev
+canary manifest M2
+rendered config C17
+feature flag revision F22
+cohort policy H7
+analysis policy P9
+```
 
-- immutable artifact a config identity,
-- stable baseline health,
-- canary capacity a warm-up,
-- database/event/cache/session compatibility,
-- telemetry dimensions,
-- cohort routing correctness,
-- promotion/abort/inconclusive rules,
-- rollback eligibility,
-- privacy a targeting policy,
-- on-call a automated controller readiness.
+Release risk nie je iba „server nespadne“. Nový path volá risk dependency, zapisuje enrichment event a mení order response. Atlas preto definuje:
 
-## 7. Výber canary segmentu
+```text
+technical hypothesis
+→ latency, errors, DB wait, dependency retries ostanú v hraniciach
 
-Segment môže byť:
+functional hypothesis
+→ jeden logical order na idempotency key a správny riskDecision
 
-- náhodné percento stabilne hashovaných používateľov,
-- interný cohort,
-- nízkorizikoví tenants,
-- konkrétny región alebo zóna,
-- API route alebo operation,
-- client/device verzia,
-- ring podľa support modelu.
+business hypothesis
+→ order completion a rejection distribution sa nezhoršia
+```
 
-Segment musí reprezentovať riziko, ktoré testuješ. Interní používatelia neodhalia veľký data skew; jeden región nemusí reprezentovať ostatné dependencies.
+Rollout:
 
-## 8. Stabilné cohort assignment
+```text
+internal ring
+→ 1 % alebo aspoň 2 000 relevantných orders
+→ 5 % vrátane large-tenant segmentu
+→ 25 % vo všetkých regiónoch
+→ 50 %
+→ 100 %
+→ delayed async a reconciliation watch
+```
 
-Pri stateful workflow musí subjekt zostať v rovnakej skupine:
+Každý krok má minimum sample, minimum a maximum duration, promotion/abort criteria a konkrétnu recovery akciu.
+
+## 3. Experiment identity musí byť reprodukovateľná
+
+Canary verdict patrí presnému subjectu:
+
+```text
+M2
++ C17
++ F22
++ cohort policy H7 a salt
++ rollout step 25 %
++ region/route scope
++ analysis query revision Q14
++ policy P9
++ observation window
+```
+
+Ak sa zmení config, flag default, cohort salt alebo metrics query, predchádzajúci verdict nemusí zostať platný. Tieto zmeny môžu zmeniť behavior, exposure aj interpretáciu evidence bez zmeny application digestu.
+
+Atlas preto zaznamenáva experiment identity pri každom promotion decisione.
+
+## 4. Cohort musí reprezentovať riziko, nie iba byť malá
+
+Cohort môže byť vytvorená podľa:
+
+- stabilného hashovania user alebo tenant identity;
+- interného ring-u;
+- regionu alebo availability zone;
+- route či operation;
+- client version;
+- tenant size alebo risk class;
+- explicitnej allowlist policy.
+
+Atlas používa stabilné assignment:
 
 ```text
 bucket = hash(subject_id + rollout_salt) mod N
 ```
 
-Vlastnosti:
+Stabilita chráni stateful journey. Random routing per request by mohol začať order na stable a dokončiť ho na canary, čím by sa znejasnila príčina aj user experience.
 
-- deterministic assignment,
-- versionovaný salt/policy,
-- auditovateľné eligibility rules,
-- ochrana osobných identifikátorov,
-- explicitné fallback správanie.
+Malá cohorta však môže byť nereprezentatívna. Interní používatelia nemajú rovnaký data skew, veľké tenants ani client versions ako produkcia. Preto Atlas stratifikovane zahrnie segmenty spojené s konkrétnym rizikom.
 
-Random routing per request môže miešať verzie v jednom journey a vytvoriť neplatné porovnanie.
+## 5. Traffic percentage a sample sufficiency sú odlišné veličiny
 
-## 9. Traffic percentage verzus sample size
+`1 %` môže znamenať:
 
-`1 %` nie je dôkazná veličina. Potrebný je minimálny počet relevantných udalostí.
+- nula relevantných udalostí pri nízkom trafficu;
+- desaťtisíce používateľov pri vysokom trafficu;
+- veľa jednoduchých reads, ale žiadne long-running orders;
+- prevažne jeden region alebo tenant class.
 
-Sleduj:
-
-- request a session count,
-- počet business completions,
-- error event count,
-- variability metric,
-- minimálny zmysluplný efekt,
-- dĺžku async workflowu,
-- region/tenant distribution.
-
-Pri nízkom trafficu môže byť 1 % nulová vzorka; pri extrémnom trafficu môže byť 1 % príliš veľký blast radius.
-
-## 10. Rollout steps
-
-Príklad:
+Canary gate preto čaká na:
 
 ```text
-internal
-→ 1 % alebo minimum N events
-→ 5 %
-→ 20 %
-→ 50 %
-→ 100 %
+minimum requests alebo sessions
++ minimum business completions
++ minimum occurrences risk pathu
++ potrebné region/tenant zastúpenie
++ observation čas pokrývajúci failure latency
 ```
 
-Každý krok definuje:
+Ak minimum nevznikne do maximum duration, verdict je `inconclusive`, nie pass.
 
-- target cohort/weight,
-- minimálnu vzorku,
-- minimálnu a maximálnu observation duration,
-- promotion criteria,
-- abort criteria,
-- missing-data behavior,
-- recovery action.
+## 6. Control group musí byť porovnateľná v rovnakom čase
 
-Timer bez dôkaznej podmienky nie je kvalitný rollout gate.
+Atlas porovná canary so stable controlom podľa:
 
-## 11. Control group a comparability
+- regionu a zóny;
+- operation a request complexity;
+- tenant-size tier;
+- client version;
+- resource pressure;
+- časového okna;
+- feature eligibility.
 
-Canary porovnávaj so stable verziou v rovnakom čase. Control musí byť porovnateľný podľa:
+Historický baseline je doplnok. Súčasný control lepšie oddeľuje release effect od regionálneho incidentu, sezónnosti alebo traffic spike-u.
 
-- regionu a zóny,
-- route/operation,
-- tenant alebo user class,
-- request complexity,
-- client version,
-- capacity a resource pressure.
+Ak canary obsahuje veľkých tenants a control iba malých, rozdiel nemožno pripísať artifactu. Cohort composition je súčasť evidence provenance.
 
-Historický baseline môže byť doplnok, ale je citlivý na sezónnosť, incidents a workload drift.
+## 7. Oracle má tri vrstvy
 
-## 12. Version-level telemetry
+### Technical oracle
 
-Každý signál musí niesť relevantné dimensions:
+```text
+5xx a timeout rate
+p95/p99 latency
+DB connection wait
+risk dependency retry rate
+worker backlog a saturation
+```
 
-- artifact/release version,
-- stable/canary cohort,
-- rollout step,
-- deployment ID,
-- region/zone,
-- route/operation,
-- feature variant,
-- tenant segment v súlade s privacy.
+### Functional oracle
 
-Ak telemetry nevie odlíšiť stable a canary, analýza nemá platný subject.
+```text
+CreateOrder completion
+jeden order na idempotency key
+správny riskDecision contract
+authorization a tenant isolation
+event processing completion
+```
 
-## 13. Technické guardrails
+### Business oracle
 
-- request error rate,
-- p95/p99 latency,
-- restart/crash rate,
-- CPU, memory, pools a queues,
-- dependency failure a retry rate,
-- saturation a load shedding,
-- queue lag,
-- cache hit rate,
-- connection errors.
+```text
+order completion rate
+rejection distribution
+manual-review volume
+support contact a abandonment
+```
 
-Porovnávaj normalizované metriky na request alebo instance. Malá canary fleet môže byť preťažená aj pri nízkom celkovom podiele trafficu.
+Server health nemôže nahradiť functional ani business outcome. HTTP 200 môže obsahovať nesprávne rozhodnutie; normálna CPU môže sprevádzať duplicate side effects.
 
-## 14. Funkčné a business guardrails
+## 8. Promotion policy je explicitný viacstavový decision contract
 
-- journey completion,
-- payment/order correctness,
-- authorization a tenant isolation,
-- duplicate alebo missing side effects,
-- event processing completion,
-- conversion alebo task success,
-- support/user signal.
-
-HTTP 200 a nízky CPU nedokazujú správny používateľský výsledok.
-
-## 15. Promotion policy
-
-Promotion môže vyžadovať:
+Atlas policy vyžaduje:
 
 ```text
 required evidence complete
-AND sample size >= minimum
-AND technical deltas within limits
+AND sample sufficient
+AND control porovnateľný
+AND technical deltas v hraniciach
+AND functional invariants healthy
 AND business guardrails healthy
-AND no critical data/security invariant violation
+AND žiadna critical security/data violation
 ```
 
-Niektoré metrics používajú absolútny threshold, iné delta voči control. Policy musí byť versionovaná a auditovateľná.
+Verdicty:
 
-## 16. Abort policy
+- `PROMOTE` — podmienky sú splnené;
+- `PAUSE` — scope zostáva malý a treba ďalšiu triage alebo čas;
+- `ABORT` — exposure sa nesmie rozšíriť;
+- `INCONCLUSIVE` — evidence nestačí alebo nie je porovnateľná;
+- `ROLLBACK` — previous subject je state-compatible;
+- `ROLL_FORWARD` — oprava je bezpečnejšia než návrat.
 
-Abort criteria majú byť vopred konkrétne:
+Query error, missing report alebo prázdna time series nie sú nulový počet failures. Sú chýbajúca evidence.
 
-- prvá data-integrity alebo authorization violation,
-- error-budget burn nad limit,
-- p99 latency delta počas definovaného okna,
-- business success pokles nad hranicu,
-- neočakávaný dopad mimo cohort,
-- strata telemetry,
-- canary capacity saturation.
+## 9. Observation window vychádza z mechanizmu failure
 
-Abort neznamená automaticky binary rollback. Môže odstrániť traffic, vypnúť feature alebo zastaviť producers.
+Rôzne riziká sa prejavia v inom čase:
 
-## 17. Pause a inconclusive
+```text
+routing/startup failure → sekundy
+retry amplification a queue growth → minúty
+large-tenant completion → desiatky minút
+batch, settlement alebo reconciliation → hodiny
+memory leak alebo retention → dlhšie obdobie
+```
 
-Výsledok `inconclusive` je správny, keď:
+Atlas nepromotuje po piatich zelených requestoch, ak risk path obsahuje tridsaťminútový async retry cyklus. Po 100 % exposure pokračuje delayed validation pre failures, ktoré nemohli vzniknúť v menšom alebo kratšom kroku.
 
-- vzorka je malá,
-- metrics meškajú,
-- control nie je porovnateľný,
-- prebieha globálny incident,
-- telemetry je neúplná,
-- experiment bol zasiahnutý inou zmenou.
+## 10. Canary capacity musí byť posúdená per instance
 
-Pause zachová malý scope, ale potrebuje timeout a ownera. Nekonečný pause vytvára stale mixed-version state.
+Malá canary fleet môže dostať malý podiel celkového trafficu, ale veľa trafficu na jednu instance.
 
-## 18. Automated canary analysis
+```text
+stable = 20 instances, 95 % traffic
+canary = 1 instance, 5 % traffic
+```
 
-Controller vykonáva:
+Pri rovnomernom workloade môže canary dostať približne rovnaký requests-per-instance ako stable. Pri sticky sessions, zone skew alebo nerovnakej instance class môže dostať podstatne viac.
 
-1. nastav exposure,
-2. over routing state,
-3. čaká na minimum evidence,
-4. načíta a validuje telemetry,
-5. porovná canary/control,
-6. aplikuje policy,
-7. zaznamená verdict,
-8. vykoná promotion alebo recovery.
+Atlas sleduje:
 
-Musí rozlišovať metric failure od application failure. Query error alebo prázdny report nesmie byť pass.
+- requests a sessions per instance;
+- CPU/memory/pool pressure per instance;
+- zone distribution;
+- autoscaler response;
+- cache warm-up;
+- load-balancer effective weights.
 
-## 19. Štatistická opatrnosť
+Inak môže capacity artifact vyzerať ako code regression.
 
-Canary analýza je citlivá na:
+## 11. Shared state rozširuje blast radius za hranice cohorty
 
-- malú vzorku,
-- rare failures,
-- repeated peeking,
-- mnoho súčasne sledovaných metrics,
-- cohort imbalance,
-- delayed outcomes,
-- novelty a seasonality.
+Canary používateľ môže zapisovať do spoločnej databázy alebo emitovať event, ktorý spracuje stable worker. Preto obmedzený traffic neznamená automaticky obmedzený state impact.
 
-Nie každý rollout potrebuje formálny hypothesis test, ale musí poznať neistotu a nepoužívať falošnú presnosť.
+Compatibility zahŕňa:
 
-## 20. Capacity a autoscaling
+```text
+old/new database reads a writes
+events a queue messages
+cache a session schemas
+background workers
+long-lived workflows
+external side effects
+```
 
-Canary fleet musí byť dimenzovaná podľa requests per instance, nie iba percenta fleet.
+Traffic removal zastaví nové requests, no neodstráni rows, messages, payments alebo notifications, ktoré už canary vytvorila. Recovery package preto obsahuje feature disable, producer stop, reconciliation a compensating actions.
 
-Kontroluj:
+## 12. Worked failure: nereprezentatívna cohorta skryla capacity problém
 
-- minimum replicas,
-- zone distribution,
-- autoscaler response,
-- warm-up,
-- connection pools,
-- load-balancer weighting,
-- cache state,
-- pod disruptions.
+Prvých 5 % Atlas canary tvorili prevažne malí tenants. `riskDecision` path bol zelený.
 
-Autoscaling môže meniť počet instances a skresliť porovnanie, ak metrics nie sú normalizované.
+```text
+small-tenant canary
+→ nízky počet paralelných items per order
+→ DB wait a worker backlog normálne
+→ promotion na 100 %
+→ large tenants aktivujú stovky items
+→ risk calls a enrichment writes rastú
+→ DB pool a worker partitions sa saturujú
+→ order completion prudko klesne
+```
 
-## 21. Stateful compatibility
+### Príčina
 
-Overlap vyžaduje kompatibilitu:
+Assignment bolo stabilné, ale nereprezentovalo workload dimension spojenú s rizikom. Tím považoval percento trafficu za reprezentatívnu vzorku.
 
-- databázových reads/writes,
-- events a queue messages,
-- cache/session schemas,
-- background jobs,
-- long-lived workflows,
-- feature-flag state.
+### Dôsledok
 
-Routing rollback nevráti data state. Canary write môže poškodiť aj control používateľov, ak zdieľajú databázu.
+Release effect sa prejavil až po plnej promotion, keď už blast radius nebol bounded.
 
-## 22. Long-lived connections
+### Trvalá náprava
 
-WebSockets, streams a keep-alive môžu zostať na starej verzii po zmene weightu. Rieš:
+```text
+tenant-size stratification
+→ samostatný large-tenant step
+→ minimum risk-path volume
+→ DB wait a queue age per segment
+→ capacity fixture s produkčnou distribúciou
+→ post-promotion watch
+```
 
-- max connection age,
-- controlled reconnect,
-- drain,
-- session affinity,
-- telemetry pre nové verzus existujúce connections,
-- separate rollout criteria.
+## 13. Worked failure: missing telemetry sa vyhodnotila ako pass
 
-## 23. Background workers a batch jobs
+Pri 25 % kroku zlyhala business-events pipeline. Query pre `order_completion_rate` vrátila prázdny dataset.
 
-Request canary neotestuje automaticky workers. Možnosti:
-
-- samostatný worker cohort,
-- shadow consumer bez side effects,
-- isolated queue/partition,
-- idempotent production canary,
-- schedule experiment v definovanom okne.
+```text
+technical metrics healthy
+→ business query empty
+→ aggregator použije default delta = 0
+→ verdict PROMOTE
+→ 100 % exposure
+→ nový timeout path znižuje completion
+→ chýbajúci business signal incident skryje
+```
 
-Delayed batch alebo settlement failure potrebuje dlhšiu validation fázu než HTTP rollout.
+### Príčina
 
-## 24. Security, privacy a fairness
+Decision contract nerozlišoval healthy metric, no-data stav a query/tool failure. Expected evidence manifest nevyžadoval explicitný execution status business query.
 
-Cohort targeting je produkčná policy. Kontroluj:
+### Náprava
 
-- oprávnenosť segmentácie,
-- zákaz diskriminačných pravidiel,
-- minimalizáciu user identifiers,
-- audit assignmentu,
-- interné privileged cohorts,
-- retention experiment metadata,
-- authorization invariant nezávislý od feature flagu.
+- každá required metric má expected identity a execution status;
+- no-data, delayed a query-error stavy vedú k `INCONCLUSIVE` alebo `PAUSE`;
+- telemetry pipeline má vlastný SLO a synthetic heartbeat;
+- manual override potrebuje scoped risk acceptance a expiry;
+- promotion record uchová query revision aj raw evidence digest.
 
-## 25. Interference a concurrent changes
+## 14. Kauzálny diagnostický walkthrough
 
-Súbežný deployment, config zmena alebo incident znižujú atribúciu. Použi:
+Symptom: pri 25 % kroku má canary vyššiu p99 latency a nižšiu order completion než stable.
 
-- environment rollout lock,
-- deployment markers,
-- change freeze iba počas krátkeho decision window,
-- explicitný zoznam concurrent changes,
-- invalidation verdictu pri zmene subjectu.
+### Krok 1 — stabilizuj experiment subject
 
-## 26. Recovery options
+```text
+stable = M_prev
+canary = M2 + C17 + F22
+cohort policy H7
+step = 25 %
+query revision Q14
+window = 14:00–14:30
+```
 
-- odobrať canary traffic,
-- vypnúť feature flag,
-- scale canary na nulu,
-- rollback artifact,
-- roll-forward fix,
-- zastaviť writes/consumers,
-- kompenzovať side effects,
-- obnoviť dáta.
+Bez toho by sa mohli miešať iné configy, cohorty alebo metrics queries.
 
-Vyber podľa failure domainu. Traffic removal je rýchle, ale nemusí riešiť poškodený state.
+### Krok 2 — formuluj konkurenčné hypotézy
 
-## 27. Delayed validation
+```text
+H1: M2 má code regression
+H2: canary fleet je kapacitne preťažená
+H3: canary cohort obsahuje ťažší workload než control
+H4: regionálna risk dependency degraduje obe verzie
+H5: telemetry query alebo latency vytvára falošný rozdiel
+```
 
-Po 100 % promotion pokračuj v monitorovaní failure modes, ktoré sa prejavia neskôr:
+### Krok 3 — vyber observation points, ktoré hypotézy rozlíšia
 
-- memory leak,
-- queue accumulation,
-- cron/batch job,
-- certificate refresh,
-- cache churn,
-- settlement a reconciliation,
-- dlhé user journeys.
+- requests a resource pressure per instance testujú H2;
+- tenant/region/operation distribution testuje H3;
+- stable a canary dependency latency v rovnakom regióne testuje H4;
+- raw event count, query status a ingestion lag testujú H5;
+- rovnaký bounded synthetic na stable a canary testuje H1 pri kontrolovanom inpute.
 
-Full exposure nie je automaticky final acceptance.
+Atlas zistí:
 
-## 28. Failure taxonomy
+```text
+canary requests per instance = 2.4× stable
+cohort composition je porovnateľná
+risk dependency latency je rovnaká
+business telemetry je complete
+bounded synthetic sa po scale-up vráti k stable latency
+```
 
-- deployment/readiness failure,
-- cohort-routing failure,
-- capacity-induced false regression,
-- real technical regression,
-- functional/business regression,
-- telemetry failure,
-- inconclusive sample,
-- state corruption,
-- recovery failure,
-- delayed post-promotion failure.
+Evidence podporuje H2, nie H1, H3, H4 ani H5.
 
-## 29. Audit trail a evidence
+### Krok 4 — zastav promotion, ale nepredstieraj code failure
 
-Zachovaj:
+Atlas dá `PAUSE`, zvýši canary minimum replicas a upraví weight tak, aby requests per instance boli porovnateľné. Automatický binary rollback by odstránil predmet experimentu bez potvrdenia code regresie.
 
-- stable/canary identities,
-- cohort a routing policy,
-- exposure timeline,
-- metrics queries a policy version,
-- sample size,
-- verdict per step,
-- manual overrides,
-- abort/recovery actions,
-- delayed-validation result.
-
-## 30. Metriky stratégie
+### Krok 5 — zopakuj rovnaký decision contract
 
-- mean exposure before detection,
-- canary abort rate,
-- false abort/rollback rate,
-- escaped regression po full promotion,
-- inconclusive rate,
-- sample sufficiency time,
-- rollout duration,
-- telemetry completeness,
-- rollback eligibility failures,
-- user count zasiahnutý pred abortom.
+Po scale-up-e sa znova zbiera minimálna vzorka. Promotion je povolená iba keď technical, functional aj business deltas zostanú zdravé pri porovnateľnom load-e.
 
-## 31. Typické anti-patterny
+### Krok 6 — zachovaj learning
 
-### Jeden nový pod bez cohort policy
+Failure sa mení na precheck `effective requests per canary instance`, minimum replica policy a test sticky-routing/capacity interaction. Diagnostický výsledok sa nestane iba poznámkou v incidente.
 
-To nie je canary, iba mixed fleet.
+## 15. Recovery sa vyberá podľa failure boundary
 
-### Promotion iba podľa CPU
+- routing/cohort failure: odobrať traffic;
+- feature behavior failure: flag na off;
+- application binary failure: rollback alebo roll-forward;
+- producer/event failure: zastaviť producers a consumers;
+- data integrity failure: write freeze, reconciliation alebo restore;
+- external side effect: compensating action;
+- telemetry failure: pause/inconclusive, nie automatická promotion.
 
-Technická stabilita neoveruje funkčný ani business výsledok.
+Traffic rollback je najrýchlejší containment, ale nemusí byť úplnou recovery.
 
-### Percento bez minimálnej vzorky
+## 16. Diagnostický runbook
 
-Observation window môže byť dôkazne prázdna.
+1. Potvrď stable/canary manifest, config, flag, cohort a rollout step.
+2. Over skutočný assignment, traffic a requests per instance.
+3. Porovnaj cohort composition a control comparability.
+4. Rozdeľ technical, functional a business signals.
+5. Validuj sample sufficiency, query status a telemetry latency.
+6. Formuluj code, capacity, cohort, dependency a telemetry hypotézy.
+7. Nájdite observation point, ktorý ich rozlíši.
+8. Zastav promotion alebo zníž exposure podľa abort contractu.
+9. Vyber recovery podľa application, data a side-effect compatibility.
+10. Po recovery zopakuj pôvodný outcome a pridaj skorší control.
 
-### Random routing per request
+## 17. Referenčné pravidlá
 
-Stateful journey sa mieša medzi verziami.
+- Canary je experiment nad explicitným release-riskom.
+- Artifact, config, flag, cohort a query identity patria do subjectu.
+- Percento trafficu nie je sample size ani reprezentatívnosť.
+- Assignment má byť stabilný pre stateful journey.
+- Control group musí byť porovnateľná v rovnakom čase.
+- Oracle kombinuje technical, functional aj business outcomes.
+- Missing, delayed alebo neporovnateľná evidence vedie k `inconclusive`.
+- Observation window sa odvodzuje z failure latency.
+- Capacity sa hodnotí per instance a per segment.
+- Traffic removal nevracia shared state ani external side effects.
+- Produkčný finding sa vracia do prechecku, testu alebo trvalého guardrailu.
 
-### Missing telemetry = pass
+## 18. Časté omyly
 
-Absencia evidence vedie k false promotion.
+### „Jeden nový pod je canary“
 
-### Automatický rollback na noisy metric
+Bez cohort policy, controlu a evidence je to iba mixed fleet.
 
-Vzniká oscillation alebo false rollback.
+### „5 % je bezpečná a reprezentatívna vzorka“
 
-### Canary config sa líši od final config
+Záleží od absolútneho počtu outcomes a workload composition.
 
-Dôkaz nie je prenosný na full rollout.
+### „Zelené server metrics stačia“
 
-## 32. Diagnostický postup
+Functional alebo business journey môže byť chybný.
 
-1. Over stable/canary digest a config.
-2. Over skutočný cohort assignment a traffic weight.
-3. Zmeraj requests/sessions per instance a sample size.
-4. Skontroluj comparability control group.
-5. Validuj telemetry queries a data latency.
-6. Rozlíš capacity artifact od code regression.
-7. Over stateful side effects a data invariants.
-8. Pri abort-e zastav expozíciu a zvoľ správnu recovery vrstvu.
-9. Po recovery over control aj affected cohort.
-10. Aktualizuj rollout policy alebo skorší test podľa poznatku.
+### „No data znamená no failures“
 
-## 33. Rozhodovací rámec
+Chýbajúca evidence je `inconclusive`, nie pass.
 
-1. Aký release risk má canary odhaliť?
-2. Ktorý segment ho reprezentuje?
-3. Ako je assignment stabilný a auditovateľný?
-4. Aká minimálna vzorka je potrebná?
-5. Ktoré technické, funkčné a business guardrails rozhodujú?
-6. Aká control group je porovnateľná?
-7. Ako sa rieši missing alebo delayed telemetry?
-8. Kedy je verdict inconclusive?
-9. Sú old/new state-compatible?
-10. Aká recovery akcia zodpovedá každému failure typu?
-11. Ktoré delayed failures sa sledujú po 100 %?
-12. Ako sa výsledok vracia do testov a policy?
+### „Rollback trafficu opraví incident“
 
-## 34. Kontrolný checklist
+Canary mohla zmeniť databázu, eventy alebo external systems.
 
-- immutable stable/canary identities,
-- cohort policy a salt sú versionované,
-- segment je reprezentatívny,
-- sample minimum a duration sú definované,
-- control group je porovnateľná,
-- telemetry obsahuje version/cohort dimensions,
-- metrics queries sú validované,
-- promotion/abort/pause/inconclusive policy existuje,
-- canary capacity nie je umelo preťažená,
-- shared state je compatible,
-- recovery rieši aj side effects a dáta,
-- privacy a targeting sú auditované,
-- delayed validation pokračuje po promotion.
+## 19. Zhrnutie
 
-## 35. Kontrolné otázky
+Atlas canary lifecycle je:
 
-1. Čo odlišuje canary od obyčajného mixed rollout-u?
-2. Prečo percento trafficu nie je sample size?
-3. Ako stabilné cohort assignment chráni stateful journey?
-4. Prečo súbežná control group zlepšuje atribúciu?
-5. Aký je rozdiel medzi abort, pause a inconclusive?
-6. Ako môže malá canary fleet vytvoriť falošnú performance regresiu?
-7. Prečo traffic rollback nie je data rollback?
-8. Ako testovať worker alebo batch canary?
-9. Prečo full promotion neukončuje delayed validation?
-10. Aké evidence musí mať automatická canary analysis?
+```text
+explicitný release-risk contract
+→ immutable stable/canary subject
+→ stabilná a reprezentatívna cohorta
+→ porovnateľný concurrent control
+→ sample-aware bounded exposure
+→ technical + functional + business oracle
+→ promote/pause/abort/inconclusive
+→ state-compatible recovery
+→ delayed watch a skorší regression control
+```
 
-## Summary
-
-Canary deployment je policy-driven progressive exposure novej verzie voči identifikovateľnej control skupine. Jeho kvalita nezávisí od samotného percenta trafficu, ale od stabilného cohort assignmentu, reprezentatívnosti, minimálnej vzorky, version-level telemetry, porovnateľnej baseline a jasných verdictov `promote`, `pause`, `abort` a `inconclusive`. Stateful compatibility a recovery zostávajú kritické, pretože odobratie trafficu nevracia databázové ani externé side effects. Po plnej promotion musí pokračovať validácia oneskorených failure modes.
-
-## Glossary impact
-
-Relevantné pojmy: canary deployment, progressive exposure, canary cohort, stable control, cohort assignment, rollout salt, sample sufficiency, promotion criterion, abort criterion, inconclusive verdict, automated canary analysis, mean exposure before detection a delayed validation.
+Canary znižuje exposure pred detekciou iba vtedy, keď rozumie tomu, koho exponuje, čo meria a aký mechanizmus môže výsledok skresliť. Riadené percentá bez kauzálnej evidence sú iba pomalší rollout.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
