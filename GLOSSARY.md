@@ -490,6 +490,10 @@ Riadené zablokovanie promotion, pull alebo deploymentu konkrétneho artifact di
 
 Policy decision zneplatňujúci predtým akceptovaný artifact digest, signing identity alebo trust path bez nutnosti odstrániť historickú transparency evidence. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
+## Artifact subject — GitLab CI
+
+Identita pipeline outputu tvorená projektom, pipeline source-om, source alebo candidate SHA, resolved configuration digestom, producer jobom a attemptom, variantom/platformou, runner/toolchain subjectom a content digestom. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
 ## Artifact version
 
 Logical identifier artifactu používaný na komunikáciu release identity alebo compatibility významu. Má byť mapovateľný na konkrétny immutable content digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -529,6 +533,10 @@ Stav, keď forward a return traffic rovnakého flow používajú rozdielne netwo
 ## Asyncio
 
 Python framework pre cooperative asynchronous I/O založený na event loop-e, coroutines a tasks. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Atomic publication — GitLab registry
+
+Publication protocol `upload immutable content → over digesty → vytvor manifest alebo package version → read-back completeness → atomicky publikuj release reference`, s idempotency a reconciliation pri unknown outcome. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
 
 ## Atomic write
 
@@ -1162,6 +1170,10 @@ Stav, keď nedôveryhodný alebo chybný pipeline uloží cache, ktorú neskôr 
 
 Policy určujúca cache-key inputs a minimum, default a maximum TTL pre CloudFront cache behavior. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Cache trust namespace — GitLab CI
+
+Oddelený cache key/prefix a write policy podľa trust contextu, napríklad fork, non-protected, protected alebo release. Zabraňuje tomu, aby menej dôveryhodný writer ovplyvnil citlivejší build. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
 ## Calendar versioning
 
 Versioning schéma odvodená primárne z kalendárneho dátumu alebo release cadence, napríklad `2026.07.21`. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -1421,6 +1433,10 @@ Build vykonaný bez dôvery v existujúcu local alebo external cache, používan
 ## Clean-room recovery
 
 Obnova do izolovaného a kontrolovaného prostredia pred production promotion, aby sa overila integrita a zabránilo opätovnému kompromitovaniu obnovených dát. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Cleanup-incomplete verdict — GitLab Runner
+
+Execution verdict označujúci, že script alebo output môže mať známy výsledok, ale worker runtime, workspace, procesy alebo credentials neboli dôveryhodne odstránené. Vyžaduje containment a reconciliation pred retry alebo ďalším použitím poolu. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
 
 ## Cleanup transition
 
@@ -3146,6 +3162,10 @@ Výsledná values konfigurácia po zlúčení chart defaults, predchádzajúceho
 
 Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct, inherited a shared memberships na danom resource. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Effective value — GitLab CI
+
+Hodnota, ktorú konkrétny pipeline alebo job skutočne použije po vyhodnotení všetkých variable sources, precedence, protected/environment scope-u, availability phase a downstream forwarding-u. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
 ## EFS access point
 
 Application-specific EFS entry point vynucujúci root directory a voliteľnú POSIX identity pre mounted clienta. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -3505,6 +3525,10 @@ Explicitný manifest jobs, child pipelines a reports, ktoré musia pre konkrétn
 ## Expected job inventory — GitLab CI/CD
 
 Strojovo overiteľná množina jobs, shards, child pipelines a reports, ktoré musia pre konkrétny configuration subject vzniknúť alebo byť explicitne označené ako not applicable. Odlišuje complete pass od false-green pipeline s chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
+## Expected output inventory — GitLab CI
+
+Manifest artifacts, reports, shards, variants alebo platforms, ktoré musí konkrétny producer/fan-in workflow vytvoriť. Actual-only agregácia bez tohto manifestu môže ticho vyhodnotiť missing output ako pass. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
 
 ## Expected result inventory
 
@@ -7314,6 +7338,10 @@ Host-scoped variable vytvorená cez `register`, ktorá uchováva štruktúrovan�
 
 Alternatívny registry endpoint replikujúci alebo cacheujúci content pre dostupnosť, latency, rate-limit alebo air-gap účely. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
+## Registry publication subject — GitLab
+
+Presná identity publish rozhodnutia zahŕňajúca source/candidate SHA, resolved pipeline config, build jobs a attempts, artifact a platform digests, runner/toolchain provenance, version, SBOM/scan/signature evidence, publisher identity, namespace a release policy. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
+
 ## Rego
 
 Deklaratívny OPA policy jazyk inšpirovaný Datalogom a určený na reasoning nad nested structured data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -7898,6 +7926,10 @@ SecurityContext guard požadujúci, aby container process nebežal s root UID; p
 
 Agent alebo execution capacity, ktorá prijme job od CI control plane a vykoná ho prostredníctvom zvoleného executora. Runner je zároveň capacity a security boundary. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
+## Runner execution subject — GitLab
+
+Identity job runtime-u zahŕňajúca source a resolved config, job attempt, runner manager/pool, worker ID a image digest, executor, helper image, architecture, cache/artifact inputs, credentials, network policy a resource limits. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+
 ## Runner isolation
 
 Oddelenie CI jobov, workspace, credentials, cache a execution environmentov tak, aby sa obmedzil cross-project contamination a persistence nedôveryhodného stavu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
@@ -7925,6 +7957,10 @@ Configuration dodaná pri vytvorení containeru, napríklad environment, command
 ## Runtime dependency failure
 
 Zlyhanie knižnice, dynamic linkeru, interpreteru, certificate store alebo iného runtime componentu, ktoré môže vyzerať ako chýbajúci executable napriek existencii file-u. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Runtime digest inventory — GitLab registry
+
+Auditovateľné mapovanie requested image/package reference na resolved OCI index alebo package checksum, platform manifest digest, pull/mirror source a digest skutočne používaný aktívnym workloadom. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
 
 ## Runtime identity — release
 
