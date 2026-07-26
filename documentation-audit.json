@@ -1081,15 +1081,15 @@
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
       "title": "Shift-left",
-      "words": 3209,
-      "headings": 35,
-      "sections": 35,
-      "findings": 95,
-      "critical": 12,
-      "high": 22,
-      "medium": 18,
-      "low": 43,
-      "score": 447,
+      "words": 2145,
+      "headings": 34,
+      "sections": 34,
+      "findings": 66,
+      "critical": 17,
+      "high": 20,
+      "medium": 11,
+      "low": 18,
+      "score": 426,
       "grade": "D"
     },
     {
@@ -59719,24 +59719,6 @@
       "path": "docs/04-testing-and-quality/shift-left.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.",
@@ -59746,24 +59728,6 @@
       "path": "docs/04-testing-and-quality/shift-left.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "1. Definícia",
-      "line": 9,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -59771,107 +59735,44 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "2. Mental model: presun dôkazu, nie iba testu",
-      "line": 36,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "2. Mental model: presun dôkazu, nie iba testu",
-      "line": 36,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "2. Mental model: presun dôkazu, nie iba testu",
-      "line": 36,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "3. Prečo je skorý feedback hodnotný",
-      "line": 50,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 42,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poskytuje chronicky hlučný výsledok,`, `trvá tak dlho, že ju používatelia obchádzajú,`, `nereprodukuje sa mimo centrálnej pipeline,`, `používa neaktuálnu konfiguráciu alebo iný toolchain,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "4. Evidence-placement model",
-      "line": 76,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 42,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový export objednávok pre veľkých tenantov;`, `rozšírenie event schema o optional exportProfile ;`, `PostgreSQL index a backfill;`, `nový worker retry policy;`.",
+      "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "4. Evidence-placement model",
-      "line": 76,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "5. Shift-left začína pri požiadavke",
-      "line": 107,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "5. Shift-left začína pri požiadavke",
-      "line": 107,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "5. Shift-left začína pri požiadavke",
-      "line": 107,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "5. Shift-left začína pri požiadavke",
-      "line": 107,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 42,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "6. Shift-left v návrhu a architektúre",
-      "line": 136,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 66 slov súvislého vysvetlenia.",
-      "score": 8
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 42,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "7. Developer feedback loop",
-      "line": 151,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 42,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -59879,8 +59780,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "7. Developer feedback loop",
-      "line": 151,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.2",
+      "line": 42,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "3. Najskorší bod nie je automaticky najlepší bod",
+      "line": 77,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "3. Najskorší bod nie je automaticky najlepší bod",
+      "line": 77,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "3. Najskorší bod nie je automaticky najlepší bod",
+      "line": 77,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -59888,21 +59816,30 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "7. Developer feedback loop",
-      "line": 151,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `enforcement`",
-      "score": 4
+      "section": "4. Evidence ladder pre Atlas zmenu",
+      "line": 97,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
       "section": "8. Autoritatívna CI vrstva",
       "line": 177,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "8. Autoritatívna CI vrstva",
+      "line": 177,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
@@ -59915,197 +59852,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "9. Test selection a false-negative riziko",
-      "line": 206,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 63 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "10. Security shift-left",
-      "line": 229,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "10. Security shift-left",
-      "line": 229,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "10. Security shift-left",
-      "line": 229,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "10. Security shift-left",
-      "line": 229,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "10. Security shift-left",
-      "line": 229,
+      "section": "8. Autoritatívna CI vrstva",
+      "line": 177,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `SCA`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "11. Infrastructure shift-left",
-      "line": 254,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "11. Infrastructure shift-left",
-      "line": 254,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "11. Infrastructure shift-left",
-      "line": 254,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "11. Infrastructure shift-left",
-      "line": 254,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "11. Infrastructure shift-left",
-      "line": 254,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "12. Databázové zmeny a compatibility",
-      "line": 278,
+      "section": "10. Security, infrastructure a data changes",
+      "line": 218,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "12. Databázové zmeny a compatibility",
-      "line": 278,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "12. Databázové zmeny a compatibility",
-      "line": 278,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "13. Observability shift-left",
-      "line": 294,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 55 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "13. Observability shift-left",
-      "line": 294,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "13. Observability shift-left",
-      "line": 294,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "13. Observability shift-left",
-      "line": 294,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "14. Performance shift-left",
-      "line": 309,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "14. Performance shift-left",
-      "line": 309,
+      "section": "10. Security, infrastructure a data changes",
+      "line": 218,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `microbenchmark kritického algoritmu,`, `query plan a index test s realistickou distribúciou,`, `component load test jednej služby,`, `memory allocation profil pri parseri,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expand-contract kompatibilitu starej a novej aplikácie;`, `reálny PostgreSQL engine a relevantnú major verziu;`, `reprezentatívnu veľkosť a distribúciu dát;`, `lock a statement timeout observation;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "14. Performance shift-left",
-      "line": 309,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "14. Performance shift-left",
-      "line": 309,
+      "section": "10. Security, infrastructure a data changes",
+      "line": 218,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -60113,35 +59888,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "14. Performance shift-left",
-      "line": 309,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "15. Platform engineering a golden paths",
-      "line": 324,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "15. Platform engineering a golden paths",
-      "line": 324,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "15. Platform engineering a golden paths",
-      "line": 324,
+      "section": "10. Security, infrastructure a data changes",
+      "line": 218,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -60149,8 +59897,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "15. Platform engineering a golden paths",
-      "line": 324,
+      "section": "10. Security, infrastructure a data changes",
+      "line": 218,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -60158,152 +59906,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "15. Platform engineering a golden paths",
-      "line": 324,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `SBOM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "16. Blocking verzus advisory feedback",
-      "line": 341,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "16. Blocking verzus advisory feedback",
-      "line": 341,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chráni relevantné a významné riziko,`, `výsledok je presný a reprodukovateľný,`, `failure má jasnú remediation,`, `runtime je primeraný bodu pipeline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "16. Blocking verzus advisory feedback",
-      "line": 341,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "16. Blocking verzus advisory feedback",
-      "line": 341,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "16. Blocking verzus advisory feedback",
-      "line": 341,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "17. Failure ownership a remediation",
-      "line": 364,
+      "section": "11. Operability shift-left",
+      "line": 246,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "17. Failure ownership a remediation",
-      "line": 364,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "17. Failure ownership a remediation",
-      "line": 364,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "17. Failure ownership a remediation",
-      "line": 364,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "17. Failure ownership a remediation",
-      "line": 364,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "18. Vzťah shift-left a shift-right",
-      "line": 376,
+      "section": "11. Operability shift-left",
+      "line": 246,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 69 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "18. Vzťah shift-left a shift-right",
-      "line": 376,
-      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočné regionálne sieťové podmienky,`, `produkčné quotas a identity federation,`, `reálny traffic mix a používateľské správanie,`, `emergentné distribuované interakcie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "18. Vzťah shift-left a shift-right",
-      "line": 376,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "18. Vzťah shift-left a shift-right",
-      "line": 376,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "19. Metriky účinnosti",
-      "line": 400,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `structured logs s redaction contractom;`, `technical aj business completion metrics;`, `startup, readiness a liveness semantics;`, `alert inputs a runbook ownership.`.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "19. Metriky účinnosti",
-      "line": 400,
+      "section": "11. Operability shift-left",
+      "line": 246,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -60311,8 +59933,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "19. Metriky účinnosti",
-      "line": 400,
+      "section": "11. Operability shift-left",
+      "line": 246,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -60320,35 +59942,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "19. Metriky účinnosti",
-      "line": 400,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "19. Metriky účinnosti",
-      "line": 400,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "19. Metriky účinnosti",
-      "line": 400,
+      "section": "11. Operability shift-left",
+      "line": 246,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `CI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DB`, `identity`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
+      "section": "12. Worked failure: migration bola posunutá príliš doľava",
+      "line": 259,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -60356,17 +59960,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
+      "section": "Náprava",
+      "line": 275,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "Náprava",
+      "line": 275,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
+      "section": "Náprava",
+      "line": 275,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čistá batch/checkpoint logika zostáva v unit scope-e;`, `migration integration používa reálny PostgreSQL;`, `plan obsahuje abort a roll-forward criteria;`, `canary sleduje DB waits, write latency a backlog;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "Náprava",
+      "line": 275,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -60374,17 +59996,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
+      "section": "Náprava",
+      "line": 275,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -60392,71 +60005,62 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "20. Diagnostický postup pri zlom feedback loope",
-      "line": 418,
+      "section": "Náprava",
+      "line": 275,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `scope`, `policy`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "21. Typické anti-patterny",
-      "line": 433,
+      "section": "13. Worked failure: lokálny pass nebol ten istý control",
+      "line": 286,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "Náprava",
+      "line": 302,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "Permanentné výnimky",
-      "line": 463,
+      "section": "Náprava",
+      "line": 302,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
+      "section": "Náprava",
+      "line": 302,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
+      "section": "Náprava",
+      "line": 302,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké konkrétne riziko alebo failure mode chráni?`, `Aký dôkaz je potrebný na rozhodnutie?`, `Ktorá najskoršia vrstva poskytne dostatočnú fidelity?`, `Čo táto vrstva nedokáže overiť a zostáva neskôr?`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `toolchain je pinovaný v repository;`, `local task aj CI volajú rovnaký wrapper;`, `generated output má deterministic check;`, `CI stále opakuje control v dôveryhodnom prostredí;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
+      "section": "Náprava",
+      "line": 302,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -60464,98 +60068,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "22. Praktický rozhodovací rámec",
-      "line": 467,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `riziko a boundary sú explicitné,`, `kontrola má jasný oracle,`, `toolchain a konfigurácia sú versionované,`, `lokálny a CI príkaz používajú rovnaký kontrakt,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "23. Kontrolný checklist",
-      "line": 486,
+      "section": "Náprava",
+      "line": 302,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
@@ -60563,12 +60077,237 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "Summary",
-      "line": 522,
+      "section": "17. Metriky účinnosti",
+      "line": 358,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "17. Metriky účinnosti",
+      "line": 358,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time to first useful feedback;`, `local-to-CI mismatch rate;`, `failure-stage distribution;`, `selection miss rate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "17. Metriky účinnosti",
+      "line": 358,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "17. Metriky účinnosti",
+      "line": 358,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "17. Metriky účinnosti",
+      "line": 358,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "17. Metriky účinnosti",
+      "line": 358,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "18. Diagnostický postup",
+      "line": 374,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "18. Diagnostický postup",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "18. Diagnostický postup",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "18. Diagnostický postup",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "18. Diagnostický postup",
+      "line": 374,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "18. Diagnostický postup",
+      "line": 374,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Posúvaj dôkaz, nie iba názov testu.`, `Najskorší control musí zachovať relevantnú failure boundary.`, `Lokálny feedback a CI používajú rovnaký verzovaný toolchain.`, `Pre-commit hook nie je autoritatívna enforcement boundary.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 388,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `DB`, `enforcement`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "20. Časté omyly",
+      "line": 403,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "„Rýchlejší test je automaticky lepší“",
+      "line": 409,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "„Lokálne green znamená CI green“",
+      "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "„Viac blocking gates znižuje riziko“",
+      "line": 421,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "„Shift-left odstráni potrebu produkčnej validácie“",
+      "line": 425,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
