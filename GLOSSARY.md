@@ -450,6 +450,10 @@ Terraform test run, ktorý vykoná apply proti reálnemu alebo testovaciemu prov
 
 Explicitné rozhodnutie oprávnenej identity, ktoré povoľuje merge, promotion, deployment alebo release na základe definovaného rizika a dostupnej evidence. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## Approval freshness
+
+Platnosť approvalu viazaná na nezmenený subject, evidence, target environment, rollout strategy a časové okno; zmena ktorejkoľvek dependency môže approval invalidovať. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
 ## Approval rule — GitLab
 
 GitLab pravidlo definujúce počet required approvals, eligible users alebo groups a branch/policy scope merge requestu. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -581,6 +585,10 @@ Vlastnosť umožňujúca dôverovať, že entity, dáta alebo artifacts pochádz
 ## Authoritative identity source
 
 Systém považovaný za zdroj pravdy pre existenciu, status, ownera alebo attributes identity, napríklad HR systém alebo service catalog. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Authoritative run
+
+Pipeline run určený policy ako jediný zdroj required verdictu alebo release artifactu pre konkrétny candidate a workflow revision. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
 ## Authoritative source — IaC
 
@@ -2382,6 +2390,10 @@ Ephemeral container pridaný do existujúceho Podu na diagnostiku pomocou schvá
 
 Audit event zachytávajúci policy query, result, policy revision, decision ID, relevantný context a PDP instance. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Decision packet
+
+Kompaktný auditovateľný balík pre approvera obsahujúci subject, risk, evidence, findings, target, rollout, recovery a expiry kontext potrebný na vedomé rozhodnutie. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
 ## Declarative configuration
 
 Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Pozri [Declarative vs. Imperative Approach](docs/00-foundations/declarative-vs-imperative.md).
@@ -2544,7 +2556,7 @@ Automatizovaný tok od source zmeny cez build, artifact, risk-specific validatio
 
 ## Deployment record
 
-Auditovateľný záznam spájajúci environment, artifact digest, configuration revision, pipeline run, identity, čas a výsledok konkrétneho deploymentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+Auditovateľný záznam spájajúci environment, artifact digest, configuration revision, pipeline run, identity, čas a výsledok konkrétneho deploymentu vrátane partial a failed attempts. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
 ## Deployment revision
 
@@ -3366,6 +3378,10 @@ Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, tel
 
 Pravidlá určujúce, či evidence stále patrí k aktuálnemu candidate, artifactu, policy a target environment stateu a ešte neprekročila definovanú expiráciu. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
+## Evidence manifest
+
+Explicitný zoznam required a optional evidence položiek pre konkrétny gate subject vrátane subject identity, tool statusu, completion, timestamps, integrity a exception references. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
 ## Evidence placement
 
 Rozhodnutie, v ktorej najskoršej vrstve delivery možno získať dostatočne spoľahlivý dôkaz bez odstránenia relevantnej failure boundary. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
@@ -3634,6 +3650,10 @@ Hierarchický model, v ktorom jeden Prometheus scrape-ne vybrané series z feder
 
 Cesta od vykonanej zmeny k informácii o jej výsledku. Pozri [Feedback Loops](docs/00-foundations/feedback-loops.md).
 
+## Fencing token
+
+Monotónna alebo unikátna lease identity overovaná pred každou environment mutation, ktorá zabráni starému deployment ownerovi pokračovať po strate alebo expirácii locku. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+
 ## Field — Grafana
 
 Jedna typed column alebo series v Grafana data frame s values, labels a display konfiguráciou. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -3774,6 +3794,14 @@ Control-plane proces odstraňujúci dependent objects podľa owner references a 
 
 Proces odstraňovania manifestov alebo blobs, ktoré už nie sú reachable z retained references, vykonávaný s koordináciou voči pushes, deletes, referrers a retention policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
+## Gate decision contract
+
+Model rozhodnutia spájajúci immutable subject, expected evidence manifest, applicability, freshness, versioned policy a rozhodovaciu authority do explicitného viacstavového verdictu. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
+## Gate subject
+
+Presná immutable alebo versionovaná entita hodnotená gate-om, napríklad candidate SHA, release manifest digest, rendered configuration, environment revision alebo rollout cohort. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
 ## Gatekeeper
 
 Kubernetes-native policy controller využívajúci OPA Constraint Framework na validation, mutation, audit a viac enforcement points. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -3809,6 +3837,10 @@ Cluster-scoped Gateway API resource vyberajúci controller implementation a clas
 ## Gauge — metric
 
 Metric hodnota, ktorá môže rásť aj klesať a reprezentuje napríklad aktuálnu queue depth, memory usage alebo počet connections. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Generated graph completeness
+
+Dôkaz, že dynamický pipeline generator analyzoval deklarovaný scope, zachoval required gates, vytvoril všetkých potrebných producers/consumers a explicitne uviedol preskočené components. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
 
 ## Generation — Kubernetes
 
@@ -6286,6 +6318,10 @@ Well-Architected pillar zameraný na efektívny výber a používanie compute re
 
 Test časových a kapacitných vlastností systému pri explicitnom workload modeli, prostredí a success criteria. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
 
+## Permission graph
+
+Resolved tok authority medzi pipeline jobs, runners, artifacts, secrets, registries, cloud roles a environments používaný na review effective blast radiusu. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
+
 ## Permissions boundary
 
 Guardrail určujúci maximálny permissions envelope identity bez samostatného udelenia accessu. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
@@ -6344,7 +6380,7 @@ Shell option, ktorá spôsobí, že pipeline vráti nenulový status pri zlyhan�
 
 ## Pipeline as Code
 
-Správa delivery workflowu ako versionovaného, reviewovateľného, testovateľného a policy-validovaného zdrojového kódu. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
+Správa delivery workflowu ako versionovaného, reviewovateľného, testovateľného a policy-validovaného privilegovaného programu. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
 
 ## Pipeline cache
 
@@ -6764,7 +6800,11 @@ Span attribute vybraný na indexovanie, metrics generation alebo ďalšie zrých
 
 ## Promotion evidence
 
-Súbor výsledkov a metadata viazaných na konkrétny artifact digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+Súbor výsledkov a metadata viazaných na konkrétny artifact alebo release manifest digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+
+## Promotion subject
+
+Kompletný deployment tuple hodnotený pred promotion, typicky release manifest, rendered configuration, infrastructure revision, target environment a relevantný shared-state snapshot. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
 ## PromQL
 
@@ -7216,7 +7256,7 @@ Disciplína riadenia release identity, readiness, approvals, communication, roll
 
 ## Release manifest
 
-Versionovaný dokument mapujúci koordinovaný release na immutable digests komponentov a relevantné configuration, infrastructure a schema revisions. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+Immutable manifest spájajúci digests viacerých component artifacts, migration bundle, config schema a evidence references do jednej release identity. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
 ## Release notes
 
@@ -7273,6 +7313,10 @@ Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri posledno
 ## Remote write — Prometheus
 
 Asynchrónny pipeline odosielajúci ingested samples cez queues, batching a retries do kompatibilného remote-storage receivera. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Rendered configuration digest
+
+Content-derived identity výslednej environment configuration po templates, overlays, defaults a non-secret inputs, používaná na väzbu promotion, approval a deployment recordu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
 ## Rendered manifest — Helm
 
@@ -7361,6 +7405,10 @@ Alert instance, ktorej firing condition už neplatí a prešla do ukončeného s
 ## Resolved Compose model
 
 Výsledná configuration po interpolation, merge, profiles, includes a overrides, ktorú možno kontrolovať cez `docker compose config`. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Resolved config digest
+
+Immutable digest effective pipeline konfigurácie po spracovaní includes, templates, inheritance, inputs, generated graphu a policy revisions. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
 
 ## Resolved configuration — GitLab CI/CD
 
@@ -9008,7 +9056,7 @@ Stav shared observability platformy, v ktorom jednotliví producenti pridávajú
 
 ## Template contract — CI/CD
 
-Versionované pravidlá reusable template definujúce inputs, defaults, outputs, artifacts, permissions, supported scenarios, failure semantics a compatibility policy. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+Versionované pravidlá reusable template definujúce inputs, defaults, outputs, artifacts, permissions, supported scenarios, failure semantics a compatibility policy. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
 
 ## `template` — Helm
 
@@ -9325,6 +9373,10 @@ Experimentálny variant obsahujúci testovanú zmenu, ktorého outcome sa porovn
 ## Trigger — CI/CD
 
 Udalosť alebo explicitný pokyn, ktorý vytvorí pipeline run a určí jeho commit, event payload, actor identity, variables a permission context. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+
+## Trigger contract
+
+Resolved runtime contract vytvorený triggerom, ktorý spája event identity, actor, candidate a workflow revision, typed inputs, permissions, secret scope a concurrency policy. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
 ## Trunk-based development
 
