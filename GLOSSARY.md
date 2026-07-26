@@ -1402,6 +1402,10 @@ Build vykonaný bez dôvery v existujúcu local alebo external cache, používan
 
 Obnova do izolovaného a kontrolovaného prostredia pred production promotion, aby sa overila integrita a zabránilo opätovnému kompromitovaniu obnovených dát. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Cleanup transition
+
+Povinný pipeline alebo job transition, ktorý po success, failure, timeout alebo cancellation uvoľní locks, credentials a temporary resources a zachová dostupné evidence. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## ClickOps
 
 Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez versionovaného, reviewovaného a reprodukovateľného change pathu. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -2248,7 +2252,7 @@ Riadené postupné nahrádzanie DaemonSet Podov novou template revision pri zach
 
 ## DAG — CI/CD
 
-Directed Acyclic Graph vyjadrujúci explicitné dependencies medzi jobs. Umožňuje spustiť job hneď po dokončení jeho skutočných upstream dependencies. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+Directed Acyclic Graph vyjadrujúci explicitné dependencies medzi jobs vrátane ordering-u, artifact flowu a failure propagation. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Dark launch
 
@@ -3394,6 +3398,10 @@ Machine-readable formalizácia policy intentu s presným input schema, scope, de
 
 Príklad alebo pravidlo zapísané vo forme, ktorú možno automaticky spustiť ako dôkaz behavior. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Execution contract — job
+
+Deklarované runtime, inputs, permissions, resources, timeout, retries, outputs, success criteria a cleanup semantics jedného samostatne plánovaného jobu. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Execution environment — Ansible
 
 Versionovaný runtime image alebo prostredie obsahujúce `ansible-core`, Python dependencies, collections a system tools potrebné na reprodukovateľné vykonanie automation. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -3572,7 +3580,7 @@ Finding označujúci asset ako vulnerable, hoci affected code, configuration ale
 
 ## Fan-in — pipeline
 
-Bod pipeline grafu, v ktorom downstream job čaká na výsledky viacerých upstream jobs alebo shards. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+Bod pipeline grafu, v ktorom downstream job čaká na výsledky viacerých upstream jobs alebo shards a overuje ich úplnosť. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
 ## Fan-out — pipeline
 
@@ -4538,6 +4546,10 @@ Helm function renderujúca named template do stringu, ktorý možno ďalej sprac
 
 Dynamické načítanie Ansible role počas executionu podľa runtime contextu. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Incomplete verdict
+
+Výsledok signalizujúci, že autoritatívne rozhodnutie nemožno urobiť, pretože chýba required job, shard, report, artifact alebo tool execution status. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Index — search
 
 Logical collection documents s vlastným mappingom, settings a shard topology. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -4777,6 +4789,10 @@ Náhodná odchýlka pridaná k retry delay, ktorá znižuje synchronizované opa
 ## Job
 
 Kubernetes workload controller, ktorý vytvára Pody a retryuje ich dovtedy, kým sa nedosiahne požadovaný completion alebo failure stav. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Job attempt
+
+Jedno konkrétne vykonanie jobu vrátane runnera, časov, logs a verdictu; retry vytvára nový attempt a nesmie prepísať evidence predchádzajúceho pokusu. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Job — CI/CD
 
@@ -6336,7 +6352,11 @@ Dočasné znovupoužiteľné dáta určené na zrýchlenie pipeline, napríklad 
 
 ## Pipeline — CI/CD
 
-Runtime inštancia versionovaného delivery workflowu vytvorená konkrétnym triggerom a viazaná na commit, event context, variables, jobs, artifacts a results. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+Runtime inštancia versionovaného delivery workflowu vytvorená konkrétnym triggerom a viazaná na candidate, event context, variables, jobs, permissions, artifacts a results. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
+## Pipeline instance
+
+Konkrétny runtime run po vyhodnotení workflow definície, trigger payloadu, candidate identity, conditions, matrix, permissions a environment policy. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Pipeline last argument — Helm
 
@@ -8202,6 +8222,10 @@ Kerberos identity služby viazaná na service class a hostname, ktorú client po
 
 Aplikácia alebo služba dôverujúca validovaným assertions od SAML Identity Providera. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
+## Service readiness — pipeline
+
+Stav, keď testovacia dependency nielen beží ako proces, ale dokáže spracovať relevantnú operáciu v deklarovanom deadline. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Service responsibility matrix
 
 Tabuľka mapujúca pre konkrétnu cloud službu provider, customer a shared responsibilities v oblastiach compute, identity, network, data, encryption, logging, patching a recovery. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
@@ -9789,6 +9813,10 @@ Non-human identity workloadu, typicky reprezentovaná ServiceAccountom a krátko
 ## Workload identity — Zero Trust
 
 Krátkodobá, workload-specific cryptographic identity používaná pre service authentication namiesto IP-based trust alebo shared static credentials. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Workspace lifecycle
+
+Životný cyklus job workspace-u od čistého vytvorenia cez checkout a execution po upload explicitných outputs, credential revoke a odstránenie temporary state. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Writable layer — container
 
