@@ -8,78 +8,87 @@
 - Predpoklady: [Routing a default gateway](routing-and-default-gateway.md), [Ports a sockets](ports-and-sockets.md), [NAT](nat.md)
 - Súvisiace témy: security groups, network ACLs, proxies, load balancers, Kubernetes NetworkPolicy, WAF
 
-## 1. Definícia
+## 1. Problém, ktorý firewall rieši
 
-Firewall je policy enforcement point, ktorý nad packetom, flowom alebo aplikačným requestom vykoná rozhodnutie podľa definovanej politiky.
-
-Verdict môže byť napríklad:
-
-- accept — traffic smie pokračovať,
-- drop — traffic sa ticho zahodí,
-- reject — traffic sa odmietne explicitnou chybou,
-- log — udalosť sa zaznamená,
-- rate-limit — traffic sa obmedzí,
-- mark — packet dostane metadata pre ďalšie rozhodovanie,
-- redirect — traffic sa odošle na iný lokálny alebo vzdialený endpoint.
-
-Firewall nie je jeden konkrétny produkt ani jedna sieťová vrstva. Enforcement môže existovať:
-
-- v host kernel-i,
-- na routeri alebo appliance,
-- vo virtual switchi alebo hypervisore,
-- v cloud security group alebo network ACL,
-- v container dataplane,
-- v Kubernetes CNI,
-- v service meshi,
-- v reverse proxy alebo WAF,
-- priamo v aplikácii.
-
-Preto otázka „je firewall otvorený?“ je nepresná. Treba určiť:
+Atlas publikuje Orders API cez endpoint `203.0.113.5:443`. NAT môže packet preložiť na interný reverse proxy `10.20.2.10:8443`, ale samotný preklad neodpovedá na bezpečnostnú otázku:
 
 ```text
-ktorý enforcement point
-+ ktorý smer
-+ ktoré fields
-+ ktorý state
-+ ktoré poradie policy
-+ ktorý výsledný verdict
+Smie tento konkrétny traffic pokračovať?
 ```
 
-## 2. Policy-decision lifecycle
+Firewall je policy enforcement point. Pozoruje packet, flow alebo aplikačný request, porovná ho s efektívnou politikou a vydá verdict, napríklad `accept`, `drop` alebo `reject`.
 
-Zjednodušený model:
+Pre jeden inbound request môže cesta vyzerať takto:
+
+```text
+Internet klient
+→ cloud edge policy
+→ subnet ACL
+→ NAT/DNAT
+→ host FORWARD policy
+→ reverse-proxy listener
+→ proxy/WAF policy
+→ application authorization
+```
+
+Povolenie na jednej vrstve neznamená povolenie na ďalšej. Firewall zároveň neotvára socket, nevytvára route a neopravuje nefunkčnú aplikáciu.
+
+## 2. Dominantný mentálny model
+
+Každé firewall rozhodnutie možno analyzovať rovnakým lifecycle-om:
 
 ```text
 packet alebo request
-    ↓
-observation point
-    ↓
-normalizácia a state lookup
-    ↓
-rule selection v definovanom poradí
-    ↓
-match alebo no match
-    ↓
-verdict
-    ↓
-ďalší enforcement point alebo destination
+→ observation point a smer
+→ fields a identity viditeľné v tomto bode
+→ optional state lookup
+→ rule selection a precedence
+→ verdict
+→ ďalší enforcement point alebo destination
 ```
 
-Každá vrstva odpovedá na inú otázku:
+Pri incidente treba zodpovedať šesť otázok:
 
-- routing — kam packet smeruje,
-- NAT — aké adresy alebo porty packet používa,
-- firewall — či packet smie pokračovať,
-- proxy — či sa vytvorí nové upstream spojenie a kam,
-- application authorization — či konkrétna operácia smie prebehnúť.
+1. Ktorý enforcement point packet skutočne videl?
+2. V akom smere a hooku sa nachádzal?
+3. Aké source/destination fields mal pred alebo po NAT-e?
+4. Aký connection alebo aplikačný state bol priradený?
+5. Ktoré pravidlo a poradie rozhodlo?
+6. Aký verdict vznikol a kam packet pokračoval?
 
-Povolenie na jednej vrstve nie je dôkazom povolenia na ďalšej.
+Neurčité tvrdenie „firewall je otvorený“ neodpovedá ani na jednu z nich.
 
-## 3. Observation point a direction
+## 3. Carried scenario: klient pristupuje k Atlas Orders
 
-Firewall vidí iba traffic, ktorý cez neho skutočne prechádza.
+Klient `198.51.100.25` otvára TCP connection na verejný endpoint:
 
-Na Linux hoste sú dôležité hlavné pathy:
+```text
+198.51.100.25:51000 → 203.0.113.5:443
+```
+
+DNAT ho preloží na reverse proxy:
+
+```text
+198.51.100.25:51000 → 10.20.2.10:8443
+```
+
+Na Linux gateway môže flow prejsť:
+
+```text
+ingress wan0
+→ PREROUTING a DNAT
+→ route k 10.20.2.10
+→ FORWARD firewall
+→ egress inside0
+```
+
+Firewall vo FORWARD path-e môže vidieť už preloženú destination. Pravidlo napísané pre public IP v nesprávnom hooku preto nemusí matchovať.
+
+Po doručení reverse proxy vznikne nový upstream flow. Ten môže mať inú source IP, port, TLS session a ďalší firewall path. Jeden používateľský request tak môže obsahovať viac samostatných policy decisions.
+
+## 4. Observation point a smer
+
+Linux rozlišuje tri hlavné packet paths:
 
 ```text
 remote → local process
@@ -88,260 +97,178 @@ PREROUTING → routing → INPUT
 local process → remote
 OUTPUT → routing → POSTROUTING
 
-remote → routed through host → remote
+remote → routed cez host → remote
 PREROUTING → routing → FORWARD → POSTROUTING
 ```
 
 Dôsledky:
 
-- INPUT rule neovplyvní forwardovaný container traffic, ak packet ide cez FORWARD,
-- OUTPUT rule neovplyvní packet, ktorý vytvoril iný namespace alebo eBPF dataplane mimo očakávaného hooku,
-- host firewall nemusí vidieť traffic medzi dvoma workloads v rovnakom virtual switchi,
-- cloud firewall môže packet zahodiť skôr, než sa dostane na host,
-- WAF začne rozhodovať až po úspešnom TCP a často TLS spojení.
+- `INPUT` pravidlo neovplyvní packet routovaný do kontajnera cez `FORWARD`.
+- Hostový firewall nemusí vidieť packet zahodený cloud security groupou.
+- Packet v inom network namespace môže používať iný ruleset alebo dataplane.
+- WAF nemôže rozhodovať pred úspešným TCP a zvyčajne TLS setupom.
+- eBPF alebo virtual switch policy môže rozhodnúť mimo chainu, ktorý administrátor kontroluje cez tradičný nftables výpis.
 
-Pri diagnostike musí byť observation point pomenovaný fyzicky aj logicky: interface, namespace, hook, chain, cloud attachment alebo proxy listener.
+Observation point musí byť pomenovaný konkrétne: cloud attachment, interface, namespace, hook, chain, proxy listener alebo aplikačný middleware.
 
-## 4. Stateless firewall
+## 5. Stateless a stateful rozhodovanie
 
-Stateless firewall hodnotí každý packet samostatne podľa aktuálnych header fields a lokálnej policy.
+### Stateless model
 
-Typické match fields:
-
-- source a destination IP,
-- transportný protokol,
-- source a destination port,
-- interface,
-- TCP flags,
-- ICMP type/code,
-- DSCP alebo mark,
-- fragment metadata.
-
-Výhody:
-
-- nepotrebuje per-flow state,
-- správanie je jednoduchšie pri veľkom objeme trafficu,
-- oba smery sú explicitne viditeľné v policy,
-- failure jedného state table neblokuje všetky nové flows.
-
-Nevýhody:
-
-- return traffic treba povoliť samostatne,
-- ephemeral ports komplikujú policy,
-- packet bez širšieho kontextu môže vyzerať legitímne,
-- TCP flags samy neposkytujú spoľahlivý aplikačný lifecycle.
-
-Stateless filter musí myslieť na oba smery:
+Stateless firewall hodnotí každý packet samostatne podľa aktuálnych fields:
 
 ```text
-client ephemeral port → server 443
-server 443 → client ephemeral port
+source/destination IP
++ protocol
++ source/destination port
++ interface
++ flags alebo ICMP type
+→ verdict
 ```
 
-## 5. Stateful firewall
+Pre TCP request treba explicitne myslieť na oba smery:
 
-Stateful firewall používa connection tracking. Prvý packet vytvorí alebo začne state entry; ďalšie packets sa vyhodnocujú aj podľa vzťahu k existujúcemu flowu.
+```text
+client ephemeral → server 443
+server 443 → client ephemeral
+```
 
-Bežné conntrack kategórie:
+Tento model nepotrebuje per-flow table, ale politika musí presne pokryť return traffic.
 
-- `NEW` — nový alebo ešte nepotvrdený flow,
-- `ESTABLISHED` — packet patrí k rozpoznanému obojsmernému flowu,
-- `RELATED` — nový flow súvisí s existujúcim podľa protokolu alebo helpera,
-- `INVALID` — packet nemožno korektne zaradiť.
+### Stateful model
 
-Typická inbound policy:
+Stateful firewall používa conntrack:
+
+```text
+prvý packet
+→ NEW
+→ explicitné allow pravidlo
+→ obojsmerný state
+→ ďalšie packets ESTABLISHED
+```
+
+Bežná politika:
 
 ```text
 allow established,related
-allow new TCP 443 from required sources
-drop everything else
+allow new TCP 443 from approved sources
+drop ostatné new flows
 ```
 
-Stateful firewall umožní odpoveď na povolený outbound flow bez širokého všeobecného inbound pravidla. Stále však platí, že nový outbound flow musí prejsť outbound alebo forward policy.
+Stateful model zjednodušuje return policy, ale pridáva state capacity a timeout lifecycle.
 
-## 6. Conntrack nie je aplikačný health
+## 6. Conntrack nie je aplikačný stav
 
-Conntrack state neznamená, že aplikácia je zdravá.
+Rozlišuj:
 
 ```text
-ct state established
+TCP socket state na endpointe
+≠
+conntrack state na firewalle
+≠
+TLS alebo HTTP state
+≠
+business authorization
 ```
 
-môže znamenať iba to, že kernel videl obojsmerný transportný flow. Nehovorí, že:
+`ct state established` znamená, že packet patrí k rozpoznanému flowu. Neznamená, že:
 
-- TLS handshake uspel,
-- HTTP request bol autorizovaný,
-- databáza odpovedala,
-- application worker nie je zaseknutý,
-- response obsahuje správne dáta.
+- TLS certifikát je platný,
+- HTTP route existuje,
+- používateľ je autorizovaný,
+- backend dependency funguje,
+- response je správna.
 
-Zároveň conntrack state nie je totožný s TCP socket state v endpointe. Middlebox môže flow stále považovať za platný, hoci aplikácia už socket zavrela, alebo mapping môže expirovať skôr než endpoint zistí failure.
+Conntrack entry môže navyše prežiť aplikačný close alebo naopak expirovať skôr než endpoint zistí, že middlebox state zmizol.
 
-## 7. Conntrack capacity a failure mode
-
-Stateful firewall potrebuje pamäť a čas na každý flow.
-
-Pozorovanie:
-
-```bash
-sudo conntrack -L
-sudo conntrack -S
-sysctl net.netfilter.nf_conntrack_count
-sysctl net.netfilter.nf_conntrack_max
-journalctl -k -b
-```
-
-Pri vyčerpaní state table typicky:
-
-- existujúce flows pokračujú,
-- nové flows timeoutujú alebo sa zahadzujú,
-- listener a route vyzerajú zdravo,
-- problém rastie s concurrency alebo scanom,
-- kernel môže logovať table full drops.
-
-Príčiny:
-
-- retry storm,
-- veľa krátkych connections,
-- UDP pseudo-state s dlhým timeoutom,
-- attack alebo scan,
-- connection leak,
-- neprimeraný limit,
-- zlá state distribúcia v HA modeli.
-
-Zvýšenie limitu bez odstránenia retry stormu iba oddiali ďalší incident.
-
-## 8. Allow, drop a reject
+## 7. Verdict mení failure semantics
 
 ### Accept
 
-Packet pokračuje do ďalšieho hooku, enforcement pointu alebo destination. Accept v jednej chain nemusí znamenať konečné doručenie, ak nasleduje ďalšia policy vrstva.
+Packet pokračuje do ďalšieho hooku alebo enforcement pointu. Nie je to dôkaz finálneho doručenia.
 
 ### Drop
 
-Packet sa zahodí bez explicitnej odpovede. Klient typicky čaká do timeoutu a retransmituje.
+Packet sa ticho zahodí:
 
-Výhoda je menšie množstvo informácie pre scanner. Nevýhoda je dlhšia failure detection, väčší retry load a zložitejšia diagnostika.
+```text
+client SYN
+→ firewall drop
+→ žiadna odpoveď
+→ retransmission
+→ connect timeout
+```
+
+Drop predlžuje failure detection a môže vytvoriť retry load.
 
 ### Reject
 
-Firewall odošle aktívnu chybu, napríklad:
+Firewall vráti explicitnú chybu, napríklad TCP RST alebo ICMP unreachable. Klient zlyhá rýchlejšie.
 
-- TCP RST,
-- ICMP destination unreachable,
-- ICMP administratively prohibited.
+### Log a counter
 
-Reject poskytne fail-fast správanie. Nie je automaticky menej bezpečný; rozhodnutie závisí od threat modelu a prevádzkovej potreby.
+Logovanie alebo counter poskytujú evidence, ale samy nemusia byť terminating verdict. Rule môže packet zaznamenať a pokračovať ďalej.
 
-### Log
+Rozdiel medzi timeoutom a okamžitým `connection refused` preto nesie informáciu o mechanizme, nie iba o používateľskom texte chyby.
 
-Logovanie nie je verdict, pokiaľ rule následne explicitne neprijme alebo nezahodí packet. Log rule môže iba zaznamenať a pokračovať v chain.
+## 8. Rule selection a precedence
 
-## 9. Default policy
-
-Dva základné modely:
-
-```text
-default allow
-+ explicit deny
-```
-
-alebo:
-
-```text
-default deny
-+ explicit allow
-```
-
-Default deny je vhodný pre security boundary, pretože neznámy flow je zakázaný. Vyžaduje však:
-
-- inventár legitímnych flows,
-- ownership každej výnimky,
-- správne return traffic pravidlá,
-- IPv4 aj IPv6 policy,
-- DNS, NTP, package repositories a certificate endpoints,
-- management recovery path,
-- bezpečný rollout a rollback.
-
-Default deny bez observability vedie k náhodnému povoľovaniu širokých rozsahov pri každom incidente.
-
-## 10. Rule ordering a precedence
-
-Firewall engine môže používať:
-
-- first-match semantics,
-- priority-based chains,
-- kombináciu jumpov a returnov,
-- explicitný terminating alebo non-terminating verdict,
-- platformovú agregáciu pravidiel.
+Efektívny výsledok závisí od poradia a control flow rulesetu.
 
 Pri first-match modeli:
 
 ```text
-1. allow 198.51.100.0/24 → TCP 443
-2. drop all → TCP 443
-3. allow established
+1. drop TCP 443 from any
+2. allow TCP 443 from 198.51.100.0/24
 ```
 
-je tretie pravidlo pre niektoré packets nedosiahnuteľné. Rovnaké pravidlá v inom poradí môžu dať iný výsledok.
+je druhé pravidlo nedosiahnuteľné.
 
-Pri nftables treba chápať aj:
+Nftables navyše rozlišuje:
 
 - table family,
-- chain hook,
+- base chain hook,
 - chain priority,
-- base chain policy,
-- jump/goto semantics,
+- base policy,
+- jump, goto a return,
 - sets a maps,
-- pravidlá vložené iným managerom.
+- rules vložené inými managermi.
 
-Jedna textová konfigurácia nemusí byť jediným zdrojom efektívnej policy.
+Source configuration nie je automaticky efektívny ruleset. Docker, Kubernetes, firewalld, VPN agent alebo security produkt môžu pridať vlastné chains a priority.
 
-## 11. Match scope
+## 9. Default deny ako prevádzkový kontrakt
 
-Dobré pravidlo explicitne určuje relevantný scope:
-
-```text
-source identity alebo prefix
-+ destination identity alebo prefix
-+ protocol
-+ destination port
-+ direction
-+ interface alebo zone
-+ connection state
-+ časová alebo prevádzková podmienka
-```
-
-Príliš široké pravidlá:
+Default deny znamená:
 
 ```text
-allow any any
-allow 0.0.0.0/0 to all ports
-allow whole corporate network to management plane
+neznámy flow
+→ zakázaný
+
+známy legitímny flow
+→ explicitne povolený
 ```
 
-zväčšujú blast radius a skrývajú skutočné dependencies.
+Je to silný model iba vtedy, keď Atlas pozná svoje dependencies:
 
-Príliš úzke pravidlá bez lifecycle managementu zasa zlyhávajú pri zmene adries, scale-out-e alebo failover-e. Policy preto potrebuje stabilnú identity vrstvu alebo automatizované generovanie z inventory.
+- inbound klientov a management sources,
+- DNS, NTP a certificate endpoints,
+- payment API a telemetry egress,
+- IPv4 aj IPv6 flows,
+- health checks,
+- package a artifact repositories,
+- recovery a out-of-band access.
 
-## 12. nftables model
+Default deny bez inventory a observability vedie počas incidentu k širokým `allow any` výnimkám, ktoré zrušia pôvodný bezpečnostný cieľ.
 
-Netfilter je kernel framework; nftables je moderný userspace model na tvorbu pravidiel.
+## 10. Konkrétny nftables model pre Atlas
 
-Inventár:
-
-```bash
-sudo nft list ruleset
-sudo nft list ruleset -a
-sudo nft list tables
-```
-
-Príklad základnej `inet` table:
+Základ hostového inbound rulesetu:
 
 ```nft
-table inet filter {
+table inet atlas_filter {
     set admin_sources {
         type ipv4_addr
+        flags interval
         elements = { 198.51.100.0/24 }
     }
 
@@ -357,551 +284,335 @@ table inet filter {
         ip6 nexthdr ipv6-icmp accept
 
         tcp dport 22 ip saddr @admin_sources counter accept
-        tcp dport 443 counter accept
+        counter drop
+    }
+
+    chain forward {
+        type filter hook forward priority filter;
+        policy drop;
+
+        ct state invalid drop
+        ct state established,related accept
+
+        iifname "wan0" oifname "inside0" \
+            ip daddr 10.20.2.10 tcp dport 8443 \
+            ct state new counter accept
 
         counter drop
     }
 }
 ```
 
-Produkčný ruleset musí riešiť:
+Tento príklad ukazuje dve odlišné otázky:
 
-- IPv4 aj IPv6,
-- loopback,
-- management access,
-- potrebné ICMP/ICMPv6,
-- fragmenty,
-- invalid state,
-- rate limiting a logging,
-- persistent load,
-- rollback,
-- ownership iného firewall managera.
+- management SSH končí na samotnej gateway a používa `INPUT`,
+- publikovaný Orders traffic je forwardovaný po DNAT-e a používa `FORWARD` s internou destination.
 
-## 13. Sets, maps a dynamická policy
+Produkčný ruleset musí mať explicitný owner, persistent deployment, rollback a test pre legitímne aj zakázané flows.
 
-Nftables sets umožňujú spravovať veľa adries alebo portov efektívnejšie než opakované rules.
+## 11. NAT a firewall sú oddelené rozhodnutia
 
-```nft
-set trusted_backends {
-    type ipv4_addr
-    flags interval
-    elements = { 10.20.0.0/16, 10.30.0.0/16 }
-}
-```
-
-Maps môžu priamo mapovať key na verdict alebo value. Dynamická aktualizácia setu je často bezpečnejšia než prepis celého rulesetu.
-
-Riziká:
-
-- stale inventory,
-- neatomická externá automatizácia,
-- neočakávaná expirácia dynamického prvku,
-- rozdiel medzi desired a effective state,
-- chýbajúci audit pôvodu zmeny.
-
-## 14. iptables compatibility a viac managerov
-
-Príkaz `iptables` môže používať legacy backend alebo nft backend.
-
-```bash
-iptables --version
-update-alternatives --display iptables
-```
-
-Na jednom hoste môžu pravidlá spravovať:
-
-- raw nftables konfigurácia,
-- firewalld,
-- Docker alebo container runtime,
-- Kubernetes komponent,
-- VPN software,
-- cloud agent,
-- bezpečnostný produkt.
-
-Ak viac managerov mení rovnaký dataplane bez jasného ownershipu:
-
-- pravidlá sa môžu prepísať,
-- priority sa môžu meniť,
-- reload môže odstrániť runtime rules,
-- diagnostika jedného config súboru nebude autoritatívna.
-
-Efektívny ruleset je dôležitejší než predpokladaný zdroj konfigurácie.
-
-## 15. firewalld a zones
-
-Firewalld poskytuje abstrakciu zones, services a runtime/permanent konfigurácie.
-
-Zone reprezentuje trust profil priradený interface alebo source.
-
-```bash
-firewall-cmd --get-active-zones
-firewall-cmd --list-all
-firewall-cmd --list-all-zones
-```
-
-Rozdiel stavov:
+Pre Atlas endpoint:
 
 ```text
-runtime configuration
-= aktívna teraz
-
-permanent configuration
-= načíta sa pri reload/reštarte
+DNAT match
+→ destination sa zmení na 10.20.2.10:8443
+→ FORWARD firewall môže allow alebo drop
 ```
 
-Príklad:
+Možné kombinácie:
 
-```bash
-firewall-cmd --add-service=https
-firewall-cmd --permanent --add-service=https
-firewall-cmd --reload
-```
+| Translation | Firewall | Výsledok |
+|---|---|---|
+| nie | allow | packet pokračuje bez požadovaného prekladu alebo skončí inde |
+| áno | drop | klient timeoutuje napriek správnemu DNAT-u |
+| áno | reject | klient dostane explicitnú chybu |
+| áno | allow | flow pokračuje, no backend môže stále zlyhať |
 
-Runtime zmena bez permanent zápisu sa stratí. Permanent zmena bez reloadu nemusí byť aktívna.
+NAT vysvetľuje tuple. Firewall vysvetľuje verdict. Routing vysvetľuje next hop.
 
-Pri zones treba overiť, či interface alebo source patrí do očakávanej zone. Pravidlo v správnej zone nepomôže packetu spracovanému inou zone.
+## 12. Worked failure: po default-deny rolloute fungujú iba staré connections
 
-## 16. ICMP a ICMPv6
-
-Plošné blokovanie ICMP nie je bezpečná univerzálna politika.
-
-ICMP poskytuje:
-
-- destination unreachable,
-- time exceeded,
-- fragmentation needed alebo packet too big,
-- parameter problem,
-- redirect v špecifických scenároch,
-- diagnostický echo traffic.
-
-ICMPv6 navyše zabezpečuje základné IPv6 funkcie:
-
-- Neighbor Solicitation a Advertisement,
-- Router Solicitation a Advertisement,
-- Duplicate Address Detection,
-- Path MTU Discovery,
-- multicast listener signaling.
-
-Blokovanie potrebných typov môže spôsobiť:
-
-- MTU black holes,
-- nefunkčný IPv6 neighbor discovery,
-- chýbajúcu default route,
-- pomalé timeouty namiesto explicitných chýb.
-
-Správny model je povoliť potrebné typy, blokovať nelegitímne a rate-limitovať abuse-sensitive traffic.
-
-## 17. Fragmenty a firewall policy
-
-Nie každý fragment obsahuje transportný header. Neskorší IPv4 fragment nemusí mať TCP/UDP porty, podľa ktorých pravidlo bežne matchuje.
-
-Stateful reassembly alebo fragment tracking môže pomôcť, ale pridáva resource pressure a attack surface.
-
-Pri IPv6 môžu extension headers a fragment header komplikovať parsing a policy. Plošné blokovanie všetkých extension headers môže rozbiť legitímny traffic; plošné povolenie bez limitov môže byť rizikové.
-
-Firewall musí mať explicitnú fragment policy, nie náhodné správanie odvodené z rule orderu.
-
-## 18. Cloud security groups
-
-Security group je typicky stateful policy priradená virtual NIC, instance alebo workload identity.
-
-Bežný model:
-
-- allow rules,
-- implicit deny pre nezhodný traffic,
-- stateful return traffic,
-- policy vyhodnotená vo virtualizovanej network vrstve.
-
-Security group nie je host firewall. Obe vrstvy môžu platiť súčasne.
-
-Príklad failure path:
+Atlas nasadí nový ruleset. Monitoring ukáže:
 
 ```text
-internet route exists
-→ subnet ACL allows
-→ security group denies
-→ packet nikdy nepríde na host
+existujúce HTTPS sessions pokračujú
+→ nové client connections timeoutujú
+→ reverse proxy a backend sú zdravé
+→ rollback okamžite obnoví nové flows
 ```
 
-Hostový `tcpdump` preto nemusí vidieť packet, ktorý cloud firewall zahodil skôr.
+### Hypotéza
 
-## 19. Network ACLs
+Ruleset povoľuje `ESTABLISHED`, ale chýba alebo nematchuje pravidlo pre nový DNAT flow vo FORWARD chain.
 
-Cloud network ACL býva subnet-level a často stateless.
+### Predikcie
 
-Stateless model vyžaduje pravidlá pre oba smery vrátane ephemeral portov:
+- existujúce conntrack entries pokračujú,
+- nový SYN príde na WAN,
+- DNAT counter môže rásť,
+- allow counter vo FORWARD chain nerastie,
+- drop counter rastie,
+- backend nový SYN nevidí.
 
-```text
-client ephemeral → server 443
-server 443 → client ephemeral
-```
-
-ACL môže mať numbered rule order, explicitné deny a platformové limity. Pri troubleshooting-u treba poznať konkrétnu cloud implementáciu, nie všeobecný predpoklad.
-
-Vrstvy:
-
-```text
-route table
-→ network ACL
-→ security group
-→ host firewall
-→ namespace/CNI policy
-→ listener
-→ L7 authorization
-```
-
-## 20. Distributed firewalling
-
-Moderné platformy aplikujú policy priamo pri workload interface.
-
-Príklady:
-
-- hypervisor vNIC policy,
-- Kubernetes CNI NetworkPolicy,
-- eBPF dataplane,
-- service mesh authorization,
-- cloud workload identity firewall.
-
-Výhody:
-
-- menší lateral movement,
-- enforcement blízko workloadu,
-- škálovanie bez jedného centrálneho boxu,
-- policy podľa identity workloadu.
-
-Riziká:
-
-- viac policy engines,
-- rozptýlené logy,
-- nejasný precedence model,
-- rozdiel medzi deklarovanou a efektívnou policy,
-- policy lag pri rýchlom scale-out-e,
-- odlišné IPv4/IPv6 pokrytie.
-
-Pri incidente treba identifikovať všetky enforcement points, nie iba „hlavný firewall“.
-
-## 21. Kubernetes NetworkPolicy
-
-Kubernetes NetworkPolicy deklaruje povolené ingress a egress flows pre vybrané Pods. Reálny enforcement poskytuje CNI plugin.
-
-Dôležité dôsledky:
-
-- bez podporujúceho CNI môže objekt existovať bez efektu,
-- policy je namespaced, ale source/destination identity môže prechádzať namespace hranice,
-- default deny vzniká až po policy, ktorá Pod vyberie v danom smere,
-- service translation môže zmeniť observation point,
-- hostNetwork Pods a node traffic môžu mať odlišný model,
-- DNS egress treba povoliť explicitne pri egress default deny.
-
-`kubectl get networkpolicy` ukazuje desired objects, nie nevyhnutne efektívny dataplane stav.
-
-## 22. L3/L4 firewall verzus L7 firewall a WAF
-
-### L3/L4 firewall
-
-Rozhoduje najmä podľa:
-
-- IP adresy,
-- protokolu,
-- portu,
-- interface,
-- connection state.
-
-Nevie automaticky určiť, či HTTP request na povolenom porte obsahuje SQL injection alebo neautorizovanú cestu.
-
-### L7 firewall alebo WAF
-
-Rozumie aplikačnému protokolu a môže rozhodovať podľa:
-
-- HTTP host a path,
-- method,
-- headers,
-- request body,
-- identity tokenu,
-- rate a behavioru,
-- signatúry útoku.
-
-L7 enforcement nastáva až po úspešnom nižšom network path-e. Pri TLS termination mimo WAF nemusí WAF vidieť plaintext. Pri passthrough modeli L7 inspection nie je možná bez terminácie.
-
-## 23. Egress filtering
-
-Outbound policy obmedzuje, kam workload smie komunikovať.
-
-Použitie:
-
-- obmedzenie data exfiltration,
-- blokovanie command-and-control trafficu,
-- vynútenie egress proxy,
-- povolenie iba potrebných dependencies,
-- zníženie lateral movement,
-- stabilný dependency inventory.
-
-Egress default deny je prevádzkovo náročný, pretože aplikácie potrebujú:
-
-- DNS,
-- NTP,
-- certificate validation endpoints,
-- package repositories,
-- cloud metadata alebo APIs,
-- dynamické SaaS addresses,
-- telemetry collectors.
-
-IP allowlist pre SaaS endpoint môže byť nestabilný. Niekedy je vhodnejší proxy alebo identity-aware egress kontrola.
-
-## 24. Source identity a spoofing
-
-Firewall rule používajúca source IP predpokladá, že source identity je dôveryhodná.
-
-Anti-spoofing vrstvy môžu zahŕňať:
-
-- ingress filtering,
-- reverse path validation,
-- cloud source/destination checks,
-- switch source guard,
-- authenticated tunnels,
-- workload identity v service meshi.
-
-Ak útočník môže source IP spoofovať v rovnakom enforcement scope, IP allowlist nemusí poskytovať očakávanú identitu.
-
-Proxy a NAT navyše môžu zmeniť source address. Backend potom vidí proxy alebo gateway, nie pôvodného klienta. Dôvera v `X-Forwarded-For` bez overenia trusted proxy pathu je nebezpečná.
-
-## 25. Logging, counters a flow logs
-
-Logovanie každého packetu môže preťažiť CPU, disk a SIEM.
-
-Dobrý model používa kombináciu:
-
-- rule counters,
-- rate-limited deny logs,
-- flow logs,
-- conntrack metrics,
-- sampled packet capture,
-- explicitný rule identifier,
-- koreláciu s deploymentom a časom.
-
-Nftables counter:
-
-```nft
-tcp dport 443 counter accept
-```
-
-Log má obsahovať aspoň:
-
-- timestamp,
-- source a destination,
-- protocol a port,
-- interface alebo zone,
-- action,
-- rule identity,
-- state,
-- sampling/rate-limit kontext.
-
-Absencia logu neznamená, že firewall packet nevidel. Rule nemusí logovať, log môže byť rate-limited alebo packet mohol zlyhať na inom enforcement pointe.
-
-## 26. Rate limiting a DoS ochrana
-
-Firewall môže limitovať:
-
-- nové connections,
-- ICMP probes,
-- packets per second,
-- source-specific bursts,
-- invalid traffic,
-- log rate.
-
-Rate limit musí rozlišovať legitímny burst od útoku. Príliš nízky limit môže zablokovať:
-
-- autoscaling,
-- reconnect storm po outage,
-- health checks,
-- veľa klientov za jedným NAT endpointom.
-
-Firewall nie je plnohodnotná DDoS ochrana, ak bottleneck vzniká pred ním na linke alebo provider edge.
-
-## 27. Bezpečný rollout
-
-Zmena remote firewallu môže odstrihnúť management access.
-
-Bezpečný postup:
-
-1. Potvrď out-of-band console alebo recovery mechanizmus.
-2. Exportuj aktuálny efektívny ruleset.
-3. Identifikuj management source a return path.
-4. Pridaj explicitný management allow pred default deny.
-5. Validuj syntax mimo aktívneho rulesetu.
-6. Použi atomické načítanie alebo transakciu.
-7. Nastav časovaný rollback, ak platforma umožňuje.
-8. Nezatváraj existujúcu session.
-9. Otvor novú paralelnú session a over ju.
-10. Otestuj legitímne aj zakázané flows z relevantných segmentov.
-11. Ulož persistent configuration.
-12. Over stav po reload/reboot scenári.
-
-Zmena, ktorá funguje iba pre existujúcu conntrack session, nie je úspešne overená. Treba otestovať nový flow.
-
-## 28. Policy lifecycle
-
-Firewall rule má mať lifecycle podobný aplikačnému kódu:
-
-- owner,
-- business alebo technický účel,
-- source požiadavky,
-- test,
-- review,
-- deployment,
-- observability,
-- expiration alebo revalidation,
-- rollback,
-- odstránenie po zániku dependency.
-
-Dočasné pravidlo bez expirácie sa stáva trvalým attack surface. Comment v rulesete má vysvetliť dôvod, nie iba zopakovať port.
-
-## 29. Diagnostický postup
-
-Klient sa nevie pripojiť na server.
-
-### Krok 1: potvrď endpoint
-
-```bash
-getent ahosts <name>
-ss -lntp
-```
-
-Over destination IP, port, protocol a listener bind.
-
-### Krok 2: potvrď route
-
-```bash
-ip route get <server-ip>
-ip route get <client-ip>
-```
-
-Over forward aj return path.
-
-### Krok 3: zachyť packet na každom relevantnom bode
-
-```bash
-sudo tcpdump -ni any host <peer-ip> and port <port>
-```
-
-Urči posledný bod, kde packet existuje.
-
-### Krok 4: over efektívnu policy
+### Overenie
 
 ```bash
 sudo nft list ruleset -a
 sudo conntrack -L
+sudo tcpdump -ni wan0 'tcp port 443'
+sudo tcpdump -ni inside0 'host 10.20.2.10 and tcp port 8443'
 ```
 
-Sleduj chain, counter, state a rule handle.
-
-### Krok 5: odlíš failure typ
+Mechanický záver:
 
 ```text
-žiadny packet na serveri
-→ upstream route, ACL, SG alebo path
-
-packet príde, bez odpovede
-→ host firewall, listener, queue alebo application
-
-RST/reject
-→ explicitné odmietnutie alebo no listener
-
-timeout
-→ drop alebo chýbajúci return path
-
-handshake funguje, request zlyhá
-→ TLS, proxy, WAF alebo application policy
+SYN na wan0
++ žiadny SYN na inside0
++ rast drop countera vo FORWARD
+→ firewall decision medzi DNAT a backend route
 ```
 
-### Krok 6: over nový flow
+Oprava nie je „otvoriť port 443 všade“. Oprava je pridať úzke pravidlo pre translated destination, správny interface direction a `ct state new`, potom overiť novú connection.
 
-Po zmene policy otestuj novú connection, nie iba existujúcu stateful session.
+## 13. Worked failure: hostový ruleset povoľuje, ale packet neprichádza
 
-## 30. Typické symptómy
+Atlas administrátor vidí hostové allow pravidlo, no reverse proxy nevidí žiadny traffic.
 
-### Timeout
+Postup:
 
-Často znamená silent drop, chýbajúcu route alebo return path. Observation point musí určiť, kde traffic zmizol.
+1. Over DNS a destination endpoint klienta.
+2. Zachyť packet na klientskom alebo upstream routeri.
+3. Skontroluj subnet ACL.
+4. Skontroluj cloud security group alebo virtual NIC policy.
+5. Až potom interpretuj hostový nftables ruleset.
 
-### Okamžité `connection refused`
+```text
+route exists
+→ network ACL allows
+→ security group drops
+→ host tcpdump nič nevidí
+```
 
-Remote endpoint poslal RST, lokálny kernel vie, že nič nepočúva, alebo firewall použil reject.
+Absencia packetu na hoste nie je dôkaz hostového firewall dropu. Posúva root cause na skorší observation point.
 
-### Funguje z jedného subnetu, nie z druhého
+## 14. Conntrack exhaustion
 
-Možná source-based policy, odlišná route, ACL, zone, security group alebo asymmetric path.
+Stateful firewall môže prestať prijímať nové flows, hoci existujúce pokračujú.
 
-### Existujúce connections fungujú, nové nie
+Typický chain:
 
-Možná conntrack exhaustion, listen queue pressure, rate limit, source-port exhaustion alebo policy aplikovaná iba na nové flows.
+```text
+retry storm alebo scan
+→ rast NEW flows
+→ conntrack table sa zaplní
+→ nové entries nemožno vytvoriť
+→ nové connections timeoutujú
+→ klienti viac retryujú
+→ pressure sa posilní
+```
 
-### IPv4 funguje, IPv6 nie
+Evidence:
 
-Možný chýbajúci IPv6 ruleset, listener iba na IPv4, blokované ICMPv6 alebo odlišná cloud policy.
+```bash
+sudo conntrack -S
+sysctl net.netfilter.nf_conntrack_count
+sysctl net.netfilter.nf_conntrack_max
+journalctl -k -b
+```
 
-### Host firewall ukazuje allow, packet neprichádza
+Zvýšenie limitu je bezpečné iba po kontrole memory capacity a príčiny flow growth. Primárnym fixom môže byť rate limit, retry control, connection pooling alebo blokovanie útoku.
 
-Traffic mohol zablokovať cloud ACL, security group, hypervisor, CNI alebo upstream appliance.
+## 15. ICMP je súčasť funkčného IP stacku
 
-### Counter na očakávanom pravidle nerastie
+Plošné blokovanie ICMP môže rozbiť:
 
-Packet môže ísť iným hookom, chain, family, namespace, interface alebo ruleset managerom.
+- explicitné destination-unreachable errors,
+- traceroute a TTL feedback,
+- Path MTU Discovery,
+- IPv6 Neighbor Discovery,
+- Router Advertisements,
+- Duplicate Address Detection.
 
-## 31. Časté omyly
+Atlas môže mať stav, kde malé HTTPS requests fungujú, ale veľké responses timeoutujú, pretože firewall blokuje ICMP Packet Too Big.
+
+Správny prístup je povoliť potrebné typy, blokovať nelegitímne kombinácie a rate-limitovať abuse-sensitive traffic — nie zahodiť celý protokol.
+
+## 16. Safe rollout firewall policy
+
+Zmena remote firewallu môže odstrihnúť správcu aj produkčný traffic. Bezpečný lifecycle:
+
+```text
+inventory a hypothesis
+→ export effective state
+→ recovery path
+→ syntaktická validácia
+→ atomický apply
+→ nový-flow test
+→ negatívny test
+→ persistence test
+→ monitoring a rollback
+```
+
+Praktický postup:
+
+1. Potvrď out-of-band console.
+2. Zachovaj aktuálny ruleset.
+3. Definuj management source a return path.
+4. Pridaj explicitný management allow pred default deny.
+5. Použi atomické načítanie.
+6. Nezatváraj pôvodnú session.
+7. Otvor novú paralelnú session.
+8. Vytvor nový produkčný flow.
+9. Otestuj aj traffic, ktorý má zostať zakázaný.
+10. Over reload alebo reboot behavior.
+
+Test existujúcej connection nestačí, pretože ju môže držať starý conntrack state.
+
+## 17. Policy lifecycle
+
+Firewall rule je prevádzkový kontrakt a má mať:
+
+- ownera,
+- konkrétny účel,
+- source a destination scope,
+- protocol a smer,
+- test,
+- deployment history,
+- counter alebo log identity,
+- expiration alebo revalidation,
+- rollback,
+- odstránenie po zániku dependency.
+
+Dočasné pravidlo bez expiration sa stáva trvalým attack surface. Comment má vysvetliť dôvod, nie iba zopakovať port.
+
+## 18. Referenčné enforcement vrstvy
+
+Tieto platformy používajú rovnaký policy-decision lifecycle, ale líšia sa observation pointom a state modelom.
+
+### Cloud security group
+
+Typicky je stateful a viazaná na virtual NIC alebo workload. Packet zahodený tu sa nemusí dostať do guest OS.
+
+### Network ACL
+
+Často je subnet-level a stateless. Musí explicitne povoľovať forward aj return smer vrátane ephemeral portov.
+
+### firewalld
+
+Pracuje so zones a rozlišuje runtime a permanent state. Pravidlo v nesprávnej zone alebo iba v permanent konfigurácii nemusí byť aktívne.
+
+### Kubernetes NetworkPolicy
+
+Desired object vynucuje CNI plugin. Bez podporovaného dataplane môže policy existovať bez efektu. Treba skontrolovať selected Pods, ingress/egress smer, DNS egress a preklad cez Services.
+
+### L7 firewall a WAF
+
+Rozhoduje podľa Host, path, method, headers, body alebo identity. Začína až po nižšom network a často TLS path-e. Nemôže nahradiť L3/L4 segmentation ani aplikačnú authorization logiku.
+
+## 19. Observability
+
+Dobrý firewall evidence model kombinuje:
+
+- rule counters,
+- explicitné rule identifiers,
+- rate-limited deny logs,
+- flow logs,
+- conntrack metrics,
+- cielený packet capture,
+- config/deployment timeline.
+
+Log má obsahovať čas, source, destination, protocol, direction, interface alebo zone, state, verdict a rule identity.
+
+Absencia logu neznamená absenciu firewall decisionu. Rule nemusí logovať, logging môže byť rate-limited alebo packet zlyhal na inom enforcement pointe.
+
+## 20. Diagnostický postup pre jeden flow
+
+Klient sa nevie pripojiť na Atlas Orders:
+
+```text
+1. potvrď presný endpoint a address family
+2. potvrď listener alebo frontend target
+3. rekonštruuj forward a return route
+4. zachyť packet na každom relevantnom boundary
+5. nájdi posledný observation point, kde existuje
+6. over effective policy a counter
+7. odlíš drop, reject a no-listener RST
+8. skontroluj conntrack state a capacity
+9. po zmene vytvor nový flow
+10. pokračuj TLS/proxy/application diagnostikou
+```
+
+Interpretácia:
+
+```text
+packet nedorazí na host
+→ upstream route, ACL, SG alebo virtual dataplane
+
+packet dorazí, allow counter nerastie
+→ nesprávny chain, family, translated fields alebo precedence
+
+packet dorazí backendu, príde RST
+→ listener alebo explicitný reject
+
+TCP handshake funguje, HTTP zlyhá
+→ firewall L3/L4 path je preukázateľne funkčný
+```
+
+## 21. Časté omyly
 
 ### „Firewall otvorí port“
 
-Firewall iba povoľuje traffic. Port musí byť bindnutý socketom a aplikácia musí odpovedať.
+Firewall povoľuje packet. Socket musí byť bindnutý a aplikácia musí odpovedať.
+
+### „Allow na jednom firewalle znamená end-to-end allow“
+
+Ďalšia ACL, SG, host policy, CNI, proxy alebo aplikácia môže request odmietnuť.
 
 ### „NAT je firewall“
 
-Nie. Translation a policy enforcement sú odlišné funkcie.
+Translation mení tuple; firewall vydáva verdict.
 
-### „Stateful firewall nepotrebuje outbound policy“
+### „Stateful policy nepotrebuje outbound pravidlá“
 
-Nové outbound flows stále potrebujú povolenie podľa platformového modelu.
+Nový outbound flow musí byť najprv povolený. Až jeho return traffic môže použiť established state.
 
-### „ICMP treba vždy blokovať“
+### „ICMP treba celý zablokovať“
 
-Nie. Potrebné ICMP a ICMPv6 správy sú súčasťou funkčného IP stacku.
+Tým sa môžu rozbiť PMTUD a základné IPv6 mechanizmy.
 
-### „Security group je celý firewall model“
+### „Hostový tcpdump vidí každý firewall drop“
 
-Nie. Môžu existovať ACL, host firewall, CNI policy, proxy a aplikačná autorizácia.
+Packet môže zaniknúť pred hostom alebo v inom namespace a dataplane.
 
-### „Allow rule dokazuje aplikačný health“
+### „Default deny možno zapnúť a výnimky doplniť neskôr“
 
-Nie. Dokazuje iba policy verdict v jednom enforcement pointe.
+Bez inventory, recovery a new-flow testu ide o nebezpečný experiment.
 
-### „Packet capture na hoste vidí každý drop“
+## 22. Kontrolné otázky
 
-Nie. Packet mohol byť zahodený pred hostom alebo v inom namespace/dataplane.
+1. Čo firewall rozhoduje a čo nerobí?
+2. Ktorých šesť údajov potrebuješ na vysvetlenie verdictu?
+3. Aký je rozdiel medzi INPUT, OUTPUT a FORWARD pathom?
+4. Prečo môže firewall po DNAT-e vidieť internú destination?
+5. Aký je rozdiel medzi stateless a stateful policy?
+6. Prečo `ct state established` nedokazuje zdravú aplikáciu?
+7. Ako sa líši drop od rejectu z pohľadu klienta a retry loadu?
+8. Prečo rule order mení výsledok?
+9. Čo musí default-deny model poznať pred rolloutom?
+10. Prečo existujúce connections môžu fungovať po chybnom nasadení?
+11. Ako rozpoznáš conntrack exhaustion?
+12. Prečo hostový allow rule nevylučuje cloud firewall drop?
+13. Prečo treba povoliť vybrané ICMP a ICMPv6 typy?
+14. Ako bezpečne overíš firewall zmenu na remote hoste?
+15. Aký je rozdiel medzi security groupou, network ACL a NetworkPolicy?
+16. Kedy sa troubleshooting presúva z firewallu na TLS alebo aplikáciu?
 
-### „Default deny stačí zapnúť a potom dopĺňať výnimky“
+## 23. Zhrnutie
 
-Bez inventory, recovery a observability je to prevádzkový hazard.
+Firewall je policy decision v konkrétnom observation pointe. Výsledok závisí od direction, fields viditeľných pred alebo po translation, state, rule precedence a verdictu. Povolenie packetu neznamená existenciu listenera ani úspešnú aplikačnú operáciu.
 
-## 32. Kontrolné otázky
-
-1. Aký je rozdiel medzi routingom, NATom a firewallom?
-2. Prečo je observation point súčasťou významu firewall policy?
-3. Aký je rozdiel medzi stateless a stateful filteringom?
-4. Čo znamenajú conntrack stavy `NEW`, `ESTABLISHED`, `RELATED` a `INVALID`?
-5. Aký je rozdiel medzi drop a reject?
-6. Prečo môže rule order zmeniť výsledok?
-7. Aký je rozdiel medzi INPUT, OUTPUT a FORWARD pathom?
-8. Prečo `ct state established` nie je dôkaz aplikačného health?
-9. Ako conntrack exhaustion ovplyvní nové a existujúce flows?
-10. Prečo nemožno blokovať všetok ICMPv6?
-11. Ako sa líši security group od stateless network ACL?
-12. Prečo môže hostový `tcpdump` nevidieť cloud firewall drop?
-13. Aký je rozdiel medzi L4 firewallom a WAF?
-14. Čo musí egress default deny zohľadniť?
-15. Ako bezpečne nasadiť default-deny policy na remote host?
-16. Prečo treba po zmene overiť nový flow?
-17. Aké údaje má obsahovať firewall log alebo flow log?
-18. Ako zistíš, že packet išiel iným chain alebo namespaceom?
+Praktický troubleshooting sleduje jeden flow cez všetky enforcement points, hľadá posledné miesto, kde packet existuje, a spája packet capture s effective rulesetom, counterom a conntrack state. Oprava mení iba pravidlo alebo boundary, ktoré bolo preukázateľne príčinou — nie celý systém širokým `allow any` pravidlom.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
