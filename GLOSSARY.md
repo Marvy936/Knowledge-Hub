@@ -1994,6 +1994,10 @@ Priebežné získavanie identity, endpoint, workload, network, cloud a applicati
 
 Pracovný a technický model častej integrácie malých zmien do spoločnej hlavnej línie s automatizovaným verdictom nad presným candidate integration stateom. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
+## Continuous rescanning — GitLab
+
+Opakované vyhodnotenie podporovaných package, SBOM a image digestov voči novej vulnerability intelligence bez potreby source zmeny, s následným mapovaním na releases, effective deployments, ownerov a exposure. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
 ## Continuous rescanning — security
 
 Opakované vyhodnocovanie už známych SBOM components, dependencies alebo image digests po aktualizácii advisory databáz bez potreby source zmeny. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
@@ -2570,6 +2574,10 @@ Trvalá vlastnosť systému, pri ktorej immutable artifact, evidence, configurat
 
 Stav, v ktorom existuje dôveryhodný immutable artifact, potrebné dôkazy, kompatibilná konfigurácia, deployment automation, observability a recovery plán umožňujúci bezpečný deployment. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
+## Deployed-artifact correlation — GitLab
+
+Auditovateľná väzba `finding/advisory → component alebo image digest → release manifest → deployment record → effective runtime digest → environment, owner a exposure`. Umožňuje odlíšiť opravu v source od skutočne opraveného runtime-u. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
 ## Deployed SBOM
 
 Inventory komponentov viazaný na artifact alebo system nasadený v konkrétnom environment kontexte. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
@@ -2618,9 +2626,13 @@ Podiel deploymentov, ktoré sú neplánovanou opravou predchádzajúceho deploym
 
 Stabilná rollout skupina používateľov, tenantov, zariadení alebo regiónov s definovaným risk profilom, membershipom a promotion contractom. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
 
+## Deployment state divergence — GitLab
+
+Rozdiel medzi desired state-om, GitLab recorded state-om a effective runtime state-om deploymentu. Môže vzniknúť pri asynchrónnej reconciliation, nesprávnom targete, stale generation, partial mutation alebo drift-e. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
 ## Deployment subject — GitLab
 
-Presná identity runtime mutation tvorená artifact digestom, rendered config alebo infrastructure revision, trusted deployment job definition, target environmentom, actor/job identity a rollout policy. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+Presná identity runtime mutation tvorená artifact digestom, rendered config alebo infrastructure revision, trusted deployment job definition, target environmentom, actor/job identity a rollout policy. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md) a [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
 ## Deprecated API caller
 
@@ -3314,6 +3326,10 @@ Model, v ktorom data key šifruje application data a dlhodobejší KMS key šifr
 
 Rozdiel medzi deklarovaným desired state environmentu a jeho skutočným runtime stavom, napríklad po manuálnej config alebo infrastructure zmene. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
+## Environment identity — GitLab
+
+Kanonické mapovanie GitLab environment name a tieru na skutočný cloud account, cluster, namespace, region, data/config boundary, ownera, protection policy a runtime identity. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
 ## Environment injection — Kubernetes
 
 Odovzdanie ConfigMap alebo Secret hodnoty do environmentu pri vytvorení container procesu; neskoršia zmena source objektu environment bežiaceho procesu nezmení. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
@@ -3533,6 +3549,10 @@ Manifest artifacts, reports, shards, variants alebo platforms, ktoré musí konk
 ## Expected result inventory
 
 Pred vykonaním fan-out-u deklarovaná množina required a optional result identities pre konkrétny immutable subject. Fan-in ju porovnáva s prijatými výsledkami, aby odhalil chýbajúci, duplicitný, stale alebo nevytvorený job či shard. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
+## Expected scanner inventory — GitLab
+
+Manifest security controls, analyzer jobs, reportov, componentov a platforiem, ktoré musia existovať alebo mať explicitný not-applicable/unsupported verdict pre konkrétny scan subject. Chýbajúca položka znamená incomplete evidence, nie clean result. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
 ## Experiment contract
 
@@ -4009,6 +4029,10 @@ Agent, ktorý prijíma eligible CI/CD jobs z GitLabu a vykonáva ich pomocou nak
 ## GitLab SAST
 
 Static Application Security Testing integrované do GitLab CI/CD na detekciu potenciálnych vulnerabilities v source code pomocou language-specific analyzers a rules. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## GitOps deployment correlation — GitLab
+
+Väzba medzi source pipeline, release manifestom, desired-state repository commitom, controller reconciliation ID, runtime targetom a effective digestom. Odlišuje úspešný configuration request od dokončeného deploymentu. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
 ## Global Catalog
 
@@ -7402,6 +7426,10 @@ Disciplína riadenia release identity, readiness, approvals, communication, roll
 
 Immutable manifest spájajúci digests viacerých component artifacts, migration bundle, config schema a evidence references do jednej release identity. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
+## Release manifest — GitLab
+
+Immutable alebo versionované mapovanie pomenovaného release-u na component digests/package checksums, config, infrastructure a schema revisions, security evidence a support metadata. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
 ## Release notes
 
 Kurátorovaná komunikácia konkrétneho release pre používateľov, administrátorov, integrátorov alebo support, zahŕňajúca dopad, breaking changes, migráciu a known issues. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -8286,6 +8314,10 @@ Určenie impact levelu straty confidentiality, integrity a availability pre konk
 
 Management, operational, technical alebo physical safeguard navrhnutý na ochranu assets a zníženie security risku. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Security evidence verdict — GitLab
+
+Výsledok, ktorý odlišuje complete clean scan, findings, incomplete scanner/report inventory, invalid subject, analyzer/tool error, unsupported coverage a approved skip. Zelený job bez complete report evidence nie je clean verdict. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
 ## Security Group — AWS
 
 Stateful allow-only firewall priradený k ENI alebo podporovanému resource-u; return traffic pre tracked connection je povolený connection trackingom. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
@@ -8321,6 +8353,10 @@ Testovateľná implementačná alebo prevádzková povinnosť odvodená z threat
 ## Security risk
 
 Riziko vznikajúce z možnej straty confidentiality, integrity alebo availability s ohľadom na pravdepodobnosť a dopad. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Security scan subject — GitLab
+
+Immutable source, resolved dependency graph, SBOM, package checksum, OCI platform digest, IaC plan alebo deployment identity, ku ktorej patria analyzer execution, report a finding evidence. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
 ## Security Service Edge — SSE
 
