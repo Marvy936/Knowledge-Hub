@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11991**
-- Total words: **599,284**
-- Findings: **28157** (critical 9138, high 10080, medium 3970, low 4969)
+- Audited conceptual sections: **11964**
+- Total words: **598,890**
+- Findings: **28059** (critical 9104, high 10037, medium 3954, low 4964)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -63,7 +63,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1303 | 62 | 61 | 19 | 11 | 2047 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 1292 | 60 | 59 | 27 | 12 | 2273 | `docs/09-kubernetes/worker-node-components.md` |
 | D | 1284 | 54 | 71 | 22 | 3 | 1740 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
-| D | 1283 | 59 | 57 | 26 | 27 | 2888 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
 | D | 1267 | 63 | 50 | 22 | 33 | 3069 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
 | D | 1254 | 60 | 64 | 9 | 7 | 1692 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
@@ -215,6 +214,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
+| D | 473 | 25 | 14 | 10 | 22 | 2494 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
@@ -2972,119 +2972,42 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Branching strategies, Value Stream Mapping`.
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet deployable services,`, `runtime architektúru,`, `počet tímov,`, `počet release trains,`.
-- **CRITICAL** line 28, `bare-bullet-items` — **2. Mentálny model: repository ako hranica zmeny**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `z Git merge do package versioningu,`, `z jednej CI pipeline do cross-repo orchestration,`, `z path ownershipu do repository permissions,`, `z atomic commitu do backward-compatible rolloutov.`.
-- **CRITICAL** line 28, `outline-instead-of-explanation` — **2. Mentálny model: repository ako hranica zmeny**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 58, `empty-section` — **3. Štyri hranice, ktoré sa nesmú zamieňať**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 108, `bare-bullet-items` — **5. Multirepo model**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit graph,`, `branch policy,`, `permissions,`, `CI/CD lifecycle,`.
-- **CRITICAL** line 108, `outline-instead-of-explanation` — **5. Multirepo model**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **6. Atomická zmena**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 160, `bare-bullet-items` — **7. Kompatibilná cross-repo zmena**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issue alebo change plan s dependency graphom,`, `release manifest,`, `package registry,`, `contract tests,`.
-- **CRITICAL** line 186, `bare-bullet-items` — **8. Change coupling ako hlavný signál**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaké pull requests často menia oba komponenty,`, `interfaces sa vyvíjajú koordinovane,`, `refactoring pravidelne prekračuje hranice,`, `komponenty používajú spoločné tooling a test fixtures,`.
-- **CRITICAL** line 208, `bare-bullet-items` — **9. Dependency model v monorepe**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý target závisí od ktorých vstupov,`, `ktoré tests validujú daný target,`, `ktoré runtime artifacts vznikajú,`, `ktoré environment/config dependencies existujú,`.
-- **CRITICAL** line 228, `bare-bullet-items` — **10. Dependency model v multirepe**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable versions alebo digests,`, `lockfiles a dependency pinning,`, `deprecation windows,`, `compatibility matrix,`.
-- **CRITICAL** line 228, `outline-instead-of-explanation` — **10. Dependency model v multirepe**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 258, `bare-bullet-items` — **11. CI topology v monorepe**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hermetic alebo dostatočne deterministické targets,`, `presné cache keys,`, `remote cache a execution podľa potreby,`, `test sharding,`.
-- **CRITICAL** line 291, `bare-bullet-items` — **12. False green riziko v affected detection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `graph conformance tests,`, `periodic full builds,`, `shadow comparison selective verzus full run,`, `explicitné owners spoločných rules,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **12. False green riziko v affected detection**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 314, `bare-bullet-items` — **13. CI topology v multirepe**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit a component tests v source repo,`, `contract tests producer/consumer,`, `package publishing pipeline,`, `dependency update automation,`.
-- **CRITICAL** line 314, `outline-instead-of-explanation` — **13. CI topology v multirepe**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **14. Ownership**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required reviews,`, `triage,`, `documentation responsibility,`, `on-call mapping,`.
-- **CRITICAL** line 353, `bare-bullet-items` — **15. Security a confidentiality boundary**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdielne právne entity alebo externí partneri,`, `export-control alebo customer-specific source,`, `vysoko citlivé security components,`, `need-to-know read access,`.
-- **CRITICAL** line 367, `bare-bullet-items` — **16. Branching a merge queue v monorepe**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `short-lived branches,`, `path-aware required reviews,`, `affected checks,`, `merge queue testujúca kombináciu paralelných changes,`.
-- **CRITICAL** line 392, `bare-bullet-items` — **Independent versioning**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected package detection,`, `changelog/version metadata,`, `dependency version updates,`, `release automation.`.
-- **CRITICAL** line 392, `outline-instead-of-explanation` — **Independent versioning**: 4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 419, `bare-bullet-items` — **18. Versioning v multirepe**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `source commit,`, `build provenance,`, `dependency lock state,`.
-- **CRITICAL** line 419, `outline-instead-of-explanation` — **18. Versioning v multirepe**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 441, `bare-bullet-items` — **19. Release coupling**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ako často musia byť nasadené spolu,`, `či majú backward-compatible contract,`, `či rollback jedného vyžaduje rollback druhého,`, `či jeden deployment blokuje druhý,`.
-- **CRITICAL** line 441, `outline-instead-of-explanation` — **19. Release coupling**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 455, `bare-bullet-items` — **20. Developer experience v monorepe**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden clone a search scope,`, `jednotný onboarding,`, `lokálne cross-component refactoringy,`, `spoločné tooling,`.
-- **CRITICAL** line 455, `outline-instead-of-explanation` — **20. Developer experience v monorepe**: 16 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 482, `bare-bullet-items` — **21. Developer experience v multirepe**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší checkout a jasný scope,`, `jednoduchší lokálny build jedného componentu,`, `prirodzený repository ownership.`, `viac clones a credential contexts,`.
-- **CRITICAL** line 482, `outline-instead-of-explanation` — **21. Developer experience v multirepe**: 14 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 507, `bare-bullet-items` — **22. Shared tooling**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `linting a formatting rules,`, `build macros,`, `test harnesses,`, `code generation,`.
-- **CRITICAL** line 507, `outline-instead-of-explanation` — **22. Shared tooling**: 10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 536, `bare-bullet-items` — **23. Git performance**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počtom objects,`, `veľkosťou packfiles,`, `počtom paths v indexe,`, `checkout a status časom,`.
-- **CRITICAL** line 536, `outline-instead-of-explanation` — **23. Git performance**: 12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 566, `bare-bullet-items` — **24. Binaries a generated artifacts**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukovateľný build zo source,`, `artifact registry,`, `object storage,`, `package registry,`.
-- **CRITICAL** line 605, `bare-bullet-items` — **26. Hybridný model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zoskupiť silne coupled komponenty,`, `zachovať security boundaries,`, `oddeliť open-source a interný kód,`, `obmedziť blast radius tooling,`.
-- **CRITICAL** line 605, `outline-instead-of-explanation` — **26. Hybridný model**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 627, `bare-bullet-items` — **27. Kedy preferovať monorepo**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časté cross-component changes,`, `veľké interné refactoringy,`, `spoločné language/toolchain ekosystémy,`, `potreba jedného review contextu,`.
-- **CRITICAL** line 627, `outline-instead-of-explanation` — **27. Kedy preferovať monorepo**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 641, `bare-bullet-items` — **28. Kedy preferovať multirepo**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilné versioned contracts,`, `nezávislé product a release lifecycles,`, `rozdielne confidentiality alebo compliance boundaries,`, `externí contributors alebo partneri,`.
-- **CRITICAL** line 641, `outline-instead-of-explanation` — **28. Kedy preferovať multirepo**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 655, `bare-bullet-items` — **29. Rozhodovací rámec**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebujú source-atomickú zmenu?`, `Môžu sa nasadzovať v ľubovoľnom poradí?`, `Majú stabilný backward-compatible contract?`, `Kto potrebuje read a write access?`.
-- **CRITICAL** line 655, `outline-instead-of-explanation` — **29. Rozhodovací rámec**: 12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 674, `bare-bullet-items` — **30. Metriky po rozhodnutí**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-repo pull requests na jednu business zmenu,`, `čas od producer change po adoption consumers,`, `dependency version drift,`, `CI feedback time,`.
-- **CRITICAL** line 674, `outline-instead-of-explanation` — **30. Metriky po rozhodnutí**: 13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 694, `bare-bullet-items` — **31. Migrácia multirepo → monorepo**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Definovať scope a canonical histories.`, `Rozhodnúť, či zachovať úplnú history alebo importovaný snapshot.`, `Vytvoriť directory a ownership taxonomy.`, `Zjednotiť build a dependency graph.`.
-- **CRITICAL** line 694, `outline-instead-of-explanation` — **31. Migrácia multirepo → monorepo**: 15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 717, `bare-bullet-items` — **32. Migrácia monorepo → multirepo**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Určiť stabilné domain a contract boundaries.`, `Extrahovať history relevantných paths.`, `Vytvoriť package/artifact publishing.`, `Nahradiť source dependencies immutable versions.`.
-- **CRITICAL** line 717, `outline-instead-of-explanation` — **32. Migrácia monorepo → multirepo**: 10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 768, `bare-bullet-items` — **34. Diagnostický scenár: monorepo CI je príliš pomalé**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over, či affected graph zodpovedá skutočným dependencies.`, `Zisti cache hit/miss dôvody.`, `Skontroluj nestabilné cache keys a environment inputs.`, `Rozlíš CPU-bound, I/O-bound a runner-capacity problém.`.
-- **CRITICAL** line 768, `no-prose-concept` — **34. Diagnostický scenár: monorepo CI je príliš pomalé**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 768, `outline-instead-of-explanation` — **34. Diagnostický scenár: monorepo CI je príliš pomalé**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 781, `bare-bullet-items` — **35. Diagnostický scenár: multirepo release drift**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Vytvor manifest reálne nasadených component versions.`, `Porovnaj deklarované a runtime dependencies.`, `Identifikuj consumers na zastaraných alebo nepodporovaných versions.`, `Over deprecation a compatibility policy.`.
-- **CRITICAL** line 781, `no-prose-concept` — **35. Diagnostický scenár: multirepo release drift**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 781, `outline-instead-of-explanation` — **35. Diagnostický scenár: multirepo release drift**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 794, `empty-section` — **36. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 35, `bare-bullet-items` — **2. Nosný scenár: Atlas Commerce**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vzniknúť v pricing modeli;`, `prejsť cez Orders API;`, `zobraziť sa vo web checkoute;`, `byť zaznamenaný v payment audite;`.
+- **CRITICAL** line 97, `empty-section` — **4. Štyri hranice, ktoré nie sú totožné**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 111, `bare-bullet-items` — **Security a ownership boundary**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvára vlastný artifact;`, `má vlastný deployment;`, `má samostatný owner tím;`, `používa samostatné production credentials.`.
+- **CRITICAL** line 126, `bare-bullet-items` — **5. Prvý signál: change coupling**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden ticket vytvára sériu závislých pull requestov;`, `consumer čaká na vydanie provider artifactu;`, `rovnaký refactoring sa opakuje v niekoľkých repos;`, `integrácia zlyháva až po spojení samostatne zelených pipelines;`.
+- **CRITICAL** line 182, `bare-bullet-items` — **7. Ako vyzerá rovnaká zmena v monorepe**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward-compatible contracts;`, `explicitné artifacts;`, `rollout ordering;`, `readiness a observability;`.
+- **CRITICAL** line 235, `bare-bullet-items` — **9. Dependency graph je jadrom škálovateľného monorepa**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné target dependencies;`, `conservative fallback pri neznámych inputs;`, `periodické full builds;`, `porovnanie selective a full výsledkov;`.
+- **CRITICAL** line 284, `bare-bullet-items` — **10. Artifact graph je jadrom bezpečného multirepa**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable versions alebo digests;`, `lockfiles a dependency pinning;`, `provenance k source commitu;`, `contract tests;`.
+- **CRITICAL** line 317, `bare-bullet-items` — **11. Ownership nie je automaticky security boundary**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac long-lived tokens;`, `duplicate CI konfigurácie;`, `neprehľadné dependency permissions;`, `širšiu supply-chain attack surface.`.
+- **CRITICAL** line 385, `bare-bullet-items` — **13. Rozhodnutie pre Atlas**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ich source je dostupný rovnakým interným tímom;`, `používajú spoločný toolchain a contract tests;`, `samostatné package releases neprinášajú významnú nezávislosť;`, `Payments má prísnejší read-access a compliance lifecycle;`.
+- **CRITICAL** line 385, `outline-instead-of-explanation` — **13. Rozhodnutie pre Atlas**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 419, `bare-bullet-items` — **14. Worked failure: monorepo pipeline je zelená, produkcia nie**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identifikuj source commit a artifacts.`, `Over, ktoré targets pipeline označila ako affected.`, `Spusť full validation na rovnakom commite.`, `Nájde sa chýbajúca hrana:`.
+- **CRITICAL** line 458, `bare-bullet-items` — **15. Worked failure: multirepo release drift**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zostav manifest reálne nasadených versions a digestov.`, `Porovnaj ho s deklarovanými dependency constraints.`, `Over, ktorý consumer adoptoval nový contract.`, `Over rollout ordering a rollback compatibility.`.
+- **CRITICAL** line 458, `outline-instead-of-explanation` — **15. Worked failure: multirepo release drift**: 12 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 498, `bare-bullet-items` — **16. Kedy je monorepo silný kandidát**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read access môže byť spoločný;`, `build graph možno explicitne modelovať;`, `platform tím vlastní CI a cache mechanizmus;`, `source-level refactoring má vysokú hodnotu;`.
+- **CRITICAL** line 498, `outline-instead-of-explanation` — **16. Kedy je monorepo silný kandidát**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 510, `bare-bullet-items` — **17. Kedy je multirepo silný kandidát**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný versioned contract;`, `nízky change coupling;`, `skutočne nezávislý release lifecycle;`, `odlišnú confidentiality alebo compliance hranicu;`.
+- **CRITICAL** line 510, `outline-instead-of-explanation` — **17. Kedy je multirepo silný kandidát**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 546, `bare-bullet-items` — **19. Prehodnocovanie boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `koľko pull requestov potrebuje jeden business change;`, `koľko času trvá adoption novej dependency;`, `ako často vznikajú emergency coordination releases;`, `aký je CI feedback time a false-green rate;`.
+- **CRITICAL** line 546, `outline-instead-of-explanation` — **19. Prehodnocovanie boundary**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 590, `bare-bullet-items` — **21. Praktický rozhodovací postup**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Vyber poslednú reálnu cross-component zmenu.`, `Nakresli source, artifact a deployment kroky.`, `Označ čakacie body, manuálne koordinácie a kompatibilitné fázy.`, `Navrhni CI graph pre monorepo alternatívu.`.
+- **CRITICAL** line 590, `outline-instead-of-explanation` — **21. Praktický rozhodovací postup**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 605, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 60, `single-sentence-concept` — **Repository boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 132, `bare-bullet-items` — **6. Atomická zmena**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `review vidí celý intent,`, `bisect nájde jeden prechodový bod,`, `CI môže testovať presnú kombináciu,`, `refactoring nemusí dočasne publikovať intermediary package.`.
-- **HIGH** line 160, `list-heavy-section` — **7. Kompatibilná cross-repo zmena**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 186, `list-heavy-section` — **8. Change coupling ako hlavný signál**: 10 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 228, `single-sentence-concept` — **10. Dependency model v multirepe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 258, `list-heavy-section` — **11. CI topology v monorepe**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 291, `single-sentence-concept` — **12. False green riziko v affected detection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 367, `list-heavy-section` — **16. Branching a merge queue v monorepe**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 382, `single-sentence-concept` — **17. Versioning v monorepe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 392, `single-sentence-concept` — **Independent versioning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 403, `single-sentence-concept` — **Commit-based identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 407, `list-first-introduction` — **Release manifest**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 407, `single-sentence-concept` — **Release manifest**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 455, `single-sentence-concept` — **20. Developer experience v monorepe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 482, `single-sentence-concept` — **21. Developer experience v multirepe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 536, `single-sentence-concept` — **23. Git performance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 566, `list-heavy-section` — **24. Binaries a generated artifacts**: 9 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 587, `single-sentence-concept` — **25. Submodules, subtrees a vendoring**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 595, `single-sentence-concept` — **Subtree**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 655, `single-sentence-concept` — **29. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 694, `single-sentence-concept` — **31. Migrácia multirepo → monorepo**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 717, `single-sentence-concept` — **32. Migrácia monorepo → multirepo**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 736, `single-sentence-concept` — **Monorepo bez build-system investície**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 740, `single-sentence-concept` — **Multirepo bez artifact contractu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 744, `single-sentence-concept` — **Repo per microservice ako dogma**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 748, `single-sentence-concept` — **Monorepo ako náhrada architektúry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 752, `single-sentence-concept` — **CODEOWNERS ako security boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 756, `single-sentence-concept` — **Central tooling bez ownershipu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 760, `single-sentence-concept` — **Shared config copy-paste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 764, `single-sentence-concept` — **Generated artifacts bez reprodukovateľného source**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 768, `list-first-introduction` — **34. Diagnostický scenár: monorepo CI je príliš pomalé**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 781, `list-first-introduction` — **35. Diagnostický scenár: multirepo release drift**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 804, `single-sentence-concept` — **„Jedna služba má mať jedno repo“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 812, `single-sentence-concept` — **„Monorepo je lacnejšie, lebo netreba versionovať interné dependencies“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 816, `single-sentence-concept` — **„Rozdelením veľkého repo sa automaticky zrýchli CI“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 73, `single-sentence-concept` — **3. Centrálny rozhodovací model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 99, `single-sentence-concept` — **Repository boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 103, `single-sentence-concept` — **Build boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 107, `single-sentence-concept` — **Deployment boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 284, `list-heavy-section` — **10. Artifact graph je jadrom bezpečného multirepa**: 7 odrážok a iba 52 slov súvislého vysvetlenia.
+- **HIGH** line 419, `list-heavy-section` — **14. Worked failure: monorepo pipeline je zelená, produkcia nie**: 11 odrážok a iba 52 slov súvislého vysvetlenia.
+- **HIGH** line 561, `single-sentence-concept` — **20. Architecture decision record**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 590, `single-sentence-concept` — **21. Praktický rozhodovací postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 623, `single-sentence-concept` — **„Rozdelenie repo automaticky zrýchli CI“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 28, `thin-concept-section` — **2. Mentálny model: repository ako hranica zmeny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 108, `thin-concept-section` — **5. Multirepo model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **6. Atomická zmena**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 228, `thin-concept-section` — **10. Dependency model v multirepe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `thin-concept-section` — **12. False green riziko v affected detection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 392, `thin-concept-section` — **Independent versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 455, `thin-concept-section` — **20. Developer experience v monorepe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 482, `term-before-explanation` — **21. Developer experience v multirepe**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CLI`, `scope`, `policy`
-- **HIGH** line 482, `thin-concept-section` — **21. Developer experience v multirepe**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 507, `thin-concept-section` — **22. Shared tooling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 536, `thin-concept-section` — **23. Git performance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 605, `thin-concept-section` — **26. Hybridný model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 627, `thin-concept-section` — **27. Kedy preferovať monorepo**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 641, `thin-concept-section` — **28. Kedy preferovať multirepo**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 655, `thin-concept-section` — **29. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 674, `thin-concept-section` — **30. Metriky po rozhodnutí**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 694, `thin-concept-section` — **31. Migrácia multirepo → monorepo**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 717, `thin-concept-section` — **32. Migrácia monorepo → multirepo**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 768, `thin-concept-section` — **34. Diagnostický scenár: monorepo CI je príliš pomalé**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 781, `thin-concept-section` — **35. Diagnostický scenár: multirepo release drift**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 385, `thin-concept-section` — **13. Rozhodnutie pre Atlas**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 546, `thin-concept-section` — **19. Prehodnocovanie boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 590, `thin-concept-section` — **21. Praktický rozhodovací postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/powershell-fundamentals.md`
 
@@ -20268,19 +20191,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4236 | 420 | 0 | 0 | 4656 |
-| `single-sentence-concept` | 0 | 4122 | 0 | 0 | 4122 |
-| `outline-instead-of-explanation` | 3997 | 0 | 0 | 0 | 3997 |
-| `thin-concept-section` | 0 | 3544 | 0 | 0 | 3544 |
-| `term-before-explanation` | 0 | 450 | 2679 | 0 | 3129 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2043 | 2043 |
-| `example-not-explicit` | 0 | 0 | 0 | 1928 | 1928 |
-| `short-concept-section` | 0 | 0 | 1291 | 0 | 1291 |
-| `list-first-introduction` | 0 | 1055 | 0 | 0 | 1055 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 998 | 998 |
+| `bare-bullet-items` | 4220 | 419 | 0 | 0 | 4639 |
+| `single-sentence-concept` | 0 | 4103 | 0 | 0 | 4103 |
+| `outline-instead-of-explanation` | 3981 | 0 | 0 | 0 | 3981 |
+| `thin-concept-section` | 0 | 3528 | 0 | 0 | 3528 |
+| `term-before-explanation` | 0 | 449 | 2670 | 0 | 3119 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2037 | 2037 |
+| `example-not-explicit` | 0 | 0 | 0 | 1922 | 1922 |
+| `short-concept-section` | 0 | 0 | 1284 | 0 | 1284 |
+| `list-first-introduction` | 0 | 1052 | 0 | 0 | 1052 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1005 | 1005 |
 | `empty-section` | 499 | 0 | 0 | 0 | 499 |
-| `list-heavy-section` | 0 | 489 | 0 | 0 | 489 |
-| `no-prose-concept` | 406 | 0 | 0 | 0 | 406 |
+| `list-heavy-section` | 0 | 486 | 0 | 0 | 486 |
+| `no-prose-concept` | 404 | 0 | 0 | 0 | 404 |
 
 ## Required remediation pattern
 

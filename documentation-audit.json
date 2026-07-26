@@ -885,15 +885,15 @@
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
       "title": "Monorepo vs. multirepo",
-      "words": 2888,
-      "headings": 64,
-      "sections": 64,
-      "findings": 169,
-      "critical": 59,
-      "high": 57,
-      "medium": 26,
-      "low": 27,
-      "score": 1283,
+      "words": 2494,
+      "headings": 37,
+      "sections": 37,
+      "findings": 71,
+      "critical": 25,
+      "high": 14,
+      "medium": 10,
+      "low": 22,
+      "score": 473,
       "grade": "D"
     },
     {
@@ -47558,16 +47558,7 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet deployable services,`, `runtime architektúru,`, `počet tímov,`, `počet release trains,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "1. Definícia",
+      "section": "1. Cieľ kapitoly",
       "line": 11,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -47576,8 +47567,17 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "2. Nosný scenár: Atlas Commerce",
+      "line": 35,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vzniknúť v pricing modeli;`, `prejsť cez Orders API;`, `zobraziť sa vo web checkoute;`, `byť zaznamenaný v payment audite;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "2. Nosný scenár: Atlas Commerce",
+      "line": 35,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -47585,44 +47585,26 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "2. Mentálny model: repository ako hranica zmeny",
-      "line": 28,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "2. Mentálny model: repository ako hranica zmeny",
-      "line": 28,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `z Git merge do package versioningu,`, `z jednej CI pipeline do cross-repo orchestration,`, `z path ownershipu do repository permissions,`, `z atomic commitu do backward-compatible rolloutov.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "2. Mentálny model: repository ako hranica zmeny",
-      "line": 28,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "2. Mentálny model: repository ako hranica zmeny",
-      "line": 28,
+      "section": "2. Nosný scenár: Atlas Commerce",
+      "line": 35,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "3. Štyri hranice, ktoré sa nesmú zamieňať",
-      "line": 58,
+      "section": "3. Centrálny rozhodovací model",
+      "line": 73,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "4. Štyri hranice, ktoré nie sú totožné",
+      "line": 97,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -47631,7 +47613,7 @@
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
       "section": "Repository boundary",
-      "line": 60,
+      "line": 99,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -47639,116 +47621,35 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "5. Multirepo model",
-      "line": 108,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "5. Multirepo model",
-      "line": 108,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit graph,`, `branch policy,`, `permissions,`, `CI/CD lifecycle,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "5. Multirepo model",
-      "line": 108,
+      "section": "Build boundary",
+      "line": 103,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "5. Multirepo model",
-      "line": 108,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CD`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "6. Atomická zmena",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "6. Atomická zmena",
-      "line": 132,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `review vidí celý intent,`, `bisect nájde jeden prechodový bod,`, `CI môže testovať presnú kombináciu,`, `refactoring nemusí dočasne publikovať intermediary package.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "6. Atomická zmena",
-      "line": 132,
+      "section": "Deployment boundary",
+      "line": 107,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "6. Atomická zmena",
-      "line": 132,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "6. Atomická zmena",
-      "line": 132,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "6. Atomická zmena",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "7. Kompatibilná cross-repo zmena",
-      "line": 160,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "7. Kompatibilná cross-repo zmena",
-      "line": 160,
+      "section": "Security a ownership boundary",
+      "line": 111,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issue alebo change plan s dependency graphom,`, `release manifest,`, `package registry,`, `contract tests,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvára vlastný artifact;`, `má vlastný deployment;`, `má samostatný owner tím;`, `používa samostatné production credentials.`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "7. Kompatibilná cross-repo zmena",
-      "line": 160,
+      "section": "Security a ownership boundary",
+      "line": 111,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -47756,35 +47657,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "8. Change coupling ako hlavný signál",
-      "line": 186,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "8. Change coupling ako hlavný signál",
-      "line": 186,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaké pull requests často menia oba komponenty,`, `interfaces sa vyvíjajú koordinovane,`, `refactoring pravidelne prekračuje hranice,`, `komponenty používajú spoločné tooling a test fixtures,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "8. Change coupling ako hlavný signál",
-      "line": 186,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "8. Change coupling ako hlavný signál",
-      "line": 186,
+      "section": "Security a ownership boundary",
+      "line": 111,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47792,8 +47666,17 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "8. Change coupling ako hlavný signál",
-      "line": 186,
+      "section": "5. Prvý signál: change coupling",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden ticket vytvára sériu závislých pull requestov;`, `consumer čaká na vydanie provider artifactu;`, `rovnaký refactoring sa opakuje v niekoľkých repos;`, `integrácia zlyháva až po spojení samostatne zelených pipelines;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "5. Prvý signál: change coupling",
+      "line": 126,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -47801,98 +47684,62 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "9. Dependency model v monorepe",
-      "line": 208,
+      "section": "7. Ako vyzerá rovnaká zmena v monorepe",
+      "line": 182,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý target závisí od ktorých vstupov,`, `ktoré tests validujú daný target,`, `ktoré runtime artifacts vznikajú,`, `ktoré environment/config dependencies existujú,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backward-compatible contracts;`, `explicitné artifacts;`, `rollout ordering;`, `readiness a observability;`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "9. Dependency model v monorepe",
-      "line": 208,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "7. Ako vyzerá rovnaká zmena v monorepe",
+      "line": 182,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "9. Dependency model v monorepe",
-      "line": 208,
+      "section": "9. Dependency graph je jadrom škálovateľného monorepa",
+      "line": 235,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné target dependencies;`, `conservative fallback pri neznámych inputs;`, `periodické full builds;`, `porovnanie selective a full výsledkov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "9. Dependency graph je jadrom škálovateľného monorepa",
+      "line": 235,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "10. Dependency model v multirepe",
-      "line": 228,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "10. Dependency model v multirepe",
-      "line": 228,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "10. Dependency model v multirepe",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable versions alebo digests,`, `lockfiles a dependency pinning,`, `deprecation windows,`, `compatibility matrix,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "10. Dependency model v multirepe",
-      "line": 228,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "11. CI topology v monorepe",
-      "line": 258,
+      "section": "10. Artifact graph je jadrom bezpečného multirepa",
+      "line": 284,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 52 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "11. CI topology v monorepe",
-      "line": 258,
+      "section": "10. Artifact graph je jadrom bezpečného multirepa",
+      "line": 284,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hermetic alebo dostatočne deterministické targets,`, `presné cache keys,`, `remote cache a execution podľa potreby,`, `test sharding,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable versions alebo digests;`, `lockfiles a dependency pinning;`, `provenance k source commitu;`, `contract tests;`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "11. CI topology v monorepe",
-      "line": 258,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "11. CI topology v monorepe",
-      "line": 258,
+      "section": "10. Artifact graph je jadrom bezpečného multirepa",
+      "line": 284,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47900,116 +47747,17 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "12. False green riziko v affected detection",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "12. False green riziko v affected detection",
-      "line": 291,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "12. False green riziko v affected detection",
-      "line": 291,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `graph conformance tests,`, `periodic full builds,`, `shadow comparison selective verzus full run,`, `explicitné owners spoločných rules,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "12. False green riziko v affected detection",
-      "line": 291,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "13. CI topology v multirepe",
-      "line": 314,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "13. CI topology v multirepe",
-      "line": 314,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unit a component tests v source repo,`, `contract tests producer/consumer,`, `package publishing pipeline,`, `dependency update automation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "13. CI topology v multirepe",
-      "line": 314,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "13. CI topology v multirepe",
-      "line": 314,
+      "section": "10. Artifact graph je jadrom bezpečného multirepa",
+      "line": 284,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "14. Ownership",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required reviews,`, `triage,`, `documentation responsibility,`, `on-call mapping,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "14. Ownership",
-      "line": 330,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "15. Security a confidentiality boundary",
-      "line": 353,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdielne právne entity alebo externí partneri,`, `export-control alebo customer-specific source,`, `vysoko citlivé security components,`, `need-to-know read access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "15. Security a confidentiality boundary",
-      "line": 353,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "15. Security a confidentiality boundary",
-      "line": 353,
+      "section": "10. Artifact graph je jadrom bezpečného multirepa",
+      "line": 284,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -48017,71 +47765,44 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "16. Branching a merge queue v monorepe",
-      "line": 367,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "16. Branching a merge queue v monorepe",
-      "line": 367,
+      "section": "11. Ownership nie je automaticky security boundary",
+      "line": 317,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `short-lived branches,`, `path-aware required reviews,`, `affected checks,`, `merge queue testujúca kombináciu paralelných changes,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac long-lived tokens;`, `duplicate CI konfigurácie;`, `neprehľadné dependency permissions;`, `širšiu supply-chain attack surface.`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "16. Branching a merge queue v monorepe",
-      "line": 367,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "11. Ownership nie je automaticky security boundary",
+      "line": 317,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "17. Versioning v monorepe",
-      "line": 382,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Independent versioning",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Independent versioning",
-      "line": 392,
+      "section": "13. Rozhodnutie pre Atlas",
+      "line": 385,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Independent versioning",
-      "line": 392,
+      "section": "13. Rozhodnutie pre Atlas",
+      "line": 385,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected package detection,`, `changelog/version metadata,`, `dependency version updates,`, `release automation.`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ich source je dostupný rovnakým interným tímom;`, `používajú spoločný toolchain a contract tests;`, `samostatné package releases neprinášajú významnú nezávislosť;`, `Payments má prísnejší read-access a compliance lifecycle;`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Independent versioning",
-      "line": 392,
+      "section": "13. Rozhodnutie pre Atlas",
+      "line": 385,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48089,35 +47810,107 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Commit-based identity",
-      "line": 403,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "13. Rozhodnutie pre Atlas",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Release manifest",
-      "line": 407,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "13. Rozhodnutie pre Atlas",
+      "line": 385,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Release manifest",
-      "line": 407,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "18. Versioning v multirepe",
+      "section": "14. Worked failure: monorepo pipeline je zelená, produkcia nie",
       "line": 419,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "14. Worked failure: monorepo pipeline je zelená, produkcia nie",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identifikuj source commit a artifacts.`, `Over, ktoré targets pipeline označila ako affected.`, `Spusť full validation na rovnakom commite.`, `Nájde sa chýbajúca hrana:`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "14. Worked failure: monorepo pipeline je zelená, produkcia nie",
+      "line": 419,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "14. Worked failure: monorepo pipeline je zelená, produkcia nie",
+      "line": 419,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "15. Worked failure: multirepo release drift",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "15. Worked failure: multirepo release drift",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zostav manifest reálne nasadených versions a digestov.`, `Porovnaj ho s deklarovanými dependency constraints.`, `Over, ktorý consumer adoptoval nový contract.`, `Over rollout ordering a rollback compatibility.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "15. Worked failure: multirepo release drift",
+      "line": 458,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "15. Worked failure: multirepo release drift",
+      "line": 458,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "15. Worked failure: multirepo release drift",
+      "line": 458,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "16. Kedy je monorepo silný kandidát",
+      "line": 498,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
@@ -48125,17 +47918,17 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "18. Versioning v multirepe",
-      "line": 419,
+      "section": "16. Kedy je monorepo silný kandidát",
+      "line": 498,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `source commit,`, `build provenance,`, `dependency lock state,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read access môže byť spoločný;`, `build graph možno explicitne modelovať;`, `platform tím vlastní CI a cache mechanizmus;`, `source-level refactoring má vysokú hodnotu;`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "18. Versioning v multirepe",
-      "line": 419,
+      "section": "16. Kedy je monorepo silný kandidát",
+      "line": 498,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -48143,44 +47936,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "19. Release coupling",
-      "line": 441,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "19. Release coupling",
-      "line": 441,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ako často musia byť nasadené spolu,`, `či majú backward-compatible contract,`, `či rollback jedného vyžaduje rollback druhého,`, `či jeden deployment blokuje druhý,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "19. Release coupling",
-      "line": 441,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "19. Release coupling",
-      "line": 441,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "19. Release coupling",
-      "line": 441,
+      "section": "16. Kedy je monorepo silný kandidát",
+      "line": 498,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48188,467 +47945,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "20. Developer experience v monorepe",
-      "line": 455,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "20. Developer experience v monorepe",
-      "line": 455,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "20. Developer experience v monorepe",
-      "line": 455,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden clone a search scope,`, `jednotný onboarding,`, `lokálne cross-component refactoringy,`, `spoločné tooling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "20. Developer experience v monorepe",
-      "line": 455,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "20. Developer experience v monorepe",
-      "line": 455,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "20. Developer experience v monorepe",
-      "line": 455,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IDE`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší checkout a jasný scope,`, `jednoduchší lokálny build jedného componentu,`, `prirodzený repository ownership.`, `viac clones a credential contexts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "21. Developer experience v multirepe",
-      "line": 482,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CLI`, `scope`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "22. Shared tooling",
-      "line": 507,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "22. Shared tooling",
-      "line": 507,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `linting a formatting rules,`, `build macros,`, `test harnesses,`, `code generation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "22. Shared tooling",
-      "line": 507,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "22. Shared tooling",
-      "line": 507,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "23. Git performance",
-      "line": 536,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "23. Git performance",
-      "line": 536,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "23. Git performance",
-      "line": 536,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počtom objects,`, `veľkosťou packfiles,`, `počtom paths v indexe,`, `checkout a status časom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "23. Git performance",
-      "line": 536,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "23. Git performance",
-      "line": 536,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LFS`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "24. Binaries a generated artifacts",
-      "line": 566,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "24. Binaries a generated artifacts",
-      "line": 566,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukovateľný build zo source,`, `artifact registry,`, `object storage,`, `package registry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "24. Binaries a generated artifacts",
-      "line": 566,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "24. Binaries a generated artifacts",
-      "line": 566,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "24. Binaries a generated artifacts",
-      "line": 566,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LFS`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "25. Submodules, subtrees a vendoring",
-      "line": 587,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Subtree",
-      "line": 595,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "26. Hybridný model",
-      "line": 605,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "26. Hybridný model",
-      "line": 605,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zoskupiť silne coupled komponenty,`, `zachovať security boundaries,`, `oddeliť open-source a interný kód,`, `obmedziť blast radius tooling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "26. Hybridný model",
-      "line": 605,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "26. Hybridný model",
-      "line": 605,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "27. Kedy preferovať monorepo",
-      "line": 627,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "27. Kedy preferovať monorepo",
-      "line": 627,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časté cross-component changes,`, `veľké interné refactoringy,`, `spoločné language/toolchain ekosystémy,`, `potreba jedného review contextu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "27. Kedy preferovať monorepo",
-      "line": 627,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "27. Kedy preferovať monorepo",
-      "line": 627,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "28. Kedy preferovať multirepo",
-      "line": 641,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "28. Kedy preferovať multirepo",
-      "line": 641,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilné versioned contracts,`, `nezávislé product a release lifecycles,`, `rozdielne confidentiality alebo compliance boundaries,`, `externí contributors alebo partneri,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "28. Kedy preferovať multirepo",
-      "line": 641,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "28. Kedy preferovať multirepo",
-      "line": 641,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "29. Rozhodovací rámec",
-      "line": 655,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "29. Rozhodovací rámec",
-      "line": 655,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "29. Rozhodovací rámec",
-      "line": 655,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebujú source-atomickú zmenu?`, `Môžu sa nasadzovať v ľubovoľnom poradí?`, `Majú stabilný backward-compatible contract?`, `Kto potrebuje read a write access?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "29. Rozhodovací rámec",
-      "line": 655,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "29. Rozhodovací rámec",
-      "line": 655,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "29. Rozhodovací rámec",
-      "line": 655,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "30. Metriky po rozhodnutí",
-      "line": 674,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "30. Metriky po rozhodnutí",
-      "line": 674,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-repo pull requests na jednu business zmenu,`, `čas od producer change po adoption consumers,`, `dependency version drift,`, `CI feedback time,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "30. Metriky po rozhodnutí",
-      "line": 674,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "30. Metriky po rozhodnutí",
-      "line": 674,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "30. Metriky po rozhodnutí",
-      "line": 674,
+      "section": "16. Kedy je monorepo silný kandidát",
+      "line": 498,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
@@ -48656,233 +47954,35 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
+      "section": "17. Kedy je multirepo silný kandidát",
+      "line": 510,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
+      "section": "17. Kedy je multirepo silný kandidát",
+      "line": 510,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Definovať scope a canonical histories.`, `Rozhodnúť, či zachovať úplnú history alebo importovaný snapshot.`, `Vytvoriť directory a ownership taxonomy.`, `Zjednotiť build a dependency graph.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný versioned contract;`, `nízky change coupling;`, `skutočne nezávislý release lifecycle;`, `odlišnú confidentiality alebo compliance hranicu;`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "31. Migrácia multirepo → monorepo",
-      "line": 694,
+      "section": "17. Kedy je multirepo silný kandidát",
+      "line": 510,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `scope`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "32. Migrácia monorepo → multirepo",
-      "line": 717,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "32. Migrácia monorepo → multirepo",
-      "line": 717,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "32. Migrácia monorepo → multirepo",
-      "line": 717,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Určiť stabilné domain a contract boundaries.`, `Extrahovať history relevantných paths.`, `Vytvoriť package/artifact publishing.`, `Nahradiť source dependencies immutable versions.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "32. Migrácia monorepo → multirepo",
-      "line": 717,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "32. Migrácia monorepo → multirepo",
-      "line": 717,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Monorepo bez build-system investície",
-      "line": 736,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Multirepo bez artifact contractu",
-      "line": 740,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Repo per microservice ako dogma",
-      "line": 744,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Monorepo ako náhrada architektúry",
-      "line": 748,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "CODEOWNERS ako security boundary",
-      "line": 752,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Central tooling bez ownershipu",
-      "line": 756,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Shared config copy-paste",
-      "line": 760,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "Generated artifacts bez reprodukovateľného source",
-      "line": 764,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over, či affected graph zodpovedá skutočným dependencies.`, `Zisti cache hit/miss dôvody.`, `Skontroluj nestabilné cache keys a environment inputs.`, `Rozlíš CPU-bound, I/O-bound a runner-capacity problém.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
+      "section": "17. Kedy je multirepo silný kandidát",
+      "line": 510,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48890,8 +47990,35 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
+      "section": "19. Prehodnocovanie boundary",
+      "line": 546,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "19. Prehodnocovanie boundary",
+      "line": 546,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `koľko pull requestov potrebuje jeden business change;`, `koľko času trvá adoption novej dependency;`, `ako často vznikajú emergency coordination releases;`, `aký je CI feedback time a false-green rate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "19. Prehodnocovanie boundary",
+      "line": 546,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "19. Prehodnocovanie boundary",
+      "line": 546,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48899,8 +48026,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
+      "section": "19. Prehodnocovanie boundary",
+      "line": 546,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -48908,53 +48035,53 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "34. Diagnostický scenár: monorepo CI je príliš pomalé",
-      "line": 768,
+      "section": "19. Prehodnocovanie boundary",
+      "line": 546,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU-`, `O-`, `CI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "20. Architecture decision record",
+      "line": 561,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Vytvor manifest reálne nasadených component versions.`, `Porovnaj deklarované a runtime dependencies.`, `Identifikuj consumers na zastaraných alebo nepodporovaných versions.`, `Over deprecation a compatibility policy.`.",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Vyber poslednú reálnu cross-component zmenu.`, `Nakresli source, artifact a deployment kroky.`, `Označ čakacie body, manuálne koordinácie a kompatibilitné fázy.`, `Navrhni CI graph pre monorepo alternatívu.`.",
       "score": 12
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -48962,8 +48089,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48971,8 +48098,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48980,17 +48107,26 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "35. Diagnostický scenár: multirepo release drift",
-      "line": 781,
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
+      "section": "21. Praktický rozhodovací postup",
+      "line": 590,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
       "score": 4
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "36. Časté omyly",
-      "line": 794,
+      "section": "22. Časté omyly",
+      "line": 605,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -48998,26 +48134,8 @@
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "„Jedna služba má mať jedno repo“",
-      "line": 804,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "„Monorepo je lacnejšie, lebo netreba versionovať interné dependencies“",
-      "line": 812,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
-      "section": "„Rozdelením veľkého repo sa automaticky zrýchli CI“",
-      "line": 816,
+      "section": "„Rozdelenie repo automaticky zrýchli CI“",
+      "line": 623,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
