@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11539**
-- Total words: **578,673**
-- Findings: **25844** (critical 8342, high 9378, medium 3597, low 4527)
+- Audited conceptual sections: **11532**
+- Total words: **578,936**
+- Findings: **25769** (critical 8301, high 9351, medium 3586, low 4531)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -60,7 +60,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1237 | 58 | 56 | 25 | 13 | 1960 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1195 | 53 | 60 | 22 | 11 | 1687 | `docs/05-ci-cd-and-release/feature-flags.md` |
-| D | 1179 | 59 | 52 | 17 | 8 | 1524 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | D | 1171 | 50 | 60 | 21 | 21 | 1801 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 1166 | 53 | 52 | 28 | 11 | 2095 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | D | 1165 | 47 | 74 | 8 | 4 | 1174 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
@@ -216,6 +215,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
+| D | 450 | 18 | 25 | 6 | 12 | 1787 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -5447,117 +5447,49 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/05-ci-cd-and-release/ring-deployment.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 23, `bare-bullet-items` — **2. Ring verzus canary**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interní používatelia,`, `pilotní zákazníci,`, `región,`, `device update channel,`.
-- **CRITICAL** line 23, `outline-instead-of-explanation` — **2. Ring verzus canary**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 49, `bare-bullet-items` — **4. Ring identity a membership contract**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable ring ID,`, `membership rule version,`, `member inventory alebo deterministické pravidlo,`, `artifact/config identity,`.
-- **CRITICAL** line 49, `outline-instead-of-explanation` — **4. Ring identity a membership contract**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 64, `bare-bullet-items` — **5. Návrh poradia**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `workload a data distribution,`, `integration complexity,`, `support coverage,`.
-- **CRITICAL** line 64, `outline-instead-of-explanation` — **5. Návrh poradia**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 79, `bare-bullet-items` — **6. Stable membership**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický,`, `konzistentný naprieč services,`, `odolný proti náhodnému reshuffle,`, `dostupný pre telemetry,`.
-- **CRITICAL** line 79, `outline-instead-of-explanation` — **6. Stable membership**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 118, `bare-bullet-items` — **8. Entry contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predchádzajúci ring verdict,`, `evidence freshness,`, `immutable artifact a config,`, `compatibility s ringmi na staršej verzii,`.
-- **CRITICAL** line 118, `outline-instead-of-explanation` — **8. Entry contract**: 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 132, `bare-bullet-items` — **9. Observation contract**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu vzorku,`, `minimálnu a maximálnu duration,`, `technické a business guardrails,`, `ring-specific workflows,`.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **9. Observation contract**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 146, `bare-bullet-items` — **10. Ring 0 a interné používanie**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development a operations tímy,`, `synthetic identities,`, `interné workflows,`, `test tenants.`.
-- **CRITICAL** line 146, `outline-instead-of-explanation` — **10. Ring 0 a interné používanie**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 157, `bare-bullet-items` — **11. Early-adopter ring**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `informed opt-in alebo zmluvný model,`, `support channel,`, `known-issues komunikáciu,`, `opt-out/recovery,`.
-- **CRITICAL** line 157, `outline-instead-of-explanation` — **11. Early-adopter ring**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **12. Tenant rings**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requestom,`, `dátam,`, `custom integrations,`, `queue volume,`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **12. Tenant rings**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 182, `bare-bullet-items` — **13. Regionálne ringy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data residency,`, `latency a traffic pattern,`, `region-specific dependencies,`, `failover topology,`.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **13. Regionálne ringy**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 196, `bare-bullet-items` — **14. Device a client rings**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `update eligibility,`, `podpis a download integrity,`, `offline clients,`, `auto-update cadence,`.
-- **CRITICAL** line 196, `outline-instead-of-explanation` — **14. Device a client rings**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 217, `bare-bullet-items` — **15. Ring-specific configuration**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest,`, `rendered config revision,`, `flags,`, `membership policy,`.
-- **CRITICAL** line 217, `outline-instead-of-explanation` — **15. Ring-specific configuration**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 230, `bare-bullet-items` — **16. Version skew contract**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API a clients,`, `event producers/consumers,`, `DB schema,`, `cache/session formatov,`.
-- **CRITICAL** line 230, `outline-instead-of-explanation` — **16. Version skew contract**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 244, `bare-bullet-items` — **17. Shared mutable state**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať expand-contract,`, `udržiavať forward-tolerant consumers,`, `versionovať cache keys,`, `oddeliť irreversible mutations,`.
-- **CRITICAL** line 244, `outline-instead-of-explanation` — **17. Shared mutable state**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `bare-bullet-items` — **18. Ring promotion**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `promote next ring,`, `extend observation,`, `pause,`, `abort current ring,`.
-- **CRITICAL** line 255, `outline-instead-of-explanation` — **18. Ring promotion**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 269, `bare-bullet-items` — **19. Partial rollback**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novšia verzia zmenila shared state,`, `cross-ring workflow posiela nové events,`, `clients komunikujú medzi ringmi,`, `schema contract sa už posunul.`.
-- **CRITICAL** line 269, `outline-instead-of-explanation` — **19. Partial rollback**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 286, `bare-bullet-items` — **21. Support a communication**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `support readiness,`, `audience-specific release notes,`, `known-issues channel,`.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **21. Support a communication**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 300, `bare-bullet-items` — **22. Observability**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ring ID,`, `artifact/release version,`, `membership policy version,`, `deployment wave,`.
-- **CRITICAL** line 300, `outline-instead-of-explanation` — **22. Observability**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 313, `bare-bullet-items` — **23. Delayed validation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rare operations,`, `mesačné cycles,`, `regulované workflows,`, `high-scale data,`.
-- **CRITICAL** line 313, `outline-instead-of-explanation` — **23. Delayed validation**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 325, `bare-bullet-items` — **24. Emergency release**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact,`, `minimálne safety gates,`, `explicitný risk acceptance,`, `bounded first exposure,`.
-- **CRITICAL** line 325, `outline-instead-of-explanation` — **24. Emergency release**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 338, `bare-bullet-items` — **25. Ring retirement a cleanup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráň staré membership výnimky,`, `zjednoť config/flags,`, `ukonči old support state,`, `aktualizuj inventory,`.
-- **CRITICAL** line 338, `outline-instead-of-explanation` — **25. Ring retirement a cleanup**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 351, `bare-bullet-items` — **26. Failure taxonomy**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership inconsistency,`, `ring-specific config drift,`, `workload representativeness failure,`, `compatibility/skew failure,`.
-- **CRITICAL** line 351, `no-prose-concept` — **26. Failure taxonomy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 351, `outline-instead-of-explanation` — **26. Failure taxonomy**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 363, `bare-bullet-items` — **27. Metriky stratégie**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time per ring,`, `promotion/abort rate,`, `ring-specific change fail rate,`, `maximum version skew age,`.
-- **CRITICAL** line 363, `no-prose-concept` — **27. Metriky stratégie**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 363, `outline-instead-of-explanation` — **27. Metriky stratégie**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 376, `empty-section` — **28. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 406, `bare-bullet-items` — **29. Diagnostický postup**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over ring membership policy a konkrétny subject.`, `Zisti artifact/config identity v každom ring-u.`, `Skontroluj version skew a rollout generation.`, `Over telemetry dimensions a sample sufficiency.`.
-- **CRITICAL** line 406, `no-prose-concept` — **29. Diagnostický postup**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 406, `outline-instead-of-explanation` — **29. Diagnostický postup**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 419, `bare-bullet-items` — **30. Rozhodovací rámec**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aké failure risks odlišujú jednotlivé ringy?`, `Ako je membership stabilný a auditovateľný?`, `Aký workload a business impact každý ring reprezentuje?`, `Aký je maximálny podporovaný version skew?`.
-- **CRITICAL** line 419, `no-prose-concept` — **30. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 419, `outline-instead-of-explanation` — **30. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 432, `bare-bullet-items` — **31. Kontrolný checklist**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ring IDs a membership sú versionované,`, `release inventory je úplný,`, `rovnaký immutable artifact sa promuje,`, `config rozdiely sú explicitné,`.
-- **CRITICAL** line 432, `no-prose-concept` — **31. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 432, `outline-instead-of-explanation` — **31. Kontrolný checklist**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 24, `bare-bullet-items` — **1. Nosný model: release inventory naprieč stabilnými cohortami**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto je zasiahnutý incidentom;`, `ktoré contracts musia zostať kompatibilné;`, `či je partial rollback bezpečný;`, `ktoré support a communication pravidlá platia;`.
+- **CRITICAL** line 24, `outline-instead-of-explanation` — **1. Nosný model: release inventory naprieč stabilnými cohortami**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 88, `bare-bullet-items` — **3. Membership je produkčná policy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministická;`, `konzistentná naprieč API, workers a clients;`, `privacy-safe;`, `dostupná v telemetry;`.
+- **CRITICAL** line 173, `bare-bullet-items` — **7. Version skew je explicitný compatibility contract**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API clients v rôznych rings;`, `old/new event producers a consumers;`, `shared database schema;`, `cache a session formats;`.
+- **CRITICAL** line 173, `outline-instead-of-explanation` — **7. Version skew je explicitný compatibility contract**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 250, `empty-section` — **Trvalá náprava**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 284, `empty-section` — **Krok 1 — stabilizuj release inventory**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 294, `empty-section` — **Krok 2 — formuluj konkurenčné hypotézy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 304, `outline-instead-of-explanation` — **Krok 3 — vyber observation points**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 335, `bare-bullet-items` — **13. Partial recovery je decision nad shared state-om**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pause current ring;`, `disable feature pre current ring;`, `rollback affected ring;`, `roll-forward fix iba v current ring;`.
+- **CRITICAL** line 335, `outline-instead-of-explanation` — **13. Partial recovery je decision nad shared state-om**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 364, `bare-bullet-items` — **15. Diagnostický runbook**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď ring membership policy, revision a konkrétny subject.`, `Zostav release inventory manifest/config/exposure pre všetky ringy.`, `Urči version skew, rollout generation a deadline.`, `Over telemetry dimensions vrátane membership revision.`.
+- **CRITICAL** line 364, `no-prose-concept` — **15. Diagnostický runbook**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 364, `outline-instead-of-explanation` — **15. Diagnostický runbook**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 377, `bare-bullet-items` — **16. Referenčné pravidlá**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ring je stabilná production cohort, nie environment name.`, `Membership je versionovaná production policy.`, `Rovnaký immutable artifact sa promuje naprieč rings.`, `Ring poradie zvyšuje konkrétnu fidelity, nie iba percento.`.
+- **CRITICAL** line 377, `no-prose-concept` — **16. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 377, `outline-instead-of-explanation` — **16. Referenčné pravidlá**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 391, `empty-section` — **17. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 49, `single-sentence-concept` — **4. Ring identity a membership contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 92, `single-sentence-concept` — **7. Ring state machine**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 118, `single-sentence-concept` — **8. Entry contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 132, `single-sentence-concept` — **9. Observation contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 157, `single-sentence-concept` — **11. Early-adopter ring**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 182, `single-sentence-concept` — **13. Regionálne ringy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 196, `single-sentence-concept` — **14. Device a client rings**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 244, `single-sentence-concept` — **17. Shared mutable state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 269, `single-sentence-concept` — **19. Partial rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 286, `single-sentence-concept` — **21. Support a communication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 325, `single-sentence-concept` — **24. Emergency release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **25. Ring retirement a cleanup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 351, `list-first-introduction` — **26. Failure taxonomy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 363, `list-first-introduction` — **27. Metriky stratégie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 378, `single-sentence-concept` — **Ring je iba environment name**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 382, `single-sentence-concept` — **Každý ring dostane iný build**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 386, `single-sentence-concept` — **Membership sa mení bez versioningu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 390, `single-sentence-concept` — **Percento tenantov = percento trafficu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 394, `single-sentence-concept` — **Najkritickejší zákazník prvý**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 398, `single-sentence-concept` — **Rollout ostane mesiace v polovici**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 402, `single-sentence-concept` — **Partial rollback bez shared-state analýzy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 406, `list-first-introduction` — **29. Diagnostický postup**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 419, `list-first-introduction` — **30. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 432, `list-first-introduction` — **31. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 49, `thin-concept-section` — **4. Ring identity a membership contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 64, `thin-concept-section` — **5. Návrh poradia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 79, `thin-concept-section` — **6. Stable membership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 118, `thin-concept-section` — **8. Entry contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **9. Observation contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 146, `thin-concept-section` — **10. Ring 0 a interné používanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 157, `thin-concept-section` — **11. Early-adopter ring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 170, `thin-concept-section` — **12. Tenant rings**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 182, `thin-concept-section` — **13. Regionálne ringy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 196, `thin-concept-section` — **14. Device a client rings**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 217, `thin-concept-section` — **15. Ring-specific configuration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 230, `thin-concept-section` — **16. Version skew contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 244, `thin-concept-section` — **17. Shared mutable state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 255, `thin-concept-section` — **18. Ring promotion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 269, `thin-concept-section` — **19. Partial rollback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **21. Support a communication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 300, `thin-concept-section` — **22. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 313, `thin-concept-section` — **23. Delayed validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 325, `thin-concept-section` — **24. Emergency release**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 338, `thin-concept-section` — **25. Ring retirement a cleanup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 351, `thin-concept-section` — **26. Failure taxonomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 363, `thin-concept-section` — **27. Metriky stratégie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 406, `thin-concept-section` — **29. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 419, `thin-concept-section` — **30. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 432, `thin-concept-section` — **31. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 24, `single-sentence-concept` — **1. Nosný model: release inventory naprieč stabilnými cohortami**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 88, `list-heavy-section` — **3. Membership je produkčná policy**: 6 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 260, `single-sentence-concept` — **11. Worked failure: počet tenants skryl dominantný workload**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 272, `single-sentence-concept` — **Príčina**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 276, `single-sentence-concept` — **Náprava**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 280, `single-sentence-concept` — **12. Kauzálny diagnostický walkthrough**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 304, `bare-bullet-items` — **Krok 3 — vyber observation points**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `error/lag podľa artifact digestu a tenant testuje H1;`, `config/integration revision podľa tenant testuje H4;`, `ostatné služby a rings na brokeri testujú H5.`.
+- **HIGH** line 304, `list-first-introduction` — **Krok 3 — vyber observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 320, `single-sentence-concept` — **Krok 5 — over outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 331, `single-sentence-concept` — **Krok 6 — vráť learning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 349, `single-sentence-concept` — **14. Rollout deadline a cleanup obmedzujú skew debt**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 364, `list-first-introduction` — **15. Diagnostický runbook**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 377, `list-first-introduction` — **16. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 393, `single-sentence-concept` — **„Ring je dev, stage a prod“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 397, `single-sentence-concept` — **„3 % tenantov je malý blast radius“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 401, `single-sentence-concept` — **„Membership stačí vyhodnotiť na ingress-e“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 405, `single-sentence-concept` — **„Každý ring môže mať vlastný build“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 409, `single-sentence-concept` — **„Partial rollback ovplyvní iba jeden ring“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 24, `thin-concept-section` — **1. Nosný model: release inventory naprieč stabilnými cohortami**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 304, `thin-concept-section` — **Krok 3 — vyber observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 335, `thin-concept-section` — **13. Partial recovery je decision nad shared state-om**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 364, `thin-concept-section` — **15. Diagnostický runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 377, `term-before-explanation` — **16. Referenčné pravidlá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `workload`, `blast radius`, `identity`
+- **HIGH** line 377, `thin-concept-section` — **16. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/05-ci-cd-and-release/rollback-and-roll-forward.md`
 
@@ -18770,19 +18702,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3792 | 420 | 0 | 0 | 4212 |
-| `single-sentence-concept` | 0 | 3872 | 0 | 0 | 3872 |
-| `outline-instead-of-explanation` | 3615 | 0 | 0 | 0 | 3615 |
-| `thin-concept-section` | 0 | 3197 | 0 | 0 | 3197 |
-| `term-before-explanation` | 0 | 438 | 2454 | 0 | 2892 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1836 | 1836 |
-| `example-not-explicit` | 0 | 0 | 0 | 1763 | 1763 |
-| `short-concept-section` | 0 | 0 | 1143 | 0 | 1143 |
-| `list-first-introduction` | 0 | 1063 | 0 | 0 | 1063 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 928 | 928 |
-| `empty-section` | 508 | 0 | 0 | 0 | 508 |
-| `no-prose-concept` | 427 | 0 | 0 | 0 | 427 |
-| `list-heavy-section` | 0 | 388 | 0 | 0 | 388 |
+| `bare-bullet-items` | 3772 | 421 | 0 | 0 | 4193 |
+| `single-sentence-concept` | 0 | 3866 | 0 | 0 | 3866 |
+| `outline-instead-of-explanation` | 3595 | 0 | 0 | 0 | 3595 |
+| `thin-concept-section` | 0 | 3176 | 0 | 0 | 3176 |
+| `term-before-explanation` | 0 | 439 | 2442 | 0 | 2881 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1835 | 1835 |
+| `example-not-explicit` | 0 | 0 | 0 | 1765 | 1765 |
+| `short-concept-section` | 0 | 0 | 1144 | 0 | 1144 |
+| `list-first-introduction` | 0 | 1060 | 0 | 0 | 1060 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 931 | 931 |
+| `empty-section` | 511 | 0 | 0 | 0 | 511 |
+| `no-prose-concept` | 423 | 0 | 0 | 0 | 423 |
+| `list-heavy-section` | 0 | 389 | 0 | 0 | 389 |
 
 ## Required remediation pattern
 
