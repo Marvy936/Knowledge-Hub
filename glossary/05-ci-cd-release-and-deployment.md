@@ -36,6 +36,10 @@ Jedna z vrstiev, v ktorých sa hodnotí backward compatibility, napríklad sourc
 
 Content-derived immutable identifikátor konkrétnych bytes artifactu, typicky kryptografický hash. Na rozdiel od logical version alebo mutable tagu presne určuje nasadený obsah. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Cutover transaction
+
+CAS-chránený a auditovaný prechod autoritatívneho routingu zo starej deployment farby na novú, viazaný na očakávanú routing revision, immutable release subject a idempotentné failure semantics. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
 ## Cutover window
 
 Časový interval, v ktorom sa traffic alebo ownership práce presúva zo starej deployment farby na novú a intenzívne sa sledujú promotion a abort signály. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -47,6 +51,14 @@ Content-derived immutable identifikátor konkrétnych bytes artifactu, typicky k
 ## Environment parity — deployment
 
 Miera, do akej blue a green alebo iné deployment targety zachovávajú rovnaké produkčne relevantné konfigurácie, topológiu, permissions, limits a dependencies. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## Exclusive runtime slot
+
+Recreate deployment model, v ktorom môže konkrétny service alebo writer ownership v jednom okamihu patriť iba starej generácii, prázdnemu maintenance stavu alebo novej generácii. Odstraňuje mixed-version overlap za cenu capacity gapu. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md).
+
+## Functional readiness
+
+Dôkaz, že instance alebo nová generácia dokáže bezpečne vykonať kritický service outcome vrátane relevantnej identity, dependency, read/write a idempotency cesty. Je prísnejšia než process start, liveness alebo otvorený port. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md) a [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
 ## Hypercare
 
@@ -83,6 +95,10 @@ Limit počtu alebo percenta desired instances, ktoré môžu byť počas rolling
 ## MINOR version
 
 Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní capability do deklarovaného public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## Mixed-version compatibility
+
+Schopnosť starej a novej application generácie bezpečne koexistovať nad spoločným trafficom a mutable state-om vrátane database, events, queues, cache, sessions, workers a client contractov. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
 ## Mixed-version deployment
 
