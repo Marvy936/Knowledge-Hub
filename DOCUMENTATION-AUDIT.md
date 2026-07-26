@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11866**
-- Total words: **594,965**
-- Findings: **27777** (critical 9007, high 9889, medium 3926, low 4955)
+- Audited conceptual sections: **11836**
+- Total words: **593,835**
+- Findings: **27702** (critical 8972, high 9854, medium 3920, low 4956)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -40,7 +40,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1603 | 76 | 68 | 31 | 40 | 3136 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 1511 | 73 | 64 | 30 | 22 | 2295 | `docs/11-cloud-and-aws/rds.md` |
 | D | 1499 | 65 | 79 | 21 | 21 | 2459 | `docs/12-observability/alertmanager.md` |
-| D | 1492 | 72 | 69 | 20 | 18 | 3731 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | D | 1482 | 65 | 62 | 42 | 46 | 3462 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | D | 1474 | 70 | 67 | 27 | 16 | 2255 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 1470 | 71 | 64 | 27 | 18 | 2384 | `docs/12-observability/fluent-bit.md` |
@@ -146,6 +145,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 806 | 32 | 33 | 29 | 41 | 2648 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | D | 805 | 33 | 41 | 17 | 13 | 1764 | `docs/09-kubernetes/probes.md` |
 | D | 792 | 36 | 40 | 10 | 8 | 1849 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
+| D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | D | 784 | 32 | 49 | 4 | 4 | 1508 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | D | 779 | 34 | 40 | 15 | 8 | 1437 | `docs/11-cloud-and-aws/iam.md` |
 | D | 778 | 30 | 31 | 31 | 40 | 2355 | `docs/05-ci-cd-and-release/continuous-integration.md` |
@@ -3196,147 +3196,77 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/03-git-and-automation/yaml-json-regular-expressions.md`
 
-- **CRITICAL** line 71, `outline-instead-of-explanation` — **3. JSON data model**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 94, `bare-bullet-items` — **4. JSON syntax**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `double quotes pre strings a object keys,`, `presné literals true , false , null ,`, `žiadne comments,`, `žiadne trailing commas,`.
-- **CRITICAL** line 94, `outline-instead-of-explanation` — **4. JSON syntax**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 116, `bare-bullet-items` — **5. JSON encoding a Unicode**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neplatné UTF-8 bytes,`, `neočakávaný BOM,`, `rozdielne Unicode normalization forms,`, `escaped surrogate pairs,`.
-- **CRITICAL** line 131, `outline-instead-of-explanation` — **6. JSON numbers**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 145, `bare-bullet-items` — **7. Absent, null a empty hodnoty**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či absent field aktivuje default,`, `či null znamená odstrániť, zdediť alebo neznámu hodnotu,`, `či empty collection je validná,`.
-- **CRITICAL** line 145, `outline-instead-of-explanation` — **7. Absent, null a empty hodnoty**: 4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 176, `bare-bullet-items` — **8. Duplicate JSON object keys**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ponechať poslednú hodnotu,`, `ponechať prvú hodnotu,`, `zachovať všetky páry v špeciálnej štruktúre,`, `zlyhať.`.
-- **CRITICAL** line 224, `bare-bullet-items` — **10. JSON serialization**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encoding,`, `newline na konci súboru,`, `indentation,`, `key ordering, ak sa používa,`.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **10. JSON serialization**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 256, `bare-bullet-items` — **11. Deterministic serialization verzus canonicalization**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `property ordering,`, `number normalization,`, `Unicode escaping,`, `whitespace,`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **11. Deterministic serialization verzus canonicalization**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 276, `bare-bullet-items` — **12. JSON Schema**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či service existuje,`, `či je port dostupný,`, `či má používateľ oprávnenie,`, `či capacity stačí,`.
-- **CRITICAL** line 276, `outline-instead-of-explanation` — **12. JSON Schema**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 311, `bare-bullet-items` — **13. Unknown fields a compatibility**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré objekty sú strict,`, `ktoré tolerujú unknown fields,`, `či sa unknown fields zachovajú pri read-modify-write,`, `ako sa označujú deprecated fields,`.
-- **CRITICAL** line 311, `outline-instead-of-explanation` — **13. Unknown fields a compatibility**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 345, `bare-bullet-items` — **15. YAML stream a documents**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presne jeden dokument,`, `zero alebo jeden,`, `viac dokumentov,`, `stream spracovaný postupne.`.
-- **CRITICAL** line 345, `outline-instead-of-explanation` — **15. YAML stream a documents**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 439, `bare-bullet-items` — **19. Anchors a aliases**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znížená lokálna čitateľnosť,`, `zložité override semantics,`, `tooling bez plnej podpory,`, `prekvapenie pri mutation parsed objectu,`.
-- **CRITICAL** line 439, `outline-instead-of-explanation` — **19. Anchors a aliases**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 461, `bare-bullet-items` — **20. Merge key portability**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser implementation,`, `platform schema pipeline,`, `duplicate/override precedence,`, `serializer round-trip behavior.`.
-- **CRITICAL** line 461, `outline-instead-of-explanation` — **20. Merge key portability**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 474, `bare-bullet-items` — **21. Alias expansion a resource exhaustion**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input bytes,`, `document count,`, `nesting depth,`, `alias count,`.
-- **CRITICAL** line 474, `outline-instead-of-explanation` — **21. Alias expansion a resource exhaustion**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 501, `bare-bullet-items` — **23. Duplicate YAML keys**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `security policy,`, `Kubernetes a IaC manifests,`, `CI configuration,`, `signed config,`.
-- **CRITICAL** line 547, `bare-bullet-items` — **25. Templating security**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `string injection naruší YAML štruktúru,`, `nesprávne quoting zmení typ,`, `secret sa objaví v rendered artifacte alebo logu,`, `template function vykonáva nečakané I/O,`.
-- **CRITICAL** line 547, `outline-instead-of-explanation` — **25. Templating security**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 560, `bare-bullet-items` — **26. YAML parsing a round-trip**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `comments,`, `pôvodné quoting,`, `anchor names,`, `key ordering,`.
-- **CRITICAL** line 560, `outline-instead-of-explanation` — **26. YAML parsing a round-trip**: 10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 623, `bare-bullet-items` — **29. Configuration merge a precedence**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deep merge verzus whole-value replacement,`, `array append verzus replacement,`, `semantics null ,`, `delete/unset marker,`.
-- **CRITICAL** line 623, `outline-instead-of-explanation` — **29. Configuration merge a precedence**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 647, `bare-bullet-items` — **30. Schema evolution**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnú schema/version identity,`, `backward a forward compatibility,`, `unknown fields,`, `default values,`.
-- **CRITICAL** line 647, `outline-instead-of-explanation` — **30. Schema evolution**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 665, `bare-bullet-items` — **31. Regex ako jazyk patternov**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation tvaru,`, `extraction hodnôt,`, `search,`, `replace,`.
-- **CRITICAL** line 665, `outline-instead-of-explanation` — **31. Regex ako jazyk patternov**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 683, `bare-bullet-items` — **32. Regex dialect je súčasť kontraktu**: 17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `POSIX BRE,`, `POSIX ERE,`, `Python re ,`, `.NET regex,`.
-- **CRITICAL** line 683, `outline-instead-of-explanation` — **32. Regex dialect je súčasť kontraktu**: 17 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 766, `bare-bullet-items` — **36. Flags menia jazyk patternu**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `case-insensitive,`, `multiline,`, `dot-all/singleline,`, `verbose/free-spacing,`.
-- **CRITICAL** line 766, `outline-instead-of-explanation` — **36. Flags menia jazyk patternu**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 883, `bare-bullet-items` — **43. Unicode a normalization**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či akceptuješ iba ASCII,`, `či normalizuješ NFC/NFKC alebo inú formu,`, `či case folding používa locale alebo invariant model,`, `či povoľuješ combining marks,`.
-- **CRITICAL** line 883, `outline-instead-of-explanation` — **43. Unicode a normalization**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 977, `bare-bullet-items` — **48. grep , sed a awk**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `POSIX basic regex,`, `POSIX extended regex,`, `PCRE mode,`, `GNU/BSD/BusyBox implementáciu,`.
-- **CRITICAL** line 977, `outline-instead-of-explanation` — **48. grep , sed a awk**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1019, `bare-bullet-items` — **50. Catastrophic backtracking**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested quantifiers,`, `ambiguous alternation,`, `opakované groups s prekrývajúcimi sa matches,`, `veľké . okolo ďalších constraints,`.
-- **CRITICAL** line 1019, `outline-instead-of-explanation` — **50. Catastrophic backtracking**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1037, `bare-bullet-items` — **51. ReDoS**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limit input length pred regexom,`, `jednoduchší jednoznačný pattern,`, `linear-time engine,`, `match timeout,`.
-- **CRITICAL** line 1037, `outline-instead-of-explanation` — **51. ReDoS**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1053, `bare-bullet-items` — **52. Regex nie je univerzálny parser**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested JSON alebo YAML,`, `HTML/DOM,`, `programovací jazyk,`, `komplexné CSV quoting,`.
-- **CRITICAL** line 1053, `outline-instead-of-explanation` — **52. Regex nie je univerzálny parser**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1066, `bare-bullet-items` — **53. Secrets a citlivá konfigurácia**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `necommitovať reálne secrets,`, `používať secret references alebo sealed/encrypted workflow podľa platf`, `neprintovať celý config do logu,`, `redigovať rendered output,`.
-- **CRITICAL** line 1066, `outline-instead-of-explanation` — **53. Secrets a citlivá konfigurácia**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1083, `bare-bullet-items` — **54. Bezpečný write lifecycle**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor doménový object,`, `validuj business pravidlá,`, `serializuj cez knižnicu,`, `zapíš temporary file v cieľovom filesysteme,`.
-- **CRITICAL** line 1083, `outline-instead-of-explanation` — **54. Bezpečný write lifecycle**: 10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1100, `empty-section` — **55. Diagnostika JSON/YAML**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 1102, `bare-bullet-items` — **Parser hlási chybu na neskoršom riadku**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neuzavretý string,`, `neplatný escape,`, `chýbajúca closing collection,`, `nesprávna indentation,`.
-- **CRITICAL** line 1102, `outline-instead-of-explanation` — **Parser hlási chybu na neskoršom riadku**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1113, `bare-bullet-items` — **Hodnota zmenila typ**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML version/schema,`, `quoting,`, `template render,`, `environment override parser,`.
-- **CRITICAL** line 1113, `outline-instead-of-explanation` — **Hodnota zmenila typ**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1124, `bare-bullet-items` — **Tool ignoruje field**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preklep a permissive unknown fields,`, `nesprávna schema/API version,`, `field na nesprávnej úrovni,`, `deprecated alebo nepodporovaný field,`.
-- **CRITICAL** line 1124, `outline-instead-of-explanation` — **Tool ignoruje field**: 7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1136, `bare-bullet-items` — **Diff zmenil celý dokument**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `serializer a parser version,`, `key ordering,`, `line endings,`, `indentation,`.
-- **CRITICAL** line 1136, `outline-instead-of-explanation` — **Diff zmenil celý dokument**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1147, `empty-section` — **56. Diagnostika regexu**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 1149, `bare-bullet-items` — **Pattern nič nenájde**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search verzus full-match API,`, `anchors,`, `multiline a dot-all flags,`, `case sensitivity,`.
-- **CRITICAL** line 1149, `outline-instead-of-explanation` — **Pattern nič nenájde**: 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1162, `bare-bullet-items` — **Pattern nájde príliš veľa**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `greedy quantifier,`, `chýbajúce grouping pri alternation,`, `príliš širokú character class,`, `chýbajúci full-match,`.
-- **CRITICAL** line 1162, `outline-instead-of-explanation` — **Pattern nájde príliš veľa**: 5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1172, `bare-bullet-items` — **Pattern je pomalý**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dlhý non-matching input,`, `nested quantifiers,`, `ambiguous alternation,`, `backreferences,`.
-- **CRITICAL** line 1172, `outline-instead-of-explanation` — **Pattern je pomalý**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1183, `bare-bullet-items` — **57. Prevádzkový checklist**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný formát, parser a version sú deklarované,`, `input bytes a nesting majú limity,`, `duplicate keys sa odmietajú,`, `YAML loader je safe a má alias limits,`.
-- **CRITICAL** line 1183, `outline-instead-of-explanation` — **57. Prevádzkový checklist**: 15 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 1203, `empty-section` — **58. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 41, `single-sentence-concept` — **2. Parser nie je validator**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 71, `bare-bullet-items` — **3. JSON data model**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `array — usporiadaná sekvencia hodnôt,`, `boolean — true alebo false ,`, `null — explicitná nulová hodnota.`.
-- **HIGH** line 116, `list-heavy-section` — **5. JSON encoding a Unicode**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 145, `single-sentence-concept` — **7. Absent, null a empty hodnoty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 325, `bare-bullet-items` — **14. YAML data model**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `mapping — key/value kolekcia,`, `sequence — usporiadaný zoznam,`.
-- **HIGH** line 345, `single-sentence-concept` — **15. YAML stream a documents**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 411, `bare-bullet-items` — **18. Block scalars**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `- — odstráni trailing newline,`, `— ponechá jeden trailing newline,`.
-- **HIGH** line 411, `single-sentence-concept` — **18. Block scalars**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 439, `list-first-introduction` — **19. Anchors a aliases**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 547, `single-sentence-concept` — **25. Templating security**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 560, `single-sentence-concept` — **26. YAML parsing a round-trip**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 580, `single-sentence-concept` — **27. YAML schema a platform validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 623, `single-sentence-concept` — **29. Configuration merge a precedence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 647, `single-sentence-concept` — **30. Schema evolution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 683, `single-sentence-concept` — **32. Regex dialect je súčasť kontraktu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 710, `list-first-introduction` — **33. Základné prvky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 710, `single-sentence-concept` — **33. Základné prvky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 779, `bare-bullet-items` — **37. Character classes a ranges**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ASCII letters, digits a underscore,`, `širšie Unicode letters a digits,`, `culture-specific kategórie.`.
-- **HIGH** line 896, `single-sentence-concept` — **44. Escaping vrstvy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 977, `list-first-introduction` — **48. grep , sed a awk**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 977, `single-sentence-concept` — **48. grep , sed a awk**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1019, `single-sentence-concept` — **50. Catastrophic backtracking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1053, `single-sentence-concept` — **52. Regex nie je univerzálny parser**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1083, `single-sentence-concept` — **54. Bezpečný write lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1102, `single-sentence-concept` — **Parser hlási chybu na neskoršom riadku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1113, `single-sentence-concept` — **Hodnota zmenila typ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1124, `single-sentence-concept` — **Tool ignoruje field**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1136, `single-sentence-concept` — **Diff zmenil celý dokument**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1149, `single-sentence-concept` — **Pattern nič nenájde**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1162, `single-sentence-concept` — **Pattern nájde príliš veľa**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1172, `single-sentence-concept` — **Pattern je pomalý**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1183, `single-sentence-concept` — **57. Prevádzkový checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1217, `single-sentence-concept` — **„JSON object nemôže mať duplicate keys“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1221, `single-sentence-concept` — **„Sorted JSON je canonical JSON“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 71, `thin-concept-section` — **3. JSON data model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 94, `thin-concept-section` — **4. JSON syntax**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 145, `thin-concept-section` — **7. Absent, null a empty hodnoty**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **10. JSON serialization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 276, `thin-concept-section` — **12. JSON Schema**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 311, `thin-concept-section` — **13. Unknown fields a compatibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 325, `thin-concept-section` — **14. YAML data model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 345, `thin-concept-section` — **15. YAML stream a documents**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 439, `thin-concept-section` — **19. Anchors a aliases**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 547, `thin-concept-section` — **25. Templating security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 560, `thin-concept-section` — **26. YAML parsing a round-trip**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 623, `thin-concept-section` — **29. Configuration merge a precedence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 647, `thin-concept-section` — **30. Schema evolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 665, `thin-concept-section` — **31. Regex ako jazyk patternov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 683, `term-before-explanation` — **32. Regex dialect je súčasť kontraktu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POSIX`, `BRE`, `ERE`, `NET`, `PCRE`, `PCRE2`, `RE2-`
-- **HIGH** line 683, `thin-concept-section` — **32. Regex dialect je súčasť kontraktu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 732, `thin-concept-section` — **34. Search, match a full match**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 766, `thin-concept-section` — **36. Flags menia jazyk patternu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 883, `thin-concept-section` — **43. Unicode a normalization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 977, `term-before-explanation` — **48. grep , sed a awk**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POSIX`, `PCRE`, `GNU`, `BSD`
-- **HIGH** line 977, `thin-concept-section` — **48. grep , sed a awk**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1019, `thin-concept-section` — **50. Catastrophic backtracking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1037, `thin-concept-section` — **51. ReDoS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1053, `term-before-explanation` — **52. Regex nie je univerzálny parser**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `YAML`, `HTML`, `DOM`, `CSV`
-- **HIGH** line 1053, `thin-concept-section` — **52. Regex nie je univerzálny parser**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1066, `thin-concept-section` — **53. Secrets a citlivá konfigurácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1083, `thin-concept-section` — **54. Bezpečný write lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1102, `thin-concept-section` — **Parser hlási chybu na neskoršom riadku**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1113, `thin-concept-section` — **Hodnota zmenila typ**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1124, `thin-concept-section` — **Tool ignoruje field**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1136, `thin-concept-section` — **Diff zmenil celý dokument**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1149, `thin-concept-section` — **Pattern nič nenájde**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1162, `thin-concept-section` — **Pattern nájde príliš veľa**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1172, `thin-concept-section` — **Pattern je pomalý**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 1183, `thin-concept-section` — **57. Prevádzkový checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Git and Automation Basics`, `Predpoklady: Python for automation, Bash automation, PowerShell fundam`.
+- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 59, `empty-section` — **3. Päť odlišných hraníc**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 83, `bare-bullet-items` — **4. Najprv čítaj ohraničené bytes**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu veľkosť dokumentu,`, `UTF-8 a BOM policy,`, `povolený počet YAML dokumentov,`, `maximálnu hĺbku,`.
+- **CRITICAL** line 83, `outline-instead-of-explanation` — **4. Najprv čítaj ohraničené bytes**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 125, `bare-bullet-items` — **6. JSON má menší syntax model, nie nulové riziko**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object,`, `array,`, `string,`, `number,`.
+- **CRITICAL** line 125, `outline-instead-of-explanation` — **6. JSON má menší syntax model, nie nulové riziko**: 13 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 192, `bare-bullet-items` — **9. YAML anchors a aliases zvyšujú parserový state**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepriamu lokálnu interpretáciu,`, `override a merge semantics,`, `parser compatibility riziko,`, `alias expansion riziko,`.
+- **CRITICAL** line 192, `outline-instead-of-explanation` — **9. YAML anchors a aliases zvyšujú parserový state**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 272, `bare-bullet-items` — **11. Schema a business validácia riešia rozdielne otázky**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required fields,`, `typy,`, `formát alebo lexical pattern,`, `minimum a maximum,`.
+- **CRITICAL** line 272, `outline-instead-of-explanation` — **11. Schema a business validácia riešia rozdielne otázky**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 307, `bare-bullet-items` — **12. Absent, null a empty nie sú synonymá**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či absent aktivuje default,`, `či empty collection je povolená,`, `či false a 0 zostávajú explicitnými hodnotami,`, `či read-modify-write zachová unknown fields.`.
+- **CRITICAL** line 307, `outline-instead-of-explanation` — **12. Absent, null a empty nie sú synonymá**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 330, `bare-bullet-items` — **13. Config precedence a merge sú samostatná gramatika**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `whole-value replacement verzus deep merge,`, `array replacement verzus append,`, `význam null ,`, `delete/unset marker,`.
+- **CRITICAL** line 378, `bare-bullet-items` — **15. Deterministická serializácia znižuje diff noise**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `UTF-8 a BOM policy,`, `newline policy,`, `indentation,`, `ordering, ak ho workflow používa,`.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **15. Deterministická serializácia znižuje diff noise**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 401, `bare-bullet-items` — **16. Round-trip edit verzus generovaný artifact**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `comments,`, `quoting style,`, `anchor names,`, `key ordering,`.
+- **CRITICAL** line 401, `outline-instead-of-explanation` — **16. Round-trip edit verzus generovaný artifact**: 10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 446, `bare-bullet-items` — **18. Regex dialect a match API patria do kontraktu**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Python re ,`, `.NET regex,`, `JavaScript,`, `PCRE/PCRE2,`.
+- **CRITICAL** line 446, `outline-instead-of-explanation` — **18. Regex dialect a match API patria do kontraktu**: 11 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 507, `bare-bullet-items` — **20. Unicode model musí byť explicitný**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ASCII-only verzus Unicode,`, `normalization form,`, `case-folding model,`, `povolené combining marks,`.
+- **CRITICAL** line 507, `outline-instead-of-explanation` — **20. Unicode model musí byť explicitný**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 522, `bare-bullet-items` — **21. Regex runtime musí byť ohraničený**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limit input length,`, `jednoduchý jednoznačný pattern,`, `linear-time engine, kde je vhodný,`, `match timeout, ak ho engine podporuje,`.
+- **CRITICAL** line 522, `outline-instead-of-explanation` — **21. Regex runtime musí byť ohraničený**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 544, `bare-bullet-items` — **22. Worked failure: dve vrstvy videli inú security hodnotu**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rendered bytes sa archivujú,`, `strict parser odmietne duplicity,`, `deployment manifest sa generuje z validovaného doménového objektu,`, `platform dry-run a runtime verification kontrolujú exposure.`.
+- **CRITICAL** line 544, `outline-instead-of-explanation` — **22. Worked failure: dve vrstvy videli inú security hodnotu**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 618, `bare-bullet-items` — **24. Schema evolution potrebuje rollout model**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnú schema alebo API version,`, `backward a forward compatibility,`, `unknown-field policy,`, `defaults,`.
+- **CRITICAL** line 618, `outline-instead-of-explanation` — **24. Schema evolution potrebuje rollout model**: 9 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 634, `bare-bullet-items` — **25. Secrets sú samostatný lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `necommitovať plaintext credentials,`, `používať workload identity alebo secret reference,`, `nelogovať celý parsed alebo rendered config,`, `redigovať plan a diffs,`.
+- **CRITICAL** line 634, `outline-instead-of-explanation` — **25. Secrets sú samostatný lifecycle**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 671, `bare-bullet-items` — **27. Diagnostický postup**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovaj presné source a rendered bytes,`, `over encoding, BOM a line endings,`, `identifikuj parser, YAML/JSON version a options,`, `odmietni duplicate keys a nečakané documents,`.
+- **CRITICAL** line 671, `outline-instead-of-explanation` — **27. Diagnostický postup**: 16 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 695, `bare-bullet-items` — **28. Referenčné pravidlá**: 10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JSON/YAML parsuj parserom, nie regexom.`, `Duplicate keys odmietni.`, `Safe YAML loader doplň resource limitmi.`, `Parser output prelož do explicitného doménového typu.`.
+- **CRITICAL** line 695, `no-prose-concept` — **28. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 695, `outline-instead-of-explanation` — **28. Referenčné pravidlá**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 711, `empty-section` — **29. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 61, `single-sentence-concept` — **Byte a encoding boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 65, `single-sentence-concept` — **Parser boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 69, `single-sentence-concept` — **Schema boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 73, `single-sentence-concept` — **Business boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 125, `single-sentence-concept` — **6. JSON má menší syntax model, nie nulové riziko**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 192, `list-first-introduction` — **9. YAML anchors a aliases zvyšujú parserový state**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 215, `list-first-introduction` — **10. Normalizácia vytvorí doménový objekt**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 307, `single-sentence-concept` — **12. Absent, null a empty nie sú synonymá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 330, `list-heavy-section` — **13. Config precedence a merge sú samostatná gramatika**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 378, `single-sentence-concept` — **15. Deterministická serializácia znižuje diff noise**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 401, `single-sentence-concept` — **16. Round-trip edit verzus generovaný artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 469, `single-sentence-concept` — **19. Escaping má viac vrstiev**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 651, `list-first-introduction` — **26. Bezpečný read–render–apply lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 671, `single-sentence-concept` — **27. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 695, `list-first-introduction` — **28. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 725, `single-sentence-concept` — **„JSON object nemôže obsahovať duplicate keys“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 729, `single-sentence-concept` — **„Sorted JSON je canonical JSON“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 737, `single-sentence-concept` — **„Regex funguje rovnako vo všetkých nástrojoch“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 83, `thin-concept-section` — **4. Najprv čítaj ohraničené bytes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 125, `thin-concept-section` — **6. JSON má menší syntax model, nie nulové riziko**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 272, `thin-concept-section` — **11. Schema a business validácia riešia rozdielne otázky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 307, `thin-concept-section` — **12. Absent, null a empty nie sú synonymá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 378, `thin-concept-section` — **15. Deterministická serializácia znižuje diff noise**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 401, `thin-concept-section` — **16. Round-trip edit verzus generovaný artifact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 446, `term-before-explanation` — **18. Regex dialect a match API patria do kontraktu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `PCRE`, `PCRE2`, `RE2-`, `POSIX`, `BRE`, `ERE`
+- **HIGH** line 522, `thin-concept-section` — **21. Regex runtime musí byť ohraničený**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 618, `thin-concept-section` — **24. Schema evolution potrebuje rollout model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 634, `thin-concept-section` — **25. Secrets sú samostatný lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 671, `term-before-explanation` — **27. Diagnostický postup**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BOM`, `YAML`, `JSON`, `ASCII`, `CRLF`
+- **HIGH** line 671, `thin-concept-section` — **27. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 695, `term-before-explanation` — **28. Referenčné pravidlá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `YAML`, `resource`, `policy`, `identity`
+- **HIGH** line 695, `thin-concept-section` — **28. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/chaos-testing.md`
 
@@ -19946,19 +19876,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4172 | 408 | 0 | 0 | 4580 |
-| `single-sentence-concept` | 0 | 4045 | 0 | 0 | 4045 |
-| `outline-instead-of-explanation` | 3928 | 0 | 0 | 0 | 3928 |
-| `thin-concept-section` | 0 | 3473 | 0 | 0 | 3473 |
-| `term-before-explanation` | 0 | 446 | 2651 | 0 | 3097 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2026 | 2026 |
-| `example-not-explicit` | 0 | 0 | 0 | 1920 | 1920 |
-| `short-concept-section` | 0 | 0 | 1275 | 0 | 1275 |
-| `list-first-introduction` | 0 | 1029 | 0 | 0 | 1029 |
+| `bare-bullet-items` | 4154 | 404 | 0 | 0 | 4558 |
+| `single-sentence-concept` | 0 | 4032 | 0 | 0 | 4032 |
+| `outline-instead-of-explanation` | 3910 | 0 | 0 | 0 | 3910 |
+| `thin-concept-section` | 0 | 3453 | 0 | 0 | 3453 |
+| `term-before-explanation` | 0 | 446 | 2648 | 0 | 3094 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2025 | 2025 |
+| `example-not-explicit` | 0 | 0 | 0 | 1922 | 1922 |
+| `short-concept-section` | 0 | 0 | 1272 | 0 | 1272 |
+| `list-first-introduction` | 0 | 1031 | 0 | 0 | 1031 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1009 | 1009 |
-| `empty-section` | 497 | 0 | 0 | 0 | 497 |
+| `empty-section` | 496 | 0 | 0 | 0 | 496 |
 | `list-heavy-section` | 0 | 488 | 0 | 0 | 488 |
-| `no-prose-concept` | 410 | 0 | 0 | 0 | 410 |
+| `no-prose-concept` | 412 | 0 | 0 | 0 | 412 |
 
 ## Required remediation pattern
 
