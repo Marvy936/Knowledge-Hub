@@ -1305,15 +1305,15 @@
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "title": "Feature flags",
-      "words": 1687,
-      "headings": 46,
-      "sections": 46,
-      "findings": 146,
-      "critical": 53,
-      "high": 60,
-      "medium": 22,
-      "low": 11,
-      "score": 1195,
+      "words": 1881,
+      "headings": 37,
+      "sections": 37,
+      "findings": 63,
+      "critical": 17,
+      "high": 23,
+      "medium": 10,
+      "low": 13,
+      "score": 442,
       "grade": "D"
     },
     {
@@ -72103,37 +72103,10 @@
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
       "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
@@ -72146,35 +72119,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
+      "section": "3. Typ flagu určuje lifecycle a failure default",
+      "line": 82,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
+      "section": "3. Typ flagu určuje lifecycle a failure default",
+      "line": 82,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `release flag — dočasný deploy/release separation;`, `experiment flag — stabilný control/treatment assignment;`, `entitlement — dlhodobý business contract;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "3. Typ flagu určuje lifecycle a failure default",
+      "line": 82,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -72182,17 +72146,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
+      "section": "3. Typ flagu určuje lifecycle a failure default",
+      "line": 82,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -72200,8 +72155,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "2. Typy flagov",
-      "line": 25,
+      "section": "3. Typ flagu určuje lifecycle a failure default",
+      "line": 82,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
@@ -72209,44 +72164,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "4. Flag contract",
-      "line": 52,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "4. Flag contract",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "4. Flag contract",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key a type,`, `ownera,`, `účel a risk,`, `allowed environments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "4. Flag contract",
-      "line": 52,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "4. Flag contract",
-      "line": 52,
+      "section": "5. Publish je immutable revision, nie edit živej hodnoty",
+      "line": 115,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -72254,269 +72173,89 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "4. Flag contract",
-      "line": 52,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "5. Flag identity a configuration version",
-      "line": 73,
+      "section": "6. Distribution je postupný state transition",
+      "line": 132,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "5. Flag identity a configuration version",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "5. Flag identity a configuration version",
-      "line": 73,
+      "section": "6. Distribution je postupný state transition",
+      "line": 132,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `flag key,`, `flag config version/revision,`, `evaluated variant,`, `matched rule,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent instances/clients na F22;`, `propagation lag;`, `stale cache age;`, `out-of-order alebo rejected update;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "5. Flag identity a configuration version",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "5. Flag identity a configuration version",
-      "line": 73,
+      "section": "6. Distribution je postupný state transition",
+      "line": 132,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "6. Evaluation context",
-      "line": 89,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "6. Distribution je postupný state transition",
+      "line": 132,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "6. Evaluation context",
-      "line": 89,
+      "section": "6. Distribution je postupný state transition",
+      "line": 132,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `F22`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "8. Failure defaults sú súčasť behavior contractu",
+      "line": 181,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "8. Failure defaults sú súčasť behavior contractu",
+      "line": 181,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable user/tenant/device ID,`, `region,`, `plan alebo entitlement,`, `client/application version,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúcej config;`, `timeout-e alebo control-plane outage;`, `stale cache;`, `invalid payload;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "6. Evaluation context",
-      "line": 89,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "6. Evaluation context",
-      "line": 89,
+      "section": "8. Failure defaults sú súčasť behavior contractu",
+      "line": 181,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "7. Deterministická percentage assignment",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Failure defaults sú súčasť behavior contractu",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "7. Deterministická percentage assignment",
-      "line": 103,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "7. Deterministická percentage assignment",
-      "line": 103,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "7. Deterministická percentage assignment",
-      "line": 103,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzistentný result naprieč instances,`, `stabilný subject počas workflowu,`, `kontrolovaný reshuffle pri zmene salt/version,`, `predvídateľná expanzia percenta,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "7. Deterministická percentage assignment",
-      "line": 103,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "7. Deterministická percentage assignment",
-      "line": 103,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "9. Server-side verzus client-side",
-      "line": 134,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Server-side",
-      "line": 136,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Server-side",
-      "line": 136,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Server-side",
-      "line": 136,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pravidlá a citlivý context zostávajú na serveri,`, `jednoduchšie server-side enforcement,`, `dependency na SDK/cache alebo service.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Server-side",
-      "line": 136,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Server-side",
-      "line": 136,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `enforcement`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Client-side",
-      "line": 142,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Client-side",
-      "line": 142,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Client-side",
-      "line": 142,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vhodné pre UI behavior,`, `config môže byť verejne viditeľná,`, `offline a stale clients predlžujú propagation,`, `používateľ môže local state manipulovať.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Client-side",
-      "line": 142,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Client-side",
-      "line": 142,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "10. Local verzus remote evaluation",
-      "line": 151,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "10. Local verzus remote evaluation",
-      "line": 151,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "10. Local verzus remote evaluation",
-      "line": 151,
+      "section": "8. Failure defaults sú súčasť behavior contractu",
+      "line": 181,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
@@ -72524,8 +72263,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "11. Failure defaults",
-      "line": 158,
+      "section": "12. Kill switch musí ovládať celý failure path",
+      "line": 253,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "12. Kill switch musí ovládať celý failure path",
+      "line": 253,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
@@ -72533,17 +72281,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "11. Failure defaults",
-      "line": 158,
+      "section": "12. Kill switch musí ovládať celý failure path",
+      "line": 253,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pri chýbajúcej config,`, `pri timeout-e,`, `pri stale cache,`, `pri invalid payload,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `low-latency distribúciu;`, `nezávislosť od failure domainu feature;`, `auditované oprávnenia;`, `test freshness;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "11. Failure defaults",
-      "line": 158,
+      "section": "12. Kill switch musí ovládať celý failure path",
+      "line": 253,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -72551,458 +72299,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "11. Failure defaults",
-      "line": 158,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "12. Distribution a consistency",
-      "line": 172,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "12. Distribution a consistency",
-      "line": 172,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "12. Distribution a consistency",
-      "line": 172,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `config publish revision,`, `propagation lag,`, `percent instances na latest revision,`, `stale SDK caches,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "12. Distribution a consistency",
-      "line": 172,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "12. Distribution a consistency",
-      "line": 172,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "13. Atomic multi-flag changes",
-      "line": 187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "13. Atomic multi-flag changes",
-      "line": 187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transakčná config revision,`, `release manifest s viacerými flags,`, `prerequisite rules,`, `application-side invariant validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "13. Atomic multi-flag changes",
-      "line": 187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "14. Flag dependencies",
-      "line": 199,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "14. Flag dependencies",
-      "line": 199,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "14. Flag dependencies",
-      "line": 199,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prerequisite availability,`, `fallback pri mismatchi,`, `test matrix relevantných combinations,`, `cleanup order,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "14. Flag dependencies",
-      "line": 199,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "14. Flag dependencies",
-      "line": 199,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "15. Release lifecycle",
-      "line": 215,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "16. Cleanup a rollback window",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "16. Cleanup a rollback window",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `supported artifact versions,`, `database migration phase,`, `client skew,`, `event compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "16. Cleanup a rollback window",
-      "line": 232,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "17. Operational kill switch",
-      "line": 244,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "17. Operational kill switch",
-      "line": 244,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "17. Operational kill switch",
-      "line": 244,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nízko-latentný,`, `dostupný mimo failure domainu feature,`, `least-privilege a auditovaný,`, `otestovaný game dayom alebo controlled exercise,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "17. Operational kill switch",
-      "line": 244,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "17. Operational kill switch",
-      "line": 244,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "18. Migration flags",
-      "line": 258,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "18. Migration flags",
-      "line": 258,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-old/read-new,`, `shadow read,`, `dual write,`, `new dependency client,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "18. Migration flags",
-      "line": 258,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "19. Experiment flags",
-      "line": 272,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "19. Experiment flags",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "19. Experiment flags",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experiment version,`, `stable assignment,`, `exposure event,`, `control/treatment payload,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "19. Experiment flags",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "20. Entitlements a permissions",
-      "line": 286,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `capability discovery/UI,`, `licensing/entitlement decision,`, `security authorization.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "20. Entitlements a permissions",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "20. Entitlements a permissions",
-      "line": 286,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "21. Security",
-      "line": 296,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "21. Security",
-      "line": 296,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "21. Security",
-      "line": 296,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neoprávnená production flag zmena,`, `client manipulation,`, `secrets v values,`, `supply-chain compromise SDK/platformy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "21. Security",
-      "line": 296,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "21. Security",
-      "line": 296,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `RBAC`, `workload`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "23. Testing",
-      "line": 322,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "23. Testing",
-      "line": 322,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `code default bez platformy,`, `remote default,`, `oba hlavné paths,`, `rule precedence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "23. Testing",
-      "line": 322,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "23. Testing",
-      "line": 322,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "24. Observability",
-      "line": 341,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "24. Observability",
-      "line": 341,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "24. Observability",
-      "line": 341,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `flag key a config version,`, `variant,`, `evaluation reason,`, `application version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "24. Observability",
-      "line": 341,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "25. Flag inventory a debt",
-      "line": 356,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "25. Flag inventory a debt",
-      "line": 356,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "25. Flag inventory a debt",
-      "line": 356,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `type,`, `creation/expiry,`, `active environments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "25. Flag inventory a debt",
-      "line": 356,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "25. Flag inventory a debt",
-      "line": 356,
+      "section": "12. Kill switch musí ovládať celý failure path",
+      "line": 253,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
@@ -73010,8 +72308,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "26. Change workflow",
-      "line": 379,
+      "section": "Trvalá náprava",
+      "line": 296,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "14. Worked failure: neatomická multi-flag zmena vytvorila invalid combination",
+      "line": 307,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -73019,26 +72326,71 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "26. Change workflow",
-      "line": 379,
+      "section": "Náprava",
+      "line": 324,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "15. Kauzálny diagnostický walkthrough",
+      "line": 328,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 1 — stabilizuj evaluation subject",
+      "line": 332,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 2 — formuluj konkurenčné hypotézy",
+      "line": 342,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "26. Change workflow",
-      "line": 379,
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject/environment,`, `old/new resolved state,`, `risk classification,`, `approval podľa policy,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hashed subject key a evaluation context testujú H2;`, `matched rule/reason testuje H3;`, `config rejection a SDK schema logs testujú H4;`, `traces bez evaluation eventu testujú H5.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "26. Change workflow",
-      "line": 379,
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -73046,16 +72398,52 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "26. Change workflow",
-      "line": 379,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "28. Failure taxonomy",
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 352,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `H3`, `H5`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 366,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Krok 6 — vráť learning",
+      "line": 375,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "17. Diagnostický runbook",
       "line": 398,
       "severity": "critical",
       "rule": "no-prose-concept",
@@ -73064,7 +72452,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "28. Failure taxonomy",
+      "section": "17. Diagnostický runbook",
       "line": 398,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -73073,7 +72461,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "28. Failure taxonomy",
+      "section": "17. Diagnostický runbook",
       "line": 398,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
@@ -73082,16 +72470,16 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "28. Failure taxonomy",
+      "section": "17. Diagnostický runbook",
       "line": 398,
-      "severity": "critical",
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `control-plane outage,`, `distribution lag,`, `stale cache,`, `invalid config,`.",
-      "score": 12
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Porovnaj expected context s actual subject identity.`, `Over matched rule, precedence a evaluation reason.`, `Skontroluj distribution lag, rejection a startup fallback.`, `Validuj payload schema, prerequisites a atomic multi-flag invariant.`.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "28. Failure taxonomy",
+      "section": "17. Diagnostický runbook",
       "line": 398,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -73100,7 +72488,34 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "28. Failure taxonomy",
+      "section": "17. Diagnostický runbook",
+      "line": 398,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "17. Diagnostický runbook",
+      "line": 398,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "17. Diagnostický runbook",
+      "line": 398,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "17. Diagnostický runbook",
       "line": 398,
       "severity": "medium",
       "rule": "term-before-explanation",
@@ -73109,7 +72524,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "critical",
       "rule": "no-prose-concept",
@@ -73118,7 +72533,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -73127,25 +72542,25 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over application version a flag key.`, `Zisti resolved config revision na konkrétnej instance/clientovi.`, `Skontroluj context, matched rule a precedence.`, `Porovnaj expected a actual assignment.`.",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Feature flag je distribuovaný production control plane.`, `Každá evaluation má subject, revision, rule a reason.`, `Code a remote defaults majú explicitnú failure semantiku.`, `Assignment používa stabilnú identity naprieč workflowom.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -73154,7 +72569,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -73163,7 +72578,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -73172,17 +72587,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "29. Diagnostický postup",
+      "section": "18. Referenčné pravidlá",
+      "line": 411,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "18. Referenčné pravidlá",
       "line": 411,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`, `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "30. Typické anti-patterny",
-      "line": 424,
+      "section": "19. Časté omyly",
+      "line": 425,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -73190,8 +72614,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Feature flag ako authorization",
-      "line": 426,
+      "section": "„Control plane ukazuje off, incident je zastavený“",
+      "line": 427,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -73199,8 +72623,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Flag bez ownera a expiry",
-      "line": 430,
+      "section": "„Flag je iba jednoduchý boolean“",
+      "line": 431,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -73208,8 +72632,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Secrets vo flag payloads",
-      "line": 434,
+      "section": "„Flagom môžeme riadiť authorization“",
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -73217,8 +72641,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Remote default bez code fallbacku",
-      "line": 438,
+      "section": "„Tri flags zapneme postupne“",
+      "line": 439,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -73226,8 +72650,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Desiatky vnorených flags",
-      "line": 442,
+      "section": "„100 % on znamená hotovo“",
+      "line": 443,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -73235,183 +72659,12 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "100 % on sa považuje za cleanup",
-      "line": 446,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Immediate removal pred rollback window",
-      "line": 450,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Emergency change bez expiry",
-      "line": 454,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký typ flagu a lifecycle potrebujeme?`, `Aký subject/context je minimálne potrebný?`, `Aký je code a remote default?`, `Ako je assignment stabilný?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
+      "section": "20. Zhrnutie",
+      "line": 447,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 458,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `flag má type, ownera a expiry,`, `key, variants a payload schema sú versionované,`, `code default je bezpečný,`, `outage/staleness behavior je explicitný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "32. Kontrolný checklist",
-      "line": 473,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Summary",
-      "line": 502,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/feature-flags.md",
-      "section": "Summary",
-      "line": 502,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
